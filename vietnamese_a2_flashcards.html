@@ -1,0 +1,2012 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1週間でA2ベトナム語例文総点検</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Bebas+Neue&family=Saira+Condensed:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --surface2: #1a2236;
+    --accent: #ff6b35;
+    --accent2: #ffd166;
+    --green: #06d6a0;
+    --blue: #118ab2;
+    --text: #f0f4ff;
+    --muted: #7b8ab8;
+    --card-bg: #151e30;
+    --border: rgba(255,255,255,0.08);
+    --shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans JP', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* BG noise texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Header */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(10,14,26,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 2px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .header-stats {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .stat-pill {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 4px 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .stat-pill span { color: var(--accent2); font-weight: 700; }
+
+  .mute-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 4px 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .mute-btn:hover { border-color: rgba(255,255,255,0.2); color: var(--text); }
+  .mute-btn.muted {
+    background: rgba(235,87,87,0.12);
+    border-color: rgba(235,87,87,0.4);
+    color: #eb5757;
+  }
+
+  /* Main layout */
+  main {
+    padding-top: 80px;
+    min-height: 100vh;
+  }
+
+  /* === SCREENS === */
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  /* === MENU SCREEN === */
+  #menuScreen {
+    padding: 40px 24px 80px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .hero {
+    text-align: center;
+    padding: 40px 0 50px;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,107,53,0.15);
+    border: 1px solid rgba(255,107,53,0.4);
+    border-radius: 30px;
+    padding: 6px 18px;
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .hero h1 {
+    font-family: 'Saira Condensed', sans-serif;
+    font-size: clamp(38px, 7vw, 72px);
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 16px;
+    letter-spacing: -1px;
+  }
+
+  .hero h1 em {
+    font-style: normal;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero p {
+    color: var(--muted);
+    font-size: 16px;
+    max-width: 520px;
+    margin: 0 auto 32px;
+    line-height: 1.7;
+  }
+
+  /* Week progress */
+  .week-bar {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+  }
+
+  .day-dot {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--surface2);
+    border: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.25s;
+    position: relative;
+  }
+
+  .day-dot.done {
+    background: linear-gradient(135deg, var(--green), #04b98a);
+    border-color: var(--green);
+    color: #0a1a14;
+  }
+
+  .day-dot:hover { transform: scale(1.1); }
+
+  /* Mode selector */
+  .mode-select-label {
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 16px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .mode-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+
+  .mode-tab {
+    padding: 10px 22px;
+    border-radius: 30px;
+    border: 2px solid var(--border);
+    background: var(--surface);
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+
+  .mode-tab:hover { border-color: var(--accent); color: var(--accent); }
+  .mode-tab.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+  }
+
+  /* Categories grid */
+  .section-title {
+    font-family: 'Saira Condensed', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+  }
+
+  .section-title small {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 400;
+    display: block;
+    margin-top: 2px;
+  }
+
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .cat-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--cat-color, var(--accent));
+    border-radius: 4px 0 0 4px;
+  }
+
+  .cat-card:hover {
+    border-color: rgba(255,255,255,0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+  }
+
+  .cat-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .cat-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    background: rgba(255,255,255,0.06);
+    flex-shrink: 0;
+  }
+
+  .cat-name {
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 1.3;
+  }
+
+  .cat-sub {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .cat-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+  }
+
+  .cat-count {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .cat-progress-bar {
+    flex: 1;
+    height: 4px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 4px;
+    margin: 0 10px;
+    overflow: hidden;
+  }
+
+  .cat-progress-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: var(--cat-color, var(--accent));
+    transition: width 0.5s;
+  }
+
+  .cat-pct {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--cat-color, var(--accent));
+  }
+
+  /* All cards button */
+  .btn-all {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 18px;
+    background: linear-gradient(135deg, rgba(255,107,53,0.15), rgba(255,209,102,0.1));
+    border: 2px solid rgba(255,107,53,0.4);
+    border-radius: 16px;
+    color: var(--accent);
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s;
+    margin-bottom: 16px;
+  }
+
+  .btn-all:hover {
+    background: linear-gradient(135deg, rgba(255,107,53,0.25), rgba(255,209,102,0.15));
+    border-color: var(--accent);
+    transform: translateY(-1px);
+  }
+
+  /* === STUDY SCREEN === */
+  #studyScreen {
+    padding: 20px 24px 100px;
+    max-width: 720px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .study-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .btn-back {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  .btn-back:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+
+  .study-title {
+    flex: 1;
+  }
+
+  .study-title h2 {
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .study-title small {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* Progress bar */
+  .progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .progress-track {
+    flex: 1;
+    height: 6px;
+    background: var(--surface2);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    border-radius: 6px;
+    transition: width 0.4s ease;
+  }
+
+  .progress-txt {
+    font-size: 13px;
+    color: var(--muted);
+    white-space: nowrap;
+    min-width: 60px;
+    text-align: right;
+  }
+
+  /* Flash card */
+  .card-scene {
+    perspective: 1200px;
+    margin-bottom: 24px;
+    cursor: pointer;
+  }
+
+  .card-3d {
+    position: relative;
+    width: 100%;
+    min-height: 320px;
+    transform-style: preserve-3d;
+    transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-3d.flipped { transform: rotateY(180deg); }
+
+  .card-front, .card-back {
+    position: absolute;
+    inset: 0;
+    min-height: 320px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 36px;
+    text-align: center;
+    overflow: hidden;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  /* spacer so .card-3d has height */
+  .card-3d::after {
+    content: '';
+    display: block;
+    min-height: 320px;
+    visibility: hidden;
+  }
+
+  .card-front {
+    background: var(--card-bg);
+    border: 2px solid var(--border);
+  }
+
+  .card-back {
+    background: linear-gradient(145deg, #1a2a1e, #0f2218);
+    border: 2px solid rgba(6,214,160,0.3);
+    transform: rotateY(180deg);
+  }
+
+  .card-front::after {
+    content: '';
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,107,53,0.08), transparent 70%);
+  }
+
+  .card-back::after {
+    content: '';
+    position: absolute;
+    bottom: -60px;
+    left: -60px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(6,214,160,0.08), transparent 70%);
+  }
+
+  .card-lang-badge {
+    position: absolute;
+    top: 16px;
+    left: 20px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+    border: 1px solid;
+  }
+
+  .card-front .card-lang-badge {
+    color: var(--accent);
+    border-color: rgba(255,107,53,0.4);
+    background: rgba(255,107,53,0.1);
+  }
+
+  .card-back .card-lang-badge {
+    color: var(--green);
+    border-color: rgba(6,214,160,0.4);
+    background: rgba(6,214,160,0.1);
+  }
+
+  .card-flip-hint {
+    position: absolute;
+    bottom: 16px;
+    right: 20px;
+    font-size: 11px;
+    color: var(--muted);
+    opacity: 0.6;
+  }
+
+  .card-main-text {
+    font-size: clamp(22px, 5vw, 36px);
+    font-weight: 700;
+    line-height: 1.4;
+    position: relative;
+    z-index: 1;
+  }
+
+  .card-front .card-main-text { color: var(--text); }
+  .card-back .card-main-text { color: var(--green); }
+
+  .card-category-tag {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    font-size: 10px;
+    color: var(--muted);
+    background: var(--surface);
+    padding: 3px 8px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+  }
+
+  .card-note {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 12px;
+    position: relative;
+    z-index: 1;
+    line-height: 1.5;
+  }
+
+  /* Audio button */
+  .audio-btn {
+    margin-top: 20px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(6,214,160,0.15);
+    border: 2px solid rgba(6,214,160,0.4);
+    color: var(--green);
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    position: relative;
+    z-index: 1;
+  }
+
+  .audio-btn:hover {
+    background: rgba(6,214,160,0.25);
+    transform: scale(1.1);
+  }
+
+  .audio-btn.playing {
+    animation: pulse-audio 0.8s ease-in-out infinite alternate;
+  }
+
+  @keyframes pulse-audio {
+    from { box-shadow: 0 0 0 0 rgba(6,214,160,0.4); }
+    to { box-shadow: 0 0 0 12px rgba(6,214,160,0); }
+  }
+
+  /* Action buttons */
+  .action-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .btn-action {
+    padding: 14px 10px;
+    border-radius: 14px;
+    border: 2px solid var(--border);
+    background: var(--surface2);
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    text-align: center;
+  }
+
+  .btn-action .icon { font-size: 18px; }
+
+  .btn-action:hover { border-color: rgba(255,255,255,0.25); transform: translateY(-1px); }
+
+  .btn-action.btn-show {
+    border-color: rgba(255,107,53,0.5);
+    color: var(--accent);
+    background: rgba(255,107,53,0.08);
+  }
+  .btn-action.btn-show:hover { background: rgba(255,107,53,0.15); }
+
+  .btn-action.btn-know {
+    border-color: rgba(6,214,160,0.5);
+    color: var(--green);
+    background: rgba(6,214,160,0.08);
+  }
+  .btn-action.btn-know:hover { background: rgba(6,214,160,0.18); }
+
+  .btn-action.btn-next {
+    border-color: rgba(255,209,102,0.5);
+    color: var(--accent2);
+    background: rgba(255,209,102,0.08);
+  }
+  .btn-action.btn-next:hover { background: rgba(255,209,102,0.15); }
+
+  .btn-action.btn-prev {
+    color: var(--muted);
+  }
+
+  /* Counters row */
+  .counters-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .counter-item {
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .counter-item strong {
+    display: block;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  .counter-item.known strong { color: var(--green); }
+  .counter-item.remaining strong { color: var(--accent2); }
+
+  /* === RESULTS SCREEN === */
+  #resultsScreen {
+    padding: 60px 24px;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .results-emoji { font-size: 80px; margin-bottom: 24px; }
+
+  .results-title {
+    font-family: 'Saira Condensed', sans-serif;
+    font-size: 48px;
+    font-weight: 900;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .results-sub {
+    color: var(--muted);
+    font-size: 16px;
+    margin-bottom: 40px;
+  }
+
+  .results-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .result-stat {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+  }
+
+  .result-stat .val {
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--accent2);
+  }
+
+  .result-stat .lbl {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .btn-restart {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 36px;
+    background: linear-gradient(135deg, var(--accent), #ff9f1c);
+    border: none;
+    border-radius: 50px;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s;
+    margin: 8px;
+  }
+
+  .btn-restart:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(255,107,53,0.4); }
+
+  .btn-clear {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    background: var(--surface2);
+    border: 2px solid var(--border);
+    border-radius: 50px;
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin: 8px;
+  }
+
+  .btn-clear:hover { color: var(--text); border-color: rgba(255,255,255,0.25); }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .toast.show { transform: translateX(-50%) translateY(0); }
+  .toast.green { border-color: rgba(6,214,160,0.4); color: var(--green); }
+
+  /* Category filter pills */
+  .filter-row {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    margin-bottom: 24px;
+    scrollbar-width: none;
+  }
+  .filter-row::-webkit-scrollbar { display: none; }
+
+  .filter-pill {
+    flex-shrink: 0;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .filter-pill.active {
+    background: rgba(255,107,53,0.15);
+    border-color: rgba(255,107,53,0.5);
+    color: var(--accent);
+  }
+
+  /* Flip animation keyframe */
+  @keyframes cardPop {
+    0% { transform: scale(0.95); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  .card-pop { animation: cardPop 0.25s ease-out; }
+
+  /* Mobile responsive */
+  @media (max-width: 540px) {
+    .action-row { grid-template-columns: 1fr 1fr; }
+    .results-stats { grid-template-columns: repeat(3, 1fr); }
+    .categories-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 36px; }
+  }
+
+  /* Shuffle animation */
+  .shuffle-hint {
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 8px;
+    opacity: 0.7;
+  }
+
+  /* Empty state */
+  .empty-state {
+    text-align: center;
+    padding: 80px 24px;
+    color: var(--muted);
+  }
+
+  .empty-state h3 { font-size: 24px; margin-bottom: 8px; color: var(--green); }
+
+  /* Notification when known */
+  .known-flash {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: rgba(6,214,160,0.9);
+    color: #0a1a14;
+    font-size: 48px;
+    font-weight: 900;
+    padding: 24px 48px;
+    border-radius: 20px;
+    z-index: 200;
+    transition: transform 0.15s;
+    pointer-events: none;
+  }
+  .known-flash.show { transform: translate(-50%, -50%) scale(1); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">🇻🇳 VIET A2 MASTER</div>
+  <div class="header-stats">
+    <div class="stat-pill">残り <span id="headerRemaining">0</span></div>
+    <div class="stat-pill">覚えた <span id="headerKnown">0</span></div>
+    <button class="mute-btn" id="muteBtn" onclick="toggleMute()">🔊 音声ON</button>
+  </div>
+</header>
+
+<main>
+  <!-- MENU SCREEN -->
+  <div id="menuScreen" class="screen active">
+    <div class="hero">
+      <div class="hero-badge">🎯 CEFR A2 完全制覇</div>
+      <h1>1週間で<br><em>A2ベトナム語</em><br>例文総点検</h1>
+      <p>全カテゴリーの厳選例文をフラッシュカードで毎日少しずつ攻略。7日間でA2レベル例文をすべてマスターしよう！</p>
+      <div class="week-bar" id="weekBar"></div>
+    </div>
+
+    <div class="mode-select-label">📝 出題モード</div>
+    <div class="mode-tabs">
+      <div class="mode-tab active" data-mode="ja-vi" onclick="setMode('ja-vi',this)">🇯🇵 → 🇻🇳 和文越訳</div>
+      <div class="mode-tab" data-mode="vi-ja" onclick="setMode('vi-ja',this)">🇻🇳 → 🇯🇵 越文和訳</div>
+      <div class="mode-tab" data-mode="random" onclick="setMode('random',this)">🎲 ランダム</div>
+    </div>
+
+    <div class="section-title">全カテゴリー<small>カテゴリーを選んで学習スタート</small></div>
+    <button class="btn-all" onclick="startStudy('all')">
+      ⚡ 全例文シャッフル学習（<span id="totalCount">0</span>文）
+    </button>
+    <div class="categories-grid" id="categoriesGrid"></div>
+  </div>
+
+  <!-- STUDY SCREEN -->
+  <div id="studyScreen" class="screen">
+    <div class="study-header">
+      <button class="btn-back" onclick="goToMenu()">←</button>
+      <div class="study-title">
+        <h2 id="studyCatName">カテゴリー名</h2>
+        <small id="studyCatSub"></small>
+      </div>
+    </div>
+
+    <div class="progress-wrap">
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="progress-txt" id="progressTxt"></div>
+    </div>
+
+    <div class="card-scene" onclick="flipCard()" id="cardScene">
+      <div class="card-3d" id="card3d">
+        <div class="card-front" id="cardFront">
+          <div class="card-lang-badge" id="frontLang">JA</div>
+          <div class="card-category-tag" id="cardCatTag"></div>
+          <div class="card-main-text" id="questionText">問題テキスト</div>
+          <div class="card-flip-hint">タップして答えを見る →</div>
+        </div>
+        <div class="card-back" id="cardBack">
+          <div class="card-lang-badge" id="backLang">VI</div>
+          <div class="card-main-text" id="answerText">解答テキスト</div>
+          <div class="card-note" id="noteText"></div>
+          <button class="audio-btn" id="audioBtn" onclick="event.stopPropagation(); speakAnswer()">🔊</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="action-row">
+      <button class="btn-action btn-prev" onclick="prevCard()">
+        <span class="icon">←</span>
+        <span>戻る</span>
+      </button>
+      <button class="btn-action btn-show" onclick="showAnswer()" id="btnShow">
+        <span class="icon">👁</span>
+        <span>表示</span>
+      </button>
+      <button class="btn-action btn-know" onclick="markKnown()">
+        <span class="icon">✓</span>
+        <span>覚えた</span>
+      </button>
+      <button class="btn-action btn-next" onclick="nextCard()">
+        <span class="icon">→</span>
+        <span>次へ</span>
+      </button>
+    </div>
+
+    <div class="counters-row">
+      <div class="counter-item known">
+        <strong id="knownCount">0</strong>
+        覚えた
+      </div>
+      <div class="counter-item remaining">
+        <strong id="remainCount">0</strong>
+        残り
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTS SCREEN -->
+  <div id="resultsScreen" class="screen">
+    <div class="results-emoji">🎉</div>
+    <div class="results-title">Complete!</div>
+    <div class="results-sub" id="resultsMsg">このカテゴリーの例文を全てクリアしました！</div>
+    <div class="results-stats">
+      <div class="result-stat">
+        <div class="val" id="resTotalCards">0</div>
+        <div class="lbl">総例文数</div>
+      </div>
+      <div class="result-stat">
+        <div class="val" id="resKnown">0</div>
+        <div class="lbl">覚えた</div>
+      </div>
+      <div class="result-stat">
+        <div class="val" id="resPct">0%</div>
+        <div class="lbl">習得率</div>
+      </div>
+    </div>
+    <div>
+      <button class="btn-restart" onclick="restartStudy()">🔄 もう一度</button>
+      <button class="btn-clear" onclick="clearKnown()">🗑 チェック解除</button>
+      <button class="btn-restart" style="background:linear-gradient(135deg,#118ab2,#06d6a0)" onclick="goToMenu()">📚 メニューへ</button>
+    </div>
+  </div>
+</main>
+
+<div class="toast" id="toast"></div>
+<div class="known-flash" id="knownFlash">✓ 覚えた！</div>
+
+<script>
+// ============================
+// DATA: Vietnamese A2 Flashcards
+// ============================
+const CATEGORIES = [
+  {
+    id: 'greeting',
+    name: '挨拶・基本表現',
+    icon: '👋',
+    color: '#06d6a0',
+    sub: 'あいさつ/お礼/謝罪',
+    grammar: '基本表現',
+    cards: [
+      { vi: 'Xin chào!', ja: 'こんにちは！' },
+      { vi: 'Chào anh / chị.', ja: 'こんにちは（目上の方）。' },
+      { vi: 'Chào bạn.', ja: 'やあ（同年代）。' },
+      { vi: 'Tạm biệt.', ja: 'さようなら。' },
+      { vi: 'Hẹn gặp lại.', ja: 'また会いましょう。' },
+      { vi: 'Cảm ơn.', ja: 'ありがとうございます。' },
+      { vi: 'Cảm ơn nhiều.', ja: 'ありがとうございます（強調）。' },
+      { vi: 'Không có gì.', ja: 'どういたしまして。' },
+      { vi: 'Xin lỗi.', ja: 'すみません／ごめんなさい。' },
+      { vi: 'Không sao đâu.', ja: '大丈夫ですよ。' },
+      { vi: 'Vâng / Dạ.', ja: 'はい（丁寧）。' },
+      { vi: 'Không.', ja: 'いいえ。' },
+      { vi: 'Bạn khỏe không?', ja: 'お元気ですか？' },
+      { vi: 'Tôi khỏe, cảm ơn. Còn bạn?', ja: '元気です、ありがとう。あなたは？' },
+      { vi: 'Rất vui được gặp bạn.', ja: 'お会いできて嬉しいです。' },
+      { vi: 'Lâu rồi không gặp.', ja: 'お久しぶりです。' },
+      { vi: 'Chúc bạn một ngày tốt lành.', ja: '良い一日を。' },
+      { vi: 'Ngủ ngon.', ja: 'おやすみなさい。' },
+      { vi: 'Chúc mừng!', ja: 'おめでとうございます！' },
+      { vi: 'Chào buổi sáng.', ja: 'おはようございます。' },
+    ]
+  },
+  {
+    id: 'selfintro',
+    name: '自己紹介・個人情報',
+    icon: '🙋',
+    color: '#ff6b35',
+    sub: '名前/国籍/職業/経歴',
+    grammar: '基本文・be動詞',
+    cards: [
+      { vi: 'Tên tôi là Tanaka.', ja: '私の名前は田中です。' },
+      { vi: 'Bạn tên là gì?', ja: 'お名前は何ですか？' },
+      { vi: 'Tôi là người Nhật Bản.', ja: '私は日本人です。' },
+      { vi: 'Tôi đến từ Tokyo.', ja: '私は東京から来ました。' },
+      { vi: 'Bạn đến từ đâu?', ja: 'どこから来ましたか？' },
+      { vi: 'Tôi sống ở Hà Nội.', ja: '私はハノイに住んでいます。' },
+      { vi: 'Bạn sống ở đâu?', ja: 'どこに住んでいますか？' },
+      { vi: 'Tôi 30 tuổi.', ja: '私は30歳です。' },
+      { vi: 'Tôi là kỹ sư.', ja: '私はエンジニアです。' },
+      { vi: 'Tôi là sinh viên.', ja: '私は学生です。' },
+      { vi: 'Tôi là giáo viên.', ja: '私は教師です。' },
+      { vi: 'Tôi làm việc ở công ty IT.', ja: '私はIT会社で働いています。' },
+      { vi: 'Tôi đang học tiếng Việt.', ja: '私はベトナム語を勉強しています。' },
+      { vi: 'Tôi độc thân.', ja: '私は独身です。' },
+      { vi: 'Tôi đã kết hôn rồi.', ja: '私は結婚しています。' },
+      { vi: 'Số điện thoại của tôi là gì?', ja: '私の電話番号は何ですか？' },
+      { vi: 'Tôi không nói tiếng Việt giỏi lắm.', ja: 'ベトナム語はあまり上手ではありません。' },
+      { vi: 'Đây là lần đầu tiên tôi đến Việt Nam.', ja: 'ベトナムは初めてです。' },
+      { vi: 'Tôi đã sống ở Việt Nam được 2 năm.', ja: 'ベトナムに2年住んでいます。' },
+      { vi: 'Sở thích của tôi là đọc sách.', ja: '私の趣味は読書です。' },
+    ]
+  },
+  {
+    id: 'family',
+    name: '家族・人間関係',
+    icon: '👨‍👩‍👧‍👦',
+    color: '#ffd166',
+    sub: '家族/友達/同僚',
+    grammar: '所有・人称代名詞',
+    cards: [
+      { vi: 'Gia đình tôi có 4 người.', ja: '私の家族は4人です。' },
+      { vi: 'Bố tôi là bác sĩ.', ja: '父は医者です。' },
+      { vi: 'Mẹ tôi là giáo viên.', ja: '母は教師です。' },
+      { vi: 'Tôi có một anh trai và một em gái.', ja: '兄が1人と妹が1人います。' },
+      { vi: 'Em gái tôi 10 tuổi.', ja: '妹は10歳です。' },
+      { vi: 'Anh trai tôi đã lập gia đình.', ja: '兄は結婚しています。' },
+      { vi: 'Vợ tôi là người Việt Nam.', ja: '妻はベトナム人です。' },
+      { vi: 'Chồng tôi làm việc ở ngân hàng.', ja: '夫は銀行で働いています。' },
+      { vi: 'Ông bà tôi sống ở quê.', ja: '祖父母は田舎に住んでいます。' },
+      { vi: 'Tôi là con một.', ja: '私は一人っ子です。' },
+      { vi: 'Tôi là con út.', ja: '私は末っ子です。' },
+      { vi: 'Đây là bạn thân của tôi.', ja: 'これは私の親友です。' },
+      { vi: 'Anh ấy là đồng nghiệp của tôi.', ja: '彼は私の同僚です。' },
+      { vi: 'Chúng tôi quen nhau ở trường đại học.', ja: '私たちは大学で知り合いました。' },
+      { vi: 'Gia đình tôi rất hạnh phúc.', ja: '私の家族はとても幸せです。' },
+      { vi: 'Bố mẹ tôi đã về hưu rồi.', ja: '両親はすでに退職しました。' },
+      { vi: 'Con trai tôi 5 tuổi.', ja: '息子は5歳です。' },
+      { vi: 'Sinh nhật mẹ tôi ngày mai.', ja: '母の誕生日は明日です。' },
+    ]
+  },
+  {
+    id: 'daily',
+    name: '日常生活・習慣',
+    icon: '☀️',
+    color: '#ef476f',
+    sub: '毎日のルーティン/頻度表現',
+    grammar: '現在形・頻度副詞',
+    cards: [
+      { vi: 'Tôi thường thức dậy lúc 6 giờ sáng.', ja: '私は普段朝6時に起きます。' },
+      { vi: 'Tôi đánh răng và rửa mặt.', ja: '歯を磨いて顔を洗います。' },
+      { vi: 'Tôi ăn sáng lúc 7 giờ.', ja: '7時に朝食を食べます。' },
+      { vi: 'Tôi đi làm bằng xe máy.', ja: 'バイクで通勤します。' },
+      { vi: 'Tôi làm việc từ 8 giờ đến 5 giờ chiều.', ja: '8時から17時まで働きます。' },
+      { vi: 'Tôi nghỉ trưa khoảng 1 tiếng.', ja: '約1時間昼休みを取ります。' },
+      { vi: 'Tối tôi thường nấu cơm ở nhà.', ja: '夜は普段家で料理します。' },
+      { vi: 'Tôi đi ngủ lúc 11 giờ.', ja: '11時に寝ます。' },
+      { vi: 'Cuối tuần tôi thường ngủ nướng.', ja: '週末は普段寝坊します。' },
+      { vi: 'Tôi chạy bộ vào buổi sáng.', ja: '朝ジョギングします。' },
+      { vi: 'Tôi uống cà phê mỗi sáng.', ja: '毎朝コーヒーを飲みます。' },
+      { vi: 'Tôi thường đi làm bằng xe bus.', ja: '普段バスで通勤します。' },
+      { vi: 'Tôi luôn dậy sớm.', ja: 'いつも早起きします。' },
+      { vi: 'Tôi thỉnh thoảng uống cà phê.', ja: '時々コーヒーを飲みます。' },
+      { vi: 'Tôi hiếm khi thức khuya.', ja: 'めったに夜更かしをしません。' },
+      { vi: 'Tôi không bao giờ bỏ bữa sáng.', ja: '決して朝食を抜きません。' },
+      { vi: 'Tôi giặt quần áo hàng tuần.', ja: '毎週洗濯します。' },
+      { vi: 'Tôi học tiếng Việt 1 giờ mỗi ngày.', ja: '毎日1時間ベトナム語を勉強します。' },
+      { vi: 'Một tuần tôi đi tập gym ba lần.', ja: '週に3回ジムに通っています。' },
+    ]
+  },
+  {
+    id: 'tenses',
+    name: '時制（過去・現在・未来）',
+    icon: '⏰',
+    color: '#118ab2',
+    sub: 'đang/đã/sẽ/chưa/vừa/từng',
+    grammar: '時制マーカー',
+    cards: [
+      { vi: 'Tôi đang học tiếng Việt.', ja: '私はベトナム語を勉強しています。', note: '進行: đang' },
+      { vi: 'Tôi đang ăn trưa.', ja: '昼ごはんを食べています。', note: '進行: đang' },
+      { vi: 'Tôi đang chờ bạn.', ja: '友達を待っています。', note: '進行: đang' },
+      { vi: 'Tôi đã ăn rồi.', ja: 'もう食べました。', note: '過去完了: đã～rồi' },
+      { vi: 'Tôi đã đi Hà Nội năm ngoái.', ja: '去年ハノイに行きました。', note: '過去: đã' },
+      { vi: 'Tôi đã gặp anh ấy hôm qua.', ja: '昨日彼に会いました。', note: '過去: đã' },
+      { vi: 'Tôi chưa ăn.', ja: 'まだ食べていません。', note: '未経験/未完: chưa' },
+      { vi: 'Tôi chưa bao giờ đi Huế.', ja: 'フエに行ったことがありません。', note: 'chưa bao giờ' },
+      { vi: 'Tôi chưa làm xong.', ja: 'まだ終わっていません。', note: '未完: chưa' },
+      { vi: 'Tôi sẽ đi Đà Nẵng tuần sau.', ja: '来週ダナンに行きます。', note: '未来: sẽ' },
+      { vi: 'Tôi sẽ gọi cho bạn sau.', ja: '後でかけ直します。', note: '未来: sẽ' },
+      { vi: 'Tôi vừa ăn xong.', ja: '食べ終わったばかりです。', note: '直後: vừa～xong' },
+      { vi: 'Tôi vừa mới đến.', ja: '着いたばかりです。', note: '直後: vừa mới' },
+      { vi: 'Tôi từng sống ở Nhật.', ja: '日本に住んでいたことがあります。', note: '経験: từng' },
+      { vi: 'Tôi đã từng ăn phở.', ja: 'フォーを食べたことがあります。', note: '経験: đã từng' },
+      { vi: 'Tôi định học tiếng Việt mỗi ngày.', ja: '毎日ベトナム語を勉強するつもりです。', note: '予定: định' },
+      { vi: 'Tôi dự định đi du lịch.', ja: '旅行する予定です。', note: '予定: dự định' },
+      { vi: 'Ngày mai tôi sẽ bận.', ja: '明日は忙しいでしょう。', note: '未来: sẽ' },
+      { vi: 'Trước đây tôi làm giáo viên.', ja: '以前、教師でした。', note: '過去の状態' },
+      { vi: 'Tôi đang học ở nhà.', ja: '家で勉強しています。', note: '進行: đang' },
+    ]
+  },
+  {
+    id: 'questions',
+    name: '疑問文・基本会話',
+    icon: '❓',
+    color: '#9b5de5',
+    sub: 'いつ/どこ/何/なぜ/誰',
+    grammar: '疑問詞',
+    cards: [
+      { vi: 'Cái này là gì?', ja: 'これは何ですか？' },
+      { vi: 'Đây là đâu?', ja: 'ここはどこですか？' },
+      { vi: 'Bao nhiêu tiền?', ja: 'いくらですか？' },
+      { vi: 'Mấy giờ rồi?', ja: '今何時ですか？' },
+      { vi: 'Hôm nay là thứ mấy?', ja: '今日は何曜日ですか？' },
+      { vi: 'Khi nào? / Bao giờ?', ja: 'いつですか？' },
+      { vi: 'Tại sao? / Sao vậy?', ja: 'なぜですか？' },
+      { vi: 'Bạn có thích phở không?', ja: 'フォーは好きですか？' },
+      { vi: 'Bạn đã ăn cơm chưa?', ja: 'ご飯はもう食べましたか？' },
+      { vi: 'Bạn đi đâu đấy?', ja: 'どこに行くの？' },
+      { vi: 'Bạn tên là gì?', ja: '名前は何ですか？' },
+      { vi: 'Bạn đến từ đâu?', ja: 'どこから来ましたか？' },
+      { vi: 'Bạn sống ở đâu?', ja: 'どこに住んでいますか？' },
+      { vi: 'Bạn làm nghề gì?', ja: '仕事は何ですか？' },
+      { vi: 'Bạn có khỏe không?', ja: '元気ですか？' },
+      { vi: 'Bạn đang làm gì?', ja: '何をしていますか？' },
+      { vi: 'Bạn có rảnh không?', ja: '暇ですか？' },
+      { vi: 'Bạn có thể giúp tôi không?', ja: '手伝ってもらえますか？' },
+      { vi: 'Đi đến đây mất bao lâu?', ja: 'ここまでどのくらいかかりますか？' },
+      { vi: 'Cuối tuần bạn làm gì?', ja: '週末は何をしますか？' },
+    ]
+  },
+  {
+    id: 'shopping',
+    name: '買い物・値段交渉',
+    icon: '🛍️',
+    color: '#06d6a0',
+    sub: '値段/交渉/試着/支払い',
+    grammar: '比較・依頼',
+    cards: [
+      { vi: 'Cái này bao nhiêu tiền?', ja: 'これはいくらですか？' },
+      { vi: 'Đắt quá!', ja: '高すぎます！' },
+      { vi: 'Có rẻ hơn không?', ja: 'もっと安くなりますか？' },
+      { vi: 'Bớt cho tôi một chút được không?', ja: '少しまけてもらえますか？' },
+      { vi: 'Tôi mua 2 cái, giảm giá được không?', ja: '2つ買うので値引きできますか？' },
+      { vi: 'Tôi lấy cái này.', ja: 'これにします。' },
+      { vi: 'Tôi chỉ xem thôi.', ja: '見ているだけです。' },
+      { vi: 'Có màu khác không?', ja: '他の色はありますか？' },
+      { vi: 'Có size lớn hơn không?', ja: 'もっと大きいサイズはありますか？' },
+      { vi: 'Tôi mặc size M.', ja: '私はMサイズです。' },
+      { vi: 'Tôi thử được không?', ja: '試着できますか？' },
+      { vi: 'Phòng thử đồ ở đâu?', ja: '試着室はどこですか？' },
+      { vi: 'Cái này hơi chật.', ja: 'これは少しきついです。' },
+      { vi: 'Cái này hơi rộng.', ja: 'これは少し大きいです。' },
+      { vi: 'Tôi trả bằng thẻ được không?', ja: 'カードで払えますか？' },
+      { vi: 'Cho tôi hóa đơn.', ja: 'レシートをください。' },
+      { vi: 'Tôi không cần túi.', ja: '袋はいりません。' },
+      { vi: 'Tiền thừa đây.', ja: 'お釣りです。' },
+      { vi: 'Tổng cộng bao nhiêu?', ja: '合計はいくらですか？' },
+      { vi: 'Tôi đổi được không?', ja: '交換できますか？' },
+    ]
+  },
+  {
+    id: 'restaurant',
+    name: 'レストラン・食事',
+    icon: '🍜',
+    color: '#f72585',
+    sub: '注文/アレルギー/会計/感想',
+    grammar: '依頼・感嘆',
+    cards: [
+      { vi: 'Cho tôi xem thực đơn.', ja: 'メニューを見せてください。' },
+      { vi: 'Tôi muốn gọi món.', ja: '注文したいです。' },
+      { vi: 'Cho tôi một phở bò.', ja: '牛肉フォーをください。' },
+      { vi: 'Cho tôi một ly cà phê sữa đá.', ja: 'アイスミルクコーヒーを1杯ください。' },
+      { vi: 'Cho tôi một chai nước suối.', ja: 'ミネラルウォーターを1本ください。' },
+      { vi: 'Tôi ăn chay.', ja: '私はベジタリアンです。' },
+      { vi: 'Tôi bị dị ứng hải sản.', ja: '私はシーフードアレルギーです。' },
+      { vi: 'Làm ơn đừng cho ớt.', ja: '唐辛子を入れないでください。' },
+      { vi: 'Ít cay thôi.', ja: '辛さ控えめで。' },
+      { vi: 'Món này có cay không?', ja: 'この料理は辛いですか？' },
+      { vi: 'Ngon quá!', ja: 'とても美味しい！' },
+      { vi: 'Tôi no rồi.', ja: 'お腹いっぱいです。' },
+      { vi: 'Cho tôi tính tiền.', ja: 'お会計をお願いします。' },
+      { vi: 'Chia đôi nhé.', ja: '割り勘にしましょう。' },
+      { vi: 'Hôm nay tôi mời.', ja: '今日は私がおごります。' },
+      { vi: 'Có wifi không?', ja: 'Wifiはありますか？' },
+      { vi: 'Tôi đặt bàn cho 4 người.', ja: '4人分の席を予約したいです。' },
+      { vi: 'Phải chờ bao lâu?', ja: 'どのくらい待ちますか？' },
+      { vi: 'Không đường.', ja: '砂糖なしで。' },
+      { vi: 'Bạn gợi ý món nào?', ja: 'おすすめは何ですか？' },
+    ]
+  },
+  {
+    id: 'transport',
+    name: '交通・移動・道案内',
+    icon: '🚌',
+    color: '#4cc9f0',
+    sub: 'タクシー/バス/方向/場所',
+    grammar: '移動・位置表現',
+    cards: [
+      { vi: 'Nhà vệ sinh ở đâu?', ja: 'トイレはどこですか？' },
+      { vi: 'Trạm xe buýt ở đâu?', ja: 'バス停はどこですか？' },
+      { vi: 'Tôi muốn đi sân bay.', ja: '空港に行きたいです。' },
+      { vi: 'Bao lâu thì đến?', ja: 'どのくらいで着きますか？' },
+      { vi: 'Hết bao nhiêu tiền?', ja: 'いくらかかりますか？' },
+      { vi: 'Đi thẳng.', ja: 'まっすぐ行ってください。' },
+      { vi: 'Rẽ trái.', ja: '左に曲がってください。' },
+      { vi: 'Rẽ phải.', ja: '右に曲がってください。' },
+      { vi: 'Dừng ở đây.', ja: 'ここで止まってください。' },
+      { vi: 'Tôi bị lạc rồi.', ja: '道に迷ってしまいました。' },
+      { vi: 'Tôi đang vội.', ja: '急いでいます。' },
+      { vi: 'Xe buýt số mấy đi đến trung tâm?', ja: '中心部へ行くのは何番のバスですか？' },
+      { vi: 'Tôi muốn mua vé một chiều.', ja: '片道切符を買いたいです。' },
+      { vi: 'Chuyến bay của tôi lúc 10 giờ.', ja: '私のフライトは10時です。' },
+      { vi: 'Máy bay bị trễ.', ja: '飛行機が遅延しています。' },
+      { vi: 'Tôi bị kẹt xe.', ja: '渋滞にはまっています。' },
+      { vi: 'Ở bên trái.', ja: '左側にあります。' },
+      { vi: 'Ở bên phải.', ja: '右側にあります。' },
+      { vi: 'Không xa lắm.', ja: 'そんなに遠くないですよ。' },
+      { vi: 'Đi bộ mất bao lâu?', ja: '歩いてどのくらいかかりますか？' },
+    ]
+  },
+  {
+    id: 'hotel',
+    name: 'ホテル・宿泊',
+    icon: '🏨',
+    color: '#b5179e',
+    sub: 'チェックイン/設備/要望',
+    grammar: '依頼・確認表現',
+    cards: [
+      { vi: 'Tôi muốn đặt phòng.', ja: '部屋を予約したいです。' },
+      { vi: 'Còn phòng trống không?', ja: '空室はありますか？' },
+      { vi: 'Tôi muốn ở 3 đêm.', ja: '3泊したいです。' },
+      { vi: 'Phòng đơn giá bao nhiêu một đêm?', ja: 'シングルルームは1泊いくらですか？' },
+      { vi: 'Có bao gồm bữa sáng không?', ja: '朝食は含まれていますか？' },
+      { vi: 'Có wifi miễn phí không?', ja: '無料Wifiはありますか？' },
+      { vi: 'Tôi đã đặt phòng trước.', ja: '予約しています。' },
+      { vi: 'Thang máy ở đâu?', ja: 'エレベーターはどこですか？' },
+      { vi: 'Tôi muốn đổi phòng.', ja: '部屋を変えたいです。' },
+      { vi: 'Điều hòa không hoạt động.', ja: 'エアコンが動きません。' },
+      { vi: 'Nước nóng không có.', ja: 'お湯が出ません。' },
+      { vi: 'Làm ơn dọn phòng.', ja: '部屋を掃除してください。' },
+      { vi: 'Cho tôi thêm khăn tắm.', ja: 'タオルを追加でください。' },
+      { vi: 'Tôi trả phòng.', ja: 'チェックアウトします。' },
+      { vi: 'Mấy giờ phải trả phòng?', ja: 'チェックアウトは何時ですか？' },
+      { vi: 'Tổng tiền là bao nhiêu?', ja: '合計はいくらですか？' },
+      { vi: 'Gọi taxi cho tôi được không?', ja: 'タクシーを呼んでもらえますか？' },
+      { vi: 'Tôi muốn ở thêm một đêm.', ja: 'もう1泊したいです。' },
+    ]
+  },
+  {
+    id: 'health',
+    name: '健康・体調・病院',
+    icon: '💊',
+    color: '#ff595e',
+    sub: '症状/病院/薬局',
+    grammar: 'bị～・cần～',
+    cards: [
+      { vi: 'Tôi không khỏe lắm.', ja: 'あまり元気じゃないです。' },
+      { vi: 'Tôi bị ốm.', ja: '病気です。' },
+      { vi: 'Tôi bị cảm.', ja: '風邪をひきました。' },
+      { vi: 'Tôi bị sốt.', ja: '熱があります。' },
+      { vi: 'Tôi bị đau đầu.', ja: '頭が痛いです。' },
+      { vi: 'Tôi bị đau bụng.', ja: 'お腹が痛いです。' },
+      { vi: 'Tôi bị đau họng.', ja: '喉が痛いです。' },
+      { vi: 'Tôi bị ho.', ja: '咳が出ます。' },
+      { vi: 'Tôi bị sổ mũi.', ja: '鼻水が出ます。' },
+      { vi: 'Tôi bị chóng mặt.', ja: 'めまいがします。' },
+      { vi: 'Tôi bị dị ứng.', ja: 'アレルギーがあります。' },
+      { vi: 'Tôi cần đi bác sĩ.', ja: '医者に行く必要があります。' },
+      { vi: 'Bệnh viện gần nhất ở đâu?', ja: '最寄りの病院はどこですか？' },
+      { vi: 'Cho tôi thuốc cảm.', ja: '風邪薬をください。' },
+      { vi: 'Uống thuốc này ngày 3 lần.', ja: 'この薬を1日3回飲んでください。' },
+      { vi: 'Uống sau khi ăn.', ja: '食後に飲んでください。' },
+      { vi: 'Tôi đã khỏe hơn rồi.', ja: 'もう良くなりました。' },
+      { vi: 'Chúc anh/chị mau khỏe.', ja: 'お大事に。' },
+      { vi: 'Bạn nên đi bác sĩ khám bệnh.', ja: '医者に診てもらったほうがいいですよ。' },
+    ]
+  },
+  {
+    id: 'work',
+    name: '仕事・職場',
+    icon: '💼',
+    color: '#3a86ff',
+    sub: '会議/依頼/ねぎらい/報告',
+    grammar: '丁寧表現・phải',
+    cards: [
+      { vi: 'Anh/Chị đã vất vả rồi.', ja: 'お疲れ様でした。' },
+      { vi: 'Làm tốt lắm!', ja: 'よくやりました！' },
+      { vi: 'Cố gắng lên nhé!', ja: '頑張ってね！' },
+      { vi: 'Cuộc họp chiều nay bắt đầu lúc mấy giờ?', ja: '午後の会議は何時に始まりますか？' },
+      { vi: 'Tôi đã gửi email cho khách hàng rồi.', ja: 'もう顧客にメールを送りました。' },
+      { vi: 'Bạn có thể giúp tôi chuẩn bị tài liệu này không?', ja: 'この資料の準備を手伝ってもらえますか？' },
+      { vi: 'Tôi phải làm thêm giờ hôm nay.', ja: '今日は残業しなければなりません。' },
+      { vi: 'Ngày mai tôi muốn xin nghỉ phép một ngày.', ja: '明日、一日休暇を取りたいです。' },
+      { vi: 'Về nhà cẩn thận nhé.', ja: '気をつけて帰ってね。' },
+      { vi: 'Uống nước không?', ja: 'お茶にしませんか？' },
+      { vi: 'Nghỉ ngơi một chút đi.', ja: 'ちょっと休んでください。' },
+      { vi: 'Cảm ơn vì đã giúp đỡ.', ja: '手伝ってくれてありがとう。' },
+      { vi: 'Tôi là quản lý.', ja: '私はマネージャーです。' },
+      { vi: 'Tôi được thăng chức.', ja: '昇進しました。' },
+      { vi: 'Tôi sẽ nghỉ việc vào tháng sau.', ja: '来月退職します。' },
+      { vi: 'Xin lỗi, hôm nay tôi bận quá nên không đi họp được.', ja: 'すみません、今日は忙しすぎて会議に出席できません。' },
+    ]
+  },
+  {
+    id: 'comparison',
+    name: '比較・程度・接続',
+    icon: '⚖️',
+    color: '#8338ec',
+    sub: 'hơn/nhất/vì～nên/nếu～thì',
+    grammar: '比較・接続詞',
+    cards: [
+      { vi: 'Cái này rẻ hơn cái kia.', ja: 'これはあれより安いです。', note: 'hơn: 〜より' },
+      { vi: 'Cái này đẹp nhất.', ja: 'これが一番きれいです。', note: 'nhất: 最も〜' },
+      { vi: 'Tiếng Việt khó hơn tiếng Anh.', ja: 'ベトナム語は英語より難しいです。' },
+      { vi: 'Đây là quán cà phê tốt nhất.', ja: 'ここが一番いいカフェです。' },
+      { vi: 'Cái này bằng cái kia.', ja: 'これはあれと同じです。', note: 'bằng: 〜と同じ' },
+      { vi: 'Hơi đắt.', ja: '少し高いです。', note: 'hơi: 少し〜' },
+      { vi: 'Rất ngon.', ja: 'とても美味しいです。', note: 'rất: とても' },
+      { vi: 'Quá cay!', ja: '辛すぎます！', note: 'quá: 〜すぎる' },
+      { vi: 'Càng rẻ càng tốt.', ja: '安ければ安いほどいい。', note: 'càng...càng...' },
+      { vi: 'Vì trời mưa nên tôi ở nhà.', ja: '雨が降っているので家にいます。', note: 'vì...nên...' },
+      { vi: 'Nếu trời đẹp thì chúng ta đi picnic.', ja: '天気が良ければピクニックに行きましょう。', note: 'nếu...thì...' },
+      { vi: 'Mặc dù mệt nhưng tôi vẫn đi làm.', ja: '疲れていますが仕事に行きます。', note: 'mặc dù...nhưng...' },
+      { vi: 'Tôi thích cà phê nhưng không thích trà.', ja: 'コーヒーは好きですがお茶は好きではありません。', note: 'nhưng: しかし' },
+      { vi: 'Sau khi ăn, tôi uống cà phê.', ja: '食後、コーヒーを飲みます。', note: 'sau khi: 〜した後' },
+      { vi: 'Trước khi đi ngủ, tôi đọc sách.', ja: '寝る前に本を読みます。', note: 'trước khi: 〜する前に' },
+      { vi: 'Trong khi tôi nấu ăn, anh ấy xem tivi.', ja: '料理している間、彼はテレビを見ています。', note: 'trong khi: 〜している間' },
+      { vi: 'Tôi học tiếng Việt để giao tiếp với người Việt.', ja: 'ベトナム人と話すためにベトナム語を学んでいます。', note: 'để: 〜するために' },
+      { vi: 'Tôi muốn đi, nhưng tôi bận.', ja: '行きたいけど忙しいです。' },
+    ]
+  },
+  {
+    id: 'permission',
+    name: '依頼・許可・提案',
+    icon: '🙏',
+    color: '#fb8500',
+    sub: 'có thể/được/phải/làm ơn',
+    grammar: '助動詞・丁寧依頼',
+    cards: [
+      { vi: 'Tôi có thể nói tiếng Việt một chút.', ja: '少しベトナム語が話せます。', note: 'có thể: 〜できる' },
+      { vi: 'Bạn có thể giúp tôi không?', ja: '手伝ってもらえますか？' },
+      { vi: 'Tôi có thể ngồi ở đây không?', ja: 'ここに座ってもいいですか？', note: '許可: có thể～không?' },
+      { vi: 'Tôi có thể chụp ảnh không?', ja: '写真を撮ってもいいですか？' },
+      { vi: 'Tôi có thể vào không?', ja: '入ってもいいですか？' },
+      { vi: 'Tôi phải đi làm.', ja: '仕事に行かなければなりません。', note: 'phải: 〜しなければならない' },
+      { vi: 'Tôi phải dậy sớm.', ja: '早起きしなければなりません。' },
+      { vi: 'Làm ơn giúp tôi.', ja: '手伝ってください。', note: 'làm ơn: どうか〜' },
+      { vi: 'Làm ơn nói chậm hơn.', ja: 'もっとゆっくり話してください。' },
+      { vi: 'Tôi không hiểu. Nói chậm hơn được không?', ja: 'わかりません。もっとゆっくり話してもらえますか？' },
+      { vi: 'Chúng ta đi ăn nhé.', ja: '食事に行きましょう。', note: 'nhé: 〜しようよ（提案）' },
+      { vi: 'Đi cà phê không?', ja: 'コーヒー行きませんか？' },
+      { vi: 'Để tôi giúp.', ja: '私が手伝います。' },
+      { vi: 'Không cần đâu, cảm ơn.', ja: '結構です、ありがとう。' },
+      { vi: 'Anh/Chị tự nhiên nhé.', ja: '遠慮しないでください。' },
+      { vi: 'Được, không sao.', ja: 'いいですよ。' },
+      { vi: 'Xin lỗi, không được.', ja: 'すみません、だめです。' },
+      { vi: 'Đợi một chút.', ja: 'ちょっと待ってください。' },
+      { vi: 'Cho tôi mượn cái bút.', ja: 'ペンを貸してください。' },
+    ]
+  },
+  {
+    id: 'weather',
+    name: '天気・季節',
+    icon: '🌤️',
+    color: '#48cae4',
+    sub: '天気/気温/季節の表現',
+    grammar: '感嘆・推量',
+    cards: [
+      { vi: 'Hôm nay trời đẹp nhỉ?', ja: '今日はいい天気ですね。' },
+      { vi: 'Trời nóng quá!', ja: 'とても暑いです！' },
+      { vi: 'Trời lạnh nhỉ?', ja: '寒いですね。' },
+      { vi: 'Sắp mưa rồi đấy.', ja: 'もうすぐ雨が降りそうです。' },
+      { vi: 'Trời đang mưa to.', ja: '大雨が降っています。' },
+      { vi: 'Mưa đã tạnh rồi.', ja: '雨が止みました。' },
+      { vi: 'Hôm nay trời nhiều mây.', ja: '今日は曇りです。' },
+      { vi: 'Nhiệt độ hôm nay là 35 độ.', ja: '今日の気温は35度です。' },
+      { vi: 'Trời oi bức.', ja: '蒸し暑いです。' },
+      { vi: 'Trời mát mẻ.', ja: '涼しいです。' },
+      { vi: 'Bây giờ là mùa mưa.', ja: '今は雨季です。' },
+      { vi: 'Mùa hè ở Việt Nam rất nóng.', ja: 'ベトナムの夏はとても暑いです。' },
+      { vi: 'Ở Nhật Bản, mùa đông rất lạnh.', ja: '日本では冬はとても寒いです。' },
+      { vi: 'Nhớ mang ô nhé.', ja: '傘を持って行ってね。' },
+      { vi: 'Tôi thích mùa xuân nhất.', ja: '私は春が一番好きです。' },
+      { vi: 'Ngày mai trời sẽ nắng.', ja: '明日は晴れるでしょう。' },
+    ]
+  },
+  {
+    id: 'emotion',
+    name: '感情・意見・気持ち',
+    icon: '💬',
+    color: '#ff70a6',
+    sub: '感情表現/意見/感想',
+    grammar: '感情表現・思考',
+    cards: [
+      { vi: 'Tôi rất vui.', ja: '私はとても嬉しいです。' },
+      { vi: 'Tôi rất buồn.', ja: '私はとても悲しいです。' },
+      { vi: 'Tôi đang lo lắng.', ja: '私は心配しています。' },
+      { vi: 'Tôi thất vọng quá.', ja: 'がっかりしました。' },
+      { vi: 'Tôi rất ngạc nhiên.', ja: 'とても驚きました。' },
+      { vi: 'Tôi rất hào hứng.', ja: 'とてもわくわくしています。' },
+      { vi: 'Tôi hơi mệt.', ja: '少し疲れています。' },
+      { vi: 'Ngon quá!', ja: 'とても美味しい！' },
+      { vi: 'Đẹp quá!', ja: 'とてもきれい！' },
+      { vi: 'Thật tuyệt vời!', ja: '素晴らしい！' },
+      { vi: 'Thật đáng tiếc!', ja: '残念です！' },
+      { vi: 'Tôi nghĩ vậy.', ja: 'そう思います。' },
+      { vi: 'Tôi không nghĩ vậy.', ja: 'そう思いません。' },
+      { vi: 'Theo tôi thì...', ja: '私の意見では...' },
+      { vi: 'Tôi đồng ý.', ja: '同意します。' },
+      { vi: 'Tôi không đồng ý.', ja: '同意しません。' },
+      { vi: 'Tôi hiểu rồi.', ja: 'わかりました。' },
+      { vi: 'Tôi không hiểu.', ja: 'わかりません。' },
+      { vi: 'Tôi nhớ gia đình.', ja: '家族が恋しいです。' },
+      { vi: 'Tôi thấy thoải mái.', ja: '快適です。' },
+    ]
+  },
+  {
+    id: 'emergency',
+    name: '緊急時・トラブル',
+    icon: '🚨',
+    color: '#e63946',
+    sub: '緊急/紛失/事故/助けを求める',
+    grammar: 'bị～・緊急表現',
+    cards: [
+      { vi: 'Cứu tôi với!', ja: '助けて！' },
+      { vi: 'Gọi cảnh sát!', ja: '警察を呼んで！' },
+      { vi: 'Gọi xe cứu thương!', ja: '救急車を呼んで！' },
+      { vi: 'Tôi bị mất hộ chiếu.', ja: 'パスポートを失くしました。' },
+      { vi: 'Tôi bị mất ví.', ja: '財布を失くしました。' },
+      { vi: 'Tôi bị mất điện thoại.', ja: '携帯電話を失くしました。' },
+      { vi: 'Tôi bị cướp.', ja: '強盗に遭いました。' },
+      { vi: 'Tôi bị móc túi.', ja: 'スリに遭いました。' },
+      { vi: 'Có người bị thương.', ja: '怪我人がいます。' },
+      { vi: 'Có cháy!', ja: '火事だ！' },
+      { vi: 'Đồn cảnh sát ở đâu?', ja: '警察署はどこですか？' },
+      { vi: 'Đại sứ quán Nhật ở đâu?', ja: '日本大使館はどこですか？' },
+      { vi: 'Có ai nói tiếng Anh không?', ja: '英語を話せる人はいますか？' },
+      { vi: 'Nói chậm hơn được không?', ja: 'もっとゆっくり話してもらえますか？' },
+      { vi: 'Tôi cần gặp phiên dịch.', ja: '通訳が必要です。' },
+      { vi: 'Tôi cần giấy chứng nhận để đòi bảo hiểm.', ja: '保険請求のために証明書が必要です。' },
+    ]
+  },
+  {
+    id: 'hobbies',
+    name: '趣味・余暇・雑談',
+    icon: '🎵',
+    color: '#52b788',
+    sub: '趣味/週末/誘い/映画',
+    grammar: '好み・提案',
+    cards: [
+      { vi: 'Sở thích của bạn là gì?', ja: '趣味は何ですか？' },
+      { vi: 'Tôi thích đọc sách.', ja: '読書が好きです。' },
+      { vi: 'Tôi thích nghe nhạc.', ja: '音楽を聴くのが好きです。' },
+      { vi: 'Tôi thích xem phim.', ja: '映画を見るのが好きです。' },
+      { vi: 'Tôi thích du lịch.', ja: '旅行が好きです。' },
+      { vi: 'Tôi hay chơi bóng đá.', ja: 'よくサッカーをします。' },
+      { vi: 'Tôi tập gym mỗi ngày.', ja: '毎日ジムに行きます。' },
+      { vi: 'Tôi thích chụp ảnh.', ja: '写真を撮るのが好きです。' },
+      { vi: 'Tôi chơi đàn guitar.', ja: 'ギターを弾きます。' },
+      { vi: 'Tôi thích karaoke.', ja: 'カラオケが好きです。' },
+      { vi: 'Gần đây bạn có xem phim hay nào không?', ja: '最近何か良い映画を見ましたか？' },
+      { vi: 'Anh/Chị có muốn đi xem phim không?', ja: '映画を見に行きませんか？' },
+      { vi: 'Chủ Nhật này đi picnic nhé.', ja: '今度の日曜日ピクニックに行こう。' },
+      { vi: 'Sao bạn học tiếng Việt vậy?', ja: 'どうしてベトナム語を勉強しているのですか？' },
+      { vi: 'Tôi thích ẩm thực Việt Nam.', ja: 'ベトナム料理が好きです。' },
+      { vi: 'Cuối tuần bạn thường làm gì?', ja: '週末はいつも何をしますか？' },
+    ]
+  },
+  {
+    id: 'phone',
+    name: '電話・連絡・SNS',
+    icon: '📱',
+    color: '#7209b7',
+    sub: '電話応対/メッセージ/確認',
+    grammar: '電話表現',
+    cards: [
+      { vi: 'Alô, ai đó?', ja: 'もしもし、どなたですか？' },
+      { vi: 'Tôi là Tanaka.', ja: '田中です。' },
+      { vi: 'Anh ấy đang bận họp.', ja: '彼は会議中です。' },
+      { vi: 'Tôi sẽ gọi lại sau.', ja: '後でかけ直します。' },
+      { vi: 'Tôi nghe không rõ.', ja: 'よく聞こえません。' },
+      { vi: 'Anh/Chị nói to hơn được không?', ja: 'もう少し大きな声で話してもらえますか？' },
+      { vi: 'Bây giờ bạn có nói chuyện được không?', ja: '今話せますか？' },
+      { vi: 'Tôi đang trên đường đến đó.', ja: '今そっちに向かっています。' },
+      { vi: 'Bạn đang ở đâu?', ja: '今どこ？' },
+      { vi: 'Tôi sẽ gửi tin nhắn cho anh/chị.', ja: 'メッセージを送ります。' },
+      { vi: 'Anh/Chị nhận được tin nhắn của tôi chưa?', ja: '私のメッセージを受け取りましたか？' },
+      { vi: 'Tôi thêm bạn trên Zalo nhé.', ja: 'Zaloで友達追加しますね。' },
+      { vi: 'Kết bạn Facebook với tôi nhé.', ja: 'Facebookで友達になりましょう。' },
+    ]
+  },
+  {
+    id: 'quantity',
+    name: '数・量・頻度表現',
+    icon: '🔢',
+    color: '#90be6d',
+    sub: 'nhiều/ít/vài/thường/hay',
+    grammar: '数量詞・頻度',
+    cards: [
+      { vi: 'Tôi có nhiều bạn.', ja: '友達がたくさんいます。', note: 'nhiều: たくさん' },
+      { vi: 'Tôi có ít thời gian.', ja: '時間が少ししかありません。', note: 'ít: 少ない' },
+      { vi: 'Tôi mua vài cái áo.', ja: 'シャツを数枚買いました。', note: 'vài: 数〜' },
+      { vi: 'Tôi cần một ít nước.', ja: '少し水が必要です。', note: 'một ít: 少し' },
+      { vi: 'Cho tôi thêm một cái.', ja: 'もう1つください。', note: 'thêm: さらに' },
+      { vi: 'Không đủ lớn.', ja: '十分大きくないです。', note: 'đủ: 十分〜' },
+      { vi: 'Tôi cao hơn bạn.', ja: 'あなたより背が高いです。' },
+      { vi: 'Cô ấy trẻ hơn tôi 2 tuổi.', ja: '彼女は私より2歳若いです。' },
+      { vi: 'Tôi thường dậy lúc 7 giờ.', ja: '普段7時に起きます。', note: 'thường: 普段' },
+      { vi: 'Tôi hay đi cà phê với bạn.', ja: 'よく友達とカフェに行きます。', note: 'hay: よく' },
+      { vi: 'Tôi thỉnh thoảng uống cà phê.', ja: '時々コーヒーを飲みます。', note: 'thỉnh thoảng: 時々' },
+      { vi: 'Tôi hiếm khi xem TV.', ja: 'めったにテレビを見ません。', note: 'hiếm khi: めったに' },
+      { vi: 'Tôi không bao giờ hút thuốc.', ja: '決してタバコを吸いません。', note: 'không bao giờ: 決して〜ない' },
+      { vi: 'Luôn luôn đúng giờ.', ja: 'いつも時間通りです。', note: 'luôn luôn: いつも' },
+    ]
+  },
+];
+
+// ============================
+// STATE
+// ============================
+let currentMode = 'ja-vi'; // 'ja-vi', 'vi-ja', 'random'
+let currentCards = [];
+let currentIndex = 0;
+let knownSet = new Set();
+let isFlipped = false;
+let currentCatId = 'all';
+let historyStack = [];
+let sessionStart = Date.now();
+let studyMode = 'ja-vi';
+
+// Load known from localStorage
+function loadKnown() {
+  try {
+    const saved = localStorage.getItem('viet_a2_known');
+    if (saved) knownSet = new Set(JSON.parse(saved));
+  } catch(e) { knownSet = new Set(); }
+}
+
+let isMuted = false;
+
+function toggleMute() {
+  isMuted = !isMuted;
+  const btn = document.getElementById('muteBtn');
+  if (isMuted) {
+    btn.textContent = '🔇 音声OFF';
+    btn.classList.add('muted');
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    // also reset the audio button state
+    const ab = document.getElementById('audioBtn');
+    if (ab) { ab.classList.remove('playing'); ab.textContent = '🔊'; }
+  } else {
+    btn.textContent = '🔊 音声ON';
+    btn.classList.remove('muted');
+  }
+  try { localStorage.setItem('viet_a2_muted', isMuted ? '1' : '0'); } catch(e) {}
+}
+
+function saveKnown() {
+  try {
+    localStorage.setItem('viet_a2_known', JSON.stringify([...knownSet]));
+  } catch(e) {}
+}
+
+// ============================
+// INIT
+// ============================
+function init() {
+  loadKnown();
+  // restore mute state
+  try {
+    if (localStorage.getItem('viet_a2_muted') === '1') {
+      isMuted = true;
+      const btn = document.getElementById('muteBtn');
+      btn.textContent = '🔇 音声OFF';
+      btn.classList.add('muted');
+    }
+  } catch(e) {}
+  renderWeekBar();
+  renderCategories();
+  updateHeaderStats();
+  document.getElementById('totalCount').textContent = CATEGORIES.reduce((a,c) => a + c.cards.length, 0);
+}
+
+function renderWeekBar() {
+  const bar = document.getElementById('weekBar');
+  const days = ['月','火','水','木','金','土','日'];
+  const today = new Date().getDay();
+  const dayMap = [6,0,1,2,3,4,5]; // 0=Sun...6=Sat -> Mon=0
+  const todayIdx = dayMap[today];
+
+  bar.innerHTML = days.map((d,i) => {
+    const done = i <= todayIdx;
+    return `<div class="day-dot ${done ? 'done' : ''}" title="Day ${i+1}: ${d}曜日">
+      <span>${d}</span>
+    </div>`;
+  }).join('');
+}
+
+function renderCategories() {
+  const grid = document.getElementById('categoriesGrid');
+  grid.innerHTML = CATEGORIES.map(cat => {
+    const total = cat.cards.length;
+    const known = cat.cards.filter(c => knownSet.has(getCId(cat.id, c))).length;
+    const pct = total > 0 ? Math.round(known / total * 100) : 0;
+    return `
+      <div class="cat-card" style="--cat-color:${cat.color}" onclick="startStudy('${cat.id}')">
+        <div class="cat-header">
+          <div class="cat-icon">${cat.icon}</div>
+          <div>
+            <div class="cat-name">${cat.name}</div>
+            <div class="cat-sub">${cat.grammar}</div>
+          </div>
+        </div>
+        <div class="cat-meta">
+          <div class="cat-count">${known}/${total}</div>
+          <div class="cat-progress-bar">
+            <div class="cat-progress-fill" style="width:${pct}%;background:${cat.color}"></div>
+          </div>
+          <div class="cat-pct" style="color:${cat.color}">${pct}%</div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function getCId(catId, card) {
+  return `${catId}::${card.vi}`;
+}
+
+function updateHeaderStats() {
+  const total = CATEGORIES.reduce((a,c) => a + c.cards.length, 0);
+  const known = knownSet.size;
+  document.getElementById('headerKnown').textContent = known;
+  document.getElementById('headerRemaining').textContent = total - known;
+}
+
+// ============================
+// MODE
+// ============================
+function setMode(mode, el) {
+  currentMode = mode;
+  document.querySelectorAll('.mode-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ============================
+// STUDY
+// ============================
+function startStudy(catId) {
+  currentCatId = catId;
+  historyStack = [];
+
+  let allCards = [];
+  if (catId === 'all') {
+    CATEGORIES.forEach(cat => {
+      cat.cards.forEach(c => allCards.push({...c, catId: cat.id, catName: cat.name, catIcon: cat.icon}));
+    });
+  } else {
+    const cat = CATEGORIES.find(c => c.id === catId);
+    if (!cat) return;
+    cat.cards.forEach(c => allCards.push({...c, catId: cat.id, catName: cat.name, catIcon: cat.icon}));
+  }
+
+  // Filter out known
+  currentCards = allCards.filter(c => !knownSet.has(getCId(c.catId, c)));
+  shuffle(currentCards);
+
+  if (currentCards.length === 0) {
+    showResults(allCards.length);
+    return;
+  }
+
+  currentIndex = 0;
+  studyMode = currentMode === 'random' ? (Math.random() < 0.5 ? 'ja-vi' : 'vi-ja') : currentMode;
+
+  showScreen('studyScreen');
+  const cat = CATEGORIES.find(c => c.id === catId);
+  document.getElementById('studyCatName').textContent = catId === 'all' ? '全カテゴリー' : (cat?.icon + ' ' + cat?.name);
+  document.getElementById('studyCatSub').textContent = `${currentCards.length}問 残り`;
+
+  renderCard();
+  updateProgress();
+  updateCounters();
+}
+
+function restartStudy() {
+  startStudy(currentCatId);
+}
+
+function renderCard() {
+  isFlipped = false;
+  const card3d = document.getElementById('card3d');
+  card3d.classList.remove('flipped');
+
+  const card = currentCards[currentIndex];
+  if (!card) { showResults(currentCards.length + knownSet.size); return; }
+
+  // Determine display mode for this card
+  if (currentMode === 'random') {
+    studyMode = Math.random() < 0.5 ? 'ja-vi' : 'vi-ja';
+  } else {
+    studyMode = currentMode;
+  }
+
+  const question = studyMode === 'ja-vi' ? card.ja : card.vi;
+  const answer = studyMode === 'ja-vi' ? card.vi : card.ja;
+  const qLang = studyMode === 'ja-vi' ? '🇯🇵 日本語' : '🇻🇳 Tiếng Việt';
+  const aLang = studyMode === 'ja-vi' ? '🇻🇳 Tiếng Việt' : '🇯🇵 日本語';
+
+  document.getElementById('questionText').textContent = question;
+  document.getElementById('answerText').textContent = answer;
+  document.getElementById('noteText').textContent = card.note || '';
+  document.getElementById('frontLang').textContent = qLang;
+  document.getElementById('backLang').textContent = aLang;
+  document.getElementById('cardCatTag').textContent = card.catIcon + ' ' + card.catName;
+
+  card3d.classList.add('card-pop');
+  setTimeout(() => card3d.classList.remove('card-pop'), 300);
+}
+
+function flipCard() {
+  const card3d = document.getElementById('card3d');
+  if (!isFlipped) {
+    card3d.classList.add('flipped');
+    isFlipped = true;
+    // Auto speak
+    setTimeout(() => speakAnswer(), 400);
+  }
+}
+
+function showAnswer() {
+  flipCard();
+}
+
+function nextCard() {
+  if (currentIndex < currentCards.length - 1) {
+    historyStack.push(currentIndex);
+    currentIndex++;
+    renderCard();
+    updateProgress();
+    updateCounters();
+  } else {
+    showResults(currentCards.length);
+  }
+}
+
+function prevCard() {
+  if (historyStack.length > 0) {
+    currentIndex = historyStack.pop();
+    renderCard();
+    updateProgress();
+    updateCounters();
+  } else {
+    showToast('最初のカードです', false);
+  }
+}
+
+function markKnown() {
+  const card = currentCards[currentIndex];
+  if (!card) return;
+  const cid = getCId(card.catId, card);
+  knownSet.add(cid);
+  saveKnown();
+
+  // Flash
+  const flash = document.getElementById('knownFlash');
+  flash.classList.add('show');
+  setTimeout(() => flash.classList.remove('show'), 600);
+
+  // Remove from current deck
+  currentCards.splice(currentIndex, 1);
+
+  updateHeaderStats();
+  updateCounters();
+
+  if (currentCards.length === 0) {
+    showResults(currentCards.length + knownSet.size);
+    return;
+  }
+
+  if (currentIndex >= currentCards.length) currentIndex = currentCards.length - 1;
+  renderCard();
+  updateProgress();
+}
+
+function updateProgress() {
+  const total = currentCards.length;
+  const done = currentIndex;
+  const pct = total > 0 ? Math.round(done / total * 100) : 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressTxt').textContent = `${currentIndex + 1} / ${total}`;
+}
+
+function updateCounters() {
+  document.getElementById('knownCount').textContent = knownSet.size;
+  document.getElementById('remainCount').textContent = currentCards.length;
+}
+
+// ============================
+// SPEECH
+// ============================
+function speakAnswer() {
+  if (isMuted) return;
+  const card = currentCards[currentIndex];
+  if (!card) return;
+
+  const answer = studyMode === 'ja-vi' ? card.vi : card.ja;
+  const lang = studyMode === 'ja-vi' ? 'vi-VN' : 'ja-JP';
+
+  if (!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+
+  const btn = document.getElementById('audioBtn');
+  btn.classList.add('playing');
+  btn.textContent = '⏸';
+
+  const utter = new SpeechSynthesisUtterance(answer);
+  utter.lang = lang;
+  utter.rate = 0.85;
+  utter.pitch = 1;
+
+  // Try to find a native voice
+  const voices = window.speechSynthesis.getVoices();
+  const nativeVoice = voices.find(v => v.lang.startsWith(lang.split('-')[0]) && !v.localService === false)
+    || voices.find(v => v.lang.startsWith(lang.split('-')[0]));
+  if (nativeVoice) utter.voice = nativeVoice;
+
+  utter.onend = () => {
+    btn.classList.remove('playing');
+    btn.textContent = '🔊';
+  };
+  utter.onerror = () => {
+    btn.classList.remove('playing');
+    btn.textContent = '🔊';
+  };
+
+  window.speechSynthesis.speak(utter);
+}
+
+// ============================
+// RESULTS
+// ============================
+function showResults(total) {
+  const known = knownSet.size;
+  const pct = total > 0 ? Math.round(known / total * 100) : 0;
+  document.getElementById('resTotalCards').textContent = total;
+  document.getElementById('resKnown').textContent = known;
+  document.getElementById('resPct').textContent = pct + '%';
+
+  let msg = 'このセッションの例文をすべて見ました！';
+  if (pct >= 80) msg = '素晴らしい！A2レベル習得まであと一歩！';
+  else if (pct >= 50) msg = '順調です！毎日続けてA2をマスターしましょう！';
+  document.getElementById('resultsMsg').textContent = msg;
+
+  showScreen('resultsScreen');
+}
+
+function clearKnown() {
+  if (confirm('「覚えた」の記録をすべてクリアしますか？')) {
+    knownSet = new Set();
+    saveKnown();
+    updateHeaderStats();
+    renderCategories();
+    showToast('チェックをクリアしました', true);
+    goToMenu();
+  }
+}
+
+// ============================
+// NAVIGATION
+// ============================
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function goToMenu() {
+  if (window.speechSynthesis) window.speechSynthesis.cancel();
+  showScreen('menuScreen');
+  renderCategories();
+  updateHeaderStats();
+}
+
+// ============================
+// UTILS
+// ============================
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function showToast(msg, green = false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (green ? ' green' : '');
+  setTimeout(() => t.className = 'toast', 2500);
+}
+
+// Keyboard shortcuts
+document.addEventListener('keydown', (e) => {
+  const study = document.getElementById('studyScreen');
+  if (!study.classList.contains('active')) return;
+
+  if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); flipCard(); }
+  if (e.key === 'ArrowRight') nextCard();
+  if (e.key === 'ArrowLeft') prevCard();
+  if (e.key === 'k' || e.key === 'K') markKnown();
+  if (e.key === 'r' || e.key === 'R') speakAnswer();
+});
+
+// Init voices
+if (window.speechSynthesis) {
+  window.speechSynthesis.onvoiceschanged = () => {};
+}
+
+init();
+</script>
+</body>
+</html>
