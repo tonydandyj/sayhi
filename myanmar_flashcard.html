@@ -1564,11 +1564,14 @@ function renderCard() {
   // 表示ボタン
   document.getElementById('show-btn').textContent = isFlipped ? '◀ 戻す' : '▶ 表示';
 
-  // 解答表示時：ボタンをリセット
+  // 解答表示時：ボタン表示 + 自動再生
   const spkBtn = document.getElementById('speak-btn');
   if (spkBtn) {
     spkBtn.style.display = isFlipped ? 'inline-block' : 'none';
     spkBtn.innerHTML = '🔊 読み上げ';
+  }
+  if (isFlipped && !isMuted) {
+    setTimeout(() => speakAnswer(), 600);
   }
 
 }
