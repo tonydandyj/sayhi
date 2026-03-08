@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ベトナム語フラッシュカード</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --card-front: #1a2332;
+    --card-back: #1a2d1f;
+    --accent-vn: #00e5a0;
+    --accent-jp: #ff6b6b;
+    --accent-blue: #4fc3f7;
+    --text: #e6edf3;
+    --text-dim: #8b949e;
+    --border: #30363d;
+    --gold: #ffd700;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Sora', 'Noto Sans JP', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Animated background grid */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,160,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,160,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Glow orbs */
+  .orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+    animation: drift 12s ease-in-out infinite alternate;
+  }
+  .orb1 { width: 400px; height: 400px; background: rgba(0,229,160,0.07); top: -100px; left: -100px; }
+  .orb2 { width: 300px; height: 300px; background: rgba(255,107,107,0.07); bottom: -50px; right: -50px; animation-delay: -6s; }
+  .orb3 { width: 250px; height: 250px; background: rgba(79,195,247,0.05); top: 50%; left: 50%; transform: translate(-50%,-50%); animation-delay: -3s; }
+
+  @keyframes drift {
+    from { transform: translate(0,0) scale(1); }
+    to { transform: translate(30px, 20px) scale(1.1); }
+  }
+
+  .app {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 24px 20px 48px;
+  }
+
+  /* Header */
+  header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .logo-flag {
+    font-size: 28px;
+    animation: wave 2s ease-in-out infinite;
+  }
+
+  @keyframes wave {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-10deg); }
+    75% { transform: rotate(10deg); }
+  }
+
+  h1 {
+    font-size: clamp(22px, 4vw, 32px);
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--accent-vn), var(--accent-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.5px;
+  }
+
+  .subtitle {
+    color: var(--text-dim);
+    font-size: 13px;
+    font-weight: 300;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* Mode selector */
+  .mode-bar {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+
+  .mode-btn {
+    padding: 10px 24px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text-dim);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s;
+    letter-spacing: 0.5px;
+  }
+
+  .mode-btn:hover { border-color: var(--accent-vn); color: var(--text); }
+  .mode-btn.active {
+    background: linear-gradient(135deg, rgba(0,229,160,0.2), rgba(79,195,247,0.2));
+    border-color: var(--accent-vn);
+    color: var(--accent-vn);
+    box-shadow: 0 0 20px rgba(0,229,160,0.15);
+  }
+
+  /* Stats bar */
+  .stats-bar {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 28px;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .stat-num.correct { color: var(--accent-vn); }
+  .stat-num.wrong { color: var(--accent-jp); }
+  .stat-num.total { color: var(--accent-blue); }
+
+  .stat-label {
+    font-size: 10px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 2px;
+  }
+
+  /* Progress bar */
+  .progress-wrap {
+    background: var(--border);
+    border-radius: 100px;
+    height: 4px;
+    margin-bottom: 32px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-vn), var(--accent-blue));
+    border-radius: 100px;
+    transition: width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 0 8px rgba(0,229,160,0.5);
+  }
+
+  /* Card area */
+  .card-area {
+    perspective: 1200px;
+    margin-bottom: 24px;
+    cursor: pointer;
+  }
+
+  .card-inner {
+    position: relative;
+    width: 100%;
+    padding-top: min(56%, 420px);
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-inner.flipped { transform: rotateY(180deg); }
+
+  .card-face {
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border: 1px solid var(--border);
+    transition: box-shadow 0.3s;
+  }
+
+  .card-face:hover { box-shadow: 0 0 40px rgba(0,229,160,0.1); }
+
+  .card-front {
+    background: linear-gradient(145deg, var(--card-front), #0f1923);
+  }
+
+  .card-back {
+    background: linear-gradient(145deg, var(--card-back), #0f1a0f);
+    transform: rotateY(180deg);
+  }
+
+  .card-tag {
+    position: absolute;
+    top: 16px;
+    left: 20px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 100px;
+  }
+
+  .tag-jp {
+    background: rgba(255,107,107,0.15);
+    color: var(--accent-jp);
+    border: 1px solid rgba(255,107,107,0.3);
+  }
+
+  .tag-vn {
+    background: rgba(0,229,160,0.15);
+    color: var(--accent-vn);
+    border: 1px solid rgba(0,229,160,0.3);
+  }
+
+  .card-number {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+
+  .card-section {
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+  .card-main {
+    font-size: clamp(20px, 4vw, 32px);
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.3;
+    margin-bottom: 12px;
+  }
+
+  .card-front .card-main { color: var(--text); }
+  .card-back .card-main { color: var(--accent-vn); }
+
+  .card-sub {
+    font-size: clamp(14px, 2.5vw, 18px);
+    color: var(--text-dim);
+    text-align: center;
+    font-weight: 300;
+    line-height: 1.5;
+  }
+
+  .card-hint {
+    position: absolute;
+    bottom: 18px;
+    font-size: 11px;
+    color: var(--text-dim);
+    opacity: 0.6;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .card-hint svg { width: 14px; height: 14px; }
+
+  /* Audio controls on back */
+  .audio-zone {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+    padding: 10px 20px;
+    background: rgba(0,229,160,0.08);
+    border: 1px solid rgba(0,229,160,0.2);
+    border-radius: 100px;
+  }
+
+  .play-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--accent-vn);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  .play-btn:hover { transform: scale(1.15); box-shadow: 0 0 16px rgba(0,229,160,0.5); }
+  .play-btn:active { transform: scale(0.95); }
+
+  .play-btn svg { width: 16px; height: 16px; fill: #000; margin-left: 2px; }
+  .play-btn.playing svg { margin-left: 0; }
+
+  .audio-wave {
+    display: flex;
+    gap: 3px;
+    align-items: center;
+    height: 20px;
+  }
+
+  .audio-wave span {
+    display: block;
+    width: 3px;
+    background: var(--accent-vn);
+    border-radius: 2px;
+    animation: none;
+    height: 4px;
+    transition: height 0.2s;
+  }
+
+  .audio-wave.active span {
+    animation: bar 0.8s ease-in-out infinite;
+  }
+
+  .audio-wave span:nth-child(2) { animation-delay: 0.1s; }
+  .audio-wave span:nth-child(3) { animation-delay: 0.2s; }
+  .audio-wave span:nth-child(4) { animation-delay: 0.3s; }
+  .audio-wave span:nth-child(5) { animation-delay: 0.15s; }
+
+  @keyframes bar {
+    0%, 100% { height: 4px; }
+    50% { height: 18px; }
+  }
+
+  .audio-label {
+    font-size: 12px;
+    color: var(--accent-vn);
+    font-weight: 600;
+  }
+
+  /* Action buttons */
+  .actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .action-btn {
+    flex: 1;
+    max-width: 160px;
+    padding: 14px 20px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .btn-wrong {
+    background: rgba(255,107,107,0.1);
+    color: var(--accent-jp);
+    border-color: rgba(255,107,107,0.3);
+  }
+
+  .btn-wrong:hover {
+    background: rgba(255,107,107,0.2);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 24px rgba(255,107,107,0.2);
+  }
+
+  .btn-correct {
+    background: rgba(0,229,160,0.1);
+    color: var(--accent-vn);
+    border-color: rgba(0,229,160,0.3);
+  }
+
+  .btn-correct:hover {
+    background: rgba(0,229,160,0.2);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 24px rgba(0,229,160,0.2);
+  }
+
+  .btn-flip {
+    background: rgba(79,195,247,0.1);
+    color: var(--accent-blue);
+    border-color: rgba(79,195,247,0.3);
+    max-width: 200px;
+  }
+
+  .btn-flip:hover {
+    background: rgba(79,195,247,0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(79,195,247,0.2);
+  }
+
+  /* Nav buttons */
+  .nav-row {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .nav-btn {
+    padding: 10px 20px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text-dim);
+    font-family: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .nav-btn:hover { color: var(--text); border-color: var(--text-dim); }
+
+  .nav-btn.shuffle {
+    color: var(--gold);
+    border-color: rgba(255,215,0,0.3);
+    background: rgba(255,215,0,0.05);
+  }
+
+  .nav-btn.shuffle:hover { background: rgba(255,215,0,0.1); }
+
+  /* Result overlay */
+  .result-flash {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 80px;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0;
+    transition: opacity 0.1s;
+  }
+
+  .result-flash.show {
+    opacity: 1;
+    animation: flash-anim 0.6s ease-out forwards;
+  }
+
+  @keyframes flash-anim {
+    0% { opacity: 1; transform: scale(0.5); }
+    50% { opacity: 1; transform: scale(1.3); }
+    100% { opacity: 0; transform: scale(1.5); }
+  }
+
+  /* Completion screen */
+  .completion {
+    display: none;
+    text-align: center;
+    padding: 48px 24px;
+  }
+
+  .completion.show { display: block; }
+  .card-area.hide, .actions.hide, .nav-row.hide { display: none; }
+
+  .trophy { font-size: 80px; margin-bottom: 16px; animation: bounce 1s ease infinite; }
+  @keyframes bounce {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  .completion h2 {
+    font-size: 28px;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--gold), var(--accent-vn));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+  }
+
+  .completion p { color: var(--text-dim); margin-bottom: 32px; font-size: 15px; }
+
+  .score-display {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-bottom: 32px;
+  }
+
+  .score-item { text-align: center; }
+  .score-big { font-size: 48px; font-weight: 800; line-height: 1; }
+  .score-big.c { color: var(--accent-vn); }
+  .score-big.w { color: var(--accent-jp); }
+  .score-lbl { font-size: 12px; color: var(--text-dim); margin-top: 4px; text-transform: uppercase; letter-spacing: 1.5px; }
+
+  .restart-btn {
+    padding: 16px 40px;
+    border-radius: 100px;
+    border: none;
+    background: linear-gradient(135deg, var(--accent-vn), var(--accent-blue));
+    color: #000;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s;
+    letter-spacing: 0.5px;
+  }
+
+  .restart-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,229,160,0.3); }
+
+  /* Filter chips */
+  .filter-bar {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+
+  .filter-chip {
+    padding: 6px 14px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-dim);
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+  }
+
+  .filter-chip.active {
+    border-color: var(--accent-blue);
+    color: var(--accent-blue);
+    background: rgba(79,195,247,0.1);
+  }
+
+  .filter-chip:hover { border-color: var(--text-dim); color: var(--text); }
+
+  @media (max-width: 480px) {
+    .actions { flex-wrap: wrap; }
+    .action-btn { max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+
+<div class="result-flash" id="resultFlash"></div>
+
+<div class="app">
+  <header>
+    <div class="logo">
+      <span class="logo-flag">🇻🇳</span>
+      <h1>ベトナム語フラッシュカード</h1>
+      <span class="logo-flag">🇯🇵</span>
+    </div>
+    <p class="subtitle">B1 Level Idioms &amp; Set Phrases</p>
+  </header>
+
+  <!-- Mode -->
+  <div class="mode-bar">
+    <button class="mode-btn active" onclick="setMode('jp2vn')">🇯🇵 → 🇻🇳 日本語→ベトナム語</button>
+    <button class="mode-btn" onclick="setMode('vn2jp')">🇻🇳 → 🇯🇵 ベトナム語→日本語</button>
+  </div>
+
+  <!-- Filter -->
+  <div class="filter-bar">
+    <button class="filter-chip active" data-section="all" onclick="setFilter('all', this)">すべて</button>
+    <button class="filter-chip" data-section="0" onclick="setFilter(0, this)">動詞＋前置詞</button>
+    <button class="filter-chip" data-section="1" onclick="setFilter(1, this)">形容詞＋前置詞</button>
+    <button class="filter-chip" data-section="2" onclick="setFilter(2, this)">慣用表現</button>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-bar">
+    <div class="stat">
+      <div class="stat-num correct" id="statCorrect">0</div>
+      <div class="stat-label">正解 ✓</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num wrong" id="statWrong">0</div>
+      <div class="stat-label">不正解 ✗</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num total" id="statRemain">0</div>
+      <div class="stat-label">残り</div>
+    </div>
+  </div>
+
+  <!-- Progress -->
+  <div class="progress-wrap">
+    <div class="progress-fill" id="progressFill" style="width:0%"></div>
+  </div>
+
+  <!-- Card -->
+  <div class="card-area" id="cardArea" onclick="flipCard()">
+    <div class="card-inner" id="cardInner">
+      <div class="card-face card-front" id="cardFront">
+        <span class="card-tag tag-jp" id="frontTag">日本語</span>
+        <span class="card-number" id="cardNum">1 / 1</span>
+        <div class="card-section" id="frontSection"></div>
+        <div class="card-main" id="frontMain"></div>
+        <div class="card-sub" id="frontSub"></div>
+        <div class="card-hint">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="18" rx="3"/><path d="M8 12h8M12 8v8"/></svg>
+          クリックして裏返す
+        </div>
+      </div>
+      <div class="card-face card-back" id="cardBack">
+        <span class="card-tag tag-vn" id="backTag">ベトナム語</span>
+        <div class="card-section" id="backSection"></div>
+        <div class="card-main" id="backMain"></div>
+        <div class="card-sub" id="backSub"></div>
+        <div class="audio-zone" id="audioZone" onclick="event.stopPropagation()">
+          <button class="play-btn" id="playBtn" onclick="speakVN()">
+            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+          </button>
+          <div class="audio-wave" id="audioWave">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <span class="audio-label" id="audioLabel">フレーズ＋例文を聴く</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Actions (shown after flip) -->
+  <div class="actions" id="actionsRow" style="display:none">
+    <button class="action-btn btn-wrong" onclick="answer(false)">
+      <span>✗</span> もう少し
+    </button>
+    <button class="action-btn btn-correct" onclick="answer(true)">
+      <span>✓</span> わかった！
+    </button>
+  </div>
+
+  <!-- Flip button (shown before flip) -->
+  <div class="actions" id="flipRow">
+    <button class="action-btn btn-flip" onclick="flipCard()">
+      🔄 答えを見る
+    </button>
+  </div>
+
+  <!-- Nav -->
+  <div class="nav-row" id="navRow">
+    <button class="nav-btn" onclick="prevCard()">← 前へ</button>
+    <button class="nav-btn shuffle" onclick="shuffleCards()">🔀 シャッフル</button>
+    <button class="nav-btn" onclick="nextCard()">次へ →</button>
+  </div>
+
+  <!-- Completion -->
+  <div class="completion" id="completion">
+    <div class="trophy">🏆</div>
+    <h2>コンプリート！</h2>
+    <p>すべてのカードを学習しました！</p>
+    <div class="score-display">
+      <div class="score-item">
+        <div class="score-big c" id="finalCorrect">0</div>
+        <div class="score-lbl">正解</div>
+      </div>
+      <div class="score-item">
+        <div class="score-big w" id="finalWrong">0</div>
+        <div class="score-lbl">不正解</div>
+      </div>
+    </div>
+    <button class="restart-btn" onclick="restart()">もう一度挑戦する 🔁</button>
+  </div>
+</div>
+
+<script>
+const ALL_CARDS = [
+  // Section 0: 動詞＋前置詞
+  {s:0, vn:"tham gia vào ～", jp:"〜に参加する", ex_vn:"Tôi muốn tham gia vào câu lạc bộ tiếng Nhật.", ex_jp:"私は日本語クラブに参加したい。"},
+  {s:0, vn:"phụ thuộc vào ～", jp:"〜に依存する", ex_vn:"Thành công phụ thuộc vào sự cố gắng của bạn.", ex_jp:"成功はあなたの努力にかかっている。"},
+  {s:0, vn:"đồng ý với ～", jp:"〜に同意する", ex_vn:"Tôi hoàn toàn đồng ý với ý kiến của anh.", ex_jp:"私はあなたの意見に完全に同意します。"},
+  {s:0, vn:"không đồng ý với ～", jp:"〜に反対する", ex_vn:"Cô ấy không đồng ý với kế hoạch đó.", ex_jp:"彼女はその計画に反対した。"},
+  {s:0, vn:"quyết định + V", jp:"〜することを決める", ex_vn:"Anh ấy quyết định học tiếng Việt.", ex_jp:"彼はベトナム語を学ぶことを決めた。"},
+  {s:0, vn:"cố gắng + V", jp:"〜しようと努力する", ex_vn:"Cô ấy cố gắng hoàn thành bài tập đúng hạn.", ex_jp:"彼女は期限通りに課題を終えようと頑張った。"},
+  {s:0, vn:"tiếp tục + V", jp:"〜し続ける", ex_vn:"Chúng tôi tiếp tục thảo luận đến tối.", ex_jp:"私たちは夜まで議論し続けた。"},
+  {s:0, vn:"bắt đầu + V", jp:"〜し始める", ex_vn:"Trời bắt đầu mưa lúc 3 giờ chiều.", ex_jp:"午後3時から雨が降り始めた。"},
+  {s:0, vn:"ngừng + V", jp:"〜するのをやめる", ex_vn:"Anh ấy ngừng hút thuốc từ năm ngoái.", ex_jp:"彼は去年からタバコをやめた。"},
+  {s:0, vn:"quên + V", jp:"〜するのを忘れる", ex_vn:"Tôi quên mang ô khi ra ngoài.", ex_jp:"外出するとき傘を持っていくのを忘れた。"},
+  {s:0, vn:"nhớ + V", jp:"〜するのを覚えている", ex_vn:"Nhớ gọi điện cho mẹ nhé!", ex_jp:"お母さんに電話することを忘れずに！"},
+  {s:0, vn:"học cách + V", jp:"〜する方法を学ぶ", ex_vn:"Tôi đang học cách nấu phở.", ex_jp:"私はフォーの作り方を学んでいる。"},
+  {s:0, vn:"có khả năng + V", jp:"〜する能力がある", ex_vn:"Chị ấy có khả năng nói năm thứ tiếng.", ex_jp:"彼女は5か国語を話す能力がある。"},
+  {s:0, vn:"có cơ hội + V", jp:"〜する機会がある", ex_vn:"Tôi có cơ hội đi du lịch Nhật Bản.", ex_jp:"私は日本へ旅行する機会がある。"},
+  {s:0, vn:"có thói quen + V", jp:"〜する習慣がある", ex_vn:"Anh ấy có thói quen dậy sớm mỗi sáng.", ex_jp:"彼は毎朝早起きする習慣がある。"},
+  {s:0, vn:"mất thời gian + V", jp:"〜するのに時間がかかる", ex_vn:"Việc này mất thời gian để hoàn thành.", ex_jp:"この作業を完成させるのに時間がかかる。"},
+  {s:0, vn:"dành thời gian + V", jp:"〜するために時間を使う", ex_vn:"Cô ấy dành thời gian đọc sách mỗi ngày.", ex_jp:"彼女は毎日読書のために時間を使う。"},
+  {s:0, vn:"dành thời gian cho ～", jp:"〜のために時間を割く", ex_vn:"Anh nên dành thời gian cho gia đình.", ex_jp:"家族のために時間を割くべきです。"},
+  {s:0, vn:"tốn tiền vào ～", jp:"〜にお金を使う", ex_vn:"Anh ấy tốn nhiều tiền vào việc mua sách.", ex_jp:"彼は本の購入にたくさんのお金を使う。"},
+  {s:0, vn:"tiết kiệm tiền cho ～", jp:"〜のためにお金を貯める", ex_vn:"Tôi đang tiết kiệm tiền cho chuyến du lịch.", ex_jp:"旅行のためにお金を貯めている。"},
+  {s:0, vn:"chú ý đến ～", jp:"〜に注意を払う", ex_vn:"Hãy chú ý đến cách phát âm của từng từ.", ex_jp:"一つ一つの単語の発音に注意を払ってください。"},
+  {s:0, vn:"quan tâm đến ～", jp:"〜に関心を持つ・気にかける", ex_vn:"Anh ấy luôn quan tâm đến sức khỏe của bố mẹ.", ex_jp:"彼はいつも両親の健康を気にかけている。"},
+  {s:0, vn:"lo lắng về ～", jp:"〜について心配する", ex_vn:"Mẹ tôi lo lắng về sức khỏe của tôi.", ex_jp:"母は私の健康を心配している。"},
+  {s:0, vn:"phàn nàn về ～", jp:"〜について不満を言う", ex_vn:"Khách hàng phàn nàn về dịch vụ chậm trễ.", ex_jp:"顧客はサービスの遅れについて不満を言った。"},
+  {s:0, vn:"nói chuyện về ～", jp:"〜について話す", ex_vn:"Chúng tôi nói chuyện về kế hoạch tương lai.", ex_jp:"私たちは将来の計画について話した。"},
+  {s:0, vn:"thảo luận về ～", jp:"〜について議論する", ex_vn:"Nhóm chúng tôi thảo luận về vấn đề môi trường.", ex_jp:"私たちのグループは環境問題について議論した。"},
+  {s:0, vn:"hỏi về ～", jp:"〜について尋ねる", ex_vn:"Anh ấy hỏi về lịch làm việc của tuần tới.", ex_jp:"彼は来週の勤務スケジュールについて尋ねた。"},
+  {s:0, vn:"biết về ～", jp:"〜について知っている", ex_vn:"Bạn có biết về văn hóa Nhật Bản không?", ex_jp:"日本文化について知っていますか？"},
+  {s:0, vn:"hiểu về ～", jp:"〜について理解する", ex_vn:"Tôi bắt đầu hiểu về phong tục Việt Nam.", ex_jp:"ベトナムの習慣について理解し始めた。"},
+  {s:0, vn:"nghe nói về ～", jp:"〜について聞いたことがある", ex_vn:"Tôi đã nghe nói về nhà hàng nổi tiếng đó.", ex_jp:"その有名なレストランについて聞いたことがある。"},
+  {s:0, vn:"nghĩ về ～", jp:"〜について考える・思う", ex_vn:"Tôi thường nghĩ về những ngày còn nhỏ.", ex_jp:"私はよく子供の頃のことを思う。"},
+  {s:0, vn:"mong đợi ～", jp:"〜を期待する・楽しみにする", ex_vn:"Tôi rất mong đợi buổi gặp mặt ngày mai.", ex_jp:"明日の集まりをとても楽しみにしている。"},
+  {s:0, vn:"hy vọng + V", jp:"〜することを望む", ex_vn:"Tôi hy vọng được gặp lại bạn sớm.", ex_jp:"またすぐ会えることを望んでいる。"},
+  {s:0, vn:"sợ ～", jp:"〜を恐れる・怖がる", ex_vn:"Cô bé sợ bóng tối và không ngủ được.", ex_jp:"女の子は暗闇が怖くて眠れなかった。"},
+  {s:0, vn:"thích ～", jp:"〜が好きだ", ex_vn:"Tôi thích ăn phở hơn bún bò.", ex_jp:"私はブンボーよりフォーが好きだ。"},
+  {s:0, vn:"ghét ～", jp:"〜が嫌いだ", ex_vn:"Anh ấy ghét đi trễ và luôn đến đúng giờ.", ex_jp:"彼は遅刻が嫌いで、いつも時間通りに来る。"},
+  {s:0, vn:"quen với ～", jp:"〜に慣れている", ex_vn:"Tôi đã quen với khí hậu nóng ở Hà Nội.", ex_jp:"ハノイの暑い気候に慣れた。"},
+  {s:0, vn:"làm quen với ～", jp:"〜に慣れる・知り合いになる", ex_vn:"Tôi cần thời gian để làm quen với công việc mới.", ex_jp:"新しい仕事に慣れるのに時間が必要だ。"},
+  {s:0, vn:"đối phó với ～", jp:"〜に対処する", ex_vn:"Cô ấy biết cách đối phó với áp lực công việc.", ex_jp:"彼女は仕事のプレッシャーへの対処法を知っている。"},
+  {s:0, vn:"đối mặt với ～", jp:"〜に直面する", ex_vn:"Chúng ta phải đối mặt với những thách thức mới.", ex_jp:"私たちは新しい課題に直面しなければならない。"},
+  {s:0, vn:"so sánh với ～", jp:"〜と比較する", ex_vn:"Đừng nên so sánh bản thân với người khác.", ex_jp:"自分を他人と比較すべきではない。"},
+  {s:0, vn:"khác với ～", jp:"〜と異なる", ex_vn:"Văn hóa Việt Nam khác với văn hóa Nhật Bản.", ex_jp:"ベトナム文化は日本文化と異なる。"},
+  {s:0, vn:"giống với / giống như ～", jp:"〜と似ている", ex_vn:"Tính cách của anh ấy giống như cha anh ấy.", ex_jp:"彼の性格はお父さんに似ている。"},
+  {s:0, vn:"liên lạc với ～", jp:"〜と連絡をとる", ex_vn:"Tôi thường xuyên liên lạc với bạn bè qua mạng.", ex_jp:"私はよくSNSで友人と連絡をとる。"},
+  {s:0, vn:"hợp tác với ～", jp:"〜と協力する", ex_vn:"Hai công ty quyết định hợp tác với nhau.", ex_jp:"2つの会社は互いに協力することを決めた。"},
+  {s:0, vn:"cạnh tranh với ～", jp:"〜と競争する", ex_vn:"Công ty chúng tôi cạnh tranh với các hãng lớn.", ex_jp:"私たちの会社は大手メーカーと競争している。"},
+  // Section 1: 形容詞＋前置詞
+  {s:1, vn:"hài lòng với ～", jp:"〜に満足している", ex_vn:"Tôi rất hài lòng với kết quả công việc.", ex_jp:"仕事の結果にとても満足している。"},
+  {s:1, vn:"thất vọng với/về ～", jp:"〜にがっかりしている", ex_vn:"Anh ấy thất vọng về điểm thi của mình.", ex_jp:"彼は自分の試験の点数にがっかりした。"},
+  {s:1, vn:"tức giận với/về ～", jp:"〜に腹を立てている", ex_vn:"Cô ấy tức giận vì bị hiểu nhầm.", ex_jp:"彼女は誤解されたことに腹を立てた。"},
+  {s:1, vn:"vui mừng về ～", jp:"〜について喜んでいる", ex_vn:"Gia đình vui mừng về tin tốt đó.", ex_jp:"家族はその良い知らせを喜んだ。"},
+  {s:1, vn:"buồn về ～", jp:"〜について悲しんでいる", ex_vn:"Cô ấy buồn về sự ra đi của người bạn thân.", ex_jp:"彼女は親友の旅立ちを悲しんでいる。"},
+  {s:1, vn:"xấu hổ về ～", jp:"〜について恥ずかしがっている", ex_vn:"Anh ấy xấu hổ về lỗi lầm của mình.", ex_jp:"彼は自分の失敗を恥ずかしく思っている。"},
+  {s:1, vn:"tự hào về ～", jp:"〜について誇りに思う", ex_vn:"Bố mẹ rất tự hào về thành tích của con.", ex_jp:"両親は子供の成績を誇りに思っている。"},
+  {s:1, vn:"ngạc nhiên về/với ～", jp:"〜に驚いている", ex_vn:"Tôi ngạc nhiên với sự tiến bộ nhanh của anh ấy.", ex_jp:"彼の急速な上達に驚いた。"},
+  {s:1, vn:"chắc chắn về ～", jp:"〜について確信している", ex_vn:"Tôi chắc chắn về quyết định của mình.", ex_jp:"私は自分の決断に自信がある。"},
+  {s:1, vn:"không chắc về ～", jp:"〜について確信がない", ex_vn:"Tôi không chắc về lịch bay của ngày mai.", ex_jp:"明日のフライトスケジュールに確信がない。"},
+  {s:1, vn:"quan trọng đối với ～", jp:"〜にとって重要だ", ex_vn:"Sức khỏe quan trọng đối với mọi người.", ex_jp:"健康はすべての人にとって大切だ。"},
+  {s:1, vn:"có ích cho ～", jp:"〜に役立つ", ex_vn:"Việc đọc sách có ích cho việc học ngoại ngữ.", ex_jp:"読書は外国語学習に役立つ。"},
+  {s:1, vn:"có hại cho ～", jp:"〜に有害だ", ex_vn:"Hút thuốc có hại cho sức khỏe.", ex_jp:"喫煙は健康に有害だ。"},
+  {s:1, vn:"tốt cho ～", jp:"〜に良い", ex_vn:"Ngủ đủ giấc rất tốt cho não bộ.", ex_jp:"十分な睡眠は脳に良い。"},
+  {s:1, vn:"sẵn sàng + V", jp:"〜する準備ができている", ex_vn:"Chúng tôi sẵn sàng bắt đầu cuộc họp.", ex_jp:"私たちは会議を始める準備ができている。"},
+  {s:1, vn:"bận + V", jp:"〜するのに忙しい", ex_vn:"Chị ấy đang bận chuẩn bị cho kỳ thi.", ex_jp:"彼女は試験の準備で忙しい。"},
+  {s:1, vn:"khó + V", jp:"〜するのが難しい", ex_vn:"Tiếng Việt khó phát âm đối với người Nhật.", ex_jp:"ベトナム語は日本人にとって発音が難しい。"},
+  {s:1, vn:"dễ + V", jp:"〜するのが易しい", ex_vn:"Món này dễ nấu nếu có đủ nguyên liệu.", ex_jp:"材料が揃えばこの料理は作りやすい。"},
+  {s:1, vn:"thích hợp với ～", jp:"〜に適している", ex_vn:"Công việc này thích hợp với người cẩn thận.", ex_jp:"この仕事は丁寧な人に向いている。"},
+  {s:1, vn:"phù hợp với ～", jp:"〜に合っている・適合する", ex_vn:"Cách dạy đó phù hợp với trẻ em nhỏ tuổi.", ex_jp:"その教え方は幼い子供に合っている。"},
+  // Section 2: 慣用表現
+  {s:2, vn:"đưa ra quyết định", jp:"決断を下す", ex_vn:"Giám đốc đưa ra quyết định vào buổi sáng.", ex_jp:"部長は午前中に決断を下した。"},
+  {s:2, vn:"đưa ra ý kiến", jp:"意見を述べる", ex_vn:"Mỗi người đều đưa ra ý kiến trong cuộc họp.", ex_jp:"会議では全員が意見を述べた。"},
+  {s:2, vn:"đưa ra lời khuyên", jp:"アドバイスをする", ex_vn:"Bác sĩ đưa ra lời khuyên về chế độ ăn uống.", ex_jp:"医師は食事についてアドバイスをした。"},
+  {s:2, vn:"đặt câu hỏi", jp:"質問を出す", ex_vn:"Học sinh đặt câu hỏi cho giáo viên sau giờ học.", ex_jp:"生徒は授業後に先生に質問した。"},
+  {s:2, vn:"đặt mục tiêu", jp:"目標を設定する", ex_vn:"Bạn nên đặt mục tiêu rõ ràng cho bản thân.", ex_jp:"自分自身に明確な目標を設定すべきだ。"},
+  {s:2, vn:"giải quyết vấn đề", jp:"問題を解決する", ex_vn:"Nhóm đã nhanh chóng giải quyết vấn đề kỹ thuật.", ex_jp:"チームは技術的な問題を素早く解決した。"},
+  {s:2, vn:"gặp khó khăn", jp:"困難に遭遇する", ex_vn:"Anh ấy gặp khó khăn khi sống một mình ở nước ngoài.", ex_jp:"彼は海外での一人暮らしで困難に遭遇した。"},
+  {s:2, vn:"gặp vấn đề", jp:"問題に直面する", ex_vn:"Dự án gặp vấn đề về ngân sách.", ex_jp:"プロジェクトは予算の問題に直面した。"},
+  {s:2, vn:"có vấn đề với ～", jp:"〜に問題がある", ex_vn:"Tôi có vấn đề với kết nối internet.", ex_jp:"インターネット接続に問題がある。"},
+  {s:2, vn:"mắc lỗi", jp:"間違いを犯す", ex_vn:"Ai cũng có thể mắc lỗi, quan trọng là học từ đó.", ex_jp:"誰でも間違いを犯す、大切なのはそこから学ぶことだ。"},
+  {s:2, vn:"rút ra bài học", jp:"教訓を得る", ex_vn:"Sau thất bại, tôi rút ra được nhiều bài học.", ex_jp:"失敗の後、多くの教訓を得た。"},
+  {s:2, vn:"tích lũy kinh nghiệm", jp:"経験を積む", ex_vn:"Làm việc thực tế giúp bạn tích lũy kinh nghiệm.", ex_jp:"実際の仕事で経験を積める。"},
+  {s:2, vn:"nâng cao kỹ năng", jp:"スキルを向上させる", ex_vn:"Tôi tham gia khóa học để nâng cao kỹ năng giao tiếp.", ex_jp:"コミュニケーション能力を高めるために講座に参加した。"},
+  {s:2, vn:"trau dồi kiến thức", jp:"知識を磨く", ex_vn:"Đọc sách là cách tốt để trau dồi kiến thức.", ex_jp:"読書は知識を磨く良い方法だ。"},
+  {s:2, vn:"mở rộng vốn từ", jp:"語彙を広げる", ex_vn:"Xem phim giúp tôi mở rộng vốn từ tiếng Anh.", ex_jp:"映画を見ることで英語の語彙が広がった。"},
+  {s:2, vn:"đạt được mục tiêu", jp:"目標を達成する", ex_vn:"Cô ấy đã đạt được mục tiêu trở thành bác sĩ.", ex_jp:"彼女は医師になるという目標を達成した。"},
+  {s:2, vn:"hoàn thành nhiệm vụ", jp:"任務を完了する", ex_vn:"Đội đã hoàn thành nhiệm vụ trước thời hạn.", ex_jp:"チームは期限前に任務を完了した。"},
+  {s:2, vn:"chịu trách nhiệm về ～", jp:"〜に責任を負う", ex_vn:"Người quản lý phải chịu trách nhiệm về kết quả.", ex_jp:"管理者は結果に責任を負わなければならない。"},
+  {s:2, vn:"đóng góp cho ～", jp:"〜に貢献する", ex_vn:"Tình nguyện viên đóng góp cho cộng đồng địa phương.", ex_jp:"ボランティアは地域コミュニティに貢献する。"},
+  {s:2, vn:"tham khảo ý kiến của ～", jp:"〜の意見を参考にする", ex_vn:"Tôi cần tham khảo ý kiến của chuyên gia.", ex_jp:"専門家の意見を参考にする必要がある。"},
+  {s:2, vn:"thay đổi ý kiến", jp:"意見を変える", ex_vn:"Sau khi nghe giải thích, anh ấy thay đổi ý kiến.", ex_jp:"説明を聞いた後、彼は意見を変えた。"},
+  {s:2, vn:"lên kế hoạch cho ～", jp:"〜の計画を立てる", ex_vn:"Chúng tôi lên kế hoạch cho chuyến đi cuối tuần.", ex_jp:"週末の旅行の計画を立てた。"},
+  {s:2, vn:"chuẩn bị cho ～", jp:"〜のために準備する", ex_vn:"Tôi đang chuẩn bị cho kỳ thi tiếng Việt.", ex_jp:"ベトナム語の試験のために準備している。"},
+  {s:2, vn:"phụ trách ～", jp:"〜を担当する", ex_vn:"Chị ấy phụ trách bộ phận marketing.", ex_jp:"彼女はマーケティング部門を担当している。"},
+  {s:2, vn:"dựa vào / dựa trên ～", jp:"〜に基づく・頼る", ex_vn:"Quyết định này dựa trên dữ liệu thực tế.", ex_jp:"この決定は実際のデータに基づいている。"},
+  {s:2, vn:"dẫn đến ～", jp:"〜につながる・引き起こす", ex_vn:"Thiếu ngủ có thể dẫn đến nhiều vấn đề sức khỏe.", ex_jp:"睡眠不足は多くの健康問題につながる。"},
+  {s:2, vn:"bao gồm ～", jp:"〜を含む", ex_vn:"Giá vé bao gồm bữa sáng và bữa tối.", ex_jp:"料金には朝食と夕食が含まれる。"},
+  {s:2, vn:"liên quan đến ～", jp:"〜に関係している", ex_vn:"Vấn đề này liên quan đến nhiều phòng ban.", ex_jp:"この問題は複数の部門に関係している。"},
+  {s:2, vn:"ảnh hưởng đến ～", jp:"〜に影響を与える", ex_vn:"Thời tiết xấu ảnh hưởng đến tâm trạng của tôi.", ex_jp:"悪天候は私の気分に影響を与える。"},
+  {s:2, vn:"bị ảnh hưởng bởi ～", jp:"〜の影響を受ける", ex_vn:"Mùa màng bị ảnh hưởng bởi hạn hán năm nay.", ex_jp:"今年の農作物は干ばつの影響を受けた。"},
+  {s:2, vn:"được làm từ / bằng ～", jp:"〜から作られている", ex_vn:"Chiếc túi này được làm từ da thật.", ex_jp:"このバッグは本革で作られている。"},
+  {s:2, vn:"được biết đến như ～", jp:"〜として知られている", ex_vn:"Hội An được biết đến như phố cổ đẹp nhất.", ex_jp:"ホイアンは最も美しい古い街として知られている。"},
+  {s:2, vn:"được coi là ～", jp:"〜とみなされている", ex_vn:"Anh ấy được coi là chuyên gia trong lĩnh vực này.", ex_jp:"彼はこの分野の専門家とみなされている。"},
+  {s:2, vn:"được gọi là ～", jp:"〜と呼ばれている", ex_vn:"Con đường này được gọi là phố ẩm thực.", ex_jp:"この通りはグルメストリートと呼ばれている。"},
+];
+
+const SECTION_NAMES = ["動詞＋前置詞型", "形容詞＋前置詞型", "慣用表現・複合動詞型"];
+
+let mode = 'jp2vn';
+let currentFilter = 'all';
+let deck = [];
+let idx = 0;
+let correct = 0;
+let wrong = 0;
+let isFlipped = false;
+let autoSpoken = false;
+
+function setMode(m) {
+  mode = m;
+  document.querySelectorAll('.mode-btn').forEach((b,i) => {
+    b.classList.toggle('active', (i===0 && m==='jp2vn') || (i===1 && m==='vn2jp'));
+  });
+  restart();
+}
+
+function setFilter(section, el) {
+  currentFilter = section;
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  restart();
+}
+
+function buildDeck() {
+  let cards = currentFilter === 'all' ? [...ALL_CARDS] : ALL_CARDS.filter(c => c.s === currentFilter);
+  deck = cards;
+}
+
+function shuffleCards() {
+  for (let i = deck.length-1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i+1));
+    [deck[i], deck[j]] = [deck[j], deck[i]];
+  }
+  idx = 0;
+  correct = 0;
+  wrong = 0;
+  showCard();
+  updateStats();
+  showFlash('🔀');
+}
+
+function restart() {
+  buildDeck();
+  idx = 0;
+  correct = 0;
+  wrong = 0;
+  document.getElementById('completion').classList.remove('show');
+  document.getElementById('cardArea').classList.remove('hide');
+  document.getElementById('actionsRow').style.display = 'none';
+  document.getElementById('flipRow').style.display = '';
+  document.getElementById('navRow').classList.remove('hide');
+  showCard();
+  updateStats();
+}
+
+function showCard() {
+  if (idx >= deck.length) {
+    showCompletion();
+    return;
+  }
+  const card = deck[idx];
+  isFlipped = false;
+  autoSpoken = false;
+  const ci = document.getElementById('cardInner');
+  ci.classList.remove('flipped');
+
+  // Front: question side
+  const isJP2VN = mode === 'jp2vn';
+  const frontText = isJP2VN ? card.jp : card.vn;
+  const frontSub = isJP2VN ? card.ex_jp : card.ex_vn;
+  const backText = isJP2VN ? card.vn : card.jp;
+  const backSub = isJP2VN ? card.ex_vn : card.ex_jp;
+
+  document.getElementById('frontTag').textContent = isJP2VN ? '日本語' : 'ベトナム語';
+  document.getElementById('frontTag').className = 'card-tag ' + (isJP2VN ? 'tag-jp' : 'tag-vn');
+  document.getElementById('frontSection').textContent = SECTION_NAMES[card.s];
+  document.getElementById('frontMain').textContent = frontText;
+  document.getElementById('frontSub').textContent = frontSub;
+
+  document.getElementById('backTag').textContent = isJP2VN ? 'ベトナム語' : '日本語';
+  document.getElementById('backTag').className = 'card-tag ' + (isJP2VN ? 'tag-vn' : 'tag-jp');
+  document.getElementById('backSection').textContent = SECTION_NAMES[card.s];
+  document.getElementById('backMain').textContent = backText;
+  document.getElementById('backSub').textContent = backSub;
+
+  // Show/hide audio zone based on whether back is Vietnamese
+  const backIsVN = isJP2VN; // jp2vn → back is VN; vn2jp → back is JP
+  document.getElementById('audioZone').style.display = backIsVN ? 'flex' : 'none';
+
+  document.getElementById('cardNum').textContent = `${idx+1} / ${deck.length}`;
+  document.getElementById('actionsRow').style.display = 'none';
+  document.getElementById('flipRow').style.display = '';
+  updateProgress();
+}
+
+function flipCard() {
+  if (isFlipped) {
+    // Flip back to front
+    isFlipped = false;
+    window.speechSynthesis && window.speechSynthesis.cancel();
+    document.getElementById('cardInner').classList.remove('flipped');
+    document.getElementById('actionsRow').style.display = 'none';
+    document.getElementById('flipRow').style.display = '';
+    const wave = document.getElementById('audioWave');
+    const btn = document.getElementById('playBtn');
+    const label = document.getElementById('audioLabel');
+    wave.classList.remove('active');
+    btn.classList.remove('playing');
+    label.textContent = 'フレーズ＋例文を聴く';
+    return;
+  }
+  isFlipped = true;
+  document.getElementById('cardInner').classList.add('flipped');
+  document.getElementById('actionsRow').style.display = 'flex';
+  document.getElementById('flipRow').style.display = 'none';
+
+  // Auto-speak if back is Vietnamese
+  const backIsVN = mode === 'jp2vn';
+  if (backIsVN && !autoSpoken) {
+    autoSpoken = true;
+    setTimeout(() => speakVN(), 400);
+  }
+}
+
+function speakVN() {
+  const card = deck[idx];
+  // Determine which text to speak
+  // Always speak: VN phrase → pause → VN example sentence
+  const vnPhrase = card.vn.replace(/～/g, '').replace(/\+ V|\+ N/g, '').trim();
+  const vnExample = card.ex_vn;
+
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+
+  const wave = document.getElementById('audioWave');
+  const btn = document.getElementById('playBtn');
+  const label = document.getElementById('audioLabel');
+  wave.classList.add('active');
+  btn.classList.add('playing');
+
+  // Step 1: speak the phrase
+  const u1 = new SpeechSynthesisUtterance(vnPhrase);
+  u1.lang = 'vi-VN';
+  u1.rate = 0.80;
+  u1.pitch = 1.0;
+
+  // Step 2: speak the example sentence
+  const u2 = new SpeechSynthesisUtterance(vnExample);
+  u2.lang = 'vi-VN';
+  u2.rate = 0.82;
+  u2.pitch = 1.0;
+
+  label.textContent = '① フレーズを読み上げ中…';
+
+  u1.onend = () => {
+    label.textContent = '② 例文を読み上げ中…';
+    // Short pause before example
+    setTimeout(() => window.speechSynthesis.speak(u2), 600);
+  };
+
+  u2.onend = () => {
+    wave.classList.remove('active');
+    btn.classList.remove('playing');
+    label.textContent = 'フレーズ＋例文を聴く';
+  };
+
+  const onErr = () => {
+    wave.classList.remove('active');
+    btn.classList.remove('playing');
+    label.textContent = 'フレーズ＋例文を聴く';
+  };
+  u1.onerror = onErr;
+  u2.onerror = onErr;
+
+  window.speechSynthesis.speak(u1);
+}
+
+function answer(isCorrect) {
+  if (isCorrect) {
+    correct++;
+    showFlash('✅');
+  } else {
+    wrong++;
+    showFlash('❌');
+    // Put the card back at a random later position
+    const remaining = deck.length - idx - 1;
+    if (remaining > 0) {
+      const insertAt = idx + 1 + Math.floor(Math.random() * remaining);
+      const card = deck.splice(idx, 1)[0];
+      deck.splice(insertAt, 0, card);
+    }
+  }
+  updateStats();
+  setTimeout(() => {
+    idx++;
+    showCard();
+  }, 300);
+}
+
+function prevCard() {
+  if (idx > 0) { idx--; showCard(); }
+}
+
+function nextCard() {
+  if (idx < deck.length - 1) { idx++; showCard(); }
+}
+
+function updateStats() {
+  document.getElementById('statCorrect').textContent = correct;
+  document.getElementById('statWrong').textContent = wrong;
+  document.getElementById('statRemain').textContent = Math.max(0, deck.length - idx);
+}
+
+function updateProgress() {
+  const pct = deck.length > 0 ? (idx / deck.length) * 100 : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+
+function showCompletion() {
+  document.getElementById('cardArea').classList.add('hide');
+  document.getElementById('actionsRow').style.display = 'none';
+  document.getElementById('flipRow').style.display = 'none';
+  document.getElementById('navRow').classList.add('hide');
+  document.getElementById('finalCorrect').textContent = correct;
+  document.getElementById('finalWrong').textContent = wrong;
+  document.getElementById('completion').classList.add('show');
+  document.getElementById('progressFill').style.width = '100%';
+  updateStats();
+}
+
+function showFlash(emoji) {
+  const el = document.getElementById('resultFlash');
+  el.textContent = emoji;
+  el.classList.remove('show');
+  void el.offsetWidth;
+  el.classList.add('show');
+}
+
+// Keyboard shortcuts
+document.addEventListener('keydown', e => {
+  if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); if (!isFlipped) flipCard(); }
+  if (e.key === 'ArrowRight' || e.key === 'l') { if (isFlipped) answer(true); else nextCard(); }
+  if (e.key === 'ArrowLeft' || e.key === 'h') { if (isFlipped) answer(false); else prevCard(); }
+  if (e.key === 'r' || e.key === 'R') speakVN();
+});
+
+// Init
+restart();
+</script>
+</body>
+</html>
