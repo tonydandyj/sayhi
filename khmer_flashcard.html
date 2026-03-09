@@ -1347,7 +1347,8 @@ function renderCard() {
 // ================================================
 function handleCardClick() {
   const fc = document.getElementById('flashcard');
-  if (!fc.classList.contains('revealed')) revealCard();
+  if (fc.classList.contains('revealed')) unrevealCard();
+  else revealCard();
 }
 
 function revealCard() {
