@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>仏語・西語 A1フラッシュカード</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --fr: #0055a4;
+  --fr2: #002f7a;
+  --es: #c60b1e;
+  --es2: #8b0012;
+  --gold: #f0c060;
+  --bg: #0e0f16;
+  --surface: #171924;
+  --surface2: #1e2130;
+  --surface3: #252840;
+  --text: #eef0ff;
+  --text-muted: #7880aa;
+  --border-fr: rgba(0,85,164,0.35);
+  --border-es: rgba(198,11,30,0.35);
+  --radius: 18px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ===== HEADER ===== */
+.header {
+  width: 100%;
+  background: linear-gradient(120deg, #001a4a 0%, #0a0c18 40%, #3a000a 100%);
+  border-bottom: 2px solid rgba(240,192,96,0.3);
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+}
+.header-left { display: flex; align-items: center; gap: 12px; }
+.flags { display: flex; gap: 4px; align-items: center; }
+.flag { width: 26px; height: 18px; border-radius: 3px; overflow: hidden; display: flex; flex-direction: column; }
+.flag-fr { width: 26px; height: 18px; background: linear-gradient(90deg, #002395 33.3%, #fff 33.3%, #fff 66.6%, #ed2939 66.6%); }
+.flag-es { width: 26px; height: 18px; background: linear-gradient(180deg, #c60b1e 25%, #f1bf00 25%, #f1bf00 75%, #c60b1e 75%); }
+.flag-sep { color: var(--text-muted); font-size: 1rem; }
+.header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(0.9rem, 2.8vw, 1.2rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+.header h1 .fr { color: #5b9fff; }
+.header h1 .sep { color: var(--text-muted); margin: 0 4px; }
+.header h1 .es { color: #ff6b7a; }
+.header h1 .jp { color: var(--text-muted); font-size: 0.8em; }
+.header-right { display: flex; gap: 8px; align-items: center; }
+.icon-btn {
+  background: var(--surface2);
+  border: 1.5px solid var(--surface3);
+  color: var(--text-muted);
+  border-radius: 10px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+.icon-btn:hover { border-color: var(--gold); color: var(--text); }
+.icon-btn.muted { color: var(--text-muted); opacity: 0.5; }
+
+/* ===== MODE SELECTOR ===== */
+.mode-bar {
+  width: 100%;
+  max-width: 720px;
+  padding: 10px 16px;
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.mode-btn {
+  font-family: 'Noto Sans JP', sans-serif;
+  padding: 7px 16px;
+  border-radius: 20px;
+  border: 1.5px solid var(--surface3);
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.mode-btn:hover { border-color: var(--gold); color: var(--text); }
+.mode-btn.active {
+  background: linear-gradient(135deg, #1a2a60, #4a0010);
+  border-color: var(--gold);
+  color: var(--gold);
+  font-weight: 700;
+}
+
+/* ===== STATS BAR ===== */
+.stats-bar {
+  width: calc(100% - 32px);
+  max-width: 688px;
+  margin: 2px 16px 0;
+  background: var(--surface);
+  border-radius: 10px;
+  padding: 7px 14px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+.stats-bar span b { color: var(--text); }
+.stats-bar .prog-wrap {
+  flex: 1;
+  height: 5px;
+  background: var(--surface3);
+  border-radius: 3px;
+  overflow: hidden;
+  min-width: 30px;
+}
+.stats-bar .prog-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--fr), var(--es));
+  border-radius: 3px;
+  transition: width 0.4s;
+}
+
+/* ===== CATEGORY ===== */
+.cat-scroll {
+  width: 100%;
+  max-width: 720px;
+  padding: 6px 16px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--fr) var(--surface);
+}
+.cat-scroll::-webkit-scrollbar { height: 4px; }
+.cat-scroll::-webkit-scrollbar-track { background: var(--surface); }
+.cat-scroll::-webkit-scrollbar-thumb { background: var(--fr); border-radius: 2px; }
+.cat-inner { display: flex; gap: 6px; width: max-content; }
+.cat-btn {
+  font-family: 'Noto Sans JP', sans-serif;
+  padding: 5px 12px;
+  border-radius: 14px;
+  border: 1.5px solid var(--surface3);
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.7rem;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.cat-btn:hover { border-color: var(--fr); color: var(--text); }
+.cat-btn.active {
+  background: var(--fr2);
+  border-color: var(--fr);
+  color: #fff;
+  font-weight: 700;
+}
+
+/* ===== CARD AREA ===== */
+.card-area {
+  width: 100%;
+  max-width: 720px;
+  padding: 14px 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ===== FLASHCARD 3D FLIP ===== */
+.flashcard-wrapper {
+  width: 100%;
+  min-height: 260px;
+  perspective: 1200px;
+  cursor: pointer;
+  /* Height is set dynamically by JS after render */
+}
+.flashcard {
+  width: 100%;
+  min-height: 260px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.45, 0.05, 0.55, 0.95), box-shadow 0.25s;
+  border-radius: var(--radius);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+}
+.flashcard-wrapper:hover .flashcard {
+  box-shadow: 0 10px 44px rgba(240,192,96,0.12);
+}
+.flashcard.revealed {
+  transform: rotateY(180deg);
+}
+.card-face {
+  position: absolute;
+  width: 100%;
+  min-height: 260px;
+  border-radius: var(--radius);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 24px 26px;
+}
+.card-front {
+  background: var(--surface);
+  border: 1.5px solid var(--surface3);
+}
+.card-back {
+  background: var(--surface2);
+  border: 1.5px solid rgba(240,192,96,0.25);
+  transform: rotateY(180deg);
+}
+.card-meta {
+  position: absolute; top: 12px; left: 16px;
+  display: flex; gap: 6px; align-items: center;
+  z-index: 1;
+}
+.card-cat {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  background: var(--surface3);
+  padding: 2px 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.card-mode-badge {
+  font-size: 0.65rem;
+  padding: 2px 7px;
+  border-radius: 8px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+.badge-jp { background: rgba(200,200,255,0.1); color: #a0aaff; border: 1px solid rgba(160,170,255,0.2); }
+.badge-fr { background: rgba(0,85,164,0.15); color: #7ab0ff; border: 1px solid rgba(0,85,164,0.3); }
+.badge-es { background: rgba(198,11,30,0.15); color: #ff8a94; border: 1px solid rgba(198,11,30,0.3); }
+.card-counter {
+  position: absolute; top: 12px; right: 16px;
+  font-size: 0.7rem; color: var(--text-muted);
+  z-index: 1;
+}
+.flip-hint {
+  position: absolute; bottom: 10px; right: 14px;
+  font-size: 0.62rem; color: var(--text-muted); opacity: 0.45;
+  pointer-events: none;
+}
+.card-question { text-align: center; width: 100%; }
+.card-answer { text-align: center; width: 100%; }
+
+/* Text sizes */
+.jp-text { font-size: clamp(1.3rem,4.5vw,1.8rem); font-weight: 700; color: var(--text); line-height: 1.4; }
+.fr-text {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.1rem,3.8vw,1.6rem); font-weight: 500;
+  color: #7ab0ff; line-height: 1.4; margin-bottom: 6px;
+}
+.es-text {
+  font-size: clamp(1rem,3.4vw,1.45rem); font-weight: 600;
+  color: #ff8a94; line-height: 1.4; margin-bottom: 6px;
+}
+.lang-label {
+  font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; padding: 1px 6px; border-radius: 5px; margin-right: 4px;
+}
+.label-fr { background: rgba(0,85,164,0.25); color: #7ab0ff; }
+.label-es { background: rgba(198,11,30,0.25); color: #ff8a94; }
+.hint-text { font-size: 0.72rem; color: var(--text-muted); margin-top: 14px; opacity: 0.6; }
+
+/* Answer dual block */
+.answer-block { display: flex; flex-direction: column; gap: 16px; width: 100%; }
+.lang-block {
+  border-radius: 12px;
+  padding: 14px 18px;
+  text-align: center;
+}
+.lang-block-fr { background: rgba(0,55,130,0.18); border: 1px solid rgba(0,85,164,0.3); }
+.lang-block-es { background: rgba(140,0,20,0.18); border: 1px solid rgba(198,11,30,0.3); }
+.lang-block-jp { background: rgba(80,80,120,0.15); border: 1px solid rgba(120,130,200,0.2); }
+
+/* Speak button */
+.speak-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  margin-top: 10px; padding: 6px 16px;
+  border-radius: 16px;
+  border: 1.5px solid rgba(100,200,100,0.35);
+  background: rgba(100,200,100,0.08);
+  color: #6dc87a;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.78rem; font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.speak-btn:hover { background: rgba(100,200,100,0.15); }
+.speak-btn.playing { color: #a0ffa0; border-color: #a0ffa0; animation: pulse 0.8s infinite; }
+.speak-btn.muted-state { color: var(--text-muted); border-color: rgba(120,130,160,0.3); background: transparent; }
+@keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
+
+/* ===== CONTROLS ===== */
+.card-controls {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 720px;
+}
+.ctrl-btn {
+  font-family: 'Noto Sans JP', sans-serif;
+  padding: 9px 20px;
+  border-radius: 14px;
+  border: 1.5px solid var(--surface3);
+  background: var(--surface2);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.ctrl-btn:hover { background: var(--surface3); border-color: rgba(240,192,96,0.4); }
+.ctrl-btn.primary {
+  background: linear-gradient(135deg, var(--fr2), var(--es2));
+  border-color: var(--gold);
+  color: var(--gold);
+  font-weight: 700;
+}
+.ctrl-btn.primary:hover { opacity: 0.9; transform: translateY(-1px); }
+.ctrl-btn.mastered { background: rgba(34,150,60,0.12); border-color: rgba(34,150,60,0.4); color: #4ec96e; font-weight: 700; }
+.ctrl-btn.mastered.done { background: rgba(34,150,60,0.25); color: #80ffaa; }
+
+/* ===== COMPLETE SCREEN ===== */
+.complete-screen {
+  display: none;
+  flex-direction: column; align-items: center; justify-content: center;
+  gap: 16px; padding: 40px 24px;
+  text-align: center;
+  width: 100%;
+  background: var(--surface);
+  border-radius: var(--radius);
+  border: 1.5px solid var(--gold);
+  box-shadow: 0 0 40px rgba(240,192,96,0.1);
+}
+.complete-screen.show { display: flex; }
+.complete-screen .big-emoji { font-size: 3rem; }
+.complete-screen h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold); }
+.complete-screen p { color: var(--text-muted); font-size: 0.9rem; }
+
+footer {
+  padding: 16px;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-align: center;
+  opacity: 0.5;
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-left">
+    <div class="flags">
+      <div class="flag flag-fr" title="フランス語"></div>
+      <span class="flag-sep">＋</span>
+      <div class="flag flag-es" title="スペイン語"></div>
+    </div>
+    <h1><span class="fr">Français</span><span class="sep">・</span><span class="es">Español</span> <span class="jp">A1フラッシュカード</span></h1>
+  </div>
+  <div class="header-right">
+    <button class="icon-btn" id="shuffleBtn" title="シャッフル">🔀</button>
+    <button class="icon-btn" id="muteBtn" title="ミュート">🔊</button>
+    <button class="icon-btn" id="resetBtn" title="覚えた記録をクリア">↺ リセット</button>
+  </div>
+</header>
+
+<!-- MODE -->
+<div class="mode-bar">
+  <button class="mode-btn active" data-mode="jp2fr_es">🇯🇵 → 🇫🇷＆🇪🇸</button>
+  <button class="mode-btn" data-mode="fr2jp_es">🇫🇷 → 🇯🇵＆🇪🇸</button>
+  <button class="mode-btn" data-mode="es2jp_fr">🇪🇸 → 🇯🇵＆🇫🇷</button>
+  <button class="mode-btn" data-mode="random">🎲 ランダム</button>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <span>全 <b id="totalCount">0</b></span>
+  <span>残 <b id="remainCount">0</b></span>
+  <span>✓ <b id="masteredCount">0</b></span>
+  <div class="prog-wrap"><div class="prog-fill" id="progressBar" style="width:0%"></div></div>
+  <span><b id="percentCount">0</b>%</span>
+</div>
+
+<!-- CATEGORY -->
+<div class="cat-scroll">
+  <div class="cat-inner" id="catInner"></div>
+</div>
+
+<!-- CARD AREA -->
+<div class="card-area">
+  <div class="flashcard-wrapper" onclick="handleCardClick()">
+    <div class="flashcard" id="flashcard">
+      <!-- FRONT -->
+      <div class="card-face card-front">
+        <div class="card-meta">
+          <span class="card-cat" id="cardCat">—</span>
+          <span class="card-mode-badge badge-jp" id="cardModeBadge">JP</span>
+        </div>
+        <span class="card-counter" id="cardCounter">1 / 1</span>
+        <div class="card-question" id="cardQuestion"></div>
+        <div class="flip-hint">👆 タップで答えを見る</div>
+      </div>
+      <!-- BACK -->
+      <div class="card-face card-back">
+        <div class="card-meta">
+          <span class="card-cat" id="cardCatBack">—</span>
+        </div>
+        <span class="card-counter" id="cardCounterBack"></span>
+        <div class="card-answer" id="cardAnswer"></div>
+        <div class="flip-hint">👆 タップで問題に戻る</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="complete-screen" id="completeScreen">
+    <div class="big-emoji">🎉</div>
+    <h2>このカテゴリー制覇！</h2>
+    <p>すべてのカードを覚えました。<br>リセットしてもう一度挑戦しましょう。</p>
+    <button class="ctrl-btn primary" onclick="resetAll()">↺ もう一度</button>
+  </div>
+
+  <div class="card-controls" id="cardControls">
+    <button class="ctrl-btn" onclick="prevCard()">◀ 戻る</button>
+    <button class="ctrl-btn" id="showBtn" onclick="revealCard()">▶ 答えを見る</button>
+    <button class="ctrl-btn" id="hideBtn" onclick="unrevealCard()" style="display:none">◀ 問題に戻す</button>
+    <button class="ctrl-btn mastered" id="masteredBtn" onclick="toggleMastered()">✓ 覚えた</button>
+    <button class="ctrl-btn primary" onclick="nextCard()">次へ ▶</button>
+  </div>
+</div>
+
+<footer>フランス語・スペイン語 A1レベル 約400例文 | CEFR A1完全カバー</footer>
+
+<script>
+// ============================================================
+// DATA: ~400 cards, deduplicated & categorized
+// ============================================================
+const RAW_DATA = [
+// --- 1. 挨拶・基本表現 ---
+{cat:"挨拶・基本",fr:"Bonjour !",es:"¡Hola! / ¡Buenos días!",jp:"こんにちは！"},
+{cat:"挨拶・基本",fr:"Bonsoir !",es:"¡Buenas tardes! / ¡Buenas noches!",jp:"こんばんは！"},
+{cat:"挨拶・基本",fr:"Bonne nuit !",es:"¡Buenas noches!",jp:"おやすみなさい！"},
+{cat:"挨拶・基本",fr:"Salut !",es:"¡Hola!",jp:"やあ！（カジュアル）"},
+{cat:"挨拶・基本",fr:"Au revoir !",es:"¡Adiós!",jp:"さようなら！"},
+{cat:"挨拶・基本",fr:"À bientôt !",es:"¡Hasta pronto!",jp:"また近いうちに！"},
+{cat:"挨拶・基本",fr:"À demain !",es:"¡Hasta mañana!",jp:"また明日！"},
+{cat:"挨拶・基本",fr:"À tout à l'heure !",es:"¡Hasta luego!",jp:"また後ほど！"},
+{cat:"挨拶・基本",fr:"Bonne journée !",es:"¡Que tenga un buen día!",jp:"良い一日を！"},
+{cat:"挨拶・基本",fr:"Bon week-end !",es:"¡Buen fin de semana!",jp:"良い週末を！"},
+{cat:"挨拶・基本",fr:"Comment allez-vous ?",es:"¿Cómo está usted?",jp:"お元気ですか？（敬語）"},
+{cat:"挨拶・基本",fr:"Comment vas-tu ?",es:"¿Cómo estás?",jp:"元気？（カジュアル）"},
+{cat:"挨拶・基本",fr:"Je vais bien, merci.",es:"Estoy bien, gracias.",jp:"元気です、ありがとう。"},
+{cat:"挨拶・基本",fr:"Ça va bien.",es:"Todo bien.",jp:"順調だよ。"},
+{cat:"挨拶・基本",fr:"Comme ci, comme ça.",es:"Más o menos.",jp:"まあまあです。"},
+{cat:"挨拶・基本",fr:"Pas mal.",es:"No está mal.",jp:"悪くないよ。"},
+{cat:"挨拶・基本",fr:"Merci beaucoup.",es:"Muchas gracias.",jp:"どうもありがとう。"},
+{cat:"挨拶・基本",fr:"De rien.",es:"De nada.",jp:"どういたしまして。"},
+{cat:"挨拶・基本",fr:"Je vous en prie.",es:"Con mucho gusto.",jp:"どういたしまして。（敬語）"},
+{cat:"挨拶・基本",fr:"S'il vous plaît.",es:"Por favor.",jp:"お願いします。"},
+{cat:"挨拶・基本",fr:"Excusez-moi.",es:"Perdón. / Disculpe.",jp:"すみません。"},
+{cat:"挨拶・基本",fr:"Je suis désolé(e).",es:"Lo siento.",jp:"申し訳ありません。"},
+{cat:"挨拶・基本",fr:"Ce n'est pas grave.",es:"No pasa nada.",jp:"大丈夫ですよ。"},
+{cat:"挨拶・基本",fr:"Avec plaisir.",es:"Con mucho gusto.",jp:"喜んで。"},
+{cat:"挨拶・基本",fr:"Bienvenue !",es:"¡Bienvenido/a!",jp:"ようこそ！"},
+{cat:"挨拶・基本",fr:"Félicitations !",es:"¡Felicidades!",jp:"おめでとう！"},
+{cat:"挨拶・基本",fr:"Bon anniversaire !",es:"¡Feliz cumpleaños!",jp:"誕生日おめでとう！"},
+{cat:"挨拶・基本",fr:"Bonne chance !",es:"¡Buena suerte!",jp:"幸運を！"},
+{cat:"挨拶・基本",fr:"Bon appétit !",es:"¡Buen provecho!",jp:"召し上がれ！"},
+{cat:"挨拶・基本",fr:"Santé !",es:"¡Salud!",jp:"乾杯！"},
+
+// --- 2. 自己紹介 ---
+{cat:"自己紹介",fr:"Comment vous appelez-vous ?",es:"¿Cómo se llama usted?",jp:"お名前は何ですか？"},
+{cat:"自己紹介",fr:"Je m'appelle Marie.",es:"Me llamo María.",jp:"私はマリーです。"},
+{cat:"自己紹介",fr:"Enchanté(e).",es:"Encantado/a. / Mucho gusto.",jp:"はじめまして。"},
+{cat:"自己紹介",fr:"Je suis japonais(e).",es:"Soy japonés / japonesa.",jp:"私は日本人です。"},
+{cat:"自己紹介",fr:"Je viens du Japon.",es:"Vengo de Japón.",jp:"私は日本から来ました。"},
+{cat:"自己紹介",fr:"J'habite à Tokyo.",es:"Vivo en Tokio.",jp:"東京に住んでいます。"},
+{cat:"自己紹介",fr:"J'ai 25 ans.",es:"Tengo 25 años.",jp:"25歳です。"},
+{cat:"自己紹介",fr:"Je suis étudiant(e).",es:"Soy estudiante.",jp:"私は学生です。"},
+{cat:"自己紹介",fr:"Je travaille dans une entreprise.",es:"Trabajo en una empresa.",jp:"会社で働いています。"},
+{cat:"自己紹介",fr:"Mon père est médecin.",es:"Mi padre es médico.",jp:"私の父は医者です。"},
+{cat:"自己紹介",fr:"Je parle un peu français.",es:"Hablo un poco de español.",jp:"フランス語・スペイン語を少し話します。"},
+{cat:"自己紹介",fr:"J'apprends le français.",es:"Estoy aprendiendo español.",jp:"フランス語・スペイン語を勉強しています。"},
+{cat:"自己紹介",fr:"Ma langue maternelle est le japonais.",es:"Mi lengua materna es el japonés.",jp:"私の母国語は日本語です。"},
+{cat:"自己紹介",fr:"Je suis marié(e).",es:"Estoy casado/a.",jp:"私は既婚です。"},
+{cat:"自己紹介",fr:"Je suis célibataire.",es:"Soy soltero/a.",jp:"私は独身です。"},
+{cat:"自己紹介",fr:"Quelle est votre nationalité ?",es:"¿Cuál es su nacionalidad?",jp:"国籍は何ですか？"},
+{cat:"自己紹介",fr:"D'où viens-tu ?",es:"¿De dónde eres?",jp:"どこ出身ですか？"},
+{cat:"自己紹介",fr:"Quel âge as-tu ?",es:"¿Cuántos años tienes?",jp:"何歳ですか？"},
+{cat:"自己紹介",fr:"Je suis né(e) à Tokyo.",es:"Nací en Tokio.",jp:"私は東京で生まれました。"},
+
+// --- 3. 意思疎通 ---
+{cat:"意思疎通",fr:"Je ne comprends pas.",es:"No entiendo.",jp:"分かりません。"},
+{cat:"意思疎通",fr:"Je comprends.",es:"Entiendo.",jp:"分かります。"},
+{cat:"意思疎通",fr:"Vous pouvez répéter, s'il vous plaît ?",es:"¿Puede repetir, por favor?",jp:"もう一度言っていただけますか？"},
+{cat:"意思疎通",fr:"Parlez plus lentement, s'il vous plaît.",es:"Hable más despacio, por favor.",jp:"もっとゆっくり話してください。"},
+{cat:"意思疎通",fr:"Qu'est-ce que ça veut dire ?",es:"¿Qué significa eso?",jp:"それはどういう意味ですか？"},
+{cat:"意思疎通",fr:"Comment on dit « ___ » en français ?",es:"¿Cómo se dice « ___ » en español?",jp:"「___」はフランス語/スペイン語で何と言いますか？"},
+{cat:"意思疎通",fr:"Je ne sais pas.",es:"No lo sé.",jp:"知りません。"},
+{cat:"意思疎通",fr:"Pouvez-vous m'aider ?",es:"¿Puede ayudarme?",jp:"手伝っていただけますか？"},
+{cat:"意思疎通",fr:"C'est correct ?",es:"¿Está bien?",jp:"これで合っていますか？"},
+{cat:"意思疎通",fr:"Oui, d'accord.",es:"Sí, de acuerdo.",jp:"はい、分かりました。"},
+
+// --- 4. 基本疑問文 ---
+{cat:"基本疑問文",fr:"Qui est-ce ?",es:"¿Quién es?",jp:"誰ですか？"},
+{cat:"基本疑問文",fr:"Qu'est-ce que c'est ?",es:"¿Qué es esto?",jp:"これは何ですか？"},
+{cat:"基本疑問文",fr:"Où est la gare ?",es:"¿Dónde está la estación?",jp:"駅はどこですか？"},
+{cat:"基本疑問文",fr:"Quand pars-tu ?",es:"¿Cuándo sales?",jp:"いつ出発しますか？"},
+{cat:"基本疑問文",fr:"Pourquoi ?",es:"¿Por qué?",jp:"なぜですか？"},
+{cat:"基本疑問文",fr:"Combien ça coûte ?",es:"¿Cuánto cuesta?",jp:"いくらですか？"},
+{cat:"基本疑問文",fr:"Comment allez-vous à l'école ?",es:"¿Cómo vas a la escuela?",jp:"学校にどうやって行きますか？"},
+{cat:"基本疑問文",fr:"Est-ce qu'il y a un hôtel ici ?",es:"¿Hay un hotel aquí?",jp:"ここにホテルはありますか？"},
+{cat:"基本疑問文",fr:"À quelle heure commence le film ?",es:"¿A qué hora empieza la película?",jp:"映画は何時に始まりますか？"},
+{cat:"基本疑問文",fr:"Quelle est la date aujourd'hui ?",es:"¿Cuál es la fecha de hoy?",jp:"今日は何日ですか？"},
+
+// --- 5. 数字・語彙 ---
+{cat:"数字・語彙",fr:"zéro / un / deux / trois",es:"cero / uno / dos / tres",jp:"0 / 1 / 2 / 3"},
+{cat:"数字・語彙",fr:"quatre / cinq / six / sept",es:"cuatro / cinco / seis / siete",jp:"4 / 5 / 6 / 7"},
+{cat:"数字・語彙",fr:"huit / neuf / dix",es:"ocho / nueve / diez",jp:"8 / 9 / 10"},
+{cat:"数字・語彙",fr:"onze / douze / treize",es:"once / doce / trece",jp:"11 / 12 / 13"},
+{cat:"数字・語彙",fr:"quatorze / quinze / seize",es:"catorce / quince / dieciséis",jp:"14 / 15 / 16"},
+{cat:"数字・語彙",fr:"vingt / trente / quarante",es:"veinte / treinta / cuarenta",jp:"20 / 30 / 40"},
+{cat:"数字・語彙",fr:"cinquante / soixante / cent",es:"cincuenta / sesenta / cien",jp:"50 / 60 / 100"},
+{cat:"数字・語彙",fr:"soixante-dix / quatre-vingts / quatre-vingt-dix",es:"setenta / ochenta / noventa",jp:"70 / 80 / 90"},
+{cat:"数字・語彙",fr:"premier / deuxième / troisième",es:"primero / segundo / tercero",jp:"1番目 / 2番目 / 3番目"},
+
+// --- 6. 時間・曜日・月 ---
+{cat:"時間・日付",fr:"Quelle heure est-il ?",es:"¿Qué hora es?",jp:"今何時ですか？"},
+{cat:"時間・日付",fr:"Il est trois heures.",es:"Son las tres.",jp:"3時です。"},
+{cat:"時間・日付",fr:"Il est midi.",es:"Es mediodía.",jp:"正午です。"},
+{cat:"時間・日付",fr:"Il est six heures et demie.",es:"Son las seis y media.",jp:"6時半です。"},
+{cat:"時間・日付",fr:"Il est cinq heures et quart.",es:"Son las cinco y cuarto.",jp:"5時15分です。"},
+{cat:"時間・日付",fr:"À quelle heure ? À sept heures.",es:"¿A qué hora? A las siete.",jp:"何時に？ 7時に。"},
+{cat:"時間・日付",fr:"Quel jour sommes-nous ?",es:"¿Qué día es hoy?",jp:"今日は何曜日ですか？"},
+{cat:"時間・日付",fr:"Aujourd'hui c'est lundi.",es:"Hoy es lunes.",jp:"今日は月曜日です。"},
+{cat:"時間・日付",fr:"lundi / mardi / mercredi",es:"lunes / martes / miércoles",jp:"月曜 / 火曜 / 水曜"},
+{cat:"時間・日付",fr:"jeudi / vendredi / samedi / dimanche",es:"jueves / viernes / sábado / domingo",jp:"木曜 / 金曜 / 土曜 / 日曜"},
+{cat:"時間・日付",fr:"Nous sommes le 15 mars.",es:"Hoy es el 15 de marzo.",jp:"今日は3月15日です。"},
+{cat:"時間・日付",fr:"janvier / février / mars / avril",es:"enero / febrero / marzo / abril",jp:"1月 / 2月 / 3月 / 4月"},
+{cat:"時間・日付",fr:"mai / juin / juillet / août",es:"mayo / junio / julio / agosto",jp:"5月 / 6月 / 7月 / 8月"},
+{cat:"時間・日付",fr:"septembre / octobre / novembre / décembre",es:"septiembre / octubre / noviembre / diciembre",jp:"9月 / 10月 / 11月 / 12月"},
+{cat:"時間・日付",fr:"le matin / l'après-midi / le soir",es:"la mañana / la tarde / la noche",jp:"朝 / 午後 / 夜"},
+{cat:"時間・日付",fr:"aujourd'hui / hier / demain",es:"hoy / ayer / mañana",jp:"今日 / 昨日 / 明日"},
+{cat:"時間・日付",fr:"maintenant / plus tard / bientôt",es:"ahora / más tarde / pronto",jp:"今 / 後で / すぐに"},
+{cat:"時間・日付",fr:"toujours / souvent / parfois / jamais",es:"siempre / a menudo / a veces / nunca",jp:"いつも / よく / 時々 / 決して〜ない"},
+{cat:"時間・日付",fr:"le printemps / l'été / l'automne / l'hiver",es:"la primavera / el verano / el otoño / el invierno",jp:"春 / 夏 / 秋 / 冬"},
+
+// --- 7. 家族・人間関係 ---
+{cat:"家族・人物",fr:"J'ai un frère et une sœur.",es:"Tengo un hermano y una hermana.",jp:"兄（弟）と姉（妹）がいます。"},
+{cat:"家族・人物",fr:"Je n'ai pas d'enfants.",es:"No tengo hijos.",jp:"子供はいません。"},
+{cat:"家族・人物",fr:"Mes parents habitent à Osaka.",es:"Mis padres viven en Osaka.",jp:"両親は大阪に住んでいます。"},
+{cat:"家族・人物",fr:"C'est mon ami.",es:"Es mi amigo.",jp:"彼は私の友達です。"},
+{cat:"家族・人物",fr:"Il s'appelle Taro.",es:"Se llama Taro.",jp:"彼の名前はタロウです。"},
+{cat:"家族・人物",fr:"Elle est gentille.",es:"Ella es amable.",jp:"彼女は親切です。"},
+{cat:"家族・人物",fr:"le père / la mère / les parents",es:"el padre / la madre / los padres",jp:"父 / 母 / 両親"},
+{cat:"家族・人物",fr:"le frère / la sœur / les enfants",es:"el hermano / la hermana / los hijos",jp:"兄弟 / 姉妹 / 子供たち"},
+{cat:"家族・人物",fr:"le grand-père / la grand-mère",es:"el abuelo / la abuela",jp:"祖父 / 祖母"},
+{cat:"家族・人物",fr:"le mari / la femme",es:"el marido / la mujer",jp:"夫 / 妻"},
+{cat:"家族・人物",fr:"Il est grand et intelligent.",es:"Él es alto e inteligente.",jp:"彼は背が高くて頭が良いです。"},
+{cat:"家族・人物",fr:"Je suis fils / fille unique.",es:"Soy hijo/a único/a.",jp:"私は一人っ子です。"},
+
+// --- 8. 職業・仕事 ---
+{cat:"職業・仕事",fr:"Je travaille dans un bureau.",es:"Trabajo en una oficina.",jp:"オフィスで働いています。"},
+{cat:"職業・仕事",fr:"Je travaille à domicile.",es:"Trabajo desde casa.",jp:"在宅で働いています。"},
+{cat:"職業・仕事",fr:"J'aime mon travail.",es:"Me gusta mi trabajo.",jp:"私は仕事が好きです。"},
+{cat:"職業・仕事",fr:"Je travaille de 9h à 18h.",es:"Trabajo de 9 a 6.",jp:"9時から18時まで働きます。"},
+{cat:"職業・仕事",fr:"J'ai un examen demain.",es:"Tengo un examen mañana.",jp:"明日試験があります。"},
+{cat:"職業・仕事",fr:"J'étudie l'économie.",es:"Estudio economía.",jp:"経済学を勉強しています。"},
+{cat:"職業・仕事",fr:"Je vais à l'université.",es:"Voy a la universidad.",jp:"大学に通っています。"},
+{cat:"職業・仕事",fr:"Je suis en vacances.",es:"Estoy de vacaciones.",jp:"休暇中です。"},
+{cat:"職業・仕事",fr:"médecin / infirmier(ère) / professeur",es:"médico / enfermero/a / profesor/a",jp:"医者 / 看護師 / 先生"},
+{cat:"職業・仕事",fr:"ingénieur / cuisinier / employé(e)",es:"ingeniero / cocinero / empleado/a",jp:"エンジニア / 料理人 / 社員"},
+
+// --- 9. 日常生活・習慣 ---
+{cat:"日常生活",fr:"Je me lève à sept heures.",es:"Me levanto a las siete.",jp:"7時に起きます。"},
+{cat:"日常生活",fr:"Je prends une douche.",es:"Me ducho.",jp:"シャワーを浴びます。"},
+{cat:"日常生活",fr:"Je me brosse les dents.",es:"Me cepillo los dientes.",jp:"歯を磨きます。"},
+{cat:"日常生活",fr:"Je m'habille.",es:"Me visto.",jp:"服を着ます。"},
+{cat:"日常生活",fr:"Je prends le petit-déjeuner.",es:"Desayuno.",jp:"朝食をとります。"},
+{cat:"日常生活",fr:"Je bois du café.",es:"Tomo café.",jp:"コーヒーを飲みます。"},
+{cat:"日常生活",fr:"Je pars de la maison à huit heures.",es:"Salgo de casa a las ocho.",jp:"8時に家を出ます。"},
+{cat:"日常生活",fr:"Je prends le métro.",es:"Tomo el metro.",jp:"地下鉄に乗ります。"},
+{cat:"日常生活",fr:"Je vais au travail à vélo.",es:"Voy al trabajo en bicicleta.",jp:"自転車で仕事に行きます。"},
+{cat:"日常生活",fr:"Je déjeune à midi.",es:"Almuerzo a mediodía.",jp:"正午に昼食をとります。"},
+{cat:"日常生活",fr:"Je finis le travail à six heures.",es:"Termino el trabajo a las seis.",jp:"6時に仕事を終えます。"},
+{cat:"日常生活",fr:"Je rentre à la maison.",es:"Vuelvo a casa.",jp:"家に帰ります。"},
+{cat:"日常生活",fr:"Je prépare le dîner.",es:"Preparo la cena.",jp:"夕食を準備します。"},
+{cat:"日常生活",fr:"Je regarde la télévision.",es:"Veo la televisión.",jp:"テレビを見ます。"},
+{cat:"日常生活",fr:"Je lis un livre.",es:"Leo un libro.",jp:"本を読みます。"},
+{cat:"日常生活",fr:"Je me couche à onze heures.",es:"Me acuesto a las once.",jp:"11時に寝ます。"},
+{cat:"日常生活",fr:"Je fais le ménage.",es:"Hago la limpieza.",jp:"掃除をします。"},
+{cat:"日常生活",fr:"Je fais la lessive.",es:"Lavo la ropa.",jp:"洗濯をします。"},
+{cat:"日常生活",fr:"Je fais les courses.",es:"Hago la compra.",jp:"買い物をします。"},
+{cat:"日常生活",fr:"Je sors les poubelles.",es:"Saco la basura.",jp:"ゴミを出します。"},
+
+// --- 10. 好き嫌い・感情 ---
+{cat:"好き嫌い・感情",fr:"J'aime la musique.",es:"Me gusta la música.",jp:"音楽が好きです。"},
+{cat:"好き嫌い・感情",fr:"Je n'aime pas la pluie.",es:"No me gusta la lluvia.",jp:"雨は好きではありません。"},
+{cat:"好き嫌い・感情",fr:"J'adore voyager.",es:"Me encanta viajar.",jp:"旅行が大好きです。"},
+{cat:"好き嫌い・感情",fr:"Je préfère le thé.",es:"Prefiero el té.",jp:"紅茶の方が好きです。"},
+{cat:"好き嫌い・感情",fr:"Tu aimes le sport ?",es:"¿Te gusta el deporte?",jp:"スポーツは好きですか？"},
+{cat:"好き嫌い・感情",fr:"Je suis content(e).",es:"Estoy contento/a.",jp:"嬉しいです。"},
+{cat:"好き嫌い・感情",fr:"Je suis triste.",es:"Estoy triste.",jp:"悲しいです。"},
+{cat:"好き嫌い・感情",fr:"Je suis fatigué(e).",es:"Estoy cansado/a.",jp:"疲れています。"},
+{cat:"好き嫌い・感情",fr:"J'ai faim.",es:"Tengo hambre.",jp:"お腹が空いています。"},
+{cat:"好き嫌い・感情",fr:"J'ai soif.",es:"Tengo sed.",jp:"喉が渇いています。"},
+{cat:"好き嫌い・感情",fr:"J'ai froid.",es:"Tengo frío.",jp:"寒いです。（体感）"},
+{cat:"好き嫌い・感情",fr:"J'ai chaud.",es:"Tengo calor.",jp:"暑いです。（体感）"},
+{cat:"好き嫌い・感情",fr:"C'est intéressant.",es:"Es interesante.",jp:"面白いです。"},
+{cat:"好き嫌い・感情",fr:"C'est difficile.",es:"Es difícil.",jp:"難しいです。"},
+{cat:"好き嫌い・感情",fr:"C'est facile.",es:"Es fácil.",jp:"簡単です。"},
+
+// --- 11. 欲求・依頼・提案 ---
+{cat:"欲求・依頼・提案",fr:"Je voudrais un café, s'il vous plaît.",es:"Quisiera un café, por favor.",jp:"コーヒーをください。"},
+{cat:"欲求・依頼・提案",fr:"Je veux aller au cinéma.",es:"Quiero ir al cine.",jp:"映画に行きたいです。"},
+{cat:"欲求・依頼・提案",fr:"Tu veux venir ?",es:"¿Quieres venir?",jp:"来ませんか？"},
+{cat:"欲求・依頼・提案",fr:"On va au parc ?",es:"¿Vamos al parque?",jp:"公園に行きませんか？"},
+{cat:"欲求・依頼・提案",fr:"Je peux entrer ?",es:"¿Puedo entrar?",jp:"入ってもいいですか？"},
+{cat:"欲求・依頼・提案",fr:"Attendez un moment.",es:"Espere un momento.",jp:"少々お待ちください。"},
+{cat:"欲求・依頼・提案",fr:"Aidez-moi, s'il vous plaît !",es:"¡Ayúdeme, por favor!",jp:"助けてください！"},
+{cat:"欲求・依頼・提案",fr:"Je dois travailler.",es:"Tengo que trabajar.",jp:"働かなければなりません。"},
+{cat:"欲求・依頼・提案",fr:"Il faut étudier.",es:"Hay que estudiar.",jp:"勉強する必要があります。"},
+{cat:"欲求・依頼・提案",fr:"Je ne peux pas venir demain.",es:"No puedo venir mañana.",jp:"明日は来られません。"},
+
+// --- 12. 近接未来・過去 ---
+{cat:"近接未来・過去",fr:"Je vais manger.",es:"Voy a comer.",jp:"今から食べます。"},
+{cat:"近接未来・過去",fr:"Je vais étudier demain.",es:"Voy a estudiar mañana.",jp:"明日勉強します。"},
+{cat:"近接未来・過去",fr:"Nous allons voyager.",es:"Vamos a viajar.",jp:"旅行します。（近接未来）"},
+{cat:"近接未来・過去",fr:"Je vais sortir ce soir.",es:"Voy a salir esta noche.",jp:"今夜出かけます。"},
+{cat:"近接未来・過去",fr:"Hier j'ai travaillé.",es:"Ayer trabajé.",jp:"昨日働きました。"},
+{cat:"近接未来・過去",fr:"J'ai mangé au restaurant.",es:"Comí en un restaurante.",jp:"レストランで食べました。"},
+{cat:"近接未来・過去",fr:"J'ai vu ce film.",es:"Vi esa película.",jp:"その映画を見ました。"},
+{cat:"近接未来・過去",fr:"Qu'est-ce que tu as fait hier ?",es:"¿Qué hiciste ayer?",jp:"昨日何をしましたか？"},
+{cat:"近接未来・過去",fr:"J'ai réservé un hôtel.",es:"He reservado un hotel.",jp:"ホテルを予約しました。"},
+
+// --- 13. 食事・レストラン ---
+{cat:"食事・レストラン",fr:"Une table pour deux, s'il vous plaît.",es:"Una mesa para dos, por favor.",jp:"2人用のテーブルをお願いします。"},
+{cat:"食事・レストラン",fr:"La carte, s'il vous plaît.",es:"La carta, por favor.",jp:"メニューをください。"},
+{cat:"食事・レストラン",fr:"Qu'est-ce que vous recommandez ?",es:"¿Qué recomienda?",jp:"おすすめは何ですか？"},
+{cat:"食事・レストラン",fr:"Je voudrais commander.",es:"Quisiera pedir.",jp:"注文したいのですが。"},
+{cat:"食事・レストラン",fr:"Je prends le steak.",es:"Tomo el filete.",jp:"ステーキにします。"},
+{cat:"食事・レストラン",fr:"Un verre d'eau, s'il vous plaît.",es:"Un vaso de agua, por favor.",jp:"水を一杯ください。"},
+{cat:"食事・レストラン",fr:"L'addition, s'il vous plaît.",es:"La cuenta, por favor.",jp:"お会計をお願いします。"},
+{cat:"食事・レストラン",fr:"Je peux payer par carte ?",es:"¿Puedo pagar con tarjeta?",jp:"カードで払えますか？"},
+{cat:"食事・レストラン",fr:"Gardez la monnaie.",es:"Quédese con el cambio.",jp:"お釣りは結構です。"},
+{cat:"食事・レストラン",fr:"C'est délicieux !",es:"¡Está delicioso!",jp:"とても美味しいです！"},
+{cat:"食事・レストラン",fr:"C'est pour ici ou à emporter ?",es:"¿Para aquí o para llevar?",jp:"店内ですか持ち帰りですか？"},
+{cat:"食事・レストラン",fr:"Je suis végétarien(ne).",es:"Soy vegetariano/a.",jp:"私はベジタリアンです。"},
+{cat:"食事・レストラン",fr:"Je suis allergique aux noix.",es:"Soy alérgico/a a los frutos secos.",jp:"私はナッツアレルギーです。"},
+{cat:"食事・レストラン",fr:"Sans sucre, s'il vous plaît.",es:"Sin azúcar, por favor.",jp:"砂糖なしでお願いします。"},
+{cat:"食事・レストラン",fr:"C'était délicieux, merci.",es:"Estaba delicioso, gracias.",jp:"おいしかったです、ありがとう。"},
+
+// --- 14. 飲み物・食べ物の語彙 ---
+{cat:"飲食語彙",fr:"l'eau / le café / le thé / le lait",es:"el agua / el café / el té / la leche",jp:"水 / コーヒー / 紅茶 / 牛乳"},
+{cat:"飲食語彙",fr:"le jus d'orange / la bière / le vin",es:"el zumo de naranja / la cerveza / el vino",jp:"オレンジジュース / ビール / ワイン"},
+{cat:"飲食語彙",fr:"le pain / le riz / les pâtes",es:"el pan / el arroz / la pasta",jp:"パン / 米 / パスタ"},
+{cat:"飲食語彙",fr:"la viande / le bœuf / le porc / le poulet",es:"la carne / la carne de res / el cerdo / el pollo",jp:"肉 / 牛肉 / 豚肉 / 鶏肉"},
+{cat:"飲食語彙",fr:"le poisson / l'œuf / le fromage",es:"el pescado / el huevo / el queso",jp:"魚 / 卵 / チーズ"},
+{cat:"飲食語彙",fr:"la salade / la soupe / les légumes",es:"la ensalada / la sopa / las verduras",jp:"サラダ / スープ / 野菜"},
+{cat:"飲食語彙",fr:"la tomate / la carotte / l'oignon",es:"el tomate / la zanahoria / la cebolla",jp:"トマト / にんじん / 玉ねぎ"},
+{cat:"飲食語彙",fr:"la pomme / l'orange / la banane / la fraise",es:"la manzana / la naranja / el plátano / la fresa",jp:"りんご / オレンジ / バナナ / いちご"},
+{cat:"飲食語彙",fr:"le gâteau / la glace / le chocolat",es:"el pastel / el helado / el chocolate",jp:"ケーキ / アイスクリーム / チョコレート"},
+{cat:"飲食語彙",fr:"C'est sucré / salé / amer / acide / épicé.",es:"Está dulce / salado / amargo / ácido / picante.",jp:"甘い / 塩辛い / 苦い / 酸っぱい / 辛い。"},
+
+// --- 15. 買い物 ---
+{cat:"買い物",fr:"Je cherche un cadeau.",es:"Busco un regalo.",jp:"プレゼントを探しています。"},
+{cat:"買い物",fr:"Je regarde juste.",es:"Solo estoy mirando.",jp:"見ているだけです。"},
+{cat:"買い物",fr:"Avez-vous une autre taille ?",es:"¿Tiene otra talla?",jp:"別のサイズはありますか？"},
+{cat:"買い物",fr:"C'est trop grand / petit.",es:"Es demasiado grande / pequeño.",jp:"大きすぎ / 小さすぎます。"},
+{cat:"買い物",fr:"Ça me va bien.",es:"Me queda bien.",jp:"ぴったりです。"},
+{cat:"買い物",fr:"De quelle couleur ?",es:"¿De qué color?",jp:"何色ですか？"},
+{cat:"買い物",fr:"Je préfère le noir.",es:"Prefiero el negro.",jp:"黒の方がいいです。"},
+{cat:"買い物",fr:"Je prends ça.",es:"Me llevo esto.",jp:"これにします。"},
+{cat:"買い物",fr:"Où est la caisse ?",es:"¿Dónde está la caja?",jp:"レジはどこですか？"},
+{cat:"買い物",fr:"Je peux essayer ?",es:"¿Puedo probarme esto?",jp:"試着してもいいですか？"},
+{cat:"買い物",fr:"Je paie en espèces.",es:"Pago en efectivo.",jp:"現金で払います。"},
+{cat:"買い物",fr:"C'est trop cher.",es:"Es demasiado caro.",jp:"高すぎます。"},
+{cat:"買い物",fr:"Vous avez moins cher ?",es:"¿Tiene algo más barato?",jp:"もっと安いものはありますか？"},
+{cat:"買い物",fr:"Je voudrais un remboursement.",es:"Quisiera un reembolso.",jp:"返金してほしいのですが。"},
+
+// --- 16. 色の語彙 ---
+{cat:"色・形容詞",fr:"blanc / noir / rouge / bleu",es:"blanco / negro / rojo / azul",jp:"白 / 黒 / 赤 / 青"},
+{cat:"色・形容詞",fr:"vert / jaune / orange / rose",es:"verde / amarillo / naranja / rosa",jp:"緑 / 黄色 / オレンジ / ピンク"},
+{cat:"色・形容詞",fr:"violet / marron / gris / beige",es:"violeta / marrón / gris / beige",jp:"紫 / 茶色 / グレー / ベージュ"},
+{cat:"色・形容詞",fr:"C'est grand. / La maison est petite.",es:"Es grande. / La casa es pequeña.",jp:"大きいです。/ 家は小さいです。"},
+{cat:"色・形容詞",fr:"C'est nouveau. / C'est vieux.",es:"Es nuevo. / Es viejo.",jp:"新しいです。/ 古いです。"},
+{cat:"色・形容詞",fr:"Il est content. / Je suis triste.",es:"Está contento. / Estoy triste.",jp:"彼は嬉しいです。/ 私は悲しいです。"},
+{cat:"色・形容詞",fr:"Le chat est noir.",es:"El gato es negro.",jp:"猫は黒いです。"},
+{cat:"色・形容詞",fr:"Quel est votre couleur préférée ?",es:"¿Cuál es tu color favorito?",jp:"好きな色は何ですか？"},
+
+// --- 17. 道案内・位置 ---
+{cat:"道案内・交通",fr:"Excusez-moi, je suis perdu(e).",es:"Disculpe, estoy perdido/a.",jp:"すみません、道に迷いました。"},
+{cat:"道案内・交通",fr:"Allez tout droit.",es:"Siga todo recto.",jp:"まっすぐ行ってください。"},
+{cat:"道案内・交通",fr:"Tournez à droite.",es:"Gire a la derecha.",jp:"右に曲がってください。"},
+{cat:"道案内・交通",fr:"Tournez à gauche.",es:"Gire a la izquierda.",jp:"左に曲がってください。"},
+{cat:"道案内・交通",fr:"C'est au coin de la rue.",es:"Está en la esquina.",jp:"角にあります。"},
+{cat:"道案内・交通",fr:"C'est en face de... / à côté de...",es:"Está enfrente de... / al lado de...",jp:"〜の正面 / 〜の隣にあります。"},
+{cat:"道案内・交通",fr:"C'est à cinq minutes à pied.",es:"Está a cinco minutos a pie.",jp:"歩いて5分です。"},
+{cat:"道案内・交通",fr:"Traversez la rue.",es:"Cruce la calle.",jp:"通りを渡ってください。"},
+{cat:"道案内・交通",fr:"Continuez jusqu'au feu.",es:"Siga hasta el semáforo.",jp:"信号まで進んでください。"},
+{cat:"道案内・交通",fr:"ici / là / là-bas",es:"aquí / ahí / allí",jp:"ここ / そこ / あそこ"},
+{cat:"道案内・交通",fr:"devant / derrière / à côté de / entre",es:"delante / detrás / al lado de / entre",jp:"前 / 後ろ / 隣 / 間"},
+{cat:"道案内・交通",fr:"près de / loin de",es:"cerca de / lejos de",jp:"〜の近くに / 〜から遠くに"},
+{cat:"道案内・交通",fr:"C'est à combien de minutes à pied ?",es:"¿A cuántos minutos a pie?",jp:"歩いて何分ですか？"},
+
+// --- 18. 交通手段 ---
+{cat:"道案内・交通",fr:"Un billet, s'il vous plaît.",es:"Un billete, por favor.",jp:"切符を一枚ください。"},
+{cat:"道案内・交通",fr:"Un aller simple / Un aller-retour.",es:"Un billete de ida. / De ida y vuelta.",jp:"片道 / 往復切符をください。"},
+{cat:"道案内・交通",fr:"À quelle heure part le train ?",es:"¿A qué hora sale el tren?",jp:"電車は何時に出ますか？"},
+{cat:"道案内・交通",fr:"Ce train va à Paris ?",es:"¿Este tren va a París?",jp:"この電車はパリに行きますか？"},
+{cat:"道案内・交通",fr:"Où dois-je changer ?",es:"¿Dónde tengo que cambiar?",jp:"どこで乗り換えますか？"},
+{cat:"道案内・交通",fr:"Cette place est libre ?",es:"¿Está libre este asiento?",jp:"この席は空いていますか？"},
+{cat:"道案内・交通",fr:"Je descends ici.",es:"Me bajo aquí.",jp:"ここで降ります。"},
+{cat:"道案内・交通",fr:"en voiture / en bus / en métro / à pied",es:"en coche / en autobús / en metro / a pie",jp:"車で / バスで / 地下鉄で / 徒歩で"},
+{cat:"道案内・交通",fr:"Je voudrais un taxi.",es:"Quisiera un taxi.",jp:"タクシーをお願いします。"},
+{cat:"道案内・交通",fr:"Arrêtez-vous ici, s'il vous plaît.",es:"Pare aquí, por favor.",jp:"ここで止めてください。"},
+
+// --- 19. 天気 ---
+{cat:"天気・季節",fr:"Il fait beau.",es:"Hace buen tiempo.",jp:"いい天気です。"},
+{cat:"天気・季節",fr:"Il fait chaud.",es:"Hace calor.",jp:"暑いです。（天気）"},
+{cat:"天気・季節",fr:"Il fait froid.",es:"Hace frío.",jp:"寒いです。（天気）"},
+{cat:"天気・季節",fr:"Il pleut.",es:"Llueve.",jp:"雨が降っています。"},
+{cat:"天気・季節",fr:"Il y a du vent.",es:"Hace viento.",jp:"風があります。"},
+{cat:"天気・季節",fr:"Il neige.",es:"Nieva.",jp:"雪が降っています。"},
+{cat:"天気・季節",fr:"Il fait beau aujourd'hui.",es:"Hace buen tiempo hoy.",jp:"今日はいい天気です。"},
+{cat:"天気・季節",fr:"En été, je vais à la plage.",es:"En verano, voy a la playa.",jp:"夏は海に行きます。"},
+{cat:"天気・季節",fr:"En hiver, il fait très froid.",es:"En invierno, hace mucho frío.",jp:"冬はとても寒いです。"},
+
+// --- 20. 住居・場所 ---
+{cat:"住居・場所",fr:"J'habite dans un appartement.",es:"Vivo en un apartamento.",jp:"アパートに住んでいます。"},
+{cat:"住居・場所",fr:"Je loue un appartement.",es:"Alquilo un apartamento.",jp:"アパートを借りています。"},
+{cat:"住居・場所",fr:"Mon appartement a deux chambres.",es:"Mi apartamento tiene dos habitaciones.",jp:"アパートには2部屋あります。"},
+{cat:"住居・場所",fr:"Le loyer est cher.",es:"El alquiler es caro.",jp:"家賃が高いです。"},
+{cat:"住居・場所",fr:"Il y a un supermarché près d'ici.",es:"Hay un supermercado cerca de aquí.",jp:"近くにスーパーがあります。"},
+{cat:"住居・場所",fr:"Où est la banque ?",es:"¿Dónde está el banco?",jp:"銀行はどこですか？"},
+{cat:"住居・場所",fr:"Où est la poste ?",es:"¿Dónde está la oficina de correos?",jp:"郵便局はどこですか？"},
+{cat:"住居・場所",fr:"la cuisine / la salle de bains / le salon",es:"la cocina / el baño / el salón",jp:"台所 / 浴室 / リビング"},
+{cat:"住居・場所",fr:"la chambre / la fenêtre / la porte",es:"la habitación / la ventana / la puerta",jp:"寝室 / 窓 / ドア"},
+
+// --- 21. 健康・体調 ---
+{cat:"健康・緊急",fr:"Je suis malade.",es:"Estoy enfermo/a.",jp:"体調が悪いです。"},
+{cat:"健康・緊急",fr:"J'ai mal à la tête.",es:"Me duele la cabeza.",jp:"頭が痛いです。"},
+{cat:"健康・緊急",fr:"J'ai de la fièvre.",es:"Tengo fiebre.",jp:"熱があります。"},
+{cat:"健康・緊急",fr:"J'ai mal au ventre.",es:"Me duele el estómago.",jp:"お腹が痛いです。"},
+{cat:"健康・緊急",fr:"J'ai mal à la gorge.",es:"Me duele la garganta.",jp:"喉が痛いです。"},
+{cat:"健康・緊急",fr:"Je me suis blessé(e).",es:"Me he hecho daño.",jp:"怪我をしました。"},
+{cat:"健康・緊急",fr:"Où est la pharmacie ?",es:"¿Dónde está la farmacia?",jp:"薬局はどこですか？"},
+{cat:"健康・緊急",fr:"J'ai besoin d'un médecin.",es:"Necesito un médico.",jp:"医者が必要です。"},
+{cat:"健康・緊急",fr:"Appelez une ambulance !",es:"¡Llame a una ambulancia!",jp:"救急車を呼んでください！"},
+{cat:"健康・緊急",fr:"Au secours !",es:"¡Socorro! / ¡Ayuda!",jp:"助けて！"},
+{cat:"健康・緊急",fr:"la tête / les yeux / le nez / la bouche",es:"la cabeza / los ojos / la nariz / la boca",jp:"頭 / 目 / 鼻 / 口"},
+{cat:"健康・緊急",fr:"le bras / la main / la jambe / le pied",es:"el brazo / la mano / la pierna / el pie",jp:"腕 / 手 / 脚 / 足"},
+
+// --- 22. トラブル ---
+{cat:"トラブル",fr:"J'ai perdu mon téléphone.",es:"He perdido mi teléfono.",jp:"携帯をなくしました。"},
+{cat:"トラブル",fr:"Je suis perdu(e).",es:"Estoy perdido/perdida.",jp:"道に迷いました。"},
+{cat:"トラブル",fr:"J'ai perdu mon portefeuille.",es:"He perdido mi cartera.",jp:"財布をなくしました。"},
+{cat:"トラブル",fr:"Ce n'est pas ce que j'ai commandé.",es:"No es lo que pedí.",jp:"注文したものと違います。"},
+{cat:"トラブル",fr:"Ça ne marche pas.",es:"No funciona.",jp:"これは動きません。"},
+{cat:"トラブル",fr:"Il y a un problème.",es:"Hay un problema.",jp:"問題があります。"},
+{cat:"トラブル",fr:"Je ne comprends pas ce document.",es:"No entiendo este documento.",jp:"この書類が分かりません。"},
+{cat:"トラブル",fr:"Pouvez-vous me montrer sur la carte ?",es:"¿Puede mostrarme en el mapa?",jp:"地図で示してもらえますか？"},
+
+// --- 23. ホテル・旅行 ---
+{cat:"旅行・ホテル",fr:"J'ai une réservation.",es:"Tengo una reserva.",jp:"予約があります。"},
+{cat:"旅行・ホテル",fr:"Je voudrais une chambre pour une nuit.",es:"Quisiera una habitación para una noche.",jp:"1泊したいのですが。"},
+{cat:"旅行・ホテル",fr:"La clé, s'il vous plaît.",es:"La llave, por favor.",jp:"鍵をください。"},
+{cat:"旅行・ホテル",fr:"Où est l'ascenseur ?",es:"¿Dónde está el ascensor?",jp:"エレベーターはどこですか？"},
+{cat:"旅行・ホテル",fr:"Il n'y a pas d'eau chaude.",es:"No hay agua caliente.",jp:"お湯が出ません。"},
+{cat:"旅行・ホテル",fr:"Le Wi-Fi ne marche pas.",es:"El wifi no funciona.",jp:"Wi-Fiが動きません。"},
+{cat:"旅行・ホテル",fr:"Je vais en vacances.",es:"Voy de vacaciones.",jp:"休暇に行きます。"},
+{cat:"旅行・ホテル",fr:"Je vais à Paris / en Espagne.",es:"Voy a París / a España.",jp:"パリ / スペインに行きます。"},
+{cat:"旅行・ホテル",fr:"Où est l'aéroport ?",es:"¿Dónde está el aeropuerto?",jp:"空港はどこですか？"},
+{cat:"旅行・ホテル",fr:"Mon vol est retardé.",es:"Mi vuelo está retrasado.",jp:"フライトが遅れています。"},
+{cat:"旅行・ホテル",fr:"J'ai perdu mes bagages.",es:"He perdido mi equipaje.",jp:"荷物をなくしました。"},
+{cat:"旅行・ホテル",fr:"Où est la sortie ?",es:"¿Dónde está la salida?",jp:"出口はどこですか？"},
+
+// --- 24. 趣味・余暇 ---
+{cat:"趣味・余暇",fr:"Quels sont vos loisirs ?",es:"¿Cuáles son sus pasatiempos?",jp:"趣味は何ですか？"},
+{cat:"趣味・余暇",fr:"J'aime lire / cuisiner / chanter.",es:"Me gusta leer / cocinar / cantar.",jp:"読書 / 料理 / 歌うのが好きです。"},
+{cat:"趣味・余暇",fr:"J'aime écouter de la musique.",es:"Me gusta escuchar música.",jp:"音楽を聴くのが好きです。"},
+{cat:"趣味・余暇",fr:"J'aime regarder des films.",es:"Me gusta ver películas.",jp:"映画を見るのが好きです。"},
+{cat:"趣味・余暇",fr:"Je joue au football / tennis / golf.",es:"Juego al fútbol / tenis / golf.",jp:"サッカー / テニス / ゴルフをします。"},
+{cat:"趣味・余暇",fr:"Je fais du jogging / yoga / natation.",es:"Hago footing / yoga / natación.",jp:"ジョギング / ヨガ / 水泳をします。"},
+{cat:"趣味・余暇",fr:"Je vais au cinéma.",es:"Voy al cine.",jp:"映画館に行きます。"},
+{cat:"趣味・余暇",fr:"Je vais au concert.",es:"Voy a un concierto.",jp:"コンサートに行きます。"},
+{cat:"趣味・余暇",fr:"Je vais au musée.",es:"Voy al museo.",jp:"美術館に行きます。"},
+{cat:"趣味・余暇",fr:"Je lis des romans.",es:"Leo novelas.",jp:"小説を読みます。"},
+{cat:"趣味・余暇",fr:"J'écoute du jazz / de la pop / du rock.",es:"Escucho jazz / pop / rock.",jp:"ジャズ / ポップ / ロックを聴きます。"},
+{cat:"趣味・余暇",fr:"Je me promène dans le parc.",es:"Paseo por el parque.",jp:"公園を散歩します。"},
+
+// --- 25. 招待・予定調整 ---
+{cat:"招待・約束",fr:"Qu'est-ce que tu fais ce soir ?",es:"¿Qué haces esta noche?",jp:"今夜何をしますか？"},
+{cat:"招待・約束",fr:"Tu veux sortir ce soir ?",es:"¿Quieres salir esta noche?",jp:"今夜出かけませんか？"},
+{cat:"招待・約束",fr:"On va au restaurant ?",es:"¿Vamos al restaurante?",jp:"レストランに行きませんか？"},
+{cat:"招待・約束",fr:"Tu es libre samedi ?",es:"¿Estás libre el sábado?",jp:"土曜日は空いていますか？"},
+{cat:"招待・約束",fr:"Oui, avec plaisir.",es:"Sí, con mucho gusto.",jp:"はい、喜んで。"},
+{cat:"招待・約束",fr:"D'accord, bonne idée.",es:"Vale, buena idea.",jp:"いいね、良い考えだ。"},
+{cat:"招待・約束",fr:"Désolé(e), je ne peux pas.",es:"Lo siento, no puedo.",jp:"ごめん、無理です。"},
+{cat:"招待・約束",fr:"Je suis occupé(e).",es:"Estoy ocupado/a.",jp:"忙しいです。"},
+{cat:"招待・約束",fr:"À quelle heure on se retrouve ?",es:"¿A qué hora quedamos?",jp:"何時に待ち合わせますか？"},
+{cat:"招待・約束",fr:"On se retrouve devant le cinéma.",es:"Quedamos delante del cine.",jp:"映画館の前で会いましょう。"},
+
+// --- 26. 意見・リアクション ---
+{cat:"意見・リアクション",fr:"Je pense que oui.",es:"Creo que sí.",jp:"そう思います。"},
+{cat:"意見・リアクション",fr:"Je pense que non.",es:"Creo que no.",jp:"そうは思いません。"},
+{cat:"意見・リアクション",fr:"Je suis d'accord.",es:"Estoy de acuerdo.",jp:"賛成です。"},
+{cat:"意見・リアクション",fr:"Je ne suis pas d'accord.",es:"No estoy de acuerdo.",jp:"賛成じゃありません。"},
+{cat:"意見・リアクション",fr:"Bien sûr.",es:"Claro.",jp:"もちろん。"},
+{cat:"意見・リアクション",fr:"Peut-être.",es:"Quizás.",jp:"たぶん。"},
+{cat:"意見・リアクション",fr:"Pas de problème.",es:"No hay problema.",jp:"問題ないです。"},
+{cat:"意見・リアクション",fr:"Je vois.",es:"Ya veo.",jp:"なるほど。"},
+{cat:"意見・リアクション",fr:"Alors… / En fait… / Par exemple",es:"Entonces… / En realidad… / Por ejemplo",jp:"それで… / 実は… / 例えば"},
+{cat:"意見・リアクション",fr:"Ça dépend.",es:"Depende.",jp:"場合によります。"},
+{cat:"意見・リアクション",fr:"C'est possible ?",es:"¿Es posible?",jp:"可能ですか？"},
+{cat:"意見・リアクション",fr:"Ce n'est pas grave.",es:"No es grave.",jp:"大したことありません。"},
+
+// --- 27. 基本文法パターン: être / avoir ---
+{cat:"文法パターン",fr:"Je suis [profession].",es:"Soy [profesión].",jp:"私は〜です。（職業・状態）"},
+{cat:"文法パターン",fr:"Tu es prêt(e) ?",es:"¿Estás listo/a?",jp:"準備はできましたか？"},
+{cat:"文法パターン",fr:"Il est à la maison.",es:"Él está en casa.",jp:"彼は家にいます。"},
+{cat:"文法パターン",fr:"C'est important.",es:"Es importante.",jp:"それは重要です。"},
+{cat:"文法パターン",fr:"Il y a un problème.",es:"Hay un problema.",jp:"問題があります。"},
+{cat:"文法パターン",fr:"Je n'ai pas de temps.",es:"No tengo tiempo.",jp:"時間がありません。"},
+{cat:"文法パターン",fr:"Vous avez une question ?",es:"¿Tiene una pregunta?",jp:"質問がありますか？"},
+{cat:"文法パターン",fr:"J'ai 20 ans.",es:"Tengo 20 años.",jp:"20歳です。（avoir / tener の使い方）"},
+{cat:"文法パターン",fr:"Il y a ___ / Voici ___",es:"Hay ___ / Aquí está ___",jp:"〜があります / こちらが〜です"},
+{cat:"文法パターン",fr:"C'est / Ce sont",es:"Es / Son",jp:"それは〜です / それらは〜です"},
+
+// --- 28. 否定・疑問文パターン ---
+{cat:"文法パターン",fr:"Est-ce que vous aimez Paris ?",es:"¿Te gusta París?",jp:"パリが好きですか？"},
+{cat:"文法パターン",fr:"Où habitez-vous ?",es:"¿Dónde vives?",jp:"どこに住んでいますか？"},
+{cat:"文法パターン",fr:"Quand arrivez-vous ?",es:"¿Cuándo llegas?",jp:"いつ到着しますか？"},
+{cat:"文法パターン",fr:"Pourquoi êtes-vous ici ?",es:"¿Por qué estás aquí?",jp:"なぜここにいますか？"},
+{cat:"文法パターン",fr:"Je ne travaille pas le dimanche.",es:"No trabajo los domingos.",jp:"日曜は働きません。（否定文）"},
+{cat:"文法パターン",fr:"Non, je ne sais pas.",es:"No, no sé.",jp:"いいえ、分かりません。"},
+{cat:"文法パターン",fr:"Je ne mange pas de viande.",es:"No como carne.",jp:"私は肉を食べません。"},
+{cat:"文法パターン",fr:"Je ne parle pas bien français.",es:"No hablo bien español.",jp:"フランス語/スペイン語が上手ではありません。"},
+
+// --- 29. 能力・可能 ---
+{cat:"能力・可能",fr:"Je sais nager.",es:"Sé nadar.",jp:"泳げます。"},
+{cat:"能力・可能",fr:"Je sais cuisiner.",es:"Sé cocinar.",jp:"料理ができます。"},
+{cat:"能力・可能",fr:"Tu sais conduire ?",es:"¿Sabes conducir?",jp:"運転できますか？"},
+{cat:"能力・可能",fr:"Je peux vous aider.",es:"Puedo ayudarle.",jp:"お手伝いできます。"},
+{cat:"能力・可能",fr:"Je ne peux pas dormir.",es:"No puedo dormir.",jp:"眠れません。"},
+{cat:"能力・可能",fr:"Je dois partir.",es:"Tengo que irme.",jp:"行かなければなりません。"},
+{cat:"能力・可能",fr:"Il faut travailler.",es:"Hay que trabajar.",jp:"働かなくてはならない。"},
+{cat:"能力・可能",fr:"Je peux parler français.",es:"Puedo hablar español.",jp:"フランス語/スペイン語が話せます。"},
+
+// --- 30. 所有・指示 ---
+{cat:"所有・指示",fr:"C'est mon livre.",es:"Es mi libro.",jp:"これは私の本です。"},
+{cat:"所有・指示",fr:"C'est la voiture de Paul.",es:"Es el coche de Pablo.",jp:"これはポールの車です。"},
+{cat:"所有・指示",fr:"C'est ton stylo ?",es:"¿Es tu bolígrafo?",jp:"これはあなたのペンですか？"},
+{cat:"所有・指示",fr:"Ce sont mes clés.",es:"Son mis llaves.",jp:"これは私の鍵です。"},
+{cat:"所有・指示",fr:"Voici / Voilà",es:"Aquí está / Ahí está",jp:"こちらが〜です / あそこに〜があります"},
+{cat:"所有・指示",fr:"C'est à moi.",es:"Es mío.",jp:"これは私のものです。"},
+{cat:"所有・指示",fr:"mon / ma / mes / ton / ta / tes",es:"mi / mis / tu / tus",jp:"私の〜 / あなたの〜（所有形容詞）"},
+
+// --- 31. 比較・程度 ---
+{cat:"比較・程度",fr:"C'est plus grand.",es:"Es más grande.",jp:"こちらの方が大きいです。"},
+{cat:"比較・程度",fr:"C'est moins cher.",es:"Es menos caro.",jp:"こちらの方が安いです。"},
+{cat:"比較・程度",fr:"C'est le meilleur.",es:"Es el mejor.",jp:"これが一番良いです。"},
+{cat:"比較・程度",fr:"Un peu, s'il vous plaît.",es:"Un poco, por favor.",jp:"少しお願いします。"},
+{cat:"比較・程度",fr:"Beaucoup / Très bien",es:"Mucho / Muy bien",jp:"たくさん / とても良い"},
+{cat:"比較・程度",fr:"Assez / Trop",es:"Bastante / Demasiado",jp:"十分 / 〜すぎる"},
+{cat:"比較・程度",fr:"Je suis très content(e).",es:"Estoy muy contento/a.",jp:"とても嬉しいです。"},
+
+// --- 32. 前置詞・場所表現 ---
+{cat:"前置詞・構文",fr:"Je vais à Paris / en France / au Japon.",es:"Voy a París / a Francia / a Japón.",jp:"パリ / フランス / 日本へ行きます。（前置詞 à/en/au）"},
+{cat:"前置詞・構文",fr:"Je viens de Paris / du Japon.",es:"Vengo de París / de Japón.",jp:"パリ / 日本から来ました。（前置詞 de）"},
+{cat:"前置詞・構文",fr:"Je suis chez moi.",es:"Estoy en casa.",jp:"私は家にいます。（chez）"},
+{cat:"前置詞・構文",fr:"Il travaille avec moi.",es:"Trabaja conmigo.",jp:"彼は私と一緒に働いています。（avec/con）"},
+{cat:"前置詞・構文",fr:"Je parle de mon travail.",es:"Hablo de mi trabajo.",jp:"私の仕事について話します。（de）"},
+{cat:"前置詞・構文",fr:"Je vais pour / sans toi.",es:"Voy por / sin ti.",jp:"あなたのために / あなたなしで行きます。"},
+{cat:"前置詞・構文",fr:"Il est sous la table / sur la table.",es:"Está debajo de la mesa / sobre la mesa.",jp:"テーブルの下 / 上にあります。"},
+
+// --- 33. よく使う表現 ---
+{cat:"よく使う表現",fr:"Ça marche !",es:"¡Perfecto!",jp:"うまくいった！/ いいね！"},
+{cat:"よく使う表現",fr:"C'est normal.",es:"Es normal.",jp:"普通です。"},
+{cat:"よく使う表現",fr:"Je vois ! / Ah bon ?",es:"¡Ya veo! / ¿Ah sí?",jp:"なるほど！/ そうなの？"},
+{cat:"よく使う表現",fr:"Tu fais quoi ?",es:"¿Qué haces?",jp:"何してるの？"},
+{cat:"よく使う表現",fr:"On y va ?",es:"¿Vamos?",jp:"行こうか？"},
+{cat:"よく使う表現",fr:"J'arrive !",es:"¡Ya voy!",jp:"今行くよ！"},
+{cat:"よく使う表現",fr:"Attendez !",es:"¡Espere!",jp:"待ってください！"},
+{cat:"よく使う表現",fr:"Répétez, s'il vous plaît.",es:"Repita, por favor.",jp:"繰り返してください。"},
+{cat:"よく使う表現",fr:"C'est bon / C'est bien.",es:"Está bien. / Muy bien.",jp:"大丈夫です。/ 良いです。"},
+{cat:"よく使う表現",fr:"Bonne nuit !",es:"¡Buenas noches!",jp:"おやすみなさい！"},
+];
+
+// ============================================================
+// STATE
+// ============================================================
+let cards = [];
+let filteredCards = [];
+let currentIndex = 0;
+let masteredSet = new Set();
+let mode = 'jp2fr_es';
+let currentCat = 'すべて';
+let isMuted = false;
+
+// ============================================================
+// AUDIO
+// ============================================================
+function speakText(text, lang, onDone) {
+  if (isMuted) { if (onDone) onDone(); return; }
+  if (!window.speechSynthesis) { if (onDone) onDone(); return; }
+  const utt = new SpeechSynthesisUtterance(text);
+  utt.lang = lang;
+  utt.rate = 0.88;
+  utt.onend = () => { if (onDone) onDone(); };
+  utt.onerror = () => { if (onDone) onDone(); };
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(utt);
+}
+
+function speakFR(text, onDone) { speakText(text, 'fr-FR', onDone); }
+function speakES(text, onDone) { speakText(text, 'es-ES', onDone); }
+
+function handleSpeakFR(evt) {
+  evt.stopPropagation();
+  const card = filteredCards[currentIndex];
+  if (!card) return;
+  const btn = evt.currentTarget;
+  if (isMuted) { btn.textContent = '🔇 ミュート中'; return; }
+  btn.classList.add('playing');
+  speakFR(card.fr, () => { btn.classList.remove('playing'); btn.textContent = '🔊 FR'; });
+}
+function handleSpeakES(evt) {
+  evt.stopPropagation();
+  const card = filteredCards[currentIndex];
+  if (!card) return;
+  const btn = evt.currentTarget;
+  if (isMuted) { btn.textContent = '🔇 ミュート中'; return; }
+  btn.classList.add('playing');
+  speakES(card.es, () => { btn.classList.remove('playing'); btn.textContent = '🔊 ES'; });
+}
+
+// ============================================================
+// INIT
+// ============================================================
+function init() {
+  cards = RAW_DATA.map((d, i) => ({...d, id: i}));
+  buildCatButtons();
+  applyFilter();
+}
+
+function buildCatButtons() {
+  const cats = ['すべて', ...new Set(cards.map(c => c.cat))];
+  const inner = document.getElementById('catInner');
+  inner.innerHTML = '';
+  cats.forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = 'cat-btn' + (c === currentCat ? ' active' : '');
+    btn.textContent = c;
+    btn.onclick = () => { currentCat = c; buildCatButtons(); applyFilter(); };
+    inner.appendChild(btn);
+  });
+}
+
+function applyFilter() {
+  filteredCards = currentCat === 'すべて' ? [...cards] : cards.filter(c => c.cat === currentCat);
+  currentIndex = 0;
+  renderCard();
+  updateStats();
+}
+
+// ============================================================
+// RENDER
+// ============================================================
+function getEffectiveMode() {
+  if (mode === 'random') {
+    const r = Math.random();
+    if (r < 0.33) return 'jp2fr_es';
+    if (r < 0.66) return 'fr2jp_es';
+    return 'es2jp_fr';
+  }
+  return mode;
+}
+
+function renderCard() {
+  const fc = document.getElementById('flashcard');
+  const cs = document.getElementById('completeScreen');
+  const cc = document.getElementById('cardControls');
+  const remaining = filteredCards.filter(c => !masteredSet.has(c.id));
+
+  if (remaining.length === 0) {
+    fc.style.display = 'none';
+    cc.style.display = 'none';
+    cs.classList.add('show');
+    return;
+  }
+  cs.classList.remove('show');
+  fc.style.display = '';
+  cc.style.display = '';
+
+  let attempts = 0;
+  while (attempts < filteredCards.length && masteredSet.has(filteredCards[currentIndex]?.id)) {
+    currentIndex = (currentIndex + 1) % filteredCards.length;
+    attempts++;
+  }
+
+  const card = filteredCards[currentIndex];
+  if (!card) return;
+
+  fc.classList.remove('revealed');
+  setButtonsQuestion();
+
+  const em = getEffectiveMode();
+  fc.dataset.mode = em;
+
+  const visIdx = remaining.indexOf(card) + 1;
+  document.getElementById('cardCounter').textContent = `${visIdx} / ${remaining.length}`;
+  document.getElementById('cardCounterBack').textContent = `${visIdx} / ${remaining.length}`;
+  document.getElementById('cardCat').textContent = card.cat;
+  document.getElementById('cardCatBack').textContent = card.cat;
+
+  const badge = document.getElementById('cardModeBadge');
+  if (em === 'jp2fr_es') { badge.textContent = 'JP→FR＆ES'; badge.className = 'card-mode-badge badge-jp'; }
+  else if (em === 'fr2jp_es') { badge.textContent = 'FR→JP＆ES'; badge.className = 'card-mode-badge badge-fr'; }
+  else { badge.textContent = 'ES→JP＆FR'; badge.className = 'card-mode-badge badge-es'; }
+
+  const q = document.getElementById('cardQuestion');
+  const a = document.getElementById('cardAnswer');
+
+  const muted = isMuted;
+  const muteClass = muted ? ' muted-state' : '';
+
+  if (em === 'jp2fr_es') {
+    q.innerHTML = `<div class="jp-text">${card.jp}</div><div class="hint-text">👆 タップして答えを見る</div>`;
+    a.innerHTML = `
+      <div class="answer-block">
+        <div class="lang-block lang-block-fr">
+          <span class="lang-label label-fr">FR</span>
+          <span class="fr-text">${card.fr}</span><br>
+          <button class="speak-btn${muteClass}" id="speakFrBtn" onclick="handleSpeakFR(event)">🔊 FR</button>
+        </div>
+        <div class="lang-block lang-block-es">
+          <span class="lang-label label-es">ES</span>
+          <span class="es-text">${card.es}</span><br>
+          <button class="speak-btn${muteClass}" id="speakEsBtn" onclick="handleSpeakES(event)">🔊 ES</button>
+        </div>
+      </div>`;
+  } else if (em === 'fr2jp_es') {
+    q.innerHTML = `
+      <div class="lang-block lang-block-fr" style="border:none;background:transparent">
+        <span class="lang-label label-fr">FR</span>
+        <span class="fr-text">${card.fr}</span>
+      </div>
+      <div class="hint-text">👆 タップして答えを見る</div>`;
+    a.innerHTML = `
+      <div class="answer-block">
+        <div class="lang-block lang-block-jp">
+          <span class="lang-label" style="background:rgba(200,200,255,0.1);color:#a0aaff;border:1px solid rgba(160,170,255,0.2)">JP</span>
+          <span class="jp-text">${card.jp}</span>
+        </div>
+        <div class="lang-block lang-block-es">
+          <span class="lang-label label-es">ES</span>
+          <span class="es-text">${card.es}</span><br>
+          <button class="speak-btn${muteClass}" id="speakEsBtn" onclick="handleSpeakES(event)">🔊 ES</button>
+        </div>
+      </div>`;
+  } else {
+    q.innerHTML = `
+      <div class="lang-block lang-block-es" style="border:none;background:transparent">
+        <span class="lang-label label-es">ES</span>
+        <span class="es-text">${card.es}</span>
+      </div>
+      <div class="hint-text">👆 タップして答えを見る</div>`;
+    a.innerHTML = `
+      <div class="answer-block">
+        <div class="lang-block lang-block-jp">
+          <span class="lang-label" style="background:rgba(200,200,255,0.1);color:#a0aaff;border:1px solid rgba(160,170,255,0.2)">JP</span>
+          <span class="jp-text">${card.jp}</span>
+        </div>
+        <div class="lang-block lang-block-fr">
+          <span class="lang-label label-fr">FR</span>
+          <span class="fr-text">${card.fr}</span><br>
+          <button class="speak-btn${muteClass}" id="speakFrBtn" onclick="handleSpeakFR(event)">🔊 FR</button>
+        </div>
+      </div>`;
+  }
+  // Sync wrapper height to taller face after a short delay
+  setTimeout(() => {
+    const front = document.querySelector('.card-front');
+    const back  = document.querySelector('.card-back');
+    const wrapper = document.querySelector('.flashcard-wrapper');
+    if (front && back && wrapper) {
+      const h = Math.max(front.scrollHeight, back.scrollHeight, 260);
+      wrapper.style.height = h + 'px';
+      document.getElementById('flashcard').style.minHeight = h + 'px';
+      front.style.minHeight = h + 'px';
+      back.style.minHeight  = h + 'px';
+    }
+  }, 20);
+}
+
+// ============================================================
+// CARD ACTIONS
+// ============================================================
+function handleCardClick() {
+  const fc = document.getElementById('flashcard');
+  if (!fc.classList.contains('revealed')) revealCard();
+  else unrevealCard();
+}
+
+function revealCard() {
+  const fc = document.getElementById('flashcard');
+  if (fc.classList.contains('revealed')) return;
+  fc.classList.add('revealed');
+  setButtonsAnswer();
+  // Auto-play answer
+  const em = fc.dataset.mode;
+  const card = filteredCards[currentIndex];
+  if (!card || isMuted) return;
+  if (em === 'jp2fr_es') {
+    speakFR(card.fr, () => setTimeout(() => speakES(card.es), 400));
+  } else if (em === 'fr2jp_es') {
+    speakES(card.es, null);
+  } else {
+    speakFR(card.fr, null);
+  }
+}
+
+function unrevealCard() {
+  const fc = document.getElementById('flashcard');
+  if (!fc.classList.contains('revealed')) return;
+  fc.classList.remove('revealed');
+  setButtonsQuestion();
+}
+
+function setButtonsQuestion() {
+  document.getElementById('showBtn').style.display = '';
+  document.getElementById('hideBtn').style.display = 'none';
+  updateMasteredBtn();
+}
+function setButtonsAnswer() {
+  document.getElementById('showBtn').style.display = 'none';
+  document.getElementById('hideBtn').style.display = '';
+  updateMasteredBtn();
+}
+function updateMasteredBtn() {
+  const card = filteredCards[currentIndex];
+  const btn = document.getElementById('masteredBtn');
+  if (card && masteredSet.has(card.id)) {
+    btn.classList.add('done');
+    btn.textContent = '✓ 覚えた済';
+  } else {
+    btn.classList.remove('done');
+    btn.textContent = '✓ 覚えた';
+  }
+}
+
+function nextCard() {
+  if (filteredCards.filter(c => !masteredSet.has(c.id)).length === 0) return;
+  currentIndex = (currentIndex + 1) % filteredCards.length;
+  let a = 0;
+  while (masteredSet.has(filteredCards[currentIndex]?.id) && a < filteredCards.length) {
+    currentIndex = (currentIndex + 1) % filteredCards.length; a++;
+  }
+  renderCard();
+}
+
+function prevCard() {
+  if (filteredCards.filter(c => !masteredSet.has(c.id)).length === 0) return;
+  currentIndex = (currentIndex - 1 + filteredCards.length) % filteredCards.length;
+  let a = 0;
+  while (masteredSet.has(filteredCards[currentIndex]?.id) && a < filteredCards.length) {
+    currentIndex = (currentIndex - 1 + filteredCards.length) % filteredCards.length; a++;
+  }
+  renderCard();
+}
+
+function toggleMastered() {
+  const card = filteredCards[currentIndex];
+  if (!card) return;
+  if (masteredSet.has(card.id)) masteredSet.delete(card.id);
+  else masteredSet.add(card.id);
+  updateStats();
+  updateMasteredBtn();
+  setTimeout(() => nextCard(), 300);
+}
+
+function resetAll() {
+  masteredSet.clear();
+  currentIndex = 0;
+  renderCard();
+  updateStats();
+}
+
+function updateStats() {
+  const total = filteredCards.length;
+  const mastered = filteredCards.filter(c => masteredSet.has(c.id)).length;
+  const remain = total - mastered;
+  const pct = total > 0 ? Math.round(mastered / total * 100) : 0;
+  document.getElementById('totalCount').textContent = total;
+  document.getElementById('remainCount').textContent = remain;
+  document.getElementById('masteredCount').textContent = mastered;
+  document.getElementById('percentCount').textContent = pct;
+  document.getElementById('progressBar').style.width = pct + '%';
+}
+
+// ============================================================
+// CONTROLS
+// ============================================================
+document.querySelectorAll('.mode-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    mode = btn.dataset.mode;
+    renderCard();
+  });
+});
+
+document.getElementById('shuffleBtn').addEventListener('click', () => {
+  filteredCards.sort(() => Math.random() - 0.5);
+  currentIndex = 0;
+  renderCard();
+  const b = document.getElementById('shuffleBtn');
+  b.textContent = '✅';
+  setTimeout(() => b.textContent = '🔀', 800);
+});
+
+document.getElementById('muteBtn').addEventListener('click', () => {
+  isMuted = !isMuted;
+  document.getElementById('muteBtn').textContent = isMuted ? '🔇' : '🔊';
+  document.getElementById('muteBtn').classList.toggle('muted', isMuted);
+  if (isMuted && window.speechSynthesis) window.speechSynthesis.cancel();
+  // update speak buttons
+  document.querySelectorAll('.speak-btn').forEach(b => {
+    b.classList.toggle('muted-state', isMuted);
+    b.classList.remove('playing');
+    if (isMuted) b.textContent = '🔇 ミュート中';
+    else if (b.id === 'speakFrBtn') b.textContent = '🔊 FR';
+    else b.textContent = '🔊 ES';
+  });
+});
+
+document.getElementById('resetBtn').addEventListener('click', () => {
+  if (confirm('覚えた記録をすべてクリアしますか？')) resetAll();
+});
+
+// Keyboard
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') nextCard();
+  else if (e.key === 'ArrowLeft') prevCard();
+  else if (e.key === 'Enter') revealCard();
+  else if (e.key === 'c' || e.key === 'C') toggleMastered();
+});
+
+init();
+</script>
+</body>
+</html>

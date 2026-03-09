@@ -1,0 +1,1869 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>仏語・西語 A2フラッシュカード</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --fr: #0055a4;
+  --fr2: #002f7a;
+  --es: #c60b1e;
+  --es2: #8b0012;
+  --gold: #f0c060;
+  --bg: #0e0f16;
+  --surface: #171924;
+  --surface2: #1e2130;
+  --surface3: #252840;
+  --text: #eef0ff;
+  --text-muted: #7880aa;
+  --border-fr: rgba(0,85,164,0.35);
+  --border-es: rgba(198,11,30,0.35);
+  --radius: 18px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ===== HEADER ===== */
+.header {
+  width: 100%;
+  background: linear-gradient(120deg, #001a4a 0%, #0a0c18 40%, #3a000a 100%);
+  border-bottom: 2px solid rgba(240,192,96,0.3);
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+}
+.header-left { display: flex; align-items: center; gap: 12px; }
+.flags { display: flex; gap: 4px; align-items: center; }
+.flag { width: 26px; height: 18px; border-radius: 3px; overflow: hidden; display: flex; flex-direction: column; }
+.flag-fr { width: 26px; height: 18px; background: linear-gradient(90deg, #002395 33.3%, #fff 33.3%, #fff 66.6%, #ed2939 66.6%); }
+.flag-es { width: 26px; height: 18px; background: linear-gradient(180deg, #c60b1e 25%, #f1bf00 25%, #f1bf00 75%, #c60b1e 75%); }
+.flag-sep { color: var(--text-muted); font-size: 1rem; }
+.header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(0.9rem, 2.8vw, 1.2rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+.header h1 .fr { color: #5b9fff; }
+.header h1 .sep { color: var(--text-muted); margin: 0 4px; }
+.header h1 .es { color: #ff6b7a; }
+.header h1 .jp { color: var(--text-muted); font-size: 0.8em; }
+.header-right { display: flex; gap: 8px; align-items: center; }
+.icon-btn {
+  background: var(--surface2);
+  border: 1.5px solid var(--surface3);
+  color: var(--text-muted);
+  border-radius: 10px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+.icon-btn:hover { border-color: var(--gold); color: var(--text); }
+.icon-btn.muted { color: var(--text-muted); opacity: 0.5; }
+
+/* ===== MODE SELECTOR ===== */
+.mode-bar {
+  width: 100%;
+  max-width: 720px;
+  padding: 10px 16px;
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.mode-btn {
+  font-family: 'Noto Sans JP', sans-serif;
+  padding: 7px 16px;
+  border-radius: 20px;
+  border: 1.5px solid var(--surface3);
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.mode-btn:hover { border-color: var(--gold); color: var(--text); }
+.mode-btn.active {
+  background: linear-gradient(135deg, #1a2a60, #4a0010);
+  border-color: var(--gold);
+  color: var(--gold);
+  font-weight: 700;
+}
+
+/* ===== STATS BAR ===== */
+.stats-bar {
+  width: calc(100% - 32px);
+  max-width: 688px;
+  margin: 2px 16px 0;
+  background: var(--surface);
+  border-radius: 10px;
+  padding: 7px 14px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+.stats-bar span b { color: var(--text); }
+.stats-bar .prog-wrap {
+  flex: 1;
+  height: 5px;
+  background: var(--surface3);
+  border-radius: 3px;
+  overflow: hidden;
+  min-width: 30px;
+}
+.stats-bar .prog-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--fr), var(--es));
+  border-radius: 3px;
+  transition: width 0.4s;
+}
+
+/* ===== CATEGORY ===== */
+.cat-scroll {
+  width: 100%;
+  max-width: 720px;
+  padding: 6px 16px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--fr) var(--surface);
+}
+.cat-scroll::-webkit-scrollbar { height: 4px; }
+.cat-scroll::-webkit-scrollbar-track { background: var(--surface); }
+.cat-scroll::-webkit-scrollbar-thumb { background: var(--fr); border-radius: 2px; }
+.cat-inner { display: flex; gap: 6px; width: max-content; }
+.cat-btn {
+  font-family: 'Noto Sans JP', sans-serif;
+  padding: 5px 12px;
+  border-radius: 14px;
+  border: 1.5px solid var(--surface3);
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.7rem;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.cat-btn:hover { border-color: var(--fr); color: var(--text); }
+.cat-btn.active {
+  background: var(--fr2);
+  border-color: var(--fr);
+  color: #fff;
+  font-weight: 700;
+}
+
+/* ===== CARD AREA ===== */
+.card-area {
+  width: 100%;
+  max-width: 720px;
+  padding: 14px 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ===== FLASHCARD 3D FLIP ===== */
+.flashcard-wrapper {
+  width: 100%;
+  min-height: 260px;
+  perspective: 1200px;
+  cursor: pointer;
+  /* Height is set dynamically by JS after render */
+}
+.flashcard {
+  width: 100%;
+  min-height: 260px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.45, 0.05, 0.55, 0.95), box-shadow 0.25s;
+  border-radius: var(--radius);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+}
+.flashcard-wrapper:hover .flashcard {
+  box-shadow: 0 10px 44px rgba(240,192,96,0.12);
+}
+.flashcard.revealed {
+  transform: rotateY(180deg);
+}
+.card-face {
+  position: absolute;
+  width: 100%;
+  min-height: 260px;
+  border-radius: var(--radius);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 24px 26px;
+}
+.card-front {
+  background: var(--surface);
+  border: 1.5px solid var(--surface3);
+}
+.card-back {
+  background: var(--surface2);
+  border: 1.5px solid rgba(240,192,96,0.25);
+  transform: rotateY(180deg);
+}
+.card-meta {
+  position: absolute; top: 12px; left: 16px;
+  display: flex; gap: 6px; align-items: center;
+  z-index: 1;
+}
+.card-cat {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  background: var(--surface3);
+  padding: 2px 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.card-mode-badge {
+  font-size: 0.65rem;
+  padding: 2px 7px;
+  border-radius: 8px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+.badge-jp { background: rgba(200,200,255,0.1); color: #a0aaff; border: 1px solid rgba(160,170,255,0.2); }
+.badge-fr { background: rgba(0,85,164,0.15); color: #7ab0ff; border: 1px solid rgba(0,85,164,0.3); }
+.badge-es { background: rgba(198,11,30,0.15); color: #ff8a94; border: 1px solid rgba(198,11,30,0.3); }
+.card-counter {
+  position: absolute; top: 12px; right: 16px;
+  font-size: 0.7rem; color: var(--text-muted);
+  z-index: 1;
+}
+.flip-hint {
+  position: absolute; bottom: 10px; right: 14px;
+  font-size: 0.62rem; color: var(--text-muted); opacity: 0.45;
+  pointer-events: none;
+}
+.card-question { text-align: center; width: 100%; }
+.card-answer { text-align: center; width: 100%; }
+
+/* Text sizes */
+.jp-text { font-size: clamp(1.3rem,4.5vw,1.8rem); font-weight: 700; color: var(--text); line-height: 1.4; }
+.fr-text {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.1rem,3.8vw,1.6rem); font-weight: 500;
+  color: #7ab0ff; line-height: 1.4; margin-bottom: 6px;
+}
+.es-text {
+  font-size: clamp(1rem,3.4vw,1.45rem); font-weight: 600;
+  color: #ff8a94; line-height: 1.4; margin-bottom: 6px;
+}
+.lang-label {
+  font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; padding: 1px 6px; border-radius: 5px; margin-right: 4px;
+}
+.label-fr { background: rgba(0,85,164,0.25); color: #7ab0ff; }
+.label-es { background: rgba(198,11,30,0.25); color: #ff8a94; }
+.hint-text { font-size: 0.72rem; color: var(--text-muted); margin-top: 14px; opacity: 0.6; }
+
+/* Answer dual block */
+.answer-block { display: flex; flex-direction: column; gap: 16px; width: 100%; }
+.lang-block {
+  border-radius: 12px;
+  padding: 14px 18px;
+  text-align: center;
+}
+.lang-block-fr { background: rgba(0,55,130,0.18); border: 1px solid rgba(0,85,164,0.3); }
+.lang-block-es { background: rgba(140,0,20,0.18); border: 1px solid rgba(198,11,30,0.3); }
+.lang-block-jp { background: rgba(80,80,120,0.15); border: 1px solid rgba(120,130,200,0.2); }
+
+/* Speak button */
+.speak-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  margin-top: 10px; padding: 6px 16px;
+  border-radius: 16px;
+  border: 1.5px solid rgba(100,200,100,0.35);
+  background: rgba(100,200,100,0.08);
+  color: #6dc87a;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.78rem; font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.speak-btn:hover { background: rgba(100,200,100,0.15); }
+.speak-btn.playing { color: #a0ffa0; border-color: #a0ffa0; animation: pulse 0.8s infinite; }
+.speak-btn.muted-state { color: var(--text-muted); border-color: rgba(120,130,160,0.3); background: transparent; }
+@keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
+
+/* ===== CONTROLS ===== */
+.card-controls {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 720px;
+}
+.ctrl-btn {
+  font-family: 'Noto Sans JP', sans-serif;
+  padding: 9px 20px;
+  border-radius: 14px;
+  border: 1.5px solid var(--surface3);
+  background: var(--surface2);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.ctrl-btn:hover { background: var(--surface3); border-color: rgba(240,192,96,0.4); }
+.ctrl-btn.primary {
+  background: linear-gradient(135deg, var(--fr2), var(--es2));
+  border-color: var(--gold);
+  color: var(--gold);
+  font-weight: 700;
+}
+.ctrl-btn.primary:hover { opacity: 0.9; transform: translateY(-1px); }
+.ctrl-btn.mastered { background: rgba(34,150,60,0.12); border-color: rgba(34,150,60,0.4); color: #4ec96e; font-weight: 700; }
+.ctrl-btn.mastered.done { background: rgba(34,150,60,0.25); color: #80ffaa; }
+
+/* ===== COMPLETE SCREEN ===== */
+.complete-screen {
+  display: none;
+  flex-direction: column; align-items: center; justify-content: center;
+  gap: 16px; padding: 40px 24px;
+  text-align: center;
+  width: 100%;
+  background: var(--surface);
+  border-radius: var(--radius);
+  border: 1.5px solid var(--gold);
+  box-shadow: 0 0 40px rgba(240,192,96,0.1);
+}
+.complete-screen.show { display: flex; }
+.complete-screen .big-emoji { font-size: 3rem; }
+.complete-screen h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold); }
+.complete-screen p { color: var(--text-muted); font-size: 0.9rem; }
+
+footer {
+  padding: 16px;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-align: center;
+  opacity: 0.5;
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-left">
+    <div class="flags">
+      <div class="flag flag-fr" title="フランス語"></div>
+      <span class="flag-sep">＋</span>
+      <div class="flag flag-es" title="スペイン語"></div>
+    </div>
+    <h1><span class="fr">Français</span><span class="sep">・</span><span class="es">Español</span> <span class="jp">A2フラッシュカード</span></h1>
+  </div>
+  <div class="header-right">
+    <button class="icon-btn" id="shuffleBtn" title="シャッフル">🔀</button>
+    <button class="icon-btn" id="muteBtn" title="ミュート">🔊</button>
+    <button class="icon-btn" id="resetBtn" title="覚えた記録をクリア">↺ リセット</button>
+  </div>
+</header>
+
+<!-- MODE -->
+<div class="mode-bar">
+  <button class="mode-btn active" data-mode="jp2fr_es">🇯🇵 → 🇫🇷＆🇪🇸</button>
+  <button class="mode-btn" data-mode="fr2jp_es">🇫🇷 → 🇯🇵＆🇪🇸</button>
+  <button class="mode-btn" data-mode="es2jp_fr">🇪🇸 → 🇯🇵＆🇫🇷</button>
+  <button class="mode-btn" data-mode="random">🎲 ランダム</button>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <span>全 <b id="totalCount">0</b></span>
+  <span>残 <b id="remainCount">0</b></span>
+  <span>✓ <b id="masteredCount">0</b></span>
+  <div class="prog-wrap"><div class="prog-fill" id="progressBar" style="width:0%"></div></div>
+  <span><b id="percentCount">0</b>%</span>
+</div>
+
+<!-- CATEGORY -->
+<div class="cat-scroll">
+  <div class="cat-inner" id="catInner"></div>
+</div>
+
+<!-- CARD AREA -->
+<div class="card-area">
+  <div class="flashcard-wrapper" onclick="handleCardClick()">
+    <div class="flashcard" id="flashcard">
+      <!-- FRONT -->
+      <div class="card-face card-front">
+        <div class="card-meta">
+          <span class="card-cat" id="cardCat">—</span>
+          <span class="card-mode-badge badge-jp" id="cardModeBadge">JP</span>
+        </div>
+        <span class="card-counter" id="cardCounter">1 / 1</span>
+        <div class="card-question" id="cardQuestion"></div>
+        <div class="flip-hint">👆 タップで答えを見る</div>
+      </div>
+      <!-- BACK -->
+      <div class="card-face card-back">
+        <div class="card-meta">
+          <span class="card-cat" id="cardCatBack">—</span>
+        </div>
+        <span class="card-counter" id="cardCounterBack"></span>
+        <div class="card-answer" id="cardAnswer"></div>
+        <div class="flip-hint">👆 タップで問題に戻る</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="complete-screen" id="completeScreen">
+    <div class="big-emoji">🎉</div>
+    <h2>このカテゴリー制覇！</h2>
+    <p>すべてのカードを覚えました。<br>リセットしてもう一度挑戦しましょう。</p>
+    <button class="ctrl-btn primary" onclick="resetAll()">↺ もう一度</button>
+  </div>
+
+  <div class="card-controls" id="cardControls">
+    <button class="ctrl-btn" onclick="prevCard()">◀ 戻る</button>
+    <button class="ctrl-btn" id="showBtn" onclick="revealCard()">▶ 答えを見る</button>
+    <button class="ctrl-btn" id="hideBtn" onclick="unrevealCard()" style="display:none">◀ 問題に戻す</button>
+    <button class="ctrl-btn mastered" id="masteredBtn" onclick="toggleMastered()">✓ 覚えた</button>
+    <button class="ctrl-btn primary" onclick="nextCard()">次へ ▶</button>
+  </div>
+</div>
+
+<footer>フランス語・スペイン語 A2レベル 約800例文 | CEFR A2完全カバー</footer>
+
+<script>
+// ============================================================
+// DATA: ~800 cards, deduplicated & categorized
+// ============================================================
+const RAW_DATA = [
+
+// ============================================================
+// 1. 過去の出来事（複合過去／点過去）
+// ============================================================
+{cat:"過去の出来事",fr:"Hier, j'ai regardé un film au cinéma.",es:"Ayer vi una película en el cine.",jp:"昨日、映画館で映画を見ました。"},
+{cat:"過去の出来事",fr:"Je suis allé(e) à Paris la semaine dernière.",es:"Fui a París la semana pasada.",jp:"先週パリに行きました。"},
+{cat:"過去の出来事",fr:"Nous avons mangé dans un bon restaurant.",es:"Comimos en un buen restaurante.",jp:"私たちは良いレストランで食事しました。"},
+{cat:"過去の出来事",fr:"J'ai visité Paris l'année dernière.",es:"Visité París el año pasado.",jp:"去年パリを訪れました。"},
+{cat:"過去の出来事",fr:"J'ai déjà visité Paris deux fois.",es:"Ya he visitado París dos veces.",jp:"パリにはすでに2回行ったことがあります。"},
+{cat:"過去の出来事",fr:"Je n'ai jamais voyagé en avion.",es:"Nunca he viajado en avión.",jp:"飛行機に乗ったことがありません。"},
+{cat:"過去の出来事",fr:"Je n'ai jamais essayé ce plat.",es:"Nunca he probado este plato.",jp:"この料理はまだ食べたことがありません。"},
+{cat:"過去の出来事",fr:"Hier, j'ai rencontré un ancien collègue par hasard.",es:"Ayer me encontré con un antiguo colega por casualidad.",jp:"昨日偶然昔の同僚に会いました。"},
+{cat:"過去の出来事",fr:"J'ai commencé à apprendre le français l'année dernière.",es:"Empecé a aprender francés el año pasado.",jp:"去年フランス語を学び始めました。"},
+{cat:"過去の出来事",fr:"Nous avons décidé de partir tôt.",es:"Decidimos salir temprano.",jp:"私たちは早く出発することにしました。"},
+{cat:"過去の出来事",fr:"Il a oublié d'envoyer le message.",es:"Se olvidó de enviar el mensaje.",jp:"彼はメッセージを送るのを忘れました。"},
+{cat:"過去の出来事",fr:"Elle a fini son travail à six heures.",es:"Ella terminó su trabajo a las seis.",jp:"彼女は6時に仕事を終えました。"},
+{cat:"過去の出来事",fr:"Nous avons pris le train ce matin.",es:"Tomamos el tren esta mañana.",jp:"私たちは今朝電車に乗りました。"},
+{cat:"過去の出来事",fr:"Tu as reçu mon message ?",es:"¿Recibiste mi mensaje?",jp:"私のメッセージを受け取った？"},
+{cat:"過去の出来事",fr:"Ils ont déménagé le mois dernier.",es:"Se mudaron el mes pasado.",jp:"彼らは先月引っ越しました。"},
+{cat:"過去の出来事",fr:"J'ai perdu mes clés quelque part.",es:"Perdí mis llaves en algún lugar.",jp:"どこかで鍵をなくしました。"},
+{cat:"過去の出来事",fr:"Elle est née en 1995.",es:"Ella nació en 1995.",jp:"彼女は1995年に生まれました。"},
+{cat:"過去の出来事",fr:"Nous sommes arrivés en retard.",es:"Llegamos tarde.",jp:"私たちは遅刻して到着しました。"},
+{cat:"過去の出来事",fr:"Il est parti sans dire au revoir.",es:"Se fue sin decir adiós.",jp:"彼はさよならも言わずに去りました。"},
+{cat:"過去の出来事",fr:"J'ai mis deux heures pour venir.",es:"Tardé dos horas en venir.",jp:"来るのに2時間かかりました。"},
+{cat:"過去の出来事",fr:"Elle a eu un accident de voiture.",es:"Ella tuvo un accidente de coche.",jp:"彼女は車の事故に遭いました。"},
+{cat:"過去の出来事",fr:"Nous avons passé de bonnes vacances.",es:"Pasamos unas buenas vacaciones.",jp:"良い休暇を過ごしました。"},
+{cat:"過去の出来事",fr:"Ils ont décidé de se marier.",es:"Decidieron casarse.",jp:"彼らは結婚することを決めました。"},
+{cat:"過去の出来事",fr:"J'ai appris cette nouvelle ce matin.",es:"Me enteré de esta noticia esta mañana.",jp:"今朝このニュースを知りました。"},
+{cat:"過去の出来事",fr:"J'ai appris beaucoup de choses pendant ce voyage.",es:"Aprendí muchas cosas durante este viaje.",jp:"この旅で多くを学びました。"},
+{cat:"過去の出来事",fr:"Nous avons décidé de changer de plan.",es:"Decidimos cambiar el plan.",jp:"計画を変更することにしました。"},
+{cat:"過去の出来事",fr:"Elle a expliqué le problème clairement.",es:"Explicó el problema claramente.",jp:"彼女は問題をはっきり説明しました。"},
+{cat:"過去の出来事",fr:"Il a proposé une nouvelle idée.",es:"Propuso una nueva idea.",jp:"彼は新しいアイデアを提案しました。"},
+{cat:"過去の出来事",fr:"J'ai accepté l'invitation.",es:"Acepté la invitación.",jp:"招待を受け入れました。"},
+{cat:"過去の出来事",fr:"Elle a refusé de participer.",es:"Rechazó participar.",jp:"彼女は参加を断りました。"},
+{cat:"過去の出来事",fr:"Nous avons organisé une réunion.",es:"Organizamos una reunión.",jp:"会議を開きました。"},
+{cat:"過去の出来事",fr:"Il a continué à parler pendant une heure.",es:"Continuó hablando durante una hora.",jp:"彼は1時間話し続けました。"},
+{cat:"過去の出来事",fr:"J'ai arrêté de fumer.",es:"Dejé de fumar.",jp:"タバコをやめました。"},
+{cat:"過去の出来事",fr:"Nous avons choisi ce restaurant.",es:"Elegimos este restaurante.",jp:"このレストランを選びました。"},
+{cat:"過去の出来事",fr:"Elle a changé d'avis.",es:"Cambió de opinión.",jp:"彼女は考えを変えました。"},
+{cat:"過去の出来事",fr:"J'ai passé la journée à travailler.",es:"Pasé el día trabajando.",jp:"一日中仕事をしていました。"},
+{cat:"過去の出来事",fr:"Je me suis réveillé(e) très tôt ce matin.",es:"Me desperté muy temprano esta mañana.",jp:"今朝とても早く起きました。"},
+{cat:"過去の出来事",fr:"Ce voyage m'a beaucoup appris.",es:"Este viaje me enseñó mucho.",jp:"この旅で多くを学びました。"},
+{cat:"過去の出来事",fr:"C'était une expérience inoubliable.",es:"Fue una experiencia inolvidable.",jp:"忘れられない経験でした。"},
+{cat:"過去の出来事",fr:"J'ai vraiment apprécié ce moment.",es:"Realmente disfruté ese momento.",jp:"その時間を本当に楽しみました。"},
+{cat:"過去の出来事",fr:"Cela m'a donné envie de revenir.",es:"Me dieron ganas de volver.",jp:"また来たいと思いました。"},
+
+// ============================================================
+// 2. 過去の習慣・状況（半過去／線過去）
+// ============================================================
+{cat:"過去の習慣・状況",fr:"Quand j'étais petit(e), je jouais au foot.",es:"Cuando era pequeño/a, jugaba al fútbol.",jp:"子供の頃、サッカーをよくしていました。"},
+{cat:"過去の習慣・状況",fr:"Il faisait beau tous les jours.",es:"Hacía buen tiempo todos los días.",jp:"毎日天気が良かったです。"},
+{cat:"過去の習慣・状況",fr:"Nous habitions à la campagne.",es:"Vivíamos en el campo.",jp:"私たちは田舎に住んでいました。"},
+{cat:"過去の習慣・状況",fr:"Quand j'étais enfant, j'habitais à la campagne.",es:"Cuando era niño/a, vivía en el campo.",jp:"子供の頃、田舎に住んでいました。"},
+{cat:"過去の習慣・状況",fr:"Il faisait beau quand nous sommes partis.",es:"Hacía buen tiempo cuando salimos.",jp:"私たちが出発したとき、天気が良かった。"},
+{cat:"過去の習慣・状況",fr:"Elle lisait pendant que je cuisinais.",es:"Ella leía mientras yo cocinaba.",jp:"私が料理している間、彼女は読書していた。"},
+{cat:"過去の習慣・状況",fr:"Avant, je prenais le bus tous les jours.",es:"Antes, tomaba el autobús todos los días.",jp:"以前は毎日バスに乗っていました。"},
+{cat:"過去の習慣・状況",fr:"Je regardais souvent ce programme.",es:"Veía este programa a menudo.",jp:"この番組をよく見ていました。"},
+{cat:"過去の習慣・状況",fr:"À cette époque je travaillais beaucoup.",es:"En esa época trabajaba mucho.",jp:"その頃はたくさん働いていました。"},
+{cat:"過去の習慣・状況",fr:"Il y avait beaucoup de monde dans la rue.",es:"Había mucha gente en la calle.",jp:"通りにはたくさんの人がいました。"},
+{cat:"過去の習慣・状況",fr:"Je pensais que tu étais malade.",es:"Pensaba que estabas enfermo/a.",jp:"あなたが病気だと思っていました。"},
+{cat:"過去の習慣・状況",fr:"Nous voulions te faire une surprise.",es:"Queríamos darte una sorpresa.",jp:"あなたを驚かせたかったのです。"},
+{cat:"過去の習慣・状況",fr:"Elle portait une robe rouge à la fête.",es:"Llevaba un vestido rojo en la fiesta.",jp:"パーティーで彼女は赤いドレスを着ていた。"},
+{cat:"過去の習慣・状況",fr:"Il neigeait quand je me suis réveillé(e).",es:"Nevaba cuando me desperté.",jp:"目が覚めたとき、雪が降っていた。"},
+{cat:"過去の習慣・状況",fr:"Je ne savais pas que tu parlais français.",es:"No sabía que hablabas francés.",jp:"あなたがフランス語を話すとは知りませんでした。"},
+{cat:"過去の習慣・状況",fr:"Autrefois, il n'y avait pas d'internet.",es:"Antes, no había internet.",jp:"昔はインターネットがありませんでした。"},
+{cat:"過去の習慣・状況",fr:"Elle semblait fatiguée hier soir.",es:"Parecía cansada anoche.",jp:"昨夜、彼女は疲れているようでした。"},
+{cat:"過去の習慣・状況",fr:"Nous étions sur le point de partir.",es:"Estábamos a punto de salir.",jp:"私たちはまさに出発しようとしていました。"},
+{cat:"過去の習慣・状況",fr:"Il pleuvait chaque fois que je sortais.",es:"Llovía cada vez que salía.",jp:"外出するたびに雨が降っていた。"},
+
+// ============================================================
+// 3. 未来・予定
+// ============================================================
+{cat:"未来・予定",fr:"Demain, je vais acheter une voiture.",es:"Mañana voy a comprar un coche.",jp:"明日、車を買うつもりです。"},
+{cat:"未来・予定",fr:"Nous allons visiter le Japon cet été.",es:"Vamos a visitar Japón este verano.",jp:"この夏、日本を訪れる予定です。"},
+{cat:"未来・予定",fr:"Quel est ton projet pour le week-end ?",es:"¿Cuál es tu plan para el fin de semana?",jp:"週末の予定は何ですか？"},
+{cat:"未来・予定",fr:"Je vais rester ici pendant deux semaines.",es:"Voy a quedarme aquí dos semanas.",jp:"ここに2週間滞在する予定です。"},
+{cat:"未来・予定",fr:"Nous allons discuter du projet demain.",es:"Vamos a hablar del proyecto mañana.",jp:"明日プロジェクトについて話します。"},
+{cat:"未来・予定",fr:"Je finirai ce travail ce soir.",es:"Terminaré este trabajo esta noche.",jp:"今夜この仕事を終えます。"},
+{cat:"未来・予定",fr:"Je t'appellerai quand j'arriverai.",es:"Te llamaré cuando llegue.",jp:"到着したら電話します。"},
+{cat:"未来・予定",fr:"Je vais voyager en Espagne.",es:"Voy a viajar a España.",jp:"スペインに旅行します。"},
+{cat:"未来・予定",fr:"Elle va appeler ce soir.",es:"Ella va a llamar esta noche.",jp:"今晩彼女が電話します。"},
+{cat:"未来・予定",fr:"Nous allons dîner au restaurant.",es:"Vamos a cenar al restaurante.",jp:"レストランで夕食します。"},
+{cat:"未来・予定",fr:"Il va pleuvoir demain.",es:"Va a llover mañana.",jp:"明日雨が降ります。"},
+{cat:"未来・予定",fr:"Je dois rendre ce dossier avant vendredi.",es:"Tengo que entregar este informe antes del viernes.",jp:"この資料を金曜までに提出しないといけません。"},
+{cat:"未来・予定",fr:"On peut déplacer la réunion à 15h ?",es:"¿Podemos mover la reunión a las 3?",jp:"会議を15時にずらせますか？"},
+{cat:"未来・予定",fr:"Je te tiens au courant.",es:"Te mantengo al tanto.",jp:"続報するね。"},
+{cat:"未来・予定",fr:"Je te rejoins dans vingt minutes.",es:"Me reúno contigo en veinte minutos.",jp:"20分後に合流します。"},
+{cat:"未来・予定",fr:"Quand j'aurai fini, je te rejoins.",es:"Cuando termine, te alcanzo.",jp:"終わったら合流するね。"},
+
+// ============================================================
+// 4. 比較表現
+// ============================================================
+{cat:"比較表現",fr:"Paris est plus grand que Lyon.",es:"Madrid es más grande que Barcelona.",jp:"パリはリヨンより大きいです。"},
+{cat:"比較表現",fr:"Ce livre est aussi intéressant que l'autre.",es:"Este libro es tan interesante como el otro.",jp:"この本はもう一つと同じくらい面白いです。"},
+{cat:"比較表現",fr:"C'est le meilleur restaurant de la ville.",es:"Es el mejor restaurante de la ciudad.",jp:"ここは街で一番のレストランです。"},
+{cat:"比較表現",fr:"Ce restaurant est plus cher que l'autre.",es:"Este restaurante es más caro que el otro.",jp:"このレストランはもう一方より高いです。"},
+{cat:"比較表現",fr:"Ce film est moins intéressant que le livre.",es:"Esta película es menos interesante que el libro.",jp:"この映画は本ほど面白くないです。"},
+{cat:"比較表現",fr:"Il parle français mieux que moi.",es:"Habla francés mejor que yo.",jp:"彼は私よりフランス語を上手に話します。"},
+{cat:"比較表現",fr:"J'ai plus de temps libre qu'avant.",es:"Tengo más tiempo libre que antes.",jp:"以前より自由な時間があります。"},
+{cat:"比較表現",fr:"Il y a moins de touristes en hiver.",es:"Hay menos turistas en invierno.",jp:"冬は観光客が少ないです。"},
+{cat:"比較表現",fr:"Ce livre coûte moins cher que celui-là.",es:"Este libro cuesta menos que ese.",jp:"この本はあれより安いです。"},
+{cat:"比較表現",fr:"Il fait plus chaud ici qu'à Paris.",es:"Hace más calor aquí que en París.",jp:"ここはパリより暑いです。"},
+{cat:"比較表現",fr:"Cette route est plus longue mais plus sûre.",es:"Este camino es más largo pero más seguro.",jp:"この道はより長いですが、より安全です。"},
+{cat:"比較表現",fr:"Ce problème est plus difficile qu'il n'y paraît.",es:"Este problema es más difícil de lo que parece.",jp:"この問題は見た目より難しいです。"},
+{cat:"比較表現",fr:"C'est le meilleur restaurant de la ville.",es:"Es el mejor restaurante de la ciudad.",jp:"街で一番良いレストランです。"},
+{cat:"比較表現",fr:"Elle est la plus intelligente de la classe.",es:"Es la más inteligente de la clase.",jp:"彼女はクラスで最も頭が良いです。"},
+{cat:"比較表現",fr:"C'est la pire chose qui pouvait arriver.",es:"Es lo peor que podía pasar.",jp:"それは起こりうる最悪のことです。"},
+{cat:"比較表現",fr:"C'est la plus belle ville que j'ai visitée.",es:"Es la ciudad más bonita que he visitado.",jp:"私が訪れた中で最も美しい街です。"},
+{cat:"比較表現",fr:"Plus je travaille, plus je suis fatigué(e).",es:"Cuanto más trabajo, más cansado/a estoy.",jp:"働けば働くほど、疲れます。"},
+{cat:"比較表現",fr:"Il est de plus en plus occupé.",es:"Está cada vez más ocupado.",jp:"彼はますます忙しくなっています。"},
+{cat:"比較表現",fr:"Il ressemble à son père.",es:"Se parece a su padre.",jp:"彼は父親に似ています。"},
+{cat:"比較表現",fr:"Il travaille deux fois plus que moi.",es:"Trabaja el doble que yo.",jp:"彼は私の2倍働きます。"},
+{cat:"比較表現",fr:"J'aime mieux le thé que le café.",es:"Prefiero el té al café.",jp:"コーヒーよりお茶が好きです。"},
+
+// ============================================================
+// 5. 理由・結果・目的
+// ============================================================
+{cat:"理由・結果",fr:"Je suis resté(e) chez moi parce qu'il pleuvait.",es:"Me quedé en casa porque llovía.",jp:"雨だったので家にいました。"},
+{cat:"理由・結果",fr:"Il était malade donc il n'est pas venu.",es:"Estaba enfermo así que no vino.",jp:"病気だったので来ませんでした。"},
+{cat:"理由・結果",fr:"Nous avons raté le train parce que nous sommes partis tard.",es:"Perdimos el tren porque salimos tarde.",jp:"出発が遅れて電車に乗り遅れました。"},
+{cat:"理由・結果",fr:"J'aime le sport, mais je n'ai pas le temps.",es:"Me gusta el deporte, pero no tengo tiempo.",jp:"スポーツは好きですが、時間がありません。"},
+{cat:"理由・結果",fr:"Il est fatigué parce qu'il a beaucoup travaillé.",es:"Está cansado porque ha trabajado mucho.",jp:"彼はたくさん働いたので疲れています。"},
+{cat:"理由・結果",fr:"Je suis en retard à cause des embouteillages.",es:"Llego tarde por el tráfico.",jp:"渋滞で遅れています。"},
+{cat:"理由・結果",fr:"J'ai raté mon bus, alors j'ai pris un taxi.",es:"Perdí el autobús, así que tomé un taxi.",jp:"バスに乗り遅れたのでタクシーに乗りました。"},
+{cat:"理由・結果",fr:"Je vais te le répéter pour que tu comprennes.",es:"Te lo repito para que lo entiendas.",jp:"あなたが理解できるように繰り返します。"},
+{cat:"理由・結果",fr:"Je t'ai appelé parce que j'avais besoin de ton aide.",es:"Te llamé porque necesitaba tu ayuda.",jp:"あなたの助けが必要だったので電話しました。"},
+{cat:"理由・結果",fr:"On a raté le bus, alors on a marché.",es:"Perdimos el bus, así que caminamos.",jp:"バスに乗り遅れたので歩きました。"},
+
+// ============================================================
+// 6. 意見・感情表現
+// ============================================================
+{cat:"意見・感情",fr:"Je pense que c'est une bonne idée.",es:"Creo que es una buena idea.",jp:"それは良いアイデアだと思います。"},
+{cat:"意見・感情",fr:"À mon avis, ce film est intéressant.",es:"En mi opinión, esta película es interesante.",jp:"私の意見では、この映画は面白いです。"},
+{cat:"意見・感情",fr:"Je suis content(e) d'être ici.",es:"Estoy contento/a de estar aquí.",jp:"ここにいられて嬉しいです。"},
+{cat:"意見・感情",fr:"Ça m'est égal.",es:"Me da igual.",jp:"どちらでも構いません。"},
+{cat:"意見・感情",fr:"Je pense que cette idée est intéressante.",es:"Creo que esta idea es interesante.",jp:"このアイデアは面白いと思います。"},
+{cat:"意見・感情",fr:"À mon avis, ce plan est trop compliqué.",es:"En mi opinión, este plan es demasiado complicado.",jp:"私の意見ではこの計画は複雑すぎます。"},
+{cat:"意見・感情",fr:"Je ne crois pas que cela fonctionne.",es:"No creo que eso funcione.",jp:"それはうまくいかないと思います。"},
+{cat:"意見・感情",fr:"Je suis d'accord avec toi sur ce point.",es:"Estoy de acuerdo contigo en este punto.",jp:"その点ではあなたに賛成です。"},
+{cat:"意見・感情",fr:"Je suis vraiment déçu(e).",es:"Estoy muy decepcionado/a.",jp:"本当にがっかりしています。"},
+{cat:"意見・感情",fr:"C'est dommage que tu ne puisses pas venir.",es:"Es una pena que no puedas venir.",jp:"来られないのは残念です。"},
+{cat:"意見・感情",fr:"Ça me rend triste d'entendre ça.",es:"Me entristece oír eso.",jp:"それを聞いて悲しいです。"},
+{cat:"意見・感情",fr:"Je regrette ce qui s'est passé.",es:"Lamento lo que pasó.",jp:"起こったことを残念に思います。"},
+{cat:"意見・感情",fr:"Quelle déception !",es:"¡Qué decepción!",jp:"なんて失望！"},
+{cat:"意見・感情",fr:"Ça m'énerve vraiment !",es:"¡Me molesta mucho!",jp:"本当にイライラします！"},
+{cat:"意見・感情",fr:"J'en ai assez de cette situation.",es:"Estoy harto/a de esta situación.",jp:"この状況にはうんざりです。"},
+{cat:"意見・感情",fr:"C'est inacceptable !",es:"¡Es inaceptable!",jp:"受け入れられません！"},
+{cat:"意見・感情",fr:"J'en ai marre !",es:"¡Estoy harto/a!",jp:"もううんざり！"},
+{cat:"意見・感情",fr:"Je m'inquiète pour toi.",es:"Me preocupo por ti.",jp:"あなたのことが心配です。"},
+{cat:"意見・感情",fr:"J'ai peur de ne pas y arriver.",es:"Tengo miedo de no lograrlo.",jp:"できないのではないかと怖いです。"},
+{cat:"意見・感情",fr:"J'espère que tout ira bien.",es:"Espero que todo salga bien.",jp:"すべてうまくいくといいのですが。"},
+{cat:"意見・感情",fr:"Ça me stresse beaucoup.",es:"Eso me estresa mucho.",jp:"とてもストレスを感じます。"},
+{cat:"意見・感情",fr:"Je suis ravi(e) de te voir.",es:"Estoy encantado/a de verte.",jp:"会えて嬉しいです。"},
+{cat:"意見・感情",fr:"C'est génial !",es:"¡Es genial!",jp:"最高です！"},
+{cat:"意見・感情",fr:"Je suis vraiment content(e) du résultat.",es:"Estoy muy contento/a con el resultado.",jp:"結果に本当に満足しています。"},
+{cat:"意見・感情",fr:"Je suis soulagé(e) que tout se soit bien passé.",es:"Estoy aliviado/a de que todo haya salido bien.",jp:"すべてうまくいって安心しました。"},
+{cat:"意見・感情",fr:"Je suis aux anges !",es:"¡Estoy en las nubes!",jp:"天にも昇る気持ちです！"},
+{cat:"意見・感情",fr:"Vraiment ? Je ne m'y attendais pas.",es:"¿De verdad? No me lo esperaba.",jp:"本当？予想していませんでした。"},
+{cat:"意見・感情",fr:"Je n'en reviens pas !",es:"¡No me lo puedo creer!",jp:"信じられない！"},
+{cat:"意見・感情",fr:"Sans blague ?",es:"¿En serio?",jp:"冗談でしょう？"},
+{cat:"意見・感情",fr:"C'est incroyable !",es:"¡Es increíble!",jp:"信じられない！"},
+{cat:"意見・感情",fr:"Je suis sous le choc.",es:"Estoy en shock.",jp:"ショックを受けています。"},
+{cat:"意見・感情",fr:"À mon avis, c'est une bonne idée.",es:"En mi opinión, es una buena idea.",jp:"私の意見では、良いアイデアです。"},
+{cat:"意見・感情",fr:"Je pense que tu as raison.",es:"Creo que tienes razón.",jp:"あなたが正しいと思います。"},
+{cat:"意見・感情",fr:"Il me semble que c'est trop cher.",es:"Me parece que es demasiado caro.",jp:"高すぎるように思います。"},
+{cat:"意見・感情",fr:"Je suis convaincu(e) que ça va marcher.",es:"Estoy convencido/a de que funcionará.",jp:"うまくいくと確信しています。"},
+{cat:"意見・感情",fr:"Je ne suis pas sûr(e) que ce soit vrai.",es:"No estoy seguro/a de que sea verdad.",jp:"それが本当かどうか確かではありません。"},
+{cat:"意見・感情",fr:"J'ai l'impression que quelque chose ne va pas.",es:"Tengo la impresión de que algo va mal.",jp:"何かがおかしい気がします。"},
+
+// ============================================================
+// 7. 同意・反対・確認
+// ============================================================
+{cat:"同意・反対",fr:"Je suis tout à fait d'accord avec toi.",es:"Estoy totalmente de acuerdo contigo.",jp:"あなたに完全に同意します。"},
+{cat:"同意・反対",fr:"Tu as absolument raison.",es:"Tienes toda la razón.",jp:"まったくその通りです。"},
+{cat:"同意・反対",fr:"Je ne suis pas du même avis.",es:"No comparto la misma opinión.",jp:"私は同じ意見ではありません。"},
+{cat:"同意・反対",fr:"Je ne suis pas d'accord sur ce point.",es:"No estoy de acuerdo en ese punto.",jp:"その点には同意しません。"},
+{cat:"同意・反対",fr:"C'est vrai, mais...",es:"Es verdad, pero...",jp:"それは本当ですが..."},
+{cat:"同意・反対",fr:"Je comprends ton point de vue, mais...",es:"Entiendo tu punto de vista, pero...",jp:"あなたの見方は分かりますが..."},
+{cat:"同意・反対",fr:"Pas nécessairement.",es:"No necesariamente.",jp:"必ずしもそうではありません。"},
+{cat:"同意・反対",fr:"Tu n'as pas tort, mais...",es:"No te falta razón, pero...",jp:"間違ってはいないけど..."},
+{cat:"同意・反対",fr:"Je vois ce que tu veux dire.",es:"Entiendo lo que quieres decir.",jp:"言いたいことは分かります。"},
+{cat:"同意・反対",fr:"Tu veux dire que... ?",es:"¿Quieres decir que...?",jp:"つまり...ということ？"},
+{cat:"同意・反対",fr:"C'est-à-dire ?",es:"¿Es decir?",jp:"つまり？"},
+{cat:"同意・反対",fr:"Qu'est-ce que tu entends par là ?",es:"¿Qué quieres decir con eso?",jp:"それはどういう意味？"},
+{cat:"同意・反対",fr:"Tu peux préciser ?",es:"¿Puedes ser más específico/a?",jp:"もう少し詳しく教えて？"},
+{cat:"同意・反対",fr:"En d'autres termes...",es:"En otras palabras...",jp:"言い換えれば..."},
+{cat:"同意・反対",fr:"Autrement dit...",es:"Dicho de otra manera...",jp:"別の言い方をすると..."},
+
+// ============================================================
+// 8. 丁寧な依頼・許可・義務
+// ============================================================
+{cat:"依頼・許可・義務",fr:"Est-ce que vous pourriez m'aider, s'il vous plaît ?",es:"¿Podría ayudarme, por favor?",jp:"手伝っていただけますか？"},
+{cat:"依頼・許可・義務",fr:"Pourriez-vous répéter plus lentement ?",es:"¿Podría repetir más despacio?",jp:"もう少しゆっくり繰り返していただけますか？"},
+{cat:"依頼・許可・義務",fr:"J'aimerais réserver une table pour deux.",es:"Me gustaría reservar una mesa para dos.",jp:"二人分予約したいのですが。"},
+{cat:"依頼・許可・義務",fr:"Pourriez-vous me montrer le chemin ?",es:"¿Podría mostrarme el camino?",jp:"道を教えていただけますか？"},
+{cat:"依頼・許可・義務",fr:"Ça vous dérangerait de baisser le volume ?",es:"¿Le importaría bajar el volumen?",jp:"音量を下げていただけますか？"},
+{cat:"依頼・許可・義務",fr:"Serait-il possible de changer la date ?",es:"¿Sería posible cambiar la fecha?",jp:"日付を変更することは可能ですか？"},
+{cat:"依頼・許可・義務",fr:"Puis-je vous demander un service ?",es:"¿Puedo pedirle un favor?",jp:"お願いしてもいいですか？"},
+{cat:"依頼・許可・義務",fr:"Est-ce que je peux m'asseoir ici ?",es:"¿Puedo sentarme aquí?",jp:"ここに座ってもいいですか？"},
+{cat:"依頼・許可・義務",fr:"Ça vous dérange si j'ouvre la fenêtre ?",es:"¿Le molesta si abro la ventana?",jp:"窓を開けてもいいですか？"},
+{cat:"依頼・許可・義務",fr:"Puis-je utiliser votre téléphone ?",es:"¿Puedo usar su teléfono?",jp:"電話を使ってもいいですか？"},
+{cat:"依頼・許可・義務",fr:"Allez-y, je vous en prie.",es:"Adelante, por favor.",jp:"どうぞ、お願いします。"},
+{cat:"依頼・許可・義務",fr:"Bien sûr, pas de problème.",es:"Claro, no hay problema.",jp:"もちろん、問題ありません。"},
+{cat:"依頼・許可・義務",fr:"Faites comme chez vous.",es:"Siéntase como en su casa.",jp:"くつろいでください。"},
+{cat:"依頼・許可・義務",fr:"Il faut que je finisse ce travail aujourd'hui.",es:"Tengo que terminar este trabajo hoy.",jp:"今日この仕事を終えなければなりません。"},
+{cat:"依頼・許可・義務",fr:"Tu dois absolument voir ce film.",es:"Tienes que ver esta película sin falta.",jp:"絶対にこの映画を見るべきです。"},
+{cat:"依頼・許可・義務",fr:"Il est nécessaire de réserver à l'avance.",es:"Es necesario reservar con antelación.",jp:"事前に予約する必要があります。"},
+{cat:"依頼・許可・義務",fr:"Tu n'as pas besoin de t'excuser.",es:"No necesitas disculparte.",jp:"謝る必要はありません。"},
+{cat:"依頼・許可・義務",fr:"Il est interdit de fumer ici.",es:"Está prohibido fumar aquí.",jp:"ここでの喫煙は禁止されています。"},
+{cat:"依頼・許可・義務",fr:"Défense d'entrer.",es:"Prohibido entrar.",jp:"立入禁止。"},
+{cat:"依頼・許可・義務",fr:"Il ne faut pas parler pendant l'examen.",es:"No se debe hablar durante el examen.",jp:"試験中に話してはいけません。"},
+{cat:"依頼・許可・義務",fr:"On n'a pas le droit de stationner ici.",es:"No se puede aparcar aquí.",jp:"ここでは駐車できません。"},
+{cat:"依頼・許可・義務",fr:"Je vous prie de ne pas faire de bruit.",es:"Les ruego que no hagan ruido.",jp:"静かにしてください。"},
+
+// ============================================================
+// 9. 提案・アドバイス
+// ============================================================
+{cat:"提案・アドバイス",fr:"Tu devrais te reposer un peu.",es:"Deberías descansar un poco.",jp:"少し休んだ方がいいよ。"},
+{cat:"提案・アドバイス",fr:"Je te conseille de prendre un parapluie.",es:"Te aconsejo que lleves paraguas.",jp:"傘を持っていくことをお勧めします。"},
+{cat:"提案・アドバイス",fr:"Et si on allait au cinéma ?",es:"¿Y si fuéramos al cine?",jp:"映画に行くのはどう？"},
+{cat:"提案・アドバイス",fr:"À ta place, je n'accepterais pas.",es:"En tu lugar, no aceptaría.",jp:"私だったら受け入れないでしょう。"},
+{cat:"提案・アドバイス",fr:"Il vaudrait mieux partir maintenant.",es:"Sería mejor salir ahora.",jp:"今出発した方がいいでしょう。"},
+{cat:"提案・アドバイス",fr:"Je te recommande ce restaurant.",es:"Te recomiendo este restaurante.",jp:"このレストランをお勧めします。"},
+{cat:"提案・アドバイス",fr:"Pourquoi ne pas partir plus tôt ?",es:"¿Por qué no salimos más temprano?",jp:"もっと早く出発しない？"},
+{cat:"提案・アドバイス",fr:"Si on prenait un café ?",es:"¿Tomamos un café?",jp:"コーヒーでもどう？"},
+{cat:"提案・アドバイス",fr:"Tu voudrais venir avec nous ?",es:"¿Te gustaría venir con nosotros?",jp:"一緒に来たい？"},
+{cat:"提案・アドバイス",fr:"On pourrait essayer ce nouveau restaurant.",es:"Podríamos probar este restaurante nuevo.",jp:"この新しいレストランを試してみない？"},
+{cat:"提案・アドバイス",fr:"Pourquoi tu n'essaies pas ce manteau ?",es:"¿Por qué no te pruebas este abrigo?",jp:"このコートを試着してみたら？"},
+
+// ============================================================
+// 10. 条件法・仮定表現
+// ============================================================
+{cat:"条件法・仮定",fr:"Si tu avais le temps, tu viendrais ?",es:"Si tuvieras tiempo, ¿vendrías?",jp:"時間があれば来る？"},
+{cat:"条件法・仮定",fr:"Si j'étais riche, je voyagerais partout.",es:"Si fuera rico/a, viajaría por todas partes.",jp:"お金持ちだったら、世界中を旅するでしょう。"},
+{cat:"条件法・仮定",fr:"Si tu as le temps, passe chez moi.",es:"Si tienes tiempo, pasa por mi casa.",jp:"時間があればうちに寄って。"},
+{cat:"条件法・仮定",fr:"J'aurais voulu venir, mais j'étais malade.",es:"Habría querido venir, pero estaba enfermo/a.",jp:"来たかったのですが、病気でした。"},
+{cat:"条件法・仮定",fr:"Tu aurais dû me le dire avant.",es:"Deberías habérmelo dicho antes.",jp:"前に言ってくれるべきでした。"},
+{cat:"条件法・仮定",fr:"Il aurait mieux valu attendre.",es:"Habría sido mejor esperar.",jp:"待った方が良かったでしょう。"},
+{cat:"条件法・仮定",fr:"Sans ton aide, je n'aurais pas réussi.",es:"Sin tu ayuda, no habría tenido éxito.",jp:"あなたの助けがなければ、成功しなかったでしょう。"},
+{cat:"条件法・仮定",fr:"Si j'avais su, je ne serais pas venu(e).",es:"Si lo hubiera sabido, no habría venido.",jp:"知っていたら来なかったでしょう。"},
+{cat:"条件法・仮定",fr:"Nous aurions pu faire mieux.",es:"Podríamos haberlo hecho mejor.",jp:"もっと上手くできたはずです。"},
+{cat:"条件法・仮定",fr:"Ça aurait été bien de se voir.",es:"Habría estado bien vernos.",jp:"会えたら良かったのに。"},
+{cat:"条件法・仮定",fr:"Je viens de finir mon travail.",es:"Acabo de terminar mi trabajo.",jp:"ちょうど仕事が終わったところです。"},
+{cat:"条件法・仮定",fr:"Il est en train de dormir.",es:"Está durmiendo ahora mismo.",jp:"彼は今寝ているところです。"},
+{cat:"条件法・仮定",fr:"Il faut que je parte.",es:"Tengo que irme.",jp:"もう行かなくては。"},
+
+// ============================================================
+// 11. 関係代名詞
+// ============================================================
+{cat:"関係代名詞",fr:"La femme qui parle est ma professeure.",es:"La mujer que habla es mi profesora.",jp:"話している女性は私の先生です。"},
+{cat:"関係代名詞",fr:"Le livre que je lis est passionnant.",es:"El libro que leo es fascinante.",jp:"私が読んでいる本は魅力的です。"},
+{cat:"関係代名詞",fr:"Le film que nous avons vu était excellent.",es:"La película que vimos era excelente.",jp:"私たちが見た映画は素晴らしかった。"},
+{cat:"関係代名詞",fr:"C'est la personne qui m'a aidé(e).",es:"Es la persona que me ayudó.",jp:"私を助けてくれた人です。"},
+{cat:"関係代名詞",fr:"Voici le cadeau que j'ai acheté pour toi.",es:"Aquí está el regalo que compré para ti.",jp:"あなたのために買ったプレゼントがこれです。"},
+{cat:"関係代名詞",fr:"J'ai rencontré quelqu'un qui te connaît.",es:"Conocí a alguien que te conoce.",jp:"あなたを知っている人に会いました。"},
+{cat:"関係代名詞",fr:"C'est tout ce que je sais.",es:"Es todo lo que sé.",jp:"私が知っていることはこれだけです。"},
+{cat:"関係代名詞",fr:"La ville où je suis né(e) est petite.",es:"La ciudad donde nací es pequeña.",jp:"私が生まれた街は小さいです。"},
+{cat:"関係代名詞",fr:"Le restaurant où nous mangeons est italien.",es:"El restaurante donde comemos es italiano.",jp:"私たちが食べているレストランはイタリアンです。"},
+{cat:"関係代名詞",fr:"Le jour où je l'ai rencontré(e), il pleuvait.",es:"El día que lo conocí, llovía.",jp:"彼/彼女に会った日、雨が降っていました。"},
+{cat:"関係代名詞",fr:"La maison où j'ai grandi n'existe plus.",es:"La casa donde crecí ya no existe.",jp:"私が育った家はもうありません。"},
+{cat:"関係代名詞",fr:"La personne dont je t'ai parlé est là.",es:"La persona de la que te hablé está aquí.",jp:"私が話した人がここにいます。"},
+{cat:"関係代名詞",fr:"C'est le livre dont j'ai besoin.",es:"Es el libro que necesito.",jp:"私が必要としている本です。"},
+{cat:"関係代名詞",fr:"C'est quelque chose dont je me souviens.",es:"Es algo que recuerdo.",jp:"私が覚えていることです。"},
+{cat:"関係代名詞",fr:"Je ne comprends pas ce qui se passe.",es:"No entiendo lo que pasa.",jp:"何が起きているのか分かりません。"},
+{cat:"関係代名詞",fr:"Dis-moi ce que tu veux.",es:"Dime lo que quieres.",jp:"何が欲しいか教えて。"},
+{cat:"関係代名詞",fr:"Ce qui m'intéresse, c'est la musique.",es:"Lo que me interesa es la música.",jp:"私が興味があるのは音楽です。"},
+{cat:"関係代名詞",fr:"Ce qui compte, c'est la santé.",es:"Lo que importa es la salud.",jp:"大切なのは健康です。"},
+{cat:"関係代名詞",fr:"C'est exactement ce que je pensais.",es:"Es exactamente lo que pensaba.",jp:"まさに私が思っていたことです。"},
+{cat:"関係代名詞",fr:"Je ne comprends pas ce que tu veux dire.",es:"No entiendo lo que quieres decir.",jp:"あなたが言いたいことが分かりません。"},
+
+// ============================================================
+// 12. 目的語代名詞
+// ============================================================
+{cat:"目的語代名詞",fr:"Je la connais depuis longtemps.",es:"La conozco desde hace mucho tiempo.",jp:"私は長い間彼女を知っています。"},
+{cat:"目的語代名詞",fr:"Tu peux me rappeler plus tard ?",es:"¿Puedes llamarme más tarde?",jp:"後で電話してくれる？"},
+{cat:"目的語代名詞",fr:"Je ne les ai pas vus aujourd'hui.",es:"No los he visto hoy.",jp:"今日彼らを見ていません。"},
+{cat:"目的語代名詞",fr:"Elle nous invite à sa fête.",es:"Nos invita a su fiesta.",jp:"彼女は私たちをパーティーに招待しています。"},
+{cat:"目的語代名詞",fr:"Tu l'as déjà fini(e) ?",es:"¿Ya lo has terminado?",jp:"もう終えたの？"},
+{cat:"目的語代名詞",fr:"Elle m'a appelé(e) ce matin.",es:"Me llamó esta mañana.",jp:"彼女は今朝私に電話しました。"},
+{cat:"目的語代名詞",fr:"Je ne le trouve pas.",es:"No lo encuentro.",jp:"それが見つかりません。"},
+{cat:"目的語代名詞",fr:"Je te comprends parfaitement.",es:"Te entiendo perfectamente.",jp:"完璧にあなたを理解しています。"},
+{cat:"目的語代名詞",fr:"Je lui ai donné le message.",es:"Le di el mensaje.",jp:"彼/彼女にメッセージを渡しました。"},
+{cat:"目的語代名詞",fr:"Elle m'a envoyé une lettre.",es:"Me envió una carta.",jp:"彼女は私に手紙を送りました。"},
+{cat:"目的語代名詞",fr:"Je leur ai parlé de toi.",es:"Les hablé de ti.",jp:"私は彼らにあなたのことを話しました。"},
+{cat:"目的語代名詞",fr:"Elle nous a expliqué la situation.",es:"Nos explicó la situación.",jp:"彼女は私たちに状況を説明しました。"},
+{cat:"目的語代名詞",fr:"Je te donnerai la réponse demain.",es:"Te daré la respuesta mañana.",jp:"明日答えを教えます。"},
+{cat:"目的語代名詞",fr:"Tu lui as dit la vérité ?",es:"¿Le dijiste la verdad?",jp:"彼/彼女に真実を言った？"},
+{cat:"目的語代名詞",fr:"Tu m'as manqué(e).",es:"Te eché de menos.",jp:"あなたがいなくて寂しかった。"},
+{cat:"目的語代名詞",fr:"Je te le donne.",es:"Te lo doy.",jp:"それをあなたにあげます。"},
+{cat:"目的語代名詞",fr:"Elle me l'a dit.",es:"Me lo dijo.",jp:"彼女は私にそれを言いました。"},
+{cat:"目的語代名詞",fr:"Je le lui ai expliqué.",es:"Se lo expliqué.",jp:"彼/彼女にそれを説明しました。"},
+{cat:"目的語代名詞",fr:"J'y vais demain.",es:"Voy allí mañana.",jp:"明日そこに行きます。"},
+{cat:"目的語代名詞",fr:"J'en ai besoin.",es:"Lo necesito.",jp:"それが必要です。"},
+{cat:"目的語代名詞",fr:"Nous y sommes allés l'année dernière.",es:"Fuimos allí el año pasado.",jp:"去年そこに行きました。"},
+{cat:"目的語代名詞",fr:"J'en ai assez.",es:"Tengo suficiente. / Estoy harto/a.",jp:"十分にある。/ うんざりだ。"},
+{cat:"目的語代名詞",fr:"Allez-y !",es:"¡Adelante!",jp:"どうぞ！/ 行ってください！"},
+{cat:"目的語代名詞",fr:"Je n'en ai aucune idée.",es:"No tengo ni idea.",jp:"全く分かりません。"},
+
+// ============================================================
+// 13. 再帰動詞の応用
+// ============================================================
+{cat:"再帰動詞",fr:"Je me suis couché(e) tard hier soir.",es:"Me acosté tarde anoche.",jp:"昨夜遅く寝ました。"},
+{cat:"再帰動詞",fr:"Elle s'est habillée rapidement.",es:"Se vistió rápidamente.",jp:"彼女は急いで服を着ました。"},
+{cat:"再帰動詞",fr:"Nous nous sommes promenés dans le parc.",es:"Nos paseamos por el parque.",jp:"私たちは公園を散歩しました。"},
+{cat:"再帰動詞",fr:"Tu t'es bien amusé(e) à la fête ?",es:"¿Te divertiste en la fiesta?",jp:"パーティーは楽しかった？"},
+{cat:"再帰動詞",fr:"Il se plaint toujours de tout.",es:"Siempre se queja de todo.",jp:"彼はいつもすべてに不満を言います。"},
+{cat:"再帰動詞",fr:"Elle s'est coupé le doigt.",es:"Se cortó el dedo.",jp:"彼女は指を切りました。"},
+{cat:"再帰動詞",fr:"Nous nous sommes perdus en ville.",es:"Nos perdimos en la ciudad.",jp:"街で迷いました。"},
+{cat:"再帰動詞",fr:"Je me suis endormi(e) pendant le film.",es:"Me dormí durante la película.",jp:"映画の間に眠ってしまいました。"},
+{cat:"再帰動詞",fr:"Ils se sont rencontrés à l'université.",es:"Se conocieron en la universidad.",jp:"彼らは大学で出会いました。"},
+{cat:"再帰動詞",fr:"Je me souviens de ce jour.",es:"Me acuerdo de ese día.",jp:"その日のことを覚えています。"},
+{cat:"再帰動詞",fr:"Tu t'es trompé(e) de numéro.",es:"Te equivocaste de número.",jp:"番号を間違えました。"},
+{cat:"再帰動詞",fr:"Il s'est blessé en jouant au foot.",es:"Se lesionó jugando al fútbol.",jp:"サッカーをして怪我をしました。"},
+{cat:"再帰動詞",fr:"Elle s'est rendu compte de son erreur.",es:"Se dio cuenta de su error.",jp:"彼女は自分の間違いに気づきました。"},
+{cat:"再帰動詞",fr:"Je me suis énervé(e) contre lui.",es:"Me enfadé con él.",jp:"彼に腹を立てました。"},
+{cat:"再帰動詞",fr:"Elle s'est inquiétée pour rien.",es:"Se preocupó por nada.",jp:"彼女は無駄に心配しました。"},
+{cat:"再帰動詞",fr:"Il s'est fâché quand il a appris la nouvelle.",es:"Se enfadó cuando supo la noticia.",jp:"彼はニュースを聞いて怒りました。"},
+{cat:"再帰動詞",fr:"Ils se sont disputés pour des bêtises.",es:"Se pelearon por tonterías.",jp:"彼らはつまらないことで喧嘩しました。"},
+{cat:"再帰動詞",fr:"Elle s'est évanouie à cause de la chaleur.",es:"Se desmayó por el calor.",jp:"彼女は暑さで気を失いました。"},
+{cat:"再帰動詞",fr:"Nous nous sommes embrassés à minuit.",es:"Nos besamos a medianoche.",jp:"真夜中にキスしました。"},
+{cat:"再帰動詞",fr:"Ils se téléphonent tous les jours.",es:"Se llaman por teléfono todos los días.",jp:"彼らは毎日電話し合います。"},
+{cat:"再帰動詞",fr:"Nous nous comprenons bien.",es:"Nos entendemos bien.",jp:"私たちはよく分かり合っています。"},
+
+// ============================================================
+// 14. 受動態・非人称表現
+// ============================================================
+{cat:"受動態・非人称",fr:"Le livre a été écrit par un auteur célèbre.",es:"El libro fue escrito por un autor famoso.",jp:"その本は有名な作家によって書かれました。"},
+{cat:"受動態・非人称",fr:"La porte est fermée à clé.",es:"La puerta está cerrada con llave.",jp:"ドアは鍵がかかっています。"},
+{cat:"受動態・非人称",fr:"Les résultats seront annoncés demain.",es:"Los resultados serán anunciados mañana.",jp:"結果は明日発表されます。"},
+{cat:"受動態・非人称",fr:"Ce vin est produit en France.",es:"Este vino es producido en Francia.",jp:"このワインはフランスで生産されています。"},
+{cat:"受動態・非人称",fr:"La maison a été construite en 1920.",es:"La casa fue construida en 1920.",jp:"その家は1920年に建てられました。"},
+{cat:"受動態・非人称",fr:"Cette chanson est connue dans le monde entier.",es:"Esta canción es conocida en todo el mundo.",jp:"この歌は世界中で知られています。"},
+{cat:"受動態・非人称",fr:"La décision a été prise hier.",es:"La decisión fue tomada ayer.",jp:"その決定は昨日下されました。"},
+{cat:"受動態・非人称",fr:"On parle français ici.",es:"Aquí se habla francés.",jp:"ここではフランス語が話されています。"},
+{cat:"受動態・非人称",fr:"Ça se dit comment en japonais ?",es:"¿Cómo se dice en japonés?",jp:"日本語でどう言いますか？"},
+{cat:"受動態・非人称",fr:"Ce plat se mange froid.",es:"Este plato se come frío.",jp:"この料理は冷たくして食べます。"},
+{cat:"受動態・非人称",fr:"On m'a dit que tu partais.",es:"Me dijeron que te ibas.",jp:"あなたが去ると聞きました。"},
+{cat:"受動態・非人称",fr:"On a volé mon portefeuille.",es:"Me robaron la cartera.",jp:"財布を盗まれました。"},
+{cat:"受動態・非人称",fr:"Ce mot s'écrit avec deux « t ».",es:"Esta palabra se escribe con dos «t».",jp:"この単語は「t」が2つで書きます。"},
+
+// ============================================================
+// 15. 接続法入門
+// ============================================================
+{cat:"接続法入門",fr:"Je veux que tu viennes avec moi.",es:"Quiero que vengas conmigo.",jp:"一緒に来てほしい。"},
+{cat:"接続法入門",fr:"Elle souhaite que nous soyons heureux.",es:"Desea que seamos felices.",jp:"彼女は私たちが幸せになることを望んでいます。"},
+{cat:"接続法入門",fr:"Il faut que je parte maintenant.",es:"Tengo que irme ahora.",jp:"今出発しなければなりません。"},
+{cat:"接続法入門",fr:"Je préfère que tu restes ici.",es:"Prefiero que te quedes aquí.",jp:"ここにいてほしい。"},
+{cat:"接続法入門",fr:"Je voudrais que tu m'aides.",es:"Quisiera que me ayudaras.",jp:"手伝ってほしいのですが。"},
+{cat:"接続法入門",fr:"Il faut que je finisse ce travail aujourd'hui.",es:"Tengo que terminar este trabajo hoy.",jp:"今日この仕事を終えなければなりません。"},
+{cat:"接続法入門",fr:"C'est dommage qu'il ne puisse pas venir.",es:"Es una pena que no pueda venir.",jp:"彼が来られないのは残念です。"},
+{cat:"接続法入門",fr:"Je suis content(e) que tu sois là.",es:"Estoy contento/a de que estés aquí.",jp:"あなたがここにいて嬉しいです。"},
+{cat:"接続法入門",fr:"Il est possible qu'elle soit en retard.",es:"Es posible que llegue tarde.",jp:"彼女は遅れるかもしれません。"},
+{cat:"接続法入門",fr:"Je doute qu'il vienne.",es:"Dudo que venga.",jp:"彼が来るとは思えません。"},
+
+// ============================================================
+// 16. 仕事・職場
+// ============================================================
+{cat:"仕事・職場",fr:"Je travaille dans une entreprise internationale.",es:"Trabajo en una empresa internacional.",jp:"私は国際企業で働いています。"},
+{cat:"仕事・職場",fr:"Je cherche un emploi.",es:"Estoy buscando trabajo.",jp:"仕事を探しています。"},
+{cat:"仕事・職場",fr:"Je suis responsable des ventes.",es:"Soy responsable de ventas.",jp:"私は営業の責任者です。"},
+{cat:"仕事・職場",fr:"Je commence à 9 heures et je finis à 18 heures.",es:"Empiezo a las 9 y termino a las 18.",jp:"9時に仕事を始め、18時に終わります。"},
+{cat:"仕事・職場",fr:"Je suis en télétravail aujourd'hui.",es:"Hoy trabajo desde casa.",jp:"今日は在宅勤務です。"},
+{cat:"仕事・職場",fr:"Nous avons une réunion cet après-midi.",es:"Tenemos una reunión esta tarde.",jp:"午後に会議があります。"},
+{cat:"仕事・職場",fr:"Mon patron est très gentil mais exigeant.",es:"Mi jefe es muy amable pero exigente.",jp:"上司は親切ですが厳しいです。"},
+{cat:"仕事・職場",fr:"Je fais une pause à midi.",es:"Hago una pausa al mediodía.",jp:"正午に休憩します。"},
+{cat:"仕事・職場",fr:"Elle a changé de travail.",es:"Ella cambió de trabajo.",jp:"彼女は仕事を替えました。"},
+{cat:"仕事・職場",fr:"J'ai un entretien d'embauche demain.",es:"Tengo una entrevista de trabajo mañana.",jp:"明日就職面接があります。"},
+{cat:"仕事・職場",fr:"Le bureau est loin de la maison.",es:"La oficina está lejos de casa.",jp:"オフィスが家から遠いです。"},
+{cat:"仕事・職場",fr:"Je dois rendre ce rapport avant vendredi.",es:"Tengo que entregar este informe antes del viernes.",jp:"この報告書を金曜までに提出しないといけません。"},
+{cat:"仕事・職場",fr:"Je suis en train d'apprendre le français.",es:"Estoy aprendiendo francés.",jp:"フランス語を学んでいます。"},
+{cat:"仕事・職場",fr:"Peux-tu vérifier ce message avant que je l'envoie ?",es:"¿Puedes revisar este mensaje antes de que lo envíe?",jp:"送る前にこのメッセージを確認してくれる？"},
+{cat:"仕事・職場",fr:"Je suis en réunion toute la matinée.",es:"Estoy en reunión toda la mañana.",jp:"午前中ずっと会議中です。"},
+{cat:"仕事・職場",fr:"J'ai beaucoup de travail en ce moment.",es:"Tengo mucho trabajo ahora mismo.",jp:"今はとても忙しいです。"},
+
+// ============================================================
+// 17. 健康・医療
+// ============================================================
+{cat:"健康・医療",fr:"J'ai mal à la tête.",es:"Me duele la cabeza.",jp:"頭が痛いです。"},
+{cat:"健康・医療",fr:"Vous avez de la fièvre ?",es:"¿Tiene fiebre?",jp:"熱はありますか？"},
+{cat:"健康・医療",fr:"Il faut que je fasse du sport.",es:"Tengo que hacer deporte.",jp:"スポーツをしなければなりません。"},
+{cat:"健康・医療",fr:"J'ai eu la grippe la semaine dernière.",es:"Tuve gripe la semana pasada.",jp:"先週インフルエンザになりました。"},
+{cat:"健康・医療",fr:"Je vais voir le médecin demain.",es:"Voy a ver al médico mañana.",jp:"明日医者に行きます。"},
+{cat:"健康・医療",fr:"J'ai mal au dos depuis deux jours.",es:"Me duele la espalda desde hace dos días.",jp:"2日間背中が痛いです。"},
+{cat:"健康・医療",fr:"Elle s'est cassé la jambe.",es:"Se rompió la pierna.",jp:"彼女は足を折りました。"},
+{cat:"健康・医療",fr:"Je me sens mieux aujourd'hui.",es:"Me siento mejor hoy.",jp:"今日は良くなりました。"},
+{cat:"健康・医療",fr:"Je tousse depuis trois jours.",es:"Toso desde hace tres días.",jp:"3日前から咳が出ます。"},
+{cat:"健康・医療",fr:"J'ai mal quand j'avale.",es:"Me duele al tragar.",jp:"飲み込むと痛いです。"},
+{cat:"健康・医療",fr:"Je suis allergique aux noix, c'est important.",es:"Soy alérgico/a a los frutos secos, es importante.",jp:"ナッツアレルギーがあり重要です。"},
+{cat:"健康・医療",fr:"Est-ce que vous pouvez me prescrire quelque chose ?",es:"¿Puede recetarme algo?",jp:"何か処方してもらえますか？"},
+{cat:"健康・医療",fr:"Je me sens mieux, mais je suis encore fatigué(e).",es:"Me siento mejor, pero todavía estoy cansado/a.",jp:"良くなりましたがまだだるいです。"},
+{cat:"健康・医療",fr:"Prends cette médecine trois fois par jour.",es:"Toma esta medicina tres veces al día.",jp:"この薬を1日3回飲んで。"},
+{cat:"健康・医療",fr:"J'ai besoin d'un rendez-vous chez le médecin.",es:"Necesito una cita con el médico.",jp:"医者の予約が必要です。"},
+{cat:"健康・医療",fr:"Je suis sous traitement médicamenteux.",es:"Estoy bajo tratamiento médico.",jp:"薬の治療中です。"},
+
+// ============================================================
+// 18. 旅行・移動・交通
+// ============================================================
+{cat:"旅行・交通",fr:"Nous avons réservé l'hôtel en ligne.",es:"Reservamos el hotel en línea.",jp:"ホテルをオンラインで予約しました。"},
+{cat:"旅行・交通",fr:"Le vol a été retardé d'une heure.",es:"El vuelo se retrasó una hora.",jp:"フライトが1時間遅れました。"},
+{cat:"旅行・交通",fr:"Nous avons pris le métro jusqu'au centre-ville.",es:"Tomamos el metro hasta el centro.",jp:"地下鉄で中心街まで行きました。"},
+{cat:"旅行・交通",fr:"Le trajet a duré environ trois heures.",es:"El viaje duró unas tres horas.",jp:"移動は約3時間かかりました。"},
+{cat:"旅行・交通",fr:"J'ai pris le train à 8 heures.",es:"Tomé el tren a las 8.",jp:"8時に電車に乗りました。"},
+{cat:"旅行・交通",fr:"Le taxi coûte trop cher.",es:"El taxi cuesta muy caro.",jp:"タクシーが高すぎます。"},
+{cat:"旅行・交通",fr:"Nous avons loué une voiture.",es:"Alquilamos un coche.",jp:"車をレンタルしました。"},
+{cat:"旅行・交通",fr:"À quelle heure part le bus ?",es:"¿A qué hora sale el autobús?",jp:"バスは何時に出発しますか？"},
+{cat:"旅行・交通",fr:"Est-ce qu'il faut changer à Châtelet ?",es:"¿Hay que hacer transbordo en Châtelet?",jp:"シャトレで乗り換えが必要ですか？"},
+{cat:"旅行・交通",fr:"Le train a dix minutes de retard.",es:"El tren tiene diez minutos de retraso.",jp:"電車が10分遅れています。"},
+{cat:"旅行・交通",fr:"Ce billet est valable jusqu'à demain ?",es:"¿Este billete es válido hasta mañana?",jp:"このチケットは明日まで有効ですか？"},
+{cat:"旅行・交通",fr:"Je me suis trompé(e) de quai.",es:"Me equivoqué de andén.",jp:"ホームを間違えました。"},
+{cat:"旅行・交通",fr:"Où est la consigne à bagages ?",es:"¿Dónde está la consigna de equipaje?",jp:"荷物預かり所はどこですか？"},
+{cat:"旅行・交通",fr:"Où change-t-on de l'argent ?",es:"¿Dónde cambio dinero?",jp:"どこでお金を両替しますか？"},
+{cat:"旅行・交通",fr:"J'ai réservé une chambre d'hôtel.",es:"Reservé una habitación de hotel.",jp:"ホテルの部屋を予約しました。"},
+{cat:"旅行・交通",fr:"La poste se trouve en face de la gare.",es:"La oficina de correos está enfrente de la estación.",jp:"郵便局は駅の向かい側にあります。"},
+{cat:"旅行・交通",fr:"Prenez la première rue à droite.",es:"Tome la primera calle a la derecha.",jp:"最初の道を右に曲がってください。"},
+{cat:"旅行・交通",fr:"Il faut 10 minutes à pied.",es:"Se tarda 10 minutos andando.",jp:"歩いて10分かかります。"},
+{cat:"旅行・交通",fr:"Nous sommes arrivés tard à l'hôtel.",es:"Llegamos tarde al hotel.",jp:"ホテルに遅く到着しました。"},
+
+// ============================================================
+// 19. 買い物・レストラン・サービス
+// ============================================================
+{cat:"買い物・サービス",fr:"J'ai commandé une salade et un steak.",es:"Pedí una ensalada y un filete.",jp:"サラダとステーキを注文しました。"},
+{cat:"買い物・サービス",fr:"C'était délicieux, mais trop salé.",es:"Estaba delicioso, pero muy salado.",jp:"おいしかったけど塩辛すぎました。"},
+{cat:"買い物・サービス",fr:"Je voudrais essayer ces chaussures.",es:"Quiero probarme estos zapatos.",jp:"この靴を試着したいです。"},
+{cat:"買い物・サービス",fr:"Il y a une réduction de 20%.",es:"Hay un descuento del 20%.",jp:"20%オフです。"},
+{cat:"買い物・サービス",fr:"Nous avons payé la note ensemble.",es:"Pagamos la cuenta juntos.",jp:"お会計を一緒に払いました。"},
+{cat:"買い物・サービス",fr:"Je voudrais échanger cet article, s'il vous plaît.",es:"Quisiera cambiar este artículo, por favor.",jp:"この商品を交換したいです。"},
+{cat:"買い物・サービス",fr:"Je l'ai acheté hier, mais il ne marche pas.",es:"Lo compré ayer, pero no funciona.",jp:"昨日買ったけど動きません。"},
+{cat:"買い物・サービス",fr:"Vous avez le ticket de caisse ?",es:"¿Tiene el recibo?",jp:"レシートはありますか？"},
+{cat:"買い物・サービス",fr:"Je préfère être remboursé(e).",es:"Prefiero que me devuelvan el dinero.",jp:"返金がいいです。"},
+{cat:"買い物・サービス",fr:"Est-ce qu'il y a une garantie ?",es:"¿Hay garantía?",jp:"保証はありますか？"},
+{cat:"買い物・サービス",fr:"Je voudrais réserver une table pour samedi soir.",es:"Quisiera reservar una mesa para el sábado por la noche.",jp:"土曜夜に席を予約したいです。"},
+{cat:"買い物・サービス",fr:"Est-ce qu'il reste quelque chose de disponible ?",es:"¿Queda algo disponible?",jp:"空きはありますか？"},
+{cat:"買い物・サービス",fr:"Pouvez-vous me confirmer par e-mail ?",es:"¿Puede confirmármelo por correo?",jp:"メールで確認してもらえますか？"},
+{cat:"買い物・サービス",fr:"Je peux changer l'horaire si nécessaire.",es:"Puedo cambiar la hora si hace falta.",jp:"必要なら時間を変更できます。"},
+{cat:"買い物・サービス",fr:"Pouvez-vous l'emballer ?",es:"¿Puede envolverlo?",jp:"包装してもらえますか？"},
+{cat:"買い物・サービス",fr:"Ce magasin est ouvert jusqu'à 20h.",es:"Esta tienda abre hasta las 20.",jp:"この店は20時まで開いています。"},
+
+// ============================================================
+// 20. ホテル・住まい
+// ============================================================
+{cat:"ホテル・住まい",fr:"La chambre ne correspond pas aux photos.",es:"La habitación no corresponde a las fotos.",jp:"部屋が写真と違います。"},
+{cat:"ホテル・住まい",fr:"Est-ce que vous pouvez changer de chambre ?",es:"¿Puede cambiarme de habitación?",jp:"部屋を変えてもらえますか？"},
+{cat:"ホテル・住まい",fr:"Il manque des serviettes, vous pouvez en apporter ?",es:"Faltan toallas, ¿puede traer unas?",jp:"タオルが足りません、持ってきてもらえますか？"},
+{cat:"ホテル・住まい",fr:"Le bruit m'a empêché(e) de dormir.",es:"El ruido no me dejó dormir.",jp:"騒音で眠れませんでした。"},
+{cat:"ホテル・住まい",fr:"Je voudrais parler au responsable.",es:"Quisiera hablar con el encargado.",jp:"責任者と話したいです。"},
+{cat:"ホテル・住まい",fr:"Je cherche un appartement meublé près du métro.",es:"Busco un piso amueblado cerca del metro.",jp:"地下鉄近くの家具付き物件を探しています。"},
+{cat:"ホテル・住まい",fr:"Le loyer comprend les charges ?",es:"¿El alquiler incluye los gastos?",jp:"家賃に諸費用は含まれますか？"},
+{cat:"ホテル・住まい",fr:"Il y a trop de bruit le soir.",es:"Hay demasiado ruido por la noche.",jp:"夜がうるさすぎます。"},
+{cat:"ホテル・住まい",fr:"Le chauffage ne fonctionne plus depuis hier.",es:"La calefacción no funciona desde ayer.",jp:"暖房が昨日から動きません。"},
+{cat:"ホテル・住まい",fr:"On peut fixer une date pour la visite ?",es:"¿Podemos fijar una fecha para la visita?",jp:"内見の日程を決められますか？"},
+
+// ============================================================
+// 21. 天気・季節・環境
+// ============================================================
+{cat:"天気・環境",fr:"Il a fait très froid hier soir.",es:"Hizo mucho frío anoche.",jp:"昨晩とても寒かったです。"},
+{cat:"天気・環境",fr:"Demain, il va faire soleil.",es:"Mañana va a hacer sol.",jp:"明日晴れます。"},
+{cat:"天気・環境",fr:"L'été est plus chaud que l'hiver.",es:"El verano es más caluroso que el invierno.",jp:"夏は冬より暑いです。"},
+{cat:"天気・環境",fr:"Il y a beaucoup de pollution en ville.",es:"Hay mucha contaminación en la ciudad.",jp:"街に汚染が多いです。"},
+{cat:"天気・環境",fr:"Nous avons eu un orage hier.",es:"Tuvimos una tormenta ayer.",jp:"昨日嵐がありました。"},
+{cat:"天気・環境",fr:"Le vent souffle très fort aujourd'hui.",es:"Hoy hace mucho viento.",jp:"今日はとても風が強いです。"},
+{cat:"天気・環境",fr:"Il a neigé toute la nuit.",es:"Nevó toda la noche.",jp:"一晩中雪が降りました。"},
+{cat:"天気・環境",fr:"Le ciel est nuageux ce matin.",es:"El cielo está nublado esta mañana.",jp:"今朝は空が曇っています。"},
+{cat:"天気・環境",fr:"Quelle belle journée !",es:"¡Qué día tan hermoso!",jp:"なんて素晴らしい一日でしょう！"},
+{cat:"天気・環境",fr:"Il faisait beau quand nous sommes partis.",es:"Hacía buen tiempo cuando salimos.",jp:"出発した時は良い天気でした。"},
+
+// ============================================================
+// 22. 日常生活の発展
+// ============================================================
+{cat:"日常生活",fr:"J'ai oublié d'acheter du pain en rentrant.",es:"Olvidé comprar pan al volver.",jp:"帰りにパンを買うのを忘れました。"},
+{cat:"日常生活",fr:"Je dois terminer ce rapport avant demain.",es:"Tengo que terminar este informe antes de mañana.",jp:"明日までにこの報告書を終えないといけません。"},
+{cat:"日常生活",fr:"Je me suis réveillé(e) très tôt ce matin.",es:"Me desperté muy temprano esta mañana.",jp:"今朝とても早く起きました。"},
+{cat:"日常生活",fr:"Je n'arrive pas à dormir.",es:"No puedo dormir.",jp:"眠れません。"},
+{cat:"日常生活",fr:"J'ai passé une mauvaise nuit.",es:"Pasé una mala noche.",jp:"あまり眠れなかった。"},
+{cat:"日常生活",fr:"Je dois faire les courses ce soir.",es:"Tengo que hacer la compra esta noche.",jp:"今夜買い物しなければなりません。"},
+{cat:"日常生活",fr:"J'ai laissé mes lunettes à la maison.",es:"Me dejé las gafas en casa.",jp:"眼鏡を家に忘れてきました。"},
+{cat:"日常生活",fr:"Mon téléphone est en train de mourir.",es:"Mi teléfono se está quedando sin batería.",jp:"スマホの電池が切れそうです。"},
+{cat:"日常生活",fr:"Je dois recharger ma batterie.",es:"Tengo que cargar la batería.",jp:"電池を充電しなければなりません。"},
+{cat:"日常生活",fr:"Il y a une panne d'électricité.",es:"Hay un corte de luz.",jp:"停電しています。"},
+{cat:"日常生活",fr:"Le wifi ne fonctionne pas.",es:"El wifi no funciona.",jp:"Wi-Fiが使えません。"},
+{cat:"日常生活",fr:"J'ai du mal à me concentrer.",es:"Me cuesta concentrarme.",jp:"集中するのが難しいです。"},
+
+// ============================================================
+// 23. 挨拶・社交の発展
+// ============================================================
+{cat:"社交・挨拶",fr:"Ça fait longtemps qu'on ne s'est pas vus !",es:"¡Cuánto tiempo sin vernos!",jp:"久しぶり！"},
+{cat:"社交・挨拶",fr:"Comment ça se passe au travail ?",es:"¿Qué tal va el trabajo?",jp:"仕事はどうですか？"},
+{cat:"社交・挨拶",fr:"J'espère que tu vas bien.",es:"Espero que estés bien.",jp:"元気だといいのですが。"},
+{cat:"社交・挨拶",fr:"Passe le bonjour à ta famille.",es:"Saluda a tu familia de mi parte.",jp:"ご家族によろしく。"},
+{cat:"社交・挨拶",fr:"C'était un plaisir de te voir.",es:"Fue un placer verte.",jp:"会えて嬉しかったです。"},
+{cat:"社交・挨拶",fr:"On reste en contact.",es:"Seguimos en contacto.",jp:"連絡を取り合いましょう。"},
+{cat:"社交・挨拶",fr:"Qu'est-ce que tu deviens ?",es:"¿Qué es de tu vida?",jp:"最近どうしてる？"},
+{cat:"社交・挨拶",fr:"Je suis désolé(e) de ne pas avoir pu venir.",es:"Siento no haber podido venir.",jp:"来られなくてごめんなさい。"},
+{cat:"社交・挨拶",fr:"Bonne continuation !",es:"¡Que siga todo bien!",jp:"この先もうまくいきますように！"},
+{cat:"社交・挨拶",fr:"Prends soin de toi.",es:"Cuídate.",jp:"体に気をつけて。"},
+{cat:"社交・挨拶",fr:"Toutes mes félicitations !",es:"¡Felicidades!",jp:"おめでとうございます！"},
+{cat:"社交・挨拶",fr:"Je te tiens au courant.",es:"Te mantendré informado/a.",jp:"また知らせるね。"},
+{cat:"社交・挨拶",fr:"À la prochaine !",es:"¡Hasta la próxima!",jp:"また今度！"},
+{cat:"社交・挨拶",fr:"Merci pour l'invitation, ça me fait plaisir.",es:"Gracias por la invitación, me hace ilusión.",jp:"誘ってくれてありがとう、嬉しいです。"},
+{cat:"社交・挨拶",fr:"Je suis vraiment touché(e).",es:"Estoy realmente conmovido/a.",jp:"本当に感動しています。"},
+
+// ============================================================
+// 24. 断り・変更・謝罪
+// ============================================================
+{cat:"断り・謝罪",fr:"Désolé(e), je ne peux pas aujourd'hui, mais demain oui.",es:"Lo siento, hoy no puedo, pero mañana sí.",jp:"ごめん、今日は無理だけど明日なら大丈夫。"},
+{cat:"断り・謝罪",fr:"Je vais être en retard d'environ dix minutes.",es:"Voy a llegar unos diez minutos tarde.",jp:"10分くらい遅れそう。"},
+{cat:"断り・謝罪",fr:"On peut reporter à la semaine prochaine ?",es:"¿Podemos aplazarlo a la semana que viene?",jp:"来週に延期できる？"},
+{cat:"断り・謝罪",fr:"Je suis désolé(e), ce n'est pas possible.",es:"Lo siento, no es posible.",jp:"申し訳ありませんが、それは無理です。"},
+{cat:"断り・謝罪",fr:"Je voulais venir mais j'ai été retenu(e).",es:"Quería venir pero me retrasé.",jp:"来たかったのですが、遅れてしまいました。"},
+{cat:"断り・謝罪",fr:"Je m'excuse pour le retard.",es:"Me disculpo por el retraso.",jp:"遅れてしまってすみません。"},
+{cat:"断り・謝罪",fr:"C'est de ma faute, je suis vraiment désolé(e).",es:"Es mi culpa, lo siento de verdad.",jp:"私のせいです、本当に申し訳ありません。"},
+{cat:"断り・謝罪",fr:"J'aurais dû te prévenir.",es:"Debería haberte avisado.",jp:"あなたに知らせるべきでした。"},
+{cat:"断り・謝罪",fr:"Je ne l'ai pas fait exprès.",es:"No lo hice a propósito.",jp:"わざとではありませんでした。"},
+{cat:"断り・謝罪",fr:"Ça ne se reproduira plus.",es:"No volverá a pasar.",jp:"二度と繰り返しません。"},
+
+// ============================================================
+// 25. 話題の転換・接続詞
+// ============================================================
+{cat:"接続・話題転換",fr:"D'abord, on va au musée, ensuite on déjeune.",es:"Primero, vamos al museo, luego almorzamos.",jp:"まず美術館に行き、それから昼食をとります。"},
+{cat:"接続・話題転換",fr:"Je voulais sortir, mais il s'est mis à pleuvoir.",es:"Quería salir, pero se puso a llover.",jp:"出かけたかったけど雨が降り出しました。"},
+{cat:"接続・話題転換",fr:"À propos, tu as des nouvelles de Marc ?",es:"Por cierto, ¿tienes noticias de Marc?",jp:"ところで、マルクから連絡あった？"},
+{cat:"接続・話題転換",fr:"Au fait, tu as vu mon message ?",es:"Por cierto, ¿viste mi mensaje?",jp:"そういえば、メッセージ見た？"},
+{cat:"接続・話題転換",fr:"Pour revenir à ce qu'on disait...",es:"Volviendo a lo que decíamos...",jp:"先ほどの話に戻ると..."},
+{cat:"接続・話題転換",fr:"Ça me fait penser à...",es:"Eso me hace pensar en...",jp:"それで思い出したのが..."},
+{cat:"接続・話題転換",fr:"En tout cas, merci pour ton aide.",es:"En cualquier caso, gracias por tu ayuda.",jp:"いずれにしても、助けてくれてありがとう。"},
+{cat:"接続・話題転換",fr:"Revenons à nos moutons.",es:"Volvamos al tema.",jp:"本題に戻りましょう。"},
+{cat:"接続・話題転換",fr:"Tu préfères qu'on y aille en bus ou en taxi ?",es:"¿Prefieres que vayamos en bus o en taxi?",jp:"バスとタクシーどっちがいい？"},
+{cat:"接続・話題転換",fr:"D'un côté... de l'autre côté...",es:"Por un lado... por otro lado...",jp:"一方では...もう一方では..."},
+{cat:"接続・話題転換",fr:"De plus, il faudrait...",es:"Además, habría que...",jp:"さらに、〜する必要があります。"},
+{cat:"接続・話題転換",fr:"En résumé, tout s'est bien passé.",es:"En resumen, todo salió bien.",jp:"要するに、すべてうまくいきました。"},
+
+// ============================================================
+// 26. 電話・コミュニケーション
+// ============================================================
+{cat:"電話・通信",fr:"Pouvez-vous me passer Jean ?",es:"¿Puedes pasarme a Juan?",jp:"ジャンをお願いします。"},
+{cat:"電話・通信",fr:"Parlez-vous plus lentement, s'il vous plaît ?",es:"¿Puede hablar más despacio?",jp:"もっとゆっくり話してもらえますか？"},
+{cat:"電話・通信",fr:"Je ne comprends pas tout.",es:"No entiendo todo.",jp:"すべてわかりません。"},
+{cat:"電話・通信",fr:"Rappelez-moi plus tard.",es:"Llámame más tarde.",jp:"後でかけ直してください。"},
+{cat:"電話・通信",fr:"C'est pour confirmer le rendez-vous.",es:"Es para confirmar la cita.",jp:"予約の確認です。"},
+{cat:"電話・通信",fr:"Laissez un message après le bip.",es:"Deje un mensaje después de la señal.",jp:"ビープ音の後にメッセージを残してください。"},
+{cat:"電話・通信",fr:"Je vous rappelle dès que possible.",es:"Le llamo tan pronto como pueda.",jp:"できるだけ早くかけ直します。"},
+{cat:"電話・通信",fr:"La ligne est mauvaise.",es:"La línea está mal.",jp:"電話が聞こえにくいです。"},
+{cat:"電話・通信",fr:"Tu as reçu mon e-mail ?",es:"¿Recibiste mi correo electrónico?",jp:"メールは受け取りましたか？"},
+{cat:"電話・通信",fr:"Je vais t'envoyer les informations par message.",es:"Te voy a mandar la información por mensaje.",jp:"メッセージで情報を送ります。"},
+
+// ============================================================
+// 27. 趣味・レジャー・意見
+// ============================================================
+{cat:"趣味・レジャー",fr:"Le week-end dernier, j'ai joué au tennis.",es:"El fin de semana pasado jugué al tenis.",jp:"先週末テニスをしました。"},
+{cat:"趣味・レジャー",fr:"Dimanche, je vais voir un film.",es:"El domingo voy a ver una película.",jp:"日曜日に映画を見ます。"},
+{cat:"趣味・レジャー",fr:"J'aime lire, mais pas regarder la TV.",es:"Me gusta leer, pero no ver TV.",jp:"本を読むのは好きですがTVは嫌いです。"},
+{cat:"趣味・レジャー",fr:"Elle préfère nager à la plage.",es:"Prefiere nadar en la playa.",jp:"彼女はビーチで泳ぐのが好きです。"},
+{cat:"趣味・レジャー",fr:"Nous avons assisté à un concert.",es:"Asistimos a un concierto.",jp:"コンサートに行きました。"},
+{cat:"趣味・レジャー",fr:"Quel est ton sport préféré ?",es:"¿Cuál es tu deporte favorito?",jp:"好きなスポーツは何ですか？"},
+{cat:"趣味・レジャー",fr:"J'écoute de la musique en faisant du sport.",es:"Escucho música mientras hago deporte.",jp:"スポーツしながら音楽を聴きます。"},
+{cat:"趣味・レジャー",fr:"Je suis abonné(e) à une salle de gym.",es:"Tengo un abono en el gimnasio.",jp:"ジムの会員です。"},
+{cat:"趣味・レジャー",fr:"Je collectionne les timbres depuis l'enfance.",es:"Colecciono sellos desde la infancia.",jp:"子供の頃から切手を集めています。"},
+{cat:"趣味・レジャー",fr:"On pourrait faire une promenade ce soir ?",es:"¿Podríamos dar un paseo esta tarde?",jp:"今夜散歩に行かない？"},
+
+// ============================================================
+// 28. 食事・料理の発展
+// ============================================================
+{cat:"食事・料理",fr:"Je cuisine pour toute la famille ce soir.",es:"Esta noche cocino para toda la familia.",jp:"今夜は家族全員分料理します。"},
+{cat:"食事・料理",fr:"Ce plat est une spécialité régionale.",es:"Este plato es una especialidad regional.",jp:"この料理は地域の名物です。"},
+{cat:"食事・料理",fr:"Comment c'est fait, ce plat ?",es:"¿Cómo se hace este plato?",jp:"この料理はどうやって作るの？"},
+{cat:"食事・料理",fr:"Il y a trop d'huile dans ce plat.",es:"Hay demasiado aceite en este plato.",jp:"この料理に油が多すぎます。"},
+{cat:"食事・料理",fr:"J'ai commandé une salade et un steak.",es:"Pedí una ensalada y un filete.",jp:"サラダとステーキを注文しました。"},
+{cat:"食事・料理",fr:"La cuisson est parfaite.",es:"El punto de cocción es perfecto.",jp:"焼き加減は完璧です。"},
+{cat:"食事・料理",fr:"Je voudrais la viande bien cuite.",es:"Quisiera la carne bien hecha.",jp:"肉をよく焼いてほしいです。"},
+{cat:"食事・料理",fr:"Avez-vous un menu végétarien ?",es:"¿Tienen menú vegetariano?",jp:"ベジタリアンメニューはありますか？"},
+{cat:"食事・料理",fr:"Je vais prendre le plat du jour.",es:"Voy a pedir el plato del día.",jp:"日替わりメニューにします。"},
+{cat:"食事・料理",fr:"C'est à point, merci.",es:"Está en su punto, gracias.",jp:"ちょうど良い焼き加減です、ありがとう。"},
+
+// ============================================================
+// 29. 数量・金額の詳細表現
+// ============================================================
+{cat:"数量・金額",fr:"J'achète un kilo de pommes.",es:"Compro un kilo de manzanas.",jp:"リンゴを1キロ買います。"},
+{cat:"数量・金額",fr:"Il y a beaucoup de monde.",es:"Hay mucha gente.",jp:"たくさんの人がいます。"},
+{cat:"数量・金額",fr:"Je voudrais un peu de fromage.",es:"Quisiera un poco de queso.",jp:"チーズを少しください。"},
+{cat:"数量・金額",fr:"Ça coûte combien en tout ?",es:"¿Cuánto cuesta en total?",jp:"全部でいくらですか？"},
+{cat:"数量・金額",fr:"Je vous dois combien ?",es:"¿Cuánto le debo?",jp:"おいくらですか？"},
+{cat:"数量・金額",fr:"C'est trop cher pour moi.",es:"Es demasiado caro para mí.",jp:"私には高すぎます。"},
+{cat:"数量・金額",fr:"On peut avoir des réductions ?",es:"¿Podemos tener algún descuento?",jp:"割引はありますか？"},
+{cat:"数量・金額",fr:"Je vais payer en espèces.",es:"Voy a pagar en efectivo.",jp:"現金で払います。"},
+{cat:"数量・金額",fr:"Vous acceptez les cartes ?",es:"¿Aceptan tarjetas?",jp:"カードは使えますか？"},
+{cat:"数量・金額",fr:"Le prix total s'élève à cent euros.",es:"El precio total asciende a cien euros.",jp:"合計金額は100ユーロです。"},
+
+// ============================================================
+// 30. 住居・街の施設
+// ============================================================
+{cat:"街・施設",fr:"Il y a une pharmacie au coin de la rue.",es:"Hay una farmacia en la esquina.",jp:"角に薬局があります。"},
+{cat:"街・施設",fr:"La bibliothèque est ouverte jusqu'à vingt heures.",es:"La biblioteca está abierta hasta las veinte.",jp:"図書館は20時まで開いています。"},
+{cat:"街・施設",fr:"Où peut-on acheter des timbres ?",es:"¿Dónde se pueden comprar sellos?",jp:"切手はどこで買えますか？"},
+{cat:"街・施設",fr:"Y a-t-il un distributeur automatique près d'ici ?",es:"¿Hay un cajero automático cerca de aquí?",jp:"近くにATMはありますか？"},
+{cat:"街・施設",fr:"Le marché a lieu le dimanche matin.",es:"El mercado tiene lugar el domingo por la mañana.",jp:"市場は日曜の朝に開かれます。"},
+{cat:"街・施設",fr:"La mairie se trouve en face du parc.",es:"El ayuntamiento está enfrente del parque.",jp:"市役所は公園の向かい側にあります。"},
+{cat:"街・施設",fr:"Est-ce qu'il y a un restaurant pas cher dans ce quartier ?",es:"¿Hay algún restaurante barato en este barrio?",jp:"この地区に安いレストランはありますか？"},
+{cat:"街・施設",fr:"La piscine est fermée le lundi.",es:"La piscina está cerrada los lunes.",jp:"プールは月曜休みです。"},
+{cat:"街・施設",fr:"Où est l'arrêt de bus le plus proche ?",es:"¿Dónde está la parada de autobús más cercana?",jp:"一番近いバス停はどこですか？"},
+{cat:"街・施設",fr:"Ce quartier est très animé la nuit.",es:"Este barrio está muy animado por la noche.",jp:"この地区は夜ととても賑やかです。"},
+
+// ============================================================
+// 31. 家族・人間関係の発展
+// ============================================================
+{cat:"家族・人間関係",fr:"Ma sœur s'est mariée l'année dernière.",es:"Mi hermana se casó el año pasado.",jp:"妹（姉）は去年結婚しました。"},
+{cat:"家族・人間関係",fr:"Mes parents ont divorcé quand j'étais enfant.",es:"Mis padres se divorciaron cuando era niño/a.",jp:"私が子供の頃、両親は離婚しました。"},
+{cat:"家族・人間関係",fr:"Mon frère vit à l'étranger depuis cinq ans.",es:"Mi hermano vive en el extranjero desde hace cinco años.",jp:"兄（弟）は5年前から海外に住んでいます。"},
+{cat:"家族・人間関係",fr:"J'ai un neveu et une nièce.",es:"Tengo un sobrino y una sobrina.",jp:"甥と姪がいます。"},
+{cat:"家族・人間関係",fr:"Ma grand-mère a quatre-vingt-cinq ans.",es:"Mi abuela tiene ochenta y cinco años.",jp:"祖母は85歳です。"},
+{cat:"家族・人間関係",fr:"Nous nous entendons très bien.",es:"Nos llevamos muy bien.",jp:"私たちはとても仲が良いです。"},
+{cat:"家族・人間関係",fr:"Je me suis disputé(e) avec mon ami(e).",es:"Me peleé con mi amigo/a.",jp:"友達と喧嘩しました。"},
+{cat:"家族・人間関係",fr:"Nous nous sommes réconciliés.",es:"Nos reconciliamos.",jp:"仲直りしました。"},
+{cat:"家族・人間関係",fr:"Il s'occupe bien de ses enfants.",es:"Cuida muy bien a sus hijos.",jp:"彼は子供たちの面倒をよく見ています。"},
+{cat:"家族・人間関係",fr:"Elle est très proche de sa mère.",es:"Está muy unida a su madre.",jp:"彼女は母親ととても仲が良いです。"},
+
+// ============================================================
+// 32. 学校・教育
+// ============================================================
+{cat:"学校・教育",fr:"J'ai passé un examen difficile hier.",es:"Ayer hice un examen difícil.",jp:"昨日難しい試験を受けました。"},
+{cat:"学校・教育",fr:"Je dois réviser pour l'examen de demain.",es:"Tengo que repasar para el examen de mañana.",jp:"明日の試験のために復習しなければなりません。"},
+{cat:"学校・教育",fr:"J'ai obtenu de bonnes notes ce semestre.",es:"He sacado buenas notas este semestre.",jp:"今学期は良い成績でした。"},
+{cat:"学校・教育",fr:"Le cours commence à neuf heures.",es:"La clase empieza a las nueve.",jp:"授業は9時に始まります。"},
+{cat:"学校・教育",fr:"Je n'ai pas bien compris le cours d'aujourd'hui.",es:"No entendí bien la clase de hoy.",jp:"今日の授業がよく理解できませんでした。"},
+{cat:"学校・教育",fr:"Le professeur nous a donné beaucoup de devoirs.",es:"El profesor nos dio muchos deberes.",jp:"先生がたくさんの宿題を出しました。"},
+{cat:"学校・教育",fr:"J'ai rendez-vous avec mon directeur de mémoire.",es:"Tengo cita con mi director de tesis.",jp:"論文の指導教員との面談があります。"},
+{cat:"学校・教育",fr:"Je prépare un exposé pour la semaine prochaine.",es:"Estoy preparando una presentación para la semana que viene.",jp:"来週の発表を準備しています。"},
+{cat:"学校・教育",fr:"Elle étudie l'architecture à l'université.",es:"Estudia arquitectura en la universidad.",jp:"彼女は大学で建築を学んでいます。"},
+{cat:"学校・教育",fr:"J'ai besoin d'une bourse pour continuer mes études.",es:"Necesito una beca para continuar mis estudios.",jp:"学業を続けるために奨学金が必要です。"},
+
+// ============================================================
+// 33. 言語・学習
+// ============================================================
+{cat:"言語・学習",fr:"Je suis en train d'apprendre le français depuis un an.",es:"Llevo un año aprendiendo español.",jp:"フランス語を学び始めて1年です。"},
+{cat:"言語・学習",fr:"Je parle couramment l'anglais.",es:"Hablo inglés con fluidez.",jp:"英語が流暢に話せます。"},
+{cat:"言語・学習",fr:"J'ai du mal à comprendre l'accent régional.",es:"Me cuesta entender el acento regional.",jp:"地方のアクセントを理解するのが難しいです。"},
+{cat:"言語・学習",fr:"J'essaie de pratiquer le français tous les jours.",es:"Intento practicar el español todos los días.",jp:"毎日フランス語を練習しようとしています。"},
+{cat:"言語・学習",fr:"Ce mot a plusieurs sens.",es:"Esta palabra tiene varios significados.",jp:"この単語には複数の意味があります。"},
+{cat:"言語・学習",fr:"Comment s'appelle cette chose en français ?",es:"¿Cómo se llama esta cosa en español?",jp:"これはフランス語で何と言いますか？"},
+{cat:"言語・学習",fr:"J'ai du mal à retenir le vocabulaire.",es:"Me cuesta retener el vocabulario.",jp:"語彙を覚えるのが難しいです。"},
+{cat:"言語・学習",fr:"La grammaire française est compliquée.",es:"La gramática española es complicada.",jp:"フランス語の文法は複雑です。"},
+{cat:"言語・学習",fr:"Je fais des progrès rapidement.",es:"Estoy progresando rápidamente.",jp:"急速に上達しています。"},
+{cat:"言語・学習",fr:"Je dois travailler ma prononciation.",es:"Necesito trabajar mi pronunciación.",jp:"発音を練習しなければなりません。"},
+
+// ============================================================
+// 34. 社会・ニュース・話題
+// ============================================================
+{cat:"社会・話題",fr:"J'ai lu un article intéressant sur ce sujet.",es:"Leí un artículo interesante sobre este tema.",jp:"このテーマについて面白い記事を読みました。"},
+{cat:"社会・話題",fr:"Selon les nouvelles d'aujourd'hui...",es:"Según las noticias de hoy...",jp:"今日のニュースによると..."},
+{cat:"社会・話題",fr:"Il y a eu un accident dans le centre-ville.",es:"Hubo un accidente en el centro de la ciudad.",jp:"市街地で事故がありました。"},
+{cat:"社会・話題",fr:"Les prix ont beaucoup augmenté ces derniers temps.",es:"Los precios han subido mucho últimamente.",jp:"最近物価がとても上がっています。"},
+{cat:"社会・話題",fr:"La situation économique est difficile en ce moment.",es:"La situación económica es difícil en este momento.",jp:"今は経済状況が厳しいです。"},
+{cat:"社会・話題",fr:"Ce problème me préoccupe.",es:"Este problema me preocupa.",jp:"この問題が気になります。"},
+{cat:"社会・話題",fr:"Il faut protéger l'environnement.",es:"Hay que proteger el medio ambiente.",jp:"環境を守らなければなりません。"},
+{cat:"社会・話題",fr:"J'ai voté pour la première fois.",es:"Voté por primera vez.",jp:"初めて投票しました。"},
+{cat:"社会・話題",fr:"Tout le monde parle de cette nouvelle.",es:"Todo el mundo habla de esta noticia.",jp:"皆がこのニュースについて話しています。"},
+{cat:"社会・話題",fr:"C'est un sujet délicat.",es:"Es un tema delicado.",jp:"これは繊細な話題です。"},
+
+// ============================================================
+// 35. フランス語特有の重要表現
+// ============================================================
+{cat:"FR特有表現",fr:"Je viens de finir mon travail.",es:"Acabo de terminar mi trabajo.",jp:"ちょうど仕事が終わったところです。（venir de + inf）"},
+{cat:"FR特有表現",fr:"Il est en train de dormir.",es:"Está durmiendo.",jp:"彼は今寝ているところです。（être en train de）"},
+{cat:"FR特有表現",fr:"Je viens de manger.",es:"Acabo de comer.",jp:"ちょうど食べ終わったところです。"},
+{cat:"FR特有表現",fr:"Nous sommes en train de travailler.",es:"Estamos trabajando ahora mismo.",jp:"私たちは今仕事をしているところです。"},
+{cat:"FR特有表現",fr:"Il est sur le point de partir.",es:"Está a punto de irse.",jp:"彼はまさに出発しようとしています。"},
+{cat:"FR特有表現",fr:"Elle vient de rentrer.",es:"Acaba de llegar a casa.",jp:"彼女はちょうど帰宅したところです。"},
+{cat:"FR特有表現",fr:"Je suis en train de réfléchir.",es:"Estoy pensando.",jp:"今考えているところです。"},
+{cat:"FR特有表現",fr:"On s'appelle ? (= peut-on se téléphoner ?)",es:"¿Nos llamamos?",jp:"電話する？"},
+{cat:"FR特有表現",fr:"C'est qui ? / C'est quoi ?",es:"¿Quién es? / ¿Qué es?",jp:"誰？/ 何？（くだけた表現）"},
+{cat:"FR特有表現",fr:"T'en fais pas. (= Ne t'en fais pas.)",es:"No te preocupes.",jp:"心配しないで。（くだけた表現）"},
+{cat:"FR特有表現",fr:"Ça roule ? (= Ça va ?)",es:"¿Qué tal?",jp:"調子はどう？（くだけた表現）"},
+{cat:"FR特有表現",fr:"C'est parti ! (= On commence !)",es:"¡Vamos! / ¡Empezamos!",jp:"よし、始めよう！"},
+{cat:"FR特有表現",fr:"Ça ne fait rien.",es:"No importa.",jp:"構いません。/ 大丈夫です。"},
+{cat:"FR特有表現",fr:"Laisse tomber.",es:"Déjalo.",jp:"気にしないで。/ やめておいて。"},
+{cat:"FR特有表現",fr:"Je m'en fous. (très familier)",es:"Me da igual. / Me importa una.",jp:"どうでもいい。（きわめてくだけた表現）"},
+
+// ============================================================
+// 36. スペイン語特有の重要表現
+// ============================================================
+{cat:"ES特有表現",fr:"(Je viens de l'oublier.)",es:"Se me ha olvidado.",jp:"忘れてしまいました。（se me + 動詞）"},
+{cat:"ES特有表現",fr:"Qu'est-ce que tu en penses ? / Ça te plaît ?",es:"¿Qué te parece?",jp:"どう思う？/ どうですか？"},
+{cat:"ES特有表現",fr:"Il y a trois ans que j'habite ici.",es:"Hace tres años que vivo aquí.",jp:"ここに住んで3年になります。（hace + tiempo + que）"},
+{cat:"ES特有表現",fr:"(J'ai faim.)",es:"Tengo mucha hambre.",jp:"とてもお腹が空いています。（tener + 感覚）"},
+{cat:"ES特有表現",fr:"Ça me dit quelque chose. (familier)",es:"Me suena.",jp:"聞き覚えがあります。（sonar）"},
+{cat:"ES特有表現",fr:"(La nuit, je dors bien.)",es:"Duermo de un tirón.",jp:"ぐっすり眠れます。（de un tirón）"},
+{cat:"ES特有表現",fr:"Depuis combien de temps...?",es:"¿Cuánto tiempo llevas...?",jp:"〜してどのくらいになりますか？（llevar + gerundio）"},
+{cat:"ES特有表現",fr:"Je suis en train de + inf",es:"Llevar + gerundio (ej. Llevo dos horas esperando.)",jp:"もう2時間待っています。（llevar + gerundio）"},
+{cat:"ES特有表現",fr:"C'est beau, n'est-ce pas ? (tag question)",es:"Es bonito, ¿verdad? / ¿no?",jp:"きれいですよね？（付加疑問文）"},
+{cat:"ES特有表現",fr:"Je veux bien. / D'accord.",es:"Venga. / Va. (España)",jp:"いいよ。/ 了解。（スペイン口語表現）"},
+{cat:"ES特有表現",fr:"Qu'est-ce qui se passe ?",es:"¿Qué pasa? / ¿Qué está pasando?",jp:"何が起きているの？"},
+{cat:"ES特有表現",fr:"C'est vraiment excellent !",es:"¡Está de muerte! (familiar, España)",jp:"超うまい！（くだけた表現）"},
+{cat:"ES特有表現",fr:"Du tout. / Pas du tout.",es:"Para nada.",jp:"全然〜ない。"},
+{cat:"ES特有表現",fr:"Je suis épuisé(e).",es:"Estoy hecho/a polvo. (familiar)",jp:"くたくたです。（くだけた表現）"},
+{cat:"ES特有表現",fr:"Ça, c'est sûr !",es:"¡Desde luego!",jp:"もちろん！/ そりゃそうだ！"},
+
+// ============================================================
+// 37. 時間・頻度の詳細表現
+// ============================================================
+{cat:"時間・頻度",fr:"Je le fais depuis deux ans.",es:"Lo hago desde hace dos años.",jp:"2年前からそれをしています。"},
+{cat:"時間・頻度",fr:"Il y a dix minutes, j'étais encore là.",es:"Hace diez minutos, todavía estaba aquí.",jp:"10分前はまだここにいました。"},
+{cat:"時間・頻度",fr:"Ça fait une heure que j'attends.",es:"Llevo una hora esperando.",jp:"1時間待っています。"},
+{cat:"時間・頻度",fr:"Je travaille ici depuis deux ans.",es:"Trabajo aquí desde hace dos años.",jp:"2年前からここで働いています。"},
+{cat:"時間・頻度",fr:"Je mange rarement de la viande.",es:"Rara vez como carne.",jp:"肉はめったに食べません。"},
+{cat:"時間・頻度",fr:"Il arrive toujours à l'heure.",es:"Siempre llega a tiempo.",jp:"彼はいつも時間通りに来ます。"},
+{cat:"時間・頻度",fr:"Elle est souvent en retard.",es:"Ella a menudo llega tarde.",jp:"彼女はよく遅刻します。"},
+{cat:"時間・頻度",fr:"Ça m'arrive de temps en temps.",es:"Me pasa de vez en cuando.",jp:"時々あります。"},
+{cat:"時間・頻度",fr:"Je joue au tennis deux fois par semaine.",es:"Juego al tenis dos veces a la semana.",jp:"週2回テニスをします。"},
+{cat:"時間・頻度",fr:"Tous les matins, je lis les actualités.",es:"Todas las mañanas leo las noticias.",jp:"毎朝ニュースを読みます。"},
+{cat:"時間・頻度",fr:"Ça ne m'est jamais arrivé.",es:"Nunca me ha pasado.",jp:"そんなことは今まで一度もありませんでした。"},
+{cat:"時間・頻度",fr:"Je finis d'habitude vers 18h.",es:"Normalmente termino hacia las 18h.",jp:"普通は18時頃に終わります。"},
+
+// ============================================================
+// 38. 感謝・謝罪の発展表現
+// ============================================================
+{cat:"感謝・感情表現",fr:"Je vous suis vraiment reconnaissant(e).",es:"Le estoy muy agradecido/a.",jp:"本当に感謝しています。"},
+{cat:"感謝・感情表現",fr:"C'est très gentil de ta part.",es:"Es muy amable de tu parte.",jp:"とても親切にしてくれてありがとう。"},
+{cat:"感謝・感情表現",fr:"Je ne sais pas comment te remercier.",es:"No sé cómo agradecerte.",jp:"何とお礼を言えばいいか分かりません。"},
+{cat:"感謝・感情表現",fr:"Tu m'as rendu un grand service.",es:"Me has hecho un gran favor.",jp:"本当に助かりました。"},
+{cat:"感謝・感情表現",fr:"C'est tellement gentil !",es:"¡Qué detalle tan bonito!",jp:"なんて優しいんでしょう！"},
+{cat:"感謝・感情表現",fr:"Je ne l'oublierai pas.",es:"No lo olvidaré.",jp:"忘れません。"},
+{cat:"感謝・感情表現",fr:"Je suis vraiment touché(e) par ton geste.",es:"Estoy muy conmovido/a por tu gesto.",jp:"あなたの行為に本当に感動しています。"},
+{cat:"感謝・感情表現",fr:"Je t'en suis très reconnaissant(e).",es:"Te lo agradezco mucho.",jp:"心からお礼を申し上げます。"},
+{cat:"感謝・感情表現",fr:"Merci d'avoir pensé à moi.",es:"Gracias por pensar en mí.",jp:"私のことを考えてくれてありがとう。"},
+{cat:"感謝・感情表現",fr:"Je te revaudrai ça.",es:"Te lo devolveré.",jp:"いつかお返しします。"},
+
+// ============================================================
+// 39. 描写・説明
+// ============================================================
+{cat:"描写・説明",fr:"C'est une grande ville au bord de la mer.",es:"Es una ciudad grande junto al mar.",jp:"海辺の大きな街です。"},
+{cat:"描写・説明",fr:"Il est grand, brun, avec les yeux noirs.",es:"Es alto, moreno, con ojos negros.",jp:"背が高く、浅黒く、黒い目をしています。"},
+{cat:"描写・説明",fr:"C'est un appartement moderne au cinquième étage.",es:"Es un apartamento moderno en el quinto piso.",jp:"5階の近代的なアパートです。"},
+{cat:"描写・説明",fr:"Le paysage est magnifique depuis ici.",es:"El paisaje es magnífico desde aquí.",jp:"ここからの景色は素晴らしいです。"},
+{cat:"描写・説明",fr:"C'est une personne très généreuse.",es:"Es una persona muy generosa.",jp:"とても寛大な人です。"},
+{cat:"描写・説明",fr:"La rue est animée à cette heure-ci.",es:"La calle está animada a esta hora.",jp:"この時間帯、通りが賑やかです。"},
+{cat:"描写・説明",fr:"C'est difficile à expliquer.",es:"Es difícil de explicar.",jp:"説明しにくいです。"},
+{cat:"描写・説明",fr:"C'est assez loin d'ici.",es:"Está bastante lejos de aquí.",jp:"ここからかなり遠いです。"},
+{cat:"描写・説明",fr:"Le bâtiment est en rénovation.",es:"El edificio está en obras.",jp:"建物は改装中です。"},
+{cat:"描写・説明",fr:"C'est exactement ce que je cherchais.",es:"Es exactamente lo que buscaba.",jp:"まさに探していたものです。"},
+
+// ============================================================
+// 40. 追加の実用表現
+// ============================================================
+{cat:"実用表現",fr:"D'accord, je vais voir ce que je peux faire.",es:"De acuerdo, veré qué puedo hacer.",jp:"分かりました、どうにかできるか確認します。"},
+{cat:"実用表現",fr:"Je vais y réfléchir.",es:"Lo voy a pensar.",jp:"考えてみます。"},
+{cat:"実用表現",fr:"Je vous tiens informé(e).",es:"Le mantengo informado/a.",jp:"ご連絡します。"},
+{cat:"実用表現",fr:"Ça dépend.",es:"Depende.",jp:"場合によります。"},
+{cat:"実用表現",fr:"C'est à voir.",es:"Habrá que ver.",jp:"様子を見てみましょう。"},
+{cat:"実用表現",fr:"Je n'en suis pas certain(e).",es:"No estoy seguro/a de ello.",jp:"確かではありません。"},
+{cat:"実用表現",fr:"Pas vraiment.",es:"No realmente.",jp:"あまりそうでもないです。"},
+{cat:"実用表現",fr:"Plutôt oui.",es:"Más bien sí.",jp:"どちらかと言えばはい。"},
+{cat:"実用表現",fr:"Si tu veux.",es:"Si quieres.",jp:"良ければ。/ 望むなら。"},
+{cat:"実用表現",fr:"Tant mieux !",es:"¡Qué bien!",jp:"良かった！"},
+{cat:"実用表現",fr:"Tant pis !",es:"¡Qué lástima!",jp:"残念！/ しかたない！"},
+{cat:"実用表現",fr:"Ça tombe bien !",es:"¡Qué oportuno!",jp:"ちょうど良かった！"},
+{cat:"実用表現",fr:"C'est le moment ou jamais !",es:"¡Es ahora o nunca!",jp:"今がチャンスです！"},
+{cat:"実用表現",fr:"À qui le dis-tu !",es:"¡Ya me lo dirás!",jp:"ほんとうにそうだよ！（同意強調）"},
+{cat:"実用表現",fr:"N'importe quoi !",es:"¡Cualquier cosa!",jp:"何でもいいよ！/ 馬鹿げてる！"},
+{cat:"実用表現",fr:"Tu te moques de moi !",es:"¡Me estás tomando el pelo!",jp:"からかっているの！"},
+{cat:"実用表現",fr:"C'est hors de question !",es:"¡Ni hablar!",jp:"論外です！"},
+{cat:"実用表現",fr:"On verra bien.",es:"Ya veremos.",jp:"まあ、見てみましょう。"},
+{cat:"実用表現",fr:"C'est comme ça.",es:"Así son las cosas.",jp:"そういうものです。"},
+
+// ============================================================
+// 41. 旅行先でのトラブル・緊急事態
+// ============================================================
+{cat:"トラブル・緊急",fr:"J'ai perdu mon passeport.",es:"He perdido mi pasaporte.",jp:"パスポートをなくしました。"},
+{cat:"トラブル・緊急",fr:"On m'a volé mon sac.",es:"Me han robado el bolso.",jp:"バッグを盗まれました。"},
+{cat:"トラブル・緊急",fr:"Je dois déclarer un vol à la police.",es:"Tengo que denunciar un robo a la policía.",jp:"警察に盗難届を出さなければなりません。"},
+{cat:"トラブル・緊急",fr:"Où se trouve le commissariat de police ?",es:"¿Dónde está la comisaría de policía?",jp:"警察署はどこですか？"},
+{cat:"トラブル・緊急",fr:"J'ai eu un accident.",es:"He tenido un accidente.",jp:"事故に遭いました。"},
+{cat:"トラブル・緊急",fr:"J'ai besoin d'aide immédiatement.",es:"Necesito ayuda inmediatamente.",jp:"すぐに助けが必要です。"},
+{cat:"トラブル・緊急",fr:"Pouvez-vous appeler l'ambassade ?",es:"¿Puede llamar a la embajada?",jp:"大使館に電話してもらえますか？"},
+{cat:"トラブル・緊急",fr:"Ma valise n'est pas arrivée.",es:"Mi maleta no ha llegado.",jp:"スーツケースが届きませんでした。"},
+{cat:"トラブル・緊急",fr:"Je me suis perdu(e).",es:"Me he perdido.",jp:"道に迷いました。"},
+{cat:"トラブル・緊急",fr:"Je ne retrouve plus mes affaires.",es:"No encuentro mis cosas.",jp:"荷物が見つかりません。"},
+
+// ============================================================
+// 42. 仮定・条件の追加表現
+// ============================================================
+{cat:"仮定・条件",fr:"Si ça marche, je t'achète à dîner.",es:"Si funciona, te invito a cenar.",jp:"うまくいったら夕食をおごるよ。"},
+{cat:"仮定・条件",fr:"Si tu veux, on peut y aller ensemble.",es:"Si quieres, podemos ir juntos.",jp:"良ければ一緒に行けるよ。"},
+{cat:"仮定・条件",fr:"Même si c'est difficile, je vais essayer.",es:"Aunque sea difícil, lo intentaré.",jp:"難しくても試してみます。"},
+{cat:"仮定・条件",fr:"À moins que tu ne préfères rester.",es:"A menos que prefieras quedarte.",jp:"あなたが残りたくなければ。"},
+{cat:"仮定・条件",fr:"Au cas où tu ne saurais pas...",es:"En caso de que no supieras...",jp:"万が一知らない場合は..."},
+{cat:"仮定・条件",fr:"Supposons que tu aies raison.",es:"Supongamos que tengas razón.",jp:"あなたが正しいとします。"},
+{cat:"仮定・条件",fr:"Même si j'avais voulu, je n'aurais pas pu.",es:"Aunque hubiera querido, no hubiera podido.",jp:"たとえ望んでいても、できなかったでしょう。"},
+{cat:"仮定・条件",fr:"Pourvu qu'il fasse beau demain !",es:"¡Ojalá haga buen tiempo mañana!",jp:"明日晴れるといいな！"},
+{cat:"仮定・条件",fr:"En supposant que tout se passe bien...",es:"Suponiendo que todo salga bien...",jp:"すべてうまくいけば..."},
+{cat:"仮定・条件",fr:"Dans le cas contraire, contactez-moi.",es:"En caso contrario, contácteme.",jp:"そうでない場合は、ご連絡ください。"},
+
+// ============================================================
+// 43. 文化・芸術・エンターテインメント
+// ============================================================
+{cat:"文化・芸術",fr:"J'adore ce genre de musique.",es:"Me encanta este género de música.",jp:"このジャンルの音楽が大好きです。"},
+{cat:"文化・芸術",fr:"Ce film a gagné plusieurs prix.",es:"Esta película ganó varios premios.",jp:"この映画はいくつかの賞を受賞しました。"},
+{cat:"文化・芸術",fr:"L'exposition se tient jusqu'à fin mars.",es:"La exposición dura hasta finales de marzo.",jp:"展覧会は3月末まで開かれています。"},
+{cat:"文化・芸術",fr:"C'est un artiste que j'admire beaucoup.",es:"Es un artista que admiro mucho.",jp:"とても尊敬しているアーティストです。"},
+{cat:"文化・芸術",fr:"J'ai lu ce livre en une journée.",es:"Leí este libro en un día.",jp:"この本を1日で読みました。"},
+{cat:"文化・芸術",fr:"Le concert était absolument fantastique.",es:"El concierto fue absolutamente fantástico.",jp:"コンサートは本当に素晴らしかったです。"},
+{cat:"文化・芸術",fr:"Je préfère les films d'action.",es:"Prefiero las películas de acción.",jp:"アクション映画の方が好きです。"},
+{cat:"文化・芸術",fr:"Ce roman m'a vraiment touché(e).",es:"Esta novela me llegó al corazón.",jp:"この小説に本当に感動しました。"},
+{cat:"文化・芸術",fr:"Le musée ouvre à dix heures.",es:"El museo abre a las diez.",jp:"美術館は10時に開きます。"},
+{cat:"文化・芸術",fr:"Je ne suis pas fan de ce style.",es:"No soy fan de este estilo.",jp:"このスタイルは好みではありません。"},
+
+// ============================================================
+// 44. 数字・統計・割合
+// ============================================================
+{cat:"数字・統計",fr:"Environ la moitié des gens pensent que...",es:"Aproximadamente la mitad de la gente cree que...",jp:"約半数の人が〜と思っています。"},
+{cat:"数字・統計",fr:"La population a augmenté de dix pour cent.",es:"La población ha aumentado un diez por ciento.",jp:"人口が10%増加しました。"},
+{cat:"数字・統計",fr:"Cela représente un tiers du total.",es:"Eso representa un tercio del total.",jp:"それは全体の3分の1を占めます。"},
+{cat:"数字・統計",fr:"Le prix a doublé en deux ans.",es:"El precio se ha duplicado en dos años.",jp:"価格が2年で2倍になりました。"},
+{cat:"数字・統計",fr:"C'est deux fois plus cher qu'avant.",es:"Cuesta el doble que antes.",jp:"以前の2倍高くなりました。"},
+{cat:"数字・統計",fr:"Il y a environ mille habitants.",es:"Hay aproximadamente mil habitantes.",jp:"住民は約1000人います。"},
+{cat:"数字・統計",fr:"Plus de la moitié ont répondu oui.",es:"Más de la mitad respondió que sí.",jp:"半数以上がはいと答えました。"},
+{cat:"数字・統計",fr:"Cinq pour cent de réduction, c'est tout.",es:"Solo hay un cinco por ciento de descuento.",jp:"5%割引しかありません。"},
+{cat:"数字・統計",fr:"Ça représente une économie de vingt euros.",es:"Eso supone un ahorro de veinte euros.",jp:"それで20ユーロの節約になります。"},
+{cat:"数字・統計",fr:"Le taux de chômage a baissé.",es:"La tasa de desempleo ha bajado.",jp:"失業率が下がりました。"},
+
+// ============================================================
+// 45. 身体・外見の描写
+// ============================================================
+{cat:"身体・外見",fr:"Elle a les cheveux longs et bruns.",es:"Tiene el pelo largo y moreno.",jp:"彼女は長い茶色い髪をしています。"},
+{cat:"身体・外見",fr:"Il a changé de coiffure.",es:"Ha cambiado de peinado.",jp:"彼は髪型を変えました。"},
+{cat:"身体・外見",fr:"Elle porte des lunettes depuis peu.",es:"Lleva gafas desde hace poco.",jp:"彼女は最近眼鏡をかけています。"},
+{cat:"身体・外見",fr:"Il a l'air fatigué aujourd'hui.",es:"Parece cansado hoy.",jp:"今日は疲れているようです。"},
+{cat:"身体・外見",fr:"Elle a grossi un peu.",es:"Ha engordado un poco.",jp:"彼女は少し太りました。"},
+{cat:"身体・外見",fr:"Il fait plus jeune que son âge.",es:"Parece más joven de lo que es.",jp:"彼は実際の年齢より若く見えます。"},
+{cat:"身体・外見",fr:"Elle a un sourire magnifique.",es:"Tiene una sonrisa preciosa.",jp:"彼女は素晴らしい笑顔をしています。"},
+{cat:"身体・外見",fr:"Il mesure environ un mètre quatre-vingts.",es:"Mide aproximadamente un metro ochenta.",jp:"彼は身長が約180センチです。"},
+{cat:"身体・外見",fr:"Elle est élégamment habillée.",es:"Está elegantemente vestida.",jp:"彼女はエレガントに着飾っています。"},
+{cat:"身体・外見",fr:"Il ressemble à sa mère.",es:"Se parece a su madre.",jp:"彼は母親に似ています。"},
+
+// ============================================================
+// 46. 自然・風景
+// ============================================================
+{cat:"自然・風景",fr:"La montagne est couverte de neige.",es:"La montaña está cubierta de nieve.",jp:"山が雪で覆われています。"},
+{cat:"自然・風景",fr:"La rivière passe au milieu du village.",es:"El río pasa por el medio del pueblo.",jp:"川が村の中心を流れています。"},
+{cat:"自然・風景",fr:"Il y a de magnifiques forêts dans cette région.",es:"Hay bosques magníficos en esta región.",jp:"この地域には素晴らしい森があります。"},
+{cat:"自然・風景",fr:"La vue sur l'océan est splendide.",es:"La vista al océano es espléndida.",jp:"海への眺めが素晴らしいです。"},
+{cat:"自然・風景",fr:"Le coucher de soleil était magnifique hier.",es:"La puesta de sol fue preciosa ayer.",jp:"昨日の夕焼けは美しかったです。"},
+{cat:"自然・風景",fr:"Ce parc national est protégé.",es:"Este parque nacional está protegido.",jp:"この国立公園は保護されています。"},
+{cat:"自然・風景",fr:"Il y a un lac à quelques kilomètres d'ici.",es:"Hay un lago a unos kilómetros de aquí.",jp:"数キロ先に湖があります。"},
+{cat:"自然・風景",fr:"La campagne est très belle en automne.",es:"El campo es muy bonito en otoño.",jp:"秋の田舎はとても美しいです。"},
+{cat:"自然・風景",fr:"Les fleurs commencent à fleurir au printemps.",es:"Las flores empiezan a florecer en primavera.",jp:"春になると花が咲き始めます。"},
+{cat:"自然・風景",fr:"Il fait frais le matin et chaud l'après-midi.",es:"Hace fresco por la mañana y calor por la tarde.",jp:"朝は涼しく午後は暑いです。"},
+
+// ============================================================
+// 47. 服装・ファッション
+// ============================================================
+{cat:"服装・ファッション",fr:"Je cherche un manteau chaud pour l'hiver.",es:"Busco un abrigo cálido para el invierno.",jp:"冬用の暖かいコートを探しています。"},
+{cat:"服装・ファッション",fr:"Cette robe me va bien.",es:"Este vestido me sienta bien.",jp:"このドレスは私に似合っています。"},
+{cat:"服装・ファッション",fr:"La taille M est trop petite pour moi.",es:"La talla M me queda pequeña.",jp:"Mサイズは私には小さすぎます。"},
+{cat:"服装・ファッション",fr:"Je préfère les vêtements classiques.",es:"Prefiero la ropa clásica.",jp:"クラシックな服の方が好きです。"},
+{cat:"服装・ファッション",fr:"Est-ce qu'on peut l'échanger contre une autre couleur ?",es:"¿Se puede cambiar por otro color?",jp:"別の色に交換できますか？"},
+{cat:"服装・ファッション",fr:"Ce pantalon rétrécit au lavage.",es:"Este pantalón encoge al lavarlo.",jp:"このズボンは洗うと縮みます。"},
+{cat:"服装・ファッション",fr:"Je l'ai acheté en soldes.",es:"Lo compré en rebajas.",jp:"セールで買いました。"},
+{cat:"服装・ファッション",fr:"Quelle pointure faites-vous ?",es:"¿Qué número de zapato tiene?",jp:"靴のサイズは何ですか？"},
+{cat:"服装・ファッション",fr:"Ce tissu est doux au toucher.",es:"Esta tela es suave al tacto.",jp:"この生地は肌触りが柔らかいです。"},
+{cat:"服装・ファッション",fr:"Je voudrais quelque chose de plus décontracté.",es:"Quisiera algo más informal.",jp:"もっとカジュアルなものが欲しいです。"},
+
+// ============================================================
+// 48. 食材・料理の語彙
+// ============================================================
+{cat:"食材・料理語彙",fr:"Il faut ajouter du sel et du poivre.",es:"Hay que añadir sal y pimienta.",jp:"塩とコショウを加えなければなりません。"},
+{cat:"食材・料理語彙",fr:"Je fais cuire les légumes à la vapeur.",es:"Cocino las verduras al vapor.",jp:"野菜を蒸して調理します。"},
+{cat:"食材・料理語彙",fr:"Cette recette prend une heure.",es:"Esta receta tarda una hora.",jp:"このレシピは1時間かかります。"},
+{cat:"食材・料理語彙",fr:"J'ai acheté des ingrédients frais au marché.",es:"Compré ingredientes frescos en el mercado.",jp:"市場で新鮮な食材を買いました。"},
+{cat:"食材・料理語彙",fr:"Ce plat est typique de la région.",es:"Este plato es típico de la región.",jp:"この料理はこの地域の典型的な料理です。"},
+{cat:"食材・料理語彙",fr:"Je vais faire mariner la viande toute la nuit.",es:"Voy a marinar la carne toda la noche.",jp:"肉を一晩マリネします。"},
+{cat:"食材・料理語彙",fr:"Il manque quelque chose dans cette sauce.",es:"Falta algo en esta salsa.",jp:"このソースに何かが足りません。"},
+{cat:"食材・料理語彙",fr:"Je n'aime pas les épices fortes.",es:"No me gustan las especias fuertes.",jp:"辛いスパイスは好きではありません。"},
+{cat:"食材・料理語彙",fr:"C'est un plat facile à préparer.",es:"Es un plato fácil de preparar.",jp:"簡単に作れる料理です。"},
+{cat:"食材・料理語彙",fr:"La cuisson dure vingt minutes.",es:"La cocción dura veinte minutos.",jp:"調理時間は20分です。"},
+
+// ============================================================
+// 49. 体験・感想の発展
+// ============================================================
+{cat:"体験・感想",fr:"C'est la première fois que je viens ici.",es:"Es la primera vez que vengo aquí.",jp:"ここに来るのは初めてです。"},
+{cat:"体験・感想",fr:"Je n'ai jamais rien mangé d'aussi bon.",es:"Nunca he comido nada tan bueno.",jp:"こんなに美味しいものは食べたことがありません。"},
+{cat:"体験・感想",fr:"J'ai eu une très bonne impression.",es:"Tuve una muy buena impresión.",jp:"とても良い印象を受けました。"},
+{cat:"体験・感想",fr:"Ça valait vraiment le déplacement.",es:"Valió la pena el viaje.",jp:"来た甲斐がありました。"},
+{cat:"体験・感想",fr:"Je ne m'attendais pas à ça.",es:"No me esperaba esto.",jp:"こんなことは予想していませんでした。"},
+{cat:"体験・感想",fr:"J'ai été agréablement surpris(e).",es:"Quedé gratamente sorprendido/a.",jp:"嬉しい驚きでした。"},
+{cat:"体験・感想",fr:"Ça m'a laissé une forte impression.",es:"Me dejó una fuerte impresión.",jp:"強い印象を残しました。"},
+{cat:"体験・感想",fr:"Je ne regrette pas mon choix.",es:"No me arrepiento de mi elección.",jp:"自分の選択を後悔していません。"},
+{cat:"体験・感想",fr:"Je referais la même chose.",es:"Volvería a hacer lo mismo.",jp:"同じことを繰り返すでしょう。"},
+{cat:"体験・感想",fr:"C'était mieux que prévu.",es:"Fue mejor de lo esperado.",jp:"予想よりも良かったです。"},
+
+// ============================================================
+// 50. よく使う慣用表現
+// ============================================================
+{cat:"慣用・フレーズ",fr:"Ça saute aux yeux.",es:"Salta a la vista.",jp:"一目瞭然です。"},
+{cat:"慣用・フレーズ",fr:"Il n'y a pas le feu.",es:"No hay prisa.",jp:"急ぐことはありません。"},
+{cat:"慣用・フレーズ",fr:"Ça ne casse pas trois pattes à un canard.",es:"No es nada del otro mundo.",jp:"たいしたことはありません。"},
+{cat:"慣用・フレーズ",fr:"Il faut battre le fer pendant qu'il est chaud.",es:"Hay que aprovechar el momento.",jp:"鉄は熱いうちに打て。"},
+{cat:"慣用・フレーズ",fr:"Les apparences sont trompeuses.",es:"Las apariencias engañan.",jp:"外見は当てにならない。"},
+{cat:"慣用・フレーズ",fr:"Mieux vaut tard que jamais.",es:"Más vale tarde que nunca.",jp:"遅くてもないよりはまし。"},
+{cat:"慣用・フレーズ",fr:"À chacun son goût.",es:"Cada uno tiene su gusto.",jp:"好みは人それぞれ。"},
+{cat:"慣用・フレーズ",fr:"Tel est pris qui croyait prendre.",es:"El cazador cazado.",jp:"蒔いた種は刈り取れ。"},
+{cat:"慣用・フレーズ",fr:"Ça ne mange pas de pain.",es:"No cuesta nada.",jp:"損はしない。/ やってみる価値がある。"},
+{cat:"慣用・フレーズ",fr:"Ce n'est pas la mer à boire.",es:"No es tan difícil.",jp:"それほど難しいことではありません。"},
+{cat:"慣用・フレーズ",fr:"On n'est jamais mieux servi que par soi-même.",es:"Si quieres algo bien hecho, hazlo tú mismo.",jp:"人に任せるより自分でやるのが一番。"},
+{cat:"慣用・フレーズ",fr:"Qui vivra verra.",es:"El tiempo lo dirá.",jp:"生きていれば分かる。/ 成り行きを見守ろう。"},
+{cat:"慣用・フレーズ",fr:"Les bons comptes font les bons amis.",es:"Las cuentas claras conservan la amistad.",jp:"きちんとした計算が友情を保つ。"},
+{cat:"慣用・フレーズ",fr:"Vouloir, c'est pouvoir.",es:"Querer es poder.",jp:"意志があるところに道はある。"},
+{cat:"慣用・フレーズ",fr:"Chaque chose en son temps.",es:"Cada cosa a su tiempo.",jp:"何事にも時があります。"},
+
+// ============================================================
+// 51. 職業・キャリアの詳細
+// ============================================================
+{cat:"職業・キャリア",fr:"Je viens d'être promu(e).",es:"Acabo de recibir un ascenso.",jp:"昇進したばかりです。"},
+{cat:"職業・キャリア",fr:"Je travaille comme indépendant(e).",es:"Trabajo como autónomo/a.",jp:"フリーランスで働いています。"},
+{cat:"職業・キャリア",fr:"Mon contrat expire dans trois mois.",es:"Mi contrato vence en tres meses.",jp:"契約は3ヶ月後に終了します。"},
+{cat:"職業・キャリア",fr:"J'ai postulé pour ce poste la semaine dernière.",es:"Presenté mi candidatura para este puesto la semana pasada.",jp:"先週このポストに応募しました。"},
+{cat:"職業・キャリア",fr:"Je cherche un emploi dans le domaine du marketing.",es:"Busco trabajo en el área de marketing.",jp:"マーケティング分野での仕事を探しています。"},
+{cat:"職業・キャリア",fr:"Mon entreprise m'envoie à l'étranger.",es:"Mi empresa me manda al extranjero.",jp:"会社が私を海外に派遣します。"},
+{cat:"職業・キャリア",fr:"Je fais des heures supplémentaires ce soir.",es:"Esta noche hago horas extras.",jp:"今夜は残業です。"},
+{cat:"職業・キャリア",fr:"Je suis en stage dans cette entreprise.",es:"Estoy haciendo prácticas en esta empresa.",jp:"この会社でインターンシップをしています。"},
+{cat:"職業・キャリア",fr:"J'ai demandé une augmentation de salaire.",es:"Pedí un aumento de sueldo.",jp:"給与の昇給を要求しました。"},
+{cat:"職業・キャリア",fr:"Mon chef est satisfait de mon travail.",es:"Mi jefe está satisfecho con mi trabajo.",jp:"上司は私の仕事に満足しています。"},
+
+// ============================================================
+// 52. テクノロジー・デジタル
+// ============================================================
+{cat:"テクノロジー",fr:"Est-ce que vous avez le wifi ici ?",es:"¿Tienen wifi aquí?",jp:"ここにWi-Fiはありますか？"},
+{cat:"テクノロジー",fr:"J'ai téléchargé cette application.",es:"He descargado esta aplicación.",jp:"このアプリをダウンロードしました。"},
+{cat:"テクノロジー",fr:"Mon ordinateur ne démarre plus.",es:"Mi ordenador ya no arranca.",jp:"パソコンが起動しなくなりました。"},
+{cat:"テクノロジー",fr:"J'ai perdu toutes mes données.",es:"He perdido todos mis datos.",jp:"データをすべて失いました。"},
+{cat:"テクノロジー",fr:"Je fais régulièrement des sauvegardes.",es:"Hago copias de seguridad regularmente.",jp:"定期的にバックアップをとっています。"},
+{cat:"テクノロジー",fr:"Je vais mettre à jour le logiciel.",es:"Voy a actualizar el software.",jp:"ソフトウェアをアップデートします。"},
+{cat:"テクノロジー",fr:"Ma connexion est très lente aujourd'hui.",es:"Mi conexión es muy lenta hoy.",jp:"今日はインターネットがとても遅いです。"},
+{cat:"テクノロジー",fr:"J'ai reçu un e-mail de spam.",es:"Recibí un correo basura.",jp:"迷惑メールが届きました。"},
+{cat:"テクノロジー",fr:"Je cherche une borne de recharge.",es:"Busco un punto de carga.",jp:"充電スポットを探しています。"},
+{cat:"テクノロジー",fr:"Peux-tu me scanner ce document ?",es:"¿Puedes escanearme este documento?",jp:"この書類をスキャンしてくれる？"},
+
+// ============================================================
+// 53. 交流・コミュニティ
+// ============================================================
+{cat:"交流・コミュニティ",fr:"Je suis membre d'un club de sport.",es:"Soy miembro de un club deportivo.",jp:"スポーツクラブの会員です。"},
+{cat:"交流・コミュニティ",fr:"Nous nous retrouvons chaque semaine.",es:"Nos reunimos cada semana.",jp:"毎週集まっています。"},
+{cat:"交流・コミュニティ",fr:"J'ai rejoint une association de bénévoles.",es:"Me uní a una asociación de voluntarios.",jp:"ボランティア団体に参加しました。"},
+{cat:"交流・コミュニティ",fr:"On organise une fête pour la nouvelle année.",es:"Organizamos una fiesta de año nuevo.",jp:"新年パーティーを開催します。"},
+{cat:"交流・コミュニティ",fr:"Je m'entends bien avec mes voisins.",es:"Me llevo bien con mis vecinos.",jp:"近所の人たちとうまくやっています。"},
+{cat:"交流・コミュニティ",fr:"Nous avons partagé un repas ensemble.",es:"Compartimos una comida juntos.",jp:"一緒に食事をしました。"},
+{cat:"交流・コミュニティ",fr:"Il organise des événements culturels.",es:"Organiza eventos culturales.",jp:"彼は文化イベントを企画しています。"},
+{cat:"交流・コミュニティ",fr:"Je fais du bénévolat le week-end.",es:"Hago voluntariado los fines de semana.",jp:"週末はボランティアをしています。"},
+{cat:"交流・コミュニティ",fr:"Nous avons fondé une association l'année dernière.",es:"Fundamos una asociación el año pasado.",jp:"去年、団体を設立しました。"},
+{cat:"交流・コミュニティ",fr:"La réunion de quartier a lieu ce soir.",es:"La reunión del barrio tiene lugar esta noche.",jp:"今夜、地区の集会があります。"},
+
+// ============================================================
+// 54. 副詞・表現の詳細
+// ============================================================
+{cat:"副詞・修飾表現",fr:"Il parle vraiment bien le français.",es:"Habla francés muy bien.",jp:"彼は本当にフランス語が上手です。"},
+{cat:"副詞・修飾表現",fr:"Je suis totalement d'accord.",es:"Estoy totalmente de acuerdo.",jp:"完全に同意します。"},
+{cat:"副詞・修飾表現",fr:"C'est absolument faux.",es:"Es absolutamente falso.",jp:"完全に間違っています。"},
+{cat:"副詞・修飾表現",fr:"J'en suis profondément convaincu(e).",es:"Estoy profundamente convencido/a de ello.",jp:"深くそれを確信しています。"},
+{cat:"副詞・修飾表現",fr:"C'est particulièrement difficile pour moi.",es:"Es especialmente difícil para mí.",jp:"私にとって特に難しいです。"},
+{cat:"副詞・修飾表現",fr:"Il a agi brusquement.",es:"Actuó bruscamente.",jp:"彼は急に行動しました。"},
+{cat:"副詞・修飾表現",fr:"Elle parle doucement mais clairement.",es:"Habla suavemente pero claramente.",jp:"彼女はゆっくりはっきりと話します。"},
+{cat:"副詞・修飾表現",fr:"Je l'ai vu récemment.",es:"Lo vi recientemente.",jp:"最近彼を見かけました。"},
+{cat:"副詞・修飾表現",fr:"C'est définitivement la meilleure solution.",es:"Es definitivamente la mejor solución.",jp:"これが間違いなく最良の解決策です。"},
+{cat:"副詞・修飾表現",fr:"Il s'est comporté étrangement.",es:"Se comportó de manera extraña.",jp:"彼は不思議な行動をしていました。"},
+
+// ============================================================
+// 55. 感情・気持ちの動詞表現
+// ============================================================
+{cat:"感情・気持ち動詞",fr:"Je me sens merveilleusement bien.",es:"Me siento maravillosamente bien.",jp:"素晴らしく気分が良いです。"},
+{cat:"感情・気持ち動詞",fr:"Il m'agace avec ses questions.",es:"Me irrita con sus preguntas.",jp:"彼の質問にイライラします。"},
+{cat:"感情・気持ち動詞",fr:"Ça m'enchante d'apprendre ça.",es:"Me encanta saberlo.",jp:"それを知れて嬉しいです。"},
+{cat:"感情・気持ち動詞",fr:"Je me sens incompris(e).",es:"Me siento incomprendido/a.",jp:"理解されていないと感じます。"},
+{cat:"感情・気持ち動詞",fr:"Ça me met mal à l'aise.",es:"Me pone incómodo/a.",jp:"居心地が悪いです。"},
+{cat:"感情・気持ち動詞",fr:"J'éprouve de la nostalgie.",es:"Siento nostalgia.",jp:"郷愁を感じます。"},
+{cat:"感情・気持ち動詞",fr:"Je me sens coupable.",es:"Me siento culpable.",jp:"罪悪感を感じます。"},
+{cat:"感情・気持ち動詞",fr:"Ça me rend nerveux(euse).",es:"Me pone nervioso/a.",jp:"それが緊張させます。"},
+{cat:"感情・気持ち動詞",fr:"Je suis dépassé(e) par les événements.",es:"Me superan los acontecimientos.",jp:"事態に圧倒されています。"},
+{cat:"感情・気持ち動詞",fr:"Ça me touche beaucoup.",es:"Eso me conmueve mucho.",jp:"それはとても感動します。"},
+
+// ============================================================
+// 56. 近い未来・確定していない将来
+// ============================================================
+{cat:"近い将来・計画",fr:"Je compte partir en vacances en juillet.",es:"Pienso irme de vacaciones en julio.",jp:"7月に休暇を取る予定です。"},
+{cat:"近い将来・計画",fr:"Je pense m'installer à l'étranger.",es:"Pienso instalarme en el extranjero.",jp:"海外に定住しようと思っています。"},
+{cat:"近い将来・計画",fr:"Nous espérons avoir notre propre maison.",es:"Esperamos tener nuestra propia casa.",jp:"自分たちの家を持てるといいです。"},
+{cat:"近い将来・計画",fr:"J'ai l'intention d'apprendre à jouer de la guitare.",es:"Tengo la intención de aprender a tocar la guitarra.",jp:"ギターを弾けるようになるつもりです。"},
+{cat:"近い将来・計画",fr:"Je vais essayer de changer mes habitudes.",es:"Voy a intentar cambiar mis hábitos.",jp:"習慣を変えようとするつもりです。"},
+{cat:"近い将来・計画",fr:"On prévoit d'agrandir l'équipe.",es:"Planeamos ampliar el equipo.",jp:"チームを拡大する予定です。"},
+{cat:"近い将来・計画",fr:"Je me suis inscrit(e) à un cours de yoga.",es:"Me apunté a una clase de yoga.",jp:"ヨガのクラスに申し込みました。"},
+{cat:"近い将来・計画",fr:"J'ai décidé de reprendre le sport.",es:"He decidido retomar el deporte.",jp:"スポーツを再開することにしました。"},
+{cat:"近い将来・計画",fr:"Nous envisageons de voyager cet été.",es:"Pensamos viajar este verano.",jp:"今夏に旅行を考えています。"},
+{cat:"近い将来・計画",fr:"Je vais bientôt fêter mes trente ans.",es:"Voy a cumplir treinta años pronto.",jp:"もうすぐ30歳になります。"},
+
+// ============================================================
+// 57. 環境・エコ
+// ============================================================
+{cat:"環境・エコ",fr:"Il faut trier les déchets.",es:"Hay que separar los residuos.",jp:"ゴミを分別しなければなりません。"},
+{cat:"環境・エコ",fr:"Je préfère les transports en commun.",es:"Prefiero el transporte público.",jp:"公共交通機関の方が好きです。"},
+{cat:"環境・エコ",fr:"Je fais mes courses avec un sac réutilisable.",es:"Hago las compras con una bolsa reutilizable.",jp:"エコバッグを持って買い物します。"},
+{cat:"環境・エコ",fr:"Ce produit est respectueux de l'environnement.",es:"Este producto es respetuoso con el medio ambiente.",jp:"この製品は環境に優しいです。"},
+{cat:"環境・エコ",fr:"Je voudrais installer des panneaux solaires.",es:"Me gustaría instalar paneles solares.",jp:"ソーラーパネルを設置したいです。"},
+{cat:"環境・エコ",fr:"Il faut réduire notre consommation d'énergie.",es:"Hay que reducir nuestro consumo de energía.",jp:"エネルギー消費を減らさなければなりません。"},
+{cat:"環境・エコ",fr:"Je trie le papier, le verre et le plastique.",es:"Separo el papel, el vidrio y el plástico.",jp:"紙、ガラス、プラスチックを分別しています。"},
+{cat:"環境・エコ",fr:"La pollution de l'air est un problème grave.",es:"La contaminación del aire es un problema grave.",jp:"大気汚染は深刻な問題です。"},
+
+// ============================================================
+// 58. お金・銀行
+// ============================================================
+{cat:"お金・銀行",fr:"Je voudrais ouvrir un compte bancaire.",es:"Quisiera abrir una cuenta bancaria.",jp:"銀行口座を開きたいです。"},
+{cat:"お金・銀行",fr:"Je dois payer mes factures ce mois-ci.",es:"Tengo que pagar mis facturas este mes.",jp:"今月は請求書を支払わなければなりません。"},
+{cat:"お金・銀行",fr:"Je fais un virement bancaire.",es:"Hago una transferencia bancaria.",jp:"銀行振込をします。"},
+{cat:"お金・銀行",fr:"Je vérifie mon solde tous les jours.",es:"Compruebo mi saldo todos los días.",jp:"毎日残高を確認しています。"},
+{cat:"お金・銀行",fr:"Mon compte est à découvert.",es:"Mi cuenta está en descubierto.",jp:"口座が残高不足です。"},
+{cat:"お金・銀行",fr:"Le taux de change est favorable aujourd'hui.",es:"El tipo de cambio es favorable hoy.",jp:"今日は為替レートが良いです。"},
+{cat:"お金・銀行",fr:"Je n'ai pas assez d'argent sur moi.",es:"No tengo suficiente dinero encima.",jp:"手持ちのお金が足りません。"},
+{cat:"お金・銀行",fr:"Je paye en plusieurs fois.",es:"Pago a plazos.",jp:"分割払いにします。"},
+
+// ============================================================
+// 59. 月・週・曜日の使い方
+// ============================================================
+{cat:"日付・期間",fr:"Nous sommes le combien aujourd'hui ?",es:"¿A cuánto estamos hoy?",jp:"今日は何日ですか？"},
+{cat:"日付・期間",fr:"Mon anniversaire est le quinze juillet.",es:"Mi cumpleaños es el quince de julio.",jp:"誕生日は7月15日です。"},
+{cat:"日付・期間",fr:"Le rendez-vous est fixé au mardi prochain.",es:"La cita está fijada para el martes que viene.",jp:"約束は来週火曜日に決まっています。"},
+{cat:"日付・期間",fr:"J'ai une semaine de vacances début août.",es:"Tengo una semana de vacaciones a principios de agosto.",jp:"8月初めに1週間の休暇があります。"},
+{cat:"日付・期間",fr:"L'événement aura lieu fin novembre.",es:"El evento tendrá lugar a finales de noviembre.",jp:"イベントは11月末に行われます。"},
+{cat:"日付・期間",fr:"Je suis absent(e) la semaine du vingt.",es:"Estoy ausente la semana del veinte.",jp:"20日の週は不在です。"},
+{cat:"日付・期間",fr:"Dans deux semaines, ce sera l'été.",es:"Dentro de dos semanas, será verano.",jp:"2週間後には夏になります。"},
+{cat:"日付・期間",fr:"Il y a deux jours, il faisait encore beau.",es:"Hace dos días todavía hacía buen tiempo.",jp:"2日前はまだ天気が良かったです。"},
+{cat:"日付・期間",fr:"Ça fait trois semaines que je n'ai pas dormi correctement.",es:"Llevo tres semanas sin dormir bien.",jp:"3週間ちゃんと眠れていません。"},
+{cat:"日付・期間",fr:"Je suis là jusqu'au vendredi soir.",es:"Estoy aquí hasta el viernes por la noche.",jp:"金曜の夜までここにいます。"},
+
+// ============================================================
+// 60. 補足・訂正・確認
+// ============================================================
+{cat:"確認・補足",fr:"Je voulais juste m'assurer que...",es:"Solo quería asegurarme de que...",jp:"ただ〜を確認したかったのですが。"},
+{cat:"確認・補足",fr:"Pour être clair(e), voici ce que je propose.",es:"Para ser claro/a, esto es lo que propongo.",jp:"はっきり言うと、私の提案はこれです。"},
+{cat:"確認・補足",fr:"Je me suis peut-être mal exprimé(e).",es:"Quizás me expliqué mal.",jp:"言い方が悪かったかもしれません。"},
+{cat:"確認・補足",fr:"Ce que je voulais dire, c'est...",es:"Lo que quería decir es...",jp:"私が言いたかったのは..."},
+{cat:"確認・補足",fr:"Permettez-moi de préciser.",es:"Permíteme precisar.",jp:"説明させてください。"},
+{cat:"確認・補足",fr:"Pour résumer en deux mots...",es:"Para resumir brevemente...",jp:"二言で要約すると..."},
+{cat:"確認・補足",fr:"C'est bien ce que vous avez dit ?",es:"¿Es eso lo que dijo?",jp:"おっしゃったのはそういうことですね？"},
+{cat:"確認・補足",fr:"Si j'ai bien compris...",es:"Si entendí bien...",jp:"私が正しく理解しているなら..."},
+{cat:"確認・補足",fr:"Est-ce que vous pouvez confirmer ?",es:"¿Puede confirmar?",jp:"確認していただけますか？"},
+{cat:"確認・補足",fr:"Je voudrais revenir sur ce point.",es:"Quisiera volver sobre este punto.",jp:"この点について戻りたいです。"},
+];
+
+// ============================================================
+// STATE
+// ============================================================
+let cards = [];
+let filteredCards = [];
+let currentIndex = 0;
+let masteredSet = new Set();
+let mode = 'jp2fr_es';
+let currentCat = 'すべて';
+let isMuted = false;
+
+// ============================================================
+// AUDIO
+// ============================================================
+function speakText(text, lang, onDone) {
+  if (isMuted) { if (onDone) onDone(); return; }
+  if (!window.speechSynthesis) { if (onDone) onDone(); return; }
+  const utt = new SpeechSynthesisUtterance(text);
+  utt.lang = lang;
+  utt.rate = 0.88;
+  utt.onend = () => { if (onDone) onDone(); };
+  utt.onerror = () => { if (onDone) onDone(); };
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(utt);
+}
+
+function speakFR(text, onDone) { speakText(text, 'fr-FR', onDone); }
+function speakES(text, onDone) { speakText(text, 'es-ES', onDone); }
+
+function handleSpeakFR(evt) {
+  evt.stopPropagation();
+  const card = filteredCards[currentIndex];
+  if (!card) return;
+  const btn = evt.currentTarget;
+  if (isMuted) { btn.textContent = '🔇 ミュート中'; return; }
+  btn.classList.add('playing');
+  speakFR(card.fr, () => { btn.classList.remove('playing'); btn.textContent = '🔊 FR'; });
+}
+function handleSpeakES(evt) {
+  evt.stopPropagation();
+  const card = filteredCards[currentIndex];
+  if (!card) return;
+  const btn = evt.currentTarget;
+  if (isMuted) { btn.textContent = '🔇 ミュート中'; return; }
+  btn.classList.add('playing');
+  speakES(card.es, () => { btn.classList.remove('playing'); btn.textContent = '🔊 ES'; });
+}
+
+// ============================================================
+// INIT
+// ============================================================
+function init() {
+  cards = RAW_DATA.map((d, i) => ({...d, id: i}));
+  buildCatButtons();
+  applyFilter();
+}
+
+function buildCatButtons() {
+  const cats = ['すべて', ...new Set(cards.map(c => c.cat))];
+  const inner = document.getElementById('catInner');
+  inner.innerHTML = '';
+  cats.forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = 'cat-btn' + (c === currentCat ? ' active' : '');
+    btn.textContent = c;
+    btn.onclick = () => { currentCat = c; buildCatButtons(); applyFilter(); };
+    inner.appendChild(btn);
+  });
+}
+
+function applyFilter() {
+  filteredCards = currentCat === 'すべて' ? [...cards] : cards.filter(c => c.cat === currentCat);
+  currentIndex = 0;
+  renderCard();
+  updateStats();
+}
+
+// ============================================================
+// RENDER
+// ============================================================
+function getEffectiveMode() {
+  if (mode === 'random') {
+    const r = Math.random();
+    if (r < 0.33) return 'jp2fr_es';
+    if (r < 0.66) return 'fr2jp_es';
+    return 'es2jp_fr';
+  }
+  return mode;
+}
+
+function renderCard() {
+  const fc = document.getElementById('flashcard');
+  const cs = document.getElementById('completeScreen');
+  const cc = document.getElementById('cardControls');
+  const remaining = filteredCards.filter(c => !masteredSet.has(c.id));
+
+  if (remaining.length === 0) {
+    fc.style.display = 'none';
+    cc.style.display = 'none';
+    cs.classList.add('show');
+    return;
+  }
+  cs.classList.remove('show');
+  fc.style.display = '';
+  cc.style.display = '';
+
+  let attempts = 0;
+  while (attempts < filteredCards.length && masteredSet.has(filteredCards[currentIndex]?.id)) {
+    currentIndex = (currentIndex + 1) % filteredCards.length;
+    attempts++;
+  }
+
+  const card = filteredCards[currentIndex];
+  if (!card) return;
+
+  fc.classList.remove('revealed');
+  setButtonsQuestion();
+
+  const em = getEffectiveMode();
+  fc.dataset.mode = em;
+
+  const visIdx = remaining.indexOf(card) + 1;
+  document.getElementById('cardCounter').textContent = `${visIdx} / ${remaining.length}`;
+  document.getElementById('cardCounterBack').textContent = `${visIdx} / ${remaining.length}`;
+  document.getElementById('cardCat').textContent = card.cat;
+  document.getElementById('cardCatBack').textContent = card.cat;
+
+  const badge = document.getElementById('cardModeBadge');
+  if (em === 'jp2fr_es') { badge.textContent = 'JP→FR＆ES'; badge.className = 'card-mode-badge badge-jp'; }
+  else if (em === 'fr2jp_es') { badge.textContent = 'FR→JP＆ES'; badge.className = 'card-mode-badge badge-fr'; }
+  else { badge.textContent = 'ES→JP＆FR'; badge.className = 'card-mode-badge badge-es'; }
+
+  const q = document.getElementById('cardQuestion');
+  const a = document.getElementById('cardAnswer');
+
+  const muted = isMuted;
+  const muteClass = muted ? ' muted-state' : '';
+
+  if (em === 'jp2fr_es') {
+    q.innerHTML = `<div class="jp-text">${card.jp}</div><div class="hint-text">👆 タップして答えを見る</div>`;
+    a.innerHTML = `
+      <div class="answer-block">
+        <div class="lang-block lang-block-fr">
+          <span class="lang-label label-fr">FR</span>
+          <span class="fr-text">${card.fr}</span><br>
+          <button class="speak-btn${muteClass}" id="speakFrBtn" onclick="handleSpeakFR(event)">🔊 FR</button>
+        </div>
+        <div class="lang-block lang-block-es">
+          <span class="lang-label label-es">ES</span>
+          <span class="es-text">${card.es}</span><br>
+          <button class="speak-btn${muteClass}" id="speakEsBtn" onclick="handleSpeakES(event)">🔊 ES</button>
+        </div>
+      </div>`;
+  } else if (em === 'fr2jp_es') {
+    q.innerHTML = `
+      <div class="lang-block lang-block-fr" style="border:none;background:transparent">
+        <span class="lang-label label-fr">FR</span>
+        <span class="fr-text">${card.fr}</span>
+      </div>
+      <div class="hint-text">👆 タップして答えを見る</div>`;
+    a.innerHTML = `
+      <div class="answer-block">
+        <div class="lang-block lang-block-jp">
+          <span class="lang-label" style="background:rgba(200,200,255,0.1);color:#a0aaff;border:1px solid rgba(160,170,255,0.2)">JP</span>
+          <span class="jp-text">${card.jp}</span>
+        </div>
+        <div class="lang-block lang-block-es">
+          <span class="lang-label label-es">ES</span>
+          <span class="es-text">${card.es}</span><br>
+          <button class="speak-btn${muteClass}" id="speakEsBtn" onclick="handleSpeakES(event)">🔊 ES</button>
+        </div>
+      </div>`;
+  } else {
+    q.innerHTML = `
+      <div class="lang-block lang-block-es" style="border:none;background:transparent">
+        <span class="lang-label label-es">ES</span>
+        <span class="es-text">${card.es}</span>
+      </div>
+      <div class="hint-text">👆 タップして答えを見る</div>`;
+    a.innerHTML = `
+      <div class="answer-block">
+        <div class="lang-block lang-block-jp">
+          <span class="lang-label" style="background:rgba(200,200,255,0.1);color:#a0aaff;border:1px solid rgba(160,170,255,0.2)">JP</span>
+          <span class="jp-text">${card.jp}</span>
+        </div>
+        <div class="lang-block lang-block-fr">
+          <span class="lang-label label-fr">FR</span>
+          <span class="fr-text">${card.fr}</span><br>
+          <button class="speak-btn${muteClass}" id="speakFrBtn" onclick="handleSpeakFR(event)">🔊 FR</button>
+        </div>
+      </div>`;
+  }
+  // Sync wrapper height to taller face after a short delay
+  setTimeout(() => {
+    const front = document.querySelector('.card-front');
+    const back  = document.querySelector('.card-back');
+    const wrapper = document.querySelector('.flashcard-wrapper');
+    if (front && back && wrapper) {
+      const h = Math.max(front.scrollHeight, back.scrollHeight, 260);
+      wrapper.style.height = h + 'px';
+      document.getElementById('flashcard').style.minHeight = h + 'px';
+      front.style.minHeight = h + 'px';
+      back.style.minHeight  = h + 'px';
+    }
+  }, 20);
+}
+
+// ============================================================
+// CARD ACTIONS
+// ============================================================
+function handleCardClick() {
+  const fc = document.getElementById('flashcard');
+  if (!fc.classList.contains('revealed')) revealCard();
+  else unrevealCard();
+}
+
+function revealCard() {
+  const fc = document.getElementById('flashcard');
+  if (fc.classList.contains('revealed')) return;
+  fc.classList.add('revealed');
+  setButtonsAnswer();
+  // Auto-play answer
+  const em = fc.dataset.mode;
+  const card = filteredCards[currentIndex];
+  if (!card || isMuted) return;
+  if (em === 'jp2fr_es') {
+    speakFR(card.fr, () => setTimeout(() => speakES(card.es), 400));
+  } else if (em === 'fr2jp_es') {
+    speakES(card.es, null);
+  } else {
+    speakFR(card.fr, null);
+  }
+}
+
+function unrevealCard() {
+  const fc = document.getElementById('flashcard');
+  if (!fc.classList.contains('revealed')) return;
+  fc.classList.remove('revealed');
+  setButtonsQuestion();
+}
+
+function setButtonsQuestion() {
+  document.getElementById('showBtn').style.display = '';
+  document.getElementById('hideBtn').style.display = 'none';
+  updateMasteredBtn();
+}
+function setButtonsAnswer() {
+  document.getElementById('showBtn').style.display = 'none';
+  document.getElementById('hideBtn').style.display = '';
+  updateMasteredBtn();
+}
+function updateMasteredBtn() {
+  const card = filteredCards[currentIndex];
+  const btn = document.getElementById('masteredBtn');
+  if (card && masteredSet.has(card.id)) {
+    btn.classList.add('done');
+    btn.textContent = '✓ 覚えた済';
+  } else {
+    btn.classList.remove('done');
+    btn.textContent = '✓ 覚えた';
+  }
+}
+
+function nextCard() {
+  if (filteredCards.filter(c => !masteredSet.has(c.id)).length === 0) return;
+  currentIndex = (currentIndex + 1) % filteredCards.length;
+  let a = 0;
+  while (masteredSet.has(filteredCards[currentIndex]?.id) && a < filteredCards.length) {
+    currentIndex = (currentIndex + 1) % filteredCards.length; a++;
+  }
+  renderCard();
+}
+
+function prevCard() {
+  if (filteredCards.filter(c => !masteredSet.has(c.id)).length === 0) return;
+  currentIndex = (currentIndex - 1 + filteredCards.length) % filteredCards.length;
+  let a = 0;
+  while (masteredSet.has(filteredCards[currentIndex]?.id) && a < filteredCards.length) {
+    currentIndex = (currentIndex - 1 + filteredCards.length) % filteredCards.length; a++;
+  }
+  renderCard();
+}
+
+function toggleMastered() {
+  const card = filteredCards[currentIndex];
+  if (!card) return;
+  if (masteredSet.has(card.id)) masteredSet.delete(card.id);
+  else masteredSet.add(card.id);
+  updateStats();
+  updateMasteredBtn();
+  setTimeout(() => nextCard(), 300);
+}
+
+function resetAll() {
+  masteredSet.clear();
+  currentIndex = 0;
+  renderCard();
+  updateStats();
+}
+
+function updateStats() {
+  const total = filteredCards.length;
+  const mastered = filteredCards.filter(c => masteredSet.has(c.id)).length;
+  const remain = total - mastered;
+  const pct = total > 0 ? Math.round(mastered / total * 100) : 0;
+  document.getElementById('totalCount').textContent = total;
+  document.getElementById('remainCount').textContent = remain;
+  document.getElementById('masteredCount').textContent = mastered;
+  document.getElementById('percentCount').textContent = pct;
+  document.getElementById('progressBar').style.width = pct + '%';
+}
+
+// ============================================================
+// CONTROLS
+// ============================================================
+document.querySelectorAll('.mode-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    mode = btn.dataset.mode;
+    renderCard();
+  });
+});
+
+document.getElementById('shuffleBtn').addEventListener('click', () => {
+  filteredCards.sort(() => Math.random() - 0.5);
+  currentIndex = 0;
+  renderCard();
+  const b = document.getElementById('shuffleBtn');
+  b.textContent = '✅';
+  setTimeout(() => b.textContent = '🔀', 800);
+});
+
+document.getElementById('muteBtn').addEventListener('click', () => {
+  isMuted = !isMuted;
+  document.getElementById('muteBtn').textContent = isMuted ? '🔇' : '🔊';
+  document.getElementById('muteBtn').classList.toggle('muted', isMuted);
+  if (isMuted && window.speechSynthesis) window.speechSynthesis.cancel();
+  // update speak buttons
+  document.querySelectorAll('.speak-btn').forEach(b => {
+    b.classList.toggle('muted-state', isMuted);
+    b.classList.remove('playing');
+    if (isMuted) b.textContent = '🔇 ミュート中';
+    else if (b.id === 'speakFrBtn') b.textContent = '🔊 FR';
+    else b.textContent = '🔊 ES';
+  });
+});
+
+document.getElementById('resetBtn').addEventListener('click', () => {
+  if (confirm('覚えた記録をすべてクリアしますか？')) resetAll();
+});
+
+// Keyboard
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') nextCard();
+  else if (e.key === 'ArrowLeft') prevCard();
+  else if (e.key === 'Enter') revealCard();
+  else if (e.key === 'c' || e.key === 'C') toggleMastered();
+});
+
+init();
+</script>
+</body>
+</html>
