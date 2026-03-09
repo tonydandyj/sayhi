@@ -4,544 +4,377 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>クメール語フラッシュカード A1</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Khmer:wght@300;400;700&family=Noto+Serif+JP:wght@300;400;700&family=Hanuman:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Khmer:wght@300;400;700&family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #0d1117;
-  --surface: #161b22;
-  --surface2: #21262d;
-  --border: #30363d;
+  --gold: #c9a84c;
+  --gold2: #e8c96a;
+  --bg: #0d0f1a;
+  --surface: #161929;
+  --surface2: #1e2236;
+  --surface3: #252942;
+  --text: #f0f2ff;
+  --text-muted: #8b90b0;
   --accent: #c9a84c;
-  --accent2: #e8c96a;
-  --accent3: #8b6914;
-  --text: #e6edf3;
-  --text-muted: #8b949e;
-  --red: #f85149;
-  --green: #3fb950;
-  --blue: #58a6ff;
-  --purple: #bc8cff;
-  --card-front: linear-gradient(135deg, #1c2a3a 0%, #1a2332 100%);
-  --card-back: linear-gradient(135deg, #2a1c0d 0%, #221a0a 100%);
+  --border: rgba(201,168,76,0.2);
+  --border2: rgba(201,168,76,0.3);
+  --green: #2ecc71;
+  --khmer: 'Noto Sans Khmer', sans-serif;
+  --jp: 'M PLUS Rounded 1c', sans-serif;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
+  font-family: var(--jp);
   background: var(--bg);
   color: var(--text);
-  font-family: 'Noto Serif JP', serif;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-image: 
-    radial-gradient(ellipse at 20% 20%, rgba(201,168,76,0.05) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 80%, rgba(88,166,255,0.04) 0%, transparent 60%);
 }
 
-header {
+/* HEADER */
+.header {
   width: 100%;
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  padding: 16px 24px;
+  background: linear-gradient(135deg, #1a1400 0%, #0d0f1a 50%, #1a1400 100%);
+  border-bottom: 2px solid var(--gold);
+  padding: 12px 20px;
   display: flex;
   align-items: center;
-  gap: 16px;
+  justify-content: space-between;
   position: sticky;
   top: 0;
   z-index: 100;
+  box-shadow: 0 4px 20px rgba(201,168,76,0.2);
 }
-.logo {
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--accent);
-  letter-spacing: 0.05em;
-  font-family: 'Noto Sans Khmer', sans-serif;
-}
-.logo span { color: var(--text-muted); font-size: 14px; margin-left: 8px; }
+.header h1 { font-size: clamp(1rem, 3vw, 1.3rem); font-weight: 700; letter-spacing: 0.05em; }
+.header h1 span { color: var(--gold); }
+.header-controls { display: flex; gap: 8px; align-items: center; }
 
-.main-container {
+/* MODE */
+.mode-selector {
+  display: flex;
+  gap: 6px;
+  padding: 10px 16px;
   width: 100%;
-  max-width: 900px;
-  padding: 24px 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  max-width: 700px;
+  justify-content: center;
 }
-
-/* Controls Bar */
-.controls-bar {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.control-group {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.mode-btn {
+  font-family: var(--jp);
+  padding: 7px 14px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border2);
   background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 8px 14px;
-}
-.control-group label {
-  font-size: 12px;
-  color: var(--text-muted);
-  white-space: nowrap;
-}
-.toggle-btn {
-  display: flex;
-  background: var(--surface2);
-  border-radius: 8px;
-  padding: 2px;
-  gap: 2px;
-}
-.toggle-btn button {
-  padding: 5px 12px;
-  border: none;
-  border-radius: 6px;
-  background: transparent;
   color: var(--text-muted);
   cursor: pointer;
-  font-size: 12px;
+  font-size: 0.8rem;
   transition: all 0.2s;
-  font-family: 'Noto Serif JP', serif;
+  white-space: nowrap;
 }
-.toggle-btn button.active {
-  background: var(--accent);
+.mode-btn:hover { border-color: var(--gold); color: var(--text); }
+.mode-btn.active {
+  background: linear-gradient(135deg, var(--gold), #8b6914);
+  border-color: var(--gold);
   color: #000;
   font-weight: 700;
 }
 
-/* Stats */
+/* STATS */
 .stats-bar {
   display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-.stat-card {
+  gap: 16px;
+  padding: 7px 16px;
   background: var(--surface);
-  border: 1px solid var(--border);
   border-radius: 10px;
-  padding: 10px 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 100px;
+  margin: 4px 16px;
+  width: calc(100% - 32px);
+  max-width: 668px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  align-items: center;
 }
-.stat-label { font-size: 11px; color: var(--text-muted); }
-.stat-value { font-size: 22px; font-weight: 700; color: var(--accent); }
-.stat-value.green { color: var(--green); }
-.stat-value.blue { color: var(--blue); }
-.progress-bar-wrap {
-  flex: 1;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 10px 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  justify-content: center;
+.stats-bar span { white-space: nowrap; }
+.stats-bar span b { color: var(--text); }
+.stats-bar .progress-wrap {
+  flex: 1; height: 6px;
+  background: var(--surface3);
+  border-radius: 3px; overflow: hidden; min-width: 40px;
 }
-.progress-bar-bg {
-  height: 8px;
-  background: var(--surface2);
-  border-radius: 4px;
-  overflow: hidden;
-}
-.progress-bar-fill {
+.stats-bar .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--accent3), var(--accent2));
-  border-radius: 4px;
-  transition: width 0.4s ease;
+  background: linear-gradient(90deg, var(--gold), var(--gold2));
+  border-radius: 3px; transition: width 0.4s;
 }
 
-/* Category Nav - horizontal scroll */
-.category-nav-wrap {
-  position: relative;
-  width: 100%;
-}
-.category-nav {
-  display: flex;
-  gap: 8px;
+/* CATEGORY */
+.cat-scroll {
+  width: 100%; max-width: 700px;
+  padding: 6px 16px;
   overflow-x: auto;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
-  scrollbar-color: var(--border) transparent;
-  padding: 4px 2px 10px;
+  scrollbar-color: var(--gold) var(--surface);
 }
-.category-nav::-webkit-scrollbar {
-  height: 4px;
-}
-.category-nav::-webkit-scrollbar-track {
-  background: transparent;
-}
-.category-nav::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: 2px;
-}
+.cat-scroll::-webkit-scrollbar { height: 4px; }
+.cat-scroll::-webkit-scrollbar-track { background: var(--surface); }
+.cat-scroll::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+.cat-inner { display: flex; gap: 6px; width: max-content; }
 .cat-btn {
-  padding: 7px 16px;
-  border: 1px solid var(--border);
-  border-radius: 20px;
+  font-family: var(--jp);
+  padding: 5px 12px;
+  border-radius: 14px;
+  border: 1.5px solid var(--border2);
   background: var(--surface);
   color: var(--text-muted);
   cursor: pointer;
-  font-size: 12px;
+  font-size: 0.72rem;
   transition: all 0.2s;
-  font-family: 'Noto Serif JP', serif;
   white-space: nowrap;
-  flex-shrink: 0;
 }
-.cat-btn:hover { border-color: var(--accent); color: var(--accent); }
+.cat-btn:hover { border-color: var(--gold); color: var(--text); }
 .cat-btn.active {
-  background: var(--accent);
-  border-color: var(--accent);
+  background: var(--gold);
+  border-color: var(--gold);
   color: #000;
   font-weight: 700;
 }
-/* fade edges */
-.category-nav-wrap::before,
-.category-nav-wrap::after {
-  content: '';
-  position: absolute;
-  top: 0; bottom: 0;
-  width: 32px;
-  pointer-events: none;
-  z-index: 2;
-}
-.category-nav-wrap::before {
-  left: 0;
-  background: linear-gradient(to right, var(--bg), transparent);
-}
-.category-nav-wrap::after {
-  right: 0;
-  background: linear-gradient(to left, var(--bg), transparent);
-}
 
-/* Flashcard */
+/* CARD AREA */
 .card-area {
+  width: 100%; max-width: 700px;
+  padding: 12px 16px;
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 12px;
 }
-.card-counter {
-  font-size: 13px;
-  color: var(--text-muted);
-}
-.flashcard-scene {
-  width: 100%;
-  max-width: 640px;
-  height: 320px;
-  perspective: 1000px;
-  cursor: pointer;
-}
+
+/* FLASHCARD */
 .flashcard {
   width: 100%;
-  height: 100%;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.flashcard.flipped { transform: rotateY(180deg); }
-.card-face {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
+  background: var(--surface);
   border-radius: 20px;
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--border);
+  padding: 32px 28px;
+  min-height: 220px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 32px;
-  text-align: center;
-  gap: 16px;
+  position: relative;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
 }
-.card-front {
-  background: var(--card-front);
-  box-shadow: 0 8px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
+.flashcard:hover { border-color: var(--gold); box-shadow: 0 8px 40px rgba(201,168,76,0.15); }
+.card-cat-label {
+  position: absolute; top: 14px; left: 18px;
+  font-size: 0.7rem; color: var(--text-muted);
+  background: var(--surface2); padding: 3px 8px;
+  border-radius: 8px; border: 1px solid var(--border2);
 }
-.card-back {
-  background: var(--card-back);
-  transform: rotateY(180deg);
-  box-shadow: 0 8px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(201,168,76,0.1);
+.card-counter {
+  position: absolute; top: 14px; right: 18px;
+  font-size: 0.7rem; color: var(--text-muted);
 }
-.card-category-tag {
-  font-size: 11px;
-  color: var(--accent);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  border: 1px solid var(--accent3);
-  border-radius: 20px;
-  padding: 3px 12px;
-  background: rgba(201,168,76,0.08);
+.card-question { text-align: center; width: 100%; }
+.card-answer { text-align: center; width: 100%; display: none; }
+.flashcard.revealed .card-question { display: none; }
+.flashcard.revealed .card-answer { display: block; }
+
+.khmer-text {
+  font-family: var(--khmer);
+  font-size: clamp(2.4rem, 8vw, 3.8rem);
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1.5;
+  margin-bottom: 8px;
 }
-.card-prompt {
-  font-size: 13px;
+.roman-text {
+  font-size: clamp(0.8rem, 2.5vw, 1rem);
   color: var(--text-muted);
-  letter-spacing: 0.05em;
+  font-style: italic;
+  margin-bottom: 4px;
 }
-.card-main-text {
-  font-size: 36px;
+.jp-text {
+  font-size: clamp(1.4rem, 5vw, 2rem);
   font-weight: 700;
   color: var(--text);
-  font-family: 'Noto Sans Khmer', 'Noto Serif JP', sans-serif;
-  line-height: 1.4;
 }
-.card-main-text.japanese { font-family: 'Noto Serif JP', serif; font-size: 28px; }
-.card-hint {
-  font-size: 13px;
-  color: var(--text-muted);
-  font-style: italic;
+.hint-text {
+  font-size: 0.75rem; color: var(--text-muted);
+  margin-top: 12px; opacity: 0.6;
 }
-.card-flip-hint {
-  font-size: 11px;
-  color: var(--border);
-  margin-top: 8px;
-}
-/* Answer card */
-.answer-khmer {
-  font-size: 40px;
-  font-weight: 700;
-  font-family: 'Noto Sans Khmer', sans-serif;
-  color: var(--accent2);
-  line-height: 1.4;
-}
-.answer-japanese {
-  font-size: 28px;
-  font-weight: 700;
-  font-family: 'Noto Serif JP', serif;
-  color: var(--accent2);
-}
-.answer-romaji {
-  font-size: 15px;
-  color: var(--text-muted);
-  font-style: italic;
-  letter-spacing: 0.05em;
-}
-.audio-btn {
-  display: flex;
+
+/* SPEAK BTN */
+.speak-btn {
+  display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 18px;
-  background: rgba(201,168,76,0.15);
-  border: 1px solid var(--accent3);
+  margin-top: 18px;
+  padding: 8px 22px;
   border-radius: 20px;
-  color: var(--accent);
+  border: 1.5px solid rgba(34,197,94,0.4);
+  background: rgba(34,197,94,0.08);
+  color: #22c55e;
+  font-family: var(--jp);
+  font-size: 0.85rem;
+  font-weight: 600;
   cursor: pointer;
-  font-size: 13px;
   transition: all 0.2s;
-  font-family: 'Noto Serif JP', serif;
 }
-.audio-btn:hover { background: rgba(201,168,76,0.25); }
-.audio-btn svg { width: 16px; height: 16px; fill: currentColor; }
+.speak-btn:hover { background: rgba(34,197,94,0.18); border-color: #22c55e; }
+.speak-btn.playing { background: rgba(34,197,94,0.22); border-color: #22c55e; animation: pulse-speak 0.8s ease-in-out infinite alternate; }
+.speak-btn.muted-state { color: var(--text-muted); border-color: var(--border); background: transparent; }
+@keyframes pulse-speak {
+  from { box-shadow: 0 0 4px rgba(34,197,94,0.2); }
+  to   { box-shadow: 0 0 16px rgba(34,197,94,0.5); }
+}
 
-/* Button Row */
-.btn-row {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 100%;
-  max-width: 640px;
+/* CONTROLS */
+.card-controls {
+  display: flex; gap: 8px;
+  align-items: center; justify-content: center;
+  flex-wrap: wrap; width: 100%;
 }
-.btn {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  padding: 11px 22px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  background: var(--surface);
+.ctrl-btn {
+  font-family: var(--jp);
+  padding: 10px 16px; border-radius: 12px;
+  border: 1.5px solid var(--border2);
+  background: var(--surface2);
   color: var(--text);
+  cursor: pointer; font-size: 0.82rem;
+  transition: all 0.2s; white-space: nowrap;
+}
+.ctrl-btn:hover { background: var(--surface3); }
+.btn-prev { border-color: var(--border); color: var(--text-muted); }
+.btn-prev:hover { color: var(--text); }
+.btn-show {
+  background: linear-gradient(135deg, var(--gold), #8b6914);
+  border-color: var(--gold); color: #000; font-weight: 700; padding: 10px 20px;
+}
+.btn-show:hover { opacity: 0.88; box-shadow: 0 4px 14px rgba(201,168,76,0.4); }
+.btn-hide {
+  background: var(--surface2); border-color: #555a7a;
+  color: var(--text-muted); font-weight: 600; padding: 10px 20px;
+}
+.btn-hide:hover { border-color: var(--gold); color: var(--text); }
+.btn-mastered { border-color: var(--green); color: var(--green); background: transparent; }
+.btn-mastered:hover { background: rgba(46,204,113,0.1); }
+.btn-mastered.done { background: rgba(46,204,113,0.15); font-weight: 700; }
+.btn-next {
+  background: linear-gradient(135deg, #8b6914, var(--gold));
+  border-color: var(--gold); color: #000; font-weight: 700;
+}
+.btn-next:hover { opacity: 0.85; }
+
+/* ICON BTNS */
+.icon-btn {
+  background: transparent;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 7px 10px;
   cursor: pointer;
-  font-size: 14px;
-  font-family: 'Noto Serif JP', serif;
-  font-weight: 700;
-  transition: all 0.2s;
-  white-space: nowrap;
-}
-.btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
-.btn svg { width: 16px; height: 16px; fill: currentColor; }
-.btn-show { border-color: var(--blue); color: var(--blue); }
-.btn-show:hover { background: rgba(88,166,255,0.1); }
-.btn-next { border-color: var(--accent); color: var(--accent); background: rgba(201,168,76,0.08); }
-.btn-next:hover { background: rgba(201,168,76,0.2); }
-.btn-mastered { border-color: var(--green); color: var(--green); }
-.btn-mastered:hover { background: rgba(63,185,80,0.1); }
-.btn-back { border-color: var(--text-muted); color: var(--text-muted); }
-.btn-back:hover { background: rgba(139,148,158,0.1); }
-.btn-reset { border-color: var(--red); color: var(--red); font-size: 12px; padding: 8px 14px; }
-.btn-reset:hover { background: rgba(248,81,73,0.1); }
-.btn-shuffle { border-color: var(--purple); color: var(--purple); font-size: 12px; padding: 8px 14px; }
-.btn-shuffle:hover { background: rgba(188,140,255,0.1); }
-
-/* Card List (mini view) */
-.section-title {
-  font-size: 13px;
   color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--border);
+  font-size: 1rem;
+  transition: all 0.2s;
+  display: flex; align-items: center;
 }
-.mastered-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.mastered-tag {
-  background: rgba(63,185,80,0.1);
-  border: 1px solid var(--green);
-  color: var(--green);
-  border-radius: 20px;
-  padding: 3px 10px;
-  font-size: 11px;
-  font-family: 'Noto Sans Khmer', sans-serif;
-}
+.icon-btn:hover { color: var(--text); border-color: var(--gold); }
+.icon-btn.muted { color: var(--gold); border-color: var(--gold); }
 
-/* Completed */
-.completed-screen {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  padding: 40px;
-  text-align: center;
+/* COMPLETION */
+.complete-screen {
+  display: none; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; padding: 40px 20px; gap: 16px;
 }
-.completed-screen.show { display: flex; }
-.completed-icon { font-size: 64px; }
-.completed-title { font-size: 28px; font-weight: 700; color: var(--accent); }
-.completed-sub { color: var(--text-muted); font-size: 15px; }
+.complete-screen.show { display: flex; }
+.complete-screen .trophy { font-size: 4rem; }
+.complete-screen h2 { font-size: 1.5rem; color: var(--gold); }
+.complete-screen p { color: var(--text-muted); }
 
-/* Responsive */
-@media (max-width: 600px) {
-  .card-main-text { font-size: 26px; }
-  .answer-khmer { font-size: 28px; }
-  .answer-japanese { font-size: 20px; }
-  .flashcard-scene { height: 260px; }
-  .btn { padding: 9px 14px; font-size: 12px; }
+/* KEYBOARD HINT */
+.keyboard-hint {
+  font-size: 0.7rem; color: var(--text-muted);
+  opacity: 0.5; text-align: center; padding-bottom: 12px;
+}
+kbd {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 4px; padding: 1px 5px;
+  font-size: 0.65rem; font-family: monospace;
 }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="logo">ភាសាខ្មែរ <span>クメール語フラッシュカード A1</span></div>
+<!-- HEADER -->
+<header class="header">
+  <div style="display:flex;align-items:center;gap:12px">
+    <span style="font-size:1.5rem">🇰🇭</span>
+    <h1>クメール語 <span>フラッシュカード</span></h1>
+  </div>
+  <div class="header-controls">
+    <button class="icon-btn" id="shuffleBtn" title="シャッフル">🔀</button>
+    <button class="icon-btn" id="muteBtn" title="ミュート">🔊</button>
+  </div>
 </header>
 
-<div class="main-container">
+<!-- MODE -->
+<div class="mode-selector">
+  <button class="mode-btn active" data-mode="ja-kh">和 → 柬</button>
+  <button class="mode-btn" data-mode="kh-ja">柬 → 和</button>
+  <button class="mode-btn" data-mode="random">🎲 ランダム</button>
+</div>
 
-  <!-- Controls -->
-  <div class="controls-bar">
-    <div class="control-group">
-      <label>モード</label>
-      <div class="toggle-btn">
-        <button id="modeJK" class="active" onclick="setMode('ja-kh')">和→柬</button>
-        <button id="modeKJ" onclick="setMode('kh-ja')">柬→和</button>
-        <button id="modeRand" onclick="setMode('random')">ランダム</button>
-      </div>
-    </div>
-  </div>
+<!-- STATS -->
+<div class="stats-bar">
+  <span>全 <b id="totalCount">0</b></span>
+  <span>残り <b id="remainCount">0</b></span>
+  <span>✓ <b id="masteredCount">0</b></span>
+  <div class="progress-wrap"><div class="progress-fill" id="progressBar" style="width:0%"></div></div>
+  <span><b id="percentCount">0</b>%</span>
+</div>
 
-  <!-- Category scroll -->
-  <div class="category-nav-wrap">
-    <div class="category-nav" id="categoryNav"></div>
-  </div>
+<!-- CATEGORY -->
+<div class="cat-scroll">
+  <div class="cat-inner" id="catInner"></div>
+</div>
 
-  <!-- Stats -->
-  <div class="stats-bar">
-    <div class="stat-card">
-      <div class="stat-label">残り</div>
-      <div class="stat-value" id="statRemain">-</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">覚えた</div>
-      <div class="stat-value green" id="statMastered">0</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">合計</div>
-      <div class="stat-value blue" id="statTotal">-</div>
-    </div>
-    <div class="progress-bar-wrap">
-      <div class="stat-label">進捗</div>
-      <div class="progress-bar-bg">
-        <div class="progress-bar-fill" id="progressFill" style="width:0%"></div>
-      </div>
-      <div style="font-size:11px; color:var(--text-muted)" id="progressText">0%</div>
-    </div>
-  </div>
-
-  <!-- Flashcard -->
-  <div class="card-area" id="cardArea">
+<!-- CARD AREA -->
+<div class="card-area">
+  <div class="flashcard" id="flashcard" onclick="handleCardClick()">
+    <div class="card-cat-label" id="cardCat"></div>
     <div class="card-counter" id="cardCounter"></div>
-    <div class="flashcard-scene" onclick="flipCard()">
-      <div class="flashcard" id="flashcard">
-        <div class="card-face card-front" id="cardFront">
-          <div class="card-category-tag" id="frontCategory"></div>
-          <div class="card-main-text" id="frontText"></div>
-          <div class="card-hint" id="frontHint"></div>
-          <div class="card-flip-hint">クリックして答えを見る</div>
-        </div>
-        <div class="card-face card-back" id="cardBack">
-          <div class="card-category-tag" id="backCategory"></div>
-          <div id="backAnswer"></div>
-          <button class="audio-btn" id="audioBtn" onclick="playAudio(event)">
-            <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
-            音声再生
-          </button>
-          <div class="card-flip-hint">タップして問題に戻る</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Buttons -->
-    <div class="btn-row">
-      <button class="btn btn-back" onclick="prevCard()">
-        <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
-        戻る
-      </button>
-      <button class="btn btn-show" id="showBtn" onclick="showAnswer()">
-        <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
-        表示
-      </button>
-      <button class="btn btn-mastered" id="masteredBtn" onclick="markMastered()">
-        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-        覚えた！
-      </button>
-      <button class="btn btn-next" onclick="nextCard()">
-        次へ
-        <svg viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
-      </button>
-    </div>
-
-    <!-- Sub buttons -->
-    <div class="btn-row">
-      <button class="btn btn-shuffle" onclick="shuffleCards()">
-        <svg viewBox="0 0 24 24"><path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/></svg>
-        シャッフル
-      </button>
-      <button class="btn btn-reset" onclick="resetMastered()">
-        <svg viewBox="0 0 24 24"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
-        チェック解除
-      </button>
-    </div>
+    <div class="card-question" id="cardQuestion"></div>
+    <div class="card-answer" id="cardAnswer"></div>
   </div>
 
-  <!-- Completed -->
-  <div class="completed-screen" id="completedScreen">
-    <div class="completed-icon">🏆</div>
-    <div class="completed-title">完了！</div>
-    <div class="completed-sub" id="completedSub"></div>
-    <button class="btn btn-next" onclick="resetAll()">最初からやり直す</button>
+  <div class="card-controls" id="cardControls">
+    <button class="ctrl-btn btn-prev"     onclick="prevCard()">← 戻る</button>
+    <button class="ctrl-btn btn-show"     id="showBtn"     onclick="revealCard()">▶ 表示</button>
+    <button class="ctrl-btn btn-hide"     id="hideBtn"     onclick="unrevealCard()" style="display:none">◀ 戻す</button>
+    <button class="ctrl-btn btn-mastered" id="masteredBtn" onclick="toggleMastered()">✓ 覚えた</button>
+    <button class="ctrl-btn btn-next"     onclick="nextCard()">次へ →</button>
   </div>
 
+  <div class="complete-screen" id="completeScreen">
+    <div class="trophy">🏆</div>
+    <h2>すべて覚えました！</h2>
+    <p>おめでとうございます！全カードを制覇しました。</p>
+    <button class="ctrl-btn" onclick="resetAll()" style="margin-top:12px">もう一度やり直す</button>
+  </div>
+
+  <div class="keyboard-hint">
+    <kbd>→</kbd> 次へ　<kbd>←</kbd> 戻る　<kbd>Enter</kbd> 答えを見る　<kbd>C</kbd> 覚えた
+  </div>
 </div>
 
 <script>
+// ================================================
+// DATA
+// ================================================
 const AUDIO_MAP = {
   "a-run-suos-dei": "data:audio/mp3;base64,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",
   "aa-krok": "data:audio/mp3;base64,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FlWjABJEnvxQN4x8B8Klye+QgQpLLXLYYAjVrdcB8/1QSmt86EKdemAQW9Suynd/+zPoRX1RuQaJKomBz0LJn/44ez//80TEQhIRXso+ekrI////jkWk1QyCQKL/AA9SFH0546IJCeMbcAkA3XLV1IMUk0+YBfzSct9SGQ01nt6FxAEqXfoy7AAGDRlISFDA91z4Asfnj4bEBdDjFgQvWtgABMX/80TETBC4psmeA9IcxAHSYqKZZRZlVHgMBuS00/N8XJVR36fRz7bxgUCFGe4IUd4zeT2pYNzyyyb2LtpqKKhZI7cMyhmeYz4lOwYbaAaNKQQBMEj2rkYhMsKBQbQ22Iz/80TEXBH5Ms4+G8YcKEXFBCsfRl0Q2Q5AWJCzq6K61zOLMDaTv7frYzjoR6Nryo1jniwgMz/5C9JB3///9id6wQAKNJQQD9ZQ0VYoeeN2DFpOtNDEjqQdOSD7MI+nogv/80TEZxGpjtT+AkQeJJjaFGf4GNssl6MbKFW6/0r3/9dU5FttX2BjSolUCv+513O///+q8dWAAC7U5vgPxMmq2crWJUSetNMXC4SoK3KZLikGGFBDFssUy8XzX/i8pSH/80TEcxIZbsWeYIcCEHKUnD//zll8qJk8yMjPPbbM1y4yDu53/Y1TI5ULgEWmtSGELWebEsuckZ+sK0/hZg4xaBCUYaLUcqpD+ETAfJYxDRYVwm2V9evrj6YfJ4kayJH/80TEfRGSasmeMEcazUX+JmH5zRBCFFmoYUWNanoVUMWc3yKQXUnqJIqC9PI4zwVJ0hgkCMsAUoWiDKP9NIcPUrzpTJk0uwzRRKWImuSb6rH/ex9/1d0lv/sXXubymj//80TEiRHRlmA4eEcwcgG6urAKkU9eBUdA4TNXJcM440Ipb3U7P2UVdnt+25BbRaz/d93ev+/9i/RVJCJiyBoqGRoEiZZqtVQ4ia1RgoCsAgEPCQNHioKjH4ljh51nKhr/80TElBBoijQAwx4g/BoSgI8sZlgqCttQNPkcKnYNHhFU+Golo1KDrTyCrjwlISoaEIUkALiQXMkyEhLHRB6AOB//1ior4uKiv/qFSICCQuKhkBC3/sMhIXFTLvWKCxL/80TEpQrISkBUYYQkNeoXFQyAhYVFRUVFBYPAUVFhY0pMQU1FMy4xMDCqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqr/80TEzBKAbgwAekYQqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqr/80TE1RCYPTgAYkwIqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqo=",
@@ -915,9 +748,6 @@ const AUDIO_MAP = {
   "yup": "data:audio/mp3;base64,SUQzBAAAAAAAIlRTU0UAAAAOAAADTGF2ZjYxLjcuMTAwAAAAAAAAAAAAAAD/84TAAAAAAAAAAAAASW5mbwAAAA8AAAASAAAHgAAmJiYmJjMzMzMzM0BAQEBATExMTExMWVlZWVlmZmZmZmZzc3Nzc4CAgICAgIyMjIyMmZmZmZmZpqampqams7Ozs7PAwMDAwMDMzMzMzNnZ2dnZ2ebm5ubm8/Pz8/Pz//////8AAAAATGF2YzYxLjE5AAAAAAAAAAAAAAAAJAQ4AAAAAAAAB4CM9y6KAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/80TEABJ5aiAASMx0Aw4uT7bc61RAI4iFXP93cAEcRC476RDk0yBBCHPJk7IEIwwhn7QYQy9e8PJk9jLvGISDpsQQHg+D48HC44EDhQYGPWf/7v//n9IESSgEyRbysQr/80TECQ5pYkCuMEY8aFLX6nteUXr/SUlKZlSPWVnjr9RaTQyXoYOJGAjCrzIweQDWS8fXU779rrv/ltP8rR1wSwaLTJImyiq0qSEkKN3y/zaoX/0+1/4nNf9plKRZtkX/80TEIhM5XhgAeYYJ0m3ikGOA6d9/PtMQI+7C2DPvNgOXfIQ/7/bL8ru8+jBn+g47M/6KwC079A3YxDGdTooQg6RD0fpWRPTyjJTGZubg1owSMZEQEMtWNU6zCwBhxXL/80TEKBizBjQseEqcgAUXnEByFBDqH0IIFFziBEa9FQjK+RyLR7V16vSdb6jyMdFOSrkaxGSZ9cQId698jLJ1MKLU6uUPvj69jTyUEgkJR0WA7B/4bfR+BCnfIS//+fP/80TEGBfi/oAAyJB9/n/+b+bdz4xAEQXhyDHgUW8s8ULEIAIKh/B5BkvCF3pLkUW8C4vCIkvHwRXu9cIlPFcwnzf3+lf/8vfFS///FfpSV7vflnj6/eHx1rB11pX1d3L/80TECxLRdqgAyFKYtBcbl4PAvAP0P/+X8j/6mVCxACDjhUomQXNhvOggFyJzJZnEE/TALD2GwAgIPVNSaRgYWXD8gs0uvX0f67vlJCpoC122WRDwK9AzB5I+u+5q2GP/80TEEhWBSuJcbh5iiaQNalV/zfOUwxR7/N3jvW8+8u9f6yz1jw7XfknZ4n1IoiGx8YhSF6Om8OrYmy7PXrLmAzThMNC3u/+aTY4VWeC/7O6IFayyS2m6G23kUgJB+4n/80TEDxX42t5WXh5iQVTEOHyEqPsdx5EpE4tv0U6HI2JAqxm+inPD+EWw2kKr7pAMNWPv/8PX4K4FdMhOGA4RJlqLVl5dn+hBEKi/iVH/W57P33K6E7AG9oFoCnWiLzD/80TEChSotr2UDl4M1HWtZTqPZq5gL1fv0/HARUX7bDkMW1GAtiEJVRd4dg9YfyLiZpSsMCqSCutsOnm8tYKuYH1Ci7g+ONUu+apFpBDrv//2uuPLYqgAEUZq1JqBpUz/80TEChPosspegwaoQlDQnZEjgFsOmKKC4nsPjbk68tnvNnACBWIrFrYqzrBmFiwdWDJ70hqgNORYLFXPQ14iDBoRX1bX5KJolyt6xz1f/438tYBAApK0nWBr8uQGX2j/80TEDRJ4psW+wwZuV+boAwgLEbHq8lhcWs44WiU/0rxZNzhlujCgRBk2kBCpc7eWlzuGhURHojEi3dxast9HpvXrYlSVnff/1oQC5bE6IBIEkESVcyaabvPr2bbiMw//80TEFhHIirEeDhIKISRLTgqniJq7zY5yUqIhLAoTARoNBW8RBQDLbnWtUerO+5YakftUHbMq609///K/yVUBm5JFWZOCYOdGT7wsDGQaT4oszgGUAoY5JF8YKAwrRWr/80TEIRJQemBY3hItA4SiFCCQqXl6mhQkrhQ1wK7ybBWF9t/wbj4Xf9/FcU1x78mxUv7t8JVERpKahKIHSrY2Oi5YGDggMADBuYwRSERMzwMFRjVlE4i7IOhlGCwNBUz/80TEKhBgfkQA3pIszSURPaDAiB7RdXHEaett/1dPv/9X6P7VCkdtkuvDyMEG7mjLHW1Qsruh4CklQERaFasfZ0UeY8r/p/r/9Xbfv+rv/899KmVVwBuH+6HEWJVCV93/80TEOwtYQmB+ThIAtLByOpNgUE0PCLmLaLa/Z00Ndpv/lb0ba6rCsctv1V8lXo0fduu6aggCgqk0xMTFYEw7RmFQwElKKJAR5YLB2GgaO9YaiJ5H0fg1LLw0WDu/iIH/80TEYA0QQjQUelgkrlg7WHfI3rBrDWSXv5Z/lnnuWgwyMjtKyyx0MUFDBQQMI4gSwUMDBB0D4LCwsDnxUVFUvFRVn/NhIWFg8CwSFhIHwkLCwt5UKioqGQKKirP///j/80TEfg9wUhAOYMZA8VFRWkxBTUUzLjEwMKqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqr/80TEkxDgjOgKCMZMqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqo=",
 };
 
-// ============================
-// CARD DATA (約400カード)
-// ============================
 const CARDS = [
 // --- 挨拶・基本表現 ---
 {id:"gr01", cat:"挨拶・基本表現", kh:"សួស្តី", rom:"suos-dei", ja:"こんにちは", audio:"suos-dei"},
@@ -1344,219 +1174,20 @@ const CARDS = [
 {id:"oc08", cat:"職業・学校", kh:"ថ្ងៃនេះមានថ្នាក់ទេ?", rom:"thngai-nih-mian-thnak-te", ja:"今日授業はありますか？", audio:"thngai-nih-mian-thnak-te"},
 ];
 
-// ============================
-// APP STATE
-// ============================
-let mode = 'ja-kh'; // ja-kh, kh-ja, random
-let currentCat = 'all';
-let deck = [];
-let currentIdx = 0;
-let masteredIds = new Set(JSON.parse(localStorage.getItem('kh_mastered') || '[]'));
-let isFlipped = false;
-let history = [];
+// ================================================
+// STATE
+// ================================================
+let mode = 'ja-kh';
+let currentCat = 'すべて';
+let cards = [];
+let filteredCards = [];
+let currentIndex = 0;
+let masteredSet = new Set(JSON.parse(localStorage.getItem('kh_mastered_v2') || '[]'));
+let isMuted = false;
 
-const CATEGORIES = ['すべて', ...new Set(CARDS.map(c => c.cat))];
-
-// ============================
-// INIT
-// ============================
-function init() {
-  buildCategoryNav();
-  buildDeck();
-  showCard();
-}
-
-function buildCategoryNav() {
-  const nav = document.getElementById('categoryNav');
-  nav.innerHTML = CATEGORIES.map(cat => 
-    `<button class="cat-btn ${cat === 'すべて' ? 'active' : ''}" onclick="setCatFromBtn(this,'${cat}')">${cat}</button>`
-  ).join('');
-}
-
-function setCatFromBtn(el, cat) {
-  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-  el.classList.add('active');
-  currentCat = cat === 'すべて' ? 'all' : cat;
-  buildDeck();
-  showCard();
-  // アクティブボタンが見えるようにスクロール
-  el.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-}
-
-function buildDeck() {
-  let pool = CARDS.filter(c => !masteredIds.has(c.id));
-  if (currentCat !== 'all') pool = pool.filter(c => c.cat === currentCat);
-  deck = pool;
-  currentIdx = 0;
-  history = [];
-}
-
-function setMode(m) {
-  mode = m;
-  ['JK','KJ','Rand'].forEach(id => {
-    document.getElementById('mode'+id).classList.toggle('active', 
-      (id==='JK'&&m==='ja-kh')||(id==='KJ'&&m==='kh-ja')||(id==='Rand'&&m==='random'));
-  });
-  showCard();
-}
-
-// ============================
-// CARD DISPLAY
-// ============================
-function showCard() {
-  const card = document.getElementById('flashcard');
-  card.classList.remove('flipped');
-  isFlipped = false;
-
-  const all = CARDS.filter(c => currentCat === 'all' || c.cat === currentCat);
-  const remaining = deck.length;
-  const total = all.length;
-  const mastered = masteredIds.size;
-
-  document.getElementById('statRemain').textContent = remaining;
-  document.getElementById('statMastered').textContent = masteredIds.size;
-  document.getElementById('statTotal').textContent = total;
-  
-  const pct = total > 0 ? Math.round((total - remaining) / total * 100) : 0;
-  document.getElementById('progressFill').style.width = pct + '%';
-  document.getElementById('progressText').textContent = pct + '%';
-
-  if (deck.length === 0) {
-    showCompleted();
-    return;
-  }
-
-  document.getElementById('cardArea').style.display = 'flex';
-  document.getElementById('completedScreen').classList.remove('show');
-
-  const data = deck[currentIdx];
-  const effectiveMode = mode === 'random' ? (Math.random() > 0.5 ? 'ja-kh' : 'kh-ja') : mode;
-  data._effectiveMode = effectiveMode; // 音声再生時に参照するため保持
-  
-  document.getElementById('cardCounter').textContent = `${currentIdx + 1} / ${deck.length}（残り）`;
-  
-  const frontCat = document.getElementById('frontCategory');
-  const frontText = document.getElementById('frontText');
-  const frontHint = document.getElementById('frontHint');
-  const backAnswer = document.getElementById('backAnswer');
-  const backCategory = document.getElementById('backCategory');
-
-  frontCat.textContent = data.cat;
-  backCategory.textContent = data.cat;
-
-  if (effectiveMode === 'ja-kh') {
-    frontText.textContent = data.ja;
-    frontText.className = 'card-main-text japanese';
-    frontHint.textContent = '';
-    backAnswer.innerHTML = `
-      <div class="answer-khmer">${data.kh}</div>
-      <div class="answer-romaji">${data.rom}</div>
-    `;
-  } else {
-    frontText.textContent = data.kh;
-    frontText.className = 'card-main-text';
-    frontHint.textContent = data.rom;
-    backAnswer.innerHTML = `
-      <div class="answer-japanese">${data.ja}</div>
-    `;
-  }
-}
-
-function showCompleted() {
-  document.getElementById('cardArea').style.display = 'none';
-  const comp = document.getElementById('completedScreen');
-  comp.classList.add('show');
-  const all = CARDS.filter(c => currentCat === 'all' || c.cat === currentCat);
-  document.getElementById('completedSub').textContent = 
-    `${all.length}枚すべて覚えました！🎉`;
-}
-
-function flipCard() {
-  const card = document.getElementById('flashcard');
-  if (isFlipped) {
-    card.classList.remove('flipped');
-    isFlipped = false;
-  } else {
-    card.classList.add('flipped');
-    isFlipped = true;
-    // ユーザー操作の同期コンテキスト内で直接再生（Autoplay Policy対応）
-    playAudioForCard(getCurrentCard());
-  }
-}
-
-function showAnswer() {
-  flipCard();
-}
-
-// ============================
-// NAVIGATION
-// ============================
-function nextCard() {
-  if (deck.length === 0) return;
-  history.push(currentIdx);
-  currentIdx = (currentIdx + 1) % deck.length;
-  showCard();
-}
-
-function prevCard() {
-  if (history.length > 0) {
-    currentIdx = history.pop();
-  } else {
-    currentIdx = Math.max(0, currentIdx - 1);
-  }
-  showCard();
-}
-
-function markMastered() {
-  if (deck.length === 0) return;
-  const card = deck[currentIdx];
-  masteredIds.add(card.id);
-  localStorage.setItem('kh_mastered', JSON.stringify([...masteredIds]));
-  deck.splice(currentIdx, 1);
-  if (currentIdx >= deck.length) currentIdx = 0;
-  showCard();
-}
-
-function resetMastered() {
-  masteredIds.clear();
-  localStorage.removeItem('kh_mastered');
-  buildDeck();
-  showCard();
-}
-
-function shuffleCards() {
-  for (let i = deck.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [deck[i], deck[j]] = [deck[j], deck[i]];
-  }
-  currentIdx = 0;
-  showCard();
-}
-
-function resetAll() {
-  masteredIds.clear();
-  localStorage.removeItem('kh_mastered');
-  buildDeck();
-  showCard();
-}
-
-// ============================
+// ================================================
 // AUDIO
-// ============================
-function getCurrentCard() {
-  return deck[currentIdx] || null;
-}
-
-function autoPlayAudio() {
-  playAudioForCard(getCurrentCard());
-}
-
-function playAudio(e) {
-  if (e) e.stopPropagation();
-  playAudioForCard(getCurrentCard());
-}
-
-// Audio Context（Autoplay Policy対策）
+// ================================================
 let audioCtx = null;
 function getAudioCtx() {
   if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -1564,81 +1195,290 @@ function getAudioCtx() {
   return audioCtx;
 }
 
-function playBase64Audio(b64) {
-  return new Promise((resolve, reject) => {
-    try {
-      const ctx = getAudioCtx();
-      // "data:audio/mp3;base64," プレフィックスを除去
-      const raw = b64.includes(',') ? b64.split(',')[1] : b64;
-      const binary = atob(raw);
-      const bytes = new Uint8Array(binary.length);
-      for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
-      ctx.decodeAudioData(bytes.buffer,
-        (buf) => {
-          const src = ctx.createBufferSource();
-          src.buffer = buf;
-          src.connect(ctx.destination);
-          src.onended = resolve;
-          src.start(0);
-        },
-        reject
-      );
-    } catch(e) { reject(e); }
-  });
+function playBase64Audio(b64, onDone) {
+  try {
+    const ctx = getAudioCtx();
+    const raw = b64.includes(',') ? b64.split(',')[1] : b64;
+    const binary = atob(raw);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+    ctx.decodeAudioData(bytes.buffer,
+      (buf) => {
+        const src = ctx.createBufferSource();
+        src.buffer = buf;
+        src.connect(ctx.destination);
+        src.onended = () => { if (onDone) onDone(); };
+        src.start(0);
+      },
+      () => { if (onDone) onDone(); }
+    );
+  } catch(e) { if (onDone) onDone(); }
 }
 
-function playAudioForCard(card) {
-  if (!card) return;
-
-  const effectiveLang = (card._effectiveMode || mode) === 'kh-ja' ? 'ja' : 'km';
-
-  if (effectiveLang === 'ja') {
-    speakText(card.ja, 'ja');
-  } else {
-    const b64 = (typeof AUDIO_MAP !== 'undefined') && AUDIO_MAP[card.audio];
-    if (b64) {
-      playBase64Audio(b64).catch(() => speakText(card.kh, 'km'));
-    } else {
-      speakText(card.kh, 'km');
-    }
-  }
-}
-
-function speakText(text, lang) {
-  if (!window.speechSynthesis) return;
-  window.speechSynthesis.cancel();
+function speakJapanese(text, onDone) {
+  if (isMuted) { if (onDone) onDone(); return; }
   const utt = new SpeechSynthesisUtterance(text);
-
-  if (lang === 'ja') {
-    utt.lang = 'ja-JP';
-    utt.rate = 0.9;
-    utt.pitch = 1.0;
-    const voices = window.speechSynthesis.getVoices();
-    const jaVoice = voices.find(v => v.lang.startsWith('ja'));
-    if (jaVoice) utt.voice = jaVoice;
-  } else {
-    utt.lang = 'km-KH';
-    utt.rate = 0.85;
-    utt.pitch = 1.0;
-    const voices = window.speechSynthesis.getVoices();
-    const kmVoice = voices.find(v => v.lang.startsWith('km'));
-    if (kmVoice) utt.voice = kmVoice;
-  }
-
+  utt.lang = 'ja-JP';
+  utt.rate = 0.85;
+  utt.onend = () => { if (onDone) onDone(); };
+  utt.onerror = () => { if (onDone) onDone(); };
+  window.speechSynthesis.cancel();
   window.speechSynthesis.speak(utt);
 }
 
-// Keyboard support
-document.addEventListener('keydown', e => {
-  if (e.key === 'ArrowRight' || e.key === 'n') nextCard();
-  if (e.key === 'ArrowLeft' || e.key === 'b') prevCard();
-  if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); flipCard(); }
-  if (e.key === 'm') markMastered();
-  if (e.key === 'a') playAudio(null);
+// ================================================
+// INIT
+// ================================================
+function init() {
+  cards = CARDS.map((d, i) => ({...d, _id: d.id || i}));
+  buildCatButtons();
+  applyFilter();
+}
+
+function buildCatButtons() {
+  const cats = ['すべて', ...new Set(cards.map(c => c.cat))];
+  const inner = document.getElementById('catInner');
+  inner.innerHTML = '';
+  cats.forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = 'cat-btn' + (c === currentCat ? ' active' : '');
+    btn.textContent = c;
+    btn.onclick = () => {
+      currentCat = c;
+      buildCatButtons();
+      applyFilter();
+      btn.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
+    };
+    inner.appendChild(btn);
+  });
+}
+
+function applyFilter() {
+  filteredCards = currentCat === 'すべて'
+    ? [...cards]
+    : cards.filter(c => c.cat === currentCat);
+  currentIndex = 0;
+  renderCard();
+  updateStats();
+}
+
+// ================================================
+// RENDER
+// ================================================
+function setButtonsQuestion() {
+  document.getElementById('showBtn').style.display = '';
+  document.getElementById('hideBtn').style.display = 'none';
+  updateMasteredBtn();
+}
+function setButtonsAnswer() {
+  document.getElementById('showBtn').style.display = 'none';
+  document.getElementById('hideBtn').style.display = '';
+  updateMasteredBtn();
+}
+function updateMasteredBtn() {
+  const card = filteredCards[currentIndex];
+  const btn = document.getElementById('masteredBtn');
+  if (card && masteredSet.has(card._id)) {
+    btn.classList.add('done');
+    btn.textContent = '✓ 覚えた済';
+  } else {
+    btn.classList.remove('done');
+    btn.textContent = '✓ 覚えた';
+  }
+}
+
+function renderCard() {
+  const flashcard = document.getElementById('flashcard');
+  const complete  = document.getElementById('completeScreen');
+  const controls  = document.getElementById('cardControls');
+
+  const remaining = filteredCards.filter(c => !masteredSet.has(c._id));
+  if (remaining.length === 0) {
+    flashcard.style.display = 'none';
+    controls.style.display  = 'none';
+    complete.classList.add('show');
+    return;
+  }
+  complete.classList.remove('show');
+  flashcard.style.display = '';
+  controls.style.display  = '';
+
+  let attempts = 0;
+  while (attempts < filteredCards.length && masteredSet.has(filteredCards[currentIndex]?._id)) {
+    currentIndex = (currentIndex + 1) % filteredCards.length;
+    attempts++;
+  }
+
+  const card = filteredCards[currentIndex];
+  if (!card) return;
+
+  flashcard.classList.remove('revealed');
+  setButtonsQuestion();
+
+  let effectiveMode = mode;
+  if (mode === 'random') effectiveMode = Math.random() < 0.5 ? 'ja-kh' : 'kh-ja';
+  flashcard.dataset.mode = effectiveMode;
+
+  const visibleIdx = remaining.indexOf(card) + 1;
+  document.getElementById('cardCounter').textContent = `${visibleIdx} / ${remaining.length}`;
+  document.getElementById('cardCat').textContent = card.cat;
+
+  if (effectiveMode === 'ja-kh') {
+    document.getElementById('cardQuestion').innerHTML =
+      `<div class="jp-text">${card.ja}</div>` +
+      `<div class="hint-text">👆 タップして答えを見る</div>`;
+    document.getElementById('cardAnswer').innerHTML =
+      `<div class="khmer-text">${card.kh}</div>` +
+      `<div class="roman-text">${card.rom}</div>` +
+      `<button class="speak-btn" id="speakBtn" onclick="speakAnswer(event)">🔊 読み上げ</button>`;
+  } else {
+    document.getElementById('cardQuestion').innerHTML =
+      `<div class="khmer-text">${card.kh}</div>` +
+      `<div class="roman-text">${card.rom}</div>` +
+      `<div class="hint-text">👆 タップして答えを見る</div>`;
+    document.getElementById('cardAnswer').innerHTML =
+      `<div class="jp-text">${card.ja}</div>` +
+      `<button class="speak-btn" id="speakBtn" onclick="speakAnswer(event)">🔊 読み上げ</button>`;
+  }
+}
+
+// ================================================
+// CARD ACTIONS
+// ================================================
+function handleCardClick() {
+  const fc = document.getElementById('flashcard');
+  if (!fc.classList.contains('revealed')) revealCard();
+}
+
+function revealCard() {
+  const fc = document.getElementById('flashcard');
+  if (fc.classList.contains('revealed')) return;
+  fc.classList.add('revealed');
+  setButtonsAnswer();
+  speakAnswer(null);
+}
+
+function speakAnswer(evt) {
+  if (evt) evt.stopPropagation();
+  const card = filteredCards[currentIndex];
+  if (!card) return;
+  const effectiveMode = document.getElementById('flashcard').dataset.mode || mode;
+  const btn = document.getElementById('speakBtn');
+  if (isMuted) {
+    if (btn) btn.textContent = '🔇 ミュート中';
+    return;
+  }
+  if (btn) btn.classList.add('playing');
+  const onDone = () => { if (btn) btn.classList.remove('playing'); };
+
+  if (effectiveMode === 'ja-kh') {
+    const b64 = (typeof AUDIO_MAP !== 'undefined') && AUDIO_MAP[card.audio];
+    if (b64) playBase64Audio(b64, onDone);
+    else onDone();
+  } else {
+    speakJapanese(card.ja, onDone);
+  }
+}
+
+function unrevealCard() {
+  const fc = document.getElementById('flashcard');
+  fc.classList.remove('revealed');
+  setButtonsQuestion();
+}
+
+function nextCard() {
+  if (filteredCards.filter(c => !masteredSet.has(c._id)).length === 0) return;
+  currentIndex = (currentIndex + 1) % filteredCards.length;
+  let a = 0;
+  while (masteredSet.has(filteredCards[currentIndex]?._id) && a++ < filteredCards.length)
+    currentIndex = (currentIndex + 1) % filteredCards.length;
+  renderCard();
+}
+
+function prevCard() {
+  if (filteredCards.filter(c => !masteredSet.has(c._id)).length === 0) return;
+  currentIndex = (currentIndex - 1 + filteredCards.length) % filteredCards.length;
+  let a = 0;
+  while (masteredSet.has(filteredCards[currentIndex]?._id) && a++ < filteredCards.length)
+    currentIndex = (currentIndex - 1 + filteredCards.length) % filteredCards.length;
+  renderCard();
+}
+
+function toggleMastered() {
+  const card = filteredCards[currentIndex];
+  if (!card) return;
+  if (masteredSet.has(card._id)) masteredSet.delete(card._id);
+  else masteredSet.add(card._id);
+  localStorage.setItem('kh_mastered_v2', JSON.stringify([...masteredSet]));
+  updateStats();
+  updateMasteredBtn();
+  setTimeout(() => nextCard(), 300);
+}
+
+function resetAll() {
+  masteredSet.clear();
+  localStorage.removeItem('kh_mastered_v2');
+  currentIndex = 0;
+  renderCard();
+  updateStats();
+}
+
+// ================================================
+// STATS
+// ================================================
+function updateStats() {
+  const total = filteredCards.length;
+  const mastered = filteredCards.filter(c => masteredSet.has(c._id)).length;
+  const remain = total - mastered;
+  const pct = total > 0 ? Math.round(mastered / total * 100) : 0;
+  document.getElementById('totalCount').textContent = total;
+  document.getElementById('remainCount').textContent = remain;
+  document.getElementById('masteredCount').textContent = mastered;
+  document.getElementById('percentCount').textContent = pct;
+  document.getElementById('progressBar').style.width = pct + '%';
+}
+
+// ================================================
+// CONTROLS
+// ================================================
+document.querySelectorAll('.mode-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    mode = btn.dataset.mode;
+    renderCard();
+  });
 });
 
-window.speechSynthesis && window.speechSynthesis.getVoices();
+document.getElementById('shuffleBtn').addEventListener('click', () => {
+  filteredCards.sort(() => Math.random() - 0.5);
+  currentIndex = 0;
+  renderCard();
+  document.getElementById('shuffleBtn').textContent = '✅';
+  setTimeout(() => document.getElementById('shuffleBtn').textContent = '🔀', 800);
+});
 
+document.getElementById('muteBtn').addEventListener('click', () => {
+  isMuted = !isMuted;
+  document.getElementById('muteBtn').textContent = isMuted ? '🔇' : '🔊';
+  document.getElementById('muteBtn').classList.toggle('muted', isMuted);
+  if (isMuted && window.speechSynthesis) window.speechSynthesis.cancel();
+  const btn = document.getElementById('speakBtn');
+  if (btn) {
+    btn.classList.toggle('muted-state', isMuted);
+    btn.classList.remove('playing');
+    btn.textContent = isMuted ? '🔇 ミュート中' : '🔊 読み上げ';
+  }
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') nextCard();
+  else if (e.key === 'ArrowLeft') prevCard();
+  else if (e.key === 'Enter') revealCard();
+  else if (e.key === 'c' || e.key === 'C') toggleMastered();
+});
+
+// START
 init();
 </script>
 </body>
