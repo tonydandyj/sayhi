@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中国語B1 フラッシュカード</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600&family=Noto+Sans+SC:wght@300;400;700&family=ZCOOL+XiaoWei&display=swap');
+
+:root {
+  --ink: #1a1208;
+  --paper: #faf7f1;
+  --red: #c0392b;
+  --red-light: #f5e6e4;
+  --gold: #b8941f;
+  --gold-light: #f0e6c0;
+  --green: #2d6a4f;
+  --green-light: #d8ede4;
+  --bg: #eee8d8;
+  --border: #d4c9a8;
+  --shadow: rgba(0,0,0,0.13);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Serif JP',serif;background:var(--bg);color:var(--ink);min-height:100vh;}
+
+/* HEADER */
+header{background:var(--ink);padding:14px 16px 10px;text-align:center;position:relative;overflow:hidden;}
+header::before{content:'中';position:absolute;left:-10px;top:-12px;font-size:110px;color:rgba(255,255,255,0.04);font-family:'ZCOOL XiaoWei',serif;pointer-events:none;}
+header h1{font-family:'ZCOOL XiaoWei',serif;font-size:1.5rem;letter-spacing:.12em;color:var(--gold-light);}
+header p{font-size:.72rem;color:rgba(240,230,192,.6);margin-top:2px;}
+
+/* STATS BAR */
+.stats-bar{display:flex;justify-content:space-around;align-items:center;background:var(--ink);border-top:1px solid rgba(255,255,255,.07);padding:8px 0 10px;}
+.stat-item{text-align:center;}
+.stat-num{font-size:1.4rem;font-weight:700;font-family:'ZCOOL XiaoWei',serif;color:var(--gold-light);line-height:1;}
+.stat-label{font-size:.6rem;color:rgba(240,230,192,.55);margin-top:2px;letter-spacing:.06em;}
+.stat-item.green .stat-num{color:#6ecfa0;}
+.stat-item.red .stat-num{color:#f08080;}
+
+/* MODE BAR */
+.mode-bar{display:flex;align-items:center;gap:8px;padding:10px 14px 6px;flex-wrap:wrap;}
+.mode-toggle{display:flex;background:var(--ink);border-radius:7px;overflow:hidden;flex-shrink:0;}
+.mode-btn{padding:7px 12px;font-family:'Noto Serif JP',serif;font-size:.75rem;border:none;cursor:pointer;background:transparent;color:rgba(240,230,192,.55);transition:all .18s;}
+.mode-btn.active{background:var(--gold);color:var(--ink);font-weight:700;}
+.btn-top{padding:6px 11px;border-radius:7px;font-family:'Noto Serif JP',serif;font-size:.73rem;cursor:pointer;transition:all .18s;white-space:nowrap;border:1.5px solid var(--border);background:var(--paper);color:var(--ink);}
+.btn-top:hover{background:var(--border);}
+.btn-top.danger{border-color:var(--red);background:var(--red-light);color:var(--red);}
+.btn-top.danger:hover{background:var(--red);color:#fff;}
+
+/* CATEGORY SLIDER */
+.cat-slider-wrap{position:relative;padding:4px 14px 0;margin-bottom:2px;}
+.cat-slider{display:flex;gap:7px;overflow-x:auto;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;padding:6px 0 12px;scrollbar-width:thin;scrollbar-color:var(--border) transparent;}
+.cat-slider::-webkit-scrollbar{height:4px;}
+.cat-slider::-webkit-scrollbar-track{background:transparent;}
+.cat-slider::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+.cat-pill{flex-shrink:0;padding:6px 13px;border-radius:20px;font-size:.72rem;cursor:pointer;font-family:'Noto Serif JP',serif;border:1.5px solid var(--border);background:var(--paper);color:#7a6e58;transition:all .15s;white-space:nowrap;}
+.cat-pill:hover:not(.active){border-color:var(--gold);color:var(--gold);}
+.cat-pill.active{background:var(--ink);color:var(--gold-light);border-color:var(--ink);}
+.cat-slider-wrap::after{content:'';position:absolute;right:14px;top:0;bottom:12px;width:36px;background:linear-gradient(to right,transparent,var(--bg));pointer-events:none;}
+
+/* PROGRESS */
+.prog-wrap{height:4px;background:var(--border);margin:0 14px 10px;border-radius:2px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--red));border-radius:2px;transition:width .4s ease;}
+
+/* COUNTER */
+.card-counter{text-align:center;font-size:.72rem;color:#9a8e76;margin-bottom:8px;letter-spacing:.04em;}
+
+/* CARD */
+.card-scene{perspective:1000px;padding:0 14px;margin-bottom:14px;}
+.card{width:100%;min-height:245px;position:relative;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.4,0,.2,1);cursor:pointer;}
+.card.flipped{transform:rotateY(180deg);}
+.card-face{position:absolute;width:100%;min-height:245px;backface-visibility:hidden;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 22px 42px;box-shadow:0 3px 18px var(--shadow),0 0 0 1px var(--border);}
+.card-front{background:var(--paper);background-image:radial-gradient(circle at 5% 5%,rgba(184,148,31,.06) 0%,transparent 40%),radial-gradient(circle at 95% 95%,rgba(192,57,43,.04) 0%,transparent 40%);}
+.card-back{background:var(--ink);transform:rotateY(180deg);background-image:radial-gradient(circle at 15% 85%,rgba(184,148,31,.15) 0%,transparent 50%),radial-gradient(circle at 85% 15%,rgba(192,57,43,.1) 0%,transparent 50%);}
+.card-cat{font-size:.65rem;letter-spacing:.1em;padding:2px 10px;border-radius:20px;margin-bottom:14px;font-family:'Noto Serif JP',serif;}
+.card-front .card-cat{background:var(--gold-light);color:var(--gold);}
+.card-back  .card-cat{background:rgba(184,148,31,.25);color:var(--gold-light);}
+.card-question{font-size:1.5rem;text-align:center;line-height:1.5;font-weight:400;color:var(--ink);}
+.card-hint{margin-top:8px;font-size:.75rem;color:#a09070;letter-spacing:.04em;text-align:center;}
+.tap-hint-f,.tap-hint-b{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);font-size:.67rem;letter-spacing:.07em;white-space:nowrap;}
+.tap-hint-f{color:var(--border);}
+.tap-hint-b{color:rgba(240,230,192,.35);}
+.ans-cn{font-family:'ZCOOL XiaoWei','Noto Sans SC',serif;font-size:2rem;color:var(--gold-light);text-align:center;line-height:1.4;margin-bottom:8px;}
+.ans-py{font-size:.88rem;color:rgba(240,230,192,.65);text-align:center;margin-bottom:8px;letter-spacing:.05em;}
+.ans-ja{font-size:1.05rem;color:rgba(240,230,192,.9);text-align:center;line-height:1.6;}
+.audio-btn{margin-top:14px;padding:6px 16px;border-radius:20px;border:1px solid rgba(184,148,31,.5);background:rgba(184,148,31,.15);color:var(--gold-light);font-size:.74rem;cursor:pointer;transition:all .18s;display:flex;align-items:center;gap:5px;font-family:'Noto Serif JP',serif;}
+.audio-btn:hover{background:rgba(184,148,31,.3);}
+.audio-btn.playing{background:rgba(192,57,43,.3);border-color:rgba(192,57,43,.6);}
+
+/* BOTTOM BUTTONS */
+.btn-row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:7px;padding:0 14px;margin-bottom:10px;}
+.btn{padding:10px 5px;border-radius:9px;border:none;cursor:pointer;font-family:'Noto Serif JP',serif;font-size:.74rem;font-weight:700;letter-spacing:.04em;transition:all .16s;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.btn svg{width:15px;height:15px;}
+.btn:active{transform:scale(.96);}
+.btn-show{background:var(--gold-light);color:var(--gold);border:2px solid var(--gold);}
+.btn-show:hover{background:var(--gold);color:#fff;}
+.btn-back2{background:var(--paper);color:var(--ink);border:2px solid var(--border);}
+.btn-back2:hover{background:var(--border);}
+.btn-next{background:var(--ink);color:var(--gold-light);}
+.btn-next:hover{background:#2d2416;}
+.btn-mem{background:var(--green-light);color:var(--green);border:2px solid var(--green);}
+.btn-mem:hover{background:var(--green);color:#fff;}
+
+/* FINISH */
+.finish{display:none;text-align:center;padding:40px 20px;margin:0 14px;background:var(--paper);border-radius:14px;border:1px solid var(--border);}
+.finish-icon{font-size:3rem;margin-bottom:8px;}
+.finish h3{font-family:'ZCOOL XiaoWei',serif;font-size:1.6rem;color:var(--gold);margin-bottom:10px;}
+.finish p{color:#7a6e58;margin-bottom:20px;font-size:.88rem;line-height:1.8;}
+.btn-restart{padding:11px 26px;background:var(--ink);color:var(--gold-light);border:none;border-radius:9px;cursor:pointer;font-family:'Noto Serif JP',serif;font-size:.88rem;}
+
+/* SHORTCUT */
+.shortcut-hint{text-align:center;font-size:.63rem;color:#b0a48a;padding:8px 14px 20px;letter-spacing:.05em;}
+
+@media(max-width:480px){
+  .card-question{font-size:1.2rem;}
+  .ans-cn{font-size:1.55rem;}
+  .btn{font-size:.68rem;padding:9px 3px;}
+  .mode-btn{font-size:.7rem;padding:6px 8px;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>中国語 B2 フラッシュカード</h1>
+  <p>Chinese B1 Flashcard — 約350例文</p>
+</header>
+
+<div class="stats-bar">
+  <div class="stat-item"><div class="stat-num" id="sTotal">0</div><div class="stat-label">総問題数</div></div>
+  <div class="stat-item red"><div class="stat-num" id="sRemain">0</div><div class="stat-label">残り</div></div>
+  <div class="stat-item green"><div class="stat-num" id="sMem">0</div><div class="stat-label">覚えた</div></div>
+  <div class="stat-item"><div class="stat-num" id="sPct">0%</div><div class="stat-label">達成率</div></div>
+</div>
+
+<div class="mode-bar">
+  <div class="mode-toggle">
+    <button class="mode-btn active" id="btnJC" onclick="setMode('jc')">🇯🇵→🇨🇳 和文中訳</button>
+    <button class="mode-btn" id="btnCJ" onclick="setMode('cj')">🇨🇳→🇯🇵 中文和訳</button>
+  </div>
+  <button class="btn-top" onclick="doShuffle()">🔀 シャッフル</button>
+  <button class="btn-top" id="btnMute" onclick="toggleMute()">🔊 ON</button>
+  <button class="btn-top" id="btnAutoPlay" onclick="toggleAutoPlay()">▶ 自動再生 OFF</button>
+  <button class="btn-top danger" onclick="clearAll()">↩ チェック解除</button>
+</div>
+
+<div class="cat-slider-wrap">
+  <div class="cat-slider" id="catSlider"></div>
+</div>
+
+<div class="prog-wrap"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+<div class="card-counter" id="cardCounter">1 / 1</div>
+
+<div class="card-scene">
+  <div class="card" id="flashCard" onclick="toggleCard()">
+    <div class="card-face card-front">
+      <span class="card-cat" id="cardCat">カテゴリー</span>
+      <div class="card-question" id="cardQ">読み込み中...</div>
+      <div class="card-hint" id="cardHint"></div>
+      <span class="tap-hint-f">👆 タップして答えを見る</span>
+    </div>
+    <div class="card-face card-back">
+      <span class="card-cat" id="cardCatB">答え</span>
+      <div class="ans-cn" id="ansCN"></div>
+      <div class="ans-py" id="ansPY"></div>
+      <div class="ans-ja" id="ansJA"></div>
+      <button class="audio-btn" id="audioBtn" onclick="speakNow(event)">🔊 読み上げ</button>
+      <span class="tap-hint-b">👆 タップして問題に戻る</span>
+    </div>
+  </div>
+</div>
+
+<div class="btn-row">
+  <button class="btn btn-back2" onclick="prevCard()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>← 戻る
+  </button>
+  <button class="btn btn-show" onclick="toggleCard()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>▶ 表示
+  </button>
+  <button class="btn btn-mem" onclick="markMem()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>✓ 覚えた
+  </button>
+  <button class="btn btn-next" onclick="nextCard()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>次へ →
+  </button>
+</div>
+
+<div class="finish" id="finishDiv">
+  <div class="finish-icon">🏆</div>
+  <h3>コンプリート！</h3>
+  <p>すべての例文を覚えました！<br>B2レベルの中国語力が身につきました！<br><br>チェック解除してもう一度挑戦しよう。</p>
+  <button class="btn-restart" onclick="restart()">🔄 最初からやり直す</button>
+</div>
+
+<div class="shortcut-hint">→ 次へ　← 戻る　Space/Enter 答えを見る　M 覚えた</div>
+
+<script>
+// ================================================================
+// DATA — 約350例文 25カテゴリー（B1レベル）
+// ================================================================
+const CATS = [
+  {id:'all', name:'すべて', cards:[]},
+  {id:'bijing', name:'① 毕竟/究竟/反正（語気副詞）', cards:[
+    {cn:'别怪他了，毕竟他还是个孩子。',py:'Bié guài tā le, bìjìng tā háishì gè háizi.',ja:'彼を責めないで。何しろ彼はまだ子供だから。'},
+    {cn:'毕竟是专业人士，水平就是不一样。',py:'Bìjìng shì zhuānyè rénshì, shuǐpíng jiùshì bù yīyàng.',ja:'さすがはプロ、レベルが違う。'},
+    {cn:'你究竟想说什么？',py:'Nǐ jiūjìng xiǎng shuō shénme?',ja:'あなたは一体何が言いたいのですか？'},
+    {cn:'事情的真相究竟是什么？',py:'Shìqíng de zhēnxiàng jiūjìng shì shénme?',ja:'事件の真相は一体何なのか？'},
+    {cn:'他毕竟有经验，你究竟在担心什么？',py:'Tā bìjìng yǒu jīngyàn, nǐ jiūjìng zài dānxīn shénme?',ja:'彼には経験があるのだから、あなたは一体何を心配しているのか？'},
+    {cn:'反正我不同意，你别再说了。',py:'Fǎnzhèng wǒ bù tóngyì, nǐ bié zài shuō le.',ja:'どうせ私は反対だから、もう言わないで。'},
+    {cn:'不管你去不去，反正我是要去。',py:'Bùguǎn nǐ qù bù qù, fǎnzhèng wǒ shì yào qù.',ja:'あなたが行くかどうかに関わらず、私は行く。'},
+    {cn:'你爱信不信，反正我说的是事实。',py:'Nǐ ài xìn bù xìn, fǎnzhèng wǒ shuō de shì shìshí.',ja:'信じようが信じまいが、私が言っているのは事実だ。'},
+    {cn:'不管你怎么说，反正我是不会改变主意的。',py:'Bùguǎn nǐ zěnme shuō, fǎnzhèng wǒ shì bù huì gǎibiàn zhǔyì de.',ja:'あなたが何と言おうと、私は考えを変えません。'},
+    {cn:'你爱信不信，反正我说的是实话。',py:'Nǐ ài xìn bù xìn, fǎnzhèng wǒ shuō de shì shíhuà.',ja:'信じようが信じまいが、私が言っているのは真実だ。'},
+  ]},
+  {id:'jianzhi', name:'② 简直/几乎/总算（程度副詞）', cards:[
+    {cn:'他激动得几乎说不出话来。',py:'Tā jīdòng de jīhū shuō bù chū huà lái.',ja:'彼は感激してほとんど言葉が出なかった。'},
+    {cn:'这里几乎每个人都认识他。',py:'Zhèlǐ jīhū měi gè rén dōu rènshi tā.',ja:'ここではほとんど全員が彼を知っている。'},
+    {cn:'这首歌简直太好听了！',py:'Zhè shǒu gē jiǎnzhí tài hǎotīng le!',ja:'この曲はまったくもって素晴らしい！'},
+    {cn:'他简直把我当成了小孩子。',py:'Tā jiǎnzhí bǎ wǒ dàngchéng le xiǎoháizi.',ja:'彼は私をまるで子供扱いしている。'},
+    {cn:'路上滑，我差点没摔倒。',py:'Lùshang huá, wǒ chàdiǎn méi shuāidǎo.',ja:'道が滑って、もう少しで転ぶところだった。'},
+    {cn:'差点没赶上飞机。',py:'Chàdiǎn méi gǎnshàng fēijī.',ja:'もう少しで飛行機に乗り遅れるところだった。'},
+    {cn:'妈妈再三叮嘱我要注意安全。',py:'Māma zàisān dīngzhǔ wǒ yào zhùyì ānquán.',ja:'母は何度も安全に注意するよう言い聞かせた。'},
+    {cn:'经过再三考虑，我决定辞职。',py:'Jīngguò zàisān kǎolǜ, wǒ juédìng cízhí.',ja:'何度も考えた末、私は退職することに決めた。'},
+    {cn:'看到他的样子，我不由得笑了。',py:'Kàn dào tā de yàngzi, wǒ bùyóude xiào le.',ja:'彼の様子を見て、思わず笑ってしまった。'},
+    {cn:'听到这话，她不由得担心起来。',py:'Tīng dào zhè huà, tā bùyóude dānxīn qǐlái.',ja:'この話を聞いて、彼女は心配せざるを得なかった。'},
+    {cn:'找了半天，总算找到了。',py:'Zhǎo le bàntiān, zǒngsuàn zhǎo dào le.',ja:'長いこと探して、やっと見つけた。'},
+    {cn:'总算结束了，可以休息了。',py:'Zǒngsuàn jiéshù le, kěyǐ xiūxi le.',ja:'やっと終わった、休める。'},
+    {cn:'看到老照片，不由得想起往事。',py:'Kàn dào lǎo zhàopiàn, bùyóude xiǎngqǐ wǎngshì.',ja:'古い写真を見て、思わず昔のことを思い出した。'},
+    {cn:'听他这么说，不由得我担心起来。',py:'Tīng tā zhème shuō, bùyóude wǒ dānxīn qǐlái.',ja:'彼にそう言われて、私は心配せざるを得なかった。'},
+    {cn:'他简直太过分了！',py:'Tā jiǎnzhí tài guòfèn le!',ja:'彼はまったくもってひどすぎる！'},
+    {cn:'差点没赶上车，吓死我了。',py:'Chàdiǎn méi gǎnshàng chē, xià sǐ wǒ le.',ja:'もう少しで乗り遅れるところだった、怖かった。'},
+    {cn:'听着听着，不由得想起了家乡。',py:'Tīng zhe tīng zhe, bùyóude xiǎngqǐ le jiāxiāng.',ja:'聞いているうちに、思わず故郷のことを思い出した。'},
+  ]},
+  {id:'jiran', name:'③ 既然…就…（前提→結論）', cards:[
+    {cn:'既然你答应了，就不能反悔。',py:'Jìrán nǐ dāying le, jiù bù néng fǎnhuǐ.',ja:'引き受けた以上、約束を破ってはいけない。'},
+    {cn:'既然大家都到了，我们就开始吧。',py:'Jìrán dàjiā dōu dào le, wǒmen jiù kāishǐ ba.',ja:'皆さんお揃いなので、始めましょう。'},
+    {cn:'既然不想去，何必勉强自己？',py:'Jìrán bù xiǎng qù, hébì miǎnqiǎng zìjǐ?',ja:'行きたくないなら、無理する必要はないだろう。'},
+    {cn:'既然你已经答应了，就得负责到底。',py:'Jìrán nǐ yǐjīng dāying le, jiù děi fùzé dàodǐ.',ja:'引き受けた以上、最後まで責任を持つべきです。'},
+    {cn:'既然你已经决定了，我们就按你的方案执行。',py:'Jìrán nǐ yǐjīng juédìng le, wǒmen jiù àn nǐ de fāng àn zhíxíng.',ja:'あなたがもう決めた以上、私たちはあなたのプラン通りに実行します。'},
+    {cn:'既然东西已经坏了，能不能给我退货？',py:'Jìrán dōngxi yǐjīng huàile, néng bù néng gěi wǒ tuìhuò?',ja:'物がもう壊れているのだから、返品させてもらえませんか？'},
+    {cn:'既然时间被压缩了，我们就必须重新排序优先级。',py:'Jiran shijian bei yasuo le, women jiu bixu chongxin paixu youxianji.',ja:'期限が縮まった以上、優先順位を組み替える必要があります。'},
+    {cn:'这件事由我来处理。',py:'Zhè jiàn shì yóu wǒ lái chǔlǐ.',ja:'この件は私が処理します。'},
+    {cn:'费用由公司来负担。',py:'Fèiyòng yóu gōngsī lái fùdān.',ja:'費用は会社が負担します。'},
+    {cn:'以健康为中心。',py:'Yǐ jiànkāng wéi zhōngxīn.',ja:'健康を中心とする。'},
+    {cn:'以你的能力，完全可以胜任。',py:'Yǐ nǐ de nénglì, wánquán kěyǐ shèngrèn.',ja:'あなたの能力をもってすれば、十分に任せられる。'},
+    {cn:'在大家的帮助下，我进步很快。',py:'Zài dàjiā de bāngzhù xià, wǒ jìnbù hěn kuài.',ja:'皆さんの助けのもと、私は早く上達した。'},
+    {cn:'在学习过程中，遇到了不少困难。',py:'Zài xuéxí guòchéng zhōng, yù dào le bù shǎo kùnnán.',ja:'学習の過程で、少なからぬ困難に直面した。'},
+    {cn:'在理论上可行，但实践难。',py:'Zài lǐlùn shàng kěxíng, dàn shíjiàn nán.',ja:'理論上は可能だが、実践は難しい。'},
+    {cn:'这天气说变就变。',py:'Zhè tiānqì shuō biàn jiù biàn.',ja:'この天気は急に変わる。'},
+  ]},
+  {id:'yuqi', name:'④ 与其…不如/宁可（選択・意志）', cards:[
+    {cn:'与其在这儿等，不如直接去找他。',py:'Yǔqí zài zhèr děng, bùrú zhíjiē qù zhǎo tā.',ja:'ここで待つよりも、直接彼に会いに行ったほうがいい。'},
+    {cn:'与其买便宜货，不如买个好点的。',py:'Yǔqí mǎi piányi huò, bùrú mǎi gè hǎo diǎn de.',ja:'安物を買うより、ちょっといいものを買ったほうがいい。'},
+    {cn:'与其在这里争论，不如先试试看。',py:'Yǔqí zài zhèlǐ zhēnglùn, bùrú xiān shìshi kàn.',ja:'ここで議論するよりも、まず試してみましょう。'},
+    {cn:'与其坐在这里发愁，不如赶紧想办法解决。',py:'Yǔqí zuò zài zhèlǐ fāchóu, bùrú gǎnjǐn xiǎng bànfǎ jiějué.',ja:'ここに座って悩んでいるより、すぐに解決策を考えたほうがいい。'},
+    {cn:'与其临时补救，不如提前把风险点列出来逐一验证。',py:'Yuqi linshi bujiu, buru tiqian ba fengxiandian lie chulai zhu yi yanzheng.',ja:'その場しのぎで補うより、前もってリスクを洗い出して一つずつ検証した方がいい。'},
+    {cn:'他说走就走，也不打个招呼。',py:'Tā shuō zǒu jiù zǒu, yě bù dǎ gè zhāohu.',ja:'彼は行くと言ったらすぐ行ってしまい、挨拶もしない。'},
+    {cn:'他爱来不来，我们不等了。',py:'Tā ài lái bù lái, wǒmen bù děng le.',ja:'彼が来ようが来まいが、私たちは待たない。'},
+    {cn:'你今天去也得去，不去也得去。',py:'Nǐ jīntiān qù yě děi qù, bù qù yě děi qù.',ja:'今日は行くにしても行かないにしても、行かなければならない。'},
+    {cn:'这工作做也得做，不做也得做。',py:'Zhè gōngzuò zuò yě děi zuò, bù zuò yě děi zuò.',ja:'この仕事はやるにしてもやらないにしても、やらなければならない。'},
+    {cn:'这样再好不过了。',py:'Zhèyàng zài hǎo bùguò le.',ja:'これ以上ないほど良い。'},
+    {cn:'你能来帮忙，再高兴不过了。',py:'Nǐ néng lái bāngmáng, zài gāoxìng bùguò le.',ja:'あなたが手伝いに来てくれて、これほど嬉しいことはない。'},
+    {cn:'爸爸气得不得了。',py:'Bàba qì de bùdéliǎo.',ja:'父はものすごく怒っている。'},
+    {cn:'最近忙得不得了。',py:'Zuìjìn máng de bùdéliǎo.',ja:'最近、とても忙しい。'},
+    {cn:'这个题目简单得很。',py:'Zhège tímù jiǎndān de hěn.',ja:'この問題はとても簡単だ。'},
+    {cn:'她对孩子耐心得很。',py:'Tā duì háizi nàixīn de hěn.',ja:'彼女は子供に対してとても忍耐強い。'},
+  ]},
+  {id:'wulun', name:'⑤ 无论/即使/哪怕（譲歩条件）', cards:[
+    {cn:'即使下雨，比赛也会进行。',py:'Jíshǐ xiàyǔ, bǐsài yě huì jìnxíng.',ja:'たとえ雨でも、試合は行われる。'},
+    {cn:'即使有钱，也不一定能买到幸福。',py:'Jíshǐ yǒu qián, yě bù yīdìng néng mǎi dào xìngfú.',ja:'たとえお金があっても、幸せが買えるとは限らない。'},
+    {cn:'无论遇到什么困难，我都会坚持。',py:'Wúlùn yù dào shénme kùnnán, wǒ dōu huì jiānchí.',ja:'どんな困難に直面しても、私は頑張り続ける。'},
+    {cn:'无论谁说什么，我都不会改变主意。',py:'Wúlùn shéi shuō shénme, wǒ dōu bù huì gǎibiàn zhǔyì.',ja:'誰が何と言おうと、私は考えを変えない。'},
+    {cn:'无论遇到什么困难，我们都会支持你。',py:'Wúlùn yù dào shénme kùnnán, wǒmen dōu huì zhīchí nǐ.',ja:'どんな困難に直面しても、私たちはあなたを支援します。'},
+    {cn:'哪怕工作再忙，也要抽时间锻炼身体。',py:'Nǎpà gōngzuò zài máng, yě yào chōu shíjiān duànliàn shēntǐ.',ja:'たとえ仕事がどんなに忙しくても、時間を作って体を鍛えるべきだ。'},
+    {cn:'无论情况如何变化，我们都要保持冷静。',py:'Wúlùn qíngkuàng rúhé biànhuà, wǒmen dōu yào bǎochí lěngjìng.',ja:'状況がどう変わろうとも、私たちは冷静さを保たなければならない。'},
+    {cn:'即使你说得有道理，执行层面也可能卡在资源不足上。',py:'Jishi ni shuo de you daoli, zhixing cengmian ye keneng ka zai ziyuan buzu shang.',ja:'たとえ正しくても、実行面ではリソース不足で詰まる可能性があります。'},
+  ]},
+  {id:'jinguang', name:'⑥ 尽管/虽然+仍然/依然（逆接）', cards:[
+    {cn:'尽管下着大雨，他还是来了。',py:'Jǐnguǎn xià zhe dàyǔ, tā háishì lái le.',ja:'大雨が降っていたにもかかわらず、彼は来た。'},
+    {cn:'尽管很累，我还是坚持完成了。',py:'Jǐnguǎn hěn lèi, wǒ háishì jiānchí wánchéng le.',ja:'疲れていたが、やり遂げた。'},
+    {cn:'尽管面临很多困难，我们依然有信心完成任务。',py:'Jǐnguǎn miànlín hěnduō kùnnán, wǒmen yīrán yǒu xìnxīn wánchéng rènwu.',ja:'多くの困難に直面しているが、我々には依然として任務を完了させる自信がある。'},
+    {cn:'教育の公平性について言えば、政府が多額の資金を投入したにもかかわらず、都市と農村の格差は依然として存在する。',py:'',ja:'在我看来，即使工资高，工作环境差的工作也不值得选择。'},
+    {cn:'この点を認めても、問題は依然として存在する。',py:'',ja:'在某种程度上，您是对的。'},
+    {cn:'这么多菜，我一个人吃不了。',py:'Zhème duō cài, wǒ yī gè rén chī bù liǎo.',ja:'こんなにたくさんの料理は、一人では食べきれない。'},
+    {cn:'明天的会议你来得了吗？',py:'Míngtiān de huìyì nǐ lái de liǎo ma?',ja:'明日の会議に来られますか？'},
+    {cn:'听着听着就睡着了。',py:'Tīng zhe tīng zhe jiù shuìzháo le.',ja:'聞いているうちに眠ってしまった。'},
+    {cn:'走着走着就迷路了。',py:'Zǒu zhe zǒu zhe jiù mílù le.',ja:'歩いているうちに道に迷った。'},
+    {cn:'坐地铁不如打车快。',py:'Zuò dìtiě bùrú dǎchē kuài.',ja:'地下鉄よりタクシーのほうが速い。'},
+    {cn:'听到这个消息，我激动得不得了！',py:'Tīng dào zhège xiāoxi, wǒ jīdòng de bùdéliǎo!',ja:'この知らせを聞いて、私はものすごく感動しました！'},
+    {cn:'好不容易才见到你，真是太好了！',py:'Hǎo bù róngyì cái jiàn dào nǐ, zhēn shì tài hǎo le!',ja:'やっと会えたね、本当に良かった！'},
+    {cn:'我当年也曾经历过类似的困难。',py:'Wǒ dāngnián yě céngjīng lì guò lèisì de kùnnán.',ja:'私もかつて似たような困難を経験したことがあります。'},
+    {cn:'回想起留学生活，真是酸甜苦辣都有。',py:'Huíxiǎng qǐ liúxué shēnghuó, zhēn shì suān tián kǔ là dōu yǒu.',ja:'留学生活を振り返ると、本当に喜怒哀楽いろいろありました。'},
+    {cn:'现在想起来，那时候真是太年轻了。',py:'Xiànzài xiǎng qǐlái, nà shíhou zhēn shì tài niánqīng le.',ja:'今思えば、あの頃は本当に若すぎた。'},
+  ]},
+  {id:'youyu', name:'⑦ 由于/随着/鉴于（因果・随伴）', cards:[
+    {cn:'由于天气不好，因此比赛推迟了。',py:'Yóuyú tiānqì bù hǎo, yīncǐ bǐsài tuīchí le.',ja:'天候不良のため、試合は延期された。'},
+    {cn:'由于经验不足，因此失败了。',py:'Yóuyú jīngyàn bùzú, yīncǐ shībài le.',ja:'経験不足のため、失敗した。'},
+    {cn:'随着经济的发展，生活水平提高了。',py:'Suízhe jīngjì de fāzhǎn, shēnghuó shuǐpíng tígāo le.',ja:'経済の発展に伴い、生活水準が向上した。'},
+    {cn:'随着年纪增长，想法也变了。',py:'Suízhe niánjì zēngzhǎng, xiǎngfǎ yě biàn le.',ja:'年を取るにつれて、考え方も変わった。'},
+    {cn:'随着科技的发展，人们的生活方式发生了巨大变化。',py:'Suízhe kējì de fāzhǎn, rénmen de shēnghuó fāngshì fāshēngle jùdà biànhuà.',ja:'科学技術の発展に伴い、人々の生活様式は劇的に変化した。'},
+    {cn:'关于这个项目，由我来负责。',py:'Guānyú zhège xiàngmù, yóu wǒ lái fùzé.',ja:'このプロジェクトについては、私が責任を持ちます。'},
+    {cn:'市場の変化に伴い、我々は戦略を調整せざるを得ません。',py:'',ja:'包括运营成本在内，总预算需要重新评估。'},
+    {cn:'運用コストを含めて、総予算を再評価する必要があります。',py:'',ja:'对消费者而言，价格固然重要，但质量更重要。'},
+    {cn:'这雨说下就下，我们赶紧走吧。',py:'Zhè yǔ shuō xià jiù xià, wǒmen gǎnjǐn zǒu ba.',ja:'雨が急に降ってきた、早く行こう。'},
+    {cn:'能再见到你，再好不过了。',py:'Néng zài jiàn dào nǐ, zài hǎo bùguò le.',ja:'また会えて、これ以上ないほど嬉しい。'},
+    {cn:'我跟你开玩笑的，你还当真了。',py:'Wǒ gēn nǐ kāi wánxiào de, nǐ hái dàngzhēn le.',ja:'冗談だよ、本気にしちゃったの？'},
+    {cn:'日本語',py:'',ja:'-----------------'},
+    {cn:'決めたなら迷うな。',py:'',ja:'既然大家都同意，我们就开始吧。'},
+    {cn:'皆賛成なら始めよう。',py:'',ja:'既然时间不多，就直接进入主题吧。'},
+    {cn:'時間ないから本題へ。',py:'',ja:'既然问题已经出现，就必须解决。'},
+  ]},
+  {id:'chufei', name:'⑧ 除非…否则/只要/万一（条件）', cards:[
+    {cn:'除非你亲自去请他，否则他是不会来的。',py:'Chúfēi nǐ qīnzì qù qǐng tā, fǒuzé tā shì bù huì lái de.',ja:'あなたが自ら彼を呼びに行かない限り、彼は来ないだろう。'},
+    {cn:'万一出了什么差错，后果将不堪设想。',py:'Wànyī chūle shénme chācuò, hòuguǒ jiāng bùkān shèxiǎng.',ja:'万が一何か手違いがあれば、結果は想像を絶するもの（深刻なこと）になる。'},
+    {cn:'只要坚持下去，梦想总有一天会实现的。',py:'Zhǐyào jiānchí xiàqù, mèngxiǎng zǒng yǒu yìtiān huì shíxiàn de.',ja:'やり抜きさえすれば、夢はいつか必ず実現する。'},
+    {cn:'万一便が遅れたら、事前に連絡するよ。',py:'',ja:'如果我中了彩票，就会辞职环游世界。'},
+    {cn:'万一問題が起きたら、結果は想像に堪えない。',py:'',ja:'即便如此，我们也不应该放弃。'},
+    {cn:'問題出たなら解決。',py:'',ja:'既然来了，就多待一会儿吧。'},
+    {cn:'文句より解決。',py:'',ja:'与其等别人，不如自己行动。'},
+    {cn:'人任せより自分。',py:'',ja:'与其浪费时间，不如早点开始。'},
+    {cn:'無駄より開始。',py:'',ja:'与其解释，不如直接证明。'},
+    {cn:'説明より証明。',py:'',ja:'与其担心，不如试试看。'},
+    {cn:'自分でやる。',py:'',ja:'他宁可放弃机会，也不愿意说谎。'},
+    {cn:'嘘はつかない。',py:'',ja:'我宁可慢一点，也要做好。'},
+    {cn:'遅くても質。',py:'',ja:'她宁可加班，也不想延期。'},
+    {cn:'残業でも延期嫌。',py:'',ja:'我宁可重新开始，也不想将就。'},
+    {cn:'何があっても支える。',py:'',ja:'无论多忙，他都会运动。'},
+  ]},
+  {id:'yaoshi', name:'⑨ 要是/假如/倘若（仮定・反実仮想）', cards:[
+    {cn:'忙しくても運動。',py:'',ja:'无论结果如何，我们都要尝试。'},
+    {cn:'結果関係なく挑戦。',py:'',ja:'无论是谁，都必须遵守规则。'},
+    {cn:'努力してこそ成功。',py:'',ja:'只有亲自体验，才会理解。'},
+    {cn:'体験して理解。',py:'',ja:'只有改变方法，才能解决问题。'},
+    {cn:'成功は努力。',py:'',ja:'我之所以这么说，是因为经验。'},
+    {cn:'経験から言う。',py:'',ja:'事情之所以复杂，是因为信息不足。'},
+    {cn:'簡単ではなさそう。',py:'',ja:'难怪他这么生气。'},
+    {cn:'そりゃ怒る。',py:'',ja:'这样看来，我们需要调整计划。'},
+    {cn:'計画変更必要。',py:'',ja:'难怪大家都推荐这里。'},
+    {cn:'運ではなく実力。',py:'',ja:'他并不是不努力，而是方法不对。'},
+    {cn:'努力不足ではない。',py:'',ja:'问题并不在价格，而在质量。'},
+    {cn:'疲れすぎて話せない。',py:'',ja:'他努力工作，从而取得成功。'},
+    {cn:'努力し成功。',py:'',ja:'他甚至放弃了假期来完成任务。'},
+    {cn:'したがって有効。',py:'',ja:'由此可见，问题出在管理上。'},
+    {cn:'管理問題。',py:'',ja:'由此可见，我们需要新的策略。'},
+  ]},
+  {id:'zhisuoyi', name:'⑩ 之所以/正因为（理由強調）', cards:[
+    {cn:'我之所以选择这个专业，是因为兴趣。',py:'Wǒ zhī suǒyǐ xuǎnzé zhège zhuānyè, shì yīnwèi xìngqù.',ja:'私がこの専攻を選んだのは、興味があったからだ。'},
+    {cn:'他之所以成功，是因为努力。',py:'Tā zhī suǒyǐ chénggōng, shì yīnwèi nǔlì.',ja:'彼が成功したのは、努力したからだ。'},
+    {cn:'之所以会出现这个问题，是因为我们准备不足。',py:'Zhī suǒyǐ huì chūxiàn zhège wèntí, shì yīnwèi wǒmen zhǔnbèi bùzú.',ja:'この問題が発生したのは、私たちの準備不足のためです。'},
+    {cn:'这个问题之所以反复出现，关键在于流程没有闭环。',py:'Zhe ge wenti zhi suo yi fanfu chuxian, guanjian zai yu liucheng meiyou bihuang.',ja:'これが繰り返し起きるのは、プロセスがクローズしていないのが原因です。'},
+    {cn:'もっと早く出発すればよかった。',py:'',ja:'要是知道会下雨，我就带伞了。'},
+    {cn:'雨を知っていれば傘を持った。',py:'',ja:'要不是你提醒，我差点忘了。'},
+    {cn:'あなたが言わなければ忘れた。',py:'',ja:'要不是时间不够，我早就做完了。'},
+    {cn:'時間があれば終わった。',py:'',ja:'否则事情会更麻烦。'},
+    {cn:'そうでなければもっと面倒。',py:'',ja:'否则可能会失败。'},
+    {cn:'努力すれば必ず上達。',py:'',ja:'只要有时间，我都会参加。'},
+    {cn:'時間があれば参加。',py:'',ja:'除非下大雨，否则活动不会取消。'},
+    {cn:'大雨以外中止なし。',py:'',ja:'除非情况改变，否则决定不会变。'},
+    {cn:'経験不足だからミス。',py:'',ja:'正因为准备充分，才成功。'},
+    {cn:'準備十分だから成功。',py:'',ja:'之所以迟到，是因为堵车。'},
+    {cn:'遅刻は渋滞のため。',py:'',ja:'之所以选择这里，是因为环境好。'},
+  ]},
+  {id:'nandao', name:'⑪ 难道/何必/未必（反語・否定強調）', cards:[
+    {cn:'难道你忘了吗？',py:'Nándào nǐ wàng le ma?',ja:'まさか忘れたのではないだろうな？'},
+    {cn:'难道就这样放弃吗？',py:'Nándào jiù zhèyàng fàngqì ma?',ja:'まさかこのまま諦めるのか？'},
+    {cn:'何必这么着急呢？',py:'Hébì zhème zháojí ne?',ja:'どうしてそんなに焦る必要があるのか？'},
+    {cn:'为小事生气，何必呢？',py:'Wèi xiǎoshì shēngqì, hébì ne?',ja:'つまらないことで怒る必要があるのか？'},
+    {cn:'何苦跟自己过不去呢？',py:'Hékǔ gēn zìjǐ guò bù qù ne?',ja:'どうして自分を苦しめるのか？'},
+    {cn:'何苦要勉强自己？',py:'Hékǔ yào miǎnqiǎng zìjǐ?',ja:'どうして自分を無理させるのか？'},
+    {cn:'难道你不觉得这样做有问题吗？',py:'Nándào nǐ bù juéde zhèyàng zuò yǒu wèntí ma?',ja:'そうすることに問題があると思わないのですか？'},
+    {cn:'大家都是朋友，何必这么客气呢？',py:'Dàjiā dōu shì péngyou, hébì zhème kèqì ne?',ja:'みんな友達なんだから、どうしてそんなに遠慮する必要があるの？'},
+    {cn:'我理解你的立场，但从整体成本来看，这个方案未必划算。',py:'Wo lijie ni de lichang, dan cong zhengti chengben lai kan, zhe ge fangan wei bi huasuan.',ja:'立場は理解しますが、全体コストから見るとこの案は割に合うとは限りません。'},
+  ]},
+  {id:'bingfei', name:'⑫ 并非/并不/并没有（事実否定）', cards:[
+    {cn:'我并不想去。',py:'Wǒ bìng bù xiǎng qù.',ja:'私は決して行きたいわけではない。'},
+    {cn:'他并没有生气。',py:'Tā bìng méiyǒu shēngqì.',ja:'彼は実は怒っていなかった。'},
+    {cn:'实际上，我对此事了解得并不全面。',py:'Shíjìshang, wǒ duì cǐshì liǎojié de bìng bù quánmiàn.',ja:'実際には、私はこの件について完全に把握しているわけではありません。'},
+    {cn:'这件事并不是做不做的问题，而是怎么做才合理的问题。',py:'Zhe jian shi bing bu shi zuo bu zuo de wenti, er shi zenme zuo cai heli de wenti.',ja:'これはやるかやらないかではなく、どうやって合理的にやるかの問題です。'},
+    {cn:'我并非反对创新，只是希望在可控范围内试点。',py:'Wo bing fei fandui chuangxin, zhi shi xiwang zai kekong fanwei nei shidian.',ja:'革新に反対ではなく、制御可能な範囲で試験導入したいだけです。'},
+    {cn:'我们并不缺想法，缺的是把想法变成流程的能力。',py:'Women bing bu que xiangfa, que de shi ba xiangfa biancheng liucheng de nengli.',ja:'アイデアは足りていて、足りないのはそれをプロセス化する力です。'},
+    {cn:'待つより自分で。',py:'',ja:'与其抱怨，不如想办法。'},
+    {cn:'失敗より経験。',py:'',ja:'与其担心未来，不如做好现在。'},
+    {cn:'今日は忙しそう。',py:'',ja:'看来计划需要调整。'},
+    {cn:'計画調整必要。',py:'',ja:'显然这个方法更有效。'},
+    {cn:'明らかに効果的。',py:'',ja:'恐怕来不及了。'},
+    {cn:'間に合わないかも。',py:'',ja:'大概需要两天时间。'},
+    {cn:'2日くらい。',py:'',ja:'看样子事情不太顺利。'},
+    {cn:'効率面で良い。',py:'',ja:'在成本方面需要考虑。'},
+    {cn:'コスト考慮。',py:'',ja:'从长远来看，这是必要的。'},
+  ]},
+  {id:'biqiAB', name:'⑬ 比起/不如/差很多（比較・対比）', cards:[
+    {cn:'比起北京来，我更喜欢上海。',py:'Bǐqǐ Běijīng lái, wǒ gèng xǐhuan Shànghǎi.',ja:'北京に比べて、私は上海のほうが好きだ。'},
+    {cn:'比起咖啡来，茶更健康。',py:'Bǐqǐ kāfēi lái, chá gèng jiànkāng.',ja:'コーヒーに比べて、お茶のほうが健康的だ。'},
+    {cn:'论口语，我不如他。',py:'Lùn kǒuyǔ, wǒ bùrú tā.',ja:'会話力では、私は彼には及ばない。'},
+    {cn:'中国文化和西方文化差很多。',py:'Zhōngguó wénhuà hé xīfāng wénhuà chà hěnduō.',ja:'中国文化と西洋文化は大きく異なる。'},
+    {cn:'理想和现实差很多。',py:'Lǐxiǎng hé xiànshí chà hěnduō.',ja:'理想と現実は大きく違う。'},
+    {cn:'長期的に必要。',py:'',ja:'从实际情况来看，这样更合理。'},
+    {cn:'現実的に合理的。',py:'',ja:'从经验来看，这种方法更安全。'},
+    {cn:'かなり複雑。',py:'',ja:'事情极其重要。'},
+    {cn:'非常に重要。',py:'',ja:'他格外认真。'},
+    {cn:'特に真剣。',py:'',ja:'这个方法特别有效。'},
+    {cn:'起こりがち。',py:'',ja:'结果不见得会更好。'},
+    {cn:'必ずしも良くない。',py:'',ja:'这样做未必正确。'},
+    {cn:'正しいとは限らない。',py:'',ja:'这种方法未必适合所有人。'},
+    {cn:'個人的に合理的。',py:'',ja:'在我看来，这个方法更可靠。'},
+    {cn:'私はこっち。',py:'',ja:'我觉得这个问题值得讨论。'},
+  ]},
+  {id:'jieshaoci', name:'⑭ 对…而言/就…来说/趁/至于（介詞）', cards:[
+    {cn:'对初学者而言，这本书太难了。',py:'Duì chūxuézhě ér yán, zhè běn shū tài nán le.',ja:'初心者にとって、この本は難しすぎる。'},
+    {cn:'对健康而言，睡眠很重要。',py:'Duì jiànkāng ér yán, shuìmián hěn zhòngyào.',ja:'健康にとって、睡眠は重要だ。'},
+    {cn:'就我来说，兴趣最重要。',py:'Jiù wǒ lái shuō, xìngqù zuì zhòngyào.',ja:'私に関して言えば、興味が最も重要だ。'},
+    {cn:'就质量来说，这个品牌更好。',py:'Jiù zhìliàng lái shuō, zhège pǐnpái gèng hǎo.',ja:'品質に関して言えば、このブランドのほうが良い。'},
+    {cn:'我们先讨论价格，至于细节以后再说。',py:'Wǒmen xiān tǎolùn jiàgé, zhìyú xìjié yǐhòu zài shuō.',ja:'まず価格を議論しましょう。細かい点については後で話しましょう。'},
+    {cn:'你去不去我不管，至于我，是一定要去的。',py:'Nǐ qù bù qù wǒ bù guǎn, zhìyú wǒ, shì yīdìng yào qù de.',ja:'あなたが行くかは知らないが、私は行くつもりだ。'},
+    {cn:'包括水电费在内，每月房租三千五。',py:'Bāokuò shuǐdiàn fèi zài nèi, měi yuè fángzū sānqiān wǔ.',ja:'水道・光熱費を含めて、毎月の家賃は3500元です。'},
+    {cn:'包括我在内，一共十个人。',py:'Bāokuò wǒ zài nèi, yīgòng shí gè rén.',ja:'私を含めて、全部で10人です。'},
+    {cn:'趁热吃吧。',py:'Chèn rè chī ba.',ja:'熱いうちに食べてください。'},
+    {cn:'趁年轻，多学点东西。',py:'Chèn niánqīng, duō xué diǎn dōngxi.',ja:'若いうちに、いろいろ学びなさい。'},
+    {cn:'拿汉语来说，声调是最难的。',py:'Ná Hànyǔ lái shuō, shēngdiào shì zuì nán de.',ja:'中国語を例にとると、声調が一番難しい。'},
+    {cn:'拿我自己来说，也曾经历过失败。',py:'Ná wǒ zìjǐ lái shuō, yě céng jīnglì guò shībài.',ja:'私自身を例にとると、かつて失敗を経験したことがある。'},
+    {cn:'就我个人而言，我不同意这个方案。',py:'Jiù wǒ gèrén ér yán, wǒ bù tóngyì zhège fāng àn.',ja:'私個人としては、この案には同意できません。'},
+    {cn:'趁现在还有时间，再考虑考虑吧。',py:'Chèn xiànzài hái yǒu shíjiān, zài kǎolǜ kǎolǜ ba.',ja:'まだ時間があるうちに、もう一度考えてみてください。'},
+    {cn:'对孩子来说，家庭教育比学校教育更关键。',py:'Duì háizi lái shuō, jiātíng jiàoyù bǐ xuéxiào jiàoyù gèng guānjiàn.',ja:'子供にとって、家庭教育は学校教育よりも重要だ。'},
+    {cn:'この政策の利点と欠点は包括的に検討する必要がある。',py:'',ja:'从长远来看，这种做法是不可持续的。'},
+    {cn:'要するに、包括的に考える必要がある。',py:'',ja:'综合以上分析，我们可以得出结论。'},
+  ]},
+  {id:'guding', name:'⑮ 说A就A/以…为/拿…来说（固定表現）', cards:[
+    {cn:'議論の価値。',py:'',ja:'我倾向于选择第二个方案。'},
+    {cn:'技術で生活便利。',py:'',ja:'由于时间有限，我们必须提高效率。'},
+    {cn:'時間ないので効率化。',py:'',ja:'既然已经决定了，就不要犹豫。'},
+    {cn:'针对这个问题，我们需要进行全面的市场调研。',py:'Zhēnduì zhège wèntí, wǒmen xūyào jìnxíng quánmiàn de shìchǎng diàoyán.',ja:'この問題に対して、私たちは全面的な市場調査を行う必要がある。'},
+    {cn:'我们必须采取有效的措施来降低成本。',py:'Wǒmen bìxū cǎiqǔ yǒuxiào de cuòshī lái jiàngdī chéngběn.',ja:'私たちはコストを削減するために有効な措置を講じなければならない。'},
+    {cn:'这种现象引起了社会各界的广泛关注。',py:'Zhè zhǒng xiànxiàng yǐnqǐle shèhuì gèjiè de guǎngfàn guānzhù.',ja:'この現象は社会各界の幅広い注目を集めている。'},
+    {cn:'听了他的话，我心里感到非常惭愧。',py:'Tīngle tā de huà, wǒ xīnlǐ gǎndào fēicháng cánkuì.',ja:'彼の話を聞いて、私は心の中で非常に恥ずかしく（申し訳なく）感じた。'},
+    {cn:'这种突发状况确实让人感到措手不及。',py:'Zhè zhǒng tūfā zhuàngkuàng quèshí ràng rén gǎndào cuòshǒu bùjí.',ja:'このような突発的な状況は、確かに人を慌てさせる（対応が間に合わない）。'},
+    {cn:'他的精彩表现赢得了观众阵阵掌声。',py:'Tā de jīngcǎi biǎoxiàn yíngdéle guānzhòng zhènzhèn zhǎngshēng.',ja:'彼の素晴らしいパフォーマンスは観客から次々と拍手を勝ち取った。'},
+    {cn:'他在比赛中发挥出了最好的水平。',py:'Tā zài bǐsài zhōng fāhuī chūle zuì hǎo de shuǐpíng.',ja:'彼は試合の中で最高のレベルを発揮した。'},
+    {cn:'我非常看重这份工作的挑战性。',py:'Wǒ fēicháng kànzhòng zhè fèn gōngzuò de tiǎozhànxìng.',ja:'私はこの仕事の挑戦しがいがある点を非常に重視しています。'},
+    {cn:'恐怕我没法在约定的时间内赶回来。',py:'Kǒngpà wǒ méifǎ zài yuēdìng de shíjiān nèi gǎn huílái.',ja:'あいにく、約束の時間内に戻ってくることはできそうにありません。'},
+    {cn:'别管别人怎么看，关键是要对自己有信心。',py:'Bié guǎn biérén zěnme kàn, guānjiàn shì yào duì zìjǐ yǒu xìnxīn.',ja:'他人がどう見るかは気にするな、肝心なのは自分に自信を持つことだ。'},
+    {cn:'站在用户角度，这个改动看似小，实际体验差别很大。',py:'Zhan zai yonghu jiaodu, zhe ge gaidong kansi xiao, shiji tiyan chabie hen da.',ja:'ユーザー視点だと小さな変更に見えても、体験の差は大きいです。'},
+    {cn:'这份报告我看过了，但逻辑链条还不够严密。',py:'Zhe fen baogao wo kan guo le, dan luoji liantiao hai bu gou yanmi.',ja:'レポートは見ましたが、論理のつながりがまだ甘いです。'},
+  ]},
+  {id:'logic2', name:'⑯ 由此可见/归根结底（論理展開）', cards:[
+    {cn:'你提的担忧我记下了，我们可以设一个兜底方案。',py:'Ni ti de danyou wo ji xia le, women keyi she yige doudi fangan.',ja:'懸念は控えました。代替（保険）案を用意できます。'},
+    {cn:'不是我不配合，而是现有条件确实做不到你要求的程度。',py:'Bu shi wo bu peihe, er shi xianyou tiaojian queshi zuo bu dao ni yaoqiu de chengdu.',ja:'協力しないのではなく、現状条件では要求水準に届きません。'},
+    {cn:'如果你坚持这个版本上线，后果可能需要你这边一起承担。',py:'Ruguo ni jianchi zhe ge banben shangxian, houguo keneng xuyao ni zhe bian yiqi chengdan.',ja:'この版でリリースを強行するなら、結果はそちらも一緒に負担が必要です。'},
+    {cn:'这个结论目前只能算倾向性判断，还需要更多证据支撑。',py:'Zhe ge jielun muqian zhi neng suan qingxiangxing panduan, hai xuyao geng duo zhengju zhicheng.',ja:'この結論は現時点では傾向判断に過ぎず、裏付けが必要です。'},
+    {cn:'いう「効率」とは具体的に何ですか。でないと期待値が揃いません。',py:'',ja:'这两种说法看似矛盾，其实是关注点不同。'},
+    {cn:'一見矛盾しますが、注目点が違うだけです。',py:'',ja:'你可以不同意，但请你先把替代方案说出来。'},
+    {cn:'反対でも構いませんが、代替案を先に出してください。',py:'',ja:'我不是在质疑你的人品，我是在质疑这个机制是否可靠。'},
+    {cn:'人格を疑っているのではなく、この仕組みの信頼性を疑っています。',py:'',ja:'这件事的边界如果不定义清楚，很容易互相甩锅。'},
+    {cn:'境界を決めないと責任の押し付け合いになります。',py:'',ja:'既然大家的目标一致，就别被细节拖住节奏。'},
+    {cn:'目標が同じなら、細部で足を取られないように。',py:'',ja:'你先把背景交代一下，否则我很难判断你在比较什么。'},
+    {cn:'背景を説明してください。でないと何を比較しているか判断できません。',py:'',ja:'我宁可现在把话说难听点，也不想以后出大问题。'},
+    {cn:'今きついことを言ってでも、後で大問題になるのは避けたいです。',py:'',ja:'你要是方便的话，今天下班前把修改意见汇总给我。'},
+    {cn:'可能なら今日退勤前に修正意見をまとめてください。',py:'',ja:'这个点我暂时保留意见，等你把数据补齐再说。'},
+    {cn:'ここは保留します。データを補ってから。',py:'',ja:'你别把所有压力都自己扛着，该升级就升级。'},
+    {cn:'すべてのプレッシャーを一人で背負わず、必要なら上に上げてください。',py:'',ja:'我们可以让一步，但前提是对方也拿出诚意。'},
+  ]},
+  {id:'opinion2', name:'⑰ 我认为/在我看来/不敢苟同（意見・反論）', cards:[
+    {cn:'譲歩はできますが、相手も誠意を示すのが前提です。',py:'',ja:'你这个报价如果再高一点，我们就很难走内部审批。'},
+    {cn:'この見積がもう少し高いと社内承認が通りにくいです。',py:'',ja:'能不能把付款条件从月结改成分期？这样现金流更稳。'},
+    {cn:'支払い条件を月締めから分割にできませんか。資金繰りが安定します。',py:'',ja:'这个合同条款我需要确认一下法律风险，再给你答复。'},
+    {cn:'契約条項の法務リスクを確認してから返答します。',py:'',ja:'你们的交付范围如果不写进附件，后期很容易扯皮。'},
+    {cn:'納品範囲を別紙に入れないと、後で揉めやすいです。',py:'',ja:'这不是谁对谁错，而是谁更愿意为结果负责。'},
+    {cn:'正しい間違いではなく、結果に責任を持つ意思の問題です。',py:'',ja:'我之所以这么坚持，是因为一旦出事故，代价不可逆。'},
+    {cn:'ここまで主張するのは、事故が起きれば取り返しがつかないからです。',py:'',ja:'不管你怎么解释，事实是我们没有按期交付。'},
+    {cn:'どう説明しても、期日通り納品できなかったのが事実です。',py:'',ja:'你说“马上”，是十分钟内，还是今天之内？'},
+    {cn:'「すぐ」って10分以内？それとも今日中？',py:'',ja:'我可以接受你延期，但你得给我一个可验证的时间表。'},
+    {cn:'延期は受け入れますが、検証可能なスケジュールが必要です。',py:'',ja:'你先把关键路径标出来，我们再谈怎么压缩工期。'},
+    {cn:'クリティカルパスを示してから、工期短縮を話しましょう。',py:'',ja:'现在的问题不是做得慢，而是返工太多。'},
+    {cn:'遅いのではなく、手戻りが多すぎます。',py:'',ja:'我们需要的是可复制的方法，而不是一次性的运气。'},
+    {cn:'必要なのは再現可能な方法で、一回限りの運ではない。',py:'',ja:'你先按这个口径对外回复，避免信息不一致。'},
+    {cn:'この方針で対外回答して、情報の不一致を避けてください。',py:'',ja:'你误会了，我的意思不是否定你，而是补充一个角度。'},
+    {cn:'誤解です。否定ではなく別の観点を補足したいだけです。',py:'',ja:'别光说结论，把你怎么推导的过程讲出来。'},
+  ]},
+  {id:'business2', name:'⑱ ビジネス交渉・契約・顧客対応', cards:[
+    {cn:'请务必在周五之前把这份合同修好。',py:'Qǐng wùbì zài Zhōuwǔ zhīqián bǎ zhè fèn hétóng xiūgǎi hǎo.',ja:'金曜日までに必ずこの契約書を修正しておいてください。'},
+    {cn:'经过多次协商，双方最终达成了共识。',py:'Jīngguò duō cì xiéshāng, shuāngfāng zuìzhōng dáchéngle gòngshí.',ja:'度重なる協議を経て、双方は最終的に合意に達した。'},
+    {cn:'这件事我愿意负责到底，但需要你给我明确授权。',py:'Zhe jian shi wo yuanyi fuze daodi, dan xuyao ni gei wo mingque shouquan.',ja:'最後まで責任を持ちますが、明確な権限委譲が必要です。'},
+    {cn:'結論だけでなく、導出過程も説明してください。',py:'',ja:'你要是早点告诉我，我就能提前协调资源。'},
+    {cn:'もっと早く言ってくれれば、前もって調整できました。',py:'',ja:'我不想把关系搞僵，所以我们尽量用事实说话。'},
+    {cn:'関係を悪くしたくないので、事実ベースで話しましょう。',py:'',ja:'我宁愿你当场指出问题，也别事后在背后抱怨。'},
+    {cn:'その場で指摘してほしい。後で陰で不満を言うのは避けて。',py:'',ja:'这件事被你这么一说，确实有另一种可能性。'},
+    {cn:'そう言われると別の可能性も確かにあります。',py:'',ja:'你先别把责任推给系统，先看是不是操作流程有问题。'},
+    {cn:'まずシステムのせいにせず、操作手順に問題がないか見ましょう。',py:'',ja:'我们把问题拆开：短期怎么止血，长期怎么治本。'},
+    {cn:'問題を分けます。短期は止血、長期は根本治療。',py:'',ja:'你如果不介意，我想当面确认几个细节，避免理解偏差。'},
+    {cn:'よければ対面で細部を確認し、認識ズレを防ぎたいです。',py:'',ja:'我们现在谈的不只是价格，还有服务响应和违约责任。'},
+    {cn:'今話しているのは価格だけでなく、対応と違約責任もです。',py:'',ja:'如果出现不可抗力，我们双方各自承担相应损失。'},
+    {cn:'不可抗力が起きた場合、双方が相応の損失を負担します。',py:'',ja:'我不排除这个方案可行，但成功概率恐怕没你想的高。'},
+    {cn:'実行可能性は否定しませんが、成功確率は想像ほど高くないかも。',py:'',ja:'你要是把这点补上，我就能在会上替你站台。'},
+    {cn:'そこを補ってくれれば、会議であなたを後押しできます。',py:'',ja:'这事儿我先不表态，等我把相关方的意见听完。'},
+  ]},
+  {id:'ba_adv', name:'⑲ 把/被の高度な用法', cards:[
+    {cn:'这件事被媒体报道后，引起了很大的反响。',py:'Zhè jiàn shì bèi méitǐ bàodào hòu, yǐnqǐle hěn dà de fǎnxiǎng.',ja:'この件がメディアに報道された後、大きな反響を呼んだ。'},
+    {cn:'老师把所有的重点都解释清楚了。',py:'Lǎoshī bǎ suǒyǒu de zhòngdiǎn dōu jiěshì qīngchu le.',ja:'先生はすべての重点を明確に説明し終えた。'},
+    {cn:'你怎么能把这么重要的事情给忘了呢？',py:'Nǐ zěnme néng bǎ zhème zhòngyào de shìqing gěi wàngle ne?',ja:'どうしてこんなに重要なことを忘れてしまうことがあり得るのか。'},
+    {cn:'你先别急着下结论，我们把数据口径统一了再讨论。',py:'Ni xian bie ji zhe xia jielun, women ba shuju koujing tongyi le zai taolun.',ja:'結論を急がず、データの定義を統一してから話しましょう。'},
+    {cn:'如果当初把需求说清楚，就不会走这么多弯路。',py:'Ruguo dangchu ba xuqiu shuo qingchu, jiu bu hui zou zheme duo wanlu.',ja:'最初に要件を明確にしていれば、こんな遠回りはしませんでした。'},
+    {cn:'我建议先把可行的部分落地，其余的分阶段推进。',py:'Wo jianyi xian ba kexing de bufeng luodi, qiyu de fen jieduan tuijin.',ja:'まず実行可能な部分を着地させ、残りは段階的に進めるのがいいです。'},
+    {cn:'你能不能把重点再压缩一下，用两分钟讲清楚？',py:'Ni neng bu neng ba zhongdian zai yasuo yixia, yong liang fenzhong jiang qingchu?',ja:'要点をさらに絞って2分で説明できますか。'},
+    {cn:'まず態度は保留し、関係者の意見を聞いてから。',py:'',ja:'你这样说等于把选择权都留给自己，让别人怎么配合？'},
+    {cn:'それだと選択権を自分にだけ残し、他人が協力できません。',py:'',ja:'我能接受妥协，但不能接受没有底线的让步。'},
+    {cn:'妥協はできても、底なしの譲歩はできません。',py:'',ja:'这不是“能不能”，而是“值不值得”。'},
+    {cn:'できるかではなく、やる価値があるかです。',py:'',ja:'你先把你的假设说出来，不然我们在不同前提上争论。'},
+    {cn:'前提（仮定）を言ってください。違う前提で議論してしまいます。',py:'',ja:'我更在意的是长期影响，而不是短期指标好看。'},
+    {cn:'短期指標の見栄えより、長期影響が気になります。',py:'',ja:'你给的反馈很尖锐，但我需要这种真实的声音。'},
+    {cn:'フィードバックは鋭いですが、こういう本音が必要です。',py:'',ja:'你说“大家都这么做”，这并不能证明它是对的。'},
+    {cn:'「皆がやってる」は正しさの証明になりません。',py:'',ja:'你先把这个文件发我，我来判断是否需要升级处理。'},
+  ]},
+  {id:'jianyu2', name:'⑳ 兼語文・使役（派/鼓励/令/使）', cards:[
+    {cn:'その書類を送ってください。上申が必要か判断します。',py:'',ja:'我们如果继续拖下去，损失会以指数级扩大。'},
+    {cn:'先延ばしにすると損失は指数的に増えます。',py:'',ja:'我没有把握保证不出错，但我能保证出错就立刻修正。'},
+    {cn:'ミスしない保証はできませんが、ミスしたら即修正は約束します。',py:'',ja:'这个决定一旦公布，就很难再回头了。'},
+    {cn:'一度公表した決定は、後戻りが難しいです。',py:'',ja:'你别担心，我会把措辞处理得更委婉一点。'},
+    {cn:'心配しないで、表現はもう少し婉曲にします。',py:'',ja:'你这么说我能理解，但我还是希望你给出具体例子。'},
+    {cn:'理解はできますが、具体例を出してほしいです。',py:'',ja:'我们先把分歧写下来：哪些是事实分歧，哪些是价值分歧。'},
+    {cn:'相違を整理します。事実の相違か価値観の相違か。',py:'',ja:'这件事如果只看局部，你会觉得合理；放到全局就不行。'},
+    {cn:'局所なら合理的でも、全体で見るとダメです。',py:'',ja:'你这话听起来像在承诺结果，但你其实只能承诺过程。'},
+    {cn:'結果を約束しているように聞こえるが、約束できるのはプロセスです。',py:'',ja:'这个问题我不想当众拆穿，我们私下对一下细节。'},
+    {cn:'公の場で突っ込まず、裏で確認しましょう。',py:'',ja:'你说的我会考虑，但我需要时间消化一下。'},
+    {cn:'考えますが、咀嚼する時間が必要です。',py:'',ja:'麻烦你把会议纪要发出来，尤其是待办和负责人那一栏。'},
+    {cn:'議事録を出してください。特にToDoと担当者欄。',py:'',ja:'这次的教训是：别把“应该没问题”当成证据。'},
+    {cn:'今回の教訓は「たぶん大丈夫」を根拠にしないこと。',py:'',ja:'你要是愿意，我们可以把争议点交给第三方评估。'},
+    {cn:'よければ争点を第三者に評価してもらえます。',py:'',ja:'既然你已经道歉了，我也不想再纠结过去。'},
+    {cn:'謝ってくれたなら、こちらも過去にこだわりません。',py:'',ja:'我们需要的不是情绪化的反应，而是可执行的下一步。'},
+  ]},
+  {id:'emotion2', name:'㉑ 感情・心理の深い表現', cards:[
+    {cn:'彼女は表面上は穏やかだが、内心は激動している。',py:'',ja:'这件事让我心有余悸。'},
+    {cn:'必要なのは感情的反応ではなく、実行可能な次の一手です。',py:'',ja:'你如果方便，能不能把你那边的决策链路画出来？'},
+    {cn:'可能ならそちらの意思決定フローを描いてもらえますか。',py:'',ja:'这个事我可以先顶上，但你得保证后面有人接手。'},
+    {cn:'まず私が穴埋めしますが、後で引き継ぐ人を確保してください。',py:'',ja:'你这样安排相当于把风险外包了，这不公平。'},
+    {cn:'その割り振りはリスクの外注で、不公平です。',py:'',ja:'我们把话说清楚：你需要的是结果，还是需要一个解释？'},
+    {cn:'はっきりさせましょう。必要なのは結果？それとも説明？',py:'',ja:'你别只盯着问题本身，也要看它暴露了什么系统性缺陷。'},
+    {cn:'問題そのものだけでなく、露呈した構造欠陥も見てください。',py:'',ja:'这件事看起来是偶发，其实是必然，只是早晚的问题。'},
+    {cn:'偶発に見えて必然で、早いか遅いかの問題です。',py:'',ja:'你先把这个结论暂定为“假说”，别写成“已证实”。'},
+    {cn:'結論は暫定で「仮説」にし、「立証済み」とは書かないで。',py:'',ja:'你能不能把语气放缓一点？这样更容易达成共识。'},
+    {cn:'口調を少し和らげられますか。その方が合意しやすいです。',py:'',ja:'如果你不介意我直说，你的论证跳步了。'},
+    {cn:'率直に言うと、論証が飛んでいます。',py:'',ja:'我同意你的方向，但反对你现在的节奏。'},
+    {cn:'方向性は賛成ですが、今の進め方（ペース）には反対です。',py:'',ja:'这件事我们先达成一个最低共识：不再重复同样的错误。'},
+    {cn:'日本訳',py:'',ja:'--------'},
+    {cn:'私は、この政策は環境保護に役立つものの、中小企業にとっては負担が大きすぎると考えます。',py:'',ja:'依我之见，与其盲目跟风投资，不如先分析市场风险。'},
+    {cn:'私の見解では、盲目的に流行に乗って投資するより、まず市場リスクを分析した方がいい。',py:'',ja:'就教育公平而言，尽管政府投入了大量资金，但城乡差距依然存在。'},
+  ]},
+  {id:'society2', name:'㉒ 社会・環境・時事', cards:[
+    {cn:'为了保护环境，我们应该尽量减少塑料袋的使用。',py:'Wèile bǎohù huánjìng, wǒmen yīnggāi jǐnliàng jiǎnshǎo sùliàodài de shǐyòng.',ja:'環境を保護するために、私たちはレジ袋の使用を極力減らすべきだ。'},
+    {cn:'私の考えでは、給料が高くても職場環境が悪い仕事は選ぶ価値がない。',py:'',ja:'你觉得呢？要是我，会优先考虑长期职业发展而不是短期利益。'},
+    {cn:'家賃は高いが、立地が良いため、多くの人が買いたがっている。',py:'',ja:'尽管下雨了，我们仍然决定去公园野餐。'},
+    {cn:'雨が降っているにもかかわらず、私たちは公園でピクニックに行くことにした。',py:'',ja:'即使你不帮忙，我也得自己完成这个项目。'},
+    {cn:'君が手伝わなくても、このプロジェクトは自分で完成させなければならない。',py:'',ja:'虽然他经验丰富，但是犯了低级错误。'},
+    {cn:'彼は経験豊富だが、低レベルなミスを犯した。',py:'',ja:'尽管经济不景气，企业仍然在扩大招聘。'},
+    {cn:'パンデミックの影響で、多くの便がキャンセルされた。',py:'',ja:'鉴于市场竞争激烈，从而企业必须创新产品。'},
+    {cn:'市場競争が激しいため、企業は製品を革新しなければならない。',py:'',ja:'因为交通堵塞，所以我迟到了二十分钟。'},
+    {cn:'渋滞のせいで、20分遅れてしまった。',py:'',ja:'由于缺乏资金，因而项目被迫中止。'},
+    {cn:'資金不足のため、プロジェクトは中断せざるを得なかった。',py:'',ja:'鉴于你的表现优秀，从而获得了晋升机会。'},
+    {cn:'明日の天気が悪ければ、旅行は別の日にするよ。',py:'',ja:'要是丢了护照，你打算怎么办？'},
+    {cn:'宝くじに当たったら、仕事を辞めて世界一周するよ。',py:'',ja:'要是你不同意，我们就另找合作伙伴。'},
+    {cn:'高級品を買うより、教育に投資した方がいい。',py:'',ja:'我宁愿在家工作，也不愿每天通勤两小时。'},
+    {cn:'毎日2時間通勤するより、在宅勤務がいい。',py:'',ja:'这个手机比上代快了两倍还多。'},
+    {cn:'このスマホは前モデルより2倍以上速い。',py:'',ja:'与其批评别人，不如先检讨自己。'},
+  ]},
+  {id:'abstract2', name:'㉓ 抽象・学術的表現', cards:[
+    {cn:'他人の批判より、自分を振り返った方がいい。',py:'',ja:'她比我想象中聪明得多。'},
+    {cn:'このアプリは無料なだけでなく、機能も強力だ。',py:'',ja:'他不仅会中文，而且日语说得也很流利。'},
+    {cn:'暑さで外に出られないほどだ。',py:'',ja:'这个决定简直是灾难性的，不仅浪费时间，而且损失金钱。'},
+    {cn:'この決定は惨憺たるもので、時間だけでなくお金も無駄にした。',py:'',ja:'她不仅漂亮，而且性格温柔。'},
+    {cn:'子供に職業の方向性を自分で決めさせよう。',py:'',ja:'叫服务员帮我们点菜。'},
+    {cn:'ウェイターに料理を注文してもらおう。',py:'',ja:'报告被上司修改了好几遍。'},
+    {cn:'レポートは上司に何度も修正された。',py:'',ja:'让他先试穿这件衣服。'},
+    {cn:'売上が落ちているので、マーケティング戦略を調整する必要がある。そうでなければ取り返しのつかないことになる。',py:'',ja:'尽管竞争对手降价了，但我们的产品质量更高，因此客户忠诚度不会受影响。'},
+    {cn:'競合が値下げしたものの、私たちの製品品質が高いので、顧客の忠誠心は影響を受けない。',py:'',ja:'我建议与其扩大生产，不如先优化供应链。'},
+    {cn:'生産拡大より、サプライチェーンを最適化することを提案します。',py:'',ja:'万一合同条款有歧义，我们就要求重新谈判。'},
+    {cn:'契約条項に曖昧さがあったら、再交渉を要求します。',py:'',ja:'这个季度业绩不仅达到了目标，而且超额完成了20%。'},
+    {cn:'ホテルの立地は不便だが、サービスは一流でお得感がある。',py:'',ja:'由于食物中毒，导致我住院三天了。'},
+    {cn:'食中毒で3日間入院した。',py:'',ja:'要是感冒加重了，就去医院挂号吧。'},
+    {cn:'風邪が悪化したら、病院を受診しよう。',py:'',ja:'即使行李超重，也不要支付额外费用，我们可以协商。'},
+    {cn:'荷物がオーバーしても追加料金は払わず、交渉しよう。',py:'',ja:'与其吃药，不如多锻炼来改善体质。'},
+  ]},
+  {id:'jianyu3', name:'㉔ 高度な動詞フレーズ（难免/值得/不禁）', cards:[
+    {cn:'都是你害得我迟到了。',py:'Dōu shì nǐ hàide wǒ chídào le.',ja:'全部あなたのせいで遅刻した。'},
+    {cn:'大雨害得我们无法出门。',py:'Dàyǔ hàide wǒmen wúfǎ chūmén.',ja:'大雨のせいで外出できなかった。'},
+    {cn:'刚开始学，难免会犯错。',py:'Gāng kāishǐ xué, nánmiǎn huì fàncuò.',ja:'習い始めは、間違えるのは免れない。'},
+    {cn:'长期熬夜，难免会影响健康。',py:'Chángqī áoyè, nánmiǎn huì yǐngxiǎng jiànkāng.',ja:'長期間の徹夜は、健康に影響するのは避けられない。'},
+    {cn:'这部电影值得一看。',py:'Zhè bù diànyǐng zhíde yī kàn.',ja:'この映画は見る価値がある。'},
+    {cn:'为梦想付出，值得。',py:'Wèi mèngxiǎng fùchū, zhíde.',ja:'夢のために努力する価値はある。'},
+    {cn:'这么晚打电话，难免会打扰人家休息。',py:'Zhème wǎn dǎ diànhuà, nánmiǎn huì dǎrǎo rénjiā xiūxi.',ja:'こんな遅くに電話すれば、相手の休息を妨げるのは避けられない。'},
+    {cn:'他的建议值得我们参考，但仍需进一步论证。',py:'Tā de jiànyì zhídé wǒmen cānkǎo, dàn réng xū jìnyíbù lùnzhèng.',ja:'彼の提案は参考に値するが、まださらなる立証が必要だ。'},
+    {cn:'想到当年的艰苦生活，我不禁感叹万分。',py:'Xiǎngdào dāngnián de jiānkǔ shēnghuó, wǒ bùjīn gǎntàn wànfèn.',ja:'当時の苦しい生活を思うと、感慨無量にならざるを得ない。'},
+  ]},
+  {id:'daily2', name:'㉕ ネイティブ口語・日常リアル会話', cards:[
+    {cn:'说到底，这次延期是多因素叠加造成的。',py:'Shuo daodi, zhe ci yanqi shi duo yinsu diejia zaocheng de.',ja:'結局のところ、今回の延期は複数要因の積み重ねです。'},
+    {cn:'都市化が進む中、環境汚染が深刻化しており、規制強化を求める声が高まっている。',py:'',ja:'在我看来，不仅需要植树造林，而且要推广低碳生活方式。'},
+    {cn:'私の意見では、植林だけでなく、低炭素生活の推進が必要だ。',py:'',ja:'假如每个人都节约用水，就能缓解水资源短缺。'},
+    {cn:'皆が水を節約すれば、水資源不足が緩和される。',py:'',ja:'由于老龄化社会来临，企业被要求提供更多养老福利。'},
+    {cn:'高齢化社会の到来により、企業に追加の年金福利厚生が求められている。',py:'',ja:'宁愿牺牲一些便利，也不愿忍受空气污染。'},
+    {cn:'試験が難しくても、体系的な復習をすれば良い成績が取れる。',py:'',ja:'让学生参与决策，能提高他们的责任感。'},
+    {cn:'生徒に意思決定に参加させると、責任感が高まる。',py:'',ja:'要是父母过多干涉，孩子的发展就会受限。'},
+    {cn:'親が過度に干渉すると、子供の発展が制限される。',py:'',ja:'这个观点不仅有道理，而且被许多专家认可。'},
+    {cn:'この見解は理にかなっており、多くの専門家に認められている。',py:'',ja:'鉴于文化差异，我们需要互相理解而不是争论。'},
+    {cn:'彼はこのことを明確に説明した。',py:'',ja:'请把报告修改得更加专业一些。'},
+    {cn:'レポートをもっと専門的に修正してください。',py:'',ja:'我们必须把这个问题解决得彻彻底底。'},
+    {cn:'この問題を徹底的に解決しなければならない。',py:'',ja:'她把整个计划打乱了。'},
+    {cn:'彼女は計画全体を台無しにした。',py:'',ja:'他把所有的责任都推卸给了同事。'},
+    {cn:'彼はすべての責任を同僚に押し付けた。',py:'',ja:'千万别把话说得太绝对。'},
+    {cn:'絶対に言い過ぎないように。',py:'',ja:'他把自己的想法表达得淋漓尽致。'},
+  ]},
+];
+
+// ================================================================
+// INIT
+// ================================================================
+let allCards = [], deck = [], idx = 0, hist = [];
+let mode = 'jc', muted = false, catId = 'all', autoPlay = false;
+let memorized = new Set();
+
+function init() {
+  // build 'all' category
+  CATS[0].cards = CATS.slice(1).flatMap(c => c.cards);
+  allCards = CATS[0].cards;
+
+  // build category pills
+  const slider = document.getElementById('catSlider');
+  CATS.forEach(cat => {
+    const pill = document.createElement('button');
+    pill.className = 'cat-pill' + (cat.id === 'all' ? ' active' : '');
+    pill.textContent = cat.name;
+    pill.onclick = () => selectCat(cat.id);
+    pill.dataset.id = cat.id;
+    slider.appendChild(pill);
+  });
+
+  selectCat('all');
+}
+
+function selectCat(id) {
+  catId = id;
+  document.querySelectorAll('.cat-pill').forEach(p => {
+    p.classList.toggle('active', p.dataset.id === id);
+  });
+  loadMem();
+  rebuildDeck();
+  render();
+}
+
+function rebuildDeck() {
+  const cat = CATS.find(c => c.id === catId);
+  if (!cat) return;
+  allCards = cat.id === 'all' ? CATS[0].cards : cat.cards;
+  const memKeys = new Set([...memorized].map(String));
+  deck = allCards
+    .map((c, i) => ({ c, globalKey: String(CATS[0].cards.indexOf(c)) }))
+    .filter(({ globalKey }) => !memKeys.has(globalKey))
+    .map(({ c }) => c);
+  idx = 0; hist = [];
+}
+
+function render() {
+  document.getElementById('flashCard').classList.remove('flipped');
+  if (!deck.length) {
+    document.getElementById('finishDiv').style.display = 'block';
+    updateStats();
+    return;
+  }
+  document.getElementById('finishDiv').style.display = 'none';
+  const card = deck[idx];
+  const cat = CATS.find(c => c.cards.includes(card)) || CATS[0];
+
+  if (mode === 'jc') {
+    document.getElementById('cardQ').textContent = card.ja;
+    document.getElementById('cardHint').textContent = '';
+    document.getElementById('ansCN').textContent = card.cn;
+    document.getElementById('ansPY').textContent = card.py;
+    document.getElementById('ansJA').textContent = '';
+  } else {
+    document.getElementById('cardQ').textContent = card.cn;
+    document.getElementById('cardHint').textContent = card.py;
+    document.getElementById('ansCN').textContent = '';
+    document.getElementById('ansPY').textContent = '';
+    document.getElementById('ansJA').textContent = card.ja;
+  }
+
+  document.getElementById('cardCat').textContent = cat.name;
+  document.getElementById('cardCatB').textContent = cat.name;
+  document.getElementById('cardCounter').textContent = `${idx + 1} / ${deck.length}`;
+  updateStats();
+}
+
+function updateStats() {
+  const total = allCards.length;
+  const mem = allCards.filter((_, i) => memorized.has(String(CATS[0].cards.indexOf(allCards[i])))).length;
+  const remain = total - mem;
+  const pct = total ? Math.round(mem / total * 100) : 0;
+  document.getElementById('sTotal').textContent = total;
+  document.getElementById('sRemain').textContent = remain;
+  document.getElementById('sMem').textContent = mem;
+  document.getElementById('sPct').textContent = pct + '%';
+  document.getElementById('progFill').style.width = pct + '%';
+}
+
+// ================================================================
+// NAVIGATION
+// ================================================================
+function toggleCard() {
+  const card = document.getElementById('flashCard');
+  card.classList.toggle('flipped');
+  if (card.classList.contains('flipped') && autoPlay && !muted) {
+    setTimeout(() => speakNow(null), 300);
+  }
+}
+
+function nextCard() {
+  if (!deck.length) return;
+  hist.push(idx);
+  idx = (idx + 1) % deck.length;
+  render();
+}
+
+function prevCard() {
+  if (hist.length) { idx = hist.pop(); render(); }
+}
+
+function markMem() {
+  if (!deck.length) return;
+  const key = String(CATS[0].cards.indexOf(deck[idx]));
+  memorized.add(key);
+  saveMem();
+  deck.splice(idx, 1);
+  hist = hist.filter(h => h < deck.length);
+  if (idx >= deck.length) idx = 0;
+  if (!deck.length) { updateStats(); document.getElementById('finishDiv').style.display = 'block'; return; }
+  render();
+}
+
+function doShuffle() {
+  deck.sort(() => Math.random() - .5);
+  idx = 0; hist = [];
+  render();
+}
+
+function clearAll() {
+  memorized.clear();
+  saveMem();
+  rebuildDeck();
+  render();
+}
+
+function restart() {
+  document.getElementById('finishDiv').style.display = 'none';
+  clearAll();
+}
+
+// ================================================================
+// MODE / MUTE
+// ================================================================
+function setMode(m) {
+  mode = m;
+  document.getElementById('btnJC').classList.toggle('active', m === 'jc');
+  document.getElementById('btnCJ').classList.toggle('active', m === 'cj');
+  rebuildDeck();
+  render();
+}
+
+function toggleMute() {
+  muted = !muted;
+  document.getElementById('btnMute').textContent = muted ? '🔇 OFF' : '🔊 ON';
+}
+
+function toggleAutoPlay() {
+  autoPlay = !autoPlay;
+  const btn = document.getElementById('btnAutoPlay');
+  btn.textContent = autoPlay ? '▶ 自動再生 ON' : '▶ 自動再生 OFF';
+  btn.style.background = autoPlay ? 'var(--gold-light)' : '';
+  btn.style.borderColor = autoPlay ? 'var(--gold)' : '';
+  btn.style.color = autoPlay ? 'var(--gold)' : '';
+}
+
+// ================================================================
+// SPEECH
+// ================================================================
+function speakNow(e) {
+  if (e) e.stopPropagation();
+  if (!deck.length || muted) return;
+  const card = deck[idx];
+  const btn = document.getElementById('audioBtn');
+  speechSynthesis.cancel();
+  const speak = (text, lang, cb) => {
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = lang; u.rate = 0.85;
+    u.onend = cb || null;
+    speechSynthesis.speak(u);
+  };
+  btn.classList.add('playing');
+  const reset = () => btn.classList.remove('playing');
+  if (mode === 'jc') {
+    speak(card.cn, 'zh-CN', () => setTimeout(() => speak(card.cn, 'zh-CN', reset), 300));
+  } else {
+    speak(card.ja, 'ja-JP', reset);
+  }
+}
+
+// ================================================================
+// STORAGE
+// ================================================================
+function saveMem() {
+  try { localStorage.setItem('cn_mem_b2_' + catId, JSON.stringify([...memorized])); } catch(e) {}
+}
+function loadMem() {
+  try {
+    const d = localStorage.getItem('cn_mem_b2_' + catId);
+    memorized = d ? new Set(JSON.parse(d)) : new Set();
+  } catch(e) { memorized = new Set(); }
+}
+
+// ================================================================
+// KEYBOARD
+// ================================================================
+document.addEventListener('keydown', e => {
+  if (['Space','Enter'].includes(e.code)) { e.preventDefault(); toggleCard(); }
+  if (e.code === 'ArrowRight') nextCard();
+  if (e.code === 'ArrowLeft')  prevCard();
+  if (e.code === 'KeyM' || e.code === 'KeyC') markMem();
+});
+
+window.onload = init;
+</script>
+</body>
+</html>
