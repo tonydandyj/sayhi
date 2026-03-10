@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Say Hi — ファイル一覧</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0f;
+      --surface: #13131a;
+      --border: #1e1e2e;
+      --accent: #e8ff47;
+      --accent2: #47c5ff;
+      --text: #e8e8f0;
+      --muted: #5a5a7a;
+      --card-hover: #1a1a28;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Noto Sans JP', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── 背景グリッド ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(232,255,71,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(232,255,71,.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── グローオーブ ── */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+      z-index: 0;
+      animation: drift 14s ease-in-out infinite alternate;
+    }
+    .orb-1 { width: 500px; height: 500px; background: rgba(232,255,71,.08); top: -120px; right: -100px; }
+    .orb-2 { width: 400px; height: 400px; background: rgba(71,197,255,.07); bottom: -80px; left: -60px; animation-delay: -6s; }
+
+    @keyframes drift {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(20px, 30px) scale(1.05); }
+    }
+
+    /* ── レイアウト ── */
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 64px 24px 96px;
+    }
+
+    /* ── ヘッダー ── */
+    header {
+      margin-bottom: 56px;
+      animation: fadeUp .7s ease both;
+    }
+    .eyebrow {
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .eyebrow::after {
+      content: '';
+      flex: 1;
+      max-width: 64px;
+      height: 1px;
+      background: var(--accent);
+      opacity: .4;
+    }
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -.02em;
+      color: #fff;
+    }
+    h1 span { color: var(--accent); }
+    .subtitle {
+      margin-top: 14px;
+      font-size: .92rem;
+      color: var(--muted);
+      font-weight: 300;
+      letter-spacing: .01em;
+    }
+
+    /* ── ツールバー ── */
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+      animation: fadeUp .7s .15s ease both;
+    }
+    .search-wrap {
+      flex: 1;
+      min-width: 200px;
+      position: relative;
+    }
+    .search-wrap svg {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      pointer-events: none;
+    }
+    #search {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 11px 14px 11px 42px;
+      color: var(--text);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: .88rem;
+      outline: none;
+      transition: border-color .25s;
+    }
+    #search:focus { border-color: var(--accent); }
+    #search::placeholder { color: var(--muted); }
+
+    .badge {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: .82rem;
+      color: var(--muted);
+      white-space: nowrap;
+      font-family: 'Syne', sans-serif;
+    }
+    .badge strong { color: var(--accent); }
+
+    .refresh-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 14px;
+      color: var(--muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .82rem;
+      font-family: 'Syne', sans-serif;
+      transition: border-color .2s, color .2s;
+    }
+    .refresh-btn:hover { border-color: var(--accent2); color: var(--accent2); }
+    .refresh-btn svg { transition: transform .6s; }
+    .refresh-btn.spinning svg { animation: spin .7s linear; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── ファイルリスト ── */
+    #file-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      animation: fadeUp .7s .25s ease both;
+    }
+
+    .file-item {
+      opacity: 0;
+      transform: translateY(10px);
+      animation: slideIn .4s ease forwards;
+    }
+
+    @keyframes slideIn {
+      to { opacity: 1; transform: none; }
+    }
+
+    .file-item a {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 22px;
+      text-decoration: none;
+      color: var(--text);
+      transition: background .2s, border-color .2s, transform .2s, box-shadow .2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .file-item a::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(232,255,71,.04));
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .file-item a:hover {
+      background: var(--card-hover);
+      border-color: rgba(232,255,71,.3);
+      transform: translateX(4px);
+      box-shadow: -4px 0 0 var(--accent), 0 8px 32px rgba(0,0,0,.3);
+    }
+    .file-item a:hover::before { opacity: 1; }
+
+    .file-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(232,255,71,.08);
+      border: 1px solid rgba(232,255,71,.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 18px;
+      transition: background .2s;
+    }
+    .file-item a:hover .file-icon {
+      background: rgba(232,255,71,.16);
+    }
+
+    .file-info { flex: 1; min-width: 0; }
+    .file-name {
+      font-family: 'Syne', sans-serif;
+      font-size: .97rem;
+      font-weight: 700;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .file-url {
+      font-size: .74rem;
+      color: var(--muted);
+      margin-top: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .arrow-icon {
+      color: var(--muted);
+      flex-shrink: 0;
+      transition: color .2s, transform .2s;
+    }
+    .file-item a:hover .arrow-icon {
+      color: var(--accent);
+      transform: translateX(4px);
+    }
+
+    /* ── ステート ── */
+    #status {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--muted);
+      font-size: .9rem;
+      animation: fadeUp .5s ease both;
+    }
+    .loader {
+      width: 36px;
+      height: 36px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+      margin: 0 auto 18px;
+    }
+    .error-icon { font-size: 2.5rem; margin-bottom: 12px; }
+    .no-files-icon { font-size: 2.5rem; margin-bottom: 12px; }
+    #status p { margin-top: 6px; font-size: .82rem; }
+
+    /* ── フッター ── */
+    footer {
+      margin-top: 64px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: .78rem;
+      color: var(--muted);
+      animation: fadeUp .7s .35s ease both;
+    }
+    footer a { color: var(--accent2); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    .last-updated { font-family: 'Syne', sans-serif; letter-spacing: .05em; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    @media (max-width: 500px) {
+      .file-url { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+
+<div class="wrapper">
+
+  <header>
+    <div class="eyebrow">tonydandyj.github.io / sayhi</div>
+    <h1>Say <span>Hi</span></h1>
+    <p class="subtitle">同階層のHTMLファイルを自動取得して表示します。</p>
+  </header>
+
+  <div class="toolbar">
+    <div class="search-wrap">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input id="search" type="search" placeholder="ファイル名を検索…" />
+    </div>
+    <div class="badge" id="count-badge">— files</div>
+    <button class="refresh-btn" id="refresh-btn" title="再読み込み">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+        <path d="M21 3v5h-5"/>
+        <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+        <path d="M3 21v-5h5"/>
+      </svg>
+      更新
+    </button>
+  </div>
+
+  <ul id="file-list" aria-label="HTMLファイル一覧"></ul>
+  <div id="status">
+    <div class="loader"></div>
+    <strong>ファイルを取得中…</strong>
+    <p>GitHub API に接続しています</p>
+  </div>
+
+  <footer>
+    <span>© 2025 tonydandyj — Say Hi</span>
+    <span class="last-updated" id="last-updated"></span>
+  </footer>
+
+</div>
+
+<script>
+  // ── 設定 ──────────────────────────────────────────────
+  const REPO_OWNER  = 'tonydandyj';
+  const REPO_NAME   = 'sayhi';
+  const BRANCH      = 'main';          // 必要に応じて変更
+  const BASE_URL    = `https://${REPO_OWNER}.github.io/${REPO_NAME}/`;
+  const API_URL     = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/?ref=${BRANCH}`;
+
+  // ── 要素 ──────────────────────────────────────────────
+  const fileList   = document.getElementById('file-list');
+  const status     = document.getElementById('status');
+  const searchBox  = document.getElementById('search');
+  const countBadge = document.getElementById('count-badge');
+  const refreshBtn = document.getElementById('refresh-btn');
+  const lastUpdated= document.getElementById('last-updated');
+
+  let allFiles = [];   // キャッシュ
+
+  // ── ファイル取得 ───────────────────────────────────────
+  async function fetchFiles() {
+    showLoading();
+    try {
+      const res = await fetch(API_URL, {
+        headers: { 'Accept': 'application/vnd.github.v3+json' }
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const items = await res.json();
+      allFiles = items
+        .filter(f => f.type === 'file' && f.name.toLowerCase().endsWith('.html') && f.name !== 'index.html')
+        .sort((a, b) => a.name.localeCompare(b.name));
+      renderList(allFiles);
+      updateMeta();
+    } catch (err) {
+      showError(err.message);
+    }
+  }
+
+  // ── 描画 ──────────────────────────────────────────────
+  function renderList(files) {
+    fileList.innerHTML = '';
+    status.hidden = true;
+
+    if (!files.length) {
+      status.hidden = false;
+      status.innerHTML = `<div class="no-files-icon">📂</div><strong>ファイルが見つかりません</strong><p>HTMLファイルを追加するとここに表示されます。</p>`;
+      return;
+    }
+
+    files.forEach((file, i) => {
+      const url  = BASE_URL + file.name;
+      const li   = document.createElement('li');
+      li.className = 'file-item';
+      li.style.animationDelay = `${i * 45}ms`;
+      li.innerHTML = `
+        <a href="${url}" target="_blank" rel="noopener noreferrer">
+          <div class="file-icon">📄</div>
+          <div class="file-info">
+            <div class="file-name">${escHtml(file.name)}</div>
+            <div class="file-url">${url}</div>
+          </div>
+          <svg class="arrow-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>`;
+      fileList.appendChild(li);
+    });
+  }
+
+  // ── 検索フィルタ ───────────────────────────────────────
+  searchBox.addEventListener('input', () => {
+    const q = searchBox.value.trim().toLowerCase();
+    const filtered = allFiles.filter(f => f.name.toLowerCase().includes(q));
+    renderList(filtered);
+    countBadge.innerHTML = `<strong>${filtered.length}</strong> / ${allFiles.length} files`;
+  });
+
+  // ── 更新ボタン ─────────────────────────────────────────
+  refreshBtn.addEventListener('click', () => {
+    refreshBtn.classList.add('spinning');
+    searchBox.value = '';
+    fetchFiles().finally(() => setTimeout(() => refreshBtn.classList.remove('spinning'), 700));
+  });
+
+  // ── UI ヘルパー ────────────────────────────────────────
+  function showLoading() {
+    fileList.innerHTML = '';
+    status.hidden = false;
+    status.innerHTML = `<div class="loader"></div><strong>ファイルを取得中…</strong><p>GitHub API に接続しています</p>`;
+  }
+
+  function showError(msg) {
+    status.hidden = false;
+    status.innerHTML = `<div class="error-icon">⚠️</div><strong>取得に失敗しました</strong><p>${escHtml(msg)}</p>`;
+  }
+
+  function updateMeta() {
+    countBadge.innerHTML = `<strong>${allFiles.length}</strong> files`;
+    const now = new Date();
+    lastUpdated.textContent = `更新: ${now.toLocaleTimeString('ja-JP')}`;
+  }
+
+  function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // ── 初期ロード ─────────────────────────────────────────
+  fetchFiles();
+</script>
+</body>
+</html>
