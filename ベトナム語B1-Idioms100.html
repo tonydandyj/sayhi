@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ベトナム語フラッシュカード B1</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:#0d1117;color:#e6edf3;min-height:100vh}
+body::before{content:'';position:fixed;inset:0;background:linear-gradient(rgba(0,229,160,.03)1px,transparent 1px)0 0/40px 40px,linear-gradient(90deg,rgba(0,229,160,.03)1px,transparent 1px)0 0/40px 40px;pointer-events:none}
+.app{max-width:760px;margin:0 auto;padding:20px 16px 48px;position:relative;z-index:1}
+h1{text-align:center;font-size:clamp(18px,4vw,26px);font-weight:800;background:linear-gradient(135deg,#00e5a0,#4fc3f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:4px}
+.sub{text-align:center;color:#8b949e;font-size:11px;letter-spacing:2px;text-transform:uppercase;margin-bottom:22px}
+.row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
+.mbtn{padding:8px 18px;border-radius:100px;border:1px solid #30363d;background:#161b22;color:#8b949e;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
+.mbtn.on{border-color:#00e5a0;background:rgba(0,229,160,.15);color:#00e5a0}
+.chip{padding:5px 12px;border-radius:100px;border:1px solid #30363d;background:transparent;color:#8b949e;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
+.chip.on{border-color:#4fc3f7;background:rgba(79,195,247,.1);color:#4fc3f7}
+.sbar{display:flex;justify-content:center;gap:28px;margin-bottom:16px}
+.sn{font-size:22px;font-weight:700;line-height:1;text-align:center}
+.sl{font-size:10px;color:#8b949e;text-transform:uppercase;letter-spacing:1.5px;margin-top:2px;text-align:center}
+.pw{background:#30363d;border-radius:100px;height:4px;margin-bottom:22px;overflow:hidden}
+.pf{height:100%;background:linear-gradient(90deg,#00e5a0,#4fc3f7);border-radius:100px;transition:width .4s;box-shadow:0 0 8px rgba(0,229,160,.5)}
+.ca{perspective:1200px;margin-bottom:16px;cursor:pointer}
+.ci{position:relative;width:100%;padding-top:min(52%,380px);transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,0,.2,1)}
+.ci.fl{transform:rotateY(180deg)}
+.cf{position:absolute;inset:0;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 24px;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:1px solid #30363d}
+.cfr{background:linear-gradient(145deg,#1a2332,#0f1923)}
+.cbk{background:linear-gradient(145deg,#1a2d1f,#0f1a0f);transform:rotateY(180deg)}
+.ctag{position:absolute;top:14px;left:18px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:3px 9px;border-radius:100px}
+.tjp{background:rgba(255,107,107,.15);color:#ff6b6b;border:1px solid rgba(255,107,107,.3)}
+.tvn{background:rgba(0,229,160,.15);color:#00e5a0;border:1px solid rgba(0,229,160,.3)}
+.cnum{position:absolute;top:14px;right:18px;font-size:11px;color:#8b949e}
+.csec{font-size:10px;color:#8b949e;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;text-align:center}
+.cm{font-size:clamp(17px,3.2vw,26px);font-weight:700;text-align:center;line-height:1.3;margin-bottom:8px}
+.cs{font-size:clamp(12px,1.8vw,15px);color:#8b949e;text-align:center;font-weight:300;line-height:1.5}
+.chint{position:absolute;bottom:12px;font-size:11px;color:#8b949e;opacity:.5}
+.az{display:flex;align-items:center;gap:10px;margin-top:12px;padding:7px 14px;background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.2);border-radius:100px;cursor:pointer}
+.pb{width:32px;height:32px;border-radius:50%;background:#00e5a0;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s}
+.pb.spk{background:#4fc3f7}
+.aw{display:flex;gap:3px;align-items:center;height:18px}
+.aw span{display:block;width:3px;background:#00e5a0;border-radius:2px;height:4px}
+.aw.on span{animation:wb .8s ease-in-out infinite}
+.aw.on span:nth-child(2){animation-delay:.1s}
+.aw.on span:nth-child(3){animation-delay:.2s}
+.aw.on span:nth-child(4){animation-delay:.3s}
+.aw.on span:nth-child(5){animation-delay:.15s}
+@keyframes wb{0%,100%{height:4px}50%{height:16px}}
+.al{font-size:11px;color:#00e5a0;font-weight:600}
+.acts{display:flex;gap:10px;justify-content:center;margin-bottom:14px}
+.ab{flex:1;max-width:160px;padding:12px 16px;border-radius:14px;border:1px solid #30363d;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
+.bw{background:rgba(255,107,107,.1);color:#ff6b6b;border-color:rgba(255,107,107,.3)}
+.bc{background:rgba(0,229,160,.1);color:#00e5a0;border-color:rgba(0,229,160,.3)}
+.bf{background:rgba(79,195,247,.1);color:#4fc3f7;border-color:rgba(79,195,247,.3);max-width:200px}
+.nr{display:flex;gap:8px;justify-content:center}
+.nb{padding:8px 16px;border-radius:10px;border:1px solid #30363d;background:#161b22;color:#8b949e;font-size:13px;cursor:pointer;font-family:inherit}
+.nb.sh{border-color:rgba(255,215,0,.3);background:rgba(255,215,0,.05);color:#ffd700}
+.rf{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;font-size:80px;pointer-events:none;z-index:100;opacity:0}
+.rf.show{animation:fs .6s ease-out forwards}
+@keyframes fs{0%{opacity:1;transform:scale(.5)}50%{opacity:1;transform:scale(1.3)}100%{opacity:0;transform:scale(1.5)}}
+.done{text-align:center;padding:40px 20px}
+.done h2{font-size:26px;font-weight:800;background:linear-gradient(135deg,#ffd700,#00e5a0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px}
+.scd{display:flex;justify-content:center;gap:28px;margin-bottom:28px}
+.scb{font-size:44px;font-weight:800;line-height:1}
+.scl{font-size:11px;color:#8b949e;margin-top:4px;text-transform:uppercase;letter-spacing:1.5px}
+.rbtn{padding:13px 32px;border-radius:100px;border:none;background:linear-gradient(135deg,#00e5a0,#4fc3f7);color:#000;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer}
+.hide{display:none}
+@media(max-width:480px){.acts{flex-wrap:wrap}.ab{max-width:100%}}
+</style>
+</head>
+<body>
+<div class="rf" id="rf"></div>
+<div class="app">
+  <h1>&#x1F1FB;&#x1F1F3; ベトナム語フラッシュカード &#x1F1EF;&#x1F1F5;</h1>
+  <p class="sub">B1 Level &middot; Idioms &amp; Set Phrases</p>
+  <div class="row" id="modeRow">
+    <button class="mbtn on" onclick="setMode('jp2vn')">&#x1F1EF;&#x1F1F5;&rarr;&#x1F1FB;&#x1F1F3; 日本語&rarr;ベトナム語</button>
+    <button class="mbtn" onclick="setMode('vn2jp')">&#x1F1FB;&#x1F1F3;&rarr;&#x1F1EF;&#x1F1F5; ベトナム語&rarr;日本語</button>
+  </div>
+  <div class="row" id="filtRow">
+    <button class="chip on" onclick="setF('all',this)">すべて</button>
+    <button class="chip" onclick="setF(0,this)">動詞＋前置詞</button>
+    <button class="chip" onclick="setF(1,this)">形容詞＋前置詞</button>
+    <button class="chip" onclick="setF(2,this)">慣用表現</button>
+  </div>
+  <div class="sbar">
+    <div><div class="sn" style="color:#00e5a0" id="sc">0</div><div class="sl">正解 ✓</div></div>
+    <div><div class="sn" style="color:#ff6b6b" id="sw">0</div><div class="sl">不正解 ✗</div></div>
+    <div><div class="sn" style="color:#4fc3f7" id="sr">0</div><div class="sl">残り</div></div>
+  </div>
+  <div class="pw"><div class="pf" id="pf" style="width:0%"></div></div>
+
+  <div id="cardArea">
+    <div class="ca" id="ca" onclick="flip()">
+      <div class="ci" id="ci">
+        <div class="cf cfr">
+          <span class="ctag tjp" id="ftag">日本語</span>
+          <span class="cnum" id="cnum">1/1</span>
+          <div class="csec" id="fsec"></div>
+          <div class="cm" style="color:#e6edf3" id="fm"></div>
+          <div class="cs" id="fs"></div>
+          <div class="chint">タップして裏返す</div>
+        </div>
+        <div class="cf cbk">
+          <span class="ctag tvn" id="btag">ベトナム語</span>
+          <div class="csec" id="bsec"></div>
+          <div class="cm" style="color:#00e5a0" id="bm"></div>
+          <div class="cs" id="bs"></div>
+          <div class="az" id="az" onclick="event.stopPropagation();spk()">
+            <button class="pb" id="pb">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="#000"><polygon points="5,3 19,12 5,21"/></svg>
+            </button>
+            <div class="aw" id="aw">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <span class="al" id="al">フレーズ＋例文を聴く</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="acts hide" id="ar">
+      <button class="ab bw" onclick="ans(false)">✗ もう少し</button>
+      <button class="ab bc" onclick="ans(true)">✓ わかった！</button>
+    </div>
+    <div class="acts" id="fr">
+      <button class="ab bf" onclick="flip()">&#x1F504; 答えを見る</button>
+    </div>
+    <div class="nr">
+      <button class="nb" onclick="prev()">&larr; 前へ</button>
+      <button class="nb sh" onclick="doShuffle()">&#x1F500; シャッフル</button>
+      <button class="nb" onclick="next()">次へ &rarr;</button>
+    </div>
+  </div>
+
+  <div class="done hide" id="doneArea">
+    <div style="font-size:72px;margin-bottom:12px">&#x1F3C6;</div>
+    <h2>コンプリート！</h2>
+    <p style="color:#8b949e;margin-bottom:28px;font-size:14px">すべてのカードを学習しました！</p>
+    <div class="scd">
+      <div><div class="scb" style="color:#00e5a0" id="fc">0</div><div class="scl">正解</div></div>
+      <div><div class="scb" style="color:#ff6b6b" id="fw">0</div><div class="scl">不正解</div></div>
+    </div>
+    <button class="rbtn" onclick="restart()">もう一度 &#x1F501;</button>
+  </div>
+</div>
+
+<script>
+const D=[[0,"tham gia vào","〜に参加する","Tôi muốn tham gia vào câu lạc bộ tiếng Nhật.","私は日本語クラブに参加したい。"],[0,"phụ thuộc vào","〜に依存する","Thành công phụ thuộc vào sự cố gắng của bạn.","成功はあなたの努力にかかっている。"],[0,"đồng ý với","〜に同意する","Tôi hoàn toàn đồng ý với ý kiến của anh.","私はあなたの意見に完全に同意します。"],[0,"không đồng ý với","〜に反対する","Cô ấy không đồng ý với kế hoạch đó.","彼女はその計画に反対した。"],[0,"quyết định + V","〜することを決める","Anh ấy quyết định học tiếng Việt.","彼はベトナム語を学ぶことを決めた。"],[0,"cố gắng + V","〜しようと努力する","Cô ấy cố gắng hoàn thành bài tập đúng hạn.","彼女は期限通りに課題を終えようと頑張った。"],[0,"tiếp tục + V","〜し続ける","Chúng tôi tiếp tục thảo luận đến tối.","私たちは夜まで議論し続けた。"],[0,"bắt đầu + V","〜し始める","Trời bắt đầu mưa lúc 3 giờ chiều.","午後3時から雨が降り始めた。"],[0,"ngừng + V","〜するのをやめる","Anh ấy ngừng hút thuốc từ năm ngoái.","彼は去年からタバコをやめた。"],[0,"quên + V","〜するのを忘れる","Tôi quên mang ô khi ra ngoài.","外出するとき傘を持っていくのを忘れた。"],[0,"nhớ + V","〜するのを覚えている","Nhớ gọi điện cho mẹ nhé!","お母さんに電話することを忘れずに！"],[0,"học cách + V","〜する方法を学ぶ","Tôi đang học cách nấu phở.","私はフォーの作り方を学んでいる。"],[0,"có khả năng + V","〜する能力がある","Chị ấy có khả năng nói năm thứ tiếng.","彼女は5か国語を話す能力がある。"],[0,"có cơ hội + V","〜する機会がある","Tôi có cơ hội đi du lịch Nhật Bản.","私は日本へ旅行する機会がある。"],[0,"có thói quen + V","〜する習慣がある","Anh ấy có thói quen dậy sớm mỗi sáng.","彼は毎朝早起きする習慣がある。"],[0,"mất thời gian + V","〜するのに時間がかかる","Việc này mất thời gian để hoàn thành.","この作業を完成させるのに時間がかかる。"],[0,"dành thời gian + V","〜するために時間を使う","Cô ấy dành thời gian đọc sách mỗi ngày.","彼女は毎日読書のために時間を使う。"],[0,"dành thời gian cho","〜のために時間を割く","Anh nên dành thời gian cho gia đình.","家族のために時間を割くべきです。"],[0,"tốn tiền vào","〜にお金を使う","Anh ấy tốn nhiều tiền vào việc mua sách.","彼は本の購入にたくさんのお金を使う。"],[0,"tiết kiệm tiền cho","〜のためにお金を貯める","Tôi đang tiết kiệm tiền cho chuyến du lịch.","旅行のためにお金を貯めている。"],[0,"chú ý đến","〜に注意を払う","Hãy chú ý đến cách phát âm của từng từ.","一つ一つの単語の発音に注意を払ってください。"],[0,"quan tâm đến","〜に関心を持つ・気にかける","Anh ấy luôn quan tâm đến sức khỏe của bố mẹ.","彼はいつも両親の健康を気にかけている。"],[0,"lo lắng về","〜について心配する","Mẹ tôi lo lắng về sức khỏe của tôi.","母は私の健康を心配している。"],[0,"phàn nàn về","〜について不満を言う","Khách hàng phàn nàn về dịch vụ chậm trễ.","顧客はサービスの遅れについて不満を言った。"],[0,"nói chuyện về","〜について話す","Chúng tôi nói chuyện về kế hoạch tương lai.","私たちは将来の計画について話した。"],[0,"thảo luận về","〜について議論する","Nhóm chúng tôi thảo luận về vấn đề môi trường.","私たちのグループは環境問題について議論した。"],[0,"hỏi về","〜について尋ねる","Anh ấy hỏi về lịch làm việc của tuần tới.","彼は来週の勤務スケジュールについて尋ねた。"],[0,"biết về","〜について知っている","Bạn có biết về văn hóa Nhật Bản không?","日本文化について知っていますか？"],[0,"hiểu về","〜について理解する","Tôi bắt đầu hiểu về phong tục Việt Nam.","ベトナムの習慣について理解し始めた。"],[0,"nghe nói về","〜について聞いたことがある","Tôi đã nghe nói về nhà hàng nổi tiếng đó.","その有名なレストランについて聞いたことがある。"],[0,"nghĩ về","〜について考える・思う","Tôi thường nghĩ về những ngày còn nhỏ.","私はよく子供の頃のことを思う。"],[0,"mong đợi","〜を期待する・楽しみにする","Tôi rất mong đợi buổi gặp mặt ngày mai.","明日の集まりをとても楽しみにしている。"],[0,"hy vọng + V","〜することを望む","Tôi hy vọng được gặp lại bạn sớm.","またすぐ会えることを望んでいる。"],[0,"sợ","〜を恐れる・怖がる","Cô bé sợ bóng tối và không ngủ được.","女の子は暗闇が怖くて眠れなかった。"],[0,"thích","〜が好きだ","Tôi thích ăn phở hơn bún bò.","私はブンボーよりフォーが好きだ。"],[0,"ghét","〜が嫌いだ","Anh ấy ghét đi trễ và luôn đến đúng giờ.","彼は遅刻が嫌いで、いつも時間通りに来る。"],[0,"quen với","〜に慣れている","Tôi đã quen với khí hậu nóng ở Hà Nội.","ハノイの暑い気候に慣れた。"],[0,"làm quen với","〜に慣れる・知り合いになる","Tôi cần thời gian để làm quen với công việc mới.","新しい仕事に慣れるのに時間が必要だ。"],[0,"đối phó với","〜に対処する","Cô ấy biết cách đối phó với áp lực công việc.","彼女は仕事のプレッシャーへの対処法を知っている。"],[0,"đối mặt với","〜に直面する","Chúng ta phải đối mặt với những thách thức mới.","私たちは新しい課題に直面しなければならない。"],[0,"so sánh với","〜と比較する","Đừng nên so sánh bản thân với người khác.","自分を他人と比較すべきではない。"],[0,"khác với","〜と異なる","Văn hóa Việt Nam khác với văn hóa Nhật Bản.","ベトナム文化は日本文化と異なる。"],[0,"giống với / giống như","〜と似ている","Tính cách của anh ấy giống như cha anh ấy.","彼の性格はお父さんに似ている。"],[0,"liên lạc với","〜と連絡をとる","Tôi thường xuyên liên lạc với bạn bè qua mạng.","私はよくSNSで友人と連絡をとる。"],[0,"hợp tác với","〜と協力する","Hai công ty quyết định hợp tác với nhau.","2つの会社は互いに協力することを決めた。"],[0,"cạnh tranh với","〜と競争する","Công ty chúng tôi cạnh tranh với các hãng lớn.","私たちの会社は大手メーカーと競争している。"],[1,"hài lòng với","〜に満足している","Tôi rất hài lòng với kết quả công việc.","仕事の結果にとても満足している。"],[1,"thất vọng với/về","〜にがっかりしている","Anh ấy thất vọng về điểm thi của mình.","彼は自分の試験の点数にがっかりした。"],[1,"tức giận với/về","〜に腹を立てている","Cô ấy tức giận vì bị hiểu nhầm.","彼女は誤解されたことに腹を立てた。"],[1,"vui mừng về","〜について喜んでいる","Gia đình vui mừng về tin tốt đó.","家族はその良い知らせを喜んだ。"],[1,"buồn về","〜について悲しんでいる","Cô ấy buồn về sự ra đi của người bạn thân.","彼女は親友の旅立ちを悲しんでいる。"],[1,"xấu hổ về","〜について恥ずかしがっている","Anh ấy xấu hổ về lỗi lầm của mình.","彼は自分の失敗を恥ずかしく思っている。"],[1,"tự hào về","〜について誇りに思う","Bố mẹ rất tự hào về thành tích của con.","両親は子供の成績を誇りに思っている。"],[1,"ngạc nhiên về/với","〜に驚いている","Tôi ngạc nhiên với sự tiến bộ nhanh của anh ấy.","彼の急速な上達に驚いた。"],[1,"chắc chắn về","〜について確信している","Tôi chắc chắn về quyết định của mình.","私は自分の決断に自信がある。"],[1,"không chắc về","〜について確信がない","Tôi không chắc về lịch bay của ngày mai.","明日のフライトスケジュールに確信がない。"],[1,"quan trọng đối với","〜にとって重要だ","Sức khỏe quan trọng đối với mọi người.","健康はすべての人にとって大切だ。"],[1,"có ích cho","〜に役立つ","Việc đọc sách có ích cho việc học ngoại ngữ.","読書は外国語学習に役立つ。"],[1,"có hại cho","〜に有害だ","Hút thuốc có hại cho sức khỏe.","喫煙は健康に有害だ。"],[1,"tốt cho","〜に良い","Ngủ đủ giấc rất tốt cho não bộ.","十分な睡眠は脳に良い。"],[1,"sẵn sàng + V","〜する準備ができている","Chúng tôi sẵn sàng bắt đầu cuộc họp.","私たちは会議を始める準備ができている。"],[1,"bận + V","〜するのに忙しい","Chị ấy đang bận chuẩn bị cho kỳ thi.","彼女は試験の準備で忙しい。"],[1,"khó + V","〜するのが難しい","Tiếng Việt khó phát âm đối với người Nhật.","ベトナム語は日本人にとって発音が難しい。"],[1,"dễ + V","〜するのが易しい","Món này dễ nấu nếu có đủ nguyên liệu.","材料が揃えばこの料理は作りやすい。"],[1,"thích hợp với","〜に適している","Công việc này thích hợp với người cẩn thận.","この仕事は丁寧な人に向いている。"],[1,"phù hợp với","〜に合っている・適合する","Cách dạy đó phù hợp với trẻ em nhỏ tuổi.","その教え方は幼い子供に合っている。"],[2,"đưa ra quyết định","決断を下す","Giám đốc đưa ra quyết định vào buổi sáng.","部長は午前中に決断を下した。"],[2,"đưa ra ý kiến","意見を述べる","Mỗi người đều đưa ra ý kiến trong cuộc họp.","会議では全員が意見を述べた。"],[2,"đưa ra lời khuyên","アドバイスをする","Bác sĩ đưa ra lời khuyên về chế độ ăn uống.","医師は食事についてアドバイスをした。"],[2,"đặt câu hỏi","質問を出す","Học sinh đặt câu hỏi cho giáo viên sau giờ học.","生徒は授業後に先生に質問した。"],[2,"đặt mục tiêu","目標を設定する","Bạn nên đặt mục tiêu rõ ràng cho bản thân.","自分自身に明確な目標を設定すべきだ。"],[2,"giải quyết vấn đề","問題を解決する","Nhóm đã nhanh chóng giải quyết vấn đề kỹ thuật.","チームは技術的な問題を素早く解決した。"],[2,"gặp khó khăn","困難に遭遇する","Anh ấy gặp khó khăn khi sống một mình ở nước ngoài.","彼は海外での一人暮らしで困難に遭遇した。"],[2,"gặp vấn đề","問題に直面する","Dự án gặp vấn đề về ngân sách.","プロジェクトは予算の問題に直面した。"],[2,"có vấn đề với","〜に問題がある","Tôi có vấn đề với kết nối internet.","インターネット接続に問題がある。"],[2,"mắc lỗi","間違いを犯す","Ai cũng có thể mắc lỗi, quan trọng là học từ đó.","誰でも間違いを犯す、大切なのはそこから学ぶことだ。"],[2,"rút ra bài học","教訓を得る","Sau thất bại, tôi rút ra được nhiều bài học.","失敗の後、多くの教訓を得た。"],[2,"tích lũy kinh nghiệm","経験を積む","Làm việc thực tế giúp bạn tích lũy kinh nghiệm.","実際の仕事で経験を積める。"],[2,"nâng cao kỹ năng","スキルを向上させる","Tôi tham gia khóa học để nâng cao kỹ năng giao tiếp.","コミュニケーション能力を高めるために講座に参加した。"],[2,"trau dồi kiến thức","知識を磨く","Đọc sách là cách tốt để trau dồi kiến thức.","読書は知識を磨く良い方法だ。"],[2,"mở rộng vốn từ","語彙を広げる","Xem phim giúp tôi mở rộng vốn từ tiếng Anh.","映画を見ることで英語の語彙が広がった。"],[2,"đạt được mục tiêu","目標を達成する","Cô ấy đã đạt được mục tiêu trở thành bác sĩ.","彼女は医師になるという目標を達成した。"],[2,"hoàn thành nhiệm vụ","任務を完了する","Đội đã hoàn thành nhiệm vụ trước thời hạn.","チームは期限前に任務を完了した。"],[2,"chịu trách nhiệm về","〜に責任を負う","Người quản lý phải chịu trách nhiệm về kết quả.","管理者は結果に責任を負わなければならない。"],[2,"đóng góp cho","〜に貢献する","Tình nguyện viên đóng góp cho cộng đồng địa phương.","ボランティアは地域コミュニティに貢献する。"],[2,"tham khảo ý kiến của","〜の意見を参考にする","Tôi cần tham khảo ý kiến của chuyên gia.","専門家の意見を参考にする必要がある。"],[2,"thay đổi ý kiến","意見を変える","Sau khi nghe giải thích, anh ấy thay đổi ý kiến.","説明を聞いた後、彼は意見を変えた。"],[2,"lên kế hoạch cho","〜の計画を立てる","Chúng tôi lên kế hoạch cho chuyến đi cuối tuần.","週末の旅行の計画を立てた。"],[2,"chuẩn bị cho","〜のために準備する","Tôi đang chuẩn bị cho kỳ thi tiếng Việt.","ベトナム語の試験のために準備している。"],[2,"phụ trách","〜を担当する","Chị ấy phụ trách bộ phận marketing.","彼女はマーケティング部門を担当している。"],[2,"dựa vào / dựa trên","〜に基づく・頼る","Quyết định này dựa trên dữ liệu thực tế.","この決定は実際のデータに基づいている。"],[2,"dẫn đến","〜につながる・引き起こす","Thiếu ngủ có thể dẫn đến nhiều vấn đề sức khỏe.","睡眠不足は多くの健康問題につながる。"],[2,"bao gồm","〜を含む","Giá vé bao gồm bữa sáng và bữa tối.","料金には朝食と夕食が含まれる。"],[2,"liên quan đến","〜に関係している","Vấn đề này liên quan đến nhiều phòng ban.","この問題は複数の部門に関係している。"],[2,"ảnh hưởng đến","〜に影響を与える","Thời tiết xấu ảnh hưởng đến tâm trạng của tôi.","悪天候は私の気分に影響を与える。"],[2,"bị ảnh hưởng bởi","〜の影響を受ける","Mùa màng bị ảnh hưởng bởi hạn hán năm nay.","今年の農作物は干ばつの影響を受けた。"],[2,"được làm từ / bằng","〜から作られている","Chiếc túi này được làm từ da thật.","このバッグは本革で作られている。"],[2,"được biết đến như","〜として知られている","Hội An được biết đến như phố cổ đẹp nhất.","ホイアンは最も美しい古い街として知られている。"],[2,"được coi là","〜とみなされている","Anh ấy được coi là chuyên gia trong lĩnh vực này.","彼はこの分野の専門家とみなされている。"],[2,"được gọi là","〜と呼ばれている","Con đường này được gọi là phố ẩm thực.","この通りはグルメストリートと呼ばれている。"]];
+const SN=["動詞＋前置詞型","形容詞＋前置詞型","慣用表現・複合動詞型"];
+
+// Microsoft An (vi-VN) on Windows Chrome/Edge drops the first WORD of each utterance.
+// Fix: prepend "ừ, " as a sacrifice word inside the same utterance text.
+// Comma creates a natural pause so the sacrifice is phonetically isolated.
+// Other environments (iPhone, Android, Mac): pass text unchanged.
+const isWC = /Windows/.test(navigator.userAgent) && /Chrome|Edg/.test(navigator.userAgent);
+const sw = (t) => isWC ? "ừ, " + t : t;
+
+let mode='jp2vn', filt='all', deck=[], idx=0, cor=0, wrg=0, flipped=false, spoken=false;
+
+function stopTTS(){
+  if(window.speechSynthesis) window.speechSynthesis.cancel();
+  document.getElementById('aw').classList.remove('on');
+  document.getElementById('pb').classList.remove('spk');
+  document.getElementById('al').textContent='フレーズ＋例文を聴く';
+}
+
+function spkTexts(arr, step){
+  if(step>=arr.length){stopTTS();return;}
+  const labels=['① フレーズ読み上げ中…','② 例文読み上げ中…'];
+  document.getElementById('al').textContent = labels[step]||'';
+  document.getElementById('aw').classList.add('on');
+  document.getElementById('pb').classList.add('spk');
+  const u = new SpeechSynthesisUtterance(sw(arr[step].t));
+  u.lang='vi-VN'; u.rate=arr[step].r||0.82; u.pitch=1.0;
+  u.onend = () => setTimeout(()=>spkTexts(arr, step+1), step<arr.length-1?550:0);
+  u.onerror = () => stopTTS();
+  window.speechSynthesis.speak(u);
+}
+
+function spk(){
+  const c=deck[idx];
+  const ph=c[1].replace(/[～〜]/g,'').replace(/\+\s*[VN]/g,'').trim();
+  window.speechSynthesis.cancel();
+  setTimeout(()=>spkTexts([{t:ph,r:0.80},{t:c[3],r:0.82}],0), 50);
+}
+
+function setMode(m){
+  mode=m;
+  document.querySelectorAll('#modeRow .mbtn').forEach((b,i)=>b.classList.toggle('on',(i===0&&m==='jp2vn')||(i===1&&m==='vn2jp')));
+  restart();
+}
+function setF(f,el){
+  filt=f;
+  document.querySelectorAll('#filtRow .chip').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');
+  restart();
+}
+function buildDeck(){return filt==='all'?[...D]:D.filter(c=>c[0]===filt);}
+function doShuffle(){
+  stopTTS();
+  for(let i=deck.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[deck[i],deck[j]]=[deck[j],deck[i]];}
+  idx=0;cor=0;wrg=0;showCard();upd();flash('🔀');
+}
+function restart(){
+  stopTTS();deck=buildDeck();idx=0;cor=0;wrg=0;flipped=false;
+  document.getElementById('doneArea').classList.add('hide');
+  document.getElementById('cardArea').classList.remove('hide');
+  showCard();upd();
+}
+function showCard(){
+  if(idx>=deck.length){finish();return;}
+  const c=deck[idx]; flipped=false; spoken=false; stopTTS();
+  document.getElementById('ci').classList.remove('fl');
+  const j2v=mode==='jp2vn';
+  document.getElementById('ftag').textContent=j2v?'日本語':'ベトナム語';
+  document.getElementById('ftag').className='ctag '+(j2v?'tjp':'tvn');
+  document.getElementById('fsec').textContent=SN[c[0]];
+  document.getElementById('fm').textContent=j2v?c[2]:c[1];
+  document.getElementById('fs').textContent=j2v?c[4]:c[3];
+  document.getElementById('btag').textContent=j2v?'ベトナム語':'日本語';
+  document.getElementById('btag').className='ctag '+(j2v?'tvn':'tjp');
+  document.getElementById('bsec').textContent=SN[c[0]];
+  document.getElementById('bm').textContent=j2v?c[1]:c[2];
+  document.getElementById('bs').textContent=j2v?c[3]:c[4];
+  document.getElementById('az').style.display=j2v?'flex':'none';
+  document.getElementById('cnum').textContent=(idx+1)+'/'+deck.length;
+  document.getElementById('ar').classList.add('hide');
+  document.getElementById('fr').classList.remove('hide');
+  upd();
+}
+function flip(){
+  if(flipped){
+    stopTTS();flipped=false;
+    document.getElementById('ci').classList.remove('fl');
+    document.getElementById('ar').classList.add('hide');
+    document.getElementById('fr').classList.remove('hide');
+    return;
+  }
+  flipped=true;
+  document.getElementById('ci').classList.add('fl');
+  document.getElementById('ar').classList.remove('hide');
+  document.getElementById('fr').classList.add('hide');
+  if(mode==='jp2vn'&&!spoken){spoken=true;setTimeout(spk,400);}
+}
+function ans(ok){
+  stopTTS();
+  if(ok){cor++;flash('✅');}
+  else{
+    wrg++;flash('❌');
+    const r=deck.length-idx-1;
+    if(r>0){const p=idx+1+Math.floor(Math.random()*r);deck.splice(p,0,deck.splice(idx,1)[0]);}
+  }
+  upd();setTimeout(()=>{idx++;showCard();},300);
+}
+function prev(){if(idx>0){stopTTS();idx--;showCard();}}
+function next(){if(idx<deck.length-1){stopTTS();idx++;showCard();}}
+function upd(){
+  document.getElementById('sc').textContent=cor;
+  document.getElementById('sw').textContent=wrg;
+  document.getElementById('sr').textContent=Math.max(0,deck.length-idx);
+  document.getElementById('pf').style.width=(deck.length>0?(idx/deck.length)*100:0)+'%';
+}
+function finish(){
+  stopTTS();
+  document.getElementById('cardArea').classList.add('hide');
+  document.getElementById('doneArea').classList.remove('hide');
+  document.getElementById('fc').textContent=cor;
+  document.getElementById('fw').textContent=wrg;
+  document.getElementById('pf').style.width='100%';
+  upd();
+}
+function flash(e){
+  const el=document.getElementById('rf');
+  el.textContent=e;el.classList.remove('show');
+  void el.offsetWidth;el.classList.add('show');
+}
+document.addEventListener('keydown',e=>{
+  if(e.key===' '||e.key==='Enter'){e.preventDefault();flip();}
+  else if(e.key==='ArrowRight'||e.key==='l'){if(flipped)ans(true);}
+  else if(e.key==='ArrowLeft'||e.key==='h'){if(flipped)ans(false);}
+  else if(e.key==='r'||e.key==='R'){if(flipped&&mode==='jp2vn')spk();}
+});
+restart();
+</script>
+</body>
+</html>
