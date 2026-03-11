@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中国語 B1 フラッシュカード</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600&family=Noto+Sans+SC:wght@300;400;700&family=ZCOOL+XiaoWei&display=swap');
+
+:root {
+  --ink:#1a1208; --paper:#faf7f1; --red:#c0392b; --red-light:#f5e6e4;
+  --gold:#b8941f; --gold-light:#f0e6c0; --green:#2d6a4f; --green-light:#d8ede4;
+  --bg:#eee8d8; --border:#d4c9a8; --shadow:rgba(0,0,0,.13);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Serif JP',serif;background:var(--bg);color:var(--ink);min-height:100vh;display:flex;flex-direction:column;align-items:center;}
+
+/* ── HEADER ── */
+header{width:100%;background:var(--ink);padding:16px 20px 14px;text-align:center;position:relative;overflow:hidden;}
+header::before{content:'語';position:absolute;left:-14px;top:-16px;font-size:130px;color:rgba(255,255,255,.03);font-family:'ZCOOL XiaoWei',serif;pointer-events:none;user-select:none;}
+header h1{font-family:'ZCOOL XiaoWei',serif;font-size:1.55rem;letter-spacing:.14em;color:var(--gold-light);}
+
+/* ── STATS BAR ── */
+.stats-bar{max-width:700px;width:100%;display:flex;align-items:center;gap:10px;padding:9px 16px;background:var(--bg);border-bottom:1px solid var(--border);flex-wrap:wrap;}
+.stat-inline{font-size:.78rem;color:#7a6e58;white-space:nowrap;}
+.stat-inline strong{font-family:'ZCOOL XiaoWei',serif;font-size:1rem;color:var(--ink);margin:0 1px;}
+.stat-inline.s-mem strong{color:var(--green);}
+.stat-inline.s-remain strong{color:var(--red);}
+.prog-wrap{flex:1;min-width:60px;height:6px;background:var(--border);border-radius:3px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--red));border-radius:3px;transition:width .4s ease;}
+.stat-pct{font-size:.78rem;font-family:'ZCOOL XiaoWei',serif;color:var(--gold);font-weight:700;white-space:nowrap;}
+
+/* ── LIST MODAL ── */
+.list-modal-overlay{position:fixed;inset:0;z-index:200;background:rgba(10,8,4,.72);display:none;align-items:center;justify-content:center;padding:16px;}
+.list-modal-overlay.show{display:flex;}
+.list-modal{background:var(--paper);border-radius:14px;width:100%;max-width:700px;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.4);}
+.list-modal-header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px 12px;background:linear-gradient(135deg,var(--ink) 0%,#2e2010 100%);flex-shrink:0;}
+.list-modal-header h2{font-family:'ZCOOL XiaoWei',serif;font-size:1.05rem;color:var(--gold-light);letter-spacing:.08em;}
+.list-modal-header h2 span{font-size:.75rem;color:var(--border);margin-left:8px;font-family:'Noto Serif JP',serif;letter-spacing:.04em;}
+.list-modal-search{padding:10px 14px;background:var(--bg);border-bottom:1px solid var(--border);flex-shrink:0;}
+.list-modal-search input{width:100%;padding:8px 12px;border-radius:8px;border:1.5px solid var(--border);background:#fff;color:var(--ink);font-size:.82rem;font-family:'Noto Serif JP',serif;outline:none;transition:border-color .18s;}
+.list-modal-search input:focus{border-color:var(--gold);}
+.list-modal-body{overflow-y:auto;flex:1;padding:6px 0 12px;}
+.list-cat-heading{position:sticky;top:0;background:var(--bg);padding:7px 16px 5px;font-size:.7rem;font-weight:700;color:var(--gold);letter-spacing:.1em;border-bottom:1px solid var(--border);z-index:1;}
+.list-row{display:grid;grid-template-columns:1fr 1fr;gap:2px 10px;padding:8px 16px;border-bottom:1px solid rgba(212,201,168,.4);cursor:pointer;transition:background .13s;}
+.list-row:hover{background:var(--gold-light);}
+.list-row-jp{font-size:.75rem;color:#7a6e58;}
+.list-row-ne{font-size:.85rem;color:var(--ink);font-family:'ZCOOL XiaoWei',serif;}
+.list-row-rom{grid-column:1/-1;font-size:.63rem;color:#a09070;margin-top:1px;letter-spacing:.03em;}
+.list-row.mastered-row{opacity:.4;}
+.list-close-btn{padding:6px 13px;border-radius:7px;border:1.5px solid rgba(212,201,168,.4);background:rgba(255,255,255,.1);color:var(--gold-light);font-size:.72rem;cursor:pointer;font-family:'Noto Serif JP',serif;transition:all .15s;white-space:nowrap;}
+.list-close-btn:hover{background:rgba(255,255,255,.2);}
+.list-no-result{text-align:center;padding:40px 16px;color:#a09070;font-size:.82rem;}
+
+/* ── MODE BAR ── */
+.mode-bar{max-width:700px;width:100%;display:flex;align-items:center;gap:7px;padding:10px 16px 8px;flex-wrap:wrap;background:var(--paper);border-bottom:1px solid var(--border);}
+.mode-toggle{display:flex;background:var(--ink);border-radius:8px;overflow:hidden;flex-shrink:0;}
+.mode-btn{padding:7px 11px;font-family:'Noto Serif JP',serif;font-size:.73rem;border:none;cursor:pointer;background:transparent;color:rgba(240,230,192,.5);transition:all .18s;}
+.mode-btn.active{background:var(--gold);color:var(--ink);font-weight:700;}
+.btn-top{padding:6px 11px;border-radius:7px;font-family:'Noto Serif JP',serif;font-size:.72rem;cursor:pointer;transition:all .18s;white-space:nowrap;border:1.5px solid var(--border);background:var(--paper);color:var(--ink);}
+.btn-top:hover{background:var(--border);}
+.btn-top.danger{border-color:var(--red);background:var(--red-light);color:var(--red);}
+.btn-top.danger:hover{background:var(--red);color:#fff;}
+
+/* ── CATEGORY SLIDER ── */
+.cat-slider-wrap{max-width:700px;width:100%;position:relative;padding:6px 16px 0;background:var(--paper);border-bottom:1px solid var(--border);}
+.cat-slider{display:flex;gap:7px;overflow-x:auto;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;padding:4px 0 10px;scrollbar-width:thin;scrollbar-color:var(--border) transparent;}
+.cat-slider::-webkit-scrollbar{height:3px;}
+.cat-slider::-webkit-scrollbar-track{background:transparent;}
+.cat-slider::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+.cat-pill{flex-shrink:0;padding:5px 13px;border-radius:20px;font-size:.71rem;cursor:pointer;font-family:'Noto Serif JP',serif;border:1.5px solid var(--border);background:transparent;color:#7a6e58;transition:all .15s;white-space:nowrap;}
+.cat-pill:hover:not(.active){border-color:var(--gold);color:var(--gold);}
+.cat-pill.active{background:var(--ink);color:var(--gold-light);border-color:var(--ink);}
+.cat-slider-wrap::after{content:'';position:absolute;right:0;top:0;bottom:0;width:40px;background:linear-gradient(to right,transparent,var(--paper));pointer-events:none;}
+
+/* ── CARD AREA ── */
+.card-area{max-width:700px;width:100%;padding:10px 16px 8px;}
+.card-cat-label{position:absolute;top:11px;left:14px;font-size:.63rem;letter-spacing:.08em;padding:2px 10px;border-radius:20px;background:var(--gold-light);color:var(--gold);font-family:'Noto Serif JP',serif;z-index:1;}
+.card-counter{position:absolute;top:12px;right:14px;font-size:.68rem;color:#9a8e76;letter-spacing:.04em;font-family:'ZCOOL XiaoWei',serif;z-index:1;}
+.card-back-counter{position:absolute;top:12px;right:14px;font-size:.68rem;color:rgba(240,230,192,.45);letter-spacing:.04em;font-family:'ZCOOL XiaoWei',serif;}
+.card-scene{perspective:1000px;width:100%;}
+.card{width:100%;min-height:230px;position:relative;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.4,0,.2,1);cursor:pointer;}
+.card.flipped{transform:rotateY(180deg);}
+.card-face{position:absolute;width:100%;min-height:230px;backface-visibility:hidden;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:42px 24px 44px;box-shadow:0 4px 22px var(--shadow),0 0 0 1px var(--border);}
+.card-front{background:var(--paper);background-image:radial-gradient(circle at 8% 8%,rgba(184,148,31,.07) 0%,transparent 45%),radial-gradient(circle at 92% 92%,rgba(192,57,43,.04) 0%,transparent 45%);}
+.card-back{background:var(--ink);transform:rotateY(180deg);background-image:radial-gradient(circle at 15% 85%,rgba(184,148,31,.18) 0%,transparent 50%),radial-gradient(circle at 85% 15%,rgba(192,57,43,.12) 0%,transparent 50%);}
+.card-question{font-size:1.45rem;text-align:center;line-height:1.6;font-weight:400;color:var(--ink);}
+.card-hint{margin-top:10px;font-size:.78rem;color:#a09070;letter-spacing:.05em;text-align:center;}
+.tap-hint-f,.tap-hint-b{position:absolute;bottom:13px;left:50%;transform:translateX(-50%);font-size:.64rem;letter-spacing:.07em;white-space:nowrap;}
+.tap-hint-f{color:var(--border);}
+.tap-hint-b{color:rgba(240,230,192,.3);}
+.ans-cn{font-family:'ZCOOL XiaoWei','Noto Sans SC',serif;font-size:2rem;color:var(--gold-light);text-align:center;line-height:1.4;margin-bottom:8px;}
+.ans-py{font-size:.88rem;color:rgba(240,230,192,.65);text-align:center;margin-bottom:8px;letter-spacing:.06em;}
+.ans-ja{font-size:1rem;color:rgba(240,230,192,.9);text-align:center;line-height:1.7;}
+.audio-btn{margin-top:14px;padding:6px 16px;border-radius:20px;border:1px solid rgba(184,148,31,.5);background:rgba(184,148,31,.15);color:var(--gold-light);font-size:.72rem;cursor:pointer;transition:all .18s;display:flex;align-items:center;gap:5px;font-family:'Noto Serif JP',serif;}
+.audio-btn:hover{background:rgba(184,148,31,.3);}
+.audio-btn.playing{background:rgba(192,57,43,.3);border-color:rgba(192,57,43,.6);}
+.card-back-cat{position:absolute;top:11px;left:14px;font-size:.63rem;letter-spacing:.08em;padding:2px 10px;border-radius:20px;font-family:'Noto Serif JP',serif;background:rgba(184,148,31,.25);color:var(--gold-light);}
+
+/* ── BUTTON ROW ── */
+.btn-row{max-width:700px;width:100%;display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;padding:10px 16px;}
+.btn{padding:11px 5px;border-radius:10px;border:none;cursor:pointer;font-family:'Noto Serif JP',serif;font-size:.74rem;font-weight:700;letter-spacing:.04em;transition:all .16s;display:flex;flex-direction:column;align-items:center;gap:4px;}
+.btn svg{width:15px;height:15px;}
+.btn:active{transform:scale(.96);}
+.btn-show{background:var(--gold-light);color:var(--gold);border:2px solid var(--gold);}
+.btn-show:hover{background:var(--gold);color:#fff;}
+.btn-back2{background:var(--paper);color:var(--ink);border:2px solid var(--border);}
+.btn-back2:hover{background:var(--border);}
+.btn-next{background:var(--ink);color:var(--gold-light);}
+.btn-next:hover{background:#2d2416;}
+.btn-mem{background:var(--green-light);color:var(--green);border:2px solid var(--green);}
+.btn-mem:hover{background:var(--green);color:#fff;}
+
+/* ── FINISH ── */
+.finish{display:none;text-align:center;padding:40px 20px;margin:0 16px;background:var(--paper);border-radius:16px;border:1px solid var(--border);max-width:700px;width:calc(100% - 32px);}
+.finish-icon{font-size:3rem;margin-bottom:8px;}
+.finish h3{font-family:'ZCOOL XiaoWei',serif;font-size:1.6rem;color:var(--gold);margin-bottom:10px;}
+.finish p{color:#7a6e58;margin-bottom:20px;font-size:.88rem;line-height:1.8;}
+.btn-restart{padding:11px 26px;background:var(--ink);color:var(--gold-light);border:none;border-radius:9px;cursor:pointer;font-family:'Noto Serif JP',serif;font-size:.88rem;}
+.btn-restart:hover{background:#2d2416;}
+
+/* ── SHORTCUT ── */
+.shortcut-hint{max-width:700px;width:100%;text-align:center;font-size:.62rem;color:#b0a48a;padding:8px 16px 24px;letter-spacing:.05em;}
+
+@media(max-width:480px){
+  .card-question{font-size:1.2rem;}
+  .ans-cn{font-size:1.55rem;}
+  .btn{font-size:.68rem;padding:9px 3px;}
+  .mode-btn{font-size:.68rem;padding:6px 8px;}
+  .stats-bar{gap:6px;padding:8px 12px;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>中国語 B1 フラッシュカード</h1>
+</header>
+
+<div class="stats-bar">
+  <span class="stat-inline">全 <strong id="sTotal">0</strong></span>
+  <span class="stat-inline s-remain">残り <strong id="sRemain">0</strong></span>
+  <span class="stat-inline s-mem">✓ <strong id="sMem">0</strong></span>
+  <div class="prog-wrap"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+  <span class="stat-pct" id="sPct">0%</span>
+</div>
+
+<!-- LIST MODAL -->
+<div class="list-modal-overlay" id="listModalOverlay">
+  <div class="list-modal">
+    <div class="list-modal-header">
+      <div><h2>📋 例文一覧<span id="listCount"></span></h2></div>
+      <button class="list-close-btn" id="listCloseBtn">✕ 閉じる</button>
+    </div>
+    <div class="list-modal-search">
+      <input type="text" id="listSearch" placeholder="日本語・中国語・ピンインで検索…">
+    </div>
+    <div class="list-modal-body" id="listModalBody"></div>
+  </div>
+</div>
+
+<div class="mode-bar">
+  <div class="mode-toggle">
+    <button class="mode-btn active" id="btnJC" onclick="setMode('jc')">🇯🇵→🇨🇳</button>
+    <button class="mode-btn" id="btnCJ" onclick="setMode('cj')">🇨🇳→🇯🇵</button>
+  </div>
+  <button class="btn-top" onclick="doShuffle()">🔀</button>
+  <button class="btn-top" id="listBtn" onclick="openListModal()">📋</button>
+  <button class="btn-top" id="btnMute" onclick="toggleMute()">🔊 ON</button>
+  <button class="btn-top" id="btnAutoPlay" onclick="toggleAutoPlay()">▶ 自動再生 ON</button>
+  <button class="btn-top danger" onclick="clearAll()">↩ チェック解除</button>
+</div>
+
+<div class="cat-slider-wrap">
+  <div class="cat-slider" id="catSlider"></div>
+</div>
+
+<div class="card-area">
+  <div class="card-scene">
+    <div class="card" id="flashCard" onclick="toggleCard()">
+      <div class="card-face card-front">
+        <span class="card-cat-label" id="cardCat">カテゴリー</span>
+        <span class="card-counter" id="cardCounter">1 / 1</span>
+        <div class="card-question" id="cardQ">読み込み中...</div>
+        <div class="card-hint" id="cardHint"></div>
+        <span class="tap-hint-f">👆 タップして答えを見る</span>
+      </div>
+      <div class="card-face card-back">
+        <span class="card-back-cat" id="cardCatB">答え</span>
+        <span class="card-back-counter" id="cardCounterB">1 / 1</span>
+        <div class="ans-cn" id="ansCN"></div>
+        <div class="ans-py" id="ansPY"></div>
+        <div class="ans-ja" id="ansJA"></div>
+        <button class="audio-btn" id="audioBtn" onclick="speakNow(event)">🔊 読み上げ</button>
+        <span class="tap-hint-b">👆 タップして問題に戻る</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="btn-row">
+  <button class="btn btn-back2" onclick="prevCard()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>← 戻る
+  </button>
+  <button class="btn btn-show" onclick="toggleCard()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>▶ 表示
+  </button>
+  <button class="btn btn-mem" onclick="markMem()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>✓ 覚えた
+  </button>
+  <button class="btn btn-next" onclick="nextCard()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>次へ →
+  </button>
+</div>
+
+<div class="finish" id="finishDiv">
+  <div class="finish-icon">🏆</div>
+  <h3>コンプリート！</h3>
+  <p>すべての例文を覚えました！<br>B1レベルの中国語力が身につきました！<br><br>チェック解除してもう一度挑戦しよう。</p>
+  <button class="btn-restart" onclick="restart()">🔄 最初からやり直す</button>
+</div>
+
+<div class="shortcut-hint">→ 次へ　← 戻る　Space/Enter 答えを見る　M 覚えた</div>
+
+<script>
+// ================================================================
+// DATA
+// ================================================================
+const CATS = [
+  { id:'all', name:'🗂 すべて', cards:[] },
+  {
+    id:'shide', name:'① 是…的（強調）', cards:[
+      {cn:'我是昨天到北京的。',py:'Wǒ shì zuótiān dào Běijīng de.',ja:'私が北京に着いたのは昨日です。'},
+      {cn:'他是在公司认识我的。',py:'Tā shì zài gōngsī rènshi wǒ de.',ja:'彼が私を知ったのは会社です。'},
+      {cn:'我们是在网上买的。',py:'Wǒmen shì zài wǎngshàng mǎi de.',ja:'ネットで買ったのです。'},
+      {cn:'这个问题是谁提出的？',py:'Zhège wèntí shì shéi tíchū de?',ja:'この問題は誰が提案したのですか？'},
+      {cn:'我是坐地铁来的。',py:'Wǒ shì zuò dìtiě lái de.',ja:'地下鉄で来ました。'},
+      {cn:'这个消息是谁告诉你的？',py:'Zhège xiāoxi shì shéi gàosu nǐ de?',ja:'この情報は誰が教えたのですか？'},
+      {cn:'他是在北京学的汉语。',py:'Tā shì zài Běijīng xué de Hànyǔ.',ja:'彼が中国語を学んだのは北京です。'},
+      {cn:'这个地方是朋友介绍的。',py:'Zhège dìfang shì péngyou jièshào de.',ja:'この場所は友達に紹介してもらいました。'},
+      {cn:'我是专门为了看你才来这里的。',py:'Wǒ shì zhuānmén wèile kàn nǐ cái lái zhèlǐ de.',ja:'わざわざあなたに会うために来たのです。'},
+      {cn:'这个计划是谁决定的？',py:'Zhège jìhuà shì shéi juédìng de?',ja:'この計画は誰が決めたのですか？'},
+      {cn:'你是什么时候开始学汉语的？',py:'Nǐ shì shénme shíhou kāishǐ xué Hànyǔ de?',ja:'中国語を始めたのはいつですか？'},
+      {cn:'我是坐飞机去的上海。',py:'Wǒ shì zuò fēijī qù de Shànghǎi.',ja:'上海に行ったのは飛行機です。'},
+    ]
+  },
+  {
+    id:'ba', name:'② 把構文（処置）', cards:[
+      {cn:'请把门关上。',py:'Qǐng bǎ mén guān shàng.',ja:'ドアを閉めてください。'},
+      {cn:'我把手机忘在家里了。',py:'Wǒ bǎ shǒujī wàng zài jiālǐ le.',ja:'スマホを家に忘れてしまいました。'},
+      {cn:'请把这个文件发给我。',py:'Qǐng bǎ zhège wénjiàn fā gěi wǒ.',ja:'このファイルを送ってください。'},
+      {cn:'我把问题解决了。',py:'Wǒ bǎ wèntí jiějué le.',ja:'問題を解決しました。'},
+      {cn:'他把事情说清楚了。',py:'Tā bǎ shìqing shuō qīngchu le.',ja:'はっきり説明しました。'},
+      {cn:'请把灯打开。',py:'Qǐng bǎ dēng dǎkāi.',ja:'電気をつけてください。'},
+      {cn:'他把工作做完了。',py:'Tā bǎ gōngzuò zuò wán le.',ja:'仕事を終えました。'},
+      {cn:'他把我的电脑弄坏了。',py:'Tā bǎ wǒ de diànnǎo nònghuài le.',ja:'彼が私のパソコンを壊しました。'},
+      {cn:'别把这件事忘了。',py:'Bié bǎ zhè jiàn shì wàng le.',ja:'このことを忘れないでください。'},
+      {cn:'我把文件发给你了。',py:'Wǒ bǎ wénjiàn fāgěi nǐ le.',ja:'ファイルを送りました。'},
+      {cn:'他把房间打扫干净了。',py:'Tā bǎ fángjiān dǎsǎo gānjìng le.',ja:'部屋をきれいに掃除しました。'},
+      {cn:'请把行李放在这里。',py:'Qǐng bǎ xíngli fàng zài zhèlǐ.',ja:'荷物をここに置いてください。'},
+      {cn:'我把护照忘在出租车上了。',py:'Wǒ bǎ hùzhào wàng zài chūzūchē shàng le.',ja:'タクシーにパスポートを忘れてしまいました。'},
+    ]
+  },
+  {
+    id:'bei', name:'③ 被構文（受身）', cards:[
+      {cn:'我的手机被偷了。',py:'Wǒ de shǒujī bèi tōu le.',ja:'スマホが盗まれました。'},
+      {cn:'计划被取消了。',py:'Jìhuà bèi qǔxiāo le.',ja:'計画が中止されました。'},
+      {cn:'文件被删除了。',py:'Wénjiàn bèi shānchú le.',ja:'ファイルが削除されました。'},
+      {cn:'他被老板批评了。',py:'Tā bèi lǎobǎn pīpíng le.',ja:'上司に叱られました。'},
+      {cn:'会议被推迟了。',py:'Huìyì bèi tuīchí le.',ja:'会議が延期されました。'},
+      {cn:'窗户被风吹开了。',py:'Chuānghu bèi fēng chuī kāi le.',ja:'窓が風に吹かれて開きました。'},
+      {cn:'他被公司开除了。',py:'Tā bèi gōngsī kāichú le.',ja:'彼は会社にクビにされました。'},
+      {cn:'问题已经被解决了。',py:'Wèntí yǐjīng bèi jiějué le.',ja:'問題はすでに解決されました。'},
+      {cn:'那个消息被证实了。',py:'Nàge xiāoxi bèi zhèngshí le.',ja:'そのニュースが確認されました。'},
+      {cn:'我的自行车被别人借走了。',py:'Wǒ de zìxíngchē bèi biérén jiè zǒu le.',ja:'私の自転車は誰かに借りられて行きました。'},
+      {cn:'他被公司派到中国去了。',py:'Tā bèi gōngsī pài dào Zhōngguó qù le.',ja:'彼は会社に中国へ派遣されました。'},
+      {cn:'钱包被小偷偷走了。',py:'Qiánbāo bèi xiǎotōu tōu zǒu le.',ja:'財布が泥棒に盗まれていきました。'},
+    ]
+  },
+  {
+    id:'result', name:'④ 結果補語（拡張）', cards:[
+      {cn:'我听懂了他的意思。',py:'Wǒ tīngdǒng le tā de yìsi.',ja:'彼の意図を理解できました。'},
+      {cn:'这本书我看完了。',py:'Zhè běn shū wǒ kànwán le.',ja:'この本を読み終わりました。'},
+      {cn:'他的名字我记住了。',py:'Tā de míngzi wǒ jìzhù le.',ja:'彼の名前を覚えました。'},
+      {cn:'那个字我写错了。',py:'Nàge zì wǒ xiěcuò le.',ja:'あの字を書き間違えました。'},
+      {cn:'钥匙我找到了。',py:'Yàoshi wǒ zhǎodào le.',ja:'鍵を見つけました。'},
+      {cn:'衣服洗干净了。',py:'Yīfu xǐgānjìng le.',ja:'服をきれいに洗いました。'},
+      {cn:'空调开坏了。',py:'Kōngtiáo kāihuài le.',ja:'エアコンが壊れました。'},
+      {cn:'我没看清楚。',py:'Wǒ méi kànqīngchu.',ja:'はっきり見えませんでした。'},
+      {cn:'他想出了一个好办法。',py:'Tā xiǎng chū le yí ge hǎo bànfǎ.',ja:'良い方法を思いつきました。'},
+      {cn:'他站住了。',py:'Tā zhàn zhù le.',ja:'立ち止まりました。'},
+      {cn:'我听出来了。',py:'Wǒ tīng chūlái le.',ja:'聞き分けられました。'},
+      {cn:'我终于听懂老师说的话了。',py:'Wǒ zhōngyú tīngdǒng lǎoshī shuō de huà le.',ja:'ついに先生の言葉が聞き取れました。'},
+    ]
+  },
+  {
+    id:'direction', name:'⑤ 方向補語（複合）', cards:[
+      {cn:'他走进来了。',py:'Tā zǒu jìnlái le.',ja:'歩いて入ってきました。'},
+      {cn:'请拿出来看看。',py:'Qǐng ná chūlái kànkan.',ja:'取り出して見てください。'},
+      {cn:'他跑上楼去了。',py:'Tā pǎoshàng lóu qù le.',ja:'走って上の階に行きました。'},
+      {cn:'请把行李拿进来。',py:'Qǐng bǎ xíngli ná jìnlai.',ja:'荷物を持って入ってください。'},
+      {cn:'孩子从房间里跑出来了。',py:'Háizi cóng fángjiān li pǎo chūlai le.',ja:'子供が部屋から走り出てきました。'},
+      {cn:'他站起来回答问题。',py:'Tā zhànqǐlái huídá wèntí.',ja:'立ち上がって答えました。'},
+      {cn:'请坐下来休息一会儿。',py:'Qǐng zuòxiàlái xiūxi yīhuìr.',ja:'座って少し休んでください。'},
+      {cn:'我想不起来他叫什么。',py:'Wǒ xiǎngbuqǐlái tā jiào shénme.',ja:'彼の名前が思い出せません。'},
+      {cn:'他把灯关掉了。',py:'Tā bǎ dēng guān diào le.',ja:'電気を消しました。'},
+      {cn:'他爬上山顶了。',py:'Tā páshàng shāndǐng le.',ja:'山頂まで登りました。'},
+      {cn:'小鸟飞走了。',py:'Xiǎoniǎo fēizǒu le.',ja:'小鳥が飛んで行きました。'},
+      {cn:'天气热起来了。',py:'Tiānqì rè qǐlái le.',ja:'暑くなってきました。'},
+      {cn:'坚持下去就能成功。',py:'Jiānchí xiàqù jiù néng chénggōng.',ja:'続けていけば成功できます。'},
+    ]
+  },
+  {
+    id:'potential', name:'⑥ 可能補語（得/不）', cards:[
+      {cn:'这么多菜，我吃不完。',py:'Zhème duō cài, wǒ chī bu wán.',ja:'こんなにたくさんの料理は食べきれません。'},
+      {cn:'你听得懂广东话吗？',py:'Nǐ tīng de dǒng Guǎngdōnghuà ma?',ja:'広東語が聞き取れますか？'},
+      {cn:'他今天来不了。',py:'Tā jīntiān lái bù liǎo.',ja:'彼は今日来られません。'},
+      {cn:'我听得懂他说的话。',py:'Wǒ tīng de dǒng tā shuō de huà.',ja:'彼の話が理解できます。'},
+      {cn:'这个问题解决得了。',py:'Zhège wèntí jiějué de liǎo.',ja:'この問題は解決できます。'},
+      {cn:'我记不住这个词。',py:'Wǒ jì bu zhù zhège cí.',ja:'この単語が覚えられません。'},
+      {cn:'太远了，我走不动了。',py:'Tài yuǎn le, wǒ zǒubudòng le.',ja:'遠すぎて、もう歩けません。'},
+      {cn:'他说得太快，我听不懂。',py:'Tā shuō de tài kuài, wǒ tīngbudǒng.',ja:'話すのが速すぎて聞き取れません。'},
+      {cn:'我买不起那辆车。',py:'Wǒ mǎibuqǐ nà liàng chē.',ja:'あの車は買えません（高くて）。'},
+      {cn:'这个字太小，我看不清楚。',py:'Zhège zì tài xiǎo, wǒ kànbuqīngchu.',ja:'この字は小さすぎてはっきり見えません。'},
+      {cn:'这么多作业，我一个晚上做不完。',py:'Zhème duō zuòyè, wǒ yí gè wǎnshang zuò bù wán.',ja:'こんなに宿題が多くて、一晩では終わりません。'},
+      {cn:'这里的风景美得说不出话来。',py:'Zhèlǐ de fēngjǐng měi de shuō bù chū huà lái.',ja:'ここの景色は言葉が出ないほど美しい。'},
+    ]
+  },
+  {
+    id:'lian', name:'⑦ 连…都/也…（さえも）', cards:[
+      {cn:'连小孩都知道这个道理。',py:'Lián xiǎohái dōu zhīdào zhège dàolǐ.',ja:'子供でさえこの道理を知っています。'},
+      {cn:'他连饭都没吃就去上班了。',py:'Tā lián fàn dōu méi chī jiù qù shàngbān le.',ja:'ご飯さえ食べずに出勤しました。'},
+      {cn:'我连一个字也看不懂。',py:'Wǒ lián yī gè zì yě kàn bù dǒng.',ja:'一文字さえ理解できません。'},
+      {cn:'这个问题连他都不会。',py:'Zhège wèntí lián tā dōu bú huì.',ja:'この問題は彼でさえ分かりません。'},
+      {cn:'他忙得连饭都没吃。',py:'Tā máng de lián fàn dōu méi chī.',ja:'忙しくてご飯さえ食べませんでした。'},
+      {cn:'她连自己的生日都忘了。',py:'Tā lián zìjǐ de shēngrì dōu wàng le.',ja:'自分の誕生日さえ忘れました。'},
+      {cn:'他连谢谢都没说就走了。',py:'Tā lián xièxie dōu méi shuō jiù zǒu le.',ja:'ありがとうさえ言わずに行きました。'},
+      {cn:'我忙得连喝水的时间都没有。',py:'Wǒ máng de lián hē shuǐ de shíjiān dōu méiyǒu.',ja:'忙しくて水を飲む時間さえありません。'},
+      {cn:'连专家都解决不了这个问题。',py:'Lián zhuānjiā dōu jiějuébùliǎo zhège wèntí.',ja:'専門家でさえこの問題は解決できません。'},
+      {cn:'他急得连饭都顾不上吃。',py:'Tā jí de lián fàn dōu gù bù shàng chī.',ja:'焦っていてご飯を食べることさえ手が回りません。'},
+    ]
+  },
+  {
+    id:'budan', name:'⑧ 不但…而且/不仅…还…', cards:[
+      {cn:'他不但会说汉语，而且会说广东话。',py:'Tā bùdàn huì shuō Hànyǔ, érqiě huì shuō Guǎngdōnghuà.',ja:'中国語だけでなく、広東語も話せます。'},
+      {cn:'这家餐厅不但便宜，而且好吃。',py:'Zhè jiā cāntīng bùdàn piányi, érqiě hǎochī.',ja:'このレストランは安いだけでなく、美味しい。'},
+      {cn:'他不但会说中文，而且会写。',py:'Tā búdàn huì shuō Zhōngwén, érqiě huì xiě.',ja:'中国語を話せるだけでなく、書けます。'},
+      {cn:'她不仅学习好，还很有礼貌。',py:'Tā bùjǐn xuéxí hǎo, hái hěn yǒu lǐmào.',ja:'勉強ができるだけでなく、礼儀正しい。'},
+      {cn:'这里不但环境好，而且交通方便。',py:'Zhèlǐ búdàn huánjìng hǎo, érqiě jiāotōng fāngbiàn.',ja:'環境がいいだけでなく、交通も便利です。'},
+      {cn:'他不仅是我的同事，还是我的朋友。',py:'Tā bùjǐn shì wǒ de tóngshì, hái shì wǒ de péngyou.',ja:'同僚であるだけでなく、友人でもあります。'},
+      {cn:'这个计划不仅可行，而且很有创意。',py:'Zhège jìhuà bùjǐn kěxíng, érqiě hěn yǒu chuàngyì.',ja:'この計画は実行可能なだけでなく、創造的です。'},
+      {cn:'他不但聪明，而且很勤奋。',py:'Tā búdàn cōngming, érqiě hěn qínfèn.',ja:'頭がいいだけでなく、勤勉です。'},
+      {cn:'不但是学生，连老师都不知道。',py:'Búdàn shì xuésheng, lián lǎoshī dōu bù zhīdào.',ja:'学生だけでなく、先生さえも知りません。'},
+      {cn:'不仅是他，连我也没听过这件事。',py:'Bùjǐn shì tā, lián wǒ yě méi tīngguò zhè jiàn shì.',ja:'彼だけでなく、私でさえこの件は聞いたことがありません。'},
+    ]
+  },
+  {
+    id:'jishi', name:'⑨ 即使/无论/不管…（譲歩・無条件）', cards:[
+      {cn:'即使下雨，我也要去。',py:'Jíshǐ xiàyǔ, wǒ yě yào qù.',ja:'たとえ雨でも、行きます。'},
+      {cn:'即使有钱，也不一定能买到健康。',py:'Jíshǐ yǒu qián, yě bù yīdìng néng mǎi dào jiànkāng.',ja:'お金があっても健康は買えるとは限りません。'},
+      {cn:'无论多忙，他都坚持运动。',py:'Wúlùn duō máng, tā dōu jiānchí yùndòng.',ja:'どんなに忙しくても、運動を続けます。'},
+      {cn:'无论谁说话，他都不听。',py:'Wúlùn shéi shuōhuà, tā dōu bù tīng.',ja:'誰が話しても、聞きません。'},
+      {cn:'不管天气怎样，我们都去。',py:'Bùguǎn tiānqì zěnyàng, wǒmen dōu qù.',ja:'天気がどうであれ、行きます。'},
+      {cn:'不管多难，我都不放弃。',py:'Bùguǎn duō nán, wǒ dōu bù fàngqì.',ja:'どんなに難しくても、諦めません。'},
+      {cn:'无论发生什么，都要冷静。',py:'Wúlùn fāshēng shénme, dōu yào lěngjìng.',ja:'何が起きても、冷静でいるべきです。'},
+      {cn:'不管他怎么解释，我都不原谅。',py:'Bùguǎn tā zěnme jiěshì, wǒ dōu bù yuánliàng.',ja:'彼がどう説明しても、許しません。'},
+      {cn:'即使再忙，我也会抽时间运动。',py:'Jíshǐ zài máng, wǒ yě huì chōu shíjiān yùndòng.',ja:'どれだけ忙しくても、時間を作って運動します。'},
+      {cn:'无论你怎么说，我都不会改变主意。',py:'Wúlùn nǐ zěnme shuō, wǒ dōu bù huì gǎibiàn zhǔyì.',ja:'何と言っても、考えを変えません。'},
+    ]
+  },
+  {
+    id:'cond', name:'⑩ 只要/只有/既然/如果…（条件構文）', cards:[
+      {cn:'只要努力，就会成功。',py:'Zhǐyào nǔlì, jiù huì chénggōng.',ja:'努力さえすれば、成功します。'},
+      {cn:'只要你来，我就开心。',py:'Zhǐyào nǐ lái, wǒ jiù kāixīn.',ja:'あなたが来さえすれば、嬉しいです。'},
+      {cn:'只有努力学习才能进步。',py:'Zhǐyǒu nǔlì xuéxí cái néng jìnbù.',ja:'一生懸命勉強してこそ進歩できます。'},
+      {cn:'只有亲自去才能了解情况。',py:'Zhǐyǒu qīnzì qù cái néng liǎojiě qíngkuàng.',ja:'自分で行ってこそ状況が分かります。'},
+      {cn:'只有他才能解决这个问题。',py:'Zhǐyǒu tā cái néng jiějué zhège wèntí.',ja:'彼だけがこの問題を解決できます。'},
+      {cn:'既然来了，就多坐一会儿。',py:'Jìrán lái le, jiù duō zuò yīhuìr.',ja:'せっかく来たなら、もう少しいてください。'},
+      {cn:'既然决定了，就不要后悔。',py:'Jìrán juédìng le, jiù búyào hòuhuǐ.',ja:'決めたなら、後悔しないでください。'},
+      {cn:'既然你已经决定了，我就支持你。',py:'Jìrán nǐ yǐjīng juédìng le, wǒ jiù zhīchí nǐ.',ja:'もう決めたのなら、支持します。'},
+      {cn:'如果明天下雨，我们就不去了。',py:'Rúguǒ míngtiān xiàyǔ, wǒmen jiù bù qù le.',ja:'明日雨なら、行きません。'},
+      {cn:'要是早点出发，就不会迟到。',py:'Yàoshi zǎodiǎn chūfā, jiù bú huì chídào.',ja:'もっと早く出発すれば、遅刻しませんでした。'},
+      {cn:'只要坚持就会有结果。',py:'Zhǐyào jiānchí jiù huì yǒu jiéguǒ.',ja:'続けさえすれば結果が出ます。'},
+    ]
+  },
+  {
+    id:'jiner', name:'⑪ 不是…而是…/与其…不如…', cards:[
+      {cn:'不是我不想去，而是没时间。',py:'Bú shì wǒ bù xiǎng qù, ér shì méi shíjiān.',ja:'行きたくないのではなく、時間がないのです。'},
+      {cn:'问题不是钱，而是时间。',py:'Wèntí bú shì qián, ér shì shíjiān.',ja:'問題はお金ではなく、時間です。'},
+      {cn:'不是他不努力，而是方法不对。',py:'Bú shì tā bù nǔlì, ér shì fāngfǎ bú duì.',ja:'努力しないのではなく、方法が間違っています。'},
+      {cn:'成功不是靠运气，而是靠努力。',py:'Chénggōng bú shì kào yùnqi, ér shì kào nǔlì.',ja:'成功は運ではなく、努力によるものです。'},
+      {cn:'他不是懒，而是太累了。',py:'Tā bú shì lǎn, ér shì tài lèi le.',ja:'怠けているのではなく、疲れすぎています。'},
+      {cn:'与其在这儿等，不如直接去找他。',py:'Yǔqí zài zhèr děng, bùrú zhíjiē qù zhǎo tā.',ja:'ここで待つよりも、直接会いに行ったほうがいい。'},
+      {cn:'与其等待，不如主动行动。',py:'Yǔqí děngdài, bùrú zhǔdòng xíngdòng.',ja:'待つより、自ら行動する方がいいです。'},
+      {cn:'与其后悔，不如现在努力。',py:'Yǔqí hòuhuǐ, bùrú xiànzài nǔlì.',ja:'後悔するより、今努力する方がいいです。'},
+      {cn:'与其买便宜的，不如买质量好的。',py:'Yǔqí mǎi piányi de, bùrú mǎi zhìliàng hǎo de.',ja:'安いのを買うより、質のいいのを買う方がいいです。'},
+      {cn:'与其抱怨，不如想办法解决。',py:'Yǔqí bàoyuàn, bùrú xiǎng bànfǎ jiějué.',ja:'文句を言うより、解決策を考える方がいいです。'},
+    ]
+  },
+  {
+    id:'yuelaiyue', name:'⑫ 越来越/越A越B/一A就B', cards:[
+      {cn:'天气越来越热了。',py:'Tiānqì yuèláiyuè rè le.',ja:'天気がどんどん暑くなっています。'},
+      {cn:'他的中文越来越好。',py:'Tā de Zhōngwén yuèláiyuè hǎo.',ja:'中国語がどんどん上手になっています。'},
+      {cn:'问题越想越复杂。',py:'Wèntí yuè xiǎng yuè fùzá.',ja:'考えれば考えるほど複雑になります。'},
+      {cn:'我们越聊越开心。',py:'Wǒmen yuè liáo yuè kāixīn.',ja:'話せば話すほど楽しくなりました。'},
+      {cn:'他越跑越快。',py:'Tā yuè pǎo yuè kuài.',ja:'走れば走るほど速くなります。'},
+      {cn:'我越学越有兴趣。',py:'Wǒ yuè xué yuè yǒu xìngqù.',ja:'学べば学ぶほど興味が湧きます。'},
+      {cn:'他一下班就回家。',py:'Tā yī xiàbān jiù huíjiā.',ja:'退勤するとすぐ帰宅します。'},
+      {cn:'我一看到他就想笑。',py:'Wǒ yī kàndào tā jiù xiǎng xiào.',ja:'彼を見るとすぐ笑いたくなります。'},
+      {cn:'她一听到这个消息就哭了。',py:'Tā yī tīngdào zhège xiāoxi jiù kū le.',ja:'このニュースを聞くとすぐ泣きました。'},
+      {cn:'天一黑就看不见路了。',py:'Tiān yī hēi jiù kànbujiàn lù le.',ja:'暗くなるとすぐ道が見えなくなります。'},
+      {cn:'我一回想起那件事就想笑。',py:'Wǒ yì huíxiǎng qǐ nà jiàn shì jiù xiǎng xiào.',ja:'あのことを思い出すとすぐ笑いたくなります。'},
+    ]
+  },
+  {
+    id:'zhu', name:'⑬ 着の持続/存現文', cards:[
+      {cn:'门开着呢。',py:'Mén kāizhe ne.',ja:'ドアが開いています。'},
+      {cn:'他穿着一件红衣服。',py:'Tā chuān zhe yī jiàn hóng yīfu.',ja:'赤い服を着ています。'},
+      {cn:'他笑着说没问题。',py:'Tā xiào zhe shuō méi wèntí.',ja:'笑いながら「問題ない」と言いました。'},
+      {cn:'她笑着看着我。',py:'Tā xiàozhe kànzhe wǒ.',ja:'笑いながら私を見ています。'},
+      {cn:'他戴着眼镜。',py:'Tā dàizhe yǎnjìng.',ja:'眼鏡をかけています。'},
+      {cn:'孩子们唱着歌走在路上。',py:'Háizimen chàngzhe gē zǒu zài lùshang.',ja:'子供たちは歌いながら道を歩いています。'},
+      {cn:'桌子上放着一本书。',py:'Zhuōzi shàng fàngzhe yī běn shū.',ja:'テーブルの上に本が置いてあります。'},
+      {cn:'墙上挂着一幅画。',py:'Qiáng shàng guàzhe yī fú huà.',ja:'壁に絵が掛かっています。'},
+      {cn:'教室里坐着很多学生。',py:'Jiàoshì li zuòzhe hěn duō xuésheng.',ja:'教室には多くの学生が座っています。'},
+      {cn:'门口站着一个人。',py:'Ménkǒu zhànzhe yī ge rén.',ja:'入口に一人立っています。'},
+      {cn:'冰箱里还剩一些蔬菜。',py:'Bīngxiāng li hái shèng yīxiē shūcài.',ja:'冷蔵庫にまだ野菜が残っています。'},
+    ]
+  },
+  {
+    id:'compare', name:'⑭ 比較（高度）', cards:[
+      {cn:'今天比昨天冷多了。',py:'Jīntiān bǐ zuótiān lěng duō le.',ja:'今日は昨日よりずっと寒いです。'},
+      {cn:'他的汉语比我好得多。',py:'Tā de Hànyǔ bǐ wǒ hǎo de duō.',ja:'彼の中国語は私よりずっと上手です。'},
+      {cn:'他比我大三岁。',py:'Tā bǐ wǒ dà sān suì.',ja:'彼は私より3歳年上です。'},
+      {cn:'我的汉语不如他好。',py:'Wǒ de Hànyǔ bùrú tā hǎo.',ja:'私の中国語は彼ほど良くありません。'},
+      {cn:'坐地铁不如打车快。',py:'Zuò dìtiě bùrú dǎchē kuài.',ja:'地下鉄よりタクシーのほうが速いです。'},
+      {cn:'他的汉语说得跟中国人一样好。',py:'Tā de Hànyǔ shuō de gēn Zhōngguórén yíyàng hǎo.',ja:'彼の中国語は中国人と同様に上手です。'},
+      {cn:'夏天到了，天气一天比一天热。',py:'Xiàtiān dào le, tiānqì yì tiān bǐ yì tiān rè.',ja:'夏になり、天気は日に日に暑くなっています。'},
+      {cn:'这个方法更简单。',py:'Zhège fāngfǎ gèng jiǎndān.',ja:'こちらの方法が簡単です。'},
+      {cn:'跟去年相比，今年好多了。',py:'Gēn qùnián xiāngbǐ, jīnnián hǎo duō le.',ja:'去年と比べて、今年はずっといいです。'},
+      {cn:'相比之下，我更喜欢第二个。',py:'Xiāngbǐ zhī xià, wǒ gèng xǐhuan dì èrge.',ja:'比較すると、2つ目の方が好きです。'},
+      {cn:'这两种方法各有利弊。',py:'Zhè liǎng zhǒng fāngfǎ gè yǒu lìbì.',ja:'この2つの方法には一長一短があります。'},
+    ]
+  },
+  {
+    id:'modal', name:'⑮ 副詞・推量（応該/可能/到底）', cards:[
+      {cn:'他应该已经到家了。',py:'Tā yīnggāi yǐjīng dào jiā le.',ja:'もう家に着いているはずです。'},
+      {cn:'明天应该是晴天。',py:'Míngtiān yīnggāi shì qíngtiān.',ja:'明日は晴れのはずです。'},
+      {cn:'他可能不知道这件事。',py:'Tā kěnéng bù zhīdào zhè jiàn shì.',ja:'彼はこのことを知らないかもしれません。'},
+      {cn:'他一定会来的。',py:'Tā yīdìng huì lái de.',ja:'彼は必ず来ます。'},
+      {cn:'这一定是误会。',py:'Zhè yīdìng shì wùhuì.',ja:'これはきっと誤解です。'},
+      {cn:'你到底去不去？',py:'Nǐ dàodǐ qù bù qù?',ja:'あなたは一体行くのか行かないのですか？'},
+      {cn:'这到底是怎么回事？',py:'Zhè dàodǐ shì zěnme huí shì?',ja:'これは一体全体どういうことですか？'},
+      {cn:'我根本不知道。',py:'Wǒ gēnběn bù zhīdào.',ja:'私はまったく知りませんでした。'},
+      {cn:'千万别忘了。',py:'Qiānwàn bié wàng le.',ja:'絶対に忘れないでください。'},
+      {cn:'我并不想去。',py:'Wǒ bìng bù xiǎng qù.',ja:'私は決して行きたいわけではありません。'},
+      {cn:'说不定他会改变主意。',py:'Shuōbudìng tā huì gǎibiàn zhǔyì.',ja:'ひょっとすると彼は考えを変えるかもしれません。'},
+    ]
+  },
+  {
+    id:'opinion', name:'⑯ 意見・推量表現', cards:[
+      {cn:'我认为这个方案很好。',py:'Wǒ rènwéi zhège fāng àn hěn hǎo.',ja:'この案は良いと思います。'},
+      {cn:'在我看来，这样做比较合适。',py:'Zài wǒ kànlái, zhèyàng zuò bǐjiào héshì.',ja:'私から見ると、こうするのが適切です。'},
+      {cn:'对我来说，学习汉语很有意思。',py:'Duì wǒ láishuō, xuéxí Hànyǔ hěn yǒu yìsi.',ja:'私にとって、中国語を学ぶのはとても面白いです。'},
+      {cn:'我觉得这不完全是能力问题。',py:'Wǒ juéde zhè bù wánquán shì nénglì wèntí.',ja:'能力の問題というわけではないと思います。'},
+      {cn:'站在你的立场上，我也可能会这么做。',py:'Zhàn zài nǐ de lìchǎng shàng, wǒ yě kěnéng huì zhème zuò.',ja:'あなたの立場なら私もそうしたかもしれません。'},
+      {cn:'恕我直言，这样不行。',py:'Shù wǒ zhíyán, zhèyàng bùxíng.',ja:'率直に言わせてもらうと、これではダメです。'},
+      {cn:'我完全同意你的意见。',py:'Wǒ wánquán tóngyì nǐ de yìjiàn.',ja:'あなたの意見に完全に同意します。'},
+      {cn:'对此我持保留态度。',py:'Duì cǐ wǒ chí bǎoliú tàidù.',ja:'これについては留保します。'},
+      {cn:'我坚决反对这种做法。',py:'Wǒ jiānjué fǎnduì zhè zhǒng zuòfǎ.',ja:'このやり方に断固反対します。'},
+      {cn:'从长远来看，这样做更划算。',py:'Cóng chángyuǎn láikàn, zhèyàng zuò gèng huásuàn.',ja:'長い目で見れば、こうする方が得です。'},
+      {cn:'反过来想，其实也算一种机会。',py:'Fǎnguòlái xiǎng, qíshí yě suàn yì zhǒng jīhuì.',ja:'逆に考えれば、チャンスとも言えます。'},
+    ]
+  },
+  {
+    id:'reason', name:'⑰ 原因・目的（因为/由于/为了）', cards:[
+      {cn:'因为堵车，所以迟到了。',py:'Yīnwèi dǔchē, suǒyǐ chídào le.',ja:'渋滞で遅刻しました。'},
+      {cn:'由于天气原因，航班取消了。',py:'Yóuyú tiānqì yuányīn, hángbān qǔxiāo le.',ja:'天候のため、フライトがキャンセルされました。'},
+      {cn:'之所以成功，是因为努力。',py:'Zhīsuǒyǐ chénggōng, shì yīnwèi nǔlì.',ja:'成功したのは努力のおかげです。'},
+      {cn:'为了学好中文，我每天练习。',py:'Wèile xuéhǎo Zhōngwén, wǒ měitiān liànxí.',ja:'中国語を身につけるため、毎日練習します。'},
+      {cn:'为了健康，他戒烟了。',py:'Wèile jiànkāng, tā jièyān le.',ja:'健康のため、タバコをやめました。'},
+      {cn:'为了避免误会，我解释一下。',py:'Wèile bìmiǎn wùhuì, wǒ jiěshì yīxià.',ja:'誤解を避けるため、説明します。'},
+      {cn:'通过这次经历，我学到了很多。',py:'Tōngguò zhè cì jīnglì, wǒ xuédào le hěn duō.',ja:'この経験を通して多くを学びました。'},
+      {cn:'由于交通堵塞，我迟到了十分钟。',py:'Yóuyú jiāotōng dǔsè, wǒ chídào le shí fēnzhōng.',ja:'交通渋滞のせいで10分遅れました。'},
+      {cn:'由于缺乏经验，犯了错误。',py:'Yóuyú quēfá jīngyàn, fàn le cuòwù.',ja:'経験不足でミスをしました。'},
+      {cn:'为了不迟到，我提前出门。',py:'Wèile bù chídào, wǒ tíqián chūmén.',ja:'遅刻しないよう、早めに出ました。'},
+    ]
+  },
+  {
+    id:'besides', name:'⑱ 除了…以外/尽管…还是…', cards:[
+      {cn:'除了中文以外，他还会日语。',py:'Chúle Zhōngwén yǐwài, tā hái huì Rìyǔ.',ja:'中国語の他に、日本語もできます。'},
+      {cn:'除了你以外，没人知道。',py:'Chúle nǐ yǐwài, méi rén zhīdào.',ja:'あなた以外、誰も知りません。'},
+      {cn:'除了看书以外，我还喜欢听音乐。',py:'Chúle kànshū yǐwài, wǒ hái xǐhuan tīng yīnyuè.',ja:'読書の他に、音楽を聴くのも好きです。'},
+      {cn:'除了价格以外，都很满意。',py:'Chúle jiàgé yǐwài, dōu hěn mǎnyì.',ja:'価格以外、すべて満足です。'},
+      {cn:'虽然很累，但是很开心。',py:'Suīrán hěn lèi, dànshì hěn kāixīn.',ja:'疲れましたが、楽しかったです。'},
+      {cn:'尽管下雨，我们还是出发了。',py:'Jǐnguǎn xiàyǔ, wǒmen háishi chūfā le.',ja:'雨が降りましたが、出発しました。'},
+      {cn:'尽管很难，他还是完成了。',py:'Jǐnguǎn hěn nán, tā háishi wánchéng le.',ja:'難しかったですが、完成させました。'},
+      {cn:'虽然考试没过，他没有放弃。',py:'Suīrán kǎoshì méi guò, tā méiyǒu fàngqì.',ja:'試験に落ちましたが、諦めませんでした。'},
+      {cn:'尽管工作很忙，他还是每天健身。',py:'Jǐnguǎn gōngzuò hěn máng, tā háishì měitiān jiànshēn.',ja:'仕事が忙しいにもかかわらず、毎日トレーニングしています。'},
+      {cn:'虽然认识不久，已经很熟了。',py:'Suīrán rènshi bù jiǔ, yǐjīng hěn shú le.',ja:'知り合って間もないですが、もう親しいです。'},
+    ]
+  },
+  {
+    id:'verb2', name:'⑲ 動詞の重ね型', cards:[
+      {cn:'请尝尝这道菜。',py:'Qǐng chángchang zhè dào cài.',ja:'この料理を味見してください。'},
+      {cn:'让我想想。',py:'Ràng wǒ xiǎngxiang.',ja:'ちょっと考えさせてください。'},
+      {cn:'你等等，我马上来。',py:'Nǐ děngdeng, wǒ mǎshàng lái.',ja:'ちょっと待って、すぐ行きます。'},
+      {cn:'请帮我看看这个。',py:'Qǐng bāng wǒ kànkan zhège.',ja:'これをちょっと見てください。'},
+      {cn:'我们讨论讨论这个问题。',py:'Wǒmen tǎolùn tǎolùn zhège wèntí.',ja:'この問題をちょっと議論しましょう。'},
+      {cn:'你试试这双鞋。',py:'Nǐ shìshi zhè shuāng xié.',ja:'この靴を試してみてください。'},
+      {cn:'我休息休息就好了。',py:'Wǒ xiūxi xiūxi jiù hǎo le.',ja:'少し休めば大丈夫です。'},
+      {cn:'让我考虑考虑。',py:'Ràng wǒ kǎolǜ kǎolǜ.',ja:'少し考えさせてください。'},
+      {cn:'请介绍介绍你自己。',py:'Qǐng jièshào jièshào nǐ zìjǐ.',ja:'ちょっと自己紹介してください。'},
+      {cn:'叫他快点儿。',py:'Jiào tā kuài diǎnr.',ja:'彼に早くするよう言ってください。'},
+    ]
+  },
+  {
+    id:'business', name:'⑳ ビジネス・フォーマル', cards:[
+      {cn:'关于这个项目的预算，我们还需要再讨论一下。',py:'Guānyú zhège xiàngmù de yùsuàn, wǒmen hái xūyào zài tǎolùn yīxià.',ja:'このプロジェクトの予算については、もう一度話し合う必要があります。'},
+      {cn:'请把这份合同仔细看一遍。',py:'Qǐng bǎ zhè fèn hétong zǐxì kàn yī biàn.',ja:'この契約書をよく読んでください。'},
+      {cn:'对于您的建议，我们会认真考虑的。',py:'Duìyú nín de jiànyì, wǒmen huì rènzhēn kǎolǜ de.',ja:'ご提案については、真剣に検討いたします。'},
+      {cn:'感谢贵公司长期以来的支持。',py:'Gǎnxiè guì gōngsī chángqī yǐlái de zhīchí.',ja:'貴社の長年にわたるご支援に感謝いたします。'},
+      {cn:'这个方案需要重新考虑一下。',py:'Zhège fāng àn xūyào chóngxīn kǎolǜ yíxià.',ja:'このプランは再考する必要があります。'},
+      {cn:'你能不能把重点再总结一下？',py:'Nǐ néng bu néng bǎ zhòngdiǎn zài zǒngjié yíxià?',ja:'要点をもう一度まとめてもらえますか。'},
+      {cn:'我们的目标是在月底前把它上线。',py:'Wǒmen de mùbiāo shì zài yuèdǐ qián bǎ tā shàngxiàn.',ja:'目標は月末までにリリースすることです。'},
+      {cn:'请大家准时参加下午的讨论。',py:'Qǐng dàjiā zhǔnshí cānjiā xiàwǔ de tǎolùn.',ja:'午後の討論には時間通りに参加してください。'},
+      {cn:'这件事拖得越久，成本就越高。',py:'Zhè jiàn shì tuō de yuè jiǔ, chéngběn jiù yuè gāo.',ja:'長引くほどコストが上がります。'},
+      {cn:'先别急着下结论，我们再看看数据。',py:'Xiān bié jí zhe xià jiélùn, wǒmen zài kànkan shùjù.',ja:'先に結論を急がず、データをもう一度見ましょう。'},
+      {cn:'我不太同意，因为条件还不够成熟。',py:'Wǒ bú tài tóngyì, yīnwèi tiáojiàn hái bùgòu chéngshú.',ja:'条件がまだ整っていないので、あまり賛成できません。'},
+    ]
+  },
+  {
+    id:'daily', name:'㉑ 日常リアル会話', cards:[
+      {cn:'这份工作比我想象的更有挑战。',py:'Zhè fèn gōngzuò bǐ wǒ xiǎngxiàng de gèng yǒu tiǎozhàn.',ja:'この仕事は想像以上に挑戦的です。'},
+      {cn:'我原本以为今天会下雨，结果天气很好。',py:'Wǒ yuánběn yǐwéi jīntiān huì xiàyǔ, jiéguǒ tiānqì hěn hǎo.',ja:'今日は雨だと思っていたら、いい天気でした。'},
+      {cn:'要不是你提醒我，我差点忘了。',py:'Yàobúshì nǐ tíxǐng wǒ, wǒ chàdiǎn wàng le.',ja:'あなたが注意してくれなかったら危うく忘れるところでした。'},
+      {cn:'我刚开始不太适应，现在好多了。',py:'Wǒ gāng kāishǐ bú tài shìyìng, xiànzài hǎo duō le.',ja:'最初はあまり慣れなかったけど、今はだいぶ良くなりました。'},
+      {cn:'这件事看起来简单，其实没那么容易。',py:'Zhè jiàn shì kànqǐlái jiǎndān, qíshí méi nàme róngyì.',ja:'簡単そうに見えて、実はそんなに容易ではありません。'},
+      {cn:'我们好久没见了，找个时间聚一聚吧。',py:'Wǒmen hǎo jiǔ méi jiàn le, zhǎo gè shíjiān jù yì jù ba.',ja:'久しぶりだね。時間を作って集まろうよ。'},
+      {cn:'真没想到他会这么说，气死我了！',py:'Zhēn méi xiǎngdào tā huì zhème shuō, qì sǐ wǒ le!',ja:'まさか彼がそんなことを言うなんて、腹が立って仕方ない！'},
+      {cn:'终于把论文写完了，高兴得不得了！',py:'Zhōngyú bǎ lùnwén xiě wán le, gāoxìng de bùdéliǎo!',ja:'ついに論文を書き終えた！すごく嬉しい！'},
+      {cn:'我不是在责怪你，我只是想把问题解决。',py:'Wǒ bú shì zài zéguài nǐ, wǒ zhǐshì xiǎng bǎ wèntí jiějué.',ja:'責めているわけじゃなく、問題を解決したいだけです。'},
+      {cn:'这段时间谢谢你一直支持我。',py:'Zhè duàn shíjiān xièxie nǐ yìzhí zhīchí wǒ.',ja:'この間ずっと支えてくれてありがとう。'},
+      {cn:'最近发生的事让我重新思考了很多。',py:'Zuìjìn fāshēng de shì ràng wǒ chóngxīn sīkǎo le hěn duō.',ja:'最近の出来事でいろいろ考え直しました。'},
+      {cn:'如果没有你的帮助，我一个人肯定做不到。',py:'Rúguǒ méiyǒu nǐ de bāngzhù, wǒ yí gè rén kěndìng zuò bu dào.',ja:'あなたの助けがなければ、私一人では絶対できません。'},
+    ]
+  },
+  {
+    id:'situation', name:'㉒ シーン別実践（旅行・食事・健康）', cards:[
+      {cn:'从机场到市中心怎么走最快？',py:'Cóng jīchǎng dào shìzhōngxīn zěnme zǒu zuì kuài?',ja:'空港から市中心まで一番速く行く方法は？'},
+      {cn:'这个航班延误了，我们该怎么办？',py:'Zhège hángbān yánwù le, wǒmen gāi zěnme bàn?',ja:'この便が遅れました、どうしたらいいですか？'},
+      {cn:'我能不能延迟退房到两点？',py:'Wǒ néng bu néng yánchí tuìfáng dào liǎng diǎn?',ja:'レイトチェックアウトで2時まで延長できますか？'},
+      {cn:'我买的东西坏了，能退货吗？',py:'Wǒ mǎi de dōngxi huài le, néng tuìhuò ma?',ja:'買ったものが壊れました、返品できますか？'},
+      {cn:'这个菜里有坚果吗？我对坚果过敏。',py:'Zhège cài lǐ yǒu jiānguò ma? Wǒ duì jiānguò guòmǐn.',ja:'この料理にナッツは入っていますか？ナッツにアレルギーがあります。'},
+      {cn:'请给我推荐一道本地特色菜。',py:'Qǐng gěi wǒ tuījiàn yī dào běndì tèsècài.',ja:'地元の名物料理をおすすめしてください。'},
+      {cn:'请把账单给我，我们AA制。',py:'Qǐng bǎ zhàngdān gěi wǒ, wǒmen AA zhì.',ja:'伝票をお願いします、割り勘で。'},
+      {cn:'医生，我最近总是失眠，怎么办？',py:'Yīshēng, wǒ zuìjìn zǒngshì shīmián, zěnme bàn?',ja:'先生、最近ずっと不眠です、どうしたらいいですか？'},
+      {cn:'如果症状加重，请立刻来复诊。',py:'Rúguǒ zhèngzhuàng jiāzhòng, qǐng lìkè lái fùzhěn.',ja:'症状が悪化したらすぐ再診してください。'},
+      {cn:'我们差点赶不上飞机，幸好路上没堵。',py:'Wǒmen chàdiǎn gǎn bu shàng fēijī, xìnghǎo lùshang méi dǔ.',ja:'飛行機に乗り遅れそうでしたが、渋滞がなくて助かりました。'},
+      {cn:'房间的空调好像坏了，麻烦帮我看看。',py:'Fángjiān de kōngtiáo hǎoxiàng huài le, máfan bāng wǒ kànkan.',ja:'部屋のエアコンが壊れているみたい。見てもらえますか。'},
+    ]
+  },
+  {
+    id:'explain', name:'㉓ 説明・引用・補足表現', cards:[
+      {cn:'事情是这样的。',py:'Shìqing shì zhèyàng de.',ja:'事情はこうです。'},
+      {cn:'换句话说，这是不可能的。',py:'Huàn jù huà shuō, zhè shì bù kěnéng de.',ja:'言い換えれば、これは不可能です。'},
+      {cn:'具体来说，有三个问题。',py:'Jùtǐ lái shuō, yǒu sān ge wèntí.',ja:'具体的に言うと、3つの問題があります。'},
+      {cn:'总的来说，情况还不错。',py:'Zǒng de lái shuō, qíngkuàng hái búcuò.',ja:'全体的に言って、状況は悪くありません。'},
+      {cn:'之所以这样做，是为了节省时间。',py:'Zhīsuǒyǐ zhèyàng zuò, shì wèile jiéshěng shíjiān.',ja:'こうするのは時間を節約するためです。'},
+      {cn:'据说明天会下雨。',py:'Jùshuō míngtiān huì xiàyǔ.',ja:'明日は雨だそうです。'},
+      {cn:'听说他要辞职了。',py:'Tīngshuō tā yào cízhí le.',ja:'彼が辞職するらしいです。'},
+      {cn:'据我所知，他已经回国了。',py:'Jù wǒ suǒ zhī, tā yǐjīng huíguó le.',ja:'私の知る限り、彼は帰国しました。'},
+      {cn:'根据天气预报，周末会放晴。',py:'Gēnjù tiānqì yùbào, zhōumò huì fàngqíng.',ja:'天気予報によると、週末は晴れます。'},
+      {cn:'他每天都练习，可见很努力。',py:'Tā měitiān dōu liànxí, kějiàn hěn nǔlì.',ja:'毎日練習している、努力家だと分かります。'},
+      {cn:'原来是你做的，难怪这么好吃。',py:'Yuánlái shì nǐ zuò de, nánguài zhème hǎochī.',ja:'あなたが作ったのか、どおりで美味しいわけだ。'},
+      {cn:'顺便说一下，他今天请假了。',py:'Shùnbiàn shuō yīxià, tā jīntiān qǐngjià le.',ja:'ところで、彼は今日休みです。'},
+    ]
+  },
+  {
+    id:'emotion', name:'㉔ 感情・謝罪・依頼', cards:[
+      {cn:'真让人失望。',py:'Zhēn ràng rén shīwàng.',ja:'本当にがっかりです。'},
+      {cn:'听到这个消息我很难过。',py:'Tīngdào zhège xiāoxi wǒ hěn nánguò.',ja:'このニュースを聞いて悲しいです。'},
+      {cn:'这让我感到很惊讶。',py:'Zhè ràng wǒ gǎndào hěn jīngyà.',ja:'これには驚きました。'},
+      {cn:'我感到非常遗憾。',py:'Wǒ gǎndào fēicháng yíhàn.',ja:'とても残念に思います。'},
+      {cn:'真是太可惜了，我们差一点儿就赢了。',py:'Zhēnshì tài kěxī le, wǒmen chà yìdiǎnr jiù yíng le.',ja:'本当にもったいない、あと少しで勝てるところでした。'},
+      {cn:'非常抱歉给您添麻烦了。',py:'Fēicháng bàoqiàn gěi nín tiān máfan le.',ja:'ご迷惑をおかけして大変申し訳ありません。'},
+      {cn:'请原谅我的失误。',py:'Qǐng yuánliàng wǒ de shīwù.',ja:'私のミスをお許しください。'},
+      {cn:'我理解你的感受，但我也有我的难处。',py:'Wǒ lǐjiě nǐ de gǎnshòu, dàn wǒ yě yǒu wǒ de nánchù.',ja:'気持ちは分かりますが、私にも事情があります。'},
+      {cn:'能麻烦您帮个忙吗？',py:'Néng máfan nín bāng ge máng ma?',ja:'お手伝いいただけますか？'},
+      {cn:'方便的话，请帮我带一杯咖啡。',py:'Fāngbiàn de huà, qǐng bāng wǒ dài yī bēi kāfēi.',ja:'都合がよければ、コーヒーを持ってきてください。'},
+      {cn:'别担心，有我在。',py:'Bié dānxīn, yǒu wǒ zài.',ja:'心配しないで、私がいます。'},
+      {cn:'一切都会好起来的。',py:'Yīqiè dōu huì hǎoqǐlái de.',ja:'全てうまくいきます。'},
+    ]
+  },
+  {
+    id:'time', name:'㉕ 時間・頻度・比較対比', cards:[
+      {cn:'我每隔两天去一次健身房。',py:'Wǒ měi gé liǎng tiān qù yī cì jiànshēnfáng.',ja:'2日おきにジムに行きます。'},
+      {cn:'从那以后，他再也没来过。',py:'Cóng nà yǐhòu, tā zài yě méi láiguo.',ja:'それ以来、彼は二度と来ませんでした。'},
+      {cn:'不久之后，他就会回来。',py:'Bùjiǔ zhīhòu, tā jiù huì huílái.',ja:'まもなく彼は戻ってきます。'},
+      {cn:'我已经好久没见到他了。',py:'Wǒ yǐjīng hǎojiǔ méi jiàndào tā le.',ja:'長い間彼に会っていません。'},
+      {cn:'他偶尔会迟到。',py:'Tā ǒu ěr huì chídào.',ja:'彼はたまに遅刻します。'},
+      {cn:'两者的区别在于价格。',py:'Liǎngzhě de qūbié zàiyú jiàgé.',ja:'両者の違いは価格にあります。'},
+      {cn:'相对而言，第一个方案更好。',py:'Xiāngduì éryán, dìyīge fāng àn gèng hǎo.',ja:'相対的に言えば、第一案の方がいいです。'},
+      {cn:'同样是手机，功能差别很大。',py:'Tóngyàng shì shǒujī, gōngnéng chābié hěn dà.',ja:'同じ携帯でも、機能の違いは大きいです。'},
+      {cn:'一方面要努力，另一方面也要休息。',py:'Yīfāngmiàn yào nǔlì, lìng yīfāngmiàn yě yào xiūxi.',ja:'一方では努力し、他方では休息も必要です。'},
+      {cn:'截止到目前为止，一切顺利。',py:'Jiézhǐ dào mùqián wéizhǐ, yīqiè shùnlì.',ja:'現時点まで、すべて順調です。'},
+      {cn:'宁可慢一点，也要做好。',py:'Nìngkě màn yīdiǎn, yě yào zuòhǎo.',ja:'遅くてもしっかりやりたいです。'},
+    ]
+  },
+];
+
+
+// ================================================================
+// STATE
+// ================================================================
+let allCards = [], deck = [], idx = 0, hist = [];
+let mode = 'jc', muted = false, catId = 'all', autoPlay = true;
+let memorized = new Set();
+
+// ================================================================
+// INIT
+// ================================================================
+function init() {
+  CATS[0].cards = CATS.slice(1).flatMap(c => c.cards);
+  allCards = CATS[0].cards;
+
+  const slider = document.getElementById('catSlider');
+  CATS.forEach(cat => {
+    const pill = document.createElement('button');
+    pill.className = 'cat-pill' + (cat.id === 'all' ? ' active' : '');
+    pill.textContent = cat.name;
+    pill.onclick = () => selectCat(cat.id);
+    pill.dataset.id = cat.id;
+    slider.appendChild(pill);
+  });
+
+  selectCat('all');
+
+  // autoPlay初期スタイル
+  const ap = document.getElementById('btnAutoPlay');
+  ap.style.background = 'var(--gold-light)';
+  ap.style.borderColor = 'var(--gold)';
+  ap.style.color = 'var(--gold)';
+}
+
+function selectCat(id) {
+  catId = id;
+  document.querySelectorAll('.cat-pill').forEach(p => {
+    p.classList.toggle('active', p.dataset.id === id);
+  });
+  loadMem();
+  rebuildDeck();
+  render();
+}
+
+function rebuildDeck() {
+  const cat = CATS.find(c => c.id === catId);
+  if (!cat) return;
+  allCards = cat.id === 'all' ? CATS[0].cards : cat.cards;
+  const memKeys = new Set([...memorized].map(String));
+  deck = allCards
+    .map(c => ({ c, gk: String(CATS[0].cards.indexOf(c)) }))
+    .filter(({ gk }) => !memKeys.has(gk))
+    .map(({ c }) => c);
+  idx = 0; hist = [];
+}
+
+// ================================================================
+// RENDER
+// ================================================================
+function render() {
+  document.getElementById('flashCard').classList.remove('flipped');
+  if (!deck.length) {
+    document.getElementById('finishDiv').style.display = 'block';
+    updateStats(); return;
+  }
+  document.getElementById('finishDiv').style.display = 'none';
+  const card = deck[idx];
+  const cat = CATS.find(c => c.id !== 'all' && c.cards.includes(card)) || CATS[0];
+
+  if (mode === 'jc') {
+    document.getElementById('cardQ').textContent = card.ja;
+    document.getElementById('cardHint').textContent = '';
+    document.getElementById('ansCN').textContent = card.cn;
+    document.getElementById('ansCN').style.display = '';
+    document.getElementById('ansPY').textContent = card.py;
+    document.getElementById('ansPY').style.display = '';
+    document.getElementById('ansJA').textContent = '';
+    document.getElementById('ansJA').style.display = 'none';
+  } else {
+    document.getElementById('cardQ').textContent = card.cn;
+    document.getElementById('cardHint').textContent = card.py;
+    document.getElementById('ansCN').style.display = 'none';
+    document.getElementById('ansPY').style.display = 'none';
+    document.getElementById('ansJA').textContent = card.ja;
+    document.getElementById('ansJA').style.display = '';
+  }
+
+  document.getElementById('cardCat').textContent = cat.name;
+  document.getElementById('cardCatB').textContent = cat.name;
+  document.getElementById('cardCounter').textContent = (idx + 1) + ' / ' + deck.length;
+  document.getElementById('cardCounterB').textContent = (idx + 1) + ' / ' + deck.length;
+  updateStats();
+}
+
+function updateStats() {
+  const total = allCards.length;
+  const mem = allCards.filter(c => memorized.has(String(CATS[0].cards.indexOf(c)))).length;
+  const remain = total - mem;
+  const pct = total ? Math.round(mem / total * 100) : 0;
+  document.getElementById('sTotal').textContent = total;
+  document.getElementById('sRemain').textContent = remain;
+  document.getElementById('sMem').textContent = mem;
+  document.getElementById('sPct').textContent = pct + '%';
+  document.getElementById('progFill').style.width = pct + '%';
+}
+
+// ================================================================
+// NAVIGATION
+// ================================================================
+function toggleCard() {
+  const card = document.getElementById('flashCard');
+  card.classList.toggle('flipped');
+  if (card.classList.contains('flipped') && autoPlay && !muted) {
+    setTimeout(() => speakNow(null), 300);
+  }
+}
+
+function nextCard() {
+  if (!deck.length) return;
+  hist.push(idx);
+  idx = (idx + 1) % deck.length;
+  render();
+}
+
+function prevCard() {
+  if (hist.length) { idx = hist.pop(); render(); }
+}
+
+function markMem() {
+  if (!deck.length) return;
+  const key = String(CATS[0].cards.indexOf(deck[idx]));
+  memorized.add(key);
+  saveMem();
+  deck.splice(idx, 1);
+  hist = hist.filter(h => h < deck.length);
+  if (idx >= deck.length) idx = 0;
+  if (!deck.length) { updateStats(); document.getElementById('finishDiv').style.display = 'block'; return; }
+  render();
+}
+
+function doShuffle() {
+  deck.sort(() => Math.random() - .5);
+  idx = 0; hist = []; render();
+}
+
+function clearAll() {
+  memorized.clear(); saveMem(); rebuildDeck(); render();
+}
+
+function restart() {
+  document.getElementById('finishDiv').style.display = 'none';
+  clearAll();
+}
+
+// ================================================================
+// MODE / MUTE / AUTOPLAY
+// ================================================================
+function setMode(m) {
+  mode = m;
+  document.getElementById('btnJC').classList.toggle('active', m === 'jc');
+  document.getElementById('btnCJ').classList.toggle('active', m === 'cj');
+  rebuildDeck(); render();
+}
+
+function toggleMute() {
+  muted = !muted;
+  document.getElementById('btnMute').textContent = muted ? '🔇 OFF' : '🔊 ON';
+}
+
+function toggleAutoPlay() {
+  autoPlay = !autoPlay;
+  const btn = document.getElementById('btnAutoPlay');
+  btn.textContent = autoPlay ? '▶ 自動再生 ON' : '▶ 自動再生 OFF';
+  btn.style.background = autoPlay ? 'var(--gold-light)' : '';
+  btn.style.borderColor = autoPlay ? 'var(--gold)' : '';
+  btn.style.color = autoPlay ? 'var(--gold)' : '';
+}
+
+// ================================================================
+// SPEECH
+// ================================================================
+function speakNow(e) {
+  if (e) e.stopPropagation();
+  if (!deck.length || muted) return;
+  const card = deck[idx];
+  const btn = document.getElementById('audioBtn');
+  btn.classList.add('playing');
+  const reset = () => btn.classList.remove('playing');
+
+  const lang = mode === 'jc' ? 'zh-CN' : 'ja-JP';
+  const text = mode === 'jc' ? card.cn : card.ja;
+
+  // Windows Chrome/Edge では SpeechSynthesis の先頭音節が欠ける問題がある。
+  // ウォームアップ・タイミング系の対策はすべて効果がなかったため、
+  // テキスト先頭に読み上げ間を作る句読点を挿入することで対処する。
+  // 中国語: 「、」を先頭に → TTS が短ポーズを入れてから本文を読む
+  // 日本語: 同様に「、」を先頭に
+  // Windows Chrome/Edge workaround:
+  // 診断結果: TTSは常に先頭1文字を欠く。どんな対策をしても1文字分は失われる。
+  // → 本文の先頭1文字を2回繰り返してダミーとして「犠牲」にする。
+  // 例: "你好吗" → "你你好吗" (最初の"你"が切れても"你好吗"は完全に聞こえる)
+  // Windows Chrome/Edge のみ先頭1文字を複製して犠牲にする
+  // 他環境（iPhone Safari・Android等）では不要なため UA で分岐
+  const isWinChromium = /Windows/.test(navigator.userAgent) &&
+                        /Chrome|Edg/.test(navigator.userAgent);
+  const sacrificePrefix = (t) => isWinChromium ? t.charAt(0) + t : t;
+
+  const doSpeak = () => {
+    const u1 = new SpeechSynthesisUtterance(sacrificePrefix(text));
+    u1.lang = lang; u1.rate = 0.85;
+    if (mode === 'jc') {
+      u1.onend = () => {
+        const u2 = new SpeechSynthesisUtterance(sacrificePrefix(card.cn));
+        u2.lang = 'zh-CN'; u2.rate = 0.85;
+        u2.onend = reset;
+        speechSynthesis.speak(u2);
+      };
+    } else {
+      u1.onend = reset;
+    }
+    speechSynthesis.speak(u1);
+  };
+
+  if (speechSynthesis.speaking) {
+    speechSynthesis.cancel();
+    const waitCancel = () => {
+      if (!speechSynthesis.speaking) { doSpeak(); }
+      else { requestAnimationFrame(waitCancel); }
+    };
+    requestAnimationFrame(waitCancel);
+  } else {
+    doSpeak();
+  }
+}
+
+// ================================================================
+// STORAGE
+// ================================================================
+function saveMem() {
+  try { localStorage.setItem('cn_mem_b1_' + catId, JSON.stringify([...memorized])); } catch(e) {}
+}
+function loadMem() {
+  try {
+    const d = localStorage.getItem('cn_mem_b1_' + catId);
+    memorized = d ? new Set(JSON.parse(d)) : new Set();
+  } catch(e) { memorized = new Set(); }
+}
+
+// ================================================================
+// LIST MODAL
+// ================================================================
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function buildListModal(query) {
+  const body = document.getElementById('listModalBody');
+  const q = query.trim().toLowerCase();
+  body.innerHTML = '';
+  let totalShown = 0;
+  CATS.slice(1).forEach(cat => {
+    let cards = cat.cards;
+    if (q) cards = cards.filter(c =>
+      (c.ja||'').toLowerCase().includes(q) ||
+      (c.cn||'').toLowerCase().includes(q) ||
+      (c.py||'').toLowerCase().includes(q)
+    );
+    if (!cards.length) return;
+    const h = document.createElement('div');
+    h.className = 'list-cat-heading';
+    h.textContent = cat.name + '　' + cards.length + '件';
+    body.appendChild(h);
+    cards.forEach(card => {
+      const gi = CATS[0].cards.indexOf(card);
+      const row = document.createElement('div');
+      row.className = 'list-row' + (memorized.has(String(gi)) ? ' mastered-row' : '');
+      row.innerHTML =
+        '<div class="list-row-jp">' + escHtml(card.ja) + '</div>' +
+        '<div class="list-row-ne">' + escHtml(card.cn) + '</div>' +
+        '<div class="list-row-rom">' + escHtml(card.py) + '</div>';
+      row.addEventListener('click', () => {
+        let pos = deck.indexOf(card);
+        if (pos === -1) { selectCat('all'); pos = deck.indexOf(card); }
+        if (pos !== -1) idx = pos;
+        document.getElementById('flashCard').classList.remove('flipped');
+        render(); closeListModal();
+      });
+      body.appendChild(row);
+      totalShown++;
+    });
+  });
+  if (!totalShown) {
+    const d = document.createElement('div');
+    d.className = 'list-no-result';
+    d.textContent = '「' + query + '」は見つかりませんでした';
+    body.appendChild(d);
+  }
+  document.getElementById('listCount').textContent =
+    q ? totalShown + '件' : '全' + CATS[0].cards.length + '件';
+}
+
+function openListModal() {
+  document.getElementById('listSearch').value = '';
+  buildListModal('');
+  document.getElementById('listModalOverlay').classList.add('show');
+  setTimeout(() => document.getElementById('listSearch').focus(), 50);
+}
+
+function closeListModal() {
+  document.getElementById('listModalOverlay').classList.remove('show');
+}
+
+document.getElementById('listCloseBtn').addEventListener('click', closeListModal);
+document.getElementById('listModalOverlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('listModalOverlay')) closeListModal();
+});
+document.getElementById('listSearch').addEventListener('input', e => buildListModal(e.target.value));
+
+// ================================================================
+// KEYBOARD
+// ================================================================
+document.addEventListener('keydown', e => {
+  if (['Space','Enter'].includes(e.code)) { e.preventDefault(); toggleCard(); }
+  if (e.code === 'ArrowRight') nextCard();
+  if (e.code === 'ArrowLeft')  prevCard();
+  if (e.code === 'KeyM' || e.code === 'KeyC') markMem();
+});
+
+window.onload = init;
+</script>
+</body>
+</html>
