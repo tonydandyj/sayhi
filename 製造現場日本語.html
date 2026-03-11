@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>製造現場 多言語フラッシュカード</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Space+Mono:wght@400;700&family=Noto+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --surface2: #1a1a26;
+    --border: #2a2a3d;
+    --accent: #5b8eff;
+    --accent2: #ff6b6b;
+    --accent3: #50e3a4;
+    --text: #e8e8f0;
+    --text2: #9090b0;
+    --text3: #5a5a7a;
+    --card-front: #14142a;
+    --card-back: #0f1f18;
+    --radius: 16px;
+    --shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans JP', 'Noto Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Background pattern */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse at 20% 20%, rgba(91,142,255,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(80,227,164,0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 60% 10%, rgba(255,107,107,0.05) 0%, transparent 40%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 24px 16px;
+  }
+
+  /* Header */
+  header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .logo {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  h1 {
+    font-size: clamp(22px, 4vw, 32px);
+    font-weight: 900;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Setup Screen */
+  #setup-screen {
+    animation: fadeIn 0.4s ease;
+  }
+
+  .setup-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 520px) {
+    .setup-grid { grid-template-columns: 1fr; }
+  }
+
+  .setup-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+  }
+
+  .setup-card label {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text2);
+    margin-bottom: 10px;
+    font-family: 'Space Mono', monospace;
+  }
+
+  .setup-card select {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    padding: 12px 14px;
+    font-size: 14px;
+    font-family: inherit;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235b8eff' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    transition: border-color 0.2s;
+  }
+
+  .setup-card select:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  .direction-toggle {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .direction-toggle label {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text2);
+    margin-bottom: 12px;
+    font-family: 'Space Mono', monospace;
+  }
+
+  .toggle-buttons {
+    display: flex;
+    gap: 10px;
+  }
+
+  .toggle-btn {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--text2);
+    cursor: pointer;
+    font-size: 13px;
+    font-family: inherit;
+    transition: all 0.2s;
+    text-align: center;
+  }
+
+  .toggle-btn.active {
+    background: rgba(91,142,255,0.15);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* Mode Selector */
+  .mode-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .mode-section > label {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text2);
+    margin-bottom: 12px;
+    font-family: 'Space Mono', monospace;
+  }
+
+  .mode-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .mode-tab {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--text2);
+    cursor: pointer;
+    font-size: 13px;
+    font-family: inherit;
+    transition: all 0.2s;
+  }
+
+  .mode-tab.active {
+    background: rgba(80,227,164,0.12);
+    border-color: var(--accent3);
+    color: var(--accent3);
+  }
+
+  .category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 8px;
+    display: none;
+  }
+
+  .category-grid.visible { display: grid; }
+
+  .cat-btn {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--text2);
+    cursor: pointer;
+    font-size: 12px;
+    font-family: inherit;
+    transition: all 0.2s;
+    text-align: left;
+  }
+
+  .cat-btn.selected {
+    background: rgba(255,107,107,0.12);
+    border-color: var(--accent2);
+    color: var(--accent2);
+  }
+
+  .start-btn {
+    width: 100%;
+    padding: 18px;
+    background: linear-gradient(135deg, var(--accent), #8b5cf6);
+    border: none;
+    border-radius: var(--radius);
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 8px 30px rgba(91,142,255,0.3);
+  }
+
+  .start-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(91,142,255,0.4);
+  }
+
+  .start-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* Study Screen */
+  #study-screen { display: none; animation: fadeIn 0.4s ease; }
+
+  .study-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    gap: 12px;
+  }
+
+  .back-btn {
+    padding: 8px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text2);
+    cursor: pointer;
+    font-size: 13px;
+    font-family: inherit;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .back-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .progress-info {
+    text-align: center;
+    flex: 1;
+  }
+
+  .progress-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--text3);
+    margin-bottom: 4px;
+  }
+
+  .progress-bar {
+    height: 4px;
+    background: var(--surface2);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent3));
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+
+  .shuffle-btn {
+    padding: 8px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text2);
+    cursor: pointer;
+    font-size: 13px;
+    font-family: inherit;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .shuffle-btn:hover { border-color: var(--accent3); color: var(--accent3); }
+
+  /* Category badge */
+  .cat-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(91,142,255,0.1);
+    border: 1px solid rgba(91,142,255,0.3);
+    border-radius: 100px;
+    font-size: 11px;
+    color: var(--accent);
+    font-family: 'Space Mono', monospace;
+    margin-bottom: 16px;
+    letter-spacing: 1px;
+  }
+
+  /* Flashcard */
+  .card-area {
+    perspective: 1000px;
+    margin-bottom: 20px;
+    cursor: pointer;
+  }
+
+  .card-inner {
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    min-height: 260px;
+  }
+
+  .card-inner.flipped { transform: rotateY(180deg); }
+
+  .card-face {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius);
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 32px;
+    min-height: 260px;
+  }
+
+  .card-front {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--accent);
+  }
+
+  .card-back {
+    background: #0f1f18;
+    border: 1px solid rgba(80,227,164,0.3);
+    border-top: 3px solid var(--accent3);
+    transform: rotateY(180deg);
+  }
+
+  .card-hint {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-family: 'Space Mono', monospace;
+    margin-bottom: 20px;
+  }
+
+  .card-front .card-hint { color: var(--accent); }
+  .card-back .card-hint { color: var(--accent3); }
+
+  .card-phrase {
+    font-size: clamp(20px, 4vw, 32px);
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.4;
+    margin-bottom: 16px;
+    word-break: break-word;
+  }
+
+  .card-front .card-phrase { color: var(--text); }
+  .card-back .card-phrase { color: #a0f0d0; }
+
+  .card-sub {
+    font-size: 13px;
+    color: var(--text3);
+    text-align: center;
+    font-family: 'Space Mono', monospace;
+  }
+
+  .flip-hint {
+    font-size: 12px;
+    color: var(--text3);
+    text-align: center;
+    margin-bottom: 16px;
+    font-style: italic;
+  }
+
+  /* TTS Button */
+  .tts-btn {
+    padding: 10px 20px;
+    background: rgba(80,227,164,0.1);
+    border: 1px solid rgba(80,227,164,0.3);
+    border-radius: 100px;
+    color: var(--accent3);
+    cursor: pointer;
+    font-size: 13px;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+    margin-top: 8px;
+  }
+
+  .tts-btn:hover {
+    background: rgba(80,227,164,0.2);
+    border-color: var(--accent3);
+    transform: scale(1.02);
+  }
+
+  .tts-btn svg { width: 16px; height: 16px; }
+
+  /* Nav buttons */
+  .nav-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .nav-btn {
+    flex: 1;
+    padding: 14px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text2);
+    cursor: pointer;
+    font-size: 14px;
+    font-family: inherit;
+    transition: all 0.2s;
+    font-weight: 600;
+  }
+
+  .nav-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .nav-btn.primary {
+    background: linear-gradient(135deg, var(--accent), #8b5cf6);
+    border: none;
+    color: white;
+    box-shadow: 0 4px 20px rgba(91,142,255,0.25);
+  }
+
+  .nav-btn.primary:hover { transform: translateY(-1px); box-shadow: 0 8px 30px rgba(91,142,255,0.35); }
+
+  /* Result Screen */
+  #result-screen { display: none; animation: fadeIn 0.4s ease; }
+
+  .result-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 40px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .result-icon { font-size: 48px; margin-bottom: 16px; }
+  .result-title { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+  .result-sub { color: var(--text2); font-size: 14px; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes cardFlipIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .card-area { animation: cardFlipIn 0.3s ease; }
+
+  /* Utility */
+  .count-badge {
+    display: inline-block;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 2px 10px;
+    font-size: 11px;
+    font-family: 'Space Mono', monospace;
+    color: var(--text3);
+    margin-left: 8px;
+  }
+
+  select option { background: #1a1a26; }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="logo">Multilingual Flashcard</div>
+    <h1>製造現場 多言語学習</h1>
+  </header>
+
+  <!-- Setup Screen -->
+  <div id="setup-screen">
+    <div class="setup-grid">
+      <div class="setup-card">
+        <label>母語（わかる言語）</label>
+        <select id="native-lang"></select>
+      </div>
+      <div class="setup-card">
+        <label>学習言語（覚えたい言語）</label>
+        <select id="target-lang"></select>
+      </div>
+    </div>
+
+    <div class="direction-toggle">
+      <label>学習方向</label>
+      <div class="toggle-buttons">
+        <button class="toggle-btn active" data-dir="native-to-target" onclick="setDirection(this)">母語 → 学習言語</button>
+        <button class="toggle-btn" data-dir="target-to-native" onclick="setDirection(this)">学習言語 → 母語</button>
+      </div>
+    </div>
+
+    <div class="mode-section">
+      <label>学習範囲</label>
+      <div class="mode-tabs">
+        <button class="mode-tab active" onclick="setMode('all', this)">全体通し学習</button>
+        <button class="mode-tab" onclick="setMode('category', this)">カテゴリー選択</button>
+      </div>
+      <div class="category-grid" id="category-grid"></div>
+    </div>
+
+    <button class="start-btn" onclick="startStudy()" id="start-btn">学習スタート →</button>
+  </div>
+
+  <!-- Study Screen -->
+  <div id="study-screen">
+    <div class="study-header">
+      <button class="back-btn" onclick="goBack()">← 設定に戻る</button>
+      <div class="progress-info">
+        <div class="progress-label" id="progress-label">1 / 1</div>
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+      </div>
+      <button class="shuffle-btn" onclick="shuffleCards()">🔀 シャッフル</button>
+    </div>
+
+    <div style="text-align:center;margin-bottom:8px;">
+      <span class="cat-badge" id="cat-badge"></span>
+    </div>
+
+    <p class="flip-hint">カードをタップして裏返す</p>
+
+    <div class="card-area" onclick="flipCard()" id="card-area">
+      <div class="card-inner" id="card-inner">
+        <div class="card-face card-front">
+          <div class="card-hint" id="front-lang-hint">QUESTION</div>
+          <div class="card-phrase" id="front-phrase">—</div>
+          <button class="tts-btn" id="front-tts-btn" onclick="speakFront(event)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14"/><path d="M15.54 8.46a5 5 0 010 7.07"/></svg>
+            音声を聞く
+          </button>
+        </div>
+        <div class="card-face card-back">
+          <div class="card-hint" id="back-lang-hint">ANSWER</div>
+          <div class="card-phrase" id="back-phrase">—</div>
+          <button class="tts-btn" id="back-tts-btn" onclick="speakBack(event)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14"/><path d="M15.54 8.46a5 5 0 010 7.07"/></svg>
+            音声を聞く
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-row">
+      <button class="nav-btn" onclick="prevCard()">← 前へ</button>
+      <button class="nav-btn primary" onclick="nextCard()">次へ →</button>
+    </div>
+  </div>
+
+  <!-- Result Screen -->
+  <div id="result-screen">
+    <div class="result-box">
+      <div class="result-icon">🎉</div>
+      <div class="result-title">学習完了！</div>
+      <div class="result-sub" id="result-sub">お疲れ様でした</div>
+    </div>
+    <div class="nav-row">
+      <button class="nav-btn" onclick="goBack()">設定に戻る</button>
+      <button class="nav-btn primary" onclick="restartStudy()">もう一度</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== DATA =====
+const LANGUAGES = {
+  'JA': { name: '日本語', code: 'ja-JP' },
+  'ID': { name: 'インドネシア語', code: 'id-ID' },
+  'TH': { name: 'タイ語', code: 'th-TH' },
+  'TL': { name: 'タガログ語', code: 'fil-PH' },
+  'VN': { name: 'ベトナム語', code: 'vi-VN' },
+  'CN': { name: '中国語', code: 'zh-CN' },
+  'EN': { name: '英語', code: 'en-US' },
+  'MY': { name: 'ミャンマー語', code: 'my-MM' },
+  'KM': { name: 'クメール語', code: 'km-KH' },
+  'LO': { name: 'ラオス語', code: 'lo-LA' },
+};
+
+const RAW_DATA = [
+["A. 基本コミュニケーション・勤怠","A-1. 挨拶・基本表現","おはようございます","Selamat pagi","สวัสดีตอนเช้า","Magandang umaga po","Xin chào buổi sáng","早上好","Good morning","မင်္ဂလာနံနက်ခင်းပါ","អរុណសួស្តី","ສະບາຍດີຕອນເຊົ້າ"],
+["A. 基本コミュニケーション・勤怠","A-1. 挨拶・基本表現","お疲れ様でした","Terima kasih cho hari ini","สวัสดีค่ะ","Salamat po sa araw na ito","Cảm ơn anh đã vất vả","辛苦了","Good job today","ဒီနေ့အတွက် ကျေးဇူးတင်ပါတယ်","អរគុណចំពោះការងារថ្ងៃនេះ","ຂອບໃຈສຳລັບວຽກມື້ນີ້"],
+["A. 基本コミュニケーション・勤怠","A-1. 挨拶・基本表現","お先に失礼します","Saya permisi pulang dulu","ขอตัวก่อนนะครับ","Mauuna na po ako","Tôi xin phép về trước","我先走了","I'm heading out now","ကျွန်တော် ဦးစွာ ခွင့်ယူပါတယ်","ខ្ញុំសុំទៅមុន","ຂ້ອຍຂໍໄປກ່ອນ"],
+["A. 基本コミュニケーション・勤怠","A-1. 挨拶・基本表現","よろしくお願いします","Mohon bantuannya","ฝากตัวด้วยนะครับ","Pakisuyo po","Xin hãy giúp đỡ","请多关照","Nice to work with you","ကျေးဇူးပြု၍ ကူညီပေးပါ","សូមជួយផង","ກະລຸນາຊ່ວຍເຫຼືອ"],
+["A. 基本コミュニケーション・勤怠","A-1. 挨拶・基本表現","わかりました","Paham","รับทราบ","Naintindihan","Tôi đã hiểu","明白了","I understand","နားလည်ပါတယ်","យល់ហើយ","ເຂົ້າໃຈແລ້ວ"],
+["A. 基本コミュニケーション・勤怠","A-1. 挨拶・基本表現","もう一度お願いします","Sekali lagi","อีกรอบ","Pakiulit","Một lần nữa","再说一遍","One more time please","နောက်တစ်ခါ ကျေးဇူးပြုပြီး","សូមម្តងទៀត","ກະລຸນາອີກເທື່ອຫນຶ່ງ"],
+["A. 基本コミュニケーション・勤怠","A-1. 挨拶・基本表現","ここがわかりません","Saya tidak mengerti bagian ini","ตรงนี้ไม่เข้าใจ","Hindi ko maintindihan ito","Tôi không hiểu chỗ này","这里不明白","I don't understand this part","ဒီနေရာကို နားမလည်ဘူး","ខ្ញុំមិនយល់ត្រង់នេះទេ","ຂ້ອຍບໍ່ເຂົ້າໃຈບ່ອນນີ້"],
+["A. 基本コミュニケーション・勤怠","A-1. 挨拶・基本表現","日本語でゆっくり言ってください","Tolong bicara bahasa Jepang pelan-pelan","พูดภาษาญี่ปุ่นช้าๆ หน่อย","Pakibagalan po ang Japanese","Xin hãy nói tiếng Nhật chậm hơn","请用日语慢慢说","Please say it slowly in Japanese","ဂျပန်လို ဖြည်းဖြည်းပြောပါ","សូមនិយាយភាសាជប៉ុនយឺតៗ","ກະລຸນາເວົ້າພາສາຍີ່ປຸ່ນຊ້າໆ"],
+["A. 基本コミュニケーション・勤怠","A-1. 挨拶・基本表現","はい／いいえ","Ya / Tidak","ใช่ / ไม่ใช่","Oo / Hindi","Vâng / Không","是／不是","Yes / No","ဟုတ်ကဲ့ / မဟုတ်ဘူး","បាទ / ទេ","ແມ່ນ / ບໍ່"],
+["A. 基本コミュニケーション・勤怠","A-1. 挨拶・基本表現","すみません（呼びかけ）","Permisi","ขอโทษครับ","Excuse me po","Xin lỗi","不好意思","Excuse me","ခွင့်လွှတ်ပါ","សុំទោស","ຂໍໂທດ"],
+["A. 基本コミュニケーション・勤怠","A-1. 挨拶・基本表現","ありがとうございます","Terima kasih","ขอบคุณครับ","Salamat po","Cảm ơn","谢谢","Thank you","ကျေးဇူးတင်ပါတယ်","អរគុណ","ຂອບໃຈ"],
+["A. 基本コミュニケーション・勤怠","A-1. 挨拶・基本表現","少し待ってください","Tunggu sebentar","รอสักครู่","Sandali lang po","Xin hãy chờ một chút","请稍等一下","Please wait a moment","ခဏစောင့်ပါ","សូមរង់ចាំបន្តិច","ກະລຸນາລໍຖ້າຈັກໜ້ອຍ"],
+["A. 基本コミュニケーション・勤怠","A-1. 挨拶・基本表現","トイレに行ってもいいですか","Boleh ke toilet?","ไปห้องน้ำได้ไหม","Pwede po bang pumunta sa CR?","Tôi đi vệ sinh được không?","可以去洗手间吗","May I go to the restroom?","အိမ်သာသွားလို့ရမလား","ខ្ញុំអាចទៅបង្គន់បានទេ?","ຂ້ອຍໄປຫ້ອງນ້ຳໄດ້ບໍ?"],
+["A. 基本コミュニケーション・勤怠","A-1. 挨拶・基本表現","おなかが痛いです","Sakit perut","ปวดท้อง","Masakit ang tiyan","Đau bụng","肚子疼","I have a stomachache","ဗိုက်နာတယ်","ឈឺពោះ","ເຈັບທ້ອງ"],
+["A. 基本コミュニケーション・勤怠","A-1. 挨拶・基本表現","気分が悪いです","Saya tidak enak badan","ไม่สบาย","Masama ang pakiramdam ko","Tôi thấy khó chịu","我不舒服","I'm not feeling well","နေမကောင်းဘူး","ខ្ញុំមិនស្រួលខ្លួន","ຂ້ອຍບໍ່ສະບາຍ"],
+["A. 基本コミュニケーション・勤怠","A-1. 挨拶・基本表現","病院に行きたいです","Saya ingin ke rumah sakit","อยากไปโรงพยาบาล","Gusto ko pong pumunta sa ospital","Tôi muốn đi bệnh viện","我想去医院","I want to go to the hospital","ဆေးရုံသွားချင်တယ်","ខ្ញុំចង់ទៅមន្ទីរពេទ្យ","ຂ້ອຍຢາກໄປໂຮງໝໍ"],
+["A. 基本コミュニケーション・勤怠","A-1. 挨拶・基本表現","こんにちは","Selamat siang","สวัสดีตอนบ่าย","Magandang tanghali po","Xin chào buổi trưa","你好","Good afternoon","မင်္ဂလာပါ","សួស្តី","ສະບາຍດີ"],
+["A. 基本コミュニケーション・勤怠","A-1. 挨拶・基本表現","お先にどうぞ","Silakan duluan","เชิญก่อนครับ","Mauna na po kayo","Anh đi trước đi","您先请","After you","ရှေ့ကနေသွားပါ","សូមទៅមុន","ເຊີນໄປກ່ອນ"],
+["A. 基本コミュニケーション・勤怠","A-1. 挨拶・基本表現","名前は何ですか","Siapa namanya?","ชื่ออะไรครับ","Ano ang pangalan mo?","Tên em là gì?","你叫什么名字？","What's your name?","နာမည်ဘယ်လိုခေါ်လဲ","ឈ្មោះអី?","ຊື່ແມ່ນຫຍັງ?"],
+["A. 基本コミュニケーション・勤怠","A-1. 挨拶・基本表現","これは何ですか","Ini apa?","นี่คืออะไร","Ano ito?","Cái này là gì?","这是什么？","What is this?","ဒါဘာလဲ","នេះជាអី?","ອັນນີ້ແມ່ນຫຍັງ?"],
+["A. 基本コミュニケーション・勤怠","A-1. 挨拶・基本表現","どこですか","Di mana?","อยู่ไหน","Nasaan?","Ở đâu?","在哪里？","Where is it?","ဘယ်မှာလဲ","នៅឯណា?","ຢູ່ໃສ?"],
+["A. 基本コミュニケーション・勤怠","A-1. 挨拶・基本表現","いつですか","Kapan?","เมื่อไหร่","Kailan?","Khi nào?","什么时候？","When?","ဘယ်တော့လဲ","នៅពេលណា?","ເມື່ອໃດ?"],
+["A. 基本コミュニケーション・勤怠","A-1. 挨拶・基本表現","なぜですか（理由を教えて）","Kenapa?","ทำไม","Bakit?","Tại sao?","为什么？","Why?","ဘာလို့လဲ","ហេតុអី?","ເປັນຫຍັງ?"],
+["A. 基本コミュニケーション・勤怠","A-1. 挨拶・基本表現","どうやりますか","Bagaimana caranya?","ทำอย่างไร","Paano?","Làm thế nào?","怎么做？","How do I do it?","ဘယ်လိုလုပ်ရမလဲ","ធ្វើយ៉ាងម៉េច?","ເຮັດແນວໃດ?"],
+["A. 基本コミュニケーション・勤怠","A-1. 挨拶・基本表現","困っています","Saya kesulitan","มีปัญหา","May problema ako","Tôi đang gặp khó khăn","我遇到困难了","I'm having trouble","ဒုက္ခရောက်နေတယ်","កំពុងមានបញ្ហា","ກຳລັງມີບັນຫາ"],
+["A. 基本コミュニケーション・勤怠","A-1. 挨拶・基本表現","手伝ってください","Tolong bantu","ช่วยด้วย","Pakitulungan po","Xin hãy giúp tôi","请帮忙","Please help me","ကူညီပါ","សូមជួយ","ກະລຸນາຊ່ວຍ"],
+["A. 基本コミュニケーション・勤怠","A-1. 挨拶・基本表現","大丈夫ですか","Apakah baik-baik saja?","ไม่เป็นไรนะ","Okay ka lang ba?","Em có sao không?","你没事吧？","Are you okay?","အဆင်ပြေရဲ့လား","មិនអីទេ?","ສະບາຍດີບໍ?"],
+["A. 基本コミュニケーション・勤怠","A-1. 挨拶・基本表現","大丈夫です","Tidak apa-apa","ไม่เป็นไร","Okay lang po","Tôi không sao","没事","I'm fine","အဆင်ပြေပါတယ်","មិនអីទេ","ສະບາຍດີ"],
+["A. 基本コミュニケーション・勤怠","A-1. 挨拶・基本表現","聞こえません","Tidak dengar","ไม่ได้ยิน","Hindi ko marinig","Tôi không nghe thấy","听不见","I can't hear you","မကြားဘူး","មិនឮ","ບໍ່ໄດ້ຍິນ"],
+["A. 基本コミュニケーション・勤怠","A-1. 挨拶・基本表現","見えません","Tidak terlihat","มองไม่เห็น","Hindi ko makita","Tôi không nhìn thấy","看不见","I can't see it","မမြင်ဘူး","មិនឃើញ","ບໍ່ເຫັນ"],
+["A. 基本コミュニケーション・勤怠","A-1. 挨拶・基本表現","書いてください","Tolong tuliskan","เขียนให้หน่อย","Pakisulat po","Xin hãy viết ra","请写下来","Please write it down","ရေးပေးပါ","សូមសរសេរ","ກະລຸນາຂຽນ"],
+["A. 基本コミュニケーション・勤怠","A-2. 勤怠管理","遅刻ですよ","Anda terlambat","มาสายนะ","Late ka","Em đi muộn đấy","迟到了啊","You're late","နောက်ကျတယ်နော်","មកយឺតហើយ","ມາຊ້າແລ້ວ"],
+["A. 基本コミュニケーション・勤怠","A-2. 勤怠管理","早退してもいいですか","Boleh pulang awal?","กลับก่อนได้ไหม","Pwede bang umalis ng maaga?","Về sớm được không?","可以早退吗","May I leave early?","စောစောပြန်လို့ရမလား","ខ្ញុំអាចត្រឡប់មុនបានទេ?","ຂ້ອຍກັບກ່ອນໄດ້ບໍ່?"],
+["A. 基本コミュニケーション・勤怠","A-2. 勤怠管理","有休をください","Cuti tahunan ya","ลาพักร้อนนะครับ","Gagamitin ang bakasyon","Nghỉ phép có lương nhỉ","有薪休假","Paid vacation day please","ခွင့်ယူပါရစေ","សុំច្បាប់","ຂໍພັກລາຍປີ"],
+["A. 基本コミュニケーション・勤怠","A-2. 勤怠管理","明日は休みです","Besok libur","พรุ่งนี้หยุด","Bukas ay walang pasok","Ngày mai nghỉ","明天休息","Tomorrow is a day off","မနက်ဖြန် အနားယူရက်ပါ","ថ្ងៃស្អែកឈប់សម្រាក","ມື້ອື່ນຢຸດ"],
+["A. 基本コミュニケーション・勤怠","A-2. 勤怠管理","残業できますか","Bisa lembur?","ทำล่วงเวลาได้ไหม","Pwede ka bang mag-overtime?","Em có làm thêm giờ được không?","能加班吗？","Can you work overtime?","အချိန်ပိုလုပ်နိုင်မလား","អាចធ្វើបន្ថែមម៉ោងបានទេ?","ເຮັດລ່ວງເວລາໄດ້ບໍ?"],
+["A. 基本コミュニケーション・勤怠","A-2. 勤怠管理","今日は何時までですか","Hari ini sampai jam berapa?","วันนี้ถึงกี่โมง","Hanggang anong oras ngayon?","Hôm nay làm đến mấy giờ?","今天工作到几点？","What time do we finish today?","ဒီနေ့ ဘယ်အချိန်အထိလဲ","ថ្ងៃនេះដល់ម៉ោងប៉ុន្មាន?","ມື້ນີ້ຮອດຈັກໂມງ?"],
+["A. 基本コミュニケーション・勤怠","A-2. 勤怠管理","シフトを確認してください","Tolong cek jadwal shift","เช็คตารางกะด้วย","Pakicheck ang schedule","Hãy kiểm tra lịch ca làm","请确认轮班表","Please check the shift schedule","အဆိုင်းဇယားကို စစ်ဆေးပါ","សូមពិនិត្យកាលវិភាគវេន","ກະລຸນາກວດຕາຕະລາງກະ"],
+["A. 基本コミュニケーション・勤怠","A-2. 勤怠管理","タイムカードを押してください","Tolong absen dulu","รูดบัตรด้วย","Mag-time in/out ka","Hãy quẹt thẻ chấm công","请打卡","Please punch in your time card","အချိန်ကတ်ကို ထိုးပါ","សូមដោតកាតម៉ោង","ກະລຸນາຕີບັດເວລາ"],
+["A. 基本コミュニケーション・勤怠","A-2. 勤怠管理","休憩時間です","Waktunya istirahat","เวลาพัก","Break time na","Giờ nghỉ rồi","休息时间到了","It's break time","အနားယူချိန်ပါ","ម៉ោងសម្រាក","ເວລາພັກ"],
+["A. 基本コミュニケーション・勤怠","A-2. 勤怠管理","休憩は終わりです","Istirahat selesai","หมดเวลาพัก","Tapos na ang break","Hết giờ nghỉ rồi","休息结束了","Break time is over","အနားယူချိန် ပြီးပါပြီ","ចប់ម៉ោងសម្រាក","ໝົດເວລາພັກ"],
+["A. 基本コミュニケーション・勤怠","A-2. 勤怠管理","昼休みは何時からですか","Istirahat siang jam berapa?","พักเที่ยงกี่โมง","Anong oras ang lunch break?","Nghỉ trưa từ mấy giờ?","午休从几点开始？","What time is lunch break?","နေ့လယ်စာနားချိန် ဘယ်အချိန်ကစလဲ","សម្រាកថ្ងៃត្រង់ចាប់ពីម៉ោងប៉ុន្មាន?","ພັກທ່ຽງເລີ່ມຈັກໂມງ?"],
+["A. 基本コミュニケーション・勤怠","A-2. 勤怠管理","欠勤の連絡をしてください","Tolong hubungi jika absen","แจ้งลาด้วย","Pagsabihan kung aabsent","Hãy báo nếu nghỉ","请告知缺勤","Please notify if you'll be absent","ပျက်ကွက်မည့်အကြောင်း အသိပေးပါ","សូមជូនដំណឹងពេលអវត្តមាន","ກະລຸນາແຈ້ງເມື່ອຂາດ"],
+["A. 基本コミュニケーション・勤怠","A-2. 勤怠管理","届出を出してください","Tolong ajukan formulir","ยื่นแบบฟอร์มด้วย","Mag-file ng form","Hãy nộp đơn","请提交申请","Please submit the form","လျှောက်လွှာတင်ပါ","សូមដាក់ពាក្យស្នើសុំ","ກະລຸນາຍື່ນແບບຟອມ"],
+["A. 基本コミュニケーション・勤怠","A-2. 勤怠管理","来週の予定を確認して","Cek jadwal minggu depan","เช็คตารางสัปดาห์หน้า","I-check ang schedule next week","Hãy kiểm tra lịch tuần sau","确认下周的安排","Check next week's schedule","နောက်အပတ်အစီအစဉ်ကို စစ်ဆေးပါ","ពិនិត្យកាលវិភាគសប្តាហ៍ក្រោយ","ກວດຕາຕະລາງອາທິດໜ້າ"],
+["A. 基本コミュニケーション・勤怠","A-2. 勤怠管理","朝礼を始めます","Mulai briefing pagi","เริ่มประชุมเช้า","Magsisimula ang morning meeting","Bắt đầu họp sáng","开始早会","Let's start the morning meeting","မနက်အစည်းအဝေး စတယ်","ចាប់ផ្តើមកិច្ចប្រជុំព្រឹក","ເລີ່ມປະຊຸມເຊົ້າ"],
+["A. 基本コミュニケーション・勤怠","A-2. 勤怠管理","終礼をします","Briefing akhir hari","ประชุมสิ้นวัน","End-of-day meeting","Họp cuối ngày","进行晚会","Let's do the end-of-day meeting","နေ့ဆုံးအစည်းအဝေး လုပ်မယ်","ធ្វើកិច្ចប្រជុំបញ្ចប់ការងារ","ເຮັດປະຊຸມຕອນແລງ"],
+["A. 基本コミュニケーション・勤怠","A-2. 勤怠管理","今日の作業内容を説明します","Saya jelaskan tugas hari ini","อธิบายงานวันนี้","Ipapaliwanag ang trabaho ngayon","Tôi sẽ giải thích nội dung công việc hôm nay","说明今天的工作内容","I'll explain today's tasks","ဒီနေ့အလုပ်အကြောင်း ရှင်းပြမယ်","ពន្យល់ការងារថ្ងៃនេះ","ອະທິບາຍວຽກມື້ນີ້"],
+["A. 基本コミュニケーション・勤怠","A-2. 勤怠管理","質問はありますか","Ada pertanyaan?","มีคำถามไหม","May tanong ba?","Có câu hỏi gì không?","有问题吗？","Any questions?","မေးခွန်းရှိလား","មានសំណួរទេ?","ມີຄຳຖາມບໍ?"],
+["A. 基本コミュニケーション・勤怠","A-2. 勤怠管理","持ち場に戻ってください","Kembali ke pos masing-masing","กลับไปประจำที่","Bumalik sa pwesto","Hãy quay về vị trí","请回到各自的岗位","Please return to your stations","ကိုယ့်နေရာကို ပြန်သွားပါ","សូមត្រឡប់ទៅកន្លែងរបស់អ្នក","ກະລຸນາກັບໄປປະຈຳທີ່"],
+["B. 安全・緊急事態・表示","B-1. とっさの指示","危ない！","Bahaya!","อันตราย!","Delikado!","Nguy hiểm!","危险！","Look out!","အန္တရာယ်!","គ្រោះថ្នាក់!","ອັນຕະລາຍ!"],
+["B. 安全・緊急事態・表示","B-1. とっさの指示","機械を止めろ！","Hentikan mesinnya!","หยุดเครื่องจักรซะ!","I-off mo ang makina!","Hãy dừng máy!","关机器！","Stop the machine!","စက်ကိုရပ်လိုက်!","បញ្ឈប់ម៉ាស៊ីន!","ຢຸດເຄື່ອງ!"],
+["B. 安全・緊急事態・表示","B-1. とっさの指示","触るな！","Jangan disentuh!","อย่าจับ!","Huwag mong hawakan!","Đừng sờ vào!","别摸！","Don't touch that!","မထိပါနဲ့!","កុំប៉ះ!","ຢ່າແຕະ!"],
+["B. 安全・緊急事態・表示","B-1. とっさの指示","電源を落とせ！","Matikan listriknya!","ตัดไฟเครื่องจักร!","Patayin ang suplay ng kuryente!","Hãy tắt nguồn điện!","关掉电源！","Turn the power off!","မီးပိတ်လိုက်!","កាត់ភ្លើង!","ຕັດໄຟຟ້າ!"],
+["B. 安全・緊急事態・表示","B-1. とっさの指示","走るな！","Jangan lari!","อย่าวิ่ง!","Huwag kang tumakbo!","Không được chạy!","别跑！","Don't run!","မပြေးပါနဲ့!","កុំរត់!","ຢ່າແລ່ນ!"],
+["B. 安全・緊急事態・表示","B-1. とっさの指示","足元注意！","Perhatikan langkah!","ที่เท้า!","Watch your feet!","Chú ý chân!","脚底下！","Watch your feet!","ခြေထောက်အောက်သတိ!","ប្រយ័ត្នជើង!","ລະວັງຕີນ!"],
+["B. 安全・緊急事態・表示","B-1. とっさの指示","逃げろ！","Lari!","หนี!","Tumakbo!","Chạy đi!","快跑！","Run!","ပြေးကြ!","រត់គេច!","ແລ່ນໜີ!"],
+["B. 安全・緊急事態・表示","B-1. とっさの指示","しゃがめ！","Merunduk!","หมอบลง!","Yumuko ka!","Cúi xuống!","蹲下！","Get down!","ထိုင်ချလိုက်!","អង្គុយចុះ!","ຍອດລົງ!"],
+["B. 安全・緊急事態・表示","B-1. とっさの指示","離れろ！","Menjauh!","ถอยออกมา!","Lumayo ka!","Tránh ra!","离远点！","Get away!","ဝေးရာကိုရွှေ့!","ឃ្លាតឆ្ងាយ!","ຖອຍອອກ!"],
+["B. 安全・緊急事態・表示","B-1. とっさの指示","手を出すな！","Jangan ulurkan tangan!","อย่ายื่นมือเข้าไป!","Huwag mong ipasok ang kamay!","Không được đưa tay vào!","不要伸手！","Keep your hands away!","လက်မထုတ်ပါနဲ့!","កុំដាក់ដៃ!","ຢ່າເອົາມືເຂົ້າ!"],
+["B. 安全・緊急事態・表示","B-1. とっさの指示","上を見ろ！","Lihat ke atas!","มองข้างบน!","Tumingin ka sa taas!","Nhìn lên trên!","看上面！","Look up!","အပေါ်ကိုကြည့်!","មើលលើ!","ເບິ່ງເທິງ!"],
+["B. 安全・緊急事態・表示","B-1. とっさの指示","頭を下げろ！","Tundukkan kepala!","ก้มหัว!","Ibaba mo ang ulo!","Cúi đầu xuống!","低头！","Duck your head!","ခေါင်းငုံ့!","បន្ទាបក្បាល!","ກົ້ມຫົວ!"],
+["B. 安全・緊急事態・表示","B-1. とっさの指示","動くな！","Jangan bergerak!","อย่าเคลื่อนไหว!","Huwag kang gumalaw!","Đừng cử động!","不要动！","Don't move!","မလှုပ်နဲ့!","កុំរើ!","ຢ່າເຄື່ອນ!"],
+["B. 安全・緊急事態・表示","B-1. とっさの指示","救急車を呼べ！","Panggil ambulans!","เรียกรถพยาบาล!","Tumawag ng ambulansya!","Gọi xe cấp cứu!","叫救护车！","Call an ambulance!","လူနာတင်ကားခေါ်!","ហៅឡានពេទ្យ!","ໂທລົດສຸກເສີນ!"],
+["B. 安全・緊急事態・表示","B-1. とっさの指示","けがをしたか？","Apakah terluka?","บาดเจ็บไหม?","Nasugatan ka ba?","Em có bị thương không?","受伤了吗？","Are you hurt?","ဒဏ်ရာရလား","របួសទេ?","ໄດ້ຮັບບາດເຈັບບໍ?"],
+["B. 安全・緊急事態・表示","B-1. とっさの指示","血が出ている！","Ada darah!","มีเลือดออก!","May dugo!","Đang chảy máu!","在流血！","You're bleeding!","သွေးထွက်နေတယ်!","ឈាមហូរ!","ເລືອດອອກ!"],
+["B. 安全・緊急事態・表示","B-1. とっさの指示","落ち着け！","Tenang!","ใจเย็น!","Kalma lang!","Bình tĩnh!","冷静！","Calm down!","စိတ်အေးအေးထား!","ស្ងប់ស្ងាត់!","ໃຈເຢັນໆ!"],
+["B. 安全・緊急事態・表示","B-1. とっさの指示","こっちに来い！","Ke sini!","มาทางนี้!","Halika dito!","Lại đây!","过来！","Come here!","ဒီကိုလာ!","មកទីនេះ!","ມາທາງນີ້!"],
+["B. 安全・緊急事態・表示","B-1. とっさの指示","あっちに行け！","Pergi ke sana!","ไปทางโน้น!","Pumunta ka doon!","Đi chỗ kia!","去那边！","Go over there!","ဟိုဘက်ကိုသွား!","ទៅទីនោះ!","ໄປທາງນັ້ນ!"],
+["B. 安全・緊急事態・表示","B-1. とっさの指示","座れ！","Duduk!","นั่งลง!","Umupo ka!","Ngồi xuống!","坐下！","Sit down!","ထိုင်!","អង្គុយ!","ນັ່ງລົງ!"],
+["B. 安全・緊急事態・表示","B-1. とっさの指示","水をかけろ！","Siram air!","ราดน้ำ!","Buhusan ng tubig!","Dội nước vào!","浇水！","Pour water on it!","ရေလောင်း!","ចាក់ទឹក!","ຖອກນ້ຳ!"],
+["B. 安全・緊急事態・表示","B-1. とっさの指示","窓を開けろ！","Buka jendela!","เปิดหน้าต่าง!","Buksan ang bintana!","Mở cửa sổ ra!","打开窗户！","Open the window!","ပြတင်းပေါက်ဖွင့်!","បើកបង្អួច!","ເປີດປ່ອງຢ້ຽມ!"],
+["B. 安全・緊急事態・表示","B-2. 表示理解","立入禁止","Tidak boleh masuk ke sini","ห้ามเข้าไปข้างใน","Bawal pumasok dito","Không được đi vào đây","这里不能进入","You may not enter here","အတွင်းသို့ဝင်ရန်မဆန့်","ហាមចូលខាងក្នុង","ຫ້າມເຂົ້າຂ້າງໃນ"],
+["B. 安全・緊急事態・表示","B-2. 表示理解","高温部（熱い）","Panas","ร้อน","Mainit","Nóng","很热","Hot","ပူသည်","ក្តៅ","ຮ້ອນ"],
+["B. 安全・緊急事態・表示","B-2. 表示理解","非常出口","Pintu darurat","ทางออกฉุกเฉิน","Emergency exit","Lối thoát hiểm","安全出口","Emergency exit","အရေးပေါ်ထွက်ပေါက်","ច្រកចេញសង្គ្រោះបន្ទាន់","ທາງອອກສຸກເສີນ"],
+["B. 安全・緊急事態・表示","B-2. 表示理解","調整中","Sedang disetting","อยู่ในระหว่างปรับแต่ง","Under adjustment","Đang điều chỉnh","调整中","Under adjustment","ချိန်ညှိနေသည်","កំពុងកែសម្រួល","ກຳລັງປັບ"],
+["B. 安全・緊急事態・表示","B-2. 表示理解","頭上注意","Awas atas","ระวังศีรษะ","Ingat sa ulo","Cẩn thận phía trên đầu","注意头顶","Watch your head","ခေါင်းအထက်သတိ","ប្រយ័ត្នក្បាល","ລະວັງຫົວ"],
+["B. 安全・緊急事態・表示","B-2. 表示理解","火気厳禁","Dilarang menyalakan api","ห้ามจุดไฟ","Bawal magpaningas","Cấm lửa","严禁烟火","No open flames","မီးရှို့ခြင်းတားမြစ်သည်","ហាមប្រើភ្លើង","ຫ້າມຈູດໄຟ"],
+["B. 安全・緊急事態・表示","B-2. 表示理解","関係者以外立入禁止","Hanya untuk karyawan","เฉพาะผู้เกี่ยวข้อง","Authorized personnel only","Chỉ người có liên quan","闲人免进","Authorized personnel only","ဆိုင်ရာသူများမှလွဲ၍ ဝင်ရန်မဆန့်","ហាមចូលសម្រាប់តែបុគ្គលិក","ສະເພາະຜູ້ທີ່ກ່ຽວຂ້ອງເທົ່ານັ້ນ"],
+["B. 安全・緊急事態・表示","B-2. 表示理解","足元注意","Hati-hati langkah kaki","ระวังเท้า","Ingat sa sahig","Chú ý dưới chân","注意脚下","Watch your step","ခြေထောက်အောက်သတိ","ប្រយ័ត្នជើង","ລະວັງຕີນ"],
+["B. 安全・緊急事態・表示","B-2. 表示理解","運転中","Sedang beroperasi","กำลังเดินเครื่อง","Gumagana","Đang vận hành","运转中","In operation","လည်ပတ်နေသည်","កំពុងដំណើរការ","ກຳລັງເຮັດວຽກ"],
+["B. 安全・緊急事態・表示","B-2. 表示理解","使用禁止","Dilarang menggunakan","ห้ามใช้งาน","Bawal gamitin","Cấm sử dụng","禁止使用","Do not use","အသုံးပြုခြင်းတားမြစ်သည်","ហាមប្រើ","ຫ້າມໃຊ້"],
+["B. 安全・緊急事態・表示","B-2. 表示理解","点検中","Sedang diperiksa","กำลังตรวจสอบ","Under inspection","Đang kiểm tra","检查中","Under inspection","စစ်ဆေးနေသည်","កំពុងត្រួតពិនិត្យ","ກຳລັງກວດກາ"],
+["B. 安全・緊急事態・表示","B-2. 表示理解","修理中","Sedang diperbaiki","กำลังซ่อม","Under repair","Đang sửa chữa","维修中","Under repair","ပြုပြင်နေသည်","កំពុងជួសជុល","ກຳລັງສ້ອມ"],
+["B. 安全・緊急事態・表示","B-2. 表示理解","保護具着用","Wajib pakai alat pelindung","ต้องสวมอุปกรณ์ป้องกัน","Required ang PPE","Phải đeo dụng cụ bảo hộ","必须佩戴防护用品","PPE required","အကာအကွယ်ပစ္စည်းများ ဝတ်ဆင်ရန်","តម្រូវឱ្យពាក់ឧបករណ៍ការពារ","ຕ້ອງໃສ່ອຸປະກອນປ້ອງກັນ"],
+["B. 安全・緊急事態・表示","B-2. 表示理解","酸素欠乏注意","Awas kekurangan oksigen","ระวังขาดออกซิเจน","Ingat sa kakulangan ng oxygen","Cẩn thận thiếu oxy","注意缺氧","Oxygen deficiency warning","အောက်ဆီဂျင်ဓာတ်နည်းပါးမှုသတိ","ប្រយ័ត្នខ្វះអុកស៊ីសែន","ລະວັງຂາດອົກຊີ"],
+["B. 安全・緊急事態・表示","B-2. 表示理解","有害物質","Bahan berbahaya","สารอันตราย","Hazardous substance","Chất độc hại","有害物质","Hazardous substance","အန္တရာယ်ရှိသောဓာတုပစ္စည်း","សារធាតុគ្រោះថ្នាក់","ສານອັນຕະລາຍ"],
+["B. 安全・緊急事態・表示","B-2. 表示理解","飲料水ではありません","Bukan air minum","ไม่ใช่น้ำดื่ม","Hindi inuming tubig","Không phải nước uống","非饮用水","Not drinking water","သောက်ရေမဟုတ်ပါ","មិនមែនទឹកផឹក","ບໍ່ແມ່ນນ້ຳດື່ມ"],
+["B. 安全・緊急事態・表示","B-2. 表示理解","重量物","Benda berat","ของหนัก","Mabigat","Vật nặng","重物","Heavy object","အလေးချိန်ကြီးသောပစ္စည်း","វត្ថុធ្ងន់","ຂອງໜັກ"],
+["B. 安全・緊急事態・表示","B-2. 表示理解","天井クレーン作業中","Crane sedang beroperasi","เครนกำลังทำงาน","Crane in operation","Cẩu trục đang hoạt động","天车作业中","Overhead crane in operation","မျက်နှာကျက်ကရိန်း လည်ပတ်နေသည်","ក្រេនកំពុងដំណើរការ","ປັ໊ກຂັນເຄນກຳລັງເຮັດວຽກ"],
+["B. 安全・緊急事態・表示","B-2. 表示理解","フォークリフト通行注意","Awas forklift","ระวังรถโฟล์คลิฟท์","Ingat sa forklift","Chú ý xe nâng qua lại","注意叉车通行","Forklift traffic — caution","ဖော်ကလစ်သတိ","ប្រយ័ត្នរថយន្តស្ទូច","ລະວັງລົດຍົກ"],
+["B. 安全・緊急事態・表示","B-3. 安全注意","感電しますよ","Tersengat listrik","ถูกไฟช็อตเอา","Makukuryente ka","Sẽ bị điện giật","会触电的","You'll get an electric shock","ဓာတ်လိုက်မယ်နော်","នឹងឆក់","ຈະຖືກໄຟຊ໋ອດ"],
+["B. 安全・緊急事態・表示","B-3. 安全注意","ポケットに手を入れるな","Jangan masukkan tangan ke saku","อย่าเอามือใส่กระเป๋า","Huwag mo ilagay ang kamay sa bulsa","Không được cho tay vào túi","不要把手放进口袋","Don't put your hands in your pockets","အိတ်ကပ်ထဲလက်မထည့်နဲ့","កុំដាក់ដៃក្នុងហោប៉ៅ","ຢ່າເອົາມືໃສ່ກະເປົາ"],
+["B. 安全・緊急事態・表示","B-3. 安全注意","溶剤は換気して使え","Gunakan pelarut dengan ventilasi","ใช้สารทำละลายต้องมีอากาศถ่ายเท","Gamitin ang solvent na may bentilasyon","Dùng dung môi phải thông gió","使用溶剂时要通风","Use solvents with ventilation","ဓာတုပျော်ရည်ကို လေဝင်လေထွက်ကောင်းစွာဖြင့် သုံးပါ","ប្រើសារធាតុរំលាយដោយមានខ្យល់ចេញចូល","ໃຊ້ສານລະລາຍໃນບ່ອນທີ່ມີອາກາດ"],
+["B. 安全・緊急事態・表示","B-3. 安全注意","回転体に巻き込まれるぞ","Bisa tergulung mesin berputar","ระวังถูกม้วนเข้าไปในส่วนที่หมุน","Baka mahila ng umiikot na parte","Cẩn thận bị cuốn vào phần quay","小心被旋转部件卷入","Watch out for rotating parts","လည်နေတဲ့အစိတ်အပိုင်းမှာ ရစ်မိမယ်နော်","ប្រយ័ត្នចាប់ចូលផ្នែកវិល","ລະວັງຖືກດູດເຂົ້າໃນສ່ວນທີ່ຫມູນ"],
+["B. 安全・緊急事態・表示","B-3. 安全注意","二人作業で持って","Angkat berdua","ยกสองคน","Dalawang tao ang magbuhat","Hai người cùng khiêng","两个人一起抬","Lift it with two people","နှစ်ယောက်တွဲပြီး မ","លើកពីរនាក់","ຍົກສອງຄົນ"],
+["B. 安全・緊急事態・表示","B-3. 安全注意","保護具をつけろ","Pakai alat pelindung","สวมอุปกรณ์ป้องกัน","Isuot ang protective gear","Hãy đeo đồ bảo hộ","穿戴好防护用品","Put on your protective gear","အကာအကွယ်ပစ္စည်းတပ်ပါ","ពាក់ឧបករណ៍ការពារ","ໃສ່ອຸປະກອນປ້ອງກັນ"],
+["B. 安全・緊急事態・表示","B-3. 安全注意","安全帯をつけろ","Pakai sabuk pengaman","ใส่เข็มขัดนิรภัย","Isuot ang safety harness","Hãy đeo dây an toàn","系好安全带","Wear your safety harness","ဘေးအန္တရာယ်ကင်းခါးပတ်တပ်ပါ","ពាក់ខ្សែក្រវាត់សុវត្ថិភាព","ໃສ່ສາຍເຊືອກນິລະໄພ"],
+["B. 安全・緊急事態・表示","B-3. 安全注意","ヘルメットをかぶれ","Pakai helm","สวมหมวกนิรภัย","Isuot ang helmet","Hãy đội mũ bảo hộ","戴好安全帽","Put on your helmet","ဆောက်လုပ်ရေးဦးထုပ်ဆောင်းပါ","ពាក់មួកសុវត្ថិភាព","ໃສ່ໝວກກັນກະທົບ"],
+["B. 安全・緊急事態・表示","B-3. 安全注意","耳栓をつけて","Pakai penutup telinga","ใส่ที่อุดหู","Ilagay ang ear plugs","Hãy đeo nút tai","戴上耳塞","Put in your ear plugs","နားပလပ်တပ်ပါ","ពាក់ដោតត្រចៀក","ໃສ່ທີ່ອັດຫູ"],
+["B. 安全・緊急事態・表示","B-3. 安全注意","安全靴を履いて","Pakai sepatu safety","ใส่รองเท้านิรภัย","Isuot ang safety shoes","Hãy mang giày bảo hộ","穿上安全鞋","Wear your safety shoes","ဘေးအန္တရာယ်ကင်းဖိနပ်စီးပါ","ពាក់ស្បែកជើងសុវត្ថិភាព","ໃສ່ເກີບນິລະໄພ"],
+["B. 安全・緊急事態・表示","B-3. 安全注意","指差し確認をして","Lakukan pointing and calling","ชี้และเรียกเพื่อยืนยัน","Gawin ang point and call","Hãy chỉ tay xác nhận","请做指差确认","Do point-and-call confirmation","လက်ညှိုးထိုးအတည်ပြုပါ","ធ្វើការចង្អុលបញ្ជាក់","ຊີ້ແລະຢືນຢັນ"],
+["B. 安全・緊急事態・表示","B-3. 安全注意","KY（危険予知）をやります","Mari lakukan KY","มาทำ KY กัน","Gawin natin ang KY","Chúng ta làm KY nhé","我们来做危险预知","Let's do hazard prediction (KY)","KY လုပ်မယ်","ធ្វើ KY","ເຮັດ KY"],
+["B. 安全・緊急事態・表示","B-3. 安全注意","ロックアウト・タグアウトをして","Lakukan lockout tagout","ทำ lockout tagout","Gawin ang lockout tagout","Hãy thực hiện khóa máy","进行上锁挂牌","Do lockout-tagout","Lockout tagout လုပ်ပါ","ធ្វើការចាក់សោរ","ເຮັດ lockout tagout"],
+["B. 安全・緊急事態・表示","B-3. 安全注意","一人で作業するな","Jangan kerja sendiri","อย่าทำงานคนเดียว","Huwag mag-isa sa trabaho","Không được làm việc một mình","不要一个人作业","Don't work alone","တစ်ယောက်တည်းအလုပ်မလုပ်နဲ့","កុំធ្វើការតែម្នាក់ឯង","ຢ່າເຮັດວຽກຄົນດຽວ"],
+["B. 安全・緊急事態・表示","B-3. 安全注意","脚立はしっかり開いて使え","Buka tangga dengan benar","กางบันไดให้มั่นคง","Buksan nang maayos ang hagdan","Hãy mở thang chữ A cho chắc","人字梯要完全撑开","Open the stepladder fully","လှေကားကို ကောင်းစွာဖြန့်ပြီးသုံးပါ","បើកជណ្ដើរឲ្យបានមាំ","ກະຈາຍຂາບັນໄດໃຫ້ໝັ້ນ"],
+["B. 安全・緊急事態・表示","B-3. 安全注意","重い物は膝を曲げて持て","Angkat dengan tekuk lutut","ย่อเข่าเวลายกของหนัก","Baluktot ang tuhod pag nagbubuhat","Nâng vật nặng phải gập đầu gối","搬重物要弯膝盖","Bend your knees to lift heavy objects","လေးတဲ့ပစ္စည်းကို ဒူးကွေးပြီးမ","លើករបស់ធ្ងន់ដោយឱនជង្គង់","ຍົກຂອງໜັກໂດຍງໍຫົວເຂົ່າ"],
+["B. 安全・緊急事態・表示","B-3. 安全注意","換気扇をつけて","Nyalakan exhaust fan","เปิดพัดลมระบาย","I-on ang exhaust fan","Hãy bật quạt thông gió","打开换气扇","Turn on the exhaust fan","လေစုပ်စက်ဖွင့်ပါ","បើកកង្ហារបឺតខ្យល់","ເປີດພັດລົມລະບາຍອາກາດ"],
+["B. 安全・緊急事態・表示","B-3. 安全注意","マスクをつけて","Pakai masker","ใส่หน้ากาก","Magsuot ng mask","Hãy đeo khẩu trang","戴上口罩","Put on your mask","နှာခေါင်းစည်းတပ်ပါ","ពាក់ម៉ាស","ໃສ່ຜ້າອັດປາກ"],
+["B. 安全・緊急事態・表示","B-3. 安全注意","粉塵に注意","Awas debu","ระวังฝุ่น","Ingat sa alikabok","Cẩn thận bụi","注意粉尘","Watch out for dust","ဖုန်မှုန့်သတိ","ប្រយ័ត្នធូលី","ລະວັງຂີ້ຝຸ່ນ"],
+["B. 安全・緊急事態・表示","B-4. 緊急事態","非常停止ボタンを押せ！","Cepat tekan tombol stop darurat!","กดปุ่มหยุดฉุกเฉินซะ!","Pindutin ang emergency stop button!","Hãy nhấn nút dừng khẩn cấp!","按下紧急停止按钮！","Push the emergency stop button!","အရေးပေါ်ရပ်တန့်ခလုတ်ကိုနှိပ်ပါ!","ចុចប៊ូតុងឈប់សង្គ្រោះបន្ទាន់!","ກົດປຸ່ມຢຸດສຸກເສີນ!"],
+["B. 安全・緊急事態・表示","B-4. 緊急事態","火事だ！","Kebakaran!","ไฟไหม้!","Sunog!","Cháy!","着火了！","Fire!","မီးလောင်တယ်!","អគ្គិភ័យ!","ໄຟໄໝ້!"],
+["B. 安全・緊急事態・表示","B-4. 緊急事態","地震だ！","Gempa!","แผ่นดินไหว!","Lindol!","Động đất!","地震了！","Earthquake!","ငလျင်လှုပ်တယ်!","រញ្ជួយដី!","ແຜ່ນດິນໄຫວ!"],
+["B. 安全・緊急事態・表示","B-4. 緊急事態","机の下に隠れろ！","Sembunyi di bawah meja!","หลบใต้โต๊ะ!","Tumago sa ilalim ng mesa!","Chui xuống dưới bàn!","躲到桌子下面！","Get under the desk!","စားပွဲအောက်မှာပုန်း!","លាក់ក្រោមតុ!","ຊ່ອນໃຕ້ໂຕະ!"],
+["B. 安全・緊急事態・表示","B-4. 緊急事態","避難しろ！","Evakuasi!","อพยพ!","Lumikas!","Sơ tán đi!","撤离！","Evacuate!","ကယ်ထုတ်ရွှေ့ပြောင်းကြ!","ជម្លៀសចេញ!","ອົບພະຍົກ!"],
+["B. 安全・緊急事態・表示","B-4. 緊急事態","集合場所に行け！","Ke titik kumpul!","ไปจุดรวมพล!","Pumunta sa meeting point!","Đến điểm tập trung!","去集合地点！","Go to the assembly point!","စုရပ်ကိုသွား!","ទៅកន្លែងប្រមូលផ្តុំ!","ໄປຈຸດນັດພົບ!"],
+["B. 安全・緊急事態・表示","B-4. 緊急事態","警報が鳴っている","Alarm berbunyi","สัญญาณเตือนดัง","Tumutunog ang alarm","Chuông báo động đang kêu","警报在响","The alarm is going off","နှိုးစက်မြည်နေတယ်","សំឡេងរោទិ៍កំពុងបន្លឺ","ສັນຍານເຕືອນດັງຢູ່"],
+["B. 安全・緊急事態・表示","B-4. 緊急事態","消火器を持ってこい！","Bawa alat pemadam!","เอาถังดับเพลิงมา!","Dalhin ang fire extinguisher!","Mang bình chữa cháy đến!","把灭火器拿来！","Bring the fire extinguisher!","မီးသတ်ဆေးဘူးယူလာ!","យកឧបករណ៍ពន្លត់អគ្គិភ័យមក!","ເອົາຖັງດັບເພີງມາ!"],
+["B. 安全・緊急事態・表示","B-4. 緊急事態","119番に電話しろ！","Telepon 119!","โทร 119!","Tumawag sa 119!","Gọi 119!","打119！","Call 119!","119 ကိုဖုန်းဆက်!","ទូរស័ព្ទ 119!","ໂທ 119!"],
+["B. 安全・緊急事態・表示","B-4. 緊急事態","エレベーターを使うな！","Jangan pakai lift!","ห้ามใช้ลิฟต์!","Huwag gamitin ang elevator!","Không được dùng thang máy!","不要乘电梯！","Don't use the elevator!","ဓာတ်လှေကားမသုံးနဲ့!","កុំប្រើជណ្តើរយន្ត!","ຢ່າໃຊ້ລິບ!"],
+["B. 安全・緊急事態・表示","B-4. 緊急事態","人数を確認しろ！","Hitung jumlah orang!","นับจำนวนคน!","Bilangin ang tao!","Kiểm tra số người!","确认人数！","Do a headcount!","လူဦးရေစစ်ဆေး!","រាប់ចំនួនមនុស្ស!","ນັບຈຳນວນຄົນ!"],
+["B. 安全・緊急事態・表示","B-4. 緊急事態","ガスの臭いがする","Ada bau gas","มีกลิ่นแก๊ส","May amoy gas","Có mùi ga","有煤气味","I smell gas","ဓာတ်ငွေ့အနံ့ရတယ်","ក្លិនឧស្ម័ន","ມີກິ່ນອາຍແກັດ"],
+["B. 安全・緊急事態・表示","B-4. 緊急事態","煙が出ている","Ada asap","มีควัน","May usok","Có khói bốc lên","有烟冒出来","There's smoke","မီးခိုးထွက်နေတယ်","មានផ្សែង","ມີຄວັນອອກ"],
+["B. 安全・緊急事態・表示","B-4. 緊急事態","停電です","Mati lampu","ไฟดับ","Brownout","Mất điện","停电了","There's a power outage","မီးပျက်တယ်","ភ្លើងដាច់","ໄຟດັບ"],
+["B. 安全・緊急事態・表示","B-4. 緊急事態","応急手当をして","Berikan pertolongan pertama","ปฐมพยาบาล","I-first aid","Hãy sơ cứu","进行急救","Give first aid","ရှေးဦးသူနာပြုစုပါ","ធ្វើការសង្គ្រោះបឋម","ປະຖົມພະຍາບານ"],
+["B. 安全・緊急事態・表示","B-4. 緊急事態","AEDを持ってこい","Bawa AED","เอา AED มา","Dalhin ang AED","Mang AED đến","把AED拿来","Bring the AED","AED ယူလာ","យក AED មក","ເອົາ AED ມາ"],
+["B. 安全・緊急事態・表示","B-4. 緊急事態","意識はありますか","Apakah sadar?","ยังรู้สึกตัวอยู่ไหม","Conscious pa ba?","Còn tỉnh không?","有意识吗？","Are you conscious?","သတိရှိလား","ដឹងខ្លួនទេ?","ຍັງມີສະຕິຢູ່ບໍ?"],
+["B. 安全・緊急事態・表示","B-4. 緊急事態","担架を持ってこい","Bawa tandu","เอาเปลมา","Dalhin ang stretcher","Mang cáng đến","把担架拿来","Bring the stretcher","လှမ်းစင်ယူလာ","យកគ្រែដឹកអ្នកជំងឺមក","ເອົາເປີ້ມາຄົນເຈັບ"],
+["B. 安全・緊急事態・表示","B-4. 緊急事態","出口はどこですか","Pintu keluar di mana?","ทางออกอยู่ไหน","Nasaan ang exit?","Lối ra ở đâu?","出口在哪里？","Where is the exit?","ထွက်ပေါက်ဘယ်မှာလဲ","ច្រកចេញនៅឯណា?","ທາງອອກຢູ່ໃສ?"],
+["B. 安全・緊急事態・表示","B-4. 緊急事態","全員無事ですか","Semua selamat?","ทุกคนปลอดภัยไหม","Ligtas ba ang lahat?","Mọi người có an toàn không?","全员安全吗？","Is everyone safe?","အားလုံးဘေးကင်းရဲ့လား","អ្នកទាំងអស់គ្នាសុវត្ថិភាពទេ?","ທຸກຄົນປອດໄພບໍ?"],
+["B. 安全・緊急事態・表示","B-4. 緊急事態","二次災害に注意しろ","Awas bencana susulan","ระวังภัยซ้ำ","Ingat sa secondary disaster","Cẩn thận thảm họa thứ phát","注意二次灾害","Watch out for secondary disasters","ဒုတိယအန္တရာယ်သတိ","ប្រយ័ត្នគ្រោះថ្នាក់បន្ទាប់បន្សំ","ລະວັງໄພພິບັດຂັ້ນສອງ"],
+["C. 服装・清掃・整理整頓","C-1. 服装確認","上着をズボンに入れて","Masukkan baju ke celana","เอาเสื้อคลุมใส่ในกางเกง","Tuck your jacket in","Hãy cho áo vào quần","把上衣放进裤子里","Tuck your jacket into your trousers","အင်္ကျီကို ဘောင်းဘီထဲထည့်ပါ","បញ្ចូលអាវក្នុងខោ","ເອົາເສື້ອຊຸດໃສ່ໃນໂສ້ງ"],
+["C. 服装・清掃・整理整頓","C-1. 服装確認","防護めがねをかけて","Pakai kacamata pelindung","สวมแว่นป้องกัน","Wear protective glasses","Đeo kính bảo hộ","戴上护目镜","Wear safety glasses","အကာအကွယ်မျက်မှန်တပ်ပါ","ពាក់វ៉ែនតាការពារ","ໃສ່ແວ່ນຕາປ້ອງກັນ"],
+["C. 服装・清掃・整理整頓","C-1. 服装確認","手袋をするな（巻き込まれる）","Jangan pakai sarung tangan","ห้ามใส่ถุงมือ","Huwag magsuot ng gloves","Không được đeo găng tay","不要戴手套（会被卷入）","Don't wear gloves (entanglement risk)","လက်အိတ်မဝတ်နဲ့","កុំពាក់ស្រោមដៃ","ຢ່າໃສ່ຖົງມື"],
+["C. 服装・清掃・整理整頓","C-1. 服装確認","手袋をしろ（薬品を扱うとき）","Pakai sarung tangan","ใส่ถุงมือ","Magsuot ng gloves","Hãy đeo găng tay","戴上手套","Wear gloves","လက်အိတ်ဝတ်ပါ","ពាក់ស្រោមដៃ","ໃສ່ຖົງມື"],
+["C. 服装・清掃・整理整頓","C-1. 服装確認","髪をまとめて","Ikat rambutnya","รวบผมด้วย","Itali ang buhok","Hãy buộc tóc lại","把头发扎起来","Tie your hair back","ဆံပင်ကိုစုစည်းပါ","ចងសក់","ມັດຜົມ"],
+["C. 服装・清掃・整理整頓","C-1. 服装確認","袖のボタンを留めて","Kancing lengan bajunya","ติดกระดุมแขนเสื้อ","Buttones ang manggas","Hãy cài nút tay áo","扣好袖口纽扣","Button your sleeves","လက်မောင်းကြယ်သီးကိုကပ်ပါ","ប៊ូតុងដៃអាវ","ຕິດກະດຸມແຂນເສື້ອ"],
+["C. 服装・清掃・整理整頓","C-1. 服装確認","作業着が汚れています、洗濯して","Baju kerja kotor tolong dicuci","ชุดทำงานสกปรก ซักด้วย","Marumi ang uniform labhan mo","Quần áo bẩn hãy giặt đi","工作服脏了请洗一下","Your work clothes are dirty please wash them","အလုပ်ဝတ်စုံညစ်ပတ်နေတယ်၊ လျှော်ပါ","សម្លៀកបំពាក់ការងារកខ្វក់","ຊຸດເຮັດວຽກເປື້ອນ ກະລຸນາຊັກ"],
+["C. 服装・清掃・整理整頓","C-1. 服装確認","アクセサリーを外して","Lepas aksesoris","ถอดเครื่องประดับ","Tanggalin ang accessories","Hãy tháo đồ trang sức","取下首饰","Remove your accessories","အဆင်တန်ဆာများချွတ်ပါ","ដោះគ្រឿងអលង្ការ","ຖອດເຄື່ອງປະດັບ"],
+["C. 服装・清掃・整理整頓","C-1. 服装確認","名札をつけて","Pasang name tag","ติดป้ายชื่อ","Ilagay ang name tag","Hãy đeo bảng tên","佩戴名牌","Wear your name tag","နာမည်ကတ်တပ်ပါ","ពាក់ស្លាកឈ្មោះ","ຕິດປ້າຍຊື່"],
+["C. 服装・清掃・整理整頓","C-1. 服装確認","前掛け（エプロン）をつけて","Pakai celemek","ใส่ผ้ากันเปื้อน","Isuot ang apron","Hãy đeo tạp dề","系好围裙","Put on your apron","ခါးစည်းစားပွဲထိုးဝတ်ပါ","ពាក់អាវអៀម","ໃສ່ຜ້າກັນເປື້ອນ"],
+["C. 服装・清掃・整理整頓","C-1. 服装確認","静電気防止リストバンドをつけて","Pakai gelang antistatis","ใส่สายรัดข้อมือป้องกันไฟฟ้าสถิต","Isuot ang anti-static wristband","Hãy đeo vòng tay chống tĩnh điện","戴上防静电手环","Wear the anti-static wristband","ငြိမ်လျှပ်စစ်ကာကွယ်လက်ပတ်တပ်ပါ","ពាក់ខ្សែក្រវាត់ការពារ","ໃສ່ສາຍຮັດຂໍ້ມືກັນໄຟສະຖິດ"],
+["C. 服装・清掃・整理整頓","C-1. 服装確認","靴紐を結んで","Ikat tali sepatu","ผูกเชือกรองเท้า","Itali ang sintas","Hãy buộc dây giày","系好鞋带","Tie your shoelaces","ဖိနပ်ကြိုးချည်ပါ","ចងខ្សែស្បែកជើង","ຜູກເຊືອກເກີບ"],
+["C. 服装・清掃・整理整頓","C-1. 服装確認","チャックを閉めて","Tutup resleting","รูดซิปด้วย","Isara ang zipper","Hãy kéo khóa lên","拉上拉链","Zip up","ဇစ်တပ်ပါ","បិទហ្ស៊ីប","ດຶງຊິບ"],
+["C. 服装・清掃・整理整頓","C-2. 清掃","ごみを分別して","Sampahnya dipisah ya","ขยะต้องคัดแยกนะ","Pakihiwalay ang mga basura","Em hãy phân loại rác nhé","请把垃圾进行分类哦","Be sure to sort the garbage","အမှိုက်ခွဲခြားပါ","តម្រៀបសំរាម","ຄັດແຍກຂີ້ເຫຍື້ອ"],
+["C. 服装・清掃・整理整頓","C-2. 清掃","燃えるごみ","Sampah organik","ขยะเผาไหม้","Burnable waste","Rác cháy được","可燃垃圾","Burnable waste","မီးလောင်လွယ်အမှိုက်","សំរាមអាចដុតបាន","ຂີ້ເຫຍື້ອທີ່ເຜົາໄດ້"],
+["C. 服装・清掃・整理整頓","C-2. 清掃","燃えないごみ","Sampah tidak bisa dibakar","ขยะเผาไม่ได้","Non-burnable waste","Rác không cháy được","不可燃垃圾","Non-burnable waste","မီးမလောင်နိုင်သောအမှိုက်","សំរាមមិនអាចដុតបាន","ຂີ້ເຫຍື້ອທີ່ເຜົາບໍ່ໄດ້"],
+["C. 服装・清掃・整理整頓","C-2. 清掃","切り粉（切りくず）を掃除して","Bersihkan serpihan","เก็บเศษโลหะ","Linisin ang metal chips","Hãy dọn phoi kim loại","清扫切屑","Clean up the metal chips","သတ္တုမှုန့်များကိုရှင်းလင်းပါ","សម្អាតកំទេចដែក","ເກັບຂີ້ເຫຼັກ"],
+["C. 服装・清掃・整理整頓","C-2. 清掃","油を拭いて","Lap minyaknya","เช็ดน้ำมัน","Punasan ang langis","Hãy lau dầu","把油擦干净","Wipe up the oil","ဆီကိုသုတ်ပါ","ជូតប្រេង","ເຊັດນ້ຳມັນ"],
+["C. 服装・清掃・整理整頓","C-2. 清掃","ウエスはこの箱に捨てて","Buang lap kotor ke kotak ini","ทิ้งผ้าเช็ดที่กล่องนี้","Itapon ang basahan sa kahon na ito","Hãy bỏ giẻ lau vào thùng này","抹布扔到这个箱子里","Dispose of rags in this box","အဝတ်စုတ်ကို ဒီသေတ္တာထဲပစ်ပါ","បោះក្រណាត់ជូតក្នុងប្រអប់នេះ","ຖິ້ມຜ້າເຊັດໃສ່ກ່ອງນີ້"],
+["C. 服装・清掃・整理整頓","C-2. 清掃","床が滑るから拭いて","Lantai licin tolong dilap","พื้นลื่น เช็ดด้วย","Madulas ang sahig punasan","Sàn trơn hãy lau đi","地上滑擦一下","The floor is slippery wipe it up","ကြမ်းပြင်ချောနေလို့သုတ်ပါ","ជូតកម្រាលព្រោះរអិល","ພື້ນເລື່ອນ ເຊັດແດ່"],
+["C. 服装・清掃・整理整頓","C-2. 清掃","作業が終わったら掃除して","Setelah selesai bersihkan","เสร็จงานแล้วทำความสะอาดด้วย","Pagkatapos linisin","Xong việc thì hãy dọn dẹp","做完工作后请打扫","Clean up after you finish","အလုပ်ပြီးရင် သန့်ရှင်းရေးလုပ်ပါ","សម្អាតក្រោយធ្វើការរួច","ເມື່ອເຮັດວຽກແລ້ວໃຫ້ເຮັດຄວາມສະອາດ"],
+["C. 服装・清掃・整理整頓","C-2. 清掃","排水溝を掃除して","Bersihkan saluran air","ทำความสะอาดท่อระบาย","Linisin ang drainage","Hãy dọn rãnh thoát nước","清扫排水沟","Clean the drain","ရေမြောင်းကိုရှင်းလင်းပါ","សម្អាតលូ","ທຳຄວາມສະອາດທໍ່ລະບາຍນ້ຳ"],
+["C. 服装・清掃・整理整頓","C-2. 清掃","産業廃棄物はここに入れて","Taruh limbah industri di sini","ทิ้งกากอุตสาหกรรมที่นี่","Ilagay ang industrial waste dito","Rác thải công nghiệp bỏ vào đây","工业废弃物放这里","Put industrial waste here","စက်မှုစွန့်ပစ်ပစ္စည်းကို ဒီမှာထည့်ပါ","ដាក់កាកសំណល់ឧស្សាហកម្មនៅទីនេះ","ຖິ້ມສິ່ງເສດເຫຼືອອຸດສາຫະກຳທີ່ນີ້"],
+["C. 服装・清掃・整理整頓","C-2. 清掃","金属くずはこの容器に","Taruh sisa logam di wadah ini","เศษโลหะใส่ในภาชนะนี้","Ilagay ang metal scrap sa lalagyan na ito","Phế liệu kim loại bỏ vào thùng này","金属废料放这个容器里","Metal scraps go in this container","သတ္တုအပိုင်းအစများကို ဒီဘူးထဲထည့်ပါ","ដាក់កំទេចដែកក្នុងធុងនេះ","ເສດໂລຫະໃສ່ໃນພາຊະນະນີ້"],
+["C. 服装・清掃・整理整頓","C-2. 清掃","クーラント液を補充して","Tambahkan cairan pendingin","เติมน้ำหล่อเย็น","Dagdagan ang coolant","Hãy bổ sung dung dịch làm mát","补充冷却液","Refill the coolant","အအေးခံအရည်ဖြည့်ပါ","បន្ថែមទឹកត្រជាក់","ຕື່ມນ້ຳຫຼໍ່ລື່ນ"],
+["C. 服装・清掃・整理整頓","C-2. 清掃","廃液は指定の場所に捨てて","Buang limbah cair di tempat yang ditentukan","ทิ้งของเหลวเสียในจุดที่กำหนด","Itapon ang waste liquid sa designated area","Nước thải đổ đúng nơi quy định","废液倒在指定的地方","Dispose of waste liquid at the designated area","စွန့်ပစ်အရည်ကို သတ်မှတ်နေရာမှာစွန့်ပါ","បោះចោលសារធាតុរាវ","ຖິ້ມນ້ຳເສຍໃນບ່ອນທີ່ກຳນົດ"],
+["C. 服装・清掃・整理整頓","C-2. 清掃","コンプレッサーでエアブロウして","Tiup dengan kompresor","เป่าด้วยคอมเพรสเซอร์","Air blow gamit ang compressor","Hãy thổi khí bằng máy nén","用压缩机吹气清洁","Air-blow with the compressor","ကွန်ပရက်ဆာနဲ့လေမှုတ်ပါ","ផ្លុំខ្យល់ជាមួយកុំព្រេសស័រ","ເປົ່າລົມດ້ວຍຄອມເພສເຊີ"],
+["C. 服装・清掃・整理整頓","C-2. 清掃","機械の周りをきれいにして","Bersihkan sekitar mesin","ทำความสะอาดรอบเครื่อง","Linisin ang paligid ng makina","Hãy dọn sạch xung quanh máy","把机器周围打扫干净","Clean around the machine","စက်ပတ်လည်ကိုသန့်ရှင်းအောင်လုပ်ပါ","សម្អាតជុំវិញម៉ាស៊ីន","ເຮັດຄວາມສະອາດອ້ອມເຄື່ອງ"],
+["C. 服装・清掃・整理整頓","C-2. 清掃","掃除当番は誰ですか","Siapa yang piket bersih-bersih?","ใครเวรทำความสะอาด","Sino ang naka-duty sa linis?","Ai trực vệ sinh?","今天谁值日打扫？","Who's on cleaning duty?","သန့်ရှင်းရေးတာဝန်ခံဘယ်သူလဲ","អ្នកទទួលខុសត្រូវសម្អាតជានរណា?","ໃຜຢູ່ປະຈຳວັນເຮັດຄວາມສະອາດ?"],
+["C. 服装・清掃・整理整頓","C-3. 整理整頓","道具を片づけましょう","Ayo rapikan peralatan","มาเก็บเครื่องมือเข้าที่กัน","Ayusin natin ang mga tools","Chúng ta cùng cất dọn công cụ nhé","把工具收拾一下吧","Let's put the tools back","ကိရိယာတွေကိုသိမ်းကြစို့","ចូររៀបចំឧបករណ៍","ມາເກັບເຄື່ອງມືກັນ"],
+["C. 服装・清掃・整理整頓","C-3. 整理整頓","道具を元に戻して","Kembalikan peralatan","เอาเครื่องมือเก็บเข้าที่","Ibalik ang mga tools","Hãy cất công cụ đi","把用过的工具放回去","Put away the tools you used","ကိရိယာတွေကိုနေရာချပါ","ដាក់ឧបករណ៍ឲ្យកន្លែងដើមវិញ","ເອົາເຄື່ອງມືເກັບບ່ອນເດີມ"],
+["C. 服装・清掃・整理整頓","C-3. 整理整頓","整理整頓しましょう","Ayo rapikan (seiri seiton)","มาสะสางจัดสะดวก","Mag-aayos (seiri seiton)","Cùng sàng lọc - sắp xếp","让我们来整理整顿吧","Let's sort and set things in order","စနစ်တကျစီစဉ်သိမ်းဆည်းကြစို့","ចូររៀបចំសណ្តាប់ធ្នាប់","ມາຈັດລຽງເຄື່ອງມືກັນ"],
+["C. 服装・清掃・整理整頓","C-3. 整理整頓","要るもの・要らないもの","Diperlukan / Tidak diperlukan","จำเป็น / ไม่จำเป็น","Need / Don't need","Cần thiết / Không cần thiết","需要／不需要","Need / Don't need","လိုအပ်သောပစ္စည်း / မလိုအပ်သောပစ္စည်း","របស់ដែលត្រូវការ / មិនត្រូវការ","ສິ່ງທີ່ຕ້ອງການ / ສິ່ງທີ່ບໍ່ຕ້ອງການ"],
+["C. 服装・清掃・整理整頓","C-3. 整理整頓","定位置に置いて","Taruh di tempat yang ditentukan","วางไว้ที่กำหนด","Ilagay sa tamang lugar","Hãy để đúng vị trí quy định","放到指定位置","Put it in the designated place","သတ်မှတ်နေရာမှာထားပါ","ដាក់នៅកន្លែងកំណត់","ວາງໄວ້ບ່ອນທີ່ກຳນົດ"],
+["C. 服装・清掃・整理整頓","C-3. 整理整頓","通路に物を置くな","Jangan taruh barang di jalur","อย่าวางของขวางทางเดิน","Huwag maglagay ng gamit sa daanan","Không được để đồ trên lối đi","不要在通道上放东西","Don't put things in the walkway","လမ်းကြောင်းမှာပစ္စည်းမထားနဲ့","កុំដាក់របស់ស្ទះផ្លូវ","ຢ່າວາງຂອງກີດຂວາງທາງ"],
+["C. 服装・清掃・整理整頓","C-3. 整理整頓","ラベルを貼って","Tempelkan label","ติดป้าย","Lagyan ng label","Hãy dán nhãn","贴上标签","Put a label on it","တံဆိပ်ကပ်ပါ","បិទស្លាក","ຕິດປ້າຍ"],
+["C. 服装・清掃・整理整頓","C-3. 整理整頓","在庫を確認して","Cek stok","ตรวจสอบสต็อก","I-check ang stock","Hãy kiểm tra tồn kho","确认库存","Check the inventory","သိုလှောင်မှုစစ်ဆေးပါ","ពិនិត្យស្តុក","ກວດສະຕັອກ"],
+["C. 服装・清掃・整理整頓","C-3. 整理整頓","先入れ先出しにして","Lakukan FIFO","ใช้ของเข้าก่อนออกก่อน","Gawin ang FIFO","Hãy áp dụng nhập trước xuất trước","先进先出","First in, first out (FIFO)","FIFO လုပ်ပါ","ធ្វើ FIFO","ເຮັດ FIFO"],
+["C. 服装・清掃・整理整頓","C-3. 整理整頓","棚に戻して","Kembalikan ke rak","เอาไปเก็บที่ชั้น","Ibalik sa shelf","Hãy để lại lên kệ","放回架子上","Put it back on the shelf","စင်ပေါ်ပြန်တင်ပါ","ដាក់ឲ្យធ្នើវិញ","ເອົາໄປເກັບຊັ້ນ"],
+["C. 服装・清掃・整理整頓","C-3. 整理整頓","色分けに従って","Ikuti pembagian warna","ทำตามสี","Sundin ang color coding","Hãy theo phân loại màu","按颜色分类","Follow the color coding","အရောင်ခွဲခြားမှုအတိုင်းလုပ်ပါ","ធ្វើតាមការបែងចែកពណ៌","ເຮັດຕາມການແບ່ງສີ"],
+["C. 服装・清掃・整理整頓","C-3. 整理整頓","使ったら元の場所に戻す習慣をつけて","Biasakan mengembalikan setelah pakai","ใช้แล้วเก็บเข้าที่ให้เป็นนิสัย","Ugaliin ibalik pagkagamit","Hãy tập thói quen dùng xong trả lại chỗ cũ","养成用完归位的习惯","Make a habit of returning things after use","သုံးပြီးတိုင်း နေရာချတဲ့အလေ့အကျင့်လုပ်ပါ","បង្កើតទម្លាប់ដាក់ឲ្យកន្លែងដើមវិញ","ຝຶກນິໄສເກັບບ່ອນເດີມຫຼັງໃຊ້"],
+["C. 服装・清掃・整理整頓","C-3. 整理整頓","不要品を処分して","Buang barang yang tidak diperlukan","กำจัดของที่ไม่ต้องการ","Itapon ang hindi kailangan","Hãy xử lý đồ không cần","处理掉不需要的东西","Dispose of unnecessary items","မလိုအပ်သောပစ္စည်းများကိုစွန့်ပစ်ပါ","បោះចោលរបស់មិនត្រូវការ","ກຳຈັດສິ່ງທີ່ບໍ່ຕ້ອງການ"],
+["C. 服装・清掃・整理整頓","C-3. 整理整頓","表示と中身が合っているか確認して","Cek apakah label sesuai isi","เช็คว่าป้ายตรงกับของข้างในไหม","I-check kung tama ang label sa laman","Hãy kiểm tra nhãn có khớp với bên trong không","确认标签和内容是否一致","Check if the label matches the contents","တံဆိပ်နဲ့အတွင်းပစ္စည်းကိုက်ညီမှုရှိမရှိစစ်ဆေးပါ","ពិនិត្យមើលថាស្លាកនិងរបស់ខាងក្នុង","ກວດວ່າປ້າຍກັບຂອງຂ້າງໃນກົງກັນບໍ"],
+["C. 服装・清掃・整理整頓","C-3. 整理整頓","作業台の上を片づけて","Rapikan meja kerja","เก็บโต๊ะทำงาน","Linisin ang work table","Hãy dọn dẹp bàn làm việc","把工作台收拾干净","Clear off the workbench","အလုပ်စားပွဲပေါ်ရှင်းလင်းပါ","សម្អាតតុធ្វើការ","ເກັບໂຕະເຮັດວຽກ"],
+["C. 服装・清掃・整理整頓","C-3. 整理整頓","共用の道具は元に戻して","Kembalikan alat bersama","เครื่องมือส่วนกลางเก็บเข้าที่","Ibalik ang shared tools","Dụng cụ dùng chung hãy trả lại chỗ","公用工具请归还原处","Return shared tools to their place","ဘုံသုံးကိရိယာတွေကိုနေရာချပါ","ដាក់ឧបករណ៍ប្រើរួមគ្នា","ເຄື່ອງມືທີ່ໃຊ້ຮ່ວມກັນ ເກັບບ່ອນເດີມ"],
+["C. 服装・清掃・整理整頓","C-3. 整理整頓","終業前に片づけの時間を取って","Sisakan waktu untuk beres-beres sebelum pulang","เผื่อเวลาเก็บของก่อนเลิกงาน","Mag-time sa pag-aayos bago mag-out","Hãy dành thời gian dọn dẹp trước khi tan ca","下班前留出整理的时间","Leave time for tidying up before end of shift","အလုပ်ဆင်းခါနီး ရှင်းလင်းဖို့အချိန်ယူပါ","ទុកពេលសម្អាតមុនចេញការ","ກຳນົດເວລາເກັບກ່ອນເລີກວຽກ"],
+["D. 工具・材料・機械操作","D-1. 道具・材料","使う順番に並べて","Urutan penggunaan","ลำดับการใช้งาน","Order of use","Thứ tự sử dụng","按作业顺序排列","Arrange in the order of use","သုံးမည့်အစဉ်လိုက်စီပါ","រៀបតាមលំដាប់ប្រើប្រាស់","ຈັດຕາມລຳດັບການໃຊ້"],
+["D. 工具・材料・機械操作","D-1. 道具・材料","道具が壊れています","Alatnya rusak","เครื่องมือชำรุดอยู่","Sira ang tools","Công cụ bị hỏng","工具坏了","The tools are broken","ကိရိယာပျက်နေတယ်","ឧបករណ៍ខូច","ເຄື່ອງມືເສຍ"],
+["D. 工具・材料・機械操作","D-1. 道具・材料","この道具を補充して","Tolong tambah alat ini","เติมเครื่องมือนี้ด้วย","Pakidagdagan ang tools na ito","Hãy bổ sung dụng cụ này","请补充这个工具","Please restock this tool","ဒီကိရိယာကိုဖြည့်တင်းပါ","បន្ថែមឧបករណ៍នេះ","ຕື່ມເຄື່ອງມືນີ້"],
+["D. 工具・材料・機械操作","D-1. 道具・材料","スパナを取って","Ambilkan kunci pas","หยิบประแจมาให้หน่อย","Pakiabot ang spanner","Lấy giùm cái cờ lê","拿扳手过来","Hand me the spanner","လိမ်ဖာကိုယူပေးပါ","យកស្ពាណាមក","ເອົາປະແຈມາໃຫ້"],
+["D. 工具・材料・機械操作","D-1. 道具・材料","ドライバーはどこですか","Di mana obengnya?","ไขควงอยู่ไหน","Nasaan ang screwdriver?","Cái tua vít ở đâu?","螺丝刀在哪里？","Where's the screwdriver?","ဝက်အူလှည့်ဘယ်မှာလဲ","ទួណឺវីសនៅឯណា?","ໄຂຄວງຢູ່ໃສ?"],
+["D. 工具・材料・機械操作","D-1. 道具・材料","この材料で合っていますか","Apakah bahan ini benar?","วัสดุนี้ถูกต้องไหม","Tama ba ang material na ito?","Vật liệu này có đúng không?","这个材料对吗？","Is this the right material?","ဒီပစ္စည်းကမှန်ရဲ့လား","សម្ភារៈនេះត្រឹមត្រូវទេ?","ວັດສະດຸນີ້ຖືກຕ້ອງບໍ?"],
+["D. 工具・材料・機械操作","D-1. 道具・材料","材料が足りません","Bahannya kurang","วัสดุไม่พอ","Kulang ang material","Vật liệu không đủ","材料不够","We don't have enough material","ပစ္စည်းမလောက်ဘူး","សម្ភារៈមិនគ្រប់","ວັດສະດຸບໍ່ພໍ"],
+["D. 工具・材料・機械操作","D-1. 道具・材料","刃が摩耗しています","Pisaunya sudah aus","ใบมีดสึก","Gasgas na ang blade","Lưỡi dao đã mòn","刀刃磨损了","The blade is worn","ဓားသွားကုန်နေတယ်","កាំបិតរិល","ໃບມີດສວມ"],
+["D. 工具・材料・機械操作","D-1. 道具・材料","新しいものに交換して","Ganti dengan yang baru","เปลี่ยนอันใหม่","Palitan ng bago","Hãy thay cái mới","换个新的","Replace it with a new one","အသစ်လဲလှယ်ပါ","ប្តូរថ្មី","ປ່ຽນອັນໃໝ່"],
+["D. 工具・材料・機械操作","D-1. 道具・材料","油をさして","Beri pelumas","หยอดน้ำมัน","Lagyan ng langis","Hãy tra dầu","上点油","Lubricate it","ဆီထည့်ပါ","ចាក់ប្រេងរំអិល","ໃສ່ນ້ຳມັນ"],
+["D. 工具・材料・機械操作","D-1. 道具・材料","六角レンチを持ってきて","Bawakan kunci L","เอาประแจหกเหลี่ยมมา","Pakidala ang hex wrench","Lấy giùm cờ lê lục giác","拿内六角扳手来","Bring the hex wrench","ဆဋ္ဌဂံလိမ်ဖာယူလာပါ","យកទួណឺវីសឆកោនមក","ເອົາປະແຈຫົກແຈມາ"],
+["D. 工具・材料・機械操作","D-1. 道具・材料","ハンマーで叩いて","Pukul dengan palu","ตีด้วยค้อน","Paluin ng martilyo","Hãy dùng búa gõ","用锤子敲","Hit it with a hammer","တူနဲ့ထုပါ","វាយដោយញញួរ","ຕີດ້ວຍຄ້ອນ"],
+["D. 工具・材料・機械操作","D-1. 道具・材料","ヤスリで削って","Kikir dengan kikir","ตะไบ","Kikirin","Hãy giũa","用锉刀锉","File it down","သံတုံးနဲ့တိုက်ပါ","ប្រើកន្ត្រក់អំបែង","ຕະໄບ"],
+["D. 工具・材料・機械操作","D-1. 道具・材料","ペンチで挟んで","Jepit dengan tang","คีบด้วยคีม","Kurutin ng pliers","Hãy dùng kìm kẹp","用钳子夹住","Grip it with pliers","ပလာယာနဲ့ညှပ်ပါ","ចាប់ដោយដង្កាប់","ຄີບດ້ວຍຄີມ"],
+["D. 工具・材料・機械操作","D-1. 道具・材料","バイスに固定して","Kencangkan di ragum","จับยึดในปากกา","I-clamp sa vise","Hãy kẹp vào ê tô","夹到台钳上","Clamp it in the vise","ဗိုက်စ်မှာညှပ်ပါ","តោងនឹងវីស","ຈັບຍຶດໃສ່ວາຍ"],
+["D. 工具・材料・機械操作","D-1. 道具・材料","カッターで切って","Potong dengan cutter","ตัดด้วยคัตเตอร์","Gupitin ng cutter","Hãy cắt bằng dao","用刀片切","Cut it with a cutter","ဓားနဲ့ဖြတ်ပါ","កាត់ដោយកាំបិត","ຕັດດ້ວຍຄັດເຕີ"],
+["D. 工具・材料・機械操作","D-1. 道具・材料","サンドペーパーで磨いて","Amplas dengan kertas amplas","ขัดด้วยกระดาษทราย","Lihain ng sandpaper","Hãy mài bằng giấy nhám","用砂纸打磨","Sand it with sandpaper","သဲစက္ကူနဲ့စို့ပါ","ខាត់ដោយក្រដាសខ្សាច់","ຂັດດ້ວຍກະດາດຊາຍ"],
+["D. 工具・材料・機械操作","D-1. 道具・材料","道具を借りてもいいですか","Boleh pinjam alatnya?","ขอยืมเครื่องมือได้ไหม","Pwede bang hiramin ang tools?","Tôi mượn dụng cụ được không?","可以借一下工具吗？","May I borrow the tools?","ကိရိယာငှားလို့ရမလား","ខ្ញុំអាចខ្ចីឧបករណ៍បានទេ?","ຂ້ອຍຢືມເຄື່ອງມືໄດ້ບໍ?"],
+["D. 工具・材料・機械操作","D-2. 機械操作(1)","安全装置の確認","Cek peralatan keamanan","ตรวจสอบอุปกรณ์ความปลอดภัย","I-check ang safety equipment","Kiểm tra thiết bị an toàn","确认安全装置","Check the safety equipment","ဘေးအန္တရာယ်ကင်းရှင်းရေးကိရိယာစစ်ဆေး","ពិនិត្យឧបករណ៍សុវត្ថិភាព","ກວດອຸປະກອນຄວາມປອດໄພ"],
+["D. 工具・材料・機械操作","D-2. 機械操作(1)","電源を入れて","Nyalakan mesin","เปิดเครื่องก่อน","I-on ang suplay ng kuryente","Cấp nguồn điện","首先打开电源","Turn the power on","မီးဖွင့်ပါ","បើកភ្លើង","ເປີດໄຟຟ້າ"],
+["D. 工具・材料・機械操作","D-2. 機械操作(1)","調子がおかしいです","Kondisi aneh","อาการไม่ค่อยดี","Behaving strangely","Tình trạng kỳ lạ","状况有些异常","It's behaving strangely","အနေအထားမူမမှန်ဘူး","ដំណើរការខុសប្រក្រតី","ສະພາບແປກ"],
+["D. 工具・材料・機械操作","D-2. 機械操作(1)","ウォーミングアップ運転をして","Lakukan pemanasan mesin","วอร์มอัปเครื่องก่อน","Gawin ang warm-up","Hãy chạy khởi động máy","先暖机运转","Do a warm-up run","အပူပေးလည်ပတ်ပါ","កម្តៅម៉ាស៊ីន","ອຸ່ນເຄື່ອງ"],
+["D. 工具・材料・機械操作","D-2. 機械操作(1)","始業点検をして","Lakukan pengecekan awal","ตรวจสอบก่อนเริ่มงาน","Gawin ang pre-operation check","Hãy kiểm tra trước khi bắt đầu","做始业点检","Do a pre-operation check","အလုပ်မစခင် စစ်ဆေးပါ","ពិនិត្យមុនចាប់ផ្តើមការងារ","ກວດກາກ່ອນເລີ່ມງານ"],
+["D. 工具・材料・機械操作","D-2. 機械操作(1)","回転数を合わせて","Sesuaikan putarannya","ปรับรอบให้ตรง","I-adjust ang RPM","Hãy chỉnh tốc độ quay","调整转速","Adjust the rotation speed","အလှည့်နှုန်းကိုညှိပါ","កែតម្រូវល្បឿនបង្វិល","ປັບຮອບໃຫ້ກົງ"],
+["D. 工具・材料・機械操作","D-2. 機械操作(1)","送り速度を確認して","Cek kecepatan umpan","เช็คความเร็วป้อน","I-check ang feed rate","Hãy kiểm tra tốc độ tiến dao","确认进给速度","Check the feed rate","ထုတ်လွှင့်နှုန်းကိုစစ်ဆေးပါ","ពិនិត្យល្បឿនបញ្ជូន","ກວດຄວາມໄວປ້ອນ"],
+["D. 工具・材料・機械操作","D-2. 機械操作(1)","カバーを閉めてから動かして","Tutup cover dulu baru jalankan","ปิดฝาก่อนเดินเครื่อง","Isara ang cover bago patakbuhin","Đóng nắp rồi mới chạy máy","盖好盖子再启动","Close the cover before starting","အဖုံးပိတ်ပြီးမှ လည်ပတ်ပါ","បិទគម្របមុនពេលដំណើរការ","ປິດຝາກ່ອນເລີ່ມເຄື່ອນ"],
+["D. 工具・材料・機械操作","D-2. 機械操作(1)","異音がします","Ada suara aneh","มีเสียงแปลกๆ","May kakaibang tunog","Có tiếng kêu lạ","有异常声音","There's a strange noise","ထူးဆန်းတဲ့အသံမြည်နေတယ်","ឮសំឡេងចម្លែក","ມີສຽງແປກ"],
+["D. 工具・材料・機械操作","D-2. 機械操作(1)","振動が大きいです","Getarannya besar","สั่นมาก","Malakas ang vibration","Rung quá mạnh","振动很大","There's too much vibration","တုန်ခါမှုကြီးနေတယ်","រំញ័រខ្លាំង","ສັ່ນແຮງ"],
+["D. 工具・材料・機械操作","D-2. 機械操作(1)","油漏れしています","Ada kebocoran oli","น้ำมันรั่ว","May tumatagak na langis","Bị rò rỉ dầu","在漏油","There's an oil leak","ဆီယိုနေတယ်","ប្រេងលេចធ្លាយ","ນ້ຳມັນຮົ່ວ"],
+["D. 工具・材料・機械操作","D-2. 機械操作(1)","機械が動かない","Mesinnya tidak mau jalan","เครื่องไม่ทำงาน","Hindi gumagana ang makina","Máy không chạy","机器不动了","The machine won't start","စက်မလည်ဘူး","ម៉ាស៊ីនមិនដំណើរការ","ເຄື່ອງບໍ່ເຮັດວຽກ"],
+["D. 工具・材料・機械操作","D-2. 機械操作(1)","手動で動かして","Gerakkan secara manual","เคลื่อนด้วยมือ","I-manual","Hãy vận hành bằng tay","手动操作","Operate it manually","လက်နဲ့လည်ပတ်ပါ","ដំណើរការដោយដៃ","ເຄື່ອນດ້ວຍມື"],
+["D. 工具・材料・機械操作","D-2. 機械操作(1)","自動運転に切り替えて","Pindah ke otomatis","เปลี่ยนเป็นอัตโนมัติ","Ilipat sa auto","Hãy chuyển sang tự động","切换到自动运转","Switch to automatic mode","အလိုအလျောက်လည်ပတ်မှုကိုပြောင်းပါ","ប្តូរទៅដំណើរការដោយស្វ័យប្រវត្តិ","ປ່ຽນເປັນອັດຕະໂນມັດ"],
+["D. 工具・材料・機械操作","D-2. 機械操作(1)","プログラムを確認して","Cek programnya","เช็คโปรแกรม","I-check ang program","Hãy kiểm tra chương trình","确认程序","Check the program","ပရိုဂရမ်ကိုစစ်ဆေးပါ","ពិនិត្យកម្មវិធី","ກວດໂປຣແກຣມ"],
+["D. 工具・材料・機械操作","D-2. 機械操作(1)","原点復帰をして","Lakukan home return","ทำ home return","Gawin ang home return","Hãy về điểm gốc","回原点","Do a home return","မူလနေရာပြန်သွားပါ","ធ្វើការត្រឡប់ដើម","ເຮັດກັບຈຸດເດີມ"],
+["D. 工具・材料・機械操作","D-2. 機械操作(1)","冷却水を出して","Nyalakan air pendingin","เปิดน้ำหล่อเย็น","I-on ang cooling water","Hãy mở nước làm mát","打开冷却水","Turn on the cooling water","အအေးခံရေကိုဖွင့်ပါ","បើកទឹកត្រជាក់","ເປີດນ້ຳຫຼໍ່ລື່ນ"],
+["D. 工具・材料・機械操作","D-2. 機械操作(1)","チャックを締めて","Kencangkan chuck","ขันหัวจับ","Higpitan ang chuck","Hãy siết mâm cặp","夹紧卡盘","Tighten the chuck","ချက်ကိုတင်းပါ","រឹតចាក់សោរ","ຂັນຫົວຈັບ"],
+["D. 工具・材料・機械操作","D-2. 機械操作(1)","刃物の高さを合わせて","Sesuaikan tinggi pisau","ปรับความสูงมีด","I-adjust ang taas ng blade","Hãy chỉnh chiều cao dao","调整刀具高度","Adjust the blade height","ဓားအမြင့်ကိုညှိပါ","កែតម្រូវកម្ពស់កាំបិត","ປັບຄວາມສູງໃບມີດ"],
+["D. 工具・材料・機械操作","D-2. 機械操作(1)","メンテナンスの時間です","Waktunya maintenance","ถึงเวลาบำรุงรักษา","Oras na ng maintenance","Đến giờ bảo trì rồi","到保养时间了","It's time for maintenance","ပြုပြင်ထိန်းသိမ်းချိန်ပါ","ដល់ម៉ោងថែទាំ","ເຖິງເວລາບຳລຸງຮັກສາ"],
+["D. 工具・材料・機械操作","D-3. 機械操作(2)","歪みができます","Terjadi kebengkokan","บิดเบี้ยวทุกที","May distortion","Luôn bị móp méo","总是会变形","There's distortion","ပုံပျက်နေတယ်","ខូចទ្រង់ទ្រាយ","ບິດເບືອນ"],
+["D. 工具・材料・機械操作","D-3. 機械操作(2)","上司に相談して","Konsultasi dengan atasan","ปรึกษาหัวหน้าด้วย","Kausapin ang supervisor","Hãy hỏi ý kiến cấp trên","跟上司商量一下","Consult with your supervisor","အထက်လူကြီးနဲ့တိုင်ပင်ပါ","ពិគ្រោះជាមួយអ្នកគ្រប់គ្រង","ປຶກສາຫົວໜ້າ"],
+["D. 工具・材料・機械操作","D-3. 機械操作(2)","自分で勝手に直すな","Jangan perbaiki sendiri","อย่าซ่อมเอง","Huwag mong ayusin mag-isa","Không được tự ý sửa","不要自己擅自修理","Don't fix it by yourself","ကိုယ့်သဘောနဲ့ကိုယ်မပြင်နဲ့","កុំជួសជុលដោយខ្លួនឯង","ຢ່າຊ່ອມເອງ"],
+["D. 工具・材料・機械操作","D-3. 機械操作(2)","設定値を変えるな","Jangan ubah pengaturan","อย่าเปลี่ยนค่าตั้ง","Huwag baguhin ang settings","Không được thay đổi thông số","不要改设定值","Don't change the settings","သတ်မှတ်တန်ဖိုးကိုမပြောင်းနဲ့","កុំផ្លាស់ប្តូរការកំណត់","ຢ່າປ່ຽນຄ່າຕັ້ງ"],
+["D. 工具・材料・機械操作","D-3. 機械操作(2)","ワークをしっかり固定して","Kencangkan benda kerjanya","จับชิ้นงานให้แน่น","I-secure ang workpiece","Hãy kẹp chặt phôi","把工件固定好","Secure the workpiece firmly","အလုပ်ခွင်ကိုကောင်းစွာတပ်ဆင်ပါ","តោងដុំការងារឲ្យបានមាំ","ຈັບຊິ້ນງານໃຫ້ແໜ້ນ"],
+["D. 工具・材料・機械操作","D-3. 機械操作(2)","クランプが緩んでいる","Klampnya longgar","แคลมป์หลวม","Maluwag ang clamp","Kẹp bị lỏng","夹具松了","The clamp is loose","ကလမ်းပျော့နေတယ်","ក្លឹបរលុង","ແຄມບວ່າງ"],
+["D. 工具・材料・機械操作","D-3. 機械操作(2)","芯出しをして","Lakukan centering","เซ็นเตอร์ริ่ง","Gawin ang centering","Hãy căn tâm","对好中心","Do the centering","ဗဟိုချိန်ညှိပါ","កែតម្រូវចំណុចកណ្តាល","ເຊັນເຕີ"],
+["D. 工具・材料・機械操作","D-3. 機械操作(2)","試運転します","Akan diuji coba","ทดลองเดินเครื่อง","Gagawin ang test run","Chạy thử máy","试运转","We'll do a test run","စမ်းသပ်လည်ပတ်မယ်","សាកល្បងដំណើរការ","ທົດລອງແລ່ນ"],
+["D. 工具・材料・機械操作","D-3. 機械操作(2)","原因を調べて","Selidiki penyebabnya","หาสาเหตุ","Alamin ang sanhi","Hãy tìm nguyên nhân","查一下原因","Find out the cause","အကြောင်းရင်းကိုစုံစမ်းပါ","ស្វែងរកមូលហេតុ","ຫາສາເຫດ"],
+["D. 工具・材料・機械操作","D-3. 機械操作(2)","ここが引っかかっている","Di sini tersangkut","ตรงนี้ติดอยู่","Dito naka-stuck","Chỗ này bị kẹt","这里卡住了","It's stuck here","ဒီနေရာမှာငြိနေတယ်","ជាប់ត្រង់នេះ","ຕິດຢູ່ບ່ອນນີ້"],
+["D. 工具・材料・機械操作","D-3. 機械操作(2)","ベルトが切れている","Sabuknya putus","สายพานขาด","Putol ang belt","Dây đai bị đứt","皮带断了","The belt is broken","ခါးပတ်ပြတ်နေတယ်","ខ្សែក្រវាត់ដាច់","ສາຍພານຂາດ"],
+["D. 工具・材料・機械操作","D-3. 機械操作(2)","ヒューズが飛んだ","Sekringnya putus","ฟิวส์ขาด","Na-blown ang fuse","Cầu chì bị cháy","保险丝烧了","The fuse blew","ဖျူးစ်ပြတ်သွားတယ်","ហ្វុយហ្ស៊ីបឆេះ","ຟິວຊ໌ຂາດ"],
+["D. 工具・材料・機械操作","D-3. 機械操作(2)","モーターが焼けた","Motornya terbakar","มอเตอร์ไหม้","Na-burn ang motor","Mô tơ bị cháy","电机烧了","The motor burned out","မော်တာလောင်သွားတယ်","ម៉ូទ័រឆេះ","ມໍເຕີໄໝ້"],
+["D. 工具・材料・機械操作","D-3. 機械操作(2)","修理を依頼します","Minta perbaikan","ขอแจ้งซ่อม","Magpa-repair","Gửi yêu cầu sửa chữa","申请维修","Request a repair","ပြုပြင်ခိုင်းမယ်","ស្នើសុំជួសជុល","ຂໍໃຫ້ສ້ອມ"],
+["D. 工具・材料・機械操作","D-3. 機械操作(2)","部品を注文して","Pesan suku cadang","สั่งอะไหล่","Mag-order ng parts","Hãy đặt hàng phụ tùng","订购零件","Order the parts","အပိုပစ္စည်းမှာယူပါ","បញ្ជាទិញគ្រឿងបន្លាស់","ສັ່ງອາໄຫຼ່"],
+["D. 工具・材料・機械操作","D-3. 機械操作(2)","この機械は使用禁止です","Mesin ini dilarang digunakan","เครื่องนี้ห้ามใช้","Bawal gamitin ang makinang ito","Máy này cấm sử dụng","这台机器禁止使用","This machine is out of service","ဒီစက်ကိုသုံးခွင့်မရှိဘူး","ម៉ាស៊ីននេះហាមប្រើ","ເຄື່ອງນີ້ຫ້າມໃຊ້"],
+["D. 工具・材料・機械操作","D-3. 機械操作(2)","操作手順書を読んで","Baca manual operasi","อ่านขั้นตอนการใช้เครื่อง","Basahin ang operation manual","Hãy đọc quy trình vận hành","看操作规程","Read the operation manual","လည်ပတ်မှုလက်စွဲကိုဖတ်ပါ","អានសៀវភៅណែនាំ","ອ່ານຄູ່ມືການໃຊ້ງານ"],
+["D. 工具・材料・機械操作","D-3. 機械操作(2)","勝手にスイッチを押すな","Jangan tekan tombol sembarangan","อย่ากดสวิตช์เอง","Huwag pindutin ang switch","Không được tự ý bấm công tắc","不要随便按开关","Don't press the switch without permission","ကိုယ့်သဘောနဲ့ကိုယ်ခလုတ်မနှိပ်နဲ့","កុំចុចកុងតាក់","ຢ່າກົດສະວິດເອງ"],
+["D. 工具・材料・機械操作","D-3. 機械操作(2)","電気系統に触るな","Jangan sentuh kelistrikan","อย่าแตะระบบไฟฟ้า","Huwag hawakan ang electrical system","Không được chạm vào hệ thống điện","不要碰电气系统","Don't touch the electrical system","လျှပ်စစ်စနစ်ကိုမထိပါနဲ့","កុំប៉ះប្រព័ន្ធអគ្គិសនី","ຢ່າແຕະລະບົບໄຟຟ້າ"],
+["E. 製造作業","E-1. 製造作業(1)","角度を間違えました","Salah sudutnya","ทำมุมองศาผิด","Nagkamali ng anggulo","Làm nhầm góc độ","角度弄错了","Made the wrong angle","ထောင့်စွန်းမှားသွားတယ်","ខុសមុំ","ເຮັດມຸມຜິດ"],
+["E. 製造作業","E-1. 製造作業(1)","ドリルを取り付けて","Pasang bor","ติดตั้งสว่าน","Attach the drill","Lắp mũi khoan","安装钻头","Attach the drill","ဒရယ်တပ်ဆင်ပါ","ដំឡើងខួង","ຕິດຕັ້ງສວ່ານ"],
+["E. 製造作業","E-1. 製造作業(1)","曲げ加工をします","Akan melakukan proses tekuk","จะทำการดัดงอ","Gagawin ang bending","Sẽ làm gia công uốn","进行弯曲加工","We'll do bending work","ကွေးခြင်းလုပ်မယ်","ធ្វើការពត់","ຈະເຮັດການດັດ"],
+["E. 製造作業","E-1. 製造作業(1)","旋盤を回して","Jalankan mesin bubut","เปิดเครื่องกลึง","Patakbuhin ang lathe","Hãy chạy máy tiện","开动车床","Start the lathe","ပုဆ်ကိုလည်ပါ","បើកក្រឡឹង","ເປີດເຄື່ອງກຶງ"],
+["E. 製造作業","E-1. 製造作業(1)","穴をあけて","Buat lubang","เจาะรู","Butasan","Hãy khoan lỗ","打孔","Drill a hole","အပေါက်ဖောက်ပါ","ខួងរន្ធ","ເຈາະຮູ"],
+["E. 製造作業","E-1. 製造作業(1)","深さはここまで","Kedalamannya sampai sini","ลึกถึงตรงนี้","Hanggang dito ang lalim","Độ sâu đến đây","深度到这里","The depth is up to here","အနက်က ဒီအထိပါ","ជម្រៅត្រឹមត្រង់នេះ","ຄວາມເລິກເຖິງບ່ອນນີ້"],
+["E. 製造作業","E-1. 製造作業(1)","フライス加工をします","Akan melakukan proses frais","จะทำการกัด","Gagawin ang milling","Sẽ làm gia công phay","进行铣削加工","We'll do milling","ကြိတ်ခြင်းလုပ်မယ်","ធ្វើការកិន","ຈະເຮັດການກັດ"],
+["E. 製造作業","E-1. 製造作業(1)","研削します","Akan menggerinda","จะทำการเจียร","Gagawin ang grinding","Sẽ làm mài","进行磨削","We'll do grinding","ချွန်းခြင်းလုပ်မယ်","ធ្វើការបូម","ຈະເຮັດການຂັດ"],
+["E. 製造作業","E-1. 製造作業(1)","溶接します","Akan mengelas","จะทำการเชื่อม","Gagawin ang welding","Sẽ hàn","进行焊接","We'll do welding","ဂဟေဆော်မယ်","ធ្វើការផ្សារ","ຈະເຮັດການເຊື່ອມ"],
+["E. 製造作業","E-1. 製造作業(1)","切断します","Akan memotong","จะทำการตัด","Gagawin ang cutting","Sẽ cắt","进行切断","We'll do cutting","ဖြတ်တောက်မယ်","ធ្វើការកាត់","ຈະເຮັດການຕັດ"],
+["E. 製造作業","E-1. 製造作業(1)","図面を見て","Lihat gambar teknik","ดูแบบ","Tingnan ang drawing","Hãy xem bản vẽ","看图纸","Look at the drawing","ပုံဆွဲချက်ကိုကြည့်ပါ","មើលប្លង់","ເບິ່ງແບບ"],
+["E. 製造作業","E-1. 製造作業(1)","この寸法に加工して","Proses sesuai ukuran ini","ทำตามขนาดนี้","I-process ayon sa sukat na ito","Hãy gia công theo kích thước này","按这个尺寸加工","Machine it to this dimension","ဒီအတိုင်းအတာအတိုင်းလုပ်ပါ","ធ្វើការតាមវិមាត្រនេះ","ເຮັດຕາມຂະໜາດນີ້"],
+["E. 製造作業","E-1. 製造作業(1)","材料をセットして","Pasang materialnya","เซ็ตวัสดุ","I-set ang material","Hãy gá vật liệu","装好材料","Set the material","ပစ္စည်းကိုတပ်ဆင်ပါ","ដាក់សម្ភារៈ","ຕັ້ງວັດສະດຸ"],
+["E. 製造作業","E-1. 製造作業(1)","センターを合わせて","Sesuaikan pusat","จัดศูนย์","I-align ang center","Hãy căn giữa","对准中心","Align the center","ဗဟိုကိုညှိပါ","កែតម្រូវចំណុចកណ្តាល","ຈັດກາງ"],
+["E. 製造作業","E-1. 製造作業(1)","仕上がりを確認して","Cek hasil akhir","ตรวจสอบผลงาน","I-check ang finish","Hãy kiểm tra thành phẩm","确认完成品","Check the finished product","အချောထည်ကိုစစ်ဆေးပါ","ពិនិត្យលទ្ធផល","ກວດຜົນງານ"],
+["E. 製造作業","E-1. 製造作業(1)","表面が粗いです","Permukaannya kasar","ผิวหยาบ","Magaspang ang surface","Bề mặt bị thô","表面粗糙","The surface is rough","မျက်နှာပြင်ကြမ်းနေတယ်","ផ្ទៃរដុប","ພື້ນຜິວຫຍາບ"],
+["E. 製造作業","E-1. 製造作業(1)","もっと滑らかに仕上げて","Haluskan lagi","ทำให้เรียบกว่านี้","Pakikinisin pa","Hãy hoàn thiện mịn hơn","再弄光滑一些","Make it smoother","ပိုချောအောင်လုပ်ပါ","ធ្វើឲ្យរលោងជាងនេះ","ເຮັດໃຫ້ລຽບກວ່ານີ້"],
+["E. 製造作業","E-1. 製造作業(1)","刃物を交換する時期です","Waktunya ganti pisau","ถึงเวลาเปลี่ยนมีด","Oras na palitan ang blade","Đến lúc thay dao rồi","该换刀具了","It's time to change the blade","ဓားလဲလှယ်ချိန်ရောက်ပြီ","ដល់ពេលប្តូរកាំបិត","ເຖິງເວລາປ່ຽນໃບມີດ"],
+["E. 製造作業","E-1. 製造作業(1)","切削条件を変更して","Ubah kondisi pemotongan","เปลี่ยนเงื่อนไขการตัด","Baguhin ang cutting condition","Hãy thay đổi điều kiện cắt","更改切削条件","Change the cutting conditions","ဖြတ်တောက်မှုအခြေအနေကိုပြောင်းပါ","ផ្លាស់ប្តូរលក្ខខណ្ឌកាត់","ປ່ຽນເງື່ອນໄຂການຕັດ"],
+["E. 製造作業","E-1. 製造作業(1)","切り込み量を少なくして","Kurangi kedalaman potong","ลดค่าป้อนลง","Bawasan ang depth of cut","Hãy giảm lượng cắt","减少切入量","Reduce the depth of cut","ဖြတ်တောက်မှုပမာဏကိုလျှော့ပါ","បន្ថយជម្រៅកាត់","ຫຼຸດປະລິມານການຕັດ"],
+["E. 製造作業","E-1. 製造作業(1)","タップを立てて","Buat ulir dengan tap","ทำเกลียวด้วยต๊าป","Mag-tap","Hãy taro ren","攻丝","Tap the threads","ပုဆ်ဖြင့်အပေါက်ဖောက်ပါ","ធ្វើការដោតខ្សែស្រឡាយ","ຕັດເກລ","Mag-tap"],
+["E. 製造作業","E-1. 製造作業(1)","ねじ山を壊すな","Jangan rusak ulir","อย่าทำเกลียวเสีย","Huwag sirain ang thread","Đừng làm hỏng ren","不要损坏螺纹","Don't damage the threads","ဝက်အူရစ်ကိုမဖျက်နဲ့","កុំបំផ្លាញខ្សែស្រឡាយ","ຢ່າທຳລາຍເກລ"],
+["E. 製造作業","E-2. 製造作業(2)","バリを取る","Membersihkan burr","กำจัดเสี้ยน","Deburring","Làm sạch ba via","去除毛刺","Deburring","အစွန်းထစ်ဖယ်ရှားပါ","កំចាត់ឆ្នូត","ກຳຈັດສຽງ"],
+["E. 製造作業","E-2. 製造作業(2)","錆を防ぎます","Mencegah karat","ป้องกันสนิม","Prevent rust","Phòng ngừa rỉ sét","防止生锈","Prevent rust","သံချေးတက်ခြင်းကိုကာကွယ်ပါ","ការពារច្រែះ","ປ້ອງກັນຂີ້ໝ້ຽງ"],
+["E. 製造作業","E-2. 製造作業(2)","めっきをかけます","Akan melakukan plating","จะทำการชุบ","Gagawin ang plating","Sẽ mạ","进行电镀","We'll do plating","သတ္တုရည်စိမ်မယ်","ធ្វើការស្រោប","ຈະເຮັດການຊຸບ"],
+["E. 製造作業","E-2. 製造作業(2)","はんだ付けをします","Akan melakukan solder","จะทำการบัดกรี","Gagawin ang soldering","Sẽ hàn thiếc","进行焊锡","We'll do soldering","ဂဟေဆော်မယ်","ធ្វើការផ្សារដែក","ຈະເຮັດການບັດກີ້"],
+["E. 製造作業","E-2. 製造作業(2)","面取りをして","Lakukan chamfering","ลบมุม","Gawin ang chamfering","Hãy vát mép","倒角","Do the chamfering","ထောင့်ချိုးပါ","ធ្វើការកាត់ជ្រុង","ລົບມຸມ"],
+["E. 製造作業","E-2. 製造作業(2)","表面を磨いて","Poles permukaannya","ขัดผิวชิ้นงาน","Pakinisin ang surface","Hãy đánh bóng bề mặt","把表面抛光","Polish the surface","မျက်နှာပြင်ကိုပွတ်တိုက်ပါ","ខាត់ផ្ទៃ","ຂັດພື້ນຜິວ"],
+["E. 製造作業","E-2. 製造作業(2)","塗装します","Akan melakukan pengecatan","จะทำการพ่นสี","Gagawin ang painting","Sẽ sơn","进行涂装","We'll do painting","ဆေးသုတ်မယ်","ធ្វើការលាបពណ៌","ຈະເຮັດການພົ່ນສີ"],
+["E. 製造作業","E-2. 製造作業(2)","熱処理をします","Akan melakukan heat treatment","จะทำการอบชุบ","Gagawin ang heat treatment","Sẽ xử lý nhiệt","进行热处理","We'll do heat treatment","အပူကုသမှုလုပ်မယ်","ធ្វើការកម្តៅ","ຈະເຮັດການອົບ"],
+["E. 製造作業","E-2. 製造作業(2)","組み立てて","Rakit","ประกอบ","I-assemble","Hãy lắp ráp","组装起来","Assemble it","တပ်ဆင်ပါ","ប្រមូលផ្គុំ","ປະກອບ"],
+["E. 製造作業","E-2. 製造作業(2)","ネジを締めて","Kencangkan baut","ขันสกรู","Higpitan ang turnilyo","Hãy vặn ốc","拧紧螺丝","Tighten the screw","ဝက်အူကိုတင်းပါ","រឹតវីស","ຂັນສະກູ"],
+["E. 製造作業","E-2. 製造作業(2)","ネジが緩んでいる","Bautnya longgar","สกรูหลวม","Maluwag ang turnilyo","Ốc bị lỏng","螺丝松了","The screw is loose","ဝက်အူပျော့နေတယ်","វីសរលុង","ສະກູວ່າງ"],
+["E. 製造作業","E-2. 製造作業(2)","溶接マスクをつけて","Pakai topeng las","ใส่หน้ากากเชื่อม","Isuot ang welding mask","Hãy đeo mặt nạ hàn","戴好焊接面罩","Put on the welding mask","ဂဟေဆော်မျက်နှာဖုံးတပ်ပါ","ពាក់ម៉ាសផ្សារ","ໃສ່ໜ້າກາກເຊື່ອມ"],
+["E. 製造作業","E-2. 製造作業(2)","スパッタに注意","Awas percikan las","ระวังสะเก็ดไฟ","Ingat sa spatter","Cẩn thận xỉ hàn bắn","注意焊接飞溅","Watch out for spatter","ဂဟေမှုန်များသတိ","ប្រយ័ត្នដុំភ្លើងផ្សារ","ລະວັງສະເປັດເຕີ"],
+["E. 製造作業","E-2. 製造作業(2)","溶接部分を検査して","Periksa bagian las","ตรวจสอบรอยเชื่อม","I-inspect ang welded area","Hãy kiểm tra mối hàn","检查焊接部位","Inspect the welded area","ဂဟေဆက်နေရာကိုစစ်ဆေးပါ","ពិនិត្យកន្លែងផ្សារ","ກວດສ່ວນເຊື່ອມ"],
+["E. 製造作業","E-2. 製造作業(2)","仮止めをして","Lakukan tack weld","ยึดชั่วคราว","Gawin ang tack weld","Hãy hàn đính","先点焊固定","Do a tack weld","ယာယီတပ်ဆင်ပါ","ធ្វើការផ្សារចាប់","ເຮັດການຍຶດຊົ່ວຄາວ"],
+["E. 製造作業","E-2. 製造作業(2)","前処理をして","Lakukan pretreatment","ทำการเตรียมผิว","Gawin ang pretreatment","Hãy xử lý bề mặt trước","进行前处理","Do the pretreatment","ကြိုတင်ပြင်ဆင်မှုလုပ်ပါ","ធ្វើការរៀបចំមុន","ເຮັດການກຽມກ່ອນ"],
+["E. 製造作業","E-2. 製造作業(2)","脱脂して","Lakukan degreasing","ล้างคราบมัน","Gawin ang degreasing","Hãy tẩy dầu mỡ","脱脂处理","Degrease it","အဆီချွတ်ပါ","បំបាត់ជាតិខាញ់","ກຳຈັດນ້ຳມັນ"],
+["E. 製造作業","E-2. 製造作業(2)","乾燥させて","Keringkan","ทำให้แห้ง","Patuyuin","Hãy sấy khô","烘干","Let it dry","အခြောက်ခံပါ","សម្ងួត","ເອົາໃຫ້ແຫ້ງ"],
+["E. 製造作業","E-2. 製造作業(2)","冷ましてから触って","Tunggu dingin dulu baru sentuh","รอให้เย็นก่อนจับ","Hayaan muna lumamig bago hawakan","Để nguội rồi hãy chạm vào","冷却后再触碰","Let it cool before touching","အေးမှထိပါ","ទុកឲ្យត្រជាក់មុនពេលប៉ះ","ໃຫ້ເຢັນກ່ອນແຕະ"],
+["E. 製造作業","E-2. 製造作業(2)","曲がっています","Bengkok","บิดงอ","Baluktot","Bị cong","弯了","It's bent","ကွေးနေတယ်","កោង","ງໍ"],
+["E. 製造作業","E-2. 製造作業(2)","まっすぐに直して","Luruskan","ดัดให้ตรง","Ituwid","Hãy nắn thẳng lại","弄直","Straighten it","ဖြောင့်အောင်လုပ်ပါ","ធ្វើឲ្យត្រង់","ດັດໃຫ້ຊື່"],
+["E. 製造作業","E-2. 製造作業(2)","左に回して","Putar ke kiri","หมุนไปทางซ้าย","Iikot sa kaliwa","Hãy xoay sang trái","往左转","Turn it to the left","ဘယ်ဘက်ကိုလှည့်ပါ","បង្វិលឆ្វេង","ຫມຸນໄປຊ້າຍ"],
+["E. 製造作業","E-2. 製造作業(2)","右に回して","Putar ke kanan","หมุนไปทางขวา","Iikot sa kanan","Hãy xoay sang phải","往右转","Turn it to the right","ညာဘက်ကိုလှည့်ပါ","បង្វិលស្តាំ","ຫມຸນໄປຂວາ"],
+["E. 製造作業","E-2. 製造作業(2)","ゆっくり動かして","Gerakkan pelan-pelan","เคลื่อนช้าๆ","Dahan-dahan lang","Hãy di chuyển từ từ","慢慢移动","Move it slowly","ဖြည်းဖြည်းရွှေ့ပါ","រំកិលយឺតៗ","ເຄື່ອນຊ້າໆ"],
+["E. 製造作業","E-2. 製造作業(2)","そこで止めて","Berhenti di situ","หยุดตรงนั้น","Doon ihinto","Dừng ở đó","停在那里","Stop there","အဲဒီမှာရပ်ပါ","ឈប់ត្រង់នោះ","ຢຸດບ່ອນນັ້ນ"],
+["E. 製造作業","E-2. 製造作業(2)","もう少し上げて","Naikkan sedikit","ยกขึ้นอีกนิด","Itaas pa nang kaunti","Nâng lên thêm chút","再往上抬一点","Raise it a little more","နည်းနည်းထပ်မြှင့်ပါ","លើកបន្តិចទៀត","ຍົກຂຶ້ນອີກໜ້ອຍ"],
+["E. 製造作業","E-2. 製造作業(2)","もう少し下げて","Turunkan sedikit","ลดลงอีกนิด","Ibaba pa nang kaunti","Hạ xuống thêm chút","再往下降一点","Lower it a little more","နည်းနည်းထပ်ချပါ","បន្ថយបន្តិចទៀត","ຫຼຸດລົງອີກໜ້ອຍ"],
+["F. 計測・品質・納期・梱包","F-1. 計測・計量","寸法を測って","Ukur dimensinya","วัดเส้นผ่านศูนย์กลาง","Sukatin","Đo đường kính","测定外径和内径","Measure the diameter","အတိုင်းအတာကိုတိုင်းတာပါ","វាស់វិមាត្រ","ວັດຂະໜາດ"],
+["F. 計測・品質・納期・梱包","F-1. 計測・計量","誤差があります","Ada kesalahan","มีค่าความต่าง","May error","Có sai số","有些误差","There's a minor error","အမှားအယွင်းရှိတယ်","មានកំហុសឆ្គង","ມີຄ່າຜິດພາດ"],
+["F. 計測・品質・納期・梱包","F-1. 計測・計量","ノギスで測って","Ukur dengan jangka sorong","วัดด้วยเวอร์เนียร์","Sukatin gamit ang vernier caliper","Hãy đo bằng thước cặp","用游标卡尺测量","Measure with the vernier caliper","ဗာနီယာကတ်လီပါနဲ့တိုင်းပါ","វាស់ដោយវ៉ឺនៀរ","ວັດດ້ວຍເວີເນຍ"],
+["F. 計測・品質・納期・梱包","F-1. 計測・計量","マイクロメータで測って","Ukur dengan mikrometer","วัดด้วยไมโครมิเตอร์","Sukatin gamit ang micrometer","Hãy đo bằng panme","用千分尺测量","Measure with the micrometer","မိုက်ခရိုမီတာနဲ့တိုင်းပါ","វាស់ដោយមីក្រូម៉ែត្រ","ວັດດ້ວຍໄມໂຄຣມີເຕີ"],
+["F. 計測・品質・納期・梱包","F-1. 計測・計量","公差の範囲内ですか","Apakah dalam toleransi?","อยู่ในค่าพิกัดความเผื่อไหม","Nasa tolerance ba?","Có nằm trong dung sai không?","在公差范围内吗？","Is it within tolerance?","သည်းခံနိုင်မှုအတွင်းမှာရှိလား","តើស្ថិតក្នុងចន្លោះអត់ឱនទេ?","ຢູ່ໃນຄ່າພິກັດຄວາມເຜືອບໍ?"],
+["F. 計測・品質・納期・梱包","F-1. 計測・計量","公差を超えています","Melebihi toleransi","เกินค่าพิกัดความเผื่อ","Lampas sa tolerance","Vượt quá dung sai","超出公差了","It's out of tolerance","သည်းခံနိုင်မှုကိုကျော်နေတယ်","លើសចន្លោះអត់ឱន","ເກີນຄ່າພິກັດຄວາມເຜືອ"],
+["F. 計測・品質・納期・梱包","F-1. 計測・計量","ゼロ点を合わせて","Sesuaikan titik nol","ปรับจุดศูนย์","I-zero","Hãy chỉnh điểm không","校准零点","Zero it out","သုညအမှတ်ကိုညှိပါ","កែតម្រូវចំណុចសូន្យ","ປັບຈຸດສູນ"],
+["F. 計測・品質・納期・梱包","F-1. 計測・計量","温度を確認して","Cek suhunya","เช็คอุณหภูมิ","I-check ang temperature","Hãy kiểm tra nhiệt độ","确认温度","Check the temperature","အပူချိန်ကိုစစ်ဆေးပါ","ពិនិត្យសីតុណ្ហភាព","ກວດອຸນຫະພູມ"],
+["F. 計測・品質・納期・梱包","F-1. 計測・計量","記録して","Catat","บันทึกด้วย","I-record","Hãy ghi lại","记录下来","Record it","မှတ်တမ်းတင်ပါ","កត់ត្រា","ບັນທຶກ"],
+["F. 計測・品質・納期・梱包","F-1. 計測・計量","ダイヤルゲージで測って","Ukur dengan dial gauge","วัดด้วยไดอัลเกจ","Sukatin gamit ang dial gauge","Hãy đo bằng đồng hồ so","用百分表测量","Measure with the dial gauge","ဒိုင်ယယ်ဂေ့ခ်ျနဲ့တိုင်းပါ","វាស់ដោយដៃអាល់ហ្គេច","ວັດດ້ວຍໄດອັນເກຈ"],
+["F. 計測・品質・納期・梱包","F-1. 計測・計量","直角を確認して","Cek kesikuan","เช็คฉาก","I-check ang right angle","Hãy kiểm tra vuông góc","确认直角","Check the right angle","ထောင့်မှန်ကိုစစ်ဆေးပါ","ពិនិត្យមុំកែង","ກວດສາກ"],
+["F. 計測・品質・納期・梱包","F-1. 計測・計量","平行度を確認して","Cek kesejajaran","เช็คค่าความขนาน","I-check ang parallelism","Hãy kiểm tra độ song song","确认平行度","Check the parallelism","အပြိုင်ညီမှုကိုစစ်ဆေးပါ","ពិនិត្យភាពស្រប","ກວດຄວາມຂະໜານ"],
+["F. 計測・品質・納期・梱包","F-1. 計測・計量","表面粗さを測って","Ukur kekasaran permukaan","วัดค่าความหยาบผิว","Sukatin ang surface roughness","Hãy đo độ nhám bề mặt","测量表面粗糙度","Measure the surface roughness","မျက်နှာပြင်ကြမ်းမှုကိုတိုင်းပါ","វាស់ភាពរដុបផ្ទៃ","ວັດຄວາມຫຍາບຂອງພື້ນຜິວ"],
+["F. 計測・品質・納期・梱包","F-1. 計測・計量","硬さを確認して","Cek kekerasannya","เช็คค่าความแข็ง","I-check ang hardness","Hãy kiểm tra độ cứng","确认硬度","Check the hardness","မာကြောမှုကိုစစ်ဆေးပါ","ពិនិត្យភាពរឹង","ກວດຄວາມແຂງ"],
+["F. 計測・品質・納期・梱包","F-1. 計測・計量","重さを量って","Timbang beratnya","ชั่งน้ำหนัก","Timbangin","Hãy cân trọng lượng","称一下重量","Weigh it","အလေးချိန်ချိန်ပါ","ថ្លឹងទម្ងន់","ຊັ່ງນ້ຳໜັກ"],
+["F. 計測・品質・納期・梱包","F-1. 計測・計量","単位はミリメートルです","Satuannya milimeter","หน่วยเป็นมิลลิเมตร","Millimeters ang unit","Đơn vị là milimét","单位是毫米","The unit is millimeters","ယူနစ်က မီလီမီတာပါ","ឯកតាជាមីលីម៉ែត្រ","ໜ່ວຍເປັນມິນລີແມັດ"],
+["F. 計測・品質・納期・梱包","F-2. 進捗・納期","何時までに仕上げますか","Selesai jam berapa?","เสร็จภายในกี่โมง","By what time?","Xong trước mấy giờ?","几点之前完成？","By what time will it be finished?","ဘယ်အချိန်မှာပြီးအောင်လုပ်မလဲ","ត្រូវបញ្ចប់ត្រឹមម៉ោងប៉ុន្មាន?","ຈະເຮັດສຳເລັດຮອດຈັກໂມງ?"],
+["F. 計測・品質・納期・梱包","F-2. 進捗・納期","やり方が違います","Caranya salah","วิธีทำไม่ถูกต้องนะ","Mali ang ginagawa mo","Cách làm của em bị sai rồi","你的做法不对","You're doing it wrong","လုပ်နည်းမှားနေတယ်","វិធីធ្វើខុស","ວິທີເຮັດບໍ່ຖືກ"],
+["F. 計測・品質・納期・梱包","F-2. 進捗・納期","報告してください","Tolong dilaporkan","รายงานด้วย","Ipagbigay alam mo","Sau đó hãy báo cáo","然后报告","Then report it","အစီရင်ခံပါ","សូមរាយការណ៍","ກະລຸນາລາຍງານ"],
+["F. 計測・品質・納期・梱包","F-2. 進捗・納期","あと何個ですか","Sisa berapa?","เหลืออีกกี่ชิ้น","Ilan pa ang natitira?","Còn bao nhiêu cái nữa?","还剩几个？","How many are left?","နောက်ထပ်ဘယ်နှစ်ခုလဲ","នៅសល់ប៉ុន្មាន?","ເຫຼືອອີກຈັກອັນ?"],
+["F. 計測・品質・納期・梱包","F-2. 進捗・納期","納期に間に合わない","Tidak sempat deadline","ไม่ทันกำหนดส่ง","Hindi aabot sa deadline","Không kịp hạn giao hàng","赶不上交货期","We won't make the deadline","သတ်မှတ်ရက်မီမှာမဟုတ်ဘူး","មិនទាន់ពេលកំណត់","ບໍ່ທັນກຳນົດສົ່ງ"],
+["F. 計測・品質・納期・梱包","F-2. 進捗・納期","作業が遅れています","Kerjanya terlambat","งานล่าช้า","Na-delay ang trabaho","Công việc đang bị chậm","工作进度落后了","The work is behind schedule","အလုပ်နောက်ကျနေတယ်","ការងារយឺត","ງານຊ້າ"],
+["F. 計測・品質・納期・梱包","F-2. 進捗・納期","急いでください","Tolong dipercepat","เร่งด้วย","Pakibilisan","Hãy nhanh lên","请加快速度","Please hurry","မြန်မြန်လုပ်ပါ","សូមប្រញាប់","ກະລຸນາເລັ່ງ"],
+["F. 計測・品質・納期・梱包","F-2. 進捗・納期","この作業を先にやって","Kerjakan ini dulu","ทำงานนี้ก่อน","Unahin ito","Hãy làm cái này trước","先做这个工作","Do this task first","ဒီအလုပ်ကိုအရင်လုပ်ပါ","ធ្វើការងារនេះមុន","ເຮັດວຽກນີ້ກ່ອນ"],
+["F. 計測・品質・納期・梱包","F-2. 進捗・納期","数を数えて","Hitung jumlahnya","นับจำนวน","Bilangin","Hãy đếm số lượng","数一下数量","Count the number","အရေအတွက်ကိုရေတွက်ပါ","រាប់ចំនួន","ນັບຈຳນວນ"],
+["F. 計測・品質・納期・梱包","F-2. 進捗・納期","作業指示書を読んで","Baca instruksi kerja","อ่านใบสั่งงาน","Basahin ang work instruction","Hãy đọc phiếu chỉ thị công việc","看作业指示书","Read the work instructions","အလုပ်ညွှန်ကြားချက်ကိုဖတ်ပါ","អានសេចក្តីណែនាំការងារ","ອ່ານໃບສັ່ງງານ"],
+["F. 計測・品質・納期・梱包","F-2. 進捗・納期","進捗はどうですか","Bagaimana progressnya?","คืบหน้าเป็นอย่างไร","Kumusta ang progress?","Tiến độ thế nào rồi?","进度怎么样了？","How's the progress?","တိုးတက်မှုဘယ်လိုရှိလဲ","វឌ្ឍនភាពយ៉ាងម៉េចដែរ?","ຄວາມຄືບໜ້າເປັນແນວໃດ?"],
+["F. 計測・品質・納期・梱包","F-2. 進捗・納期","予定通りです","Sesuai jadwal","ตามกำหนด","On schedule","Đúng kế hoạch","按计划进行","On schedule","စီစဉ်ထားတဲ့အတိုင်းပါ","តាមផែនការ","ຕາມແຜນ"],
+["F. 計測・品質・納期・梱包","F-2. 進捗・納期","問題が発生しました","Ada masalah","มีปัญหา","May problema","Đã phát sinh vấn đề","出问题了","A problem has occurred","ပြဿနာတက်သွားတယ်","មានបញ្ហាកើតឡើង","ມີບັນຫາເກີດຂຶ້ນ"],
+["F. 計測・品質・納期・梱包","F-2. 進捗・納期","対策を考えてください","Tolong pikirkan solusi","คิดหาทางแก้ไข","Mag-isip ng solusyon","Hãy nghĩ biện pháp đối phó","请想想对策","Please think of a solution","အကောင်အထည်ဖော်မှုကိုစဉ်းစားပါ","សូមគិតវិធានការ","ກະລຸນາຄິດວິທີແກ້ໄຂ"],
+["F. 計測・品質・納期・梱包","F-2. 進捗・納期","段取り替えをします","Ganti setup","เปลี่ยนเซ็ตอัป","Gagawin ang setup change","Thay đổi cài đặt","换产","We'll do a setup change","ပြင်ဆင်မှုပြောင်းလဲမယ်","ធ្វើការផ្លាស់ប្តូរ","ຈະປ່ຽນການຕັ້ງຄ່າ"],
+["F. 計測・品質・納期・梱包","F-2. 進捗・納期","ロスを減らして","Kurangi kerugian","ลด loss","Bawasan ang loss","Hãy giảm lãng phí","减少浪费","Reduce waste/loss","ဆုံးရှုံးမှုကိုလျှော့ချပါ","បន្ថយការខាតបង់","ຫຼຸດການສູນເສຍ"],
+["F. 計測・品質・納期・梱包","F-3. 品質管理","不良品です","Produk cacat","ชิ้นงานที่เสีย","Depektong produkto","Là hàng lỗi","残次品／不良品","Defective product","အပြစ်ပါသောပစ္စည်း","ផលិតផលខូច","ຊິ້ນງານເສຍ"],
+["F. 計測・品質・納期・梱包","F-3. 品質管理","変色と汚れ","Perubahan warna / kotor","เปลี่ยนสี / คราบ","Discoloration / stains","Biến màu / vết bẩn","变色和污垢","Discoloration / stains","အရောင်ပြောင်းခြင်းနှင့်ညစ်ပတ်ခြင်း","ប្រែពណ៌ និងស្នាមប្រឡាក់","ປ່ຽນສີ / ເປື້ອນ"],
+["F. 計測・品質・納期・梱包","F-3. 品質管理","仕様書を確認して","Cek spesifikasi","เช็คสเปค","I-check ang specifications","Hãy kiểm tra bản thông số","确认规格书","Check the specifications","သတ်မှတ်ချက်စာရွက်ကိုစစ်ဆေးပါ","ពិនិត្យលក្ខណៈបច្ចេកទេស","ກວດສະເປັກ"],
+["F. 計測・品質・納期・梱包","F-3. 品質管理","目視検査をして","Lakukan inspeksi visual","ตรวจสอบด้วยสายตา","Gawin ang visual inspection","Hãy kiểm tra bằng mắt","进行目视检查","Do a visual inspection","မျက်စိဖြင့်စစ်ဆေးပါ","ធ្វើការត្រួតពិនិត្យដោយភ្នែក","ກວດກາດ້ວຍສາຍຕາ"],
+["F. 計測・品質・納期・梱包","F-3. 品質管理","キズがあります","Ada goresan","มีรอยขีดข่วน","May gasgas","Có vết xước","有划痕","There's a scratch","ခြစ်ရာရှိတယ်","មានស្នាម","ມີຮອຍຂີດຂ່ວນ"],
+["F. 計測・品質・納期・梱包","F-3. 品質管理","ヒビが入っています","Ada retakan","มีรอยร้าว","May bitak","Có vết nứt","有裂纹","There's a crack","အက်ကြောင်းရှိတယ်","មានស្នាមប្រេះ","ມີຮອຍແຕກ"],
+["F. 計測・品質・納期・梱包","F-3. 品質管理","寸法が違います","Ukurannya salah","ขนาดไม่ตรง","Mali ang sukat","Kích thước bị sai","尺寸不对","The dimensions are wrong","အတိုင်းအတာမှားနေတယ်","វិមាត្រខុស","ຂະໜາດບໍ່ຖືກ"],
+["F. 計測・品質・納期・梱包","F-3. 品質管理","良品です","Produk bagus","ชิ้นงานดี","Magandang produkto","Hàng đạt","合格品","It passes / Good product","အပြစ်ကင်းသောပစ္စည်း","ផលិតផលល្អ","ຊິ້ນງານດີ"],
+["F. 計測・品質・納期・梱包","F-3. 品質管理","やり直してください","Tolong ulangi","ทำใหม่","Pakiulit","Hãy làm lại","请返工","Please redo it","ပြန်လုပ်ပေးပါ","សូមធ្វើម្តងទៀត","ກະລຸນາເຮັດໃໝ່"],
+["F. 計測・品質・納期・梱包","F-3. 品質管理","不良品は別にして","Pisahkan yang cacat","แยกชิ้นงานเสีย","Ihiwalay ang depekto","Hãy tách hàng lỗi riêng","不良品分开放","Separate the defective ones","အပြစ်ပါသောပစ္စည်းကိုသီးခြားခွဲပါ","ញែកផលិតផលខូច","ແຍກຊິ້ນງານເສຍ"],
+["F. 計測・品質・納期・梱包","F-3. 品質管理","検査記録を書いて","Tulis catatan inspeksi","เขียนบันทึกตรวจสอบ","Isulat ang inspection record","Hãy viết phiếu kiểm tra","填写检查记录","Fill in the inspection record","စစ်ဆေးမှုမှတ်တမ်းရေးပါ","សរសេរកំណត់ត្រាត្រួតពិនិត្យ","ຂຽນບັນທຶກກວດກາ"],
+["F. 計測・品質・納期・梱包","F-3. 品質管理","ロット番号を確認して","Cek nomor lot","เช็คหมายเลขล็อต","I-check ang lot number","Hãy kiểm tra số lô","确认批号","Check the lot number","အသုတ်နံပါတ်ကိုစစ်ဆေးပါ","ពិនិត្យលេខឡូត៍","ກວດໝາຍເລກລົດ"],
+["F. 計測・品質・納期・梱包","F-3. 品質管理","初品検査をして","Lakukan inspeksi produk pertama","ตรวจสอบชิ้นแรก","Gawin ang first article inspection","Hãy kiểm tra sản phẩm đầu tiên","做首件检查","Do a first article inspection","ပထမဆုံးပစ္စည်းစစ်ဆေးပါ","ធ្វើការត្រួតពិនិត្យដំបូង","ກວດຊິ້ນທຳອິດ"],
+["F. 計測・品質・納期・梱包","F-3. 品質管理","中間検査をして","Lakukan inspeksi tengah","ตรวจสอบระหว่างกระบวนการ","Gawin ang in-process inspection","Hãy kiểm tra giữa chừng","做中间检查","Do an in-process inspection","အလယ်အလတ်စစ်ဆေးပါ","ធ្វើការត្រួតពិនិត្យកណ្តាល","ກວດກາລະຫວ່າງຂະບວນການ"],
+["F. 計測・品質・納期・梱包","F-3. 品質管理","最終検査をして","Lakukan inspeksi akhir","ตรวจสอบขั้นสุดท้าย","Gawin ang final inspection","Hãy kiểm tra cuối cùng","做最终检查","Do a final inspection","နောက်ဆုံးစစ်ဆေးပါ","ធ្វើការត្រួតពិនិត្យចុងក្រោយ","ກວດກາຂັ້ນສຸດທ້າຍ"],
+["F. 計測・品質・納期・梱包","F-3. 品質管理","抜き取り検査をして","Lakukan sampling inspection","ตรวจสอบแบบสุ่ม","Gawin ang sampling inspection","Hãy kiểm tra lấy mẫu","做抽样检查","Do a sampling inspection","နမူနာစစ်ဆေးပါ","ធ្វើការត្រួតពិនិត្យចៃដន្យ","ກວດກາແບບສຸ່ມ"],
+["F. 計測・品質・納期・梱包","F-3. 品質管理","全数検査をして","Lakukan inspeksi 100%","ตรวจสอบทุกชิ้น","Gawin ang 100% inspection","Hãy kiểm tra toàn bộ","做全数检查","Do a 100% inspection","အကုန်စစ်ဆေးပါ","ធ្វើការត្រួតពិនិត្យ 100%","ກວດກາທຸກຊິ້ນ"],
+["F. 計測・品質・納期・梱包","F-3. 品質管理","不良原因を書いて","Tulis penyebab cacat","เขียนสาเหตุของเสีย","Isulat ang dahilan ng depekto","Hãy viết nguyên nhân lỗi","写明不良原因","Write down the cause of the defect","အပြစ်ဖြစ်ရသည့်အကြောင်းရင်းကိုရေးပါ","សរសេរមូលហេតុខូច","ຂຽນສາເຫດຂອງເສຍ"],
+["F. 計測・品質・納期・梱包","F-3. 品質管理","改善策を出して","Berikan solusi perbaikan","เสนอแนวทางปรับปรุง","Magbigay ng improvement plan","Hãy đưa ra phương án cải thiện","提出改善方案","Propose an improvement","တိုးတက်အောင်ဆောင်ရွက်မှုကိုတင်ပြပါ","ដាក់ស្នើវិធានការ","ສະເໜີວິທີປັບປຸງ"],
+["F. 計測・品質・納期・梱包","F-3. 品質管理","再発防止をして","Cegah agar tidak terulang","ป้องกันไม่ให้เกิดซ้ำ","Pigilan ang pag-ulit","Hãy ngăn chặn tái phát","防止再次发生","Prevent recurrence","ပြန်မဖြစ်အောင်ကာကွယ်ပါ","ការពារកុំឲ្យកើតឡើងវិញ","ປ້ອງກັນບໍ່ໃຫ້ເກີດຊ້ຳ"],
+["F. 計測・品質・納期・梱包","F-3. 品質管理","お客様からクレームが来ました","Ada komplain dari pelanggan","ลูกค้าร้องเรียน","May reklamo ang customer","Khách hàng khiếu nại rồi","客户投诉了","There's a customer complaint","ဖောက်သည်ကနေအကြောင်းကြားလာတယ်","មានពាក្យបណ្តឹងពីអតិថិជន","ລູກຄ້າຮ້ອງຮຽນມາ"],
+["F. 計測・品質・納期・梱包","F-4. 梱包","梱包しましょう","Ayo packing","ห่อบรรจุ","Mag-pack","Thao tác đóng gói","包装／梱包","Let's pack","ထုပ်ပိုးကြစို့","តោះវេចខ្ចប់","ຫໍ່ບັນຈຸ"],
+["F. 計測・品質・納期・梱包","F-4. 梱包","製品が不足しています","Produk kurang","ไม่เพียงพอ","Short on products","Sản phẩm bị thiếu","产品不够","We're short on products","ကုန်ပစ္စည်းမလောက်ဘူး","ផលិតផលមិនគ្រប់","ສິນຄ້າບໍ່ພໍ"],
+["F. 計測・品質・納期・梱包","F-4. 梱包","緩衝材を入れて","Masukkan bantalan","ใส่กันกระแทก","Lagyan ng cushioning","Hãy cho vật liệu đệm vào","放入缓冲材料","Put in cushioning material","ကြားခံပစ္စည်းထည့်ပါ","ដាក់សម្ភារៈការពាររញ្ជួយ","ໃສ່ກັນກະທົບ"],
+["F. 計測・品質・納期・梱包","F-4. 梱包","テープで封をして","Tutup dengan selotip","ปิดด้วยเทป","Selyuhan ng tape","Hãy dán băng keo lại","用胶带封好","Seal it with tape","တိပ်နဲ့ပိတ်ပါ","បិទកាសែត","ປິດດ້ວຍເທບ"],
+["F. 計測・品質・納期・梱包","F-4. 梱包","この面を上にして","Sisi ini ke atas","ด้านนี้ขึ้นข้างบน","Itaas ang side na ito","Mặt này quay lên trên","这面朝上","This side up","ဒီမျက်နှာပြင်ကိုအပေါ်ဘက်ထားပါ","ផ្នែកនេះដាក់ពីលើ","ດ້ານນີ້ຂຶ້ນເທິງ"],
+["F. 計測・品質・納期・梱包","F-4. 梱包","取扱注意","Hati-hati (fragile)","ระวังแตก","Handle with care","Cẩn thận khi vận chuyển","小心轻放","Handle with care","ကိုင်တွယ်ရန်သတိ","ប្រយ័ត្នពេលដឹកជញ្ជូន","ລະວັງແຕກ"],
+["F. 計測・品質・納期・梱包","F-4. 梱包","パレットに載せて","Taruh di atas palet","วางบนพาเลท","Ilagay sa pallet","Hãy đặt lên pallet","放到托盘上","Put it on the pallet","ပါလက်ပေါ်တင်ပါ","ដាក់លើប៉ាឡែត","ວາງເທິງພາເລດ"],
+["F. 計測・品質・納期・梱包","F-4. 梱包","フォークリフトを呼んで","Panggil forklift","เรียกรถโฟล์คลิฟท์","Tawagin ang forklift","Gọi xe nâng","叫叉车过来","Call the forklift","ဖော်ကလစ်ခေါ်ပါ","ហៅរថយន្តស្ទូច","ໂທຫາລົດຍົກ"],
+["F. 計測・品質・納期・梱包","F-4. 梱包","出荷伝票を確認して","Cek surat jalan","เช็คใบส่งของ","I-check ang shipping slip","Hãy kiểm tra phiếu xuất hàng","确认出货单","Check the shipping slip","ပို့ဆောင်မှုစာရင်းကိုစစ်ဆေးပါ","ពិនិត្យបង្កាន់ដៃ","ກວດໃບສົ່ງຂອງ"],
+["F. 計測・品質・納期・梱包","F-4. 梱包","送り状を貼って","Tempelkan label pengiriman","ติดใบส่งของ","Idikit ang shipping label","Hãy dán phiếu giao hàng","贴上发货单","Attach the shipping label","ပို့ဆောင်မှုတံဆိပ်ကပ်ပါ","បិទស្លាកដឹកជញ្ជូន","ຕິດໃບສົ່ງ"],
+["F. 計測・品質・納期・梱包","F-4. 梱包","納品書を入れて","Masukkan surat jalan","ใส่ใบส่งของ","Ilagay ang delivery note","Hãy bỏ phiếu giao hàng vào","放入送货单","Include the delivery note","ပို့ဆောင်မှုစာရွက်ထည့်ပါ","ដាក់បង្កាន់ដៃ","ໃສ່ໃບສົ່ງ"],
+["F. 計測・品質・納期・梱包","F-4. 梱包","ダンボールを組み立てて","Rakit kardus","ประกอบกล่อง","I-assemble ang kahon","Hãy gấp thùng carton","组装纸箱","Assemble the cardboard box","ကတ်ထူသေတ္တာကိုတပ်ဆင်ပါ","ប្រមូលផ្គុំប្រអប់","ປະກອບກ່ອງ"],
+["F. 計測・品質・納期・梱包","F-4. 梱包","ストレッチフィルムを巻いて","Bungkus dengan stretch film","พันฟิล์มยืด","Balutan ng stretch film","Hãy quấn màng co","缠好缠绕膜","Wrap it with stretch film","ဆန့်ဖလင်ကိုရစ်ပတ်ပါ","រុំដោយខ្សែភាពយន្ត","ພັນຟີມຍືດ"]
+];
+
+// Lang key index: 0=category, 1=subcat, 2=JA, 3=ID, 4=TH, 5=TL, 6=VN, 7=CN, 8=EN, 9=MY, 10=KM, 11=LO
+const LANG_IDX = { JA:2, ID:3, TH:4, TL:5, VN:6, CN:7, EN:8, MY:9, KM:10, LO:11 };
+
+// ===== STATE =====
+let studyCards = [];
+let currentIdx = 0;
+let isFlipped = false;
+let studyDirection = 'native-to-target';
+let studyMode = 'all';
+let selectedCategories = new Set();
+
+// ===== INIT =====
+function init() {
+  const langKeys = Object.keys(LANGUAGES);
+  const nativeSel = document.getElementById('native-lang');
+  const targetSel = document.getElementById('target-lang');
+  
+  langKeys.forEach(k => {
+    const o1 = new Option(LANGUAGES[k].name, k);
+    const o2 = new Option(LANGUAGES[k].name, k);
+    nativeSel.appendChild(o1);
+    targetSel.appendChild(o2);
+  });
+  nativeSel.value = 'JA';
+  targetSel.value = 'EN';
+
+  buildCategoryGrid();
+}
+
+function buildCategoryGrid() {
+  const cats = [...new Set(RAW_DATA.map(r => r[0]))];
+  const grid = document.getElementById('category-grid');
+  grid.innerHTML = '';
+  cats.forEach(c => {
+    const count = RAW_DATA.filter(r => r[0] === c).length;
+    const btn = document.createElement('button');
+    btn.className = 'cat-btn';
+    btn.innerHTML = `${c.replace(/^[A-Z]\. /, '')}<span class="count-badge">${count}</span>`;
+    btn.onclick = () => toggleCategory(c, btn);
+    grid.appendChild(btn);
+  });
+}
+
+function setDirection(btn) {
+  document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  studyDirection = btn.dataset.dir;
+}
+
+function setMode(mode, tab) {
+  document.querySelectorAll('.mode-tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  studyMode = mode;
+  const grid = document.getElementById('category-grid');
+  if (mode === 'category') {
+    grid.classList.add('visible');
+  } else {
+    grid.classList.remove('visible');
+    selectedCategories.clear();
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('selected'));
+  }
+}
+
+function toggleCategory(cat, btn) {
+  if (selectedCategories.has(cat)) {
+    selectedCategories.delete(cat);
+    btn.classList.remove('selected');
+  } else {
+    selectedCategories.add(cat);
+    btn.classList.add('selected');
+  }
+}
+
+function startStudy() {
+  const native = document.getElementById('native-lang').value;
+  const target = document.getElementById('target-lang').value;
+  if (native === target) { alert('母語と学習言語が同じです。別の言語を選んでください。'); return; }
+
+  let data = RAW_DATA;
+  if (studyMode === 'category' && selectedCategories.size > 0) {
+    data = RAW_DATA.filter(r => selectedCategories.has(r[0]));
+  }
+
+  studyCards = data.map(r => ({
+    category: r[0],
+    subcat: r[1],
+    native: r[LANG_IDX[native]] || '—',
+    target: r[LANG_IDX[target]] || '—',
+    nativeLang: native,
+    targetLang: target,
+  }));
+
+  if (studyCards.length === 0) { alert('カードがありません。'); return; }
+
+  currentIdx = 0;
+  document.getElementById('setup-screen').style.display = 'none';
+  document.getElementById('study-screen').style.display = 'block';
+  document.getElementById('result-screen').style.display = 'none';
+  renderCard();
+}
+
+function renderCard() {
+  const card = studyCards[currentIdx];
+  const isNtoT = studyDirection === 'native-to-target';
+  
+  const frontLang = isNtoT ? card.nativeLang : card.targetLang;
+  const backLang = isNtoT ? card.targetLang : card.nativeLang;
+  const frontPhrase = isNtoT ? card.native : card.target;
+  const backPhrase = isNtoT ? card.target : card.native;
+
+  document.getElementById('front-lang-hint').textContent = LANGUAGES[frontLang].name;
+  document.getElementById('back-lang-hint').textContent = LANGUAGES[backLang].name;
+  document.getElementById('front-phrase').textContent = frontPhrase;
+  document.getElementById('back-phrase').textContent = backPhrase;
+  document.getElementById('cat-badge').textContent = card.subcat;
+
+  const total = studyCards.length;
+  document.getElementById('progress-label').textContent = `${currentIdx + 1} / ${total}`;
+  document.getElementById('progress-fill').style.width = `${((currentIdx + 1) / total) * 100}%`;
+
+  // Reset flip
+  isFlipped = false;
+  document.getElementById('card-inner').classList.remove('flipped');
+  
+  // Re-animate
+  const area = document.getElementById('card-area');
+  area.style.animation = 'none';
+  area.offsetHeight;
+  area.style.animation = 'cardFlipIn 0.3s ease';
+
+  // Store lang codes for TTS
+  window._frontLang = frontLang;
+  window._backLang = backLang;
+  window._frontPhrase = frontPhrase;
+  window._backPhrase = backPhrase;
+}
+
+function flipCard() {
+  isFlipped = !isFlipped;
+  document.getElementById('card-inner').classList.toggle('flipped', isFlipped);
+}
+
+function nextCard() {
+  if (currentIdx < studyCards.length - 1) {
+    currentIdx++;
+    renderCard();
+  } else {
+    showResult();
+  }
+}
+
+function prevCard() {
+  if (currentIdx > 0) {
+    currentIdx--;
+    renderCard();
+  }
+}
+
+function shuffleCards() {
+  for (let i = studyCards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [studyCards[i], studyCards[j]] = [studyCards[j], studyCards[i]];
+  }
+  currentIdx = 0;
+  renderCard();
+}
+
+function goBack() {
+  document.getElementById('setup-screen').style.display = 'block';
+  document.getElementById('study-screen').style.display = 'none';
+  document.getElementById('result-screen').style.display = 'none';
+}
+
+function showResult() {
+  document.getElementById('study-screen').style.display = 'none';
+  document.getElementById('result-screen').style.display = 'block';
+  document.getElementById('result-sub').textContent = `${studyCards.length}枚のカードを学習しました！`;
+}
+
+function restartStudy() {
+  currentIdx = 0;
+  document.getElementById('result-screen').style.display = 'none';
+  document.getElementById('study-screen').style.display = 'block';
+  renderCard();
+}
+
+// ===== TTS =====
+function speak(text, langKey, btn) {
+  if (!window.speechSynthesis) { alert('音声合成に対応していないブラウザです。'); return; }
+  
+  const lang = LANGUAGES[langKey];
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.lang = lang.code;
+  utter.rate = 0.9;
+  
+  // Visual feedback
+  const orig = btn.innerHTML;
+  btn.style.opacity = '0.6';
+  utter.onend = () => { btn.innerHTML = orig; btn.style.opacity = '1'; };
+  utter.onerror = () => { btn.innerHTML = orig; btn.style.opacity = '1'; };
+  
+  btn.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><circle cx="12" cy="12" r="4"/></svg> 再生中...`;
+  
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(utter);
+}
+
+function speakFront(e) {
+  e.stopPropagation();
+  speak(window._frontPhrase, window._frontLang, e.currentTarget);
+}
+
+function speakBack(e) {
+  e.stopPropagation();
+  speak(window._backPhrase, window._backLang, e.currentTarget);
+}
+
+// ===== Keyboard nav =====
+document.addEventListener('keydown', e => {
+  if (document.getElementById('study-screen').style.display !== 'block') return;
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); isFlipped ? nextCard() : flipCard(); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); prevCard(); }
+  if (e.key === 'ArrowUp' || e.key === 'ArrowDown') { e.preventDefault(); flipCard(); }
+});
+
+init();
+</script>
+</body>
+</html>
