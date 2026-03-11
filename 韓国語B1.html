@@ -1,0 +1,1921 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>韓国語フラッシュカード B1</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500&family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red: #C0392B; --red2: #e74c3c;
+  --blue: #003893; --blue2: #2980d4;
+  --gold: #B8860B; --gold2: #DAA520;
+  --bg: #0d0f1a; --srf: #161929; --srf2: #1e2236; --srf3: #252942;
+  --text: #f0f2ff; --muted: #8b90b0;
+  --border: rgba(192,57,43,0.2); --border2: rgba(0,56,147,0.3);
+  --jp: "M PLUS Rounded 1c", sans-serif;
+  --kr: "Noto Sans KR", sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--jp);
+  background: var(--bg); color: var(--text);
+  min-height: 100vh;
+  display: flex; flex-direction: column; align-items: center;
+}
+
+/* HEADER */
+.header {
+  width: 100%;
+  background: linear-gradient(135deg, #00255e 0%, #001040 50%, #1a0808 100%);
+  border-bottom: 2px solid var(--red);
+  padding: 13px 18px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 4px 20px rgba(192,57,43,0.3);
+}
+.header-left { display: flex; align-items: center; gap: 10px; }
+.header h1 { font-size: clamp(0.9rem, 3vw, 1.15rem); font-weight: 700; }
+.header h1 span { color: var(--red2); }
+.level-badge {
+  background: linear-gradient(135deg, var(--gold), #8B6914);
+  color: #fff; font-size: 0.7rem; font-weight: 700;
+  padding: 3px 9px; border-radius: 99px;
+  letter-spacing: 0.05em; white-space: nowrap;
+}
+.header-controls { display: flex; gap: 8px; align-items: center; }
+.icon-btn {
+  background: transparent; border: 1.5px solid var(--border);
+  border-radius: 9px; padding: 7px 10px; cursor: pointer;
+  color: var(--muted); font-size: 1rem; transition: all 0.2s;
+  display: flex; align-items: center;
+}
+.icon-btn:hover { color: var(--text); border-color: var(--red); }
+
+/* MODE */
+.mode-selector {
+  display: flex; gap: 6px; padding: 10px 16px;
+  width: 100%; max-width: 700px; justify-content: center;
+}
+.mode-btn {
+  font-family: var(--jp); padding: 7px 12px; border-radius: 20px;
+  border: 1.5px solid var(--border2); background: var(--srf);
+  color: var(--muted); cursor: pointer; font-size: 0.78rem;
+  transition: all 0.2s; white-space: nowrap;
+}
+.mode-btn:hover { border-color: var(--red); color: var(--text); }
+.mode-btn.active {
+  background: linear-gradient(135deg, var(--red), #8a0020);
+  border-color: var(--red); color: white; font-weight: 700;
+}
+
+/* STATS */
+.stats-bar {
+  display: flex; gap: 14px; padding: 8px 16px;
+  background: var(--srf); border-radius: 10px;
+  margin: 4px 16px; width: calc(100% - 32px); max-width: 668px;
+  font-size: 0.78rem; color: var(--muted); align-items: center;
+}
+.stats-bar span { white-space: nowrap; }
+.stats-bar span b { color: var(--text); }
+.stats-bar .progress-wrap {
+  flex: 1; height: 6px; background: var(--srf3);
+  border-radius: 3px; overflow: hidden; min-width: 40px;
+}
+.stats-bar .progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--red));
+  border-radius: 3px; transition: width 0.4s;
+}
+
+/* CATEGORY FILTER */
+.cat-scroll {
+  width: 100%; max-width: 700px;
+  padding: 6px 16px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--red) var(--srf);
+}
+.cat-scroll::-webkit-scrollbar { height: 4px; }
+.cat-scroll::-webkit-scrollbar-track { background: var(--srf); }
+.cat-scroll::-webkit-scrollbar-thumb { background: var(--red); border-radius: 3px; }
+.cat-inner { display: flex; gap: 6px; width: max-content; }
+.cat-btn {
+  font-family: var(--jp); padding: 5px 11px; border-radius: 14px;
+  border: 1.5px solid var(--border2); background: var(--srf);
+  color: var(--muted); cursor: pointer; font-size: 0.72rem;
+  transition: all 0.2s; white-space: nowrap;
+}
+.cat-btn:hover { border-color: var(--blue); color: var(--text); }
+.cat-btn.active { background: var(--blue); border-color: var(--blue); color: white; font-weight: 700; }
+
+/* CARD AREA */
+.card-area {
+  width: 100%; max-width: 700px;
+  padding: 14px 16px; flex: 1;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 12px;
+}
+
+/* FLASHCARD */
+.flashcard {
+  width: 100%; background: var(--srf);
+  border-radius: 18px; border: 1.5px solid var(--border);
+  padding: 32px 24px; min-height: 220px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  position: relative; cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04);
+}
+.flashcard:hover { border-color: var(--red); box-shadow: 0 8px 40px rgba(192,57,43,0.15); }
+.card-cat-label {
+  position: absolute; top: 13px; left: 16px;
+  font-size: 0.68rem; color: var(--muted);
+  background: var(--srf2); padding: 3px 8px;
+  border-radius: 7px; border: 1px solid var(--border2);
+  max-width: 60%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.card-counter {
+  position: absolute; top: 13px; right: 16px;
+  font-size: 0.68rem; color: var(--muted);
+}
+.done-badge {
+  position: absolute; top: 13px; right: 16px;
+  font-size: 0.68rem; color: #2ecc71;
+  background: rgba(46,204,113,0.15);
+  border: 1px solid rgba(46,204,113,0.3);
+  padding: 2px 7px; border-radius: 7px; display: none;
+}
+.card-question { text-align: center; width: 100%; }
+.card-answer   { text-align: center; width: 100%; display: none; }
+.flashcard.revealed .card-question { display: none; }
+.flashcard.revealed .card-answer   { display: block; }
+
+.kr-text  { font-family: var(--kr); font-size: clamp(1.5rem, 5.5vw, 2.6rem); font-weight: 400; line-height: 1.4; margin-bottom: 6px; }
+.rom-text { display: none; }
+.jp-text  { font-size: clamp(1.15rem, 4vw, 1.75rem); font-weight: 500; line-height: 1.4; }
+.hint-text { font-size: 0.73rem; color: var(--muted); margin-top: 10px; opacity: 0.6; }
+
+/* SPEAK */
+.speak-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 16px; padding: 8px 20px; border-radius: 20px;
+  border: 1.5px solid rgba(46,204,113,0.4);
+  background: rgba(46,204,113,0.08); color: #2ecc71;
+  font-family: var(--jp); font-size: 0.83rem; font-weight: 600;
+  cursor: pointer; transition: all 0.2s;
+}
+.speak-btn:hover { background: rgba(46,204,113,0.18); }
+.speak-btn.playing { background: rgba(46,204,113,0.22); border-color: #2ecc71; animation: pulse-s 0.8s ease-in-out infinite alternate; }
+@keyframes pulse-s { from { box-shadow: 0 0 4px rgba(46,204,113,0.2); } to { box-shadow: 0 0 16px rgba(46,204,113,0.5); } }
+
+/* CONTROLS */
+.card-controls {
+  display: flex; gap: 8px; align-items: center;
+  justify-content: center; flex-wrap: wrap; width: 100%;
+}
+.ctrl-btn {
+  font-family: var(--jp); padding: 10px 16px; border-radius: 11px;
+  border: 1.5px solid var(--border2); background: var(--srf2);
+  color: var(--text); cursor: pointer; font-size: 0.82rem;
+  transition: all 0.2s; white-space: nowrap;
+}
+.ctrl-btn:hover { background: var(--srf3); }
+.btn-prev  { border-color: var(--border); color: var(--muted); }
+.btn-prev:hover { color: var(--text); }
+.btn-show  { background: linear-gradient(135deg, var(--red), #8a0020); border-color: var(--red); color: #fff; font-weight: 700; padding: 10px 18px; }
+.btn-show:hover { opacity: 0.88; }
+.btn-hide  { background: var(--srf2); border-color: #555a7a; color: var(--muted); font-weight: 600; padding: 10px 18px; }
+.btn-hide:hover  { border-color: var(--red); color: var(--text); }
+.btn-done  { border-color: #2ecc71; color: #2ecc71; background: transparent; }
+.btn-done:hover  { background: rgba(46,204,113,0.1); }
+.btn-done.marked { background: rgba(46,204,113,0.15); font-weight: 700; }
+.btn-next  { background: var(--blue); border-color: var(--blue); color: #fff; font-weight: 700; }
+.btn-next:hover { opacity: 0.85; }
+
+/* COMPLETE */
+.complete-screen { display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px 20px; gap: 16px; }
+.complete-screen.show { display: flex; }
+.complete-screen .trophy { font-size: 4rem; }
+.complete-screen h2 { font-size: 1.5rem; color: var(--gold2); }
+.complete-screen p { color: var(--muted); }
+.reset-btn { font-family: var(--jp); padding: 12px 28px; border-radius: 11px; border: none; background: linear-gradient(135deg, var(--red), var(--blue)); color: #fff; font-size: 0.95rem; font-weight: 700; cursor: pointer; margin-top: 6px; }
+
+/* LIST MODAL */
+.list-modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 200; justify-content: center; align-items: flex-start; padding: 16px; }
+.list-modal-overlay.show { display: flex; }
+.list-modal { background: var(--srf); border: 1px solid var(--border); border-radius: 16px; width: 100%; max-width: 720px; max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 8px 40px rgba(0,0,0,0.6); }
+.list-modal-header { display: flex; align-items: center; justify-content: space-between; padding: 13px 18px; border-bottom: 1px solid var(--border); background: linear-gradient(135deg, #00255e 0%, #001040 100%); flex-shrink: 0; }
+.list-modal-header h2 { font-size: 1rem; font-weight: 700; color: #fff; }
+.list-modal-header span { font-size: 0.8rem; color: rgba(255,255,255,0.6); margin-left: 8px; }
+.list-close-btn { font-family: var(--jp); background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.2); border-radius: 7px; padding: 6px 12px; cursor: pointer; color: #fff; font-size: 0.82rem; }
+.list-modal-search { padding: 10px 16px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+.list-modal-search input { width: 100%; background: var(--srf2); border: 1px solid var(--border2); border-radius: 8px; padding: 8px 12px; color: var(--text); font-family: var(--jp); font-size: 0.9rem; outline: none; }
+.list-modal-search input::placeholder { color: var(--muted); }
+.list-modal-body { flex: 1; overflow-y: auto; }
+.list-cat-header { position: sticky; top: 0; background: var(--srf); padding: 7px 16px; font-size: 0.72rem; font-weight: 700; color: var(--gold2); letter-spacing: 0.06em; border-bottom: 1px solid var(--border); z-index: 5; }
+.list-row { display: grid; grid-template-columns: 1fr 1fr; padding: 9px 16px; border-bottom: 1px solid rgba(255,255,255,0.04); cursor: pointer; transition: background 0.1s; }
+.list-row:hover { background: var(--srf2); }
+.list-row.mastered { opacity: 0.4; }
+.list-jp  { font-size: 0.83rem; line-height: 1.4; }
+.list-kr  { font-family: var(--kr); font-size: 0.9rem; font-weight: 400; line-height: 1.4; }
+.list-rom { display: none; }
+</style>
+</head>
+<body>
+
+<!-- LIST MODAL -->
+<div class="list-modal-overlay" id="listModalOverlay">
+  <div class="list-modal">
+    <div class="list-modal-header">
+      <div><h2>📋 例文一覧<span id="listCount"></span></h2></div>
+      <button class="list-close-btn" id="listCloseBtn">✕ 閉じる</button>
+    </div>
+    <div class="list-modal-search">
+      <input type="text" id="listSearch" placeholder="日本語・韓国語で検索…">
+    </div>
+    <div class="list-modal-body" id="listModalBody"></div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-left">
+    <h1>🇰🇷 韓国語 <span>フラッシュカード</span></h1>
+    <span class="level-badge">B1 中級</span>
+  </div>
+  <div class="header-controls">
+    <button class="icon-btn" id="listBtn">📋</button>
+    <button class="icon-btn" id="shuffleBtn">🔀</button>
+    <button class="icon-btn" id="muteBtn">🔊</button>
+  </div>
+</header>
+
+<!-- MODE -->
+<div class="mode-selector">
+  <button class="mode-btn active" data-mode="jp2kr">JP → KR 和文韓訳</button>
+  <button class="mode-btn" data-mode="kr2jp">KR → JP 韓文和訳</button>
+  <button class="mode-btn" data-mode="rand">🎲 ランダム</button>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <span>全 <b id="totalCount">0</b></span>
+  <span>残り <b id="remainCount">0</b></span>
+  <span>✓ <b id="masteredCount">0</b></span>
+  <div class="progress-wrap"><div class="progress-fill" id="progressBar" style="width:0%"></div></div>
+  <span><b id="percentCount">0</b>%</span>
+</div>
+
+<!-- CATEGORY -->
+<div class="cat-scroll">
+  <div class="cat-inner" id="catInner"></div>
+</div>
+
+<!-- CARD AREA -->
+<div class="card-area">
+  <div class="flashcard" id="flashcard" onclick="handleCardClick()">
+    <div class="card-cat-label" id="cardCat"></div>
+    <div class="card-counter" id="cardCounter"></div>
+    <div class="done-badge" id="doneBadge">✓ 済</div>
+
+    <div class="card-question" id="cardQuestion">
+      <div class="jp-text" id="qJp"></div>
+      <div class="kr-text" id="qKr" style="display:none"></div>
+      <div class="hint-text">▶ タップして答えを確認</div>
+    </div>
+
+    <div class="card-answer" id="cardAnswer">
+      <div class="kr-text" id="aKr"></div>
+      <div class="rom-text" id="aRom"></div>
+      <div class="jp-text" id="aJp" style="display:none"></div>
+      <button class="speak-btn" id="speakBtn" onclick="speakAnswer(event)">🔊 読み上げ</button>
+    </div>
+  </div>
+
+  <div class="card-controls" id="cardControls">
+    <button class="ctrl-btn btn-prev" onclick="prevCard()">← 戻る</button>
+    <button class="ctrl-btn btn-show" id="showBtn" onclick="revealCard()">▶ 表示</button>
+    <button class="ctrl-btn btn-hide" id="hideBtn" onclick="unrevealCard()" style="display:none">◀ 戻す</button>
+    <button class="ctrl-btn btn-done" id="doneBtn" onclick="markDone()">✓ 覚えた</button>
+    <button class="ctrl-btn btn-next" onclick="nextCard()">次へ →</button>
+  </div>
+
+  <div class="complete-screen" id="completeScreen">
+    <div class="trophy">🏆</div>
+    <h2>完了！おめでとうございます！</h2>
+    <p id="completeMsg"></p>
+    <button class="reset-btn" onclick="resetAll()">もう一度やり直す</button>
+  </div>
+</div>
+
+<script>
+const RAW_CARDS = [
+{cat:"間接話法",ne:"내일 비가 온대요.",rom:"naeil biga ondaeyo",jp:"明日雨が降るそうです"},
+{cat:"間接話法",ne:"그 영화 재미있대요.",rom:"geu yeonghwa jaemiitdaeyo",jp:"その映画は面白いそうです"},
+{cat:"間接話法",ne:"한국어가 어렵대요.",rom:"hangugeoga eoryeopdaeyo",jp:"韓国語は難しいそうです"},
+{cat:"間接話法",ne:"그 식당 맛집이래요.",rom:"geu sikdang matjibiraeyo",jp:"その食堂は美味しいお店だそうです"},
+{cat:"間接話法",ne:"일본에 여행 간대요.",rom:"ilbone yeohaeng gandaeyo",jp:"日本に旅行に行くそうです"},
+{cat:"間接話法",ne:"벌써 집에 갔대요.",rom:"beolsseo jibe gatdaeyo",jp:"もう家に帰ったそうです"},
+{cat:"間接話法",ne:"내일 만나자고 해요.",rom:"naeil mannajago haeyo",jp:"明日会おうと言っています"},
+{cat:"間接話法",ne:"빨리 오래요.",rom:"ppalli oraeyo",jp:"早く来るように言っています"},
+{cat:"間接話法",ne:"담배 피우지 말래요.",rom:"dambae piji mallaeyo",jp:"タバコを吸わないように言っています"},
+{cat:"間接話法",ne:"뭐라고 했어요?",rom:"mworago haesseoyo?",jp:"何と言いましたか？"},
+{cat:"推測・様態",ne:"비가 올 것 같아요.",rom:"biga ol geot gatayo",jp:"雨が降りそうです"},
+{cat:"推測・様態",ne:"그 영화 재미있을 것 같아요.",rom:"geu yeonghwa jaemiisseul geot gatayo",jp:"その映画は面白そうです"},
+{cat:"推測・様態",ne:"많이 피곤한가 봐요.",rom:"mani pigonhan'ga bwayo",jp:"とても疲れているみたいです"},
+{cat:"推測・様態",ne:"시험을 잘 본 모양이에요.",rom:"siheomeul jal bon moyang-ieyo",jp:"試験がうまくいった様子です"},
+{cat:"推測・様態",ne:"아직 안 온 것 같아요.",rom:"ajik an on geot gatayo",jp:"まだ来ていないようです"},
+{cat:"推測・様態",ne:"길이 막히는 것 같아요.",rom:"giri manghineun geot gatayo",jp:"道が混んでいるようです"},
+{cat:"推測・様態",ne:"그분은 한국 사람인가 봐요.",rom:"geubuneun hanguk saram-inga bwayo",jp:"その方は韓国人みたいです"},
+{cat:"推測・様態",ne:"뭔가 잘못된 것 같아요.",rom:"mwonga jalmotdoen geot gatayo",jp:"何か間違っているようです"},
+{cat:"決意・意志",ne:"꼭 성공할 거예요.",rom:"kkok seonggonghal geoyeyo",jp:"必ず成功します"},
+{cat:"決意・意志",ne:"담배를 끊기로 결심했어요.",rom:"dambaereul kkeunkkiro gyeolsimhaesseoyo",jp:"タバコをやめる決心をしました"},
+{cat:"決意・意志",ne:"한국어를 끝까지 배울 거예요.",rom:"hangugeoreul kkeutkkaji baeul geoyeyo",jp:"韓国語を最後まで学びます"},
+{cat:"決意・意志",ne:"다이어트를 시작할 거예요.",rom:"daieoteureul sijakhal geoyeyo",jp:"ダイエットを始めます"},
+{cat:"決意・意志",ne:"매일 운동하기로 했어요.",rom:"maeil undonghagiro haesseoyo",jp:"毎日運動することにしました"},
+{cat:"決意・意志",ne:"올해 꼭 취직할 거예요.",rom:"olhae kkok chwijikhal geoyeyo",jp:"今年必ず就職します"},
+{cat:"決意・意志",ne:"시험에 합격하고 말겠어요.",rom:"siheome hapgyeokago malgesseoyo",jp:"試験に必ず合格してみせます"},
+{cat:"決意・意志",ne:"다시는 술 안 마실 거예요.",rom:"dasineun sul an masil geoyeyo",jp:"二度とお酒は飲みません"},
+{cat:"勧誘・アドバイス",ne:"같이 영화 보는 게 어때요?",rom:"gachi yeonghwa boneun ge eottaeyo?",jp:"一緒に映画を見るのはどうですか？"},
+{cat:"勧誘・アドバイス",ne:"한번 해 보는 게 좋을 것 같아요.",rom:"hanbeon hae boneun ge joeul geot gatayo",jp:"一度やってみた方がいいと思います"},
+{cat:"勧誘・アドバイス",ne:"그냥 두는 게 낫겠어요.",rom:"geunyang duneun ge natgesseoyo",jp:"そのままにしておいた方がいいでしょう"},
+{cat:"勧誘・アドバイス",ne:"빨리 병원에 가는 게 좋겠어요.",rom:"ppalli byeong-wone ganeun ge jotgesseoyo",jp:"早く病院に行った方がいいでしょう"},
+{cat:"勧誘・アドバイス",ne:"충분히 쉬는 게 좋아요.",rom:"chungbunhi swineun ge joayo",jp:"十分休むのがいいです"},
+{cat:"勧誘・アドバイス",ne:"그 사람 말을 듣지 마세요.",rom:"geu saram mareul deutji maseyo",jp:"その人の言うことを聞かないでください"},
+{cat:"勧誘・アドバイス",ne:"무리하지 마세요.",rom:"murihaji maseyo",jp:"無理しないでください"},
+{cat:"勧誘・アドバイス",ne:"포기하지 마세요.",rom:"pogihaji maseyo",jp:"諦めないでください"},
+{cat:"勧誘・アドバイス",ne:"너무 걱정하지 마세요.",rom:"neomu geokjeonghaji maseyo",jp:"あまり心配しないでください"},
+{cat:"勧誘・アドバイス",ne:"천천히 해도 괜찮아요.",rom:"cheoncheonhi haedo gwaenchana-yo",jp:"ゆっくりしても大丈夫です"},
+{cat:"理由・原因の詳細",ne:"비가 와서 못 갔어요.",rom:"biga waseo mot gasseoyo",jp:"雨が降ったので行けませんでした"},
+{cat:"理由・原因の詳細",ne:"길이 막혀서 늦었어요.",rom:"giri makhyeoseo neujeosseoyo",jp:"道が混んでいたので遅れました"},
+{cat:"理由・原因の詳細",ne:"아파서 학교에 못 갔어요.",rom:"apaseo hakgyoe mot gasseoyo",jp:"病気で学校に行けませんでした"},
+{cat:"理由・原因の詳細",ne:"바빠서 전화 못 했어요.",rom:"bappaseo jeonhwa mot haesseoyo",jp:"忙しくて電話できませんでした"},
+{cat:"理由・原因の詳細",ne:"시간이 없어서 못 먹었어요.",rom:"sigani eopseoseo mot meogeosseoyo",jp:"時間がなくて食べられませんでした"},
+{cat:"理由・原因の詳細",ne:"피곤해서 일찍 잤어요.",rom:"pigonhaeseo iljjik jasseoyo",jp:"疲れていたので早く寝ました"},
+{cat:"理由・原因の詳細",ne:"재미있어서 한 번 더 봤어요.",rom:"jaemiisseoseo han beon deo bwasseoyo",jp:"面白かったのでもう一度見ました"},
+{cat:"理由・原因の詳細",ne:"맛있어서 많이 먹었어요.",rom:"masisseoseo mani meogeosseoyo",jp:"美味しくてたくさん食べました"},
+{cat:"理由・原因の詳細",ne:"너무 비싸서 안 샀어요.",rom:"neomu bissaseo an sasseoyo",jp:"高すぎたので買いませんでした"},
+{cat:"目的・意図",ne:"한국어를 배우려고 한국에 왔어요.",rom:"hangugeoreul baeuryeogo hanguge wasseoyo",jp:"韓国語を学ぶために韓国に来ました"},
+{cat:"目的・意図",ne:"친구를 만나려고 명동에 갔어요.",rom:"chingureul mannaryeogo myeongdonge gasseoyo",jp:"友達に会うために明洞に行きました"},
+{cat:"目的・意図",ne:"건강을 위해서 운동해요.",rom:"geon-gangeul wihaeseo undonghaeyo",jp:"健康のために運動します"},
+{cat:"目的・意図",ne:"시험에 합격하기 위해서 열심히 공부해요.",rom:"siheome hapgyeokagi wihaeseo yeolsimhi gongbuhaeyo",jp:"試験に合格するために一生懸命勉強します"},
+{cat:"目的・意図",ne:"살을 빼기 위해서 운동해요.",rom:"sareul ppaegi wihaeseo undonghaeyo",jp:"痩せるために運動します"},
+{cat:"目的・意図",ne:"휴식을 취하려고 집에 있었어요.",rom:"hyusigeul chwiharyeogo jibe isseosseoyo",jp:"休息を取るために家にいました"},
+{cat:"目的・意図",ne:"돈을 모으려고 아르바이트해요.",rom:"doneul moeuryeogo areubaiteuhaeyo",jp:"お金を貯めるためにアルバイトします"},
+{cat:"目的・意図",ne:"꿈을 이루기 위해서 노력할 거예요.",rom:"kkumeul irugi wihaeseo noryeokhal geoyeyo",jp:"夢を叶えるために努力します"},
+{cat:"条件・仮定",ne:"시간이 있으면 같이 갈 수 있어요.",rom:"sigani isseumyeon gachi gal su isseoyo",jp:"時間があれば一緒に行けます"},
+{cat:"条件・仮定",ne:"비가 오면 안 갈 거예요.",rom:"biga omyeon an gal geoyeyo",jp:"雨が降れば行きません"},
+{cat:"条件・仮定",ne:"날씨가 좋으면 소풍 갈 거예요.",rom:"nalssiga joeumyeon sopung gal geoyeyo",jp:"天気が良ければピクニックに行きます"},
+{cat:"条件・仮定",ne:"늦으면 먼저 가세요.",rom:"neujeumyeon meonjeo gaseyo",jp:"遅れたら先に行ってください"},
+{cat:"条件・仮定",ne:"내일 시간이 괜찮으면 만날까요?",rom:"naeil sigani gwaenchaneumyeon mannalkkayo?",jp:"明日時間が大丈夫なら会いませんか？"},
+{cat:"条件・仮定",ne:"더 자세히 알고 싶으면 물어보세요.",rom:"deo jasehi algo sipeumyeon mureoboseyo",jp:"もっと詳しく知りたければ聞いてください"},
+{cat:"条件・仮定",ne:"그 책을 읽으면 도움이 될 거예요.",rom:"geu chaegeul ilgeumyeo doumi doel geoyeyo",jp:"その本を読めば役に立つでしょう"},
+{cat:"条件・仮定",ne:"노력하면 성공할 수 있어요.",rom:"noryeokamyeon seonggonghal su isseoyo",jp:"努力すれば成功できます"},
+{cat:"譲歩・逆接",ne:"비가 오지만 갈 거예요.",rom:"biga ojiman gal geoyeyo",jp:"雨が降るけど行きます"},
+{cat:"譲歩・逆接",ne:"바쁘지만 도와줄 수 있어요.",rom:"bappeujiman dowajul su isseoyo",jp:"忙しいけど手伝えます"},
+{cat:"譲歩・逆接",ne:"맛있지만 너무 매워요.",rom:"masitjiman neomu maewoyo",jp:"美味しいけどとても辛いです"},
+{cat:"譲歩・逆接",ne:"노력했지만 실패했어요.",rom:"noryeokhaetjiman silpaehaesseoyo",jp:"努力したけど失敗しました"},
+{cat:"譲歩・逆接",ne:"일요일인데도 일해요.",rom:"iryoilindedo ilhaeyo",jp:"日曜日なのに働きます"},
+{cat:"譲歩・逆接",ne:"피곤한데도 운동했어요.",rom:"pigonhandedo undonghaesseoyo",jp:"疲れているのに運動しました"},
+{cat:"譲歩・逆接",ne:"비싼데도 사람들이 많이 사요.",rom:"bissandedo saramdeuri mani sayo",jp:"高いのに人々がたくさん買います"},
+{cat:"譲歩・逆接",ne:"공부를 별로 안 했는데도 시험을 잘 봤어요.",rom:"gongbureul byeollo an haenneundedo siheomeul jal bwasseoyo",jp:"勉強をあまりしなかったのに試験がよくできました"},
+{cat:"程度・比較の強調",ne:"서울이 도쿄보다 더 커요?",rom:"seouri dokyoboda deo keoyo?",jp:"ソウルは東京より大きいですか？"},
+{cat:"程度・比較の強調",ne:"한국어가 영어보다 어려워요.",rom:"hangugeoga yeong-eoboda eoryeowoyo",jp:"韓国語は英語より難しいです"},
+{cat:"程度・比較の強調",ne:"기차가 버스보다 빨라요.",rom:"gichaga beoseuboda ppallayo",jp:"電車はバスより速いです"},
+{cat:"程度・比較の強調",ne:"이게 제일 좋아요.",rom:"ige jeil joayo",jp:"これが一番いいです"},
+{cat:"程度・比較の強調",ne:"한국에서 가장 높은 산은 한라산이에요.",rom:"hangugeseo gajang nopeun saneun hallasan-ieyo",jp:"韓国で一番高い山は漢拏山です"},
+{cat:"程度・比較の強調",ne:"생각보다 비싸요.",rom:"saenggakboda bissayo",jp:"思ったより高いです"},
+{cat:"程度・比較の強調",ne:"예상보다 쉬웠어요.",rom:"yesangboda swiwosseoyo",jp:"予想より簡単でした"},
+{cat:"程度・比較の強調",ne:"어제보다 오늘이 더 추워요.",rom:"eojeboda oneuri deo chuwoyo",jp:"昨日より今日がもっと寒いです"},
+{cat:"経験・経歴の詳細",ne:"한국에 세 번 가 봤어요.",rom:"hanguge se beon ga bwasseoyo",jp:"韓国に三回行ったことがあります"},
+{cat:"経験・経歴の詳細",ne:"불고기는 먹어 봤어요?",rom:"bulgogineun meogeo bwasseoyo?",jp:"プルゴギは食べたことがありますか？"},
+{cat:"経験・経歴の詳細",ne:"제주도에 가 본 적 있어요?",rom:"jejudo-e ga bon jeok isseoyo?",jp:"済州島に行ったことがありますか？"},
+{cat:"経験・経歴の詳細",ne:"한 번도 안 가 봤어요.",rom:"han beondo an ga bwasseoyo",jp:"一度も行ったことがありません"},
+{cat:"経験・経歴の詳細",ne:"처음으로 혼자 여행해 봤어요.",rom:"cheoeumeuro honja yeohaenghae bwasseoyo",jp:"初めて一人で旅行してみました"},
+{cat:"経験・経歴の詳細",ne:"스노쿨링 해 본 적 있어요?",rom:"seunokulling hae bon jeok isseoyo?",jp:"シュノーケリングをしたことがありますか？"},
+{cat:"経験・経歴の詳細",ne:"그 영화 세 번이나 봤어요.",rom:"geu yeonghwa se beonina bwasseoyo",jp:"その映画を三回も見ました"},
+{cat:"経験・経歴の詳細",ne:"어릴 때 피아노를 배운 적이 있어요.",rom:"eoril ttae pianoreul baeun jeogi isseoyo",jp:"子供の頃ピアノを習ったことがあります"},
+{cat:"変化・進行",ne:"날씨가 점점 추워지고 있어요.",rom:"nalssiga jeomjeom chuwojigo isseoyo",jp:"天気がだんだん寒くなっています"},
+{cat:"変化・進行",ne:"한국어 실력이 점점 좋아지고 있어요.",rom:"hangugeo sillyeogi jeomjeom joajigo isseoyo",jp:"韓国語の実力がだんだん良くなっています"},
+{cat:"変化・進行",ne:"물가가 계속 오르고 있어요.",rom:"mulgaga gyesok oreugo isseoyo",jp:"物価がずっと上がっています"},
+{cat:"変化・進行",ne:"요즘 살이 찌고 있어요.",rom:"yojeum sali jjigo isseoyo",jp:"最近太ってきています"},
+{cat:"変化・進行",ne:"경제가 점점 어려워지고 있어요.",rom:"gyeongjega jeomjeom eoryeowojigo isseoyo",jp:"経済がだんだん難しくなっています"},
+{cat:"変化・進行",ne:"관계가 좋아지고 있어요.",rom:"gwan-gyega joajigo isseoyo",jp:"関係が良くなっています"},
+{cat:"変化・進行",ne:"인기가 점점 식고 있어요.",rom:"ingiga jeomjeom sikgo isseoyo",jp:"人気がだんだん冷めています"},
+{cat:"変化・進行",ne:"기억이 점점 희미해지고 있어요.",rom:"gieogi jeomjeom huimihaejigo isseoyo",jp:"記憶がだんだん薄れています"},
+{cat:"義務・当然",ne:"한국에서는 오른쪽으로 걸어야 해요.",rom:"hangugeseoneun oreunjjokeuro georeoya haeyo",jp:"韓国では右側を歩かなければなりません"},
+{cat:"義務・当然",ne:"여권을 꼭 가지고 가야 해요.",rom:"yeokwoneul kkok gajigo gaya haeyo",jp:"パスポートを必ず持って行かなければなりません"},
+{cat:"義務・当然",ne:"약속 시간을 지켜야 해요.",rom:"yaksok siganeul jikyeoya haeyo",jp:"約束の時間を守らなければなりません"},
+{cat:"義務・当然",ne:"버스에서는 자리를 양보해야 해요.",rom:"beoseu-eseoneun jarireul yangbohaeya haeyo",jp:"バスでは席を譲らなければなりません"},
+{cat:"義務・当然",ne:"수업에 늦지 않아야 해요.",rom:"sueobe neujji anaya haeyo",jp:"授業に遅れてはいけません"},
+{cat:"義務・当然",ne:"건강을 위해서 담배를 끊어야 해요.",rom:"geon-gangeul wihaeseo dambaereul kkeuneoya haeyo",jp:"健康のためにタバコをやめなければなりません"},
+{cat:"義務・当然",ne:"부모님 말씀을 들어야 해요.",rom:"bumonim malsseumeul deureoya haeyo",jp:"親の言うことを聞かなければなりません"},
+{cat:"義務・当然",ne:"지금 가야 돼요.",rom:"jigeum gaya dwaeyo",jp:"今行かなければなりません"},
+{cat:"許可・禁止",ne:"여기에서 사진을 찍어도 돼요?",rom:"yeogieseo sajineul jjigeodo dwaeyo?",jp:"ここで写真を撮ってもいいですか？"},
+{cat:"許可・禁止",ne:"주차해도 돼요?",rom:"juchahaedo dwaeyo?",jp:"駐車してもいいですか？"},
+{cat:"許可・禁止",ne:"내일은 쉬어도 돼요.",rom:"naeireun swieodo dwaeyo",jp:"明日は休んでもいいです"},
+{cat:"許可・禁止",ne:"여기 앉으면 안 돼요.",rom:"yeogi anjeumyeon an dwaeyo",jp:"ここに座ってはいけません"},
+{cat:"許可・禁止",ne:"핸드폰을 사용하면 안 돼요.",rom:"haendeuponeul sayonghamyeon an dwaeyo",jp:"携帯電話を使ってはいけません"},
+{cat:"許可・禁止",ne:"시험 중에 말하면 안 돼요.",rom:"siheom junge malhamyeon an dwaeyo",jp:"試験中に話してはいけません"},
+{cat:"許可・禁止",ne:"담배 피우면 안 되는 곳이에요.",rom:"dambae piumyeon an doeneun gosieyo",jp:"タバコを吸ってはいけない場所です"},
+{cat:"許可・禁止",ne:"음식물을 반입하면 안 돼요.",rom:"eumsingmureul banipamyeon an dwaeyo",jp:"食べ物の持ち込みは禁止です"},
+{cat:"希望・願望の詳細",ne:"빨리 한국어를 잘했으면 좋겠어요.",rom:"ppalli hangugeoreul jalhaesseumyeon jogesseoyo",jp:"早く韓国語が上手になればいいなと思います"},
+{cat:"希望・願望の詳細",ne:"시간이 빨리 갔으면 좋겠어요.",rom:"sigani ppalli gasseumyeon jogesseoyo",jp:"時間が早く過ぎればいいなと思います"},
+{cat:"希望・願望の詳細",ne:"시험에 합격했으면 좋겠어요.",rom:"siheome hapgyeokhaesseumyeon jogesseoyo",jp:"試験に合格すればいいなと思います"},
+{cat:"希望・願望の詳細",ne:"다시 만날 수 있었으면 좋겠어요.",rom:"dasi mannal su isseosseumyeon jogesseoyo",jp:"また会えるといいなと思います"},
+{cat:"希望・願望の詳細",ne:"건강했으면 좋겠어요.",rom:"geon-ganghaesseumyeon jogesseoyo",jp:"健康でいてほしいです"},
+{cat:"希望・願望の詳細",ne:"행복했으면 좋겠어요.",rom:"haengbokhaesseumyeon jogesseoyo",jp:"幸せでいてほしいです"},
+{cat:"希望・願望の詳細",ne:"꿈을 꼭 이루고 싶어요.",rom:"kkumeul kkok irugo sipeoyo",jp:"夢を必ず叶えたいです"},
+{cat:"希望・願望の詳細",ne:"세계 일주하고 싶어요.",rom:"segye ilju hago sipeoyo",jp:"世界一周したいです"},
+{cat:"可能・不可能",ne:"한국어로 말할 수 있어요?",rom:"hangugeoro malhal su isseoyo?",jp:"韓国語で話せますか？"},
+{cat:"可能・不可能",ne:"이 버스로 명동에 갈 수 있어요?",rom:"i beoseuro myeongdong-e gal su isseoyo?",jp:"このバスで明洞に行けますか？"},
+{cat:"可能・不可能",ne:"혼자서 할 수 있어요.",rom:"honjaseo hal su isseoyo",jp:"一人でできます"},
+{cat:"可能・不可能",ne:"아직 한국어를 잘 할 수 없어요.",rom:"ajik hangugeoreul jal hal su eopseoyo",jp:"まだ韓国語がうまく話せません"},
+{cat:"可能・不可能",ne:"도와주실 수 있으세요?",rom:"dowajusil su isseuseyo?",jp:"手伝っていただけますか？"},
+{cat:"可能・不可能",ne:"제가 할 수 있는 일이 있을까요?",rom:"jega hal su inneun iri isseulkkayo?",jp:"私にできることがあるでしょうか？"},
+{cat:"可能・不可能",ne:"한국 음식을 먹을 수 있어요?",rom:"hanguk eumsigeul meogeul su isseoyo?",jp:"韓国料理は食べられますか？"},
+{cat:"可能・不可能",ne:"이 일을 오늘 안에 끝낼 수 있을까요?",rom:"i ireul oneul ane kkeunnael su isseulkkayo?",jp:"この仕事を今日中に終えられるでしょうか？"},
+{cat:"感情・気持ちの詳細",ne:"너무 화가 나서 미치겠어요.",rom:"neomu hwaga naseo michigesseoyo",jp:"とても腹が立って気が狂いそうです"},
+{cat:"感情・気持ちの詳細",ne:"걱정돼서 잠이 안 와요.",rom:"geokjeongdwaeseo jami an wayo",jp:"心配で眠れません"},
+{cat:"感情・気持ちの詳細",ne:"기뻐서 눈물이 났어요.",rom:"gippeoseo nunmuri nasseoyo",jp:"嬉しくて涙が出ました"},
+{cat:"感情・気持ちの詳細",ne:"놀라서 말이 안 나왔어요.",rom:"nollaseo mari an nawasseoyo",jp:"驚いて言葉が出ませんでした"},
+{cat:"感情・気持ちの詳細",ne:"보고 싶어서 미치겠어요.",rom:"bogo sipeoseo michigesseoyo",jp:"会いたくてたまりません"},
+{cat:"感情・気持ちの詳細",ne:"속상해서 아무것도 하기 싫어요.",rom:"soksanghaeseo amugeotdo hagi sireoyo",jp:"悲しくて何もしたくありません"},
+{cat:"感情・気持ちの詳細",ne:"창피해서 얼굴이 빨개졌어요.",rom:"changpihaeseo eolguri ppalgaejyeosseoyo",jp:"恥ずかしくて顔が赤くなりました"},
+{cat:"感情・気持ちの詳細",ne:"너무 감동해서 울었어요.",rom:"neomu gamdonghaeseo ureosseoyo",jp:"とても感動して泣きました"},
+{cat:"人間関係・感情表現",ne:"친구랑 싸웠어요.",rom:"chingurang ssawosseoyo",jp:"友達と喧嘩しました"},
+{cat:"人間関係・感情表現",ne:"남자 친구랑 헤어졌어요.",rom:"namja chingurang heeojyeosseoyo",jp:"彼氏と別れました"},
+{cat:"人間関係・感情表現",ne:"그 사람한테 실망했어요.",rom:"geu saramhante silmanghaesseoyo",jp:"その人に失望しました"},
+{cat:"人間関係・感情表現",ne:"오해가 있었던 것 같아요.",rom:"ohaega isseotdeon geot gatayo",jp:"誤解があったみたいです"},
+{cat:"人間関係・感情表現",ne:"화해하고 싶은데 용기가 안 나요.",rom:"hwahae hago sipeundae yonggiga an nayo",jp:"仲直りしたいけど勇気が出ません"},
+{cat:"人間関係・感情表現",ne:"그 사람이 많이 그리워요.",rom:"geu sarami mani geuriwoyo",jp:"その人がとても恋しいです"},
+{cat:"人間関係・感情表現",ne:"고마운 마음을 전하고 싶어요.",rom:"gomaun maeumeul jeonhago sipeoyo",jp:"感謝の気持ちを伝えたいです"},
+{cat:"人間関係・感情表現",ne:"사랑한다는 말을 하고 싶어요.",rom:"saranghandaneun mareul hago sipeoyo",jp:"愛しているという言葉を言いたいです"},
+{cat:"意見・考えを述べる",ne:"제 생각에는 그게 맞는 것 같아요.",rom:"je saenggageneun geuge manneun geot gatayo",jp:"私の考えではそれが正しいと思います"},
+{cat:"意見・考えを述べる",ne:"제 의견으로는...",rom:"je uigyeoneuroneun...",jp:"私の意見では..."},
+{cat:"意見・考えを述べる",ne:"솔직히 말하면 별로예요.",rom:"soljikhi malhamyeon byeolloyeyo",jp:"正直に言うとあまり良くないです"},
+{cat:"意見・考えを述べる",ne:"제가 보기에는 문제가 있는 것 같아요.",rom:"jega bogieneun munjega inneun geot gatayo",jp:"私が見るには問題があるようです"},
+{cat:"意見・考えを述べる",ne:"동의할 수 없어요.",rom:"dong-uihal su eopseoyo",jp:"同意できません"},
+{cat:"意見・考えを述べる",ne:"그 의견에 찬성해요.",rom:"geu uigyeone chanseonghaeyo",jp:"その意見に賛成です"},
+{cat:"意見・考えを述べる",ne:"다른 의견 있어요?",rom:"dareun uigyeon isseoyo?",jp:"他の意見はありますか？"},
+{cat:"意見・考えを述べる",ne:"다시 한 번 생각해 볼게요.",rom:"dasi han beon saenggakhae bolgeyo",jp:"もう一度考えてみます"},
+{cat:"提案・推薦",ne:"이 영화 꼭 보세요. 추천해요.",rom:"i yeonghwa kkok boseyo. chucheonhaeyo",jp:"この映画はぜひ見てください。おすすめです"},
+{cat:"提案・推薦",ne:"이 식당 정말 맛있어요. 한번 가 보세요.",rom:"i sikdang jeongmal masisseoyo. hanbeon ga boseyo",jp:"この食堂は本当に美味しいです。一度行ってみてください"},
+{cat:"提案・推薦",ne:"이 책 어때요? 제가 읽었는데 재미있어요.",rom:"i chaek eottaeyo? jega ilgeonneunde jaemiisseoyo",jp:"この本はどうですか？私が読みましたが面白いです"},
+{cat:"提案・推薦",ne:"한국에 가면 제주도에 꼭 가 보세요.",rom:"hanguge gamyeon jejudo-e kkok ga boseyo",jp:"韓国に行ったら済州島にぜひ行ってみてください"},
+{cat:"提案・推薦",ne:"같이 커피 한잔 할래요?",rom:"gachi keopi hanjan hallaeyo?",jp:"一緒にコーヒーでも飲みませんか？"},
+{cat:"提案・推薦",ne:"이번 주말에 등산 어때요?",rom:"ibeon jumare deungsan eottaeyo?",jp:"今週末に登山はどうですか？"},
+{cat:"提案・推薦",ne:"시간 있으면 영화 보러 갈래요?",rom:"sigan isseumyeon yeonghwa boreo gallaeyo?",jp:"時間があれば映画を見に行きませんか？"},
+{cat:"約束・手配",ne:"내일 몇 시에 만날까요?",rom:"naeil myeot sie mannalkkayo?",jp:"明日何時に会いましょうか？"},
+{cat:"約束・手配",ne:"6시에 명동역 앞에서 만나요.",rom:"yeoseose sie myeongdongyeok apeseo mannayo",jp:"6時に明洞駅前で会いましょう"},
+{cat:"約束・手配",ne:"제가 먼저 자리를 예약할게요.",rom:"jega meonjeo jarireul yeyakalgeyo",jp:"私が先に席を予約します"},
+{cat:"約束・手配",ne:"날짜는 언제가 좋아요?",rom:"naljjaneun eonjega joayo?",jp:"日付はいつがいいですか？"},
+{cat:"約束・手配",ne:"그날은 안 돼요. 다른 날은 어때요?",rom:"geunareun an dwaeyo. dareun nareun eottaeyo?",jp:"その日はダメです。別の日はどうですか？"},
+{cat:"約束・手配",ne:"약속을 취소해야 할 것 같아요.",rom:"yaksogeul chwisohaeya hal geot gatayo",jp:"約束をキャンセルしなければならないようです"},
+{cat:"確認・質問の詳細",ne:"제가 이해한 게 맞아요?",rom:"jega ihaehan ge majayo?",jp:"私が理解したことで合っていますか？"},
+{cat:"確認・質問の詳細",ne:"다시 한 번 말씀해 주시겠어요?",rom:"dasi han beon malsseumhae jusigesseoyo?",jp:"もう一度おっしゃっていただけますか？"},
+{cat:"確認・質問の詳細",ne:"이 단어의 뜻이 뭐예요?",rom:"i danueoui tteusi mwoyeyo?",jp:"この単語の意味は何ですか？"},
+{cat:"確認・質問の詳細",ne:"어떻게 사용해요?",rom:"eotteoke sayonghaeyo?",jp:"どうやって使いますか？"},
+{cat:"確認・質問の詳細",ne:"제 발음이 맞아요?",rom:"je bareumi majayo?",jp:"私の発音は合っていますか？"},
+{cat:"確認・質問の詳細",ne:"이 표현은 자연스러워요?",rom:"i pyohyeoneun jayeonseureowoyo?",jp:"この表現は自然ですか？"},
+{cat:"確認・質問の詳細",ne:"무슨 뜻인지 잘 모르겠어요.",rom:"museun tteusinji jal moreugesseoyo",jp:"どういう意味かよくわかりません"},
+{cat:"確認・質問の詳細",ne:"좀 더 쉽게 설명해 주실 수 있어요?",rom:"jom deo swipge seolmyeonghae jusil su isseoyo?",jp:"もう少し簡単に説明していただけますか？"},
+{cat:"実体験・経験談",ne:"작년에 제주도에 여행 갔었어요.",rom:"jangnyeon-e jejudo-e yeohaeng gasseosseoyo",jp:"昨年済州島に旅行に行きました"},
+{cat:"実体験・経験談",ne:"거기 정말 아름다웠어요.",rom:"geogi jeongmal areumdawosseoyo",jp:"そこは本当に美しかったです"},
+{cat:"実体験・経験談",ne:"한라산에 올라갔는데 힘들었어요.",rom:"hallasane ollaganneunde himdeureosseoyo",jp:"漢拏山に登りましたが大変でした"},
+{cat:"実体験・経験談",ne:"성산 일출봉에서 일출을 봤어요.",rom:"seongsan ilchulbongeseo ilchureul bwasseoyo",jp:"城山日出峰で日の出を見ました"},
+{cat:"実体験・経験談",ne:"흑돼지 구이가 정말 맛있었어요.",rom:"heukdwaeji guiga jeongmal masisseosseoyo",jp:"黒豚の焼き肉が本当に美味しかったです"},
+{cat:"実体験・経験談",ne:"비행기 값이 좀 비쌌어요.",rom:"bihaenggi gapsi jom bissasseoyo",jp:"飛行機代が少し高かったです"},
+{cat:"実体験・経験談",ne:"다음에 또 가고 싶어요.",rom:"daeume tto gago sipeoyo",jp:"次にまた行きたいです"},
+{cat:"実体験・経験談",ne:"가족들이랑 같이 가고 싶어요.",rom:"gajokdeurirang gachi gago sipeoyo",jp:"家族たちと一緒に行きたいです"},
+{cat:"今後の計画・予定",ne:"다음 달에 한국에 출장 갈 거예요.",rom:"daeum dare hanguge chuljang gal geoyeyo",jp:"来月韓国に出張に行きます"},
+{cat:"今後の計画・予定",ne:"올해 안에 운전면허를 딸 계획이에요.",rom:"olhae ane unjeonmyeonheoreul ttal gyehoegieyo",jp:"今年中に運転免許を取る予定です"},
+{cat:"今後の計画・予定",ne:"졸업 후에 취직할 거예요?",rom:"joreop hue chwijikhal geoyeyo?",jp:"卒業後に就職しますか？"},
+{cat:"今後の計画・予定",ne:"결혼하면 시골에서 살고 싶어요.",rom:"gyeolhonamyeon sigoreseo salgo sipeoyo",jp:"結婚したら田舎に住みたいです"},
+{cat:"今後の計画・予定",ne:"내년에는 유럽 여행을 가려고 해요.",rom:"naenyeoneneun yureop yeohaengeul garyeogo haeyo",jp:"来年はヨーロッパ旅行に行こうと思っています"},
+{cat:"今後の計画・予定",ne:"한국어를 더 배우려고 한국에 올 거예요.",rom:"hangugeoreul deo baeuryeogo hanguge ol geoyeyo",jp:"韓国語をもっと学ぶために韓国に来ます"},
+{cat:"今後の計画・予定",ne:"시간이 되면 봉사활동을 하고 싶어요.",rom:"sigani doemyeon bongsahwaldongeul hago sipeoyo",jp:"時間があればボランティア活動をしたいです"},
+{cat:"今後の計画・予定",ne:"나중에 작은 카페를 열고 싶어요.",rom:"najunge jageun kape-reul yeolgo sipeoyo",jp:"将来小さなカフェを開きたいです"},
+{cat:"社会問題・関心",ne:"요즘 물가가 너무 비싸요.",rom:"yojeum mulgaga neomu bissayo",jp:"最近物価がとても高いです"},
+{cat:"社会問題・関心",ne:"일자리가 부족해서 청년들이 힘들어해요.",rom:"iljariga bujokhaeseo cheongnyeon-deuri himdeureohaeyo",jp:"仕事が不足していて若者たちが苦労しています"},
+{cat:"社会問題・関心",ne:"환경 오염이 점점 심각해지고 있어요.",rom:"hwangyeong oyeomi jeomjeom simgakhaejigo isseoyo",jp:"環境汚染がだんだん深刻になっています"},
+{cat:"社会問題・関心",ne:"코로나 때문에 생활이 많이 변했어요.",rom:"korona ttaemune saenghwagi mani byeonhaesseoyo",jp:"コロナのせいで生活が大きく変わりました"},
+{cat:"社会問題・関心",ne:"양극화 현상이 심각한 문제예요.",rom:"yanggeukhwa hyeonsangi simgakhan munjeyeyo",jp:"両極化現象が深刻な問題です"},
+{cat:"社会問題・関心",ne:"저출산 문제를 해결해야 해요.",rom:"jeochulsan munjereul haegyeolhaeya haeyo",jp:"少子化問題を解決しなければなりません"},
+{cat:"社会問題・関心",ne:"교육 제도에 문제가 많은 것 같아요.",rom:"gyoyuk jedoe munjega maneun geot gatayo",jp:"教育制度に問題が多いようです"},
+{cat:"社会問題・関心",ne:"정치에 관심이 없어요.",rom:"jeongchie gwansimi eopseoyo",jp:"政治に関心がありません"},
+{cat:"文化・習慣の比較",ne:"일본과 한국은 문화가 비슷한 것 같아요.",rom:"ilbongwa hangeugeun munhwaga biseuthan geot gatayo",jp:"日本と韓国は文化が似ていると思います"},
+{cat:"文化・習慣の比較",ne:"한국은 일본보다 예절을 더 중요시하는 것 같아요.",rom:"hangeugeun ilbonboda yejeoreul deo jung-yosihaneun geot gatayo",jp:"韓国は日本より礼儀をより重視するようです"},
+{cat:"文化・習慣の比較",ne:"한국에서는 혼자 밥 먹는 걸 이상하게 생각해요?",rom:"hangugeseoneun honja bap meongneun geol isanghage saenggakaeyo?",jp:"韓国では一人でご飯を食べることを変だと思いますか？"},
+{cat:"文化・習慣の比較",ne:"일본의 기모노처럼 한국에도 한복이 있어요.",rom:"ilbonui gimonocheoreom hangugedo hanbogi isseoyo",jp:"日本の着物のように韓国にも韓服があります"},
+{cat:"文化・習慣の比較",ne:"한국의 명절에는 차례를 지내요.",rom:"hangugui myeongjeor-eneun charyereul jinaeyo",jp:"韓国の名節には茶礼を行います"},
+{cat:"文化・習慣の比較",ne:"일본과 한국의 술 문화가 달라요?",rom:"ilbongwa hangugui sul munhwaga dallayo?",jp:"日本と韓国のお酒の文化は違いますか？"},
+{cat:"文化・習慣の比較",ne:"한국 사람들은 정이 많아요.",rom:"hanguk saramdeureun jeongi manayo",jp:"韓国の人々は情が多いです"},
+{cat:"文化・習慣の比較",ne:"일본인들은 개인적인 공간을 중요시해요.",rom:"ilbondeureun gaeinjeokin gongganeul jung-yosihaeyo",jp:"日本人は個人的な空間を重視します"},
+{cat:"感情のこもった表現",ne:"진짜요? 믿을 수가 없어요!",rom:"jinjjayo? mideul suga eopseoyo!",jp:"本当ですか？信じられません！"},
+{cat:"感情のこもった表現",ne:"대박! 정말요?",rom:"daebak! jeongmallyo?",jp:"すごい！本当ですか？"},
+{cat:"感情のこもった表現",ne:"아이고, 깜짝이야!",rom:"aigo, kkamjjagiya!",jp:"あらまあ、びっくりした！"},
+{cat:"感情のこもった表現",ne:"어머나, 이게 무슨 일이야?",rom:"eomeona, ige museun iriya?",jp:"あらまあ、これはどういうこと？"},
+{cat:"感情のこもった表現",ne:"말도 안 돼!",rom:"maldo an dwae!",jp:"ありえない！"},
+{cat:"感情のこもった表現",ne:"헐, 진짜?",rom:"heol, jinjja?",jp:"うわっ、本当？"},
+{cat:"感情のこもった表現",ne:"미치겠네!",rom:"michigetne!",jp:"やばい！／大変だ！"},
+{cat:"感情のこもった表現",ne:"와, 끝내준다!",rom:"wa, kkeunnaejunda!",jp:"わあ、最高だ！"},
+{cat:"アドバイス・忠告",ne:"너무 무리하지 마세요. 건강이 제일 중요해요.",rom:"neomu murihaji maseyo. geongangi jeil jung-yohaeyo",jp:"あまり無理しないでください。健康が一番大事です"},
+{cat:"アドバイス・忠告",ne:"돈보다 중요한 게 많아요.",rom:"donboda jung-yohan ge manayo",jp:"お金より大事なことがたくさんあります"},
+{cat:"アドバイス・忠告",ne:"후회하지 않게 최선을 다하세요.",rom:"huhoehaji anke choeseoneul dahaseyo",jp:"後悔しないように最善を尽くしてください"},
+{cat:"アドバイス・忠告",ne:"남과 비교하지 마세요.",rom:"namgwa bigyohaji maseyo",jp:"他人と比較しないでください"},
+{cat:"アドバイス・忠告",ne:"자신을 사랑하는 게 중요해요.",rom:"jasineul saranghaneun ge jung-yohaeyo",jp:"自分を愛することが大事です"},
+{cat:"アドバイス・忠告",ne:"조금씩이라도 꾸준히 하는 게 중요해요.",rom:"jogeumssig-irado kkujunhi haneun ge jung-yohaeyo",jp:"少しずつでも着実にやることが大事です"},
+{cat:"アドバイス・忠告",ne:"실패를 두려워하지 마세요.",rom:"silpaereul duryeowohaji maseyo",jp:"失敗を恐れないでください"},
+{cat:"アドバイス・忠告",ne:"항상 긍정적으로 생각하세요.",rom:"hangsang geungjeongjeokeuro saenggakaseyo",jp:"いつも肯定的に考えてください"},
+{cat:"同意・反対の詳細",ne:"저도 그렇게 생각해요.",rom:"jeodo geureoke saenggakaeyo",jp:"私もそう思います"},
+{cat:"同意・反対の詳細",ne:"백 퍼센트 동의해요.",rom:"baek peosenteu dong-uihaeyo",jp:"100%同意します"},
+{cat:"同意・反対の詳細",ne:"그 말씀에 전적으로 동의합니다.",rom:"geu malsseume jeonjeogeuro dong-uihamnida",jp:"そのお言葉に全面的に同意します"},
+{cat:"同意・反対の詳細",ne:"솔직히 저는 생각이 달라요.",rom:"soljikhi jeoneun saenggagi dallayo",jp:"正直に言うと私は考えが違います"},
+{cat:"同意・反対の詳細",ne:"그건 좀 다른 의견이에요.",rom:"geon jom dareun uigyeonieyo",jp:"それはちょっと違う意見です"},
+{cat:"同意・反対の詳細",ne:"이해는 가지만 동의할 수 없어요.",rom:"ihaeneun gajiman dong-uihal su eopseoyo",jp:"理解はできますが同意できません"},
+{cat:"同意・反対の詳細",ne:"그것은 문제가 있다고 생각해요.",rom:"geugeoseun munjega itdago saenggakaeyo",jp:"それは問題があると思います"},
+{cat:"同意・反対の詳細",ne:"정말 그렇게 생각해요?",rom:"jeongmal geureoke saenggakaeyo?",jp:"本当にそう思いますか？"},
+{cat:"伝聞・情報源",ne:"신문에 따르면 내일 비가 온대요.",rom:"sinmune ttareumyeon naeil biga ondaeyo",jp:"新聞によると明日雨が降るそうです"},
+{cat:"伝聞・情報源",ne:"친구 말로는 그 영화가 재미없대요.",rom:"chinggu malloneun geu yeonghwaga jaemieopdaeyo",jp:"友達の話ではその映画はつまらないそうです"},
+{cat:"伝聞・情報源",ne:"뉴스에서 본 건데요...",rom:"nyuseueseo bon geondeyo...",jp:"ニュースで見たのですが..."},
+{cat:"伝聞・情報源",ne:"인터넷에서 찾아봤는데...",rom:"inteoneseseo chajabwaneunde...",jp:"インターネットで調べてみたのですが..."},
+{cat:"伝聞・情報源",ne:"선생님 말씀에 의하면...",rom:"seonsaengnim malsseume uihamyeon...",jp:"先生のお言葉によれば..."},
+{cat:"伝聞・情報源",ne:"소문으로 들었는데...",rom:"somuneuro deureonneunde...",jp:"噂で聞いたのですが..."},
+{cat:"伝聞・情報源",ne:"경험에 비춰 보면...",rom:"gyeongheome bichwo bomyeon...",jp:"経験に照らしてみれば..."},
+{cat:"伝聞・情報源",ne:"제가 직접 본 건 아니지만...",rom:"jega jikjeop bon geon anijiman...",jp:"私が直接見たわけではありませんが..."},
+{cat:"未来の予測・推測",ne:"앞으로 날씨가 더 더워질 거예요.",rom:"apeuro nalssiga deo deowojil geoyeyo",jp:"これから天気がもっと暑くなるでしょう"},
+{cat:"未来の予測・推測",ne:"인공지능이 더 발달할 거예요.",rom:"ingongjineungi deo baldalhal geoyeyo",jp:"人工知能がもっと発達するでしょう"},
+{cat:"未来の予測・推測",ne:"지금 가면 늦을지도 몰라요.",rom:"jigeum gamyeon neujeuljido mollayo",jp:"今行けば遅れるかもしれません"},
+{cat:"未来の予測・推測",ne:"아마 내일은 비가 안 올 거예요.",rom:"ama naeireun biga an ol geoyeyo",jp:"多分明日は雨が降らないでしょう"},
+{cat:"未来の予測・推測",ne:"이 일이 잘 될 것 같아요?",rom:"i iri jal doel geot gatayo?",jp:"この仕事はうまくいきそうですか？"},
+{cat:"未来の予測・推測",ne:"내일까지 끝낼 수 있을까요?",rom:"naeilkkaji kkeunnael su isseulkkayo?",jp:"明日までに終えられるでしょうか？"},
+{cat:"未来の予測・推測",ne:"기회가 또 올 거예요.",rom:"gihoega tto ol geoyeyo",jp:"機会はまた来るでしょう"},
+{cat:"未来の予測・推測",ne:"걱정하지 마세요. 잘 해결될 거예요.",rom:"geokjeonghaji maseyo. jal haegyeoldoel geoyeyo",jp:"心配しないでください。うまく解決するでしょう"},
+{cat:"状況説明・描写",ne:"사람들이 북적북적 거렸어요.",rom:"saramdeuri bukjeokbukjeok georyeosseoyo",jp:"人々がごった返していました"},
+{cat:"状況説明・描写",ne:"음악 소리가 너무 커서 대화하기 힘들었어요.",rom:"eumak soriga neomu keoseo daehwahagi himdeureosseoyo",jp:"音楽の音がとても大きくて会話するのが大変でした"},
+{cat:"状況説明・描写",ne:"길이 미끄러우니까 조심하세요.",rom:"giri mikkeureounikka josimhaseyo",jp:"道が滑りやすいので気をつけてください"},
+{cat:"状況説明・描写",ne:"시험장 분위기가 아주 긴장됐어요.",rom:"siheomjang bunwigiga aju ginjangdwaesseoyo",jp:"試験場の雰囲気がとても緊張していました"},
+{cat:"状況説明・描写",ne:"집 안이 완전히 어질러져 있었어요.",rom:"jib ani wanjeonhi eojilleojyeo isseosseoyo",jp:"家の中が完全に散らかっていました"},
+{cat:"状況説明・描写",ne:"공기가 너무 건조해서 목이 아파요.",rom:"gonggiga neomu geonjohaeseo mogi apayo",jp:"空気がとても乾燥していて喉が痛いです"},
+{cat:"状況説明・描写",ne:"길이 너무 막혀서 30분 동안 움직이지 못했어요.",rom:"giri neomu makhyeoseo samsipbun dongan umjigiji mothaesseoyo",jp:"道がとても混んでいて30分間動けませんでした"},
+{cat:"状況説明・描写",ne:"이 동네는 밤에도 사람들이 많아요.",rom:"i dongneneun bamedo saramdeuri manayo",jp:"この町は夜にも人々が多いです"},
+{cat:"問題・トラブル",ne:"컴퓨터가 갑자기 꺼졌어요.",rom:"keompyuteoga gapjagi kkeojyeosseoyo",jp:"コンピューターが急に消えました"},
+{cat:"問題・トラブル",ne:"지하철을 잘못 탔어요.",rom:"jihacheoreul jalmot tasseoyo",jp:"地下鉄を間違って乗りました"},
+{cat:"問題・トラブル",ne:"중요한 파일을 실수로 지웠어요.",rom:"jung-yohan pireul silsuro jiwosseoyo",jp:"重要なファイルを間違って消しました"},
+{cat:"問題・トラブル",ne:"약속 장소를 잘못 알고 왔어요.",rom:"yaksok jangso-reul jalmot algo wasseoyo",jp:"約束の場所を間違えて覚えて来ました"},
+{cat:"問題・トラブル",ne:"지갑을 어디에 두고 왔는지 모르겠어요.",rom:"jigabeul eodie dugo wanneunji moreugesseoyo",jp:"財布をどこに置いてきたのかわかりません"},
+{cat:"問題・トラブル",ne:"핸드폰 배터리가 다 됐어요.",rom:"haendeupon baeteoriga da dwaesseoyo",jp:"携帯電話のバッテリーがなくなりました"},
+{cat:"問題・トラブル",ne:"인터넷이 갑자기 안 돼요.",rom:"inteonesi gapjagi an dwaeyo",jp:"インターネットが急に使えません"},
+{cat:"問題・トラブル",ne:"차가 고장 났어요.",rom:"chaga gojang nasseoyo",jp:"車が故障しました"},
+{cat:"解決策・対応",ne:"어떻게 하면 좋을까요?",rom:"eotteoke hamyeon joeulkayo?",jp:"どうすればいいでしょうか？"},
+{cat:"解決策・対応",ne:"이럴 때는 어떻게 해야 돼요?",rom:"ireol ttaeneun eotteoke haeya dwaeyo?",jp:"こんな時はどうしなければなりませんか？"},
+{cat:"解決策・対応",ne:"고객센터에 전화해 보세요.",rom:"gogaek-senteo-e jeonhwahae boseyo",jp:"カスタマーセンターに電話してみてください"},
+{cat:"解決策・対応",ne:"경찰에 신고하는 게 좋겠어요.",rom:"gyeongchare sin-gohaneun ge jotgesseoyo",jp:"警察に届けた方がいいでしょう"},
+{cat:"解決策・対応",ne:"보험에 연락해 봐야겠어요.",rom:"boheome yeollakae bwayagesseoyo",jp:"保険に連絡してみなければなりません"},
+{cat:"解決策・対応",ne:"급한 일이 생겼는데 좀 도와주실 수 있어요?",rom:"geuphan iri saenggyeonneunde jom dowajusil su isseoyo?",jp:"急な用事ができたのですが少し助けていただけますか？"},
+{cat:"解決策・対応",ne:"잠깐만 시간을 내 주실 수 있나요?",rom:"jamkkanman siganeul nae jusil su innayo?",jp:"ちょっとだけ時間を作っていただけますか？"},
+{cat:"提案・意見交換",ne:"한번 회의해 보는 게 어때요?",rom:"hanbeon hoe-ui hae boneun ge eottaeyo?",jp:"一度会議してみるのはどうですか？"},
+{cat:"提案・意見交換",ne:"다른 방법이 있을 것 같은데요.",rom:"dareun bangbeobi isseul geot gateundeyo",jp:"他の方法があると思いますが"},
+{cat:"提案・意見交換",ne:"이 문제에 대해 어떻게 생각해요?",rom:"i munjee daehae eotteoke saenggakaeyo?",jp:"この問題についてどう思いますか？"},
+{cat:"提案・意見交換",ne:"제안 하나 해도 될까요?",rom:"jean hana haedo doelkayo?",jp:"提案一つしてもいいですか？"},
+{cat:"提案・意見交換",ne:"의견이 있으시면 말씀해 주세요.",rom:"uigyeoni isseusimyeon malsseumhae juseyo",jp:"ご意見があればおっしゃってください"},
+{cat:"提案・意見交換",ne:"더 좋은 아이디어 있어요?",rom:"deo joeun aidea isseoyo?",jp:"もっといいアイデアはありますか？"},
+{cat:"提案・意見交換",ne:"이렇게 하는 게 더 낫지 않을까요?",rom:"ireoke haneun ge deo natji aneulkayo?",jp:"こうする方がもっと良くないでしょうか？"},
+{cat:"提案・意見交換",ne:"저는 이 방법이 더 효율적인 것 같아요.",rom:"jeoneun i bangbeobi deo hyoyuljeogin geot gatayo",jp:"私はこの方法がより効率的だと思います"},
+{cat:"伝達・報告",ne:"회의 결과를 보고할게요.",rom:"hoe-ui gyeolgwareul bogohalgeyo",jp:"会議の結果を報告します"},
+{cat:"伝達・報告",ne:"출장 다녀왔습니다.",rom:"chuljang danyeo wasseumnida",jp:"出張から戻りました"},
+{cat:"伝達・報告",ne:"진척 상황을 말씀드리겠습니다.",rom:"jincheok sanghwang-eul malsseumdeurigesseumnida",jp:"進捗状況をお話しします"},
+{cat:"伝達・報告",ne:"예정보다 일정이 늦어지고 있어요.",rom:"yejeongboda iljeongi neujeojigo isseoyo",jp:"予定より日程が遅れています"},
+{cat:"伝達・報告",ne:"문제가 생겼는데 내일까지 해결할게요.",rom:"munjega saenggyeonneunde naeilkkaji haegyeolhalgeyo",jp:"問題が起きましたが明日までに解決します"},
+{cat:"伝達・報告",ne:"확인해 보고 다시 연락드릴게요.",rom:"hwaginhae bogo dasi yeollakdeurilgeyo",jp:"確認してもう一度ご連絡します"},
+{cat:"伝達・報告",ne:"담당자가 자리를 비웠습니다.",rom:"damdangjaga jarireul biwotsseumnida",jp:"担当者が席を外しています"},
+{cat:"伝達・報告",ne:"메모 남겨 드릴까요?",rom:"memo namgyeo deurilkkayo?",jp:"メモをお預かりしましょうか？"},
+{cat:"説得・勧誘",ne:"한 번만 더 생각해 봐요.",rom:"han beonman deo saenggakae bwayo",jp:"もう一度だけ考えてみてください"},
+{cat:"説得・勧誘",ne:"후회하지 않을 거예요.",rom:"huhoehaji aneul geoyeyo",jp:"後悔しないでしょう"},
+{cat:"説得・勧誘",ne:"꼭 같이 가야 해요.",rom:"kkok gachi gaya haeyo",jp:"必ず一緒に行かなければなりません"},
+{cat:"説得・勧誘",ne:"나 혼자 가면 재미없어.",rom:"na honja gamyeon jaemieopseo",jp:"私一人で行けばつまらないよ"},
+{cat:"説得・勧誘",ne:"한번만 나랑 같이 가 줘.",rom:"hanbeonman narang gachi ga jwo",jp:"一度だけ私と一緒に行ってよ"},
+{cat:"説得・勧誘",ne:"이 기회를 놓치지 마세요.",rom:"i gihoereul notchiji maseyo",jp:"この機会を逃さないでください"},
+{cat:"説得・勧誘",ne:"꼭 도움이 될 거예요.",rom:"kkok doumi doel geoyeyo",jp:"必ず役に立つでしょう"},
+{cat:"説得・勧誘",ne:"해 보면 생각보다 쉬울지도 몰라요.",rom:"hae bomyeon saenggakboda swiuljido mollayo",jp:"やってみれば思ったより簡単かもしれません"},
+{cat:"同意・共感の詳細",ne:"맞아요. 저도 그런 경험이 있어요.",rom:"majayo. jeodo geureon gyeongheomi isseoyo",jp:"そうです。私もそんな経験があります"},
+{cat:"同意・共感の詳細",ne:"완전 공감해요.",rom:"wanjeon gonggamhaeyo",jp:"完全に共感します"},
+{cat:"同意・共感の詳細",ne:"그 말이 맞는 것 같아요.",rom:"geu mari maneun geot gatayo",jp:"その言葉が正しいと思います"},
+{cat:"同意・共感の詳細",ne:"저도 같은 생각이었어요.",rom:"jeodo gateun saenggagieosseoyo",jp:"私も同じ考えでした"},
+{cat:"同意・共感の詳細",ne:"정말 그렇네요.",rom:"jeongmal geureonneyo",jp:"本当にそうですね"},
+{cat:"同意・共感の詳細",ne:"저도 그렇게 느꼈어요.",rom:"jeodo geureoke neukkyeosseoyo",jp:"私もそう感じました"},
+{cat:"同意・共感の詳細",ne:"그 부분에 대해서는 동의해요.",rom:"geu bubun-e daehaeseoneun dong-uihaeyo",jp:"その部分については同意します"},
+{cat:"同意・共感の詳細",ne:"저도 똑같이 생각하고 있었어요.",rom:"jeodo ttokgachi saenggakago isseosseoyo",jp:"私も同じように考えていました"},
+{cat:"反論・疑問提示",ne:"그렇게 단정하기에는 이른 것 같아요.",rom:"geureoke danjeonghagieneun ireun geot gatayo",jp:"そう断定するには早いと思います"},
+{cat:"反論・疑問提示",ne:"좀 더 생각해 볼 필요가 있을 것 같아요.",rom:"jom deo saenggakae bol piryoga isseul geot gatayo",jp:"もう少し考える必要があると思います"},
+{cat:"反論・疑問提示",ne:"다른 측면에서 보면 어때요?",rom:"dareun cheungmyeoneseo bomyeon eottaeyo?",jp:"他の側面から見るとどうですか？"},
+{cat:"反論・疑問提示",ne:"과연 그게 사실일까요?",rom:"gwayeon geuge sasirilkkayo?",jp:"果たしてそれが事実でしょうか？"},
+{cat:"反論・疑問提示",ne:"제 생각은 조금 달라요.",rom:"je saenggageun jogeum dallayo",jp:"私の考えは少し違います"},
+{cat:"反論・疑問提示",ne:"그렇게 말할 수만은 없을 것 같아요.",rom:"geureoke malhal sumaneun eopseul geot gatayo",jp:"そう言えるだけではないと思います"},
+{cat:"反論・疑問提示",ne:"반대하는 건 아니지만...",rom:"bandaehaneun geon anijiman...",jp:"反対するわけではないですが..."},
+{cat:"反論・疑問提示",ne:"확실한 근거가 있나요?",rom:"hwaksilhan geun-geoga innayo?",jp:"確かな根拠がありますか？"},
+{cat:"強調・強意表現",ne:"정말 너무 아름다웠어요.",rom:"jeongmal neomu areumdawosseoyo",jp:"本当にすごく美しかったです"},
+{cat:"強調・強意表現",ne:"하나도 안 추워요.",rom:"hanado an chuwoyo",jp:"全く寒くないです"},
+{cat:"強調・強意表現",ne:"전혀 몰랐어요.",rom:"jeonhyeo mollasseoyo",jp:"全然知りませんでした"},
+{cat:"強調・強意表現",ne:"절대 잊지 않을 거예요.",rom:"jeoldae itji aneul geoyeyo",jp:"絶対に忘れません"},
+{cat:"強調・強意表現",ne:"도저히 이해할 수 없어요.",rom:"dojeohi ihaehal su eopseoyo",jp:"どうしても理解できません"},
+{cat:"強調・強意表現",ne:"거의 다 왔어요.",rom:"geoui da wasseoyo",jp:"ほとんど着きました"},
+{cat:"強調・強意表現",ne:"완전히 달라요.",rom:"wanjeonhi dallayo",jp:"完全に違います"},
+{cat:"強調・強意表現",ne:"훨씬 더 좋아요.",rom:"hwolssin deo joayo",jp:"はるかに良いです"},
+{cat:"時間表現・頻度の詳細",ne:"가끔 친구를 만나요.",rom:"gakkeum chingureul mannayo",jp:"たまに友達に会います"},
+{cat:"時間表現・頻度の詳細",ne:"자주 운동하러 가요.",rom:"jaju undonghareo gayo",jp:"よく運動しに行きます"},
+{cat:"時間表現・頻度の詳細",ne:"항상 아침 7시에 일어나요.",rom:"hangsang achim ilgop sie ireonayo",jp:"いつも朝7時に起きます"},
+{cat:"時間表現・頻度の詳細",ne:"거의 매일 한국어를 공부해요.",rom:"geoui maeil hangugeoreul gongbuhaeyo",jp:"ほぼ毎日韓国語を勉強します"},
+{cat:"時間表現・頻度の詳細",ne:"가끔씩 영화를 보러 가요.",rom:"gakkeumssik yeonghwareul boreo gayo",jp:"時々映画を見に行きます"},
+{cat:"時間表現・頻度の詳細",ne:"전혀 운동 안 해요.",rom:"jeonhyeo undong an haeyo",jp:"全然運動しません"},
+{cat:"時間表現・頻度の詳細",ne:"일주일에 한 번쯤 친구를 만나요.",rom:"iljuire han beonjjeum chingureul mannayo",jp:"週に一回くらい友達に会います"},
+{cat:"時間表現・頻度の詳細",ne:"한 달에 두세 번 영화를 봐요.",rom:"han dare duse beon yeonghwareul bwayo",jp:"月に二、三回映画を見ます"},
+{cat:"推量・不確実",ne:"아마 내일은 날씨가 좋을 거예요.",rom:"ama naeireun nalssiga joeul geoyeyo",jp:"多分明日は天気がいいでしょう"},
+{cat:"推量・不確実",ne:"그 사람이 누군지 알 것 같아요.",rom:"geu saram-i nugunji al geot gatayo",jp:"その人が誰かわかる気がします"},
+{cat:"推量・不確実",ne:"뭔가 이상한데요.",rom:"mwonga isanghandeyo",jp:"何か変なんですが"},
+{cat:"推量・不確実",ne:"확실하지는 않지만...",rom:"hwaksilhajineun anchiman...",jp:"確実ではないですが..."},
+{cat:"推量・不確実",ne:"제 생각에는 그렇지 않은 것 같아요.",rom:"je saenggageneun geureoji aneun geot gatayo",jp:"私の考えではそうじゃないと思います"},
+{cat:"推量・不確実",ne:"아마도 그럴 거예요.",rom:"amado geureol geoyeyo",jp:"多分そうでしょう"},
+{cat:"推量・不確実",ne:"잘 모르겠어요.",rom:"jal moreugesseoyo",jp:"よくわかりません"},
+{cat:"推量・不確実",ne:"추측일 뿐이에요.",rom:"chucheug-il ppun-ieyo",jp:"推測に過ぎません"},
+{cat:"経験談・アドバイス",ne:"제 경험으로 말씀드리면...",rom:"je gyeongheomeuro malsseumdeurimyeon...",jp:"私の経験からお話しすると..."},
+{cat:"経験談・アドバイス",ne:"저도 처음에는 다 실수했어요.",rom:"jeodo cheoeumeneun da silsuhaesseoyo",jp:"私も最初はみんな間違えました"},
+{cat:"経験談・アドバイス",ne:"걱정하지 마세요. 누구나 다 겪는 일이에요.",rom:"geokjeonghaji maseyo. nuguna da gyeokneun irieyo",jp:"心配しないでください。誰でもみんな経験することです"},
+{cat:"経験談・アドバイス",ne:"시간이 약이에요.",rom:"sigani yagieyo",jp:"時間が薬です"},
+{cat:"経験談・アドバイス",ne:"포기하지 않으면 언젠가는 잘하게 돼요.",rom:"pogihaji aneumyeon eonjenganeun jalhage dwaeyo",jp:"諦めなければいつかは上手くなります"},
+{cat:"経験談・アドバイス",ne:"천천히 하는 게 더 중요해요.",rom:"cheoncheonhi haneun ge deo jung-yohaeyo",jp:"ゆっくりやることがもっと大事です"},
+{cat:"経験談・アドバイス",ne:"조금씩이라도 꾸준히 하세요.",rom:"jogeumssig-irado kkujunhi haseyo",jp:"少しずつでも着実にしてください"},
+{cat:"経験談・アドバイス",ne:"실패를 두려워하지 마세요. 실패는 성공의 어머니예요.",rom:"silpaereul duryeowohaji maseyo. silpaeneun seonggong-ui eomeonieyo",jp:"失敗を恐れないでください。失敗は成功の母です"},
+{cat:"抽象的な会話",ne:"인생이란 무엇일까요?",rom:"insaeng-iran mueosilkka-yo?",jp:"人生とは何でしょうか？"},
+{cat:"抽象的な会話",ne:"행복은 멀리 있는 게 아니에요.",rom:"haengbogeun meolli inneun ge anieyo",jp:"幸せは遠くにあるのではありません"},
+{cat:"抽象的な会話",ne:"돈보다 중요한 가치가 있어요.",rom:"donboda jung-yohan gachiga isseoyo",jp:"お金より大事な価値があります"},
+{cat:"抽象的な会話",ne:"사람은 누구나 실수를 해요.",rom:"sarameun nuguna silsureul haeyo",jp:"人は誰でも間違いをします"},
+{cat:"抽象的な会話",ne:"시간은 금이에요.",rom:"siganeun geumieyo",jp:"時間は金です"},
+{cat:"抽象的な会話",ne:"모든 일에는 때가 있는 법이에요.",rom:"modeun ireneun ttaega inneun beobieyo",jp:"すべてのことには時があるものです"},
+{cat:"抽象的な会話",ne:"인연은 인연인가 봐요.",rom:"inyeoneun inyeoninga bwayo",jp:"縁は縁みたいです"},
+{cat:"抽象的な会話",ne:"살다 보면 좋은 일도 있고 나쁜 일도 있어요.",rom:"salda bomyeon joeun ildo itgo nappeun ildo isseoyo",jp:"生きていれば良いこともあり悪いこともあります"},
+{cat:"仮定・想像の話",ne:"만약에 로또에 당첨된다면 뭘 하고 싶어요?",rom:"manyage lotto-e dangcheomdoendamyeon mwol hago sipeoyo?",jp:"もし宝くじに当たったら何をしたいですか？"},
+{cat:"仮定・想像の話",ne:"내가 새라면 하늘을 날고 싶어요.",rom:"naega saeramyeon haneureul nalgo sipeoyo",jp:"私が鳥なら空を飛びたいです"},
+{cat:"仮定・想像の話",ne:"시간을 되돌릴 수 있다면...",rom:"siganeul doedollil su itdamyeon...",jp:"時間を戻せることができるなら..."},
+{cat:"仮定・想像の話",ne:"내가 부자라면...",rom:"naega bujaramyeon...",jp:"私が金持ちなら..."},
+{cat:"仮定・想像の話",ne:"만약 외계인이 나타난다면...",rom:"manyage oegyeini natanandamyeon...",jp:"もし宇宙人が現れたら..."},
+{cat:"仮定・想像の話",ne:"내일 세계가 멸망한다면 오늘 뭘 하고 싶어요?",rom:"naeil segyega myeolmanghandamyeon oneul mwol hago sipeoyo?",jp:"明日世界が滅びるなら今日何をしたいですか？"},
+{cat:"仮定・想像の話",ne:"내가 대통령이라면...",rom:"naega daetongnyeong-iramyeon...",jp:"私が大統領なら..."},
+{cat:"仮定・想像の話",ne:"다른 행성에서 살 수 있다면...",rom:"dareun haengseong-eseo sal su itdamyeon...",jp:"他の惑星で住むことができるなら..."},
+{cat:"詩的・感性的表現",ne:"첫눈이 내리면 설레요.",rom:"cheonnuni naerimyeon seolleyo",jp:"初雪が降ればときめきます"},
+{cat:"詩的・感性的表現",ne:"노을이 참 아름답네요.",rom:"noeuri cham areumdamneyo",jp:"夕焼けが本当に美しいですね"},
+{cat:"詩的・感性的表現",ne:"바다를 보면 마음이 편안해져요.",rom:"badareul bomyeon maeumi pyeonanhaejyeoyo",jp:"海を見れば心が安らぎます"},
+{cat:"詩的・感性的表現",ne:"벚꽃이 흩날리는 모습이 너무 예뻐요.",rom:"beotkkochi heuteunnallineun moseubi neomu yeppeoyo",jp:"桜が舞い散る姿がとてもきれいです"},
+{cat:"詩的・感性的表現",ne:"별이 빛나는 밤하늘이 그리워요.",rom:"byeori binnaneun bamhaneuri geuriwoyo",jp:"星が輝く夜空が恋しいです"},
+{cat:"詩的・感性的表現",ne:"그 사람의 미소가 아직도 기억나요.",rom:"geu saram-ui misoga ajikdo gieongnayo",jp:"その人の笑顔が今でも思い出されます"},
+{cat:"詩的・感性的表現",ne:"이 순간이 영원했으면 좋겠어요.",rom:"i sungan-i yeong-wonhaesseumyeon jogesseoyo",jp:"この瞬間が永遠だったらいいのに"},
+{cat:"詩的・感性的表現",ne:"가을바람이 살랑살랑 불어와요.",rom:"gaeulbarami sarangsarang bureowayo",jp:"秋風がそよそよと吹いてきます"},
+{cat:"ユーモア・冗談",ne:"저 오늘 회사 그만둘 거예요! 장난이에요.",rom:"jeo oneul hoesa geumandul geoyeyo! jangnan-ieyo",jp:"私今日会社辞めます！冗談です"},
+{cat:"ユーモア・冗談",ne:"농담이에요. 너무 진지하게 받아들이지 마세요.",rom:"nongdam-ieyo. neomu jinjihage badadeuliji maseyo",jp:"冗談です。あまり真剣に受け取らないでください"},
+{cat:"ユーモア・冗談",ne:"거짓말처럼 들리겠지만 진짜예요.",rom:"geojinmalcheoreom deulligetjiman jinjjayeyo",jp:"嘘のように聞こえるでしょうが本当です"},
+{cat:"ユーモア・冗談",ne:"내가 슈퍼맨이야. 믿어져?",rom:"naega syupeomaeniya. mideojyeo?",jp:"私がスーパーマンだよ。信じられる？"},
+{cat:"ユーモア・冗談",ne:"오늘 내 생일이야! 농담이야...",rom:"oneul nae saeng-iriya! nongdam-iya...",jp:"今日私の誕生日だよ！冗談だよ..."},
+{cat:"ユーモア・冗談",ne:"돈 좀 빌려줘. 농담이야.",rom:"don jom billyeojwo. nongdam-iya",jp:"お金ちょっと貸して。冗談だよ"},
+{cat:"ユーモア・冗談",ne:"너 오늘 머리 왜 그랬어? 농담이야!",rom:"neo oneul meori wae geuraesseo? nongdam-iya!",jp:"お前今日髪どうしたの？冗談だよ！"},
+{cat:"ユーモア・冗談",ne:"나 사실 외계인이야.",rom:"na sasil oegyein-iya",jp:"私実は宇宙人だよ"},
+{cat:"間接的な表現・婉曲",ne:"죄송하지만 지금 좀 바빠요.",rom:"joesonghajiman jigeum jom bappayo",jp:"申し訳ないですが今少し忙しいです"},
+{cat:"間接的な表現・婉曲",ne:"괜찮으시면 다른 날 만나는 게 어때요?",rom:"gwaenchaneusimyeon dareun nal mannaneun ge eottaeyo?",jp:"よろしければ別の日に会うのはどうですか？"},
+{cat:"間接的な表現・婉曲",ne:"실례지만, 혹시 담배 괜찮으세요?",rom:"sillyejiman, hoksi dambae gwaenchaneuseyo?",jp:"失礼ですが、もしタバコ大丈夫ですか？"},
+{cat:"間接的な表現・婉曲",ne:"가능하면 조금 더 싼 건 없을까요?",rom:"ganeunghamyeon jogeum deo ssan geon eopseulkka-yo?",jp:"できればもう少し安いのはありませんか？"},
+{cat:"間接的な表現・婉曲",ne:"제 생각에는 그게 좀...",rom:"je saenggageneun geuge jom...",jp:"私の考えではそれはちょっと..."},
+{cat:"間接的な表現・婉曲",ne:"말씀드리기 좀 그런데...",rom:"malsseumdeurigi jom geureonde...",jp:"申し上げるのはちょっとあれなんですが..."},
+{cat:"間接的な表現・婉曲",ne:"실례가 안 된다면...",rom:"sillyega an doendamyeon...",jp:"失礼でなければ..."},
+{cat:"間接的な表現・婉曲",ne:"폐가 안 된다면...",rom:"pyega an doendamyeon...",jp:"ご迷惑でなければ..."},
+{cat:"躊躇・ためらい",ne:"글쎄요, 잘 모르겠어요.",rom:"geulsseyo, jal moreugesseoyo",jp:"さあ、よくわかりません"},
+{cat:"躊躇・ためらい",ne:"음, 어떻게 말해야 할지...",rom:"eum, eotteoke malhaeya halji...",jp:"うーん、どう言えばいいのか..."},
+{cat:"躊躇・ためらい",ne:"그건 좀...",rom:"geon jom...",jp:"それはちょっと..."},
+{cat:"躊躇・ためらい",ne:"생각해 볼 시간이 필요해요.",rom:"saenggakae bol sigani piryohaeyo",jp:"考える時間が必要です"},
+{cat:"躊躇・ためらい",ne:"확실히 말씀드릴 수가 없네요.",rom:"hwaksilhi malsseumdeuril suga eomneyo",jp:"確かにお伝えすることができませんね"},
+{cat:"躊躇・ためらい",ne:"지금 바로 대답하기 어려워요.",rom:"jigeum baro daedapagi eoryeowoyo",jp:"今すぐにお答えするのは難しいです"},
+{cat:"躊躇・ためらい",ne:"한 번 더 생각해 볼게요.",rom:"han beon deo saenggakae bolgeyo",jp:"もう一度考えてみます"},
+{cat:"躊躇・ためらい",ne:"결정을 좀 미뤄도 될까요?",rom:"gyeoljeongeul jom mirwodo doelkayo?",jp:"決定を少し延ばしてもいいですか？"},
+{cat:"驚き・感動の表現",ne:"세상에, 이런 일이!",rom:"sesange, ireon iri!",jp:"まさか、こんなことが！"},
+{cat:"驚き・感動の表現",ne:"믿을 수가 없어요!",rom:"mideul suga eopseoyo!",jp:"信じられません！"},
+{cat:"驚き・感動の表現",ne:"어떻게 그럴 수가 있어요?",rom:"eotteoke geureol suga isseoyo?",jp:"どうしてそんなことがありえますか？"},
+{cat:"驚き・感動の表現",ne:"말도 안 돼! 정말이야?",rom:"maldo an dwae! jeongmiriya?",jp:"ありえない！本当なの？"},
+{cat:"驚き・感動の表現",ne:"와, 대박이다!",rom:"wa, daebagida!",jp:"わあ、すごい！"},
+{cat:"驚き・感動の表現",ne:"깜짝 놀랐잖아!",rom:"kkamjjak nollatjana!",jp:"びっくりしたじゃない！"},
+{cat:"驚き・感動の表現",ne:"너무 감동이에요. 눈물이 나요.",rom:"neomu gamdong-ieyo. nunmuri nayo",jp:"とても感動です。涙が出ます"},
+{cat:"驚き・感動の表現",ne:"상상도 못 했어요.",rom:"sangsangdo mot haesseoyo",jp:"想像もできませんでした"},
+{cat:"確認・念押し",ne:"정말 괜찮은 거 맞아요?",rom:"jeongmal gwaenchaneun geo majayo?",jp:"本当に大丈夫なことで合っていますか？"},
+{cat:"確認・念押し",ne:"약속 꼭 지킬 거지요?",rom:"yaksok kkok jikil geojiyo?",jp:"約束必ず守るでしょうね？"},
+{cat:"確認・念押し",ne:"잊지 않으셨죠?",rom:"itji aneusyeotjyo?",jp:"お忘れではありませんよね？"},
+{cat:"確認・念押し",ne:"혹시 문제 생기면 바로 연락 주세요.",rom:"hoksi munjae saenggimyeon baro yeollak juseyo",jp:"もし問題が起きたらすぐに連絡ください"},
+{cat:"確認・念押し",ne:"분명히 제가 한 말이에요?",rom:"bunmyeonghi jega han marieyo?",jp:"明らかに私が言ったことですか？"},
+{cat:"確認・念押し",ne:"다시 한 번 확인해 주시겠어요?",rom:"dasi han beon hwaginhae jusigesseoyo?",jp:"もう一度確認していただけますか？"},
+{cat:"確認・念押し",ne:"제대로 이해한 거죠?",rom:"jedaero ihaehan geojyo?",jp:"正しく理解したんですよね？"},
+{cat:"確認・念押し",ne:"이게 마지막이에요.",rom:"ige majimagieyo",jp:"これが最後です"},
+{cat:"要約・まとめ",ne:"요약하자면 이렇습니다.",rom:"yoyak-hajamyeon ireotsseumnida",jp:"要約するとこうです"},
+{cat:"要約・まとめ",ne:"결론부터 말씀드리면...",rom:"gyeollonbuteo malsseumdeurimyeon...",jp:"結論からお話しすると..."},
+{cat:"要約・まとめ",ne:"다시 말하자면...",rom:"dasi malhamyeon...",jp:"言い換えれば..."},
+{cat:"要約・まとめ",ne:"쉽게 말해서...",rom:"swipge malhaeseo...",jp:"簡単に言って..."},
+{cat:"要約・まとめ",ne:"간단히 말하면...",rom:"gandanhi malhamyeon...",jp:"簡単に言えば..."},
+{cat:"要約・まとめ",ne:"정리하자면 세 가지 문제가 있어요.",rom:"jeongnihajamyeon se gaji munjega isseoyo",jp:"整理すると三つの問題があります"},
+{cat:"要約・まとめ",ne:"결과적으로 우리가 이겼어요.",rom:"gyeolgwajeogeuro uriga igyeosseoyo",jp:"結果的に私たちが勝ちました"},
+{cat:"要約・まとめ",ne:"종합해 보면...",rom:"jonghaphae bomyeon...",jp:"総合してみると..."},
+{cat:"学術的・フォーマルな表現",ne:"연구 결과에 따르면...",rom:"yeon'gu gyeolgwae ttareumyeon...",jp:"研究結果によると..."},
+{cat:"学術的・フォーマルな表現",ne:"통계 자료를 보면...",rom:"tonggye jaryoreul bomyeon...",jp:"統計資料を見ると..."},
+{cat:"学術的・フォーマルな表現",ne:"이론적으로는 가능하지만...",rom:"ironjeogeuroneun ganeunghajiman...",jp:"理論的には可能ですが..."},
+{cat:"学術的・フォーマルな表現",ne:"사회학적 관점에서 보면...",rom:"sahoehakjeok gwanjeomeseo bomyeon...",jp:"社会学的観点から見ると..."},
+{cat:"学術的・フォーマルな表現",ne:"이 현상은 여러 요인이 복합적으로 작용한 결과입니다.",rom:"i hyeonsangeun yeoreo yoin-i bokhapjeogeuro jagyonghan gyeolgwaimnida",jp:"この現象は様々な要因が複合的に作用した結果です"},
+{cat:"学術的・フォーマルな表現",ne:"분석해 보면 다음과 같은 특징이 있습니다.",rom:"bunseokhae bomyeon daeumgwa gateun teukjingi itsseumnida",jp:"分析してみると次のような特徴があります"},
+{cat:"学術的・フォーマルな表現",ne:"앞으로 더 연구가 필요합니다.",rom:"apeuro deo yeon-guga piryohamnida",jp:"今後さらに研究が必要です"},
+{cat:"学術的・フォーマルな表現",ne:"이 분야에서 전문가가 되고 싶어요.",rom:"i bunyae-seo jeon-gaga doego sipeoyo",jp:"この分野で専門家になりたいです"},
+{cat:"会話のつなぎ表現",ne:"그런데 말이야...",rom:"geureonde mariya...",jp:"ところでさ..."},
+{cat:"会話のつなぎ表現",ne:"있잖아요, 요즘에...",rom:"itjanayo, yojeume...",jp:"あのね、最近..."},
+{cat:"会話のつなぎ表現",ne:"참, 깜빡했네요.",rom:"cham, kkamppakhaenneyo",jp:"あ、忘れてた"},
+{cat:"会話のつなぎ表現",ne:"아, 맞다!",rom:"a, matda!",jp:"あ、そうだ！"},
+{cat:"会話のつなぎ表現",ne:"그러고 보니...",rom:"geureogo boni...",jp:"そういえば..."},
+{cat:"会話のつなぎ表現",ne:"말이 나와서 말인데...",rom:"mari nawaseo marinde...",jp:"話が出たから言うけど..."},
+{cat:"会話のつなぎ表現",ne:"다른 얘기지만...",rom:"dareun yaegijiman...",jp:"他の話だけど..."},
+{cat:"会話のつなぎ表現",ne:"잠깐만요, 생각 좀 할게요.",rom:"jamkkanmanyo, saenggak jom halgeyo",jp:"ちょっと待ってください、少し考えます"},
+{cat:"励まし・慰めの詳細",ne:"괜찮아요. 누구나 그럴 수 있어요.",rom:"gwaenchana-yo. nuguna geureol su isseoyo",jp:"大丈夫です。誰でもそういうことはあります"},
+{cat:"励まし・慰めの詳細",ne:"너무 상심하지 마세요.",rom:"neomu sangsimhaji maseyo",jp:"あまり悲しまないでください"},
+{cat:"励まし・慰めの詳細",ne:"다음에는 더 잘할 수 있어요.",rom:"daeumeneun deo jalhal su isseoyo",jp:"次はもっとうまくできます"},
+{cat:"励まし・慰めの詳細",ne:"당신이라면 할 수 있어요.",rom:"dangsin-iramyeon hal su isseoyo",jp:"あなたならできます"},
+{cat:"励まし・慰めの詳細",ne:"제가 항상 응원할게요.",rom:"jega hangsang eung-wonhalgeyo",jp:"私がいつも応援します"},
+{cat:"励まし・慰めの詳細",ne:"힘들 때는 언제든지 연락하세요.",rom:"himdeul ttaeneun eonje-deunji yeollakaseyo",jp:"辛い時はいつでも連絡してください"},
+{cat:"励まし・慰めの詳細",ne:"잘 될 거예요. 믿어요.",rom:"jal doel geoyeyo. mideo-yo",jp:"うまくいきます。信じます"},
+{cat:"励まし・慰めの詳細",ne:"당신은 혼자가 아니에요.",rom:"dangsineun honjaga anieyo",jp:"あなたは一人じゃありません"},
+{cat:"不満・苦情",ne:"이거 좀 불편한데요.",rom:"igeo jom bulpyeonhandeyo",jp:"これちょっと不便なんですが"},
+{cat:"不満・苦情",ne:"예약했는데 기다려야 돼요?",rom:"yeyakhaenneunde gidaryeoya dwaeyo?",jp:"予約したのに待たなければなりませんか？"},
+{cat:"不満・苦情",ne:"주문한 음식이 아직 안 나왔어요.",rom:"jumunhan eumsigi ajik an nawasseoyo",jp:"注文した料理がまだ出ていません"},
+{cat:"不満・苦情",ne:"이거 다른 거랑 바꿀 수 있을까요?",rom:"igeo dareun georang bakkkul su isseulkkayo?",jp:"これ他のと交換できますか？"},
+{cat:"不満・苦情",ne:"너무 시끄러워서 집중이 안 돼요.",rom:"neomu sikeureowoseo jipjung-i an dwaeyo",jp:"とてもうるさくて集中できません"},
+{cat:"不満・苦情",ne:"설명과 다른데요.",rom:"seolmyeonggwa dareundeyo",jp:"説明と違うんですが"},
+{cat:"不満・苦情",ne:"불만이 있는데 들어주실 수 있나요?",rom:"bulmani inneunde deureojusil su innayo?",jp:"不満があるのですが聞いていただけますか？"},
+{cat:"不満・苦情",ne:"이건 약속이 달라요.",rom:"igeon yaksogi dallayo",jp:"これは約束と違います"},
+{cat:"お詫び・謝罪の詳細",ne:"제 불찰입니다. 진심으로 사과드려요.",rom:"je bulcharimnida. jinsimeuro sagwadeuryeoyo",jp:"私の不手際です。心からお詫びします"},
+{cat:"お詫び・謝罪の詳細",ne:"정말 죄송하게 생각하고 있어요.",rom:"jeongmal joesonghage saenggakago isseoyo",jp:"本当に申し訳なく思っています"},
+{cat:"お詫び・謝罪の詳細",ne:"어떻게 사과드려야 할지 모르겠어요.",rom:"eotteoke sagwadeuryeoya halji moreugesseoyo",jp:"どうお詫びすればいいのかわかりません"},
+{cat:"お詫び・謝罪の詳細",ne:"제 실수였어요. 다시는 안 그럴게요.",rom:"je silsuyeosseoyo. dasineun an geureolgeyo",jp:"私のミスでした。二度としません"},
+{cat:"お詫び・謝罪の詳細",ne:"기분을 상하게 해서 죄송해요.",rom:"gibuneul sanghage haeseo joesonghaeyo",jp:"気分を害して申し訳ありません"},
+{cat:"お詫び・謝罪の詳細",ne:"제가 너무 무심했네요.",rom:"jega neomu musimhaenneyo",jp:"私がとても無頓着でしたね"},
+{cat:"お詫び・謝罪の詳細",ne:"괜찮으시다면 이걸로...",rom:"gwaenchaneusidamyeon igeollo...",jp:"よろしければこれで..."},
+{cat:"恋愛・感情の詳細",ne:"처음 만났을 때부터 마음에 들었어요.",rom:"cheoeum mannasseul ttaebuteo maeume deureosseoyo",jp:"初めて会った時から気に入りました"},
+{cat:"恋愛・感情の詳細",ne:"당신을 보면 심장이 빨리 뛰어요.",rom:"dangsineul bomyeon simjangi ppalli ttwieoyo",jp:"あなたを見ると心臓が速く鳴ります"},
+{cat:"恋愛・感情の詳細",ne:"당신은 나의 반쪽이에요.",rom:"dangsineun naui banjjog-ieyo",jp:"あなたは私の半身です"},
+{cat:"恋愛・感情の詳細",ne:"당신 없이는 못 살 것 같아요.",rom:"dangsin eopsineun mot sal geot gatayo",jp:"あなたなしでは生きていけないと思います"},
+{cat:"恋愛・感情の詳細",ne:"우리 처음 만난 날 기억나요?",rom:"uri cheoeum mannan nal gieongnayo?",jp:"私たちが初めて会った日覚えていますか？"},
+{cat:"恋愛・感情の詳細",ne:"당신 덕분에 행복해요.",rom:"dangsin deokbune haengbokhaeyo",jp:"あなたのおかげで幸せです"},
+{cat:"恋愛・感情の詳細",ne:"평생 당신만 사랑할게요.",rom:"pyeongsaeng dangsinman saranghalgeyo",jp:"一生あなただけを愛します"},
+{cat:"恋愛・感情の詳細",ne:"우리 함께 늙어 가요.",rom:"uri hamkke neulgeo gayo",jp:"私たち一緒に老いていきましょう"},
+{cat:"家族・子育て",ne:"아이가 이제 걸음마를 배워요.",rom:"aiga ije georeummareul baewoyo",jp:"子供が今歩くことを覚えています"},
+{cat:"家族・子育て",ne:"우리 아이가 벌써 말을 하기 시작했어요.",rom:"uri aiga beolsseo mareul hagi sijakaesseoyo",jp:"私たちの子供がもう話し始めました"},
+{cat:"家族・子育て",ne:"육아가 생각보다 힘들어요.",rom:"yugaga saenggakboda himdeureoyo",jp:"子育てが思ったより大変です"},
+{cat:"家族・子育て",ne:"아이가 아파서 병원에 데려갔어요.",rom:"aiga apaseo byeong-wone deryeogasseoyo",jp:"子供が病気で病院に連れて行きました"},
+{cat:"家族・子育て",ne:"부모님께 효도해야 해요.",rom:"bumonimkke hyodohaeya haeyo",jp:"親に孝行しなければなりません"},
+{cat:"家族・子育て",ne:"가족과 함께하는 시간이 가장 소중해요.",rom:"gajokgwa hamkkehaneun sigani gajang sojunghaeyo",jp:"家族と過ごす時間が最も大切です"},
+{cat:"家族・子育て",ne:"우리 가족은 주말마다 같이 외식해요.",rom:"uri gajogeun jumalmada gachi oesikaeyo",jp:"私たちの家族は週末ごとに一緒に外食します"},
+{cat:"家族・子育て",ne:"명절에는 가족들이 모두 모여요.",rom:"myeongjeor-eneun gajokdeuri modu moyeoyo",jp:"名節には家族がみんな集まります"},
+{cat:"仕事・キャリアの詳細",ne:"승진했어요! 축하해 주세요.",rom:"seungjinhaesseoyo! chukahae juseyo",jp:"昇進しました！お祝いしてください"},
+{cat:"仕事・キャリアの詳細",ne:"이직을 고민하고 있어요.",rom:"ijigeul gominhago isseoyo",jp:"転職を悩んでいます"},
+{cat:"仕事・キャリアの詳細",ne:"새 직장에 잘 적응하고 있어요.",rom:"sae jikjange jal jeokeunghago isseoyo",jp:"新しい職場にうまく適応しています"},
+{cat:"仕事・キャリアの詳細",ne:"일이 너무 많아서 스트레스예요.",rom:"iri neomu manaseo seuteureseu-yeyo",jp:"仕事が多すぎてストレスです"},
+{cat:"仕事・キャリアの詳細",ne:"워라밸이 중요해요.",rom:"worabaeri jung-yohaeyo",jp:"ワークライフバランスが大事です"},
+{cat:"仕事・キャリアの詳細",ne:"사표를 내려고 생각 중이에요.",rom:"sapyoreul naeryeogo saenggak jung-ieyo",jp:"辞表を出そうと考え中です"},
+{cat:"仕事・キャリアの詳細",ne:"창업을 준비하고 있어요.",rom:"chang-eobeul junbihago isseoyo",jp:"創業を準備しています"},
+{cat:"仕事・キャリアの詳細",ne:"제 적성에 맞는 일을 찾고 싶어요.",rom:"je jeokseonge manneun ireul chatgo sipeoyo",jp:"私の適性に合う仕事を探したいです"},
+{cat:"健康・体調管理",ne:"요즘 건강을 위해서 운동하고 있어요.",rom:"yojeum geon-gangeul wihaeseo undonghago isseoyo",jp:"最近健康のために運動しています"},
+{cat:"健康・体調管理",ne:"다이어트 중이라서 저녁은 안 먹어요.",rom:"daieoteu jung-iraseo jeonyeogeun an meogeoyo",jp:"ダイエット中なので夕飯は食べません"},
+{cat:"健康・体調管理",ne:"한의원에 가서 침을 맞았어요.",rom:"hanuiwon-e gaseo chimeul majasseoyo",jp:"韓医院に行って鍼を打ちました"},
+{cat:"健康・体調管理",ne:"정기 검진을 받으러 병원에 갈 거예요.",rom:"jeonggi geomjineul bateureo byeong-wone gal geoyeyo",jp:"定期検診を受けに病院に行きます"},
+{cat:"健康・体調管理",ne:"몸이 예전 같지 않아요.",rom:"momi yejeon gatji anayo",jp:"体が以前のようではありません"},
+{cat:"健康・体調管理",ne:"수면 부족인 것 같아요.",rom:"sumyeon bujogin geot gatayo",jp:"睡眠不足のようです"},
+{cat:"健康・体調管理",ne:"영양제를 챙겨 먹고 있어요.",rom:"yeong-yangjereul chaenggyeo meokgo isseoyo",jp:"サプリメントを欠かさず飲んでいます"},
+{cat:"健康・体調管理",ne:"요가 하니까 몸이 가벼워졌어요.",rom:"yoga hanikka momi gabyeowojyeosseoyo",jp:"ヨガをしたら体が軽くなりました"},
+{cat:"趣味・余暇の詳細",ne:"사진 찍는 취미가 생겼어요.",rom:"sajin jjingeun chwimiga saenggyeosseoyo",jp:"写真を撮る趣味ができました"},
+{cat:"趣味・余暇の詳細",ne:"요즘 뜨개질에 빠졌어요.",rom:"yojeum tteugaejire ppajeosseoyo",jp:"最近編み物にハマっています"},
+{cat:"趣味・余暇の詳細",ne:"베이킹을 배우고 있어요.",rom:"beiking-eul baeugo isseoyo",jp:"ベーキングを習っています"},
+{cat:"趣味・余暇の詳細",ne:"등산 동호회에 가입했어요.",rom:"deungsan donghohoe-e gaiphaesseoyo",jp:"登山同好会に入会しました"},
+{cat:"趣味・余暇の詳細",ne:"여행 블로그를 운영하고 있어요.",rom:"yeohaeng beullogeureul unyeonghago isseoyo",jp:"旅行ブログを運営しています"},
+{cat:"趣味・余暇の詳細",ne:"시간 나면 기타를 연습해요.",rom:"sigan namyeon gitareul yeonseupaeyo",jp:"時間があればギターを練習します"},
+{cat:"趣味・余暇の詳細",ne:"독서 모임에 나가고 있어요.",rom:"dokseo moime nagago isseoyo",jp:"読書会に参加しています"},
+{cat:"趣味・余暇の詳細",ne:"새로운 요리에 도전하는 게 재미있어요.",rom:"saeroun yorie dojeonhaneun ge jaemiisseoyo",jp:"新しい料理に挑戦するのが面白いです"},
+{cat:"旅行・観光の詳細",ne:"배낭여행을 계획 중이에요.",rom:"baengnang yeohaengeul gyehoek jung-ieyo",jp:"バックパッカー旅行を計画中です"},
+{cat:"旅行・観光の詳細",ne:"현지인만 아는 맛집을 찾고 싶어요.",rom:"hyeonjiinman aneun matjibeul chatgo sipeoyo",jp:"地元の人だけが知っている美味しい店を探したいです"},
+{cat:"旅行・観光の詳細",ne:"첫날은 시내 관광을 할 거예요.",rom:"cheonnareun sinae gwan-gwangeul hal geoyeyo",jp:"初日は市内観光をするつもりです"},
+{cat:"旅行・観光の詳細",ne:"숙소는 게스트하우스로 예약했어요.",rom:"suksoneun geseuteuhauseuro yeyakaesseoyo",jp:"宿はゲストハウスで予約しました"},
+{cat:"旅行・観光の詳細",ne:"렌터카를 빌려서 여행할 거예요.",rom:"renteokareul billyeoseo yeohaenghal geoyeyo",jp:"レンタカーを借りて旅行します"},
+{cat:"旅行・観光の詳細",ne:"일출 보러 새벽에 일어났어요.",rom:"ilchul boreo saebyeoge ireonasseoyo",jp:"日の出を見に夜明けに起きました"},
+{cat:"旅行・観光の詳細",ne:"여행 중에 우연히 친구를 만났어요.",rom:"yeohaeng junge uyeonhi chingureul mannasseoyo",jp:"旅行中に偶然友達に会いました"},
+{cat:"旅行・観光の詳細",ne:"다음에는 가족들이랑 다시 오고 싶어요.",rom:"daeumeneun gajokdeurirang dasi ogo sipeoyo",jp:"次は家族たちとまた来たいです"},
+{cat:"韓国文化・習慣の詳細",ne:"설날에는 떡국을 먹어요.",rom:"seollareneun tteokgugeul meogeoyo",jp:"お正月にはトッククを食べます"},
+{cat:"韓国文化・習慣の詳細",ne:"추석에는 송편을 만들어요.",rom:"chuseogeneun songpyeoneul mandeureoyo",jp:"秋夕には松餅を作ります"},
+{cat:"韓国文化・習慣の詳細",ne:"돌잔치에 초대받았어요.",rom:"doljanchie chodaebadasseoyo",jp:"誕生日祝い（1歳）に招待されました"},
+{cat:"韓国文化・習慣の詳細",ne:"한국에서는 돌잔치를 크게 해요.",rom:"hangugeseoneun doljanchireul keuge haeyo",jp:"韓国では1歳の誕生日パーティーを大きくします"},
+{cat:"韓国文化・習慣の詳細",ne:"회식 문화가 아직도 있는 편이에요.",rom:"hoesik munhwaga ajikdo inneun pyeonieyo",jp:"会食文化がまだある方です"},
+{cat:"韓国文化・習慣の詳細",ne:"한국에서는 술을 따를 때 두 손으로 따라요.",rom:"hangugeseoneun sureul ttareul ttae du soneuro ttarayo",jp:"韓国ではお酒をつぐ時に両手でつぎます"},
+{cat:"韓国文化・習慣の詳細",ne:"연령에 따라 말투를 바꾸는 게 어려워요.",rom:"yeollyeong-e ttara maltureul bakkuneun ge eoryeowoyo",jp:"年齢によって話し方を変えるのが難しいです"},
+{cat:"韓国文化・習慣の詳細",ne:"한국 사람들은 빨리빨리 문화에 익숙해요.",rom:"hanguk saramdeureun ppallippalli munhwa-e iksukaeyo",jp:"韓国人は早く早くの文化に慣れています"},
+{cat:"時事・社会問題",ne:"최근 경제 상황이 좋지 않은 것 같아요.",rom:"choegeun gyeongje sanghwang-i joji aneun geot gatayo",jp:"最近の経済状況は良くないようです"},
+{cat:"時事・社会問題",ne:"청년 실업률이 점점 높아지고 있어요.",rom:"cheongnyeon sireomnyuri jeomjeom nopajigo isseoyo",jp:"青年失業率がだんだん高くなっています"},
+{cat:"時事・社会問題",ne:"환경 보호를 위해 무엇을 할 수 있을까요?",rom:"hwangyeong bohoreul wihae mueoseul hal su isseulkkayo?",jp:"環境保護のために何ができるでしょうか？"},
+{cat:"時事・社会問題",ne:"코로나 이후에 많은 게 변했어요.",rom:"korona ihue maneun ge byeonhaesseoyo",jp:"コロナ以降に多くのことが変わりました"},
+{cat:"時事・社会問題",ne:"집값이 너무 올라서 살기가 힘들어요.",rom:"jipgabi neomu ollaseo salgiga himdeureoyo",jp:"家の値段が高くなりすぎて住むのが大変です"},
+{cat:"時事・社会問題",ne:"저출산 문제가 심각해요.",rom:"jeochulsan munjega simgakaeyo",jp:"少子化問題が深刻です"},
+{cat:"時事・社会問題",ne:"교육 격차가 점점 벌어지고 있어요.",rom:"gyoyuk gyeokchaga jeomjeom beoreojigo isseoyo",jp:"教育格差がだんだん広がっています"},
+{cat:"時事・社会問題",ne:"양극화 현상을 해결해야 해요.",rom:"yanggeukhwa hyeonsangeul haegyeolhaeya haeyo",jp:"両極化現象を解決しなければなりません"},
+{cat:"環境・自然",ne:"요즘 이상 기후 현상이 많아졌어요.",rom:"yojeum isang gihyu hyeonsangi manajyeosseoyo",jp:"最近異常気象現象が増えました"},
+{cat:"環境・自然",ne:"미세먼지가 너무 심해요.",rom:"misemeonjiga neomu simhaeyo",jp:"微細粉塵がひどすぎます"},
+{cat:"環境・自然",ne:"환경을 위해 플라스틱 사용을 줄여야 해요.",rom:"hwangyeongeul wihae peullaseutik sayongeul julyeoya haeyo",jp:"環境のためにプラスチック使用を減らさなければなりません"},
+{cat:"環境・自然",ne:"재활용을 꼭 실천해야 돼요.",rom:"jaehwaryongeul kkok silcheonhaeya dwaeyo",jp:"リサイクルを必ず実践しなければなりません"},
+{cat:"環境・自然",ne:"지구 온난화가 정말 심각한 문제예요.",rom:"jigu onnanhwaga jeongmal simgakhan munjeyeyo",jp:"地球温暖化が本当に深刻な問題です"},
+{cat:"環境・自然",ne:"자연을 보호하는 게 우리의 의무예요.",rom:"jayeoneul bohohaneun ge uriui uimuyeyo",jp:"自然を保護することが私たちの義務です"},
+{cat:"環境・自然",ne:"에너지를 절약해야 해요.",rom:"eneojireul jeoryakhaeya haeyo",jp:"エネルギーを節約しなければなりません"},
+{cat:"環境・自然",ne:"공원에 쓰레기를 버리면 안 돼요.",rom:"gong-wone sseuregireul beorimyeon an dwaeyo",jp:"公園にゴミを捨ててはいけません"},
+{cat:"メディア・芸術",ne:"요즘 그 드라마가 인기예요.",rom:"yojeum geu deuramaga ingiyeyo",jp:"最近そのドラマが人気です"},
+{cat:"メディア・芸術",ne:"그 배우의 연기가 정말 좋았어요.",rom:"geu baeu-ui yeon-giga jeongmal joasseoyo",jp:"その俳優の演技が本当に良かったです"},
+{cat:"メディア・芸術",ne:"이 노래 가사가 너무 와 닿아요.",rom:"i norae gasaga neomu wa dawayo",jp:"この歌の歌詞が心に響きます"},
+{cat:"メディア・芸術",ne:"그 가수의 콘서트에 가 보고 싶어요.",rom:"geu gasu-ui konseuteue ga bogo sipeoyo",jp:"その歌手のコンサートに行ってみたいです"},
+{cat:"メディア・芸術",ne:"추천할 만한 영화 있어요?",rom:"chucheonhal manhan yeonghwa isseoyo?",jp:"おすすめできる映画はありますか？"},
+{cat:"メディア・芸術",ne:"이 소설은 베스트셀러예요.",rom:"i soseoreun beseuteuselleoyeyo",jp:"この小説はベストセラーです"},
+{cat:"メディア・芸術",ne:"전시회가 내일까지래요.",rom:"jeonsihoega naeilkkajiraeyo",jp:"展示会が明日までだそうです"},
+{cat:"メディア・芸術",ne:"그 뮤지컬을 벌써 세 번이나 봤어요.",rom:"geu myujikeoreul beolsseo se beonina bwasseoyo",jp:"そのミュージカルをもう三回も見ました"},
+{cat:"テクノロジー・インターネット",ne:"요즘 인공지능이 많이 발달했어요.",rom:"yojeum ingongjineungi mani baldalhaesseoyo",jp:"最近人工知能がたくさん発達しました"},
+{cat:"テクノロジー・インターネット",ne:"스마트폰 없으면 못 살 것 같아요.",rom:"seumateupon eopsimyeon mot sal geot gatayo",jp:"スマートフォンがないと生きていけない気がします"},
+{cat:"テクノロジー・インターネット",ne:"SNS에 시간을 너무 많이 써요.",rom:"SNS-e siganeul neomu mani sseoyo",jp:"SNSに時間を使いすぎます"},
+{cat:"テクノロジー・インターネット",ne:"유튜브로 한국어를 공부해요.",rom:"yutubeuro hangugeoreul gongbuhaeyo",jp:"YouTubeで韓国語を勉強します"},
+{cat:"テクノロジー・インターネット",ne:"온라인 쇼핑이 너무 편리해요.",rom:"ollain syoping-i neomu pyeollihaeyo",jp:"オンラインショッピングがとても便利です"},
+{cat:"テクノロジー・インターネット",ne:"해킹을 당해서 개인 정보가 유출됐어요.",rom:"haeking-eul danghaeseo gaein jeongboga yuchul dwaesseoyo",jp:"ハッキングにあって個人情報が流出しました"},
+{cat:"テクノロジー・インターネット",ne:"비대면 서비스가 많아졌어요.",rom:"bidaemyeon seobiseuga manajyeosseoyo",jp:"非対面サービスが増えました"},
+{cat:"テクノロジー・インターネット",ne:"데이터 보안이 중요해요.",rom:"deiteo boani jung-yohaeyo",jp:"データ保安が重要です"},
+{cat:"未来・夢の話",ne:"10년 후에 나는 뭘 하고 있을까?",rom:"simnyeon hue naneun mwol hago isseulkka?",jp:"10年後、私は何をしているだろう？"},
+{cat:"未来・夢の話",ne:"제 꿈은 영화감독이에요.",rom:"je kkumeun yeonghwa gamdok-ieyo",jp:"私の夢は映画監督です"},
+{cat:"未来・夢の話",ne:"언젠가는 내 집을 마련하고 싶어요.",rom:"eonjenganeun nae jibeul maryeonhago sipeoyo",jp:"いつかは自分の家を持ちたいです"},
+{cat:"未来・夢の話",ne:"아이들이 커서 뭐가 됐으면 좋겠어요?",rom:"aideuri keoseo mwoga dwaesseumyeon jogesseoyo?",jp:"子供たちが大きくなって何になったらいいですか？"},
+{cat:"未来・夢の話",ne:"노후에는 시골에서 살고 싶어요.",rom:"nohueneun sigoreseo salgo sipeoyo",jp:"老後は田舎に住みたいです"},
+{cat:"未来・夢の話",ne:"세계 평화를 꿈꿔요.",rom:"segye pyeonghwareul kkumkkwoyo",jp:"世界平和を夢見ます"},
+{cat:"未来・夢の話",ne:"더 나은 미래를 위해 노력해야 해요.",rom:"deo naeun miraereul wihae noryeokhaeya haeyo",jp:"より良い未来のために努力しなければなりません"},
+{cat:"未来・夢の話",ne:"우리 아이들은 더 행복하게 살았으면 좋겠어요.",rom:"uri aideureun deo haengbokage sarasseumyeon jogesseoyo",jp:"私たちの子供たちはもっと幸せに生きてほしいです"},
+{cat:"人間関係・友情の詳細",ne:"친구는 많을수록 좋은 거 같아요.",rom:"chinguneun maneulsurok joeun geo gatayo",jp:"友達は多いほどいいと思います"},
+{cat:"人間関係・友情の詳細",ne:"진정한 친구는 힘들 때 찾아와요.",rom:"jinjeonghan chinguneun himdeul ttae chajawayo",jp:"本当の友達は大変な時に訪れます"},
+{cat:"人間関係・友情の詳細",ne:"우리는 중학교 때 친구예요.",rom:"urineun junghakgyo ttae chinguyeyo",jp:"私たちは中学校の時の友達です"},
+{cat:"人間関係・友情の詳細",ne:"그 사람은 정말 믿을 수 있는 사람이에요.",rom:"geu sarameun jeongmal mideul su inneun saram-ieyo",jp:"その人は本当に信頼できる人です"},
+{cat:"人間関係・友情の詳細",ne:"친구가 이사 가서 슬퍼요.",rom:"chinguga isa gaseo seulpeoyo",jp:"友達が引っ越して行って悲しいです"},
+{cat:"人間関係・友情の詳細",ne:"오랜만에 친구를 만나서 반가웠어요.",rom:"oraenmane chingureul mannaseo bangawoosseoyo",jp:"久しぶりに友達に会えて嬉しかったです"},
+{cat:"人間関係・友情の詳細",ne:"서로 이해하는 게 중요해요.",rom:"seoro ihaehaneun ge jung-yohaeyo",jp:"お互いを理解することが大事です"},
+{cat:"人間関係・友情の詳細",ne:"친구랑 약속이 있어요.",rom:"chingurang yaksogi isseoyo",jp:"友達と約束があります"},
+{cat:"約束・時間の変更",ne:"약속 시간을 좀 늦출 수 있을까요?",rom:"yaksok siganeul jom neuchul su isseulkkayo?",jp:"約束の時間を少し遅らせられますか？"},
+{cat:"約束・時間の変更",ne:"다음 주로 미루는 게 어때요?",rom:"daeum juro miruneun ge eottaeyo?",jp:"来週に延ばすのはどうですか？"},
+{cat:"約束・時間の変更",ne:"그 시간에는 다른 약속이 있어요.",rom:"geu siganeneun dareun yaksogi isseoyo",jp:"その時間には別の約束があります"},
+{cat:"約束・時間の変更",ne:"토요일이 더 괜찮을 것 같아요.",rom:"toyoiri deo gwaenchaneul geot gatayo",jp:"土曜日がもっと大丈夫そうです"},
+{cat:"約束・時間の変更",ne:"날짜를 변경하고 싶은데 가능할까요?",rom:"naljjareul byeongyeonghago sipeunde ganeunghalkkayo?",jp:"日付を変更したいのですが可能でしょうか？"},
+{cat:"約束・時間の変更",ne:"몇 시쯤 만날 수 있을까요?",rom:"myeot sijjeum mannal su isseulkkayo?",jp:"何時ごろ会えますか？"},
+{cat:"約束・時間の変更",ne:"장소는 그대로 할까요?",rom:"jangso-neun geudaero halkkayo?",jp:"場所はそのままにしましょうか？"},
+{cat:"アドバイスを求める",ne:"이 문제에 대해서 어떻게 생각해요?",rom:"i munjee daehaeseo eotteoke saenggakaeyo?",jp:"この問題についてどう思いますか？"},
+{cat:"アドバイスを求める",ne:"제가 어떻게 해야 할까요?",rom:"jega eotteoke haeya halkkayo?",jp:"私はどうすればいいでしょうか？"},
+{cat:"アドバイスを求める",ne:"좋은 방법이 있을까요?",rom:"joeun bangbeobi isseulkkayo?",jp:"いい方法があるでしょうか？"},
+{cat:"アドバイスを求める",ne:"경험자로서 조언 좀 해 주세요.",rom:"gyeongheomjaroseo jo-eon jom hae juseyo",jp:"経験者としてアドバイスをしてください"},
+{cat:"アドバイスを求める",ne:"선택이 어려운데 어떻게 하면 좋을까요?",rom:"seontaegi eoryeounde eotteoke hamyeon joeulkka-yo?",jp:"選択が難しいのですがどうすればいいでしょうか？"},
+{cat:"アドバイスを求める",ne:"혹시 이런 경험 있어요?",rom:"hoksi ireon gyeongheom isseoyo?",jp:"もしこんな経験ありますか？"},
+{cat:"アドバイスを求める",ne:"제 결정이 맞는 걸까요?",rom:"je gyeoljeongi maneun geolkka-yo?",jp:"私の決定は正しいでしょうか？"},
+{cat:"アドバイスを求める",ne:"다른 사람들은 보통 어떻게 해요?",rom:"dareun saramdeureun botong eotteoke haeyo?",jp:"他の人たちは普通どうしますか？"},
+{cat:"感謝の気持ちを伝える詳細",ne:"덕분에 잘 해결됐어요.",rom:"deokbune jal haegyeoldwaesseoyo",jp:"おかげでうまく解決しました"},
+{cat:"感謝の気持ちを伝える詳細",ne:"당신의 친절에 감동했어요.",rom:"dangsin-ui chinjeore gamdonghaesseoyo",jp:"あなたの親切に感動しました"},
+{cat:"感謝の気持ちを伝える詳細",ne:"이 은혜는 절대 잊지 않을게요.",rom:"i eunhyeneun jeoldae itji aneulgeyo",jp:"この恩は絶対に忘れません"},
+{cat:"感謝の気持ちを伝える詳細",ne:"당신 같은 사람이 있어서 행복해요.",rom:"dangsin gateun sarami isseoseo haengbokhaeyo",jp:"あなたのような人がいて幸せです"},
+{cat:"感謝の気持ちを伝える詳細",ne:"무슨 말로 감사해야 할지 모르겠어요.",rom:"museun mallo gamsahaeya halji moreugesseoyo",jp:"何と言って感謝していいかわかりません"},
+{cat:"感謝の気持ちを伝える詳細",ne:"항상 당신을 응원할게요.",rom:"hangsang dangsineul eung-wonhalgeyo",jp:"いつもあなたを応援します"},
+{cat:"感謝の気持ちを伝える詳細",ne:"제가 뭔가 도움이 필요하면 언제든지 말씀하세요.",rom:"jega mwonga doumi piryohamyeon eonje-deunji malsseumhaseyo",jp:"私に何か助けが必要ならいつでも言ってください"},
+{cat:"対立・葛藤の表現",ne:"우리 사이에 오해가 있는 것 같아요.",rom:"uri saie ohaega inneun geot gatayo",jp:"私たちの間に誤解があるようです"},
+{cat:"対立・葛藤の表現",ne:"그 문제로 친구랑 싸웠어요.",rom:"geu munjero chingurang ssawosseoyo",jp:"その問題で友達と喧嘩しました"},
+{cat:"対立・葛藤の表現",ne:"서로 입장이 너무 달라요.",rom:"seoro ipjangi neomu dallayo",jp:"お互いの立場がとても違います"},
+{cat:"対立・葛藤の表現",ne:"제 잘못을 인정할게요.",rom:"je jalmoseul injeonghalgeyo",jp:"私の過ちを認めます"},
+{cat:"対立・葛藤の表現",ne:"더 이상 싸우고 싶지 않아요.",rom:"deo isang ssaugo sipji anayo",jp:"もう喧嘩したくありません"},
+{cat:"対立・葛藤の表現",ne:"우리 대화로 풀 수 있을까요?",rom:"uri daehwaro pul su isseulkkayo?",jp:"私たち話し合いで解決できるでしょうか？"},
+{cat:"対立・葛藤の表現",ne:"감정적으로 대응하지 말아요.",rom:"gamjeongjeogeuro daeeunghaji marayo",jp:"感情的に対応しないでください"},
+{cat:"その他・慣用句的表現",ne:"콩 심은 데 콩 나고 팥 심은 데 팥 난다.",rom:"kong simeun de kong nago pat simeun de pat nanda",jp:"蒔かぬ種は生えぬ"},
+{cat:"その他・慣用句的表現",ne:"시작이 반이다.",rom:"sijagi banida",jp:"始めが半分だ"},
+{cat:"その他・慣用句的表現",ne:"아니 땐 굴뚝에 연기 날까?",rom:"ani ttaen gulttuk-e yeon-gi nalkka?",jp:"火のない所に煙は立たない"},
+{cat:"その他・慣用句的表現",ne:"가는 날이 장날이다.",rom:"ganeun nari jangnarida",jp:"行った日が市の日だ"},
+{cat:"その他・慣用句的表現",ne:"싼 게 비지떡이다.",rom:"ssan ge bijitteogida",jp:"安物は粗悪だ"},
+{cat:"その他・慣用句的表現",ne:"낮말은 새가 듣고 밤말은 쥐가 듣는다.",rom:"nanmareun saega deutgo bammareun jwiga deutneunda",jp:"壁に耳あり障子に目あり"},
+{cat:"その他・慣用句的表現",ne:"고생 끝에 낙이 온다.",rom:"gosaeng kkeute nagi onda",jp:"苦労の後に楽しみが来る"},
+{cat:"意見・考えの表現",ne:"제 생각에는 그게 좋을 것 같아요.",rom:"je saenggageneun geuge joeul geot gatayo",jp:"私の考えでは、それがいいと思います。"},
+{cat:"意見・考えの表現",ne:"제 의견으로는 이 방법이 더 효과적이에요.",rom:"je uigyeoneuro-neun i bangbeobi deo hyogwajeoieyo",jp:"私の意見としては、この方法がより効果的です。"},
+{cat:"意見・考えの表現",ne:"저는 이렇게 생각해요.",rom:"jeoneun ireoke saenggakaeyo",jp:"私はこう思います。"},
+{cat:"意見・考えの表現",ne:"솔직히 말하면, 저는 반대예요.",rom:"soljikhi malhamyeon, jeoneun bandaeyeyo",jp:"正直に言うと、私は反対です。"},
+{cat:"意見・考えの表現",ne:"개인적으로 저는 찬성이에요.",rom:"gaeinjeogeueo jeoneun chansengieyo",jp:"個人的に私は賛成です。"},
+{cat:"意見・考えの表現",ne:"이게 최선의 방법이라고 생각해요.",rom:"ige choeseone bangbeobirago saenggakaeyo",jp:"これが最善の方法だと思います。"},
+{cat:"意見・考えの表現",ne:"그것은 좋은 생각인 것 같아요.",rom:"geugeoseun joeun saenggagin geot gatayo",jp:"それはいい考えだと思います。"},
+{cat:"意見・考えの表現",ne:"저는 다르게 생각해요.",rom:"jeoneun dareuge saenggakaeyo",jp:"私は違うように思います。"},
+{cat:"意見・考えの表現",ne:"그건 제 생각과 달라요.",rom:"geugeon je saenggakgwa dallayo",jp:"それは私の考えと違います。"},
+{cat:"意見・考えの表現",ne:"일리 있는 말이에요.",rom:"illi itneun marieyo",jp:"一理ある話です。"},
+{cat:"意見・考えの表現",ne:"그 점에 대해서는 동의해요.",rom:"geu jeome daehaeseo-neun donguihaeyo",jp:"その点については同意します。"},
+{cat:"意見・考えの表現",ne:"그 부분은 동의하기 어려워요.",rom:"geu bubuneun donguihagi eolyeowoyo",jp:"その部分には同意しかねます。"},
+{cat:"意見・考えの表現",ne:"확실히 그렇다고 말하기 어려워요.",rom:"hwaksilhi geureotago malhagi eolyeowoyo",jp:"確実にそうだとは言い難いです。"},
+{cat:"意見・考えの表現",ne:"아직 결정하지 못했어요.",rom:"ajik gyeoljeonghaji motaesseoyo",jp:"まだ決めていません。"},
+{cat:"意見・考えの表現",ne:"완전히 동의해요.",rom:"wanjeonhi donguihaeyo",jp:"完全に同意します。"},
+{cat:"意見・考えの表現",ne:"정말 그래요.",rom:"jeongmal geuraeyo",jp:"本当にそうですね。"},
+{cat:"意見・考えの表現",ne:"그 말이 맞아요.",rom:"geu mari majayo",jp:"その通りです。"},
+{cat:"意見・考えの表現",ne:"저도 같은 의견이에요.",rom:"jeodo gateun uigyeonieyo",jp:"私も同じ意見です。"},
+{cat:"意見・考えの表現",ne:"그렇게 하는 게 좋겠어요.",rom:"geureoke haneun ge jokkesseoyo",jp:"そうするのがいいでしょう。"},
+{cat:"意見・考えの表現",ne:"물론이죠.",rom:"mullonijoyo",jp:"もちろんです。"},
+{cat:"意見・考えの表現",ne:"당연하죠.",rom:"dangyeonhajyo",jp:"当然です。"},
+{cat:"意見・考えの表現",ne:"틀림없이 그래요.",rom:"teullimeopsi geuraeyo",jp:"間違いなくそうです。"},
+{cat:"意見・考えの表現",ne:"좋은 지적이에요.",rom:"joeun jijeo-gieyo",jp:"いい指摘です。"},
+{cat:"意見・考えの表現",ne:"그 관점은 설득력이 있어요.",rom:"geu gwanjeomeun seoldeukryeogi isseoyo",jp:"その観点は説得力があります。"},
+{cat:"意見・考えの表現",ne:"저는 반대예요.",rom:"jeoneun bandaeyeyo",jp:"私は反対です。"},
+{cat:"意見・考えの表現",ne:"그렇게 생각하지 않아요.",rom:"geureoke saenggakaji anayo",jp:"そうは思いません。"},
+{cat:"意見・考えの表現",ne:"그건 아닌 것 같아요.",rom:"geugeon anin geot gatayo",jp:"それは違うと思います。"},
+{cat:"意見・考えの表現",ne:"그 의견에는 동의할 수 없어요.",rom:"geu uigyeoneneneun donguihal su eopseoyo",jp:"その意見には同意できません。"},
+{cat:"意見・考えの表現",ne:"그렇게 간단한 문제가 아니에요.",rom:"geureoke gandanhan munjega anieyo",jp:"そんなに簡単な問題ではありません。"},
+{cat:"意見・考えの表現",ne:"다른 시각에서 봐야 해요.",rom:"dareun sigageseo bwaya haeyo",jp:"違う視点から見なければなりません。"},
+{cat:"意見・考えの表現",ne:"그건 좀 다른 이야기예요.",rom:"geugeon jom dareun iyagiyeyo",jp:"それはちょっと違う話です。"},
+{cat:"意見・考えの表現",ne:"꼭 그렇다고 할 수 없어요.",rom:"kkok geureotago hal su eopseoyo",jp:"必ずしもそうとは言えません。"},
+{cat:"意見・考えの表現",ne:"잠깐만요, 그건 맞지 않아요.",rom:"jamkkanmanyo, geugeon matji anayo",jp:"ちょっと待ってください、それは正しくありません。"},
+{cat:"意見・考えの表現",ne:"그 부분은 재고해 볼 필요가 있어요.",rom:"geu bubuneun jaegohae bol piryoga isseoyo",jp:"その部分は再考する必要があります。"},
+{cat:"意見・考えの表現",ne:"존중하지만, 저는 다른 입장이에요.",rom:"jonjunghajiman, jeoneun dareun ipjangieyo",jp:"尊重しますが、私は違う立場です。"},
+{cat:"意見・考えの表現",ne:"그 논리에는 문제가 있어요.",rom:"geu nonrieneneun munjega isseoyo",jp:"その論理には問題があります。"},
+{cat:"意見・考えの表現",ne:"어느 정도는 맞아요.",rom:"eoneu jeongdoneun majayo",jp:"ある程度は正しいです。"},
+{cat:"意見・考えの表現",ne:"그 점은 인정해요.",rom:"geu jeomeun injeeonghaeyo",jp:"その点は認めます。"},
+{cat:"意見・考えの表現",ne:"그럴 수도 있어요.",rom:"geureol sudo isseoyo",jp:"そうかもしれません。"},
+{cat:"意見・考えの表現",ne:"경우에 따라 다르죠.",rom:"gyeongue ttara dareujyo",jp:"場合によりますね。"},
+{cat:"意見・考えの表現",ne:"그렇긴 하지만...",rom:"geureokin hajiman...",jp:"それはそうですが..."},
+{cat:"意見・考えの表現",ne:"일부는 동의하지만 전체적으로는 아니에요.",rom:"ilbuneun donguihajiman jeonchejeogeuro-neun anieyo",jp:"一部は同意しますが、全体的にはそうではありません。"},
+{cat:"意見・考えの表現",ne:"그 관점도 이해해요.",rom:"geu gwanjeomdo ihaehaeyo",jp:"その観点も理解できます。"},
+{cat:"意見・考えの表現",ne:"그렇게 볼 수도 있겠네요.",rom:"geureoke bol sudo itgenneyo",jp:"そう見ることもできますね。"},
+{cat:"意見・考えの表現",ne:"확실하지 않지만, 아마 그럴 거예요.",rom:"hwaksilhaji anchiman, ama geureol geoyeyo",jp:"確かではありませんが、おそらくそうでしょう。"},
+{cat:"意見・考えの表現",ne:"조금 더 생각해 봐야 할 것 같아요.",rom:"jogeum deo saenggakae bwaya hal geot gatayo",jp:"もう少し考えてみる必要がありそうです。"},
+{cat:"理由・原因・結果の詳細表現",ne:"비가 오기 때문에 외출을 안 할 거예요.",rom:"biga ogi ttaemune oechureul an hal geoyeyo",jp:"雨が降るので外出しません。"},
+{cat:"理由・原因・結果の詳細表現",ne:"시간이 없어서 갈 수 없었어요.",rom:"sigani eopseoseo gal su eopseosseoyo",jp:"時間がなくて行けませんでした。"},
+{cat:"理由・原因・結果の詳細表現",ne:"건강 때문에 술을 끊었어요.",rom:"geongang ttaemune sureul kkeuneosseoyo",jp:"健康のためにお酒をやめました。"},
+{cat:"理由・原因・結果の詳細表現",ne:"교통이 불편해서 이사하려고요.",rom:"gyotongi bulpyeonhaeseo isaharyeogoyo",jp:"交通が不便なので引っ越そうと思っています。"},
+{cat:"理由・原因・結果の詳細表現",ne:"가격이 비싸서 못 샀어요.",rom:"gagyeogi bissaseo mot sasseoyo",jp:"値段が高くて買えませんでした。"},
+{cat:"理由・原因・結果の詳細表現",ne:"일이 많아서 퇴근이 늦어요.",rom:"iri manaseo toegeuni neujoyo",jp:"仕事が多くて退勤が遅いです。"},
+{cat:"理由・原因・結果の詳細表現",ne:"피곤하니까 일찍 자고 싶어요.",rom:"pigonhanikka iljjik jago sipeoyo",jp:"疲れているから早く寝たいです。"},
+{cat:"理由・原因・結果の詳細表現",ne:"한국어를 배우고 싶어서 한국에 왔어요.",rom:"hangugeoreul baeugo sipeoseo hanguge wasseoyo",jp:"韓国語を学びたくて韓国に来ました。"},
+{cat:"理由・原因・結果の詳細表現",ne:"그 사람이 친절해서 좋아요.",rom:"geu sarami chinjeolhaeseo joayo",jp:"その人が親切なので好きです。"},
+{cat:"理由・原因・結果の詳細表現",ne:"실수한 게 부끄러워서 말을 못 했어요.",rom:"silsuhan ge bukkeurewoseo mareul mot haesseoyo",jp:"失敗したのが恥ずかしくて言えませんでした。"},
+{cat:"理由・原因・結果の詳細表現",ne:"경험이 부족해서 실패했어요.",rom:"gyeongheomi bujokhaeseo silpaehaesseoyo",jp:"経験が不足していて失敗しました。"},
+{cat:"理由・原因・結果の詳細表現",ne:"준비를 잘해서 성공할 수 있었어요.",rom:"junbireul jalhaeseo seonggonghal su isseosseoyo",jp:"準備をしっかりしたから成功できました。"},
+{cat:"理由・原因・結果の詳細表現",ne:"이 문제의 원인은 소통 부족이에요.",rom:"i munje-ui wonineun sotong bujogieyo",jp:"この問題の原因はコミュニケーション不足です。"},
+{cat:"理由・原因・結果の詳細表現",ne:"실패한 이유가 뭐예요?",rom:"silpaehan iyuga mwoyeyo?",jp:"失敗した理由は何ですか？"},
+{cat:"理由・原因・結果の詳細表現",ne:"그것 때문에 문제가 생겼어요.",rom:"geugeot ttaemune munjega saenggyeosseoyo",jp:"それのせいで問題が起きました。"},
+{cat:"理由・原因・結果の詳細表現",ne:"날씨 탓에 경기가 취소됐어요.",rom:"nalssi tase gyeonggiga chwisosdwaesseoyo",jp:"天候のせいで試合がキャンセルになりました。"},
+{cat:"理由・原因・結果の詳細表現",ne:"그건 전적으로 제 잘못이에요.",rom:"geugeon jeonjeogeuro je jalmosieyo",jp:"それは全面的に私のせいです。"},
+{cat:"理由・原因・結果の詳細表現",ne:"누구의 잘못도 아니에요.",rom:"nuguui jalmotdo anieyo",jp:"誰のせいでもありません。"},
+{cat:"理由・原因・結果の詳細表現",ne:"여러 가지 이유로 그렇게 됐어요.",rom:"yeoreo gaji iyuro geureoke dwaesseoyo",jp:"いろいろな理由でそうなりました。"},
+{cat:"理由・原因・結果の詳細表現",ne:"주된 이유는 자금 부족이에요.",rom:"judoen iyuneun jageum bujogieyo",jp:"主な理由は資金不足です。"},
+{cat:"理由・原因・結果の詳細表現",ne:"이유를 모르겠어요.",rom:"iyureul moreugesseoyo",jp:"理由がわかりません。"},
+{cat:"理由・原因・結果の詳細表現",ne:"그래서 그런 거였군요.",rom:"geuraeseo geureon geoyeotgunyo",jp:"だからそうだったんですね。"},
+{cat:"理由・原因・結果の詳細表現",ne:"그래서 결국 포기했어요.",rom:"geuraeseo gyeolguk pogihaesseoyo",jp:"それで結局あきらめました。"},
+{cat:"理由・原因・結果の詳細表現",ne:"그 결과 성과를 얻을 수 있었어요.",rom:"geu gyeolgwa seonggwareul eodeul su isseosseoyo",jp:"その結果、成果を得ることができました。"},
+{cat:"理由・原因・結果の詳細表現",ne:"노력한 덕분에 합격했어요.",rom:"noryeokhan deokbune hapgyeokhaesseoyo",jp:"努力したおかげで合格しました。"},
+{cat:"理由・原因・結果の詳細表現",ne:"그 덕분에 많이 배웠어요.",rom:"geu deokbune mani baewosseoyo",jp:"そのおかげでたくさん学びました。"},
+{cat:"理由・原因・結果の詳細表現",ne:"실수한 바람에 일이 복잡해졌어요.",rom:"silsuhan barame iri bokjapaejyeosseoyo",jp:"失敗したせいで事が複雑になりました。"},
+{cat:"理由・原因・結果の詳細表現",ne:"늦잠을 자는 바람에 지각했어요.",rom:"neutjameul janeun barame jigakaesseoyo",jp:"寝坊したせいで遅刻しました。"},
+{cat:"理由・原因・結果の詳細表現",ne:"그렇게 해서 문제가 해결됐어요.",rom:"geureoke haeseo munjega haegyeoldwaesseoyo",jp:"そうして問題が解決しました。"},
+{cat:"理由・原因・結果の詳細表現",ne:"결과적으로 좋았어요.",rom:"gyeolgwajeogeuro joasseoyo",jp:"結果的に良かったです。"},
+{cat:"理由・原因・結果の詳細表現",ne:"끝내 성공하지 못했어요.",rom:"kkeunnae seonggonghaji motaesseoyo",jp:"結局成功できませんでした。"},
+{cat:"理由・原因・結果の詳細表現",ne:"마침내 목표를 달성했어요.",rom:"machimnae mokpyoreul dalseonghaesseoyo",jp:"ついに目標を達成しました。"},
+{cat:"理由・原因・結果の詳細表現",ne:"그러니까 조심해야 해요.",rom:"geureonikka josimhaeya haeyo",jp:"だから気をつけなければなりません。"},
+{cat:"理由・原因・結果の詳細表現",ne:"따라서 이렇게 결정했어요.",rom:"ttaraseo ireoke gyeoljeonghaesseoyo",jp:"したがってこのように決定しました。"},
+{cat:"理由・原因・結果の詳細表現",ne:"그러므로 더 노력해야 해요.",rom:"geureomeuro deo noryeokaeya haeyo",jp:"それゆえもっと努力しなければなりません。"},
+{cat:"理由・原因・結果の詳細表現",ne:"그런 까닭에 실패한 거예요.",rom:"geureon kkadage silpaehan geoyeyo",jp:"そういうわけで失敗したのです。"},
+{cat:"理由・原因・結果の詳細表現",ne:"이로 인해 많은 피해가 발생했어요.",rom:"iro inhae maneun pihaega balsaenghaesseoyo",jp:"これにより多くの被害が発生しました。"},
+{cat:"理由・原因・結果の詳細表現",ne:"그로 인해서 일이 지연됐어요.",rom:"geuro inhaeseo iri jiyeondwaesseoyo",jp:"それによって仕事が遅延しました。"},
+{cat:"理由・原因・結果の詳細表現",ne:"결국에는 좋은 결과가 나왔어요.",rom:"gyeolgu-geneun joeun gyeolgwaga nawasseoyo",jp:"結局は良い結果が出ました。"},
+{cat:"理由・原因・結果の詳細表現",ne:"이렇게 해서 문제가 생긴 거예요.",rom:"ireoke haeseo munjega saenggin geoyeyo",jp:"こうして問題が起きたのです。"},
+{cat:"仮定・条件表現",ne:"시간이 있으면 같이 가요.",rom:"sigani isseumyeon gachi gayo",jp:"時間があれば一緒に行きましょう。"},
+{cat:"仮定・条件表現",ne:"날씨가 좋으면 소풍을 갈 거예요.",rom:"nalssiga joueumyeon sopungeul gal geoyeyo",jp:"天気が良ければピクニックに行きます。"},
+{cat:"仮定・条件表現",ne:"질문이 있으면 말해 주세요.",rom:"jilmuni isseumyeon malhae juseyo",jp:"質問があれば言ってください。"},
+{cat:"仮定・条件表現",ne:"필요하면 연락 주세요.",rom:"piryohamyeon yeollak juseyo",jp:"必要ならば連絡ください。"},
+{cat:"仮定・条件表現",ne:"가능하면 내일 만나고 싶어요.",rom:"ganeunghamyeon naeil mannago sipeoyo",jp:"可能なら明日会いたいです。"},
+{cat:"仮定・条件表現",ne:"돈이 있으면 여행을 갈 텐데.",rom:"doni isseumyeon yeohaengeul gal tende",jp:"お金があれば旅行に行くのに。"},
+{cat:"仮定・条件表現",ne:"더 공부하면 합격할 수 있을 거예요.",rom:"deo gongbuhamyeon hapgyeokhal su isseul geoyeyo",jp:"もっと勉強すれば合格できるでしょう。"},
+{cat:"仮定・条件表現",ne:"열심히 하면 성공할 수 있어요.",rom:"yeolsimhi hamyeon seonggonghal su isseoyo",jp:"一生懸命やれば成功できます。"},
+{cat:"仮定・条件表現",ne:"일찍 출발하면 늦지 않을 거예요.",rom:"iljjik chulbalhamyeon neutji aneul geoyeyo",jp:"早く出発すれば遅れないでしょう。"},
+{cat:"仮定・条件表現",ne:"약을 먹으면 나을 거예요.",rom:"yageul meogeumyeon naeul geoyeyo",jp:"薬を飲めば治るでしょう。"},
+{cat:"仮定・条件表現",ne:"그때 더 열심히 했으면 좋았을 텐데.",rom:"geuttae deo yeolsimhi haesseumyeon joasseul tende",jp:"あの時もっと一生懸命やっていれば良かったのに。"},
+{cat:"仮定・条件表現",ne:"미리 알았으면 가지 않았을 거예요.",rom:"miri arasseumyeon gaji anasseul geoyeyo",jp:"事前に知っていたら行かなかったでしょう。"},
+{cat:"仮定・条件表現",ne:"더 일찍 일어났으면 좋았을 텐데요.",rom:"deo iljjik ireonasseumyeon joasseul tendeoyo",jp:"もっと早く起きれば良かったのに。"},
+{cat:"仮定・条件表現",ne:"그 말을 안 했으면 좋았을걸.",rom:"geu mareul an haesseumyeon joasseulgeol",jp:"あの言葉を言わなければ良かったな。"},
+{cat:"仮定・条件表現",ne:"돈이 더 있었으면 살 수 있었을 텐데.",rom:"doni deo isseosseumyeon sal su isseosseul tende",jp:"お金がもっとあれば買えたのに。"},
+{cat:"仮定・条件表現",ne:"한국어를 더 잘했으면 좋겠어요.",rom:"hangugeoreul deo jalhaesseumyeon jokesseoyo",jp:"韓国語がもっと上手だったらいいのに。"},
+{cat:"仮定・条件表現",ne:"제가 그 자리에 있었으면 도왔을 거예요.",rom:"jega geu jarie isseosseumyeon dowasseul geoyeyo",jp:"私がその場にいたら助けたでしょう。"},
+{cat:"仮定・条件表現",ne:"사고가 없었으면 지금쯤 도착했을 거예요.",rom:"sagoga eopseosseumyeon jigeumjjeum dochakaesseul geoyeyo",jp:"事故がなければ今頃到着していたでしょう。"},
+{cat:"仮定・条件表現",ne:"그 사람을 만나지 않았으면 지금 저는 여기 없었을 거예요.",rom:"geu sarameul mannaji anasseumyeon jigeum jeoneun yeogi eopseosseul geoyeyo",jp:"その人に会わなかったら今私はここにいなかったでしょう。"},
+{cat:"仮定・条件表現",ne:"다시 태어난다면 뭘 하고 싶어요?",rom:"dasi taeeeonandamyeon mwol hago sipeoyo?",jp:"生まれ変わったら何をしたいですか？"},
+{cat:"仮定・条件表現",ne:"꼭 해야 한다면 할게요.",rom:"kkok haeya handamyeon halgeyo",jp:"どうしてもやらなければならないならやります。"},
+{cat:"仮定・条件表現",ne:"그게 사실이라면 큰일이에요.",rom:"geuge sasiriralmyeon keunirieyo",jp:"それが事実なら大変です。"},
+{cat:"仮定・条件表現",ne:"만약에 그렇다면 다시 생각해 봐야 해요.",rom:"manyage geurotamyeon dasi saenggakae bwaya haeyo",jp:"もしそうなら再考しなければなりません。"},
+{cat:"仮定・条件表現",ne:"설령 실패하더라도 후회하지 않을 거예요.",rom:"seollyeong silpaehadeeorado huhoeheji aneul geoyeyo",jp:"たとえ失敗しても後悔しません。"},
+{cat:"仮定・条件表現",ne:"비록 어렵더라도 포기하지 마세요.",rom:"birok eoryeopdeolado pogihaji maseyo",jp:"たとえ難しくても諦めないでください。"},
+{cat:"仮定・条件表現",ne:"아무리 바빠도 밥은 먹어야 해요.",rom:"amuri bappado babeun meogeooya haeyo",jp:"どんなに忙しくてもご飯は食べなければなりません。"},
+{cat:"仮定・条件表現",ne:"누가 뭐라고 해도 제 결정을 바꾸지 않을 거예요.",rom:"nuga mworago haedo je gyeoljeongeul bakkuji aneul geoyeyo",jp:"誰が何と言っても私の決定は変えません。"},
+{cat:"仮定・条件表現",ne:"어떤 상황에서도 포기하면 안 돼요.",rom:"eotteon sanghwangeseodo pogihamyeon an dwaeyo",jp:"どんな状況でも諦めてはいけません。"},
+{cat:"仮定・条件表現",ne:"노력하지 않으면 성공할 수 없어요.",rom:"noryeokaji anueumyeon seonggonghal su eopseoyo",jp:"努力しなければ成功できません。"},
+{cat:"仮定・条件表現",ne:"직접 보지 않는 한 믿을 수 없어요.",rom:"jikjeop boji anneun han mideul su eopseoyo",jp:"直接見ない限り信じられません。"},
+{cat:"仮定・条件表現",ne:"연습해야만 실력이 늘어요.",rom:"yeonseupaeyaman sillyeogi neureoyo",jp:"練習してこそ実力が伸びます。"},
+{cat:"仮定・条件表現",ne:"경험해 봐야 알 수 있어요.",rom:"gyeongheomhae bwaya al su isseoyo",jp:"経験してみてこそわかります。"},
+{cat:"仮定・条件表現",ne:"해 봐야 알죠.",rom:"hae bwaya aljyo",jp:"やってみなければわかりません。"},
+{cat:"仮定・条件表現",ne:"물어봐야 소용없어요.",rom:"mureobwaya soyongeopsseoyo",jp:"聞いても無駄です。"},
+{cat:"仮定・条件表現",ne:"서두르지 않으면 늦을 거예요.",rom:"seodureuji anueumyeon neujeul geoyeyo",jp:"急がないと遅れますよ。"},
+{cat:"仮定・条件表現",ne:"건강하지 않으면 아무것도 할 수 없어요.",rom:"geonganghaji anueumyeon amugeotdo hal su eopseoyo",jp:"健康でなければ何もできません。"},
+{cat:"比較・対照の高度な表現",ne:"이게 그것보다 더 좋아요.",rom:"ige geugeotboda deo joayo",jp:"これはそれより良いです。"},
+{cat:"比較・対照の高度な表現",ne:"서울은 도쿄보다 물가가 싸요.",rom:"seoureun tokyoboda mulgaga ssayo",jp:"ソウルは東京より物価が安いです。"},
+{cat:"比較・対照の高度な表現",ne:"오늘이 어제보다 더 추워요.",rom:"oneuri eojeboda deo chuwoyo",jp:"今日は昨日より寒いです。"},
+{cat:"比較・対照の高度な表現",ne:"형보다 동생이 키가 더 커요.",rom:"hyeongboda dongsaengi kiga deo keoyo",jp:"兄より弟の方が背が高いです。"},
+{cat:"比較・対照の高度な表現",ne:"버스보다 지하철이 더 빨라요.",rom:"beosueboda jihacheori deo ppallayo",jp:"バスより地下鉄の方が速いです。"},
+{cat:"比較・対照の高度な表現",ne:"이 식당이 저 식당보다 맛있어요.",rom:"i sikdangi jeo sikdangboda masisseoyo",jp:"このレストランはあのレストランより美味しいです。"},
+{cat:"比較・対照の高度な表現",ne:"한국어가 영어보다 더 어려워요.",rom:"hangugeoga yeongeoboda deo eolyeowoyo",jp:"韓国語は英語より難しいです。"},
+{cat:"比較・対照の高度な表現",ne:"작년보다 올해 성적이 좋아졌어요.",rom:"jaknyeonboda olhae seongjeogi joajyeosseoyo",jp:"去年より今年は成績が良くなりました。"},
+{cat:"比較・対照の高度な表現",ne:"생각보다 어려웠어요.",rom:"saenggakboda eoryeowosseoyo",jp:"思ったより難しかったです。"},
+{cat:"比較・対照の高度な表現",ne:"이게 가장 비싸요.",rom:"ige gajang bissayo",jp:"これが最も高いです。"},
+{cat:"比較・対照の高度な表現",ne:"그 사람이 우리 반에서 가장 똑똑해요.",rom:"geu sarami uri baneseo gajang ttokttokaeyo",jp:"その人が私たちのクラスで一番頭がいいです。"},
+{cat:"比較・対照の高度な表現",ne:"이 영화가 올해 최고였어요.",rom:"i yeonghwaga olhae choegoyeosseoyo",jp:"この映画が今年最高でした。"},
+{cat:"比較・対照の高度な表現",ne:"지금까지 먹어 본 것 중에 제일 맛있어요.",rom:"jigeumkkaji meogeo bon geot junge jeil masisseoyo",jp:"今まで食べた中で一番美味しいです。"},
+{cat:"比較・対照の高度な表現",ne:"이번 시험이 지금까지 중에서 가장 어려웠어요.",rom:"ibeon siheomi jigeumkkaji jungeseo gajang eoryeowosseoyo",jp:"今回の試験がこれまでで一番難しかったです。"},
+{cat:"比較・対照の高度な表現",ne:"그녀가 내가 만난 사람 중에서 가장 친절해요.",rom:"geunyeoga naega mannan saram jungeseo gajang chinjeolhaeyo",jp:"彼女は私が会った人の中で一番親切です。"},
+{cat:"比較・対照の高度な表現",ne:"세계에서 가장 높은 산은 에베레스트예요.",rom:"segyeeseo gajang nopaeun saneun ebeureseuteuyeyo",jp:"世界で一番高い山はエベレストです。"},
+{cat:"比較・対照の高度な表現",ne:"저도 당신만큼 열심히 일해요.",rom:"jeodo dangsinmankeum yeolsimhi ilhaeyo",jp:"私もあなたと同じくらい一生懸命働きます。"},
+{cat:"比較・対照の高度な表現",ne:"그 사람처럼 되고 싶어요.",rom:"geu saramcheoreom doego sipeoyo",jp:"その人のようになりたいです。"},
+{cat:"比較・対照の高度な表現",ne:"이것과 저것은 비슷해요.",rom:"igeotgwa jeogeoseun biseutaeyo",jp:"これとあれは似ています。"},
+{cat:"比較・対照の高度な表現",ne:"둘 다 거의 같아요.",rom:"dul da geoui gatayo",jp:"二つともほぼ同じです。"},
+{cat:"比較・対照の高度な表現",ne:"가격은 비슷한데 품질이 달라요.",rom:"gagyeogeun biseutan-de pumjiri dallayo",jp:"価格は似ていますが品質が違います。"},
+{cat:"比較・対照の高度な表現",ne:"형제니까 닮았어요.",rom:"hyeongjenikka dalmassseoyo",jp:"兄弟だから似ています。"},
+{cat:"比較・対照の高度な表現",ne:"그녀와 똑같은 가방을 샀어요.",rom:"geunyeowa ttokgateun gabangeul sasseoyo",jp:"彼女と全く同じカバンを買いました。"},
+{cat:"比較・対照の高度な表現",ne:"아버지를 많이 닮았네요.",rom:"abeojireul mani dalmanneyo",jp:"お父さんにとても似ていますね。"},
+{cat:"比較・対照の高度な表現",ne:"쌍둥이처럼 닮았어요.",rom:"ssangdungicheoreom dalmassseoyo",jp:"双子のように似ています。"},
+{cat:"比較・対照の高度な表現",ne:"저는 커피를 좋아하는 반면에 동생은 차를 좋아해요.",rom:"jeoneun keopireul joahaneun banmyeone dongsaengeun chareul joahaeyo",jp:"私はコーヒーが好きな反面、弟はお茶が好きです。"},
+{cat:"比較・対照の高度な表現",ne:"외모는 비슷하지만 성격은 완전히 달라요.",rom:"oemoneun biseutajiman seonggyeogeun wanjeonhi dallayo",jp:"外見は似ていますが性格は全然違います。"},
+{cat:"比較・対照の高度な表現",ne:"이론적으로는 가능하지만 현실적으로는 어려워요.",rom:"ironjeogeuro-neun ganeunghajiman hyeonsiljeogero-neun eoryeowoyo",jp:"理論的には可能ですが現実的には難しいです。"},
+{cat:"比較・対照の高度な表現",ne:"가격은 비싼데 비해서 품질은 별로예요.",rom:"gagyeogeun bissande bihaeseo pumjireun byeolloyeyo",jp:"価格が高い割には品質はいまいちです。"},
+{cat:"比較・対照の高度な表現",ne:"노력한 것에 비해서 결과가 안 좋았어요.",rom:"noryeokhan geose bihaeseo gyeolgwaga an joasseoyo",jp:"努力した割には結果が良くなかったです。"},
+{cat:"比較・対照の高度な表現",ne:"한쪽은 찬성하고 다른 쪽은 반대해요.",rom:"hanjjogeun chansonghago dareun jjogeun bandaehaeyo",jp:"一方は賛成し、もう一方は反対しています。"},
+{cat:"比較・対照の高度な表現",ne:"장점도 있고 단점도 있어요.",rom:"jangjeomdo itgo danjeomdo isseoyo",jp:"長所もあり短所もあります。"},
+{cat:"比較・対照の高度な表現",ne:"그와 달리 저는 다른 의견이에요.",rom:"geuwa dalli jeoneun dareun uigyeonieyo",jp:"彼とは異なり私は違う意見です。"},
+{cat:"推測・予想表現",ne:"아마 비가 올 거예요.",rom:"ama biga ol geoyeyo",jp:"おそらく雨が降るでしょう。"},
+{cat:"推測・予想表現",ne:"그 사람은 지금 바쁠 거예요.",rom:"geu sarameun jigeum bappeul geoyeyo",jp:"その人は今忙しいでしょう。"},
+{cat:"推測・予想表現",ne:"벌써 집에 도착했을 거예요.",rom:"beolsseo jibe dochakaesseul geoyeyo",jp:"もう家に着いたでしょう。"},
+{cat:"推測・予想表現",ne:"그럴지도 몰라요.",rom:"geureoljido mollayo",jp:"そうかもしれません。"},
+{cat:"推測・予想表現",ne:"아마도 그렇겠죠.",rom:"amado geureokkejyo",jp:"おそらくそうでしょう。"},
+{cat:"推測・予想表現",ne:"틀림없이 성공할 거예요.",rom:"teullimeopsi seonggonghal geoyeyo",jp:"間違いなく成功するでしょう。"},
+{cat:"推測・予想表現",ne:"어쩌면 취소될 수도 있어요.",rom:"eojjeomyeon chwisosdoel sudo isseoyo",jp:"ひょっとしたらキャンセルになるかもしれません。"},
+{cat:"推測・予想表現",ne:"혹시 그 사람이 범인일지도 몰라요.",rom:"hoksi geu sarami beoeminiljido mollayo",jp:"もしかしたらその人が犯人かもしれません。"},
+{cat:"推測・予想表現",ne:"내일 눈이 올 것 같아요.",rom:"naeil nuni ol geot gatayo",jp:"明日雪が降りそうです。"},
+{cat:"推測・予想表現",ne:"좀 어려울 것 같아요.",rom:"jom eoryeoul geot gatayo",jp:"ちょっと難しそうです。"},
+{cat:"推測・予想表現",ne:"그건 아닐 것 같아요.",rom:"geugeon anil geot gatayo",jp:"それは違うと思います。"},
+{cat:"推測・予想表現",ne:"맞을 거라고 생각해요.",rom:"majeul georago saenggakaeyo",jp:"正しいと思います。"},
+{cat:"推測・予想表現",ne:"100% 확실해요.",rom:"baek peossenteu hwaksilhaeyo",jp:"100％確実です。"},
+{cat:"推測・予想表現",ne:"거의 확실해요.",rom:"geoui hwaksilhaeyo",jp:"ほぼ確実です。"},
+{cat:"推測・予想表現",ne:"아마 그럴 거예요.",rom:"ama geureol geoyeyo",jp:"おそらくそうでしょう。"},
+{cat:"推測・予想表現",ne:"그럴 가능성이 높아요.",rom:"geureol ganeungseongi nopayo",jp:"その可能性が高いです。"},
+{cat:"推測・予想表現",ne:"확실하지 않아요.",rom:"hwaksilhaji anayo",jp:"確実ではありません。"},
+{cat:"推測・予想表現",ne:"그럴 리가 없어요.",rom:"geureol riga eopseoyo",jp:"そんなはずはありません。"},
+{cat:"推測・予想表現",ne:"절대 아니에요.",rom:"jeoldae anieyo",jp:"絶対違います。"},
+{cat:"推測・予想表現",ne:"설마 그럴 리가요.",rom:"seolma geureol rigayo",jp:"まさかそんなことはないでしょう。"},
+{cat:"推測・予想表現",ne:"글쎄요, 잘 모르겠는데요.",rom:"geulsseyo, jal moregenneundeyo",jp:"さあ、よくわかりませんが。"},
+{cat:"推測・予想表現",ne:"내년에는 경기가 좋아질 것으로 예상해요.",rom:"naenyeoneneun gyeonggiga joajil geoseuro yesanghaeyo",jp:"来年は景気が良くなると予想しています。"},
+{cat:"推測・予想表現",ne:"이 프로젝트는 성공할 가능성이 커요.",rom:"i peurojekeuneun seonggonghal ganeungseongi keoyo",jp:"このプロジェクトは成功する可能性が高いです。"},
+{cat:"推測・予想表現",ne:"올해 목표를 달성할 수 있을 것 같아요.",rom:"olhae mokpyoreul dalseonghal su isseul geot gatayo",jp:"今年の目標を達成できそうです。"},
+{cat:"推測・予想表現",ne:"일기 예보에 따르면 내일 맑을 거래요.",rom:"ilgi yeboe ttareumyeon naeil malgeul georaeyo",jp:"天気予報によると明日は晴れるそうです。"},
+{cat:"推測・予想表現",ne:"예정대로라면 다음 주에 완성돼요.",rom:"yejeongdaeromyeon daeum jue wanseongdwaeyo",jp:"予定通りなら来週完成します。"},
+{cat:"推測・予想表現",ne:"조만간 좋은 소식이 있을 거예요.",rom:"jomangan joeun sosigi isseul geoyeyo",jp:"近いうちに良い知らせがあるでしょう。"},
+{cat:"推測・予想表現",ne:"시간이 지나면 해결될 거예요.",rom:"sigani jinamyeon haegyeoldoel geoyeyo",jp:"時間が経てば解決するでしょう。"},
+{cat:"推測・予想表現",ne:"상황이 나아질 것으로 보여요.",rom:"sanghwangi naajil geoseuro boyeoyo",jp:"状況は良くなると見られます。"},
+{cat:"推測・予想表現",ne:"표정을 보니까 기분이 안 좋은 것 같아요.",rom:"pyojeongeul bonikka gibuni an joeun geot gatayo",jp:"表情を見ると気分が良くなさそうです。"},
+{cat:"推測・予想表現",ne:"목소리를 들으니까 피곤한 것 같아요.",rom:"moksorireul deureunikka pigonhan geot gatayo",jp:"声を聞くと疲れているようです。"},
+{cat:"推測・予想表現",ne:"이 정황으로 봐서 그가 범인인 것 같아요.",rom:"i jeonghwangeuro bwaseo geuga beominin geot gatayo",jp:"この状況から見て彼が犯人のようです。"},
+{cat:"推測・予想表現",ne:"데이터에 따르면 그렇게 볼 수 있어요.",rom:"deiteoe ttareumyeon geureoke bol su isseoyo",jp:"データによるとそう見ることができます。"},
+{cat:"推測・予想表現",ne:"전문가의 의견으로는 그렇다고 해요.",rom:"jeonmungaui uigyeoneuro-neun geureotago haeyo",jp:"専門家の意見ではそうだということです。"},
+{cat:"推測・予想表現",ne:"경험상 그런 경우가 많아요.",rom:"gyeongheomnsang geureon gyeonguga manayo",jp:"経験上そういう場合が多いです。"},
+{cat:"推測・予想表現",ne:"상식적으로 생각하면 그래야 해요.",rom:"sangsikjeogeuro saenggakamyeon geuraeya haeyo",jp:"常識的に考えればそうすべきです。"},
+{cat:"引用・伝聞表現",ne:"그 사람이 \"내일 만나자\"라고 했어요.",rom:"geu sarami \"naeil mannaja\"rago haesseoyo",jp:"その人が「明日会おう」と言いました。"},
+{cat:"引用・伝聞表現",ne:"선생님이 \"숙제를 하세요\"라고 하셨어요.",rom:"seonsaengnimi \"sukjereul haseyo\"rago hasyeosseoyo",jp:"先生が「宿題をしなさい」とおっしゃいました。"},
+{cat:"引用・伝聞表現",ne:"\"왜 안 왔어요?\"라고 물었어요.",rom:"\"wae an wasseoyo?\"rago mureosseoyo",jp:"「なぜ来なかったんですか？」と聞きました。"},
+{cat:"引用・伝聞表現",ne:"친구가 \"같이 가자\"라고 했어요.",rom:"chinguga \"gachi gaja\"rago haesseoyo",jp:"友達が「一緒に行こう」と言いました。"},
+{cat:"引用・伝聞表現",ne:"엄마가 \"밥 먹어\"라고 하셨어요.",rom:"eommaga \"bap meogeo\"rago hasyeosseoyo",jp:"お母さんが「ご飯食べなさい」と言いました。"},
+{cat:"引用・伝聞表現",ne:"그 사람이 바쁘다고 했어요.",rom:"geu sarami bappeudago haesseoyo",jp:"その人が忙しいと言いました。"},
+{cat:"引用・伝聞表現",ne:"친구가 한국에 간다고 했어요.",rom:"chinguga hanguge gandago haesseoyo",jp:"友達が韓国に行くと言いました。"},
+{cat:"引用・伝聞表現",ne:"뉴스에서 비가 온다고 했어요.",rom:"nyuseueseo biga ondago haesseoyo",jp:"ニュースで雨が降ると言っていました。"},
+{cat:"引用・伝聞表現",ne:"그녀가 결혼했다고 들었어요.",rom:"geunyeoga gyeolhonhaetdago deureosseoyo",jp:"彼女が結婚したと聞きました。"},
+{cat:"引用・伝聞表現",ne:"회의가 취소됐다고 해요.",rom:"hoeuiga chwisoddwaetdago haeyo",jp:"会議がキャンセルになったそうです。"},
+{cat:"引用・伝聞表現",ne:"그 식당이 맛있다고 해요.",rom:"geu sikdangi masissago haeyo",jp:"そのレストランが美味しいそうです。"},
+{cat:"引用・伝聞表現",ne:"이 영화가 재미있다고 들었어요.",rom:"i yeonghwaga jaemiissago deureosseoyo",jp:"この映画が面白いと聞きました。"},
+{cat:"引用・伝聞表現",ne:"내일 날씨가 좋을 거라고 해요.",rom:"naeil nalssiga joeul georago haeyo",jp:"明日天気が良いだろうと言っています。"},
+{cat:"引用・伝聞表現",ne:"경제가 나아질 거라고 전문가들이 말해요.",rom:"gyeongjega naajil georago jeonmungadeuri malhaeyo",jp:"経済が良くなるだろうと専門家たちが言っています。"},
+{cat:"引用・伝聞表現",ne:"그가 내일 온다고 연락이 왔어요.",rom:"geuga naeil ondago yeollagi wasseoyo",jp:"彼が明日来ると連絡がありました。"},
+{cat:"引用・伝聞表現",ne:"언제 오냐고 물었어요.",rom:"eonje onyago mureosseoyo",jp:"いつ来るのかと聞きました。"},
+{cat:"引用・伝聞表現",ne:"뭘 먹을 거냐고 물었어요.",rom:"mwol meogeul geonyago mureosseoyo",jp:"何を食べるのかと聞きました。"},
+{cat:"引用・伝聞表現",ne:"왜 그랬냐고 물었어요.",rom:"wae geuraennyago mureosseoyo",jp:"なぜそうしたのかと聞きました。"},
+{cat:"引用・伝聞表現",ne:"어디 가냐고 했어요.",rom:"eodi ganyago haesseoyo",jp:"どこに行くのかと言いました。"},
+{cat:"引用・伝聞表現",ne:"그 사람이 누구냐고 물었어요.",rom:"geu sarami nuguyago mureosseoyo",jp:"その人が誰かと聞きました。"},
+{cat:"引用・伝聞表現",ne:"이게 뭐냐고 물어봤어요.",rom:"ige mwonyago mureobwasseoyo",jp:"これが何かと聞いてみました。"},
+{cat:"引用・伝聞表現",ne:"참석할 수 있냐고 물었어요.",rom:"chamseokhal su innyago mureosseoyo",jp:"参加できるか聞きました。"},
+{cat:"引用・伝聞表現",ne:"괜찮으냐고 물어봤어요.",rom:"gwaenchanyago mureobwasseoyo",jp:"大丈夫かと聞いてみました。"},
+{cat:"引用・伝聞表現",ne:"빨리 오라고 했어요.",rom:"ppalli orago haesseoyo",jp:"早く来いと言いました。"},
+{cat:"引用・伝聞表現",ne:"조용히 하라고 했어요.",rom:"joyonghi harago haesseoyo",jp:"静かにしろと言いました。"},
+{cat:"引用・伝聞表現",ne:"같이 가자고 했어요.",rom:"gachi gajago haesseoyo",jp:"一緒に行こうと言いました。"},
+{cat:"引用・伝聞表現",ne:"밥을 먹자고 했어요.",rom:"babeul meokjago haesseoyo",jp:"ご飯を食べようと言いました。"},
+{cat:"引用・伝聞表現",ne:"기다리라고 했어요.",rom:"gidaryirago haesseoyo",jp:"待てと言いました。"},
+{cat:"引用・伝聞表現",ne:"연락하라고 했어요.",rom:"yeolakharago haesseoyo",jp:"連絡しろと言いました。"},
+{cat:"引用・伝聞表現",ne:"걱정하지 말라고 했어요.",rom:"geokjeonghaji mallago haesseoyo",jp:"心配するなと言いました。"},
+{cat:"引用・伝聞表現",ne:"내일 만나자고 제안했어요.",rom:"naeil mannajago jaeanhaesseoyo",jp:"明日会おうと提案しました。"},
+{cat:"引用・伝聞表現",ne:"같이 일하자고 했어요.",rom:"gachi ilhajago haesseoyo",jp:"一緒に働こうと言いました。"},
+{cat:"引用・伝聞表現",ne:"포기하지 말라고 격려했어요.",rom:"pogihaji mallago gyeongnyeohaesseoyo",jp:"あきらめるなと励ましました。"},
+{cat:"引用・伝聞表現",ne:"소문에 의하면 그 회사가 망했대요.",rom:"somuneme uihamyeon geu hoesaga manghaetdaeyo",jp:"噂によるとその会社が倒産したそうです。"},
+{cat:"引用・伝聞表現",ne:"듣자 하니 그 사람이 이사했대요.",rom:"deutja hani geu sarami isaaetdaeyo",jp:"聞くところによるとその人が引っ越したそうです。"},
+{cat:"引用・伝聞表現",ne:"그렇다고 하던데요.",rom:"geureotago hadeondeoyo",jp:"そうだと言っていましたが。"},
+{cat:"引用・伝聞表現",ne:"그런 이야기를 들었어요.",rom:"geureon iyagireul deureosseoyo",jp:"そんな話を聞きました。"},
+{cat:"引用・伝聞表現",ne:"뉴스에서 봤는데 사고가 났대요.",rom:"nyuseueseo bwanneunde sagoga natdaeyo",jp:"ニュースで見たんですが事故があったそうです。"},
+{cat:"引用・伝聞表現",ne:"친구한테서 들었어요.",rom:"chinguhanteseo deureosseoyo",jp:"友達から聞きました。"},
+{cat:"引用・伝聞表現",ne:"그렇다고 해요.",rom:"geureotago haeyo",jp:"そうだそうです。"},
+{cat:"引用・伝聞表現",ne:"그런 말이 있어요.",rom:"geureon mari isseoyo",jp:"そういう話があります。"},
+{cat:"引用・伝聞表現",ne:"확인되지 않은 정보예요.",rom:"hwagindoeji anaeun jeongboyeyo",jp:"確認されていない情報です。"},
+{cat:"引用・伝聞表現",ne:"소문이 사실인지 모르겠어요.",rom:"somuni sasilinjl moreugesseoyo",jp:"噂が本当かどうかわかりません。"},
+{cat:"目的・意図の表現",ne:"한국어를 배우기 위해 한국에 왔어요.",rom:"hangugeoreul baeugi wihae hanguge wasseoyo",jp:"韓国語を学ぶために韓国に来ました。"},
+{cat:"目的・意図の表現",ne:"건강을 위해 운동해요.",rom:"geongangeul wihae undonghaeyo",jp:"健康のために運動します。"},
+{cat:"目的・意図の表現",ne:"취직하기 위해 열심히 공부해요.",rom:"chwijikagi wihae yeolsimhi gongbuhaeyo",jp:"就職するために一生懸命勉強しています。"},
+{cat:"目的・意図の表現",ne:"시험에 합격하기 위해 준비하고 있어요.",rom:"siheome hapgyeokagi wihae junbihago isseoyo",jp:"試験に合格するために準備しています。"},
+{cat:"目的・意図の表現",ne:"돈을 모으기 위해 절약해요.",rom:"doneul mougi wihae jeolyakaeyo",jp:"お金を貯めるために節約しています。"},
+{cat:"目的・意図の表現",ne:"좋은 인상을 주기 위해 정장을 입었어요.",rom:"joeun insangeul jugi wihae jeonjangeul ibeosseoyo",jp:"良い印象を与えるためにスーツを着ました。"},
+{cat:"目的・意図の表現",ne:"건강을 유지하기 위해 규칙적으로 운동해요.",rom:"geongangeul yujihagi wihae gyuchikjeogeuro undonghaeyo",jp:"健康を維持するために規則的に運動しています。"},
+{cat:"目的・意図の表現",ne:"목표를 달성하기 위해 계획을 세웠어요.",rom:"mokpyoreul dalseonghagi wihae gyehoegeul sewosseoyo",jp:"目標を達成するために計画を立てました。"},
+{cat:"目的・意図の表現",ne:"환경을 보호하기 위해 노력해야 해요.",rom:"hwangyeongeul bohohagi wihae noryeokaeya haeyo",jp:"環境を保護するために努力しなければなりません。"},
+{cat:"目的・意図の表現",ne:"실수를 피하기 위해 조심해야 해요.",rom:"silsureul pihagi wihae josimhaeya haeyo",jp:"ミスを避けるために気をつけなければなりません。"},
+{cat:"目的・意図の表現",ne:"밥 먹으러 가요.",rom:"bap meogeuro gayo",jp:"ご飯を食べに行きます。"},
+{cat:"目的・意図の表現",ne:"친구를 만나러 왔어요.",rom:"chingureul mannaro wasseoyo",jp:"友達に会いに来ました。"},
+{cat:"目的・意図の表現",ne:"공부하러 도서관에 가요.",rom:"gongbuharo doseogwane gayo",jp:"勉強しに図書館に行きます。"},
+{cat:"目的・意図の表現",ne:"운동하러 헬스장에 가요.",rom:"undongharo helseujange gayo",jp:"運動しにジムに行きます。"},
+{cat:"目的・意図の表現",ne:"커피 마시러 카페에 가요.",rom:"keopi masiro kape-e gayo",jp:"コーヒーを飲みにカフェに行きます。"},
+{cat:"目的・意図の表現",ne:"쇼핑하러 백화점에 갔어요.",rom:"syopingaharo baekhwajeome gasseoyo",jp:"買い物にデパートに行きました。"},
+{cat:"目的・意図の表現",ne:"영화 보러 갈래요?",rom:"yeonghwa boreo gallaeyo?",jp:"映画を見に行きませんか？"},
+{cat:"目的・意図の表現",ne:"책 빌리러 도서관에 가요.",rom:"chaek billiro doseogwane gayo",jp:"本を借りに図書館に行きます。"},
+{cat:"目的・意図の表現",ne:"구경하러 왔어요.",rom:"gugyeongharo wasseoyo",jp:"見物しに来ました。"},
+{cat:"目的・意図の表現",ne:"일하러 회사에 가요.",rom:"ilharo hoesae gayo",jp:"仕事しに会社に行きます。"},
+{cat:"目的・意図の表現",ne:"내년에 유학할 생각이에요.",rom:"naenyeone yuhakhal saenggagieyo",jp:"来年留学するつもりです。"},
+{cat:"目的・意図の表現",ne:"다음 달에 이사할 계획이에요.",rom:"daeum dare isahal gyehoeieyo",jp:"来月引っ越す予定です。"},
+{cat:"目的・意図の表現",ne:"주말에 여행을 가려고 해요.",rom:"jumare yeohaengeul garyeogo haeyo",jp:"週末に旅行に行こうと思っています。"},
+{cat:"目的・意図の表現",ne:"새로운 것을 시작하려고 해요.",rom:"saeroun geoseul sijakaryeogo haeyo",jp:"新しいことを始めようと思っています。"},
+{cat:"目的・意図の表現",ne:"이번 달 안에 끝낼 예정이에요.",rom:"ibeon dal ane kkeunnal yejeongieyo",jp:"今月中に終える予定です。"},
+{cat:"目的・意図の表現",ne:"내일부터 다이어트를 시작하려고요.",rom:"naeilbuteo daieoteureul sijakaryeogoyo",jp:"明日からダイエットを始めようと思っています。"},
+{cat:"目的・意図の表現",ne:"결혼할 생각이 있어요?",rom:"gyeolhonhal saenggagi isseoyo?",jp:"結婚する気はありますか？"},
+{cat:"目的・意図の表現",ne:"앞으로 어떻게 할 거예요?",rom:"apeuro eotteoke hal geoyeyo?",jp:"これからどうするつもりですか？"},
+{cat:"目的・意図の表現",ne:"계획대로 진행하고 있어요.",rom:"gyehoekdaero jinhaenghago isseoyo",jp:"計画通りに進んでいます。"},
+{cat:"目的・意図の表現",ne:"예정이 변경됐어요.",rom:"yejeoongi byeongyeongdwaesseoyo",jp:"予定が変更になりました。"},
+{cat:"目的・意図の表現",ne:"회사를 그만둘 생각이에요.",rom:"hoesareul geumandool saenggagieyo",jp:"会社を辞めるつもりです。"},
+{cat:"目的・意図の表現",ne:"새로운 일을 찾을 거예요.",rom:"saeroun ireul chajeul geoyeyo",jp:"新しい仕事を探すつもりです。"},
+{cat:"目的・意図の表現",ne:"더 열심히 노력하려고 해요.",rom:"deo yeolsimhi noryeokaryeogo haeyo",jp:"もっと一生懸命努力しようと思います。"},
+{cat:"目的・意図の表現",ne:"건강을 위해 담배를 끊으려고 해요.",rom:"geongangeul wihae dambaereul kkeuneoryeogo haeyo",jp:"健康のためにタバコをやめようと思います。"},
+{cat:"目的・意図の表現",ne:"한국어 능력 시험을 보려고 준비 중이에요.",rom:"hangugeo neungryeok siheomeul boryeogo junbi jungieyo",jp:"韓国語能力試験を受けようと準備中です。"},
+{cat:"目的・意図の表現",ne:"내 사업을 시작할 생각이에요.",rom:"nae saeobeul sijakhal saenggagieyo",jp:"自分の事業を始めるつもりです。"},
+{cat:"目的・意図の表現",ne:"이번 기회에 도전해 보려고 해요.",rom:"ibeon gihoee dojeonhae boryeogo haeyo",jp:"この機会に挑戦してみようと思います。"},
+{cat:"目的・意図の表現",ne:"문제를 해결하기 위해 노력하고 있어요.",rom:"munjereul haegyeolhagi wihae noryeokago isseoyo",jp:"問題を解決するために努力しています。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"이거 써도 돼요?",rom:"igeo sseodo dwaeyo?",jp:"これを使ってもいいですか？"},
+{cat:"許可・禁止・義務の詳細表現",ne:"여기 앉아도 될까요?",rom:"yeogi anjado doelkkayo?",jp:"ここに座ってもいいですか？"},
+{cat:"許可・禁止・義務の詳細表現",ne:"사진 찍어도 괜찮아요?",rom:"sajin jjigeodo gwaenchanayo?",jp:"写真を撮っても大丈夫ですか？"},
+{cat:"許可・禁止・義務の詳細表現",ne:"들어가도 되겠습니까?",rom:"deureogado doegesseumnikka?",jp:"入ってもよろしいでしょうか？"},
+{cat:"許可・禁止・義務の詳細表現",ne:"질문해도 돼요?",rom:"jilmunhaedo dwaeyo?",jp:"質問してもいいですか？"},
+{cat:"許可・禁止・義務の詳細表現",ne:"네, 괜찮아요.",rom:"ne, gwaenchanayo",jp:"はい、大丈夫です。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"네, 그러세요.",rom:"ne, geureuseyo",jp:"はい、どうぞ。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"물론이죠. 마음대로 하세요.",rom:"mulloniyo. maeumdaero haseyo",jp:"もちろんです。ご自由にどうぞ。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"허락을 받아야 해요.",rom:"heorage badaya haeyo",jp:"許可を得なければなりません。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"승인이 필요해요.",rom:"seungini piryohaeyo",jp:"承認が必要です。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"미리 허락을 받으세요.",rom:"miri heorageul badeuseyo",jp:"事前に許可を取ってください。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"허가 없이는 안 돼요.",rom:"heoga eopsineun an dwaeyo",jp:"許可なしではいけません。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"여기서 담배 피우면 안 돼요.",rom:"yeogiseo dambae piumyeon an dwaeyo",jp:"ここでタバコを吸ってはいけません。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"사진 찍으면 안 돼요.",rom:"sajin jjigeumyeon an dwaeyo",jp:"写真を撮ってはいけません。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"들어가지 마세요.",rom:"deureogaji maseyo",jp:"入らないでください。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"만지지 마세요.",rom:"manjiji maseyo",jp:"触らないでください。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"여기서 뛰면 안 돼요.",rom:"yeogiseo ttwimyeon an dwaeyo",jp:"ここで走ってはいけません。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"음식물 반입 금지예요.",rom:"eumsigmul banip geumjiyeyo",jp:"飲食物の持ち込み禁止です。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"촬영 금지예요.",rom:"chwalyeong geumjiyeyo",jp:"撮影禁止です。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"주차 금지 구역이에요.",rom:"jucha geumji guyeogieyo",jp:"駐車禁止区域です。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"절대로 하면 안 돼요.",rom:"jeoldaero hamyeon an dwaeyo",jp:"絶対にしてはいけません。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"그건 법으로 금지되어 있어요.",rom:"geugeon beobeuro geumjidoeeo isseoyo",jp:"それは法律で禁止されています。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"허용되지 않아요.",rom:"heoyongdoeji anayo",jp:"許可されていません。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"그렇게 하시면 곤란해요.",rom:"geureoke hasimyeon gollanhaeyo",jp:"そうされると困ります。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"이건 반드시 해야 해요.",rom:"igeon bandeusi haeya haeyo",jp:"これは必ずしなければなりません。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"내일까지 제출해야 해요.",rom:"naeilkkaji jechulhaeya haeyo",jp:"明日までに提出しなければなりません。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"규칙을 지켜야 해요.",rom:"gyuchigeul jikyeoya haeyo",jp:"規則を守らなければなりません。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"예약이 필수예요.",rom:"yeyagi pilsuyeyo",jp:"予約が必須です。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"이 서류가 필요해요.",rom:"i seoryuga piryohaeyo",jp:"この書類が必要です。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"여권을 가져가야 해요.",rom:"yeogwoneul gajyeogaya haeyo",jp:"パスポートを持って行かなければなりません。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"마스크를 착용해야 해요.",rom:"maseukeureul chagyonghaeya haeyo",jp:"マスクを着用しなければなりません。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"안전벨트를 매야 해요.",rom:"anjeonbelteureul maeya haeyo",jp:"シートベルトを締めなければなりません。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"기한을 지켜야 해요.",rom:"gihaneul jikyeoya haeyo",jp:"期限を守らなければなりません。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"참석이 의무예요.",rom:"chamsseogi uimuyeyo",jp:"出席が義務です。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"그건 선택이 아니라 의무예요.",rom:"geugeon seontaegi anira uimuyeyo",jp:"それは選択ではなく義務です。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"그렇게 해야만 해요.",rom:"geureoke haeyaman haeyo",jp:"そうしなければなりません。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"그건 안 해도 돼요.",rom:"geugeon an haedo dwaeyo",jp:"それはしなくてもいいです。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"올 필요 없어요.",rom:"ol piryo eopseoyo",jp:"来る必要はありません。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"걱정 안 해도 돼요.",rom:"geokjeong an haedo dwaeyo",jp:"心配しなくていいです。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"지금 당장 할 필요는 없어요.",rom:"jigeum dangjang hal piryoneun eopseoyo",jp:"今すぐする必要はありません。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"굳이 그렇게 안 해도 돼요.",rom:"gudyi geureoke an haedo dwaeyo",jp:"わざわざそうしなくてもいいです。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"무리하지 않아도 돼요.",rom:"murihaji anado dwaeyo",jp:"無理しなくてもいいです。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"강제는 아니에요.",rom:"gangjeneun anieyo",jp:"強制ではありません。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"선택 사항이에요.",rom:"seontaek sahangieyo",jp:"選択事項です。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"필수가 아니에요.",rom:"pilsuga anieyo",jp:"必須ではありません。"},
+{cat:"許可・禁止・義務の詳細表現",ne:"그건 자유예요.",rom:"geugeon jayuyeyo",jp:"それは自由です。"},
+{cat:"後悔・願望の表現",ne:"그때 그렇게 하지 말았어야 했는데.",rom:"geuttae geureoke haji marasseoya haenneunde",jp:"あの時そうしなければよかったのに。"},
+{cat:"後悔・願望の表現",ne:"그 말을 안 했으면 좋았을 텐데.",rom:"geu mareul an haesseumyeon joasseul tende",jp:"あの言葉を言わなければ良かったのに。"},
+{cat:"後悔・願望の表現",ne:"왜 그랬을까 후회해요.",rom:"wae geuraesseulkka huhoehaeyo",jp:"なぜそうしたのか後悔しています。"},
+{cat:"後悔・願望の表現",ne:"더 열심히 할걸 그랬어요.",rom:"deo yeolsimhi halgeol geuraesseoyo",jp:"もっと一生懸命やればよかったです。"},
+{cat:"後悔・願望の表現",ne:"미리 준비했어야 했는데.",rom:"miri junbihaesseoya haenneunde",jp:"前もって準備しておくべきでした。"},
+{cat:"後悔・願望の表現",ne:"그 기회를 놓친 게 아쉬워요.",rom:"geu gihoereul notchin ge aswiwoyo",jp:"あの機会を逃したのが残念です。"},
+{cat:"後悔・願望の表現",ne:"그때 더 열심히 공부했으면 좋았을 텐데.",rom:"geuttae deo yeolsimhi gongbuhaesseumyeon joasseul tende",jp:"あの時もっと一生懸命勉強すればよかったのに。"},
+{cat:"後悔・願望の表現",ne:"미리 알았으면 좋았을 텐데요.",rom:"miri arasseumyeon joasseul tendeoyo",jp:"前もって知っていればよかったのに。"},
+{cat:"後悔・願望の表現",ne:"일찍 출발했으면 좋았을 텐데.",rom:"iljjik chulbalhaesseumyeon joasseul tende",jp:"早く出発すればよかったのに。"},
+{cat:"後悔・願望の表現",ne:"우산을 가져왔으면 좋았을 텐데.",rom:"usaneul gajyeowasseumyeon joasseul tende",jp:"傘を持ってくればよかったのに。"},
+{cat:"後悔・願望の表現",ne:"그 사람을 믿지 않았으면 좋았을 텐데.",rom:"geu sarameul mitji anasseumyeon joasseul tende",jp:"あの人を信じなければよかったのに。"},
+{cat:"後悔・願望の表現",ne:"더 일찍 한국어를 배웠으면 좋았을 텐데.",rom:"deo iljjik hangugeoreul baewosseumyeon joasseul tende",jp:"もっと早く韓国語を習えばよかったのに。"},
+{cat:"後悔・願望の表現",ne:"그 기회를 놓치지 않았으면 좋았을 텐데.",rom:"geu gihoereul nochiji anasseumyeon joasseul tende",jp:"あのチャンスを逃さなければよかったのに。"},
+{cat:"後悔・願望の表現",ne:"그렇게 많이 먹지 말걸 그랬어요.",rom:"geureoke mani meokji malgeol geuraesseoyo",jp:"あんなに食べなければよかった。"},
+{cat:"後悔・願望の表現",ne:"그 말 하지 말걸 그랬어.",rom:"geu mal haji malgeol geuraesseo",jp:"あの話をしなければよかった。"},
+{cat:"後悔・願望の表現",ne:"어제 늦게까지 안 놀걸 그랬어요.",rom:"eoje neutgekkaji an nolgeol geuraesseoyo",jp:"昨日遅くまで遊ばなければよかった。"},
+{cat:"後悔・願望の表現",ne:"그 영화 안 볼걸 그랬어요.",rom:"geu yeonghwa an bolgeol geuraesseoyo",jp:"あの映画を見なければよかった。"},
+{cat:"後悔・願望の表現",ne:"그 사람한테 화내지 말걸 그랬어요.",rom:"geu saramhante hwanaeji malgeol geuraesseoyo",jp:"あの人に怒らなければよかった。"},
+{cat:"後悔・願望の表現",ne:"술을 그렇게 많이 마시지 말걸 그랬어.",rom:"sureul geureoke mani masiji malgeol geuraesseo",jp:"あんなにお酒を飲まなければよかった。"},
+{cat:"後悔・願望の表現",ne:"더 열심히 할걸.",rom:"deo yeolsimhi halgeol",jp:"もっと頑張ればよかった。"},
+{cat:"後悔・願望の表現",ne:"그때 갈걸.",rom:"geuttae galgeol",jp:"あの時行けばよかった。"},
+{cat:"後悔・願望の表現",ne:"말할걸.",rom:"malhalgeol",jp:"言えばよかった。"},
+{cat:"後悔・願望の表現",ne:"사 둘걸.",rom:"sa dulgeol",jp:"買っておけばよかった。"},
+{cat:"後悔・願望の表現",ne:"예약해 둘걸.",rom:"yeyakhae dulgeol",jp:"予約しておけばよかった。"},
+{cat:"後悔・願望の表現",ne:"미리 확인할걸.",rom:"miri hwaginalgeol",jp:"前もって確認すればよかった。"},
+{cat:"後悔・願望の表現",ne:"조금 더 기다릴걸.",rom:"jogeum deo gidarilgeol",jp:"もう少し待てばよかった。"},
+{cat:"後悔・願望の表現",ne:"사진 더 많이 찍을걸.",rom:"sajin deo mani jjigeulgeol",jp:"写真をもっとたくさん撮ればよかった。"},
+{cat:"後悔・願望の表現",ne:"빨리 주말이 왔으면 좋겠어요.",rom:"ppalli jumari wasseumyeon jokesseoyo",jp:"早く週末が来てほしい。"},
+{cat:"後悔・願望の表現",ne:"비가 그쳤으면 좋겠어요.",rom:"biga geuchyeosseumyeon jokesseoyo",jp:"雨がやんでほしい。"},
+{cat:"後悔・願望の表現",ne:"이 문제가 해결됐으면 좋겠어요.",rom:"i munjega haegyeoldwaesseumyeon jokesseoyo",jp:"この問題が解決してほしい。"},
+{cat:"後悔・願望の表現",ne:"한국에서 살 수 있었으면 좋겠어요.",rom:"hangugeseo sal su isseosseumyeon jokesseoyo",jp:"韓国で暮らせたらいいのに。"},
+{cat:"後悔・願望の表現",ne:"시간이 더 있었으면 좋겠어요.",rom:"sigani deo isseosseumyeon jokesseoyo",jp:"もっと時間があればいいのに。"},
+{cat:"後悔・願望の表現",ne:"돈이 많았으면 좋겠어요.",rom:"doni manasseumyeon jokesseoyo",jp:"お金がたくさんあればいいのに。"},
+{cat:"後悔・願望の表現",ne:"한국어를 잘했으면 좋겠어요.",rom:"hangugeoreul jalhaesseumyeon jokesseoyo",jp:"韓国語が上手だったらいいのに。"},
+{cat:"後悔・願望の表現",ne:"한국에 가고 싶어요.",rom:"hanguge gago sipeoyo",jp:"韓国に行きたいです。"},
+{cat:"後悔・願望の表現",ne:"맛있는 것을 먹고 싶어요.",rom:"masitneun geoseul meokgo sipeoyo",jp:"おいしいものを食べたいです。"},
+{cat:"後悔・願望の表現",ne:"쉬고 싶어요.",rom:"swigo sipeoyo",jp:"休みたいです。"},
+{cat:"後悔・願望の表現",ne:"여행을 가고 싶어요.",rom:"yeohaengeul gago sipeoyo",jp:"旅行に行きたいです。"},
+{cat:"後悔・願望の表現",ne:"새 차를 사고 싶어요.",rom:"sae chareul sago sipeoyo",jp:"新しい車を買いたいです。"},
+{cat:"後悔・願望の表現",ne:"당신을 만났으면 해요.",rom:"dangsineul mannasseumyeon haeyo",jp:"あなたに会いたいです。"},
+{cat:"後悔・願望の表現",ne:"이 일이 잘 됐으면 해요.",rom:"i iri jal dwaesseumyeon haeyo",jp:"この仕事がうまくいってほしいです。"},
+{cat:"後悔・願望の表現",ne:"빨리 나았으면 해요.",rom:"ppalli naasseumyeon haeyo",jp:"早く治ってほしいです。"},
+{cat:"後悔・願望の表現",ne:"무사히 도착했으면 해요.",rom:"musahi dochakaesseumyeon haeyo",jp:"無事に到着してほしいです。"},
+{cat:"後悔・願望の表現",ne:"시간이 있다면 같이 갈게요.",rom:"sigani itdamyeon gachi galgeyo",jp:"時間があれば一緒に行きます。"},
+{cat:"後悔・願望の表現",ne:"돈이 많다면 세계 여행을 할 거예요.",rom:"doni mantamyeon segye yeohaengeul hal geoyeyo",jp:"お金がたくさんあれば世界旅行をします。"},
+{cat:"後悔・願望の表現",ne:"내가 너라면 그렇게 안 할 거야.",rom:"naega neoramyeon geureoke an hal geoya",jp:"私があなたなら、そうしないよ。"},
+{cat:"後悔・願望の表現",ne:"다시 태어난다면 뭐가 되고 싶어요?",rom:"dasi taeonadamyeon mwoga doego sipeoyo?",jp:"生まれ変わるなら、何になりたいですか？"},
+{cat:"後悔・願望の表現",ne:"한국어를 잘한다면 취직이 쉬울 거예요.",rom:"hangugeoreul jalhantamyeon chwijigi swiul geoyeyo",jp:"韓国語が上手なら就職が楽でしょう。"},
+{cat:"後悔・願望の表現",ne:"그 소식을 들었다면 놀랐을 거예요.",rom:"geu sosigeul deuleotdamyeon nollasseul geoyeyo",jp:"そのニュースを聞いていたら驚いたでしょう。"},
+{cat:"後悔・願望の表現",ne:"가능하다면 도와주고 싶어요.",rom:"ganeunghadamyeon dowajugo sipeoyo",jp:"可能なら助けたいです。"},
+{cat:"後悔・願望の表現",ne:"시간을 되돌릴 수 있다면 좋겠어요.",rom:"siganeul doedollil su itdamyeon jokesseoyo",jp:"時間を戻せたらいいのに。"},
+{cat:"後悔・願望の表現",ne:"다시 만날 수 있다면 좋겠어요.",rom:"dasi mannal su itdamyeon jokesseoyo",jp:"また会えたらいいのに。"},
+{cat:"後悔・願望の表現",ne:"날 수 있다면 얼마나 좋을까요?",rom:"nal su itdamyeon eolmana joeulkkayo?",jp:"飛べたらどんなにいいでしょう？"},
+{cat:"後悔・願望の表現",ne:"과거로 돌아갈 수 있다면 뭘 하고 싶어요?",rom:"gwageoro doragal su itdamyeon mwol hago sipeoyo?",jp:"過去に戻れるなら何をしたいですか？"},
+{cat:"後悔・願望の表現",ne:"한 가지 소원이 이루어질 수 있다면요?",rom:"han gaji sowoni irueojil su itdamyeonyo?",jp:"1つ願いが叶うとしたら？"},
+{cat:"程度・強調の表現",ne:"아주 맛있어요.",rom:"aju masisseoyo",jp:"とてもおいしいです。"},
+{cat:"程度・強調の表現",ne:"매우 중요해요.",rom:"maeu jungyohaeyo",jp:"非常に重要です。"},
+{cat:"程度・強調の表現",ne:"진짜 예뻐요.",rom:"jinjja yeppeoyo",jp:"本当にきれいです。"},
+{cat:"程度・強調の表現",ne:"너무 비싸요.",rom:"neomu bissayo",jp:"高すぎます。"},
+{cat:"程度・強調の表現",ne:"굉장히 재미있어요.",rom:"goengjanghi jaemiisseoyo",jp:"ものすごく面白いです。"},
+{cat:"程度・強調の表現",ne:"엄청 좋아요.",rom:"eomcheong joayo",jp:"すごくいいです。"},
+{cat:"程度・強調の表現",ne:"완전 대박이에요.",rom:"wanjeon daebagieyo",jp:"完全に大当たりです。"},
+{cat:"程度・強調の表現",ne:"상당히 어려워요.",rom:"sangdanghi eoryeowoyo",jp:"かなり難しいです。"},
+{cat:"程度・強調の表現",ne:"꽤 괜찮아요.",rom:"kkwae gwaenchanayo",jp:"結構いいです。"},
+{cat:"程度・強調の表現",ne:"약간 이상해요.",rom:"yakgan isanghaeyo",jp:"少し変です。"},
+{cat:"程度・強調の表現",ne:"조금 어려워요.",rom:"jogeum eoryeowoyo",jp:"少し難しいです。"},
+{cat:"程度・強調の表現",ne:"좀 피곤해요.",rom:"jom pigonhaeyo",jp:"ちょっと疲れています。"},
+{cat:"程度・強調の表現",ne:"다소 불편해요.",rom:"daso bulpyeonhaeyo",jp:"多少不便です。"},
+{cat:"程度・強調の表現",ne:"별로 안 좋아요.",rom:"byeollo an joayo",jp:"あまり良くないです。"},
+{cat:"程度・強調の表現",ne:"거의 다 했어요.",rom:"geoui da haesseoyo",jp:"ほとんど終わりました。"},
+{cat:"程度・強調の表現",ne:"대체로 만족해요.",rom:"daechero manjokaeyo",jp:"大体満足です。"},
+{cat:"程度・強調の表現",ne:"그는 울기까지 했어요.",rom:"geuneun ulgikkaji haesseoyo",jp:"彼は泣きさえしました。"},
+{cat:"程度・強調の表現",ne:"포기하기까지 했어요.",rom:"pogihagikkaji haesseoyo",jp:"諦めさえしました。"},
+{cat:"程度・強調の表現",ne:"감동해서 눈물까지 났어요.",rom:"gamdonghaeseo nunmulkkaji nasseoyo",jp:"感動して涙まで出ました。"},
+{cat:"程度・強調の表現",ne:"이름조차 몰라요.",rom:"ireumjocha mollayo",jp:"名前さえ知りません。"},
+{cat:"程度・強調の表現",ne:"밥 먹을 시간조차 없어요.",rom:"bap meogeul siganjocha eopseoyo",jp:"ご飯を食べる時間さえありません。"},
+{cat:"程度・強調の表現",ne:"전화할 시간조차 없었어요.",rom:"jeonhwahal siganjocha eopseosseoyo",jp:"電話する時間さえありませんでした。"},
+{cat:"程度・強調の表現",ne:"그 사실조차 몰랐어요.",rom:"geu sasiljocha mollasseoyo",jp:"その事実さえ知りませんでした。"},
+{cat:"程度・強調の表現",ne:"물 한 잔조차 마시지 못했어요.",rom:"mul han janjocha masiji mothaesseoyo",jp:"水一杯さえ飲めませんでした。"},
+{cat:"程度・強調の表現",ne:"맛있기는 해요.",rom:"masitgineun haeyo",jp:"おいしくはあります。"},
+{cat:"程度・強調の表現",ne:"알기는 알아요.",rom:"algineun arayo",jp:"知ってはいます。"},
+{cat:"程度・強調の表現",ne:"비싸기는 하지만 좋아요.",rom:"bissagineun hajiman joayo",jp:"高くはありますが、いいです。"},
+{cat:"程度・強調の表現",ne:"힘들기는 하지만 할 만해요.",rom:"himdeulgineun hajiman hal manhaeyo",jp:"大変ではありますが、やれます。"},
+{cat:"程度・強調の表現",ne:"공부는커녕 놀기만 해요.",rom:"gongbuneunkkeonyeong nolgiman haeyo",jp:"勉強どころか遊んでばかりです。"},
+{cat:"程度・強調の表現",ne:"돈은커녕 빚만 늘었어요.",rom:"doneunkkeonyeong bitman neureosseoyo",jp:"お金どころか借金だけ増えました。"},
+{cat:"程度・強調の表現",ne:"도와주기는커녕 방해만 했어요.",rom:"dowajugineunkkeonyeong banghaeman haesseoyo",jp:"助けるどころか邪魔ばかりしました。"},
+{cat:"程度・強調の表現",ne:"감사하기는커녕 화를 냈어요.",rom:"gamsahagineunkkeonyeong hwareul naesseoyo",jp:"感謝どころか怒りました。"},
+{cat:"程度・強調の表現",ne:"저만큼 할 수 있어요.",rom:"jeomankeum hal su isseoyo",jp:"私くらいできます。"},
+{cat:"程度・強調の表現",ne:"생각보다 많이 먹었어요.",rom:"saenggakboda mani meogeosseoyo",jp:"思ったより食べました。"},
+{cat:"程度・強調の表現",ne:"예상했던 것만큼 어렵지 않았어요.",rom:"yesanghaetdeon geonmankeum eoryeopji anasseoyo",jp:"予想していたほど難しくなかったです。"},
+{cat:"程度・強調の表現",ne:"울고 싶을 정도로 힘들어요.",rom:"ulgo sipeul jeongdoro himdeuleoyo",jp:"泣きたいくらい辛いです。"},
+{cat:"程度・強調の表現",ne:"죽을 정도로 배고파요.",rom:"jugeul jeongdoro baegopayo",jp:"死ぬほどお腹が空いています。"},
+{cat:"程度・強調の表現",ne:"눈이 빠지게 기다렸어요.",rom:"nuni ppajige gidaryeosseoyo",jp:"首を長くして待ちました。"},
+{cat:"程度・強調の表現",ne:"배가 터지게 먹었어요.",rom:"baega teojige meogeosseoyo",jp:"お腹がはち切れるほど食べました。"},
+{cat:"程度・強調の表現",ne:"귀가 닳도록 들었어요.",rom:"gwiga daltorok deureosseoyo",jp:"耳にタコができるほど聞きました。"},
+{cat:"程度・強調の表現",ne:"손에 땀을 쥘 정도로 긴장했어요.",rom:"sone ttameul jwil jeongdoro ginjanghaesseoyo",jp:"手に汗を握るほど緊張しました。"},
+{cat:"程度・強調の表現",ne:"입이 닳도록 말했어요.",rom:"ibi daltorok malhaesseoyo",jp:"口が酸っぱくなるほど言いました。"},
+{cat:"程度・強調の表現",ne:"배고파서 죽겠어요.",rom:"baegopaseo jukgesseoyo",jp:"お腹が空いて死にそうです。"},
+{cat:"程度・強調の表現",ne:"더워서 죽겠어요.",rom:"deowoseo jukgesseoyo",jp:"暑くて死にそうです。"},
+{cat:"程度・強調の表現",ne:"추워서 죽겠어요.",rom:"chuwoseo jukgesseoyo",jp:"寒くて死にそうです。"},
+{cat:"程度・強調の表現",ne:"졸려서 죽겠어요.",rom:"jollyeoseo jukgesseoyo",jp:"眠くて死にそうです。"},
+{cat:"程度・強調の表現",ne:"힘들어서 죽겠어요.",rom:"himdeuloseo jukgesseoyo",jp:"辛くて死にそうです。"},
+{cat:"程度・強調の表現",ne:"보고 싶어서 죽겠어요.",rom:"bogo sipeoseo jukgesseoyo",jp:"会いたくて死にそうです。"},
+{cat:"程度・強調の表現",ne:"답답해서 미치겠어요.",rom:"dapdapaeseo michigesseoyo",jp:"もどかしくて気が狂いそうです。"},
+{cat:"程度・強調の表現",ne:"짜증 나서 미치겠어요.",rom:"jjajeung naseo michigesseoyo",jp:"イライラして気が狂いそうです。"},
+{cat:"程度・強調の表現",ne:"기다리다가 미치겠어요.",rom:"gidaridaga michigesseoyo",jp:"待っていて気が狂いそうです。"},
+{cat:"程度・強調の表現",ne:"시끄러워서 미치겠어요.",rom:"sikkeurowoseo michigesseoyo",jp:"うるさくて気が狂いそうです。"},
+{cat:"程度・強調の表現",ne:"맛있는 게 아니에요, 완전 대박이에요.",rom:"masitneun ge anieyo, wanjeon daebagieyo",jp:"おいしいなんてもんじゃない、最高です。"},
+{cat:"程度・強調の表現",ne:"예쁜 게 아니에요, 여신이에요.",rom:"yeppeun ge anieyo, yeoshinieyo",jp:"きれいなんてもんじゃない、女神です。"},
+{cat:"程度・強調の表現",ne:"바쁜 게 아니에요, 쉴 틈이 없어요.",rom:"bappeun ge anieyo, swil teumi eopseoyo",jp:"忙しいなんてもんじゃない、休む暇がありません。"},
+{cat:"程度・強調の表現",ne:"어려운 게 아니에요, 불가능해요.",rom:"eoryeoun ge anieyo, bulganeunghaeyo",jp:"難しいなんてもんじゃない、不可能です。"},
+{cat:"時間の詳細表現",ne:"자기 전에 이를 닦아요.",rom:"jagi jeone ireul dakkayo",jp:"寝る前に歯を磨きます。"},
+{cat:"時間の詳細表現",ne:"식사하기 전에 손을 씻으세요.",rom:"siksahagi jeone soneul ssiseuseyo",jp:"食事する前に手を洗ってください。"},
+{cat:"時間の詳細表現",ne:"회의 전에 자료를 준비해 주세요.",rom:"hoeui jeone jaryoreul junbihae juseyo",jp:"会議の前に資料を準備してください。"},
+{cat:"時間の詳細表現",ne:"출발하기 전에 확인해 주세요.",rom:"chulbalhagi jeone hwaginhae juseyo",jp:"出発する前に確認してください。"},
+{cat:"時間の詳細表現",ne:"밥 먹은 후에 산책해요.",rom:"bap meogeun hue sanchaekhaeyo",jp:"ご飯を食べた後に散歩します。"},
+{cat:"時間の詳細表現",ne:"일이 끝난 후에 연락할게요.",rom:"iri kkeutnan hue yeollakalgeyo",jp:"仕事が終わった後に連絡します。"},
+{cat:"時間の詳細表現",ne:"수업 후에 뭐 해요?",rom:"sueop hue mwo haeyo?",jp:"授業の後に何をしますか？"},
+{cat:"時間の詳細表現",ne:"졸업 후에 뭐 할 거예요?",rom:"joreop hue mwo hal geoyeyo?",jp:"卒業後に何をしますか？"},
+{cat:"時間の詳細表現",ne:"기다리는 동안 커피 마셔요.",rom:"gidarineun dongan keopi masyeoyo",jp:"待っている間にコーヒーを飲みます。"},
+{cat:"時間の詳細表現",ne:"자는 동안 비가 왔어요.",rom:"janeun dongan biga wasseoyo",jp:"寝ている間に雨が降りました。"},
+{cat:"時間の詳細表現",ne:"없는 동안 뭐 있었어요?",rom:"eomneun dongan mwo isseosseoyo?",jp:"いない間に何かありましたか？"},
+{cat:"時間の詳細表現",ne:"여행하는 동안 연락이 안 됐어요.",rom:"yeohaenghaneun dongan yeollagi an dwaesseoyo",jp:"旅行している間、連絡がつきませんでした。"},
+{cat:"時間の詳細表現",ne:"음악을 들으면서 공부해요.",rom:"eumageul deureumyeonseo gongbuhaeyo",jp:"音楽を聴きながら勉強します。"},
+{cat:"時間の詳細表現",ne:"밥을 먹으면서 TV를 봐요.",rom:"babeul meogeumyeonseo tibireul bwayo",jp:"ご飯を食べながらテレビを見ます。"},
+{cat:"時間の詳細表現",ne:"걸으면서 이야기해요.",rom:"georeumyeonseo iyagihaeyo",jp:"歩きながら話します。"},
+{cat:"時間の詳細表現",ne:"웃으면서 말했어요.",rom:"useumyeonseo malhaesseoyo",jp:"笑いながら言いました。"},
+{cat:"時間の詳細表現",ne:"울면서 뛰었어요.",rom:"ulmyeonseo ttwieosseoyo",jp:"泣きながら走りました。"},
+{cat:"時間の詳細表現",ne:"한국에 온 지 3년이 됐어요.",rom:"hanguge on ji samnyeoni dwaesseoyo",jp:"韓国に来て3年になりました。"},
+{cat:"時間の詳細表現",ne:"만난 지 얼마나 됐어요?",rom:"mannan ji eolmana dwaesseoyo?",jp:"会ってからどのくらいですか？"},
+{cat:"時間の詳細表現",ne:"결혼한 지 5년 됐어요.",rom:"gyeolhonhan ji onyeon dwaesseoyo",jp:"結婚して5年になりました。"},
+{cat:"時間の詳細表現",ne:"밥 먹은 지 얼마 안 됐어요.",rom:"bap meogeun ji eolma an dwaesseoyo",jp:"ご飯を食べてからあまり経っていません。"},
+{cat:"時間の詳細表現",ne:"배운 지 오래됐어요.",rom:"baeun ji oraedwaesseoyo",jp:"習ってから長くなりました。"},
+{cat:"時間の詳細表現",ne:"본 지 오래됐어요.",rom:"bon ji oraedwaesseoyo",jp:"見てから長くなりました。"},
+{cat:"時間の詳細表現",ne:"연락한 지 한 달이 넘었어요.",rom:"yeollakhan ji han dari neomeosseoyo",jp:"連絡してから1ヶ月以上経ちました。"},
+{cat:"時間の詳細表現",ne:"이사 온 지 얼마 안 됐어요.",rom:"isa on ji eolma an dwaesseoyo",jp:"引っ越してきてからあまり経っていません。"},
+{cat:"時間の詳細表現",ne:"집에 도착하자마자 잤어요.",rom:"jibe dochakhajamaja jasseoyo",jp:"家に着くなり寝ました。"},
+{cat:"時間の詳細表現",ne:"문을 열자마자 고양이가 나갔어요.",rom:"muneul yeoljamaja goyangiga nagasseoyo",jp:"ドアを開けるなり猫が出て行きました。"},
+{cat:"時間の詳細表現",ne:"만나자마자 사랑에 빠졌어요.",rom:"mannajamaja sarange ppajyeosseoyo",jp:"会ってすぐ恋に落ちました。"},
+{cat:"時間の詳細表現",ne:"일어나자마자 휴대폰을 확인해요.",rom:"ireonajamaja hyudaeponeul hwaginhaeyo",jp:"起きてすぐ携帯を確認します。"},
+{cat:"時間の詳細表現",ne:"졸업하자마자 취직했어요.",rom:"joreopajamaja chwijikhaesseoyo",jp:"卒業してすぐ就職しました。"},
+{cat:"時間の詳細表現",ne:"끝나자마자 갈게요.",rom:"kkeunnajamaja galgeyo",jp:"終わったらすぐ行きます。"},
+{cat:"時間の詳細表現",ne:"월급 받자마자 다 썼어요.",rom:"wolgeup batjamaja da sseosseoyo",jp:"給料をもらってすぐ全部使いました。"},
+{cat:"時間の詳細表現",ne:"회사에 가는 길에 친구를 만났어요.",rom:"hoesae ganeun gire chingureul mannasseoyo",jp:"会社に行く途中で友達に会いました。"},
+{cat:"時間の詳細表現",ne:"집에 오는 길에 마트에 들렀어요.",rom:"jibe oneun gire mateu-e deulleosseoyo",jp:"家に帰る途中でスーパーに寄りました。"},
+{cat:"時間の詳細表現",ne:"산책하다가 비가 왔어요.",rom:"sanchaekhhadaga biga wasseoyo",jp:"散歩していたら雨が降ってきました。"},
+{cat:"時間の詳細表現",ne:"책을 읽다가 잠들었어요.",rom:"chaegel ilgdaga jamdeureosseoyo",jp:"本を読んでいるうちに寝てしまいました。"},
+{cat:"時間の詳細表現",ne:"일하다가 아이디어가 떠올랐어요.",rom:"ilhadaga aidieoga tteo-ollasseoyo",jp:"仕事をしているうちにアイデアが浮かびました。"},
+{cat:"時間の詳細表現",ne:"기다리다가 지쳤어요.",rom:"gidaridaga jichyeosseoyo",jp:"待っているうちに疲れました。"},
+{cat:"時間の詳細表現",ne:"운동하다가 다쳤어요.",rom:"undonghadaga dachyeosseoyo",jp:"運動中にけがをしました。"},
+{cat:"時間の詳細表現",ne:"끝날 때까지 기다릴게요.",rom:"kkeutnal ttaekkaji gidarilgeyo",jp:"終わるまで待ちます。"},
+{cat:"時間の詳細表現",ne:"이해할 때까지 설명해 드릴게요.",rom:"ihaehal ttaekkaji seolmyeonghae deurilgeyo",jp:"理解するまで説明します。"},
+{cat:"時間の詳細表現",ne:"성공할 때까지 포기하지 마세요.",rom:"seonggonghal ttaekkaji pogihaji maseyo",jp:"成功するまで諦めないでください。"},
+{cat:"時間の詳細表現",ne:"올 때까지 여기서 기다릴게요.",rom:"ol ttaekkaji yeogiseo gidarilgeyo",jp:"来るまでここで待ちます。"},
+{cat:"時間の詳細表現",ne:"다 먹을 때까지 못 나가요.",rom:"da meogeul ttaekkaji mot nagayo",jp:"全部食べるまで出られません。"},
+{cat:"時間の詳細表現",ne:"죽을 때까지 사랑할게요.",rom:"jugeul ttaekkaji saranghalgeyo",jp:"死ぬまで愛します。"},
+{cat:"時間の詳細表現",ne:"어두워질 때까지 놀았어요.",rom:"eoduwojil ttaekkaji norasseoyo",jp:"暗くなるまで遊びました。"},
+{cat:"時間の詳細表現",ne:"완벽해질 때까지 연습할 거예요.",rom:"wanbyeokaejil ttaekkaji yeonseupal geoyeyo",jp:"完璧になるまで練習します。"},
+{cat:"時間の詳細表現",ne:"한국에 갈 때마다 삼겹살을 먹어요.",rom:"hanguge gal ttaemada samgyeopsareul meogeoyo",jp:"韓国に行くたびにサムギョプサルを食べます。"},
+{cat:"時間の詳細表現",ne:"볼 때마다 예뻐지네요.",rom:"bol ttaemada yeppeojiney",jp:"会うたびにきれいになりますね。"},
+{cat:"時間の詳細表現",ne:"만날 때마다 싸워요.",rom:"mannal ttaemada ssawoyo",jp:"会うたびに喧嘩します。"},
+{cat:"時間の詳細表現",ne:"생각할 때마다 웃음이 나요.",rom:"saenggakhal ttaemada useumi nayo",jp:"思い出すたびに笑いが出ます。"},
+{cat:"時間の詳細表現",ne:"이 노래를 들을 때마다 그 시절이 생각나요.",rom:"i noraereul deureul ttaemada geu sijeori saenggangnayor",jp:"この歌を聴くたびにあの頃を思い出します。"},
+{cat:"時間の詳細表現",ne:"비가 올 때마다 관절이 아파요.",rom:"biga ol ttaemada gwanjeori apayo",jp:"雨が降るたびに関節が痛みます。"},
+{cat:"接続表現・複文",ne:"바빠서 못 갔어요.",rom:"bappaseo mot gasseoyo",jp:"忙しくて行けませんでした。"},
+{cat:"接続表現・複文",ne:"비가 와서 집에 있었어요.",rom:"biga waseo jibe isseosseoyo",jp:"雨が降ったので家にいました。"},
+{cat:"接続表現・複文",ne:"시간이 없기 때문에 택시를 탔어요.",rom:"sigani eopgi ttaemune taeksireul tasseoyo",jp:"時間がないのでタクシーに乗りました。"},
+{cat:"接続表現・複文",ne:"건강이 중요하기 때문에 운동해요.",rom:"geonggangi jungyohagi ttaemune undonghaeyo",jp:"健康が大事なので運動します。"},
+{cat:"接続表現・複文",ne:"약속이 있기 때문에 먼저 가볼게요.",rom:"yaksogi itgi ttaemune meonjeo gabolgeyo",jp:"約束があるので先に失礼します。"},
+{cat:"接続表現・複文",ne:"일하느라고 못 갔어요.",rom:"ilhaneurago mot gasseoyo",jp:"仕事で行けませんでした。"},
+{cat:"接続表現・複文",ne:"준비하느라고 시간이 없었어요.",rom:"junbihaneurago sigani eopseosseoyo",jp:"準備で時間がありませんでした。"},
+{cat:"接続表現・複文",ne:"공부하느라고 잠을 못 잤어요.",rom:"gongbuhaneurago jameul mot jasseoyo",jp:"勉強で眠れませんでした。"},
+{cat:"接続表現・複文",ne:"아이를 돌보느라고 바빴어요.",rom:"aireul dolboneurago bappasseoyo",jp:"子供の世話で忙しかったです。"},
+{cat:"接続表現・複文",ne:"비싸지만 좋아요.",rom:"bissajiman joayo",jp:"高いけど良いです。"},
+{cat:"接続表現・複文",ne:"피곤하지만 해야 해요.",rom:"pigonhajiman haeya haeyo",jp:"疲れているけどやらなければなりません。"},
+{cat:"接続表現・複文",ne:"어렵지만 재미있어요.",rom:"eoryeopjiman jaemiisseoyo",jp:"難しいけど面白いです。"},
+{cat:"接続表現・複文",ne:"열심히 했는데도 안 됐어요.",rom:"yeolsimhi haenneundedo an dwaesseoyo",jp:"一生懸命やったのにダメでした。"},
+{cat:"接続表現・複文",ne:"많이 먹었는데도 배가 고파요.",rom:"mani meogeotneundedo baega gopayo",jp:"たくさん食べたのにお腹が空いています。"},
+{cat:"接続表現・複文",ne:"설명했는데도 이해를 못 해요.",rom:"seolmyeonghaetneundedo ihaereul mot haeyo",jp:"説明したのに理解できません。"},
+{cat:"接続表現・複文",ne:"비가 와도 갈 거예요.",rom:"biga wado gal geoyeyo",jp:"雨が降っても行きます。"},
+{cat:"接続表現・複文",ne:"아무리 힘들어도 포기하지 마세요.",rom:"amuri himdeureodo pogihaji maseyo",jp:"いくら大変でも諦めないでください。"},
+{cat:"接続表現・複文",ne:"돈이 많아도 행복하지 않을 수 있어요.",rom:"doni manado haengbokaji aneul su isseoyo",jp:"お金があっても幸せではないかもしれません。"},
+{cat:"接続表現・複文",ne:"날씨가 좋으면 산책해요.",rom:"nalssiga joeumyeon sanchaekhaeyo",jp:"天気が良ければ散歩します。"},
+{cat:"接続表現・複文",ne:"모르면 물어보세요.",rom:"moreumyeon mureoboseyo",jp:"分からなければ聞いてください。"},
+{cat:"接続表現・複文",ne:"필요하면 말하세요.",rom:"piryohamyeon malhaseyo",jp:"必要なら言ってください。"},
+{cat:"接続表現・複文",ne:"배고프거든 이거 먹어.",rom:"baegopeugeodeun igeo meogeo",jp:"お腹が空いたらこれ食べて。"},
+{cat:"接続表現・複文",ne:"시간이 있거든 연락해.",rom:"sigani itgeodeun yeollakae",jp:"時間があったら連絡して。"},
+{cat:"接続表現・複文",ne:"혹시 그 사람 만나거든 이거 전해 줘.",rom:"hoksi geu saram mannageodeun igeo jeonhae jwo",jp:"もしあの人に会ったらこれを伝えて。"},
+{cat:"接続表現・複文",ne:"열심히 해야 성공할 수 있어요.",rom:"yeolsimhi haeya seongonghal su isseoyo",jp:"一生懸命やってこそ成功できます。"},
+{cat:"接続表現・複文",ne:"연습해야 잘할 수 있어요.",rom:"yeonseupaeyaja jalhal su isseoyo",jp:"練習してこそ上手になれます。"},
+{cat:"接続表現・複文",ne:"직접 봐야 믿을 수 있어요.",rom:"jikjeop bwaya mideul su isseoyo",jp:"直接見てこそ信じられます。"},
+{cat:"接続表現・複文",ne:"건강해지려고 운동해요.",rom:"geonganghaejiryeogo undonghaeyo",jp:"健康になるために運動します。"},
+{cat:"接続表現・複文",ne:"살을 빼려고 식단 조절을 해요.",rom:"sareul ppaeoryeogo sikdan jojereul haeyo",jp:"痩せるために食事制限をしています。"},
+{cat:"接続表現・複文",ne:"꿈을 이루기 위해서 노력하고 있어요.",rom:"kkumeul irugi wihaeseo noryeokhago isseoyo",jp:"夢を叶えるために努力しています。"},
+{cat:"接続表現・複文",ne:"성공하기 위해서는 포기하면 안 돼요.",rom:"seonggonghagi wihaeseneun pogihamyeon an dwaeyo",jp:"成功するためには諦めてはいけません。"},
+{cat:"接続表現・複文",ne:"늦지 않도록 일찍 출발하세요.",rom:"neutji anttorok iljjik chulbalhaseyo",jp:"遅れないように早く出発してください。"},
+{cat:"接続表現・複文",ne:"잊어버리지 않도록 메모해 두세요.",rom:"ijeobeoriji anttorok memohae duseyo",jp:"忘れないようにメモしておいてください。"},
+{cat:"接続表現・複文",ne:"다치지 않도록 조심하세요.",rom:"dachiji anttorok josimhaseyo",jp:"けがをしないように気をつけてください。"},
+{cat:"接続表現・複文",ne:"한국어를 잘하게 됐어요.",rom:"hangugeoreul jalhage dwaesseoyo",jp:"韓国語が上手になりました。"},
+{cat:"接続表現・複文",ne:"그 사람을 좋아하게 됐어요.",rom:"geu sarameul joahage dwaesseoyo",jp:"その人を好きになりました。"},
+{cat:"接続表現・複文",ne:"결국 포기하게 됐어요.",rom:"gyeolguk pogihage dwaesseoyo",jp:"結局諦めることになりました。"},
+{cat:"接続表現・複文",ne:"이해하게 됐어요.",rom:"ihaehage dwaesseoyo",jp:"理解できるようになりました。"},
+{cat:"接続表現・複文",ne:"알게 됐어요.",rom:"alge dwaesseoyo",jp:"知ることになりました。"},
+{cat:"接続表現・複文",ne:"날씨가 따뜻해졌어요.",rom:"nalssiga ttatteushaeijyeosseoyo",jp:"天気が暖かくなりました。"},
+{cat:"接続表現・複文",ne:"한국어가 재미있어졌어요.",rom:"hangugeoga jaemiisseojyeosseoyo",jp:"韓国語が面白くなりました。"},
+{cat:"接続表現・複文",ne:"건강이 좋아졌어요.",rom:"geonggangi joajyeosseoyo",jp:"健康が良くなりました。"},
+{cat:"接続表現・複文",ne:"생활이 편해졌어요.",rom:"saenghwari pyeonhaejyeosseoyo",jp:"生活が楽になりました。"},
+{cat:"接続表現・複文",ne:"물가가 비싸졌어요.",rom:"mulgaga bissajyeosseoyo",jp:"物価が高くなりました。"},
+{cat:"接続表現・複文",ne:"늦을 것 같아요.",rom:"neujeul geot gatayo",jp:"遅れそうです。"},
+{cat:"接続表現・複文",ne:"맛있을 것 같아요.",rom:"masissseul geot gatayo",jp:"おいしそうです。"},
+{cat:"接続表現・複文",ne:"힘들 것 같아요.",rom:"himdeul geot gatayo",jp:"大変そうです。"},
+{cat:"接続表現・複文",ne:"괜찮을 것 같아요.",rom:"gwaenchaneul geot gatayo",jp:"大丈夫そうです。"},
+{cat:"接続表現・複文",ne:"바쁜가 봐요.",rom:"bappenga bwayo",jp:"忙しいみたいです。"},
+{cat:"接続表現・複文",ne:"맛있나 봐요.",rom:"masinnanabwayo",jp:"おいしいみたいです。"},
+{cat:"接続表現・複文",ne:"피곤한가 봐요.",rom:"pigonhanga bwayo",jp:"疲れているみたいです。"},
+{cat:"接続表現・複文",ne:"비가 오나 봐요.",rom:"biga ona bwayo",jp:"雨が降っているみたいです。"},
+{cat:"接続表現・複文",ne:"이미 갔나 봐요.",rom:"imi gatna bwayo",jp:"もう行ったみたいです。"},
+{cat:"接続表現・複文",ne:"모르나 봐요.",rom:"moreuna bwayo",jp:"知らないみたいです。"},
+{cat:"接続表現・複文",ne:"커피나 차 드실래요?",rom:"keopi-na cha deusilaeyo?",jp:"コーヒーかお茶いかがですか？"},
+{cat:"接続表現・複文",ne:"전화하거나 문자 주세요.",rom:"jeonhwahageona munja juseyo",jp:"電話かメッセージをください。"},
+{cat:"接続表現・複文",ne:"주말에는 쉬거나 운동해요.",rom:"jumareneun swigena undonghaeyo",jp:"週末は休んだり運動したりします。"},
+{cat:"接続表現・複文",ne:"음악을 듣거나 책을 읽어요.",rom:"eumageul deutgeona chaegul ilgeoyo",jp:"音楽を聴いたり本を読んだりします。"},
+{cat:"接続表現・複文",ne:"뭐든지 괜찮아요.",rom:"mwodeunji gwaenchanayo",jp:"何でもいいです。"},
+{cat:"接続表現・複文",ne:"언제든지 연락하세요.",rom:"eonjdeunji yeollakhaseyo",jp:"いつでも連絡してください。"},
+{cat:"接続表現・複文",ne:"어디든지 갈게요.",rom:"eodideunji galgeyo",jp:"どこでも行きます。"},
+{cat:"接続表現・複文",ne:"누구든지 환영해요.",rom:"nugudeunji hwanyeonghaeyo",jp:"誰でも歓迎します。"},
+{cat:"接続表現・複文",ne:"가든지 말든지 마음대로 하세요.",rom:"gadeunji maldeunji maeumdaero haseyo",jp:"行くか行かないか好きにしてください。"},
+{cat:"接続表現・複文",ne:"하든지 말든지 결과는 같아요.",rom:"hadeunji maldeunji gyeolgwaneun gatayo",jp:"やってもやらなくても結果は同じです。"},
+{cat:"ビジネス韓国語",ne:"저는 ABC회사의 다나카라고 합니다.",rom:"jeoneun ABC hoesaui tanakarago hamnida",jp:"私はABC会社の田中と申します。"},
+{cat:"ビジネス韓国語",ne:"영업부에서 일하고 있습니다.",rom:"yeongeopbueseo ilhago itseumnida",jp:"営業部で働いています。"},
+{cat:"ビジネス韓国語",ne:"마케팅 담당입니다.",rom:"maketing damdangimnnida",jp:"マーケティング担当です。"},
+{cat:"ビジネス韓国語",ne:"명함을 드리겠습니다.",rom:"myeonghameul deurigesseumnida",jp:"名刺をお渡しします。"},
+{cat:"ビジネス韓国語",ne:"명함 한 장 받을 수 있을까요?",rom:"myeongham han jang badeul su isseulkkayo?",jp:"名刺を1枚いただけますか？"},
+{cat:"ビジネス韓国語",ne:"좋은 인연이 되길 바랍니다.",rom:"joeun inyeoni doegil baramnida",jp:"良いご縁になることを願っております。"},
+{cat:"ビジネス韓国語",ne:"만나 뵙게 되어 영광입니다.",rom:"manna boepge doeeo yeongwangimnida",jp:"お目にかかれて光栄です。"},
+{cat:"ビジネス韓国語",ne:"여보세요, ABC회사입니다.",rom:"yeoboseyo, ABC hoesaimnida",jp:"もしもし、ABC会社でございます。"},
+{cat:"ビジネス韓国語",ne:"무엇을 도와 드릴까요?",rom:"mueoseul dowa deurilkkayo?",jp:"何かお手伝いいたしましょうか？"},
+{cat:"ビジネス韓国語",ne:"실례지만 어느 회사시죠?",rom:"sillyejiman eoneu hoesasijyo?",jp:"失礼ですが、どちらの会社様でしょうか？"},
+{cat:"ビジネス韓国語",ne:"실례지만 성함이 어떻게 되십니까?",rom:"sillyejiman seonghami eotteoke doemsimnikka?",jp:"失礼ですが、お名前をお伺いしてもよろしいですか？"},
+{cat:"ビジネス韓国語",ne:"담당자에게 연결해 드리겠습니다.",rom:"damdangjnegge yeongyeolhae deurigesseumnida",jp:"担当者におつなぎいたします。"},
+{cat:"ビジネス韓国語",ne:"잠시만 기다려 주시겠습니까?",rom:"jamsiman gidaryeo jusigetsseumnikka?",jp:"少々お待ちいただけますか？"},
+{cat:"ビジネス韓国語",ne:"회의 중이십니다.",rom:"hoeui jungisimnida",jp:"会議中でございます。"},
+{cat:"ビジネス韓国語",ne:"외출 중이십니다.",rom:"oechul jungisimnida",jp:"外出中でございます。"},
+{cat:"ビジネス韓国語",ne:"전화 드리라고 전해 드릴까요?",rom:"jeonhwa deurirago jeonhae deurilkkayo?",jp:"折り返しお電話するようお伝えしましょうか？"},
+{cat:"ビジネス韓国語",ne:"메모 남겨 주시겠습니까?",rom:"memo namgyeo jusigetsseumnikka?",jp:"伝言をお預かりいたしましょうか？"},
+{cat:"ビジネス韓国語",ne:"다시 전화 드리겠습니다.",rom:"dasi jeonhwa deurigesseumnida",jp:"改めてお電話いたします。"},
+{cat:"ビジネス韓国語",ne:"회의를 시작하겠습니다.",rom:"hoeuireul sijakagesseumnida",jp:"会議を始めます。"},
+{cat:"ビジネス韓国語",ne:"오늘의 안건은 세 가지입니다.",rom:"oneuri angeoneun se gajiimnida",jp:"本日の議題は3つです。"},
+{cat:"ビジネス韓国語",ne:"자료를 보시겠습니까?",rom:"jaryoreul bosigetsseumnikka?",jp:"資料をご覧になりますか？"},
+{cat:"ビジネス韓国語",ne:"화면을 봐 주십시오.",rom:"hwamyeoneul bwa jusipsio",jp:"画面をご覧ください。"},
+{cat:"ビジネス韓国語",ne:"의견 있으시면 말씀해 주세요.",rom:"uigyeon isseusimyeon malssiumhae juseyo",jp:"ご意見があればおっしゃってください。"},
+{cat:"ビジネス韓国語",ne:"질문이 있으시면 말씀해 주십시오.",rom:"jilmuni isseusimyeon malssiumhae jusipsio",jp:"ご質問があればお聞かせください。"},
+{cat:"ビジネス韓国語",ne:"다른 의견 있으십니까?",rom:"dareun uigyeon isseusimnikka?",jp:"他にご意見はありますか？"},
+{cat:"ビジネス韓国語",ne:"찬성하시는 분?",rom:"chanseonghsineun bun?",jp:"賛成の方？"},
+{cat:"ビジネス韓国語",ne:"반대 의견 있으십니까?",rom:"bandae uigyeon isseusimnikka?",jp:"反対のご意見はありますか？"},
+{cat:"ビジネス韓国語",ne:"그 점에 대해 검토해 보겠습니다.",rom:"geu jeome daehae geomtohae bogesseumnida",jp:"その点について検討してみます。"},
+{cat:"ビジネス韓国語",ne:"다음 회의에서 결정하겠습니다.",rom:"daeum hoeui-eseo gyeoljeonghagetseumnida",jp:"次の会議で決定いたします。"},
+{cat:"ビジネス韓国語",ne:"이상으로 회의를 마치겠습니다.",rom:"isangeuro hoeuireul machigesseumnida",jp:"以上で会議を終わります。"},
+{cat:"ビジネス韓国語",ne:"수고하셨습니다.",rom:"sugohasyeotseumnida",jp:"お疲れ様でした。"},
+{cat:"ビジネス韓国語",ne:"안녕하십니까, 다나카입니다.",rom:"annyeonghashimnikka, tanakaimnida",jp:"お世話になっております。田中です。"},
+{cat:"ビジネス韓国語",ne:"항상 신세를 지고 있습니다.",rom:"hangsang sinsereul jigo itseumnida",jp:"いつもお世話になっております。"},
+{cat:"ビジネス韓国語",ne:"바쁘신 중에 연락드립니다.",rom:"bappeushin junge yeollakdeurimnida",jp:"お忙しいところ恐れ入ります。"},
+{cat:"ビジネス韓国語",ne:"문의 사항이 있어 연락드립니다.",rom:"munui sahangi isseo yeollakdeurimnida",jp:"お問い合わせがあり、ご連絡いたしました。"},
+{cat:"ビジネス韓国語",ne:"첨부 파일을 확인해 주십시오.",rom:"cheombu paireul hwaginhae jusipsio",jp:"添付ファイルをご確認ください。"},
+{cat:"ビジネス韓国語",ne:"검토해 주시면 감사하겠습니다.",rom:"geomtohae jusimyeon gamsahagetseumnida",jp:"ご検討いただければ幸いです。"},
+{cat:"ビジネス韓国語",ne:"회신 부탁드립니다.",rom:"hoesin butakdeurimnida",jp:"ご返信をお願いいたします。"},
+{cat:"ビジネス韓国語",ne:"빠른 회신 부탁드립니다.",rom:"ppareun hoesin butakdeurimnida",jp:"早めのご返信をお願いいたします。"},
+{cat:"ビジネス韓国語",ne:"긍정적인 답변 기다리겠습니다.",rom:"geungjeongjeogin dapbyeon gidarugesseumnida",jp:"前向きなお返事をお待ちしております。"},
+{cat:"ビジネス韓国語",ne:"양해 부탁드립니다.",rom:"yanghae butakdeurimnida",jp:"ご了承をお願いいたします。"},
+{cat:"ビジネス韓国語",ne:"부탁드려도 될까요?",rom:"butakdeuryeodo doelkkayo?",jp:"お願いしてもよろしいでしょうか？"},
+{cat:"ビジネス韓国語",ne:"죄송하지만 부탁드려도 되겠습니까?",rom:"joesonghjiman butakdeuryeodo doegetseumnikka?",jp:"恐れ入りますがお願いしてもよろしいでしょうか？"},
+{cat:"ビジネス韓国語",ne:"이 일을 맡아 주실 수 있으십니까?",rom:"i ireul maja jusil su isseusimnikka?",jp:"この仕事を引き受けていただけますか？"},
+{cat:"ビジネス韓国語",ne:"도움을 청해도 될까요?",rom:"doumeul cheonghaedo doelkkayo?",jp:"お力をお借りしてもよろしいでしょうか？"},
+{cat:"ビジネス韓国語",ne:"자료를 보내 주시겠습니까?",rom:"jaryoreul bonae jusigetsseumnikka?",jp:"資料をお送りいただけますか？"},
+{cat:"ビジネス韓国語",ne:"가능하시면 내일까지 부탁드립니다.",rom:"ganeunghasimyeon naeilkkaji butakdeurimnida",jp:"可能であれば明日までお願いいたします。"},
+{cat:"ビジネス韓国語",ne:"급한 일이라 빨리 처리해 주시면 감사하겠습니다.",rom:"geupan irira ppalli cheorihae jusimyeon gamsahagetseumnida",jp:"急ぎの件なので、早急に対応いただければ幸いです。"},
+{cat:"ビジネス韓国語",ne:"번거로우시겠지만 확인 부탁드립니다.",rom:"beongeorousigeitjiman hwagin butakdeurimnida",jp:"お手数ですがご確認をお願いいたします。"},
+{cat:"ビジネス韓国語",ne:"무리한 부탁인 것 알지만 검토해 주십시오.",rom:"murihan butagin geot aljiman geomtohae jusipsio",jp:"無理なお願いと存じますが、ご検討ください。"},
+{cat:"ビジネス韓国語",ne:"보고드리겠습니다.",rom:"bogodeurigesseumnida",jp:"ご報告いたします。"},
+{cat:"ビジネス韓国語",ne:"현재 상황을 말씀드리겠습니다.",rom:"hyeonjae sanghwangeul malsseumdeurigesseumnida",jp:"現在の状況をご説明いたします。"},
+{cat:"ビジネス韓国語",ne:"진행 상황을 보고드립니다.",rom:"jinhaeng sanghwangeul bogodeurimnida",jp:"進捗状況をご報告いたします。"},
+{cat:"ビジネス韓国語",ne:"결과를 말씀드리겠습니다.",rom:"gyeolgwareul malsseumdeurigesseumnida",jp:"結果をお伝えいたします。"},
+{cat:"ビジネス韓国語",ne:"예정대로 진행되고 있습니다.",rom:"yejeongdaero jinhaengdoego itseumnida",jp:"予定通り進行しております。"},
+{cat:"ビジネス韓国語",ne:"약간 지연되고 있습니다.",rom:"yakgan jiyeondoego itseumnida",jp:"若干遅れております。"},
+{cat:"ビジネス韓国語",ne:"문제가 발생했습니다.",rom:"munjega balsaenghaetseumnida",jp:"問題が発生しました。"},
+{cat:"ビジネス韓国語",ne:"대책을 검토 중입니다.",rom:"daechaegeul geomto jungimnida",jp:"対策を検討中です。"},
+{cat:"ビジネス韓国語",ne:"해결 방안을 찾고 있습니다.",rom:"haegyeol banganeul chatgo itseumnida",jp:"解決策を探しております。"},
+{cat:"ビジネス韓国語",ne:"이상입니다.",rom:"isangimnida",jp:"以上です。"},
+{cat:"ビジネス韓国語",ne:"깊이 사과드립니다.",rom:"gipi sagwadeurimnida",jp:"深くお詫び申し上げます。"},
+{cat:"ビジネス韓国語",ne:"다시는 이런 일이 없도록 하겠습니다.",rom:"dasineun ireon iri eopdorok hagetseumnida",jp:"二度とこのようなことがないようにいたします。"},
+{cat:"ビジネス韓国語",ne:"조속히 대처하겠습니다.",rom:"josokhi daecheohagetseumnida",jp:"早急に対応いたします。"},
+{cat:"ビジネス韓国語",ne:"원인을 파악 중입니다.",rom:"wonineul paak jungimnida",jp:"原因を究明中です。"},
+{cat:"ビジネス韓国語",ne:"재발 방지에 힘쓰겠습니다.",rom:"jaebal banjie himsseugetsseumnida",jp:"再発防止に努めます。"},
+{cat:"ビジネス韓国語",ne:"양해해 주시면 감사하겠습니다.",rom:"yanghaehae jusimyeon gamsahagetseumnida",jp:"ご了承いただければ幸いです。"},
+{cat:"ビジネス韓国語",ne:"가격에 대해 상의하고 싶습니다.",rom:"gagyeoge daehae sanguihago sipseumnida",jp:"価格についてご相談したいです。"},
+{cat:"ビジネス韓国語",ne:"조건을 조정할 수 있을까요?",rom:"jogoneul jojonghal su isseulkkayo?",jp:"条件を調整できますでしょうか？"},
+{cat:"ビジネス韓国語",ne:"할인이 가능합니까?",rom:"harini ganeunghamnikka?",jp:"割引は可能ですか？"},
+{cat:"ビジネス韓国語",ne:"최대 몇 퍼센트까지 할인 가능합니까?",rom:"choedae myeot peosenteukkaji harin ganeunghamnikka?",jp:"最大何パーセントまで割引可能ですか？"},
+{cat:"ビジネス韓国語",ne:"납기일을 앞당길 수 있습니까?",rom:"napgiireul apdanggil su itseumnikka?",jp:"納期を早めることはできますか？"},
+{cat:"ビジネス韓国語",ne:"이 조건으로는 어렵습니다.",rom:"i jogoneureoneun eoryeopsseumnida",jp:"この条件では難しいです。"},
+{cat:"ビジネス韓国語",ne:"다시 검토해 주시겠습니까?",rom:"dasi geomtohae jusigetsseumnikka?",jp:"再度ご検討いただけますか？"},
+{cat:"ビジネス韓国語",ne:"좋은 제안입니다.",rom:"joeun jeanimnida",jp:"良いご提案です。"},
+{cat:"ビジネス韓国語",ne:"긍정적으로 검토하겠습니다.",rom:"geungjeongjeogeuro geomtohagetseumnida",jp:"前向きに検討いたします。"},
+{cat:"ビジネス韓国語",ne:"계약서를 작성하겠습니다.",rom:"gyeyakseoreul jakseonghagetseumnida",jp:"契約書を作成いたします。"},
+{cat:"ビジネス韓国語",ne:"서명해 주십시오.",rom:"seomyeonghae jusipsio",jp:"ご署名ください。"},
+{cat:"ビジネス韓国語",ne:"거래를 시작하게 되어 기쁩니다.",rom:"georaereul sijakage doeeo gippeumnida",jp:"お取引を始められて嬉しく思います。"},
+{cat:"ビジネス韓国語",ne:"미팅 일정을 잡고 싶습니다.",rom:"miting iljeoneul japgo sipseumnida",jp:"ミーティングの日程を決めたいです。"},
+{cat:"ビジネス韓国語",ne:"언제가 편하십니까?",rom:"eonjega pyeonhasimnikka?",jp:"いつがご都合よろしいですか？"},
+{cat:"ビジネス韓国語",ne:"다음 주 화요일은 어떠십니까?",rom:"daeum ju hwayoireun eotteosimnnikka?",jp:"来週火曜日はいかがでしょうか？"},
+{cat:"ビジネス韓国語",ne:"오전과 오후 중 언제가 좋으시겠습니까?",rom:"jeonggwa ohu jung eonjega joeusigetsseumnikka?",jp:"午前と午後、どちらがよろしいですか？"},
+{cat:"ビジネス韓国語",ne:"2시에 방문해도 될까요?",rom:"dusie bangmunhaedo doelkkayo?",jp:"2時にお伺いしてもよろしいですか？"},
+{cat:"ビジネス韓国語",ne:"그 시간에 다른 일정이 있습니다.",rom:"geu sigane dareun iljeongi itseumnida",jp:"その時間は別の予定がございます。"},
+{cat:"ビジネス韓国語",ne:"일정을 변경해도 될까요?",rom:"iljeoneul byeongyeonghaedo doelkkayo?",jp:"日程を変更してもよろしいですか？"},
+{cat:"ビジネス韓国語",ne:"출장으로 서울에 갑니다.",rom:"chuljangeuro seoure gamnida",jp:"出張でソウルに参ります。"},
+{cat:"ビジネス韓国語",ne:"공항까지 마중 나가겠습니다.",rom:"gonghangkkaji majung nagagetseumnida",jp:"空港までお迎えに上がります。"},
+{cat:"ビジネス韓国語",ne:"어디서 뵐까요?",rom:"eodiseo boelkkayo?",jp:"どこでお会いいたしましょうか？"},
+{cat:"ニュース・社会話題",ne:"고령화 사회가 문제입니다.",rom:"goryeonghwa sahoega munjeimnnida",jp:"高齢化社会が問題です。"},
+{cat:"ニュース・社会話題",ne:"저출산 문제가 심각합니다.",rom:"jeochulsan munjega simgakamnida",jp:"少子化問題が深刻です。"},
+{cat:"ニュース・社会話題",ne:"청년 실업률이 높습니다.",rom:"cheongnyeon silyeomnyuri nopseumnida",jp:"若者の失業率が高いです。"},
+{cat:"ニュース・社会話題",ne:"주거비가 너무 비쌉니다.",rom:"jugsobiga neomu bissamnida",jp:"住居費が高すぎます。"},
+{cat:"ニュース・社会話題",ne:"빈부 격차가 심해지고 있습니다.",rom:"binbu gyeokchaga simhaejigo itseumnida",jp:"貧富の格差が広がっています。"},
+{cat:"ニュース・社会話題",ne:"환경 오염이 심각합니다.",rom:"hwangyeong oyeomi simgakamnida",jp:"環境汚染が深刻です。"},
+{cat:"ニュース・社会話題",ne:"미세먼지가 건강에 해롭습니다.",rom:"misemeonjiga geongage haeropseumnida",jp:"PM2.5は健康に有害です。"},
+{cat:"ニュース・社会話題",ne:"지구 온난화가 걱정됩니다.",rom:"jigu onnanheaga geokjeongdoemnida",jp:"地球温暖化が心配です。"},
+{cat:"ニュース・社会話題",ne:"플라스틱 사용을 줄여야 합니다.",rom:"peullaseutik sayongeul juryeoya hamnida",jp:"プラスチックの使用を減らすべきです。"},
+{cat:"ニュース・社会話題",ne:"재활용을 해야 합니다.",rom:"jaehwaryongeul haeya hamnida",jp:"リサイクルをすべきです。"},
+{cat:"ニュース・社会話題",ne:"경기가 좋아지고 있습니다.",rom:"gyeonggiga joajigo itseumnida",jp:"景気が良くなっています。"},
+{cat:"ニュース・社会話題",ne:"경기가 나빠지고 있습니다.",rom:"gyeonggiga nappajigo itseumnida",jp:"景気が悪くなっています。"},
+{cat:"ニュース・社会話題",ne:"물가가 올랐습니다.",rom:"mulgaga ollatseumnida",jp:"物価が上がりました。"},
+{cat:"ニュース・社会話題",ne:"금리가 인상됐습니다.",rom:"geumriga insangdwaetseumnida",jp:"金利が引き上げられました。"},
+{cat:"ニュース・社会話題",ne:"환율이 변동하고 있습니다.",rom:"hwanyuri byeondonghago itseumnida",jp:"為替レートが変動しています。"},
+{cat:"ニュース・社会話題",ne:"주가가 폭락했습니다.",rom:"jugaga pongnakaetseumnida",jp:"株価が暴落しました。"},
+{cat:"ニュース・社会話題",ne:"부동산 가격이 떨어졌습니다.",rom:"budongsan gagyeogi tteoreojyeotseumnida",jp:"不動産価格が下がりました。"},
+{cat:"ニュース・社会話題",ne:"인플레이션이 문제입니다.",rom:"inpeullreisyeoni munjeimnida",jp:"インフレが問題です。"},
+{cat:"ニュース・社会話題",ne:"경제 성장률이 둔화됐습니다.",rom:"gyeongje seongjangnyuri dunhwadwaetseumnida",jp:"経済成長率が鈍化しました。"},
+{cat:"ニュース・社会話題",ne:"무역 적자가 늘었습니다.",rom:"muyeok jeokjaga neureotseumnida",jp:"貿易赤字が増えました。"},
+{cat:"ニュース・社会話題",ne:"선거가 내년에 있습니다.",rom:"seongeo-ga naenyeone itseumnida",jp:"選挙が来年にあります。"},
+{cat:"ニュース・社会話題",ne:"대통령 선거가 중요합니다.",rom:"daetongryeong seongeo-ga jungyohamnida",jp:"大統領選挙が重要です。"},
+{cat:"ニュース・社会話題",ne:"새로운 정책이 발표됐습니다.",rom:"saeroun jeongchaegi balpyodwaetseumnida",jp:"新しい政策が発表されました。"},
+{cat:"ニュース・社会話題",ne:"법안이 통과됐습니다.",rom:"beopani tonggwadwaetseumnida",jp:"法案が可決されました。"},
+{cat:"ニュース・社会話題",ne:"외교 관계가 중요합니다.",rom:"oegyo gwangyega jungyohamnida",jp:"外交関係が重要です。"},
+{cat:"ニュース・社会話題",ne:"한일 관계가 개선되길 바랍니다.",rom:"hanil gwangyega gaesondoegil baramnida",jp:"日韓関係が改善されることを願います。"},
+{cat:"ニュース・社会話題",ne:"정상회담이 열렸습니다.",rom:"jeongsanghoidami yeollyeotseumnida",jp:"首脳会談が開かれました。"},
+{cat:"ニュース・社会話題",ne:"평화를 위해 노력해야 합니다.",rom:"pyeonghwareul wihae noryeokaeya hamnida",jp:"平和のために努力すべきです。"},
+{cat:"ニュース・社会話題",ne:"인권 문제가 대두되고 있습니다.",rom:"ingwon munjega daedudoego itseumnida",jp:"人権問題が浮上しています。"},
+{cat:"ニュース・社会話題",ne:"인공지능이 빠르게 발전하고 있습니다.",rom:"ingongjineungi ppareuge baljeonhago itseumnida",jp:"AIが急速に発展しています。"},
+{cat:"ニュース・社会話題",ne:"자율주행차가 상용화되고 있습니다.",rom:"jayuljuhaengchaga sangyonghwadoego itseumnida",jp:"自動運転車が実用化されています。"},
+{cat:"ニュース・社会話題",ne:"5G 기술이 보급되고 있습니다.",rom:"oijji gisuri bogeupdoego itseumnida",jp:"5G技術が普及しています。"},
+{cat:"ニュース・社会話題",ne:"로봇 기술이 발전했습니다.",rom:"robot gisuri baljeonnhaetseumnida",jp:"ロボット技術が発展しました。"},
+{cat:"ニュース・社会話題",ne:"우주 개발이 진행되고 있습니다.",rom:"uju gaeban jinhaengdoego itseumnida",jp:"宇宙開発が進行しています。"},
+{cat:"ニュース・社会話題",ne:"신약이 개발됐습니다.",rom:"sinyagi gaebaldwaetseumnida",jp:"新薬が開発されました。"},
+{cat:"ニュース・社会話題",ne:"친환경 에너지가 중요합니다.",rom:"chinhwangyeong eneojiga jungyohamnida",jp:"環境に優しいエネルギーが重要です。"},
+{cat:"ニュース・社会話題",ne:"전기차 시장이 성장하고 있습니다.",rom:"jeongicha sijjang seongjnghago itseumnida",jp:"電気自動車市場が成長しています。"},
+{cat:"ニュース・社会話題",ne:"교통사고가 났습니다.",rom:"gyotongsagoga natseumnida",jp:"交通事故が起きました。"},
+{cat:"ニュース・社会話題",ne:"지진이 발생했습니다.",rom:"jijini balsaenghaetseumnida",jp:"地震が発生しました。"},
+{cat:"ニュース・社会話題",ne:"홍수 피해가 심합니다.",rom:"hongsu pihaega simhamnida",jp:"洪水の被害がひどいです。"},
+{cat:"ニュース・社会話題",ne:"태풍이 상륙할 예정입니다.",rom:"taepungi sangyukhal yejeongiminda",jp:"台風が上陸する予定です。"},
+{cat:"ニュース・社会話題",ne:"화재가 발생해서 대피했습니다.",rom:"hwajaega balsaenghaeseo daepihhaetseumnida",jp:"火災が発生して避難しました。"},
+{cat:"ニュース・社会話題",ne:"범죄가 증가하고 있습니다.",rom:"beomjoega jeunggahago itseumnida",jp:"犯罪が増加しています。"},
+{cat:"ニュース・社会話題",ne:"사기 피해를 조심하세요.",rom:"sagi pihaereul josimhaseyo",jp:"詐欺被害に気をつけてください。"},
+{cat:"ニュース・社会話題",ne:"코로나 확진자가 늘었습니다.",rom:"korona hwakjinjaga neureotseumnida",jp:"コロナ感染者が増えました。"},
+{cat:"ニュース・社会話題",ne:"제 생각에는 이것이 문제입니다.",rom:"je saenggageneun igeosi munjeimnnida",jp:"私の考えではこれが問題です。"},
+{cat:"ニュース・社会話題",ne:"저는 이 의견에 동의합니다.",rom:"jeoneun i uigyeone donguihamnida",jp:"私はこの意見に同意します。"},
+{cat:"ニュース・社会話題",ne:"저는 다르게 생각합니다.",rom:"jeoneun dareuge saenggakamnida",jp:"私は違うと思います。"},
+{cat:"ニュース・社会話題",ne:"그것은 일리가 있습니다.",rom:"geugeoseun illiga itseumnida",jp:"それは一理あります。"},
+{cat:"ニュース・社会話題",ne:"그러나 다른 측면도 있습니다.",rom:"geureona dareun cheugmyeondo itseumnida",jp:"しかし別の側面もあります。"},
+{cat:"ニュース・社会話題",ne:"통계에 따르면...",rom:"tonggye-e ttareumyeon...",jp:"統計によると..."},
+{cat:"ニュース・社会話題",ne:"전문가들은 이렇게 말합니다.",rom:"jeonmungadeureun ireoke malhamnida",jp:"専門家たちはこう言っています。"},
+{cat:"ニュース・社会話題",ne:"한복은 한국의 전통 의상입니다.",rom:"hanbogeun hangugui jeontong uisangimnnida",jp:"韓服は韓国の伝統衣装です。"},
+{cat:"ニュース・社会話題",ne:"설날에는 세배를 합니다.",rom:"seollale-neun sebaereul hamnida",jp:"正月には歳拝をします。"},
+{cat:"ニュース・社会話題",ne:"세뱃돈을 받습니다.",rom:"sebaetdoneul batseumnida",jp:"お年玉をもらいます。"},
+{cat:"ニュース・社会話題",ne:"추석에는 송편을 먹습니다.",rom:"chuseoekeneun songpyeoneul meokseumnida",jp:"秋夕にはソンピョンを食べます。"},
+{cat:"ニュース・社会話題",ne:"한글은 세종대왕이 만들었습니다.",rom:"hangeuleun sejongdaewangi mandeurreotseumnida",jp:"ハングルは世宗大王が作りました。"},
+{cat:"ニュース・社会話題",ne:"김치는 한국의 대표적인 음식입니다.",rom:"gimchineun hangugui daepyojeogin eumsikimnida",jp:"キムチは韓国の代表的な食べ物です。"},
+{cat:"ニュース・社会話題",ne:"불고기는 외국인에게도 인기가 많습니다.",rom:"bulgogineun oeguginegedeo ingiga manseumnida",jp:"プルコギは外国人にも人気があります。"},
+{cat:"ニュース・社会話題",ne:"사물놀이는 전통 음악입니다.",rom:"samulnorineun jeontong eumakimnnida",jp:"サムルノリは伝統音楽です。"},
+{cat:"ニュース・社会話題",ne:"태권도는 한국의 전통 무술입니다.",rom:"taekwondoneun hangugui jeontong musulimnnida",jp:"テコンドーは韓国の伝統武術です。"},
+{cat:"ニュース・社会話題",ne:"온돌은 한국 전통 난방 방식입니다.",rom:"ondoleun hanguk jeontong nanbang bangsikimnida",jp:"オンドルは韓国の伝統暖房方式です。"},
+{cat:"ニュース・社会話題",ne:"한국에서는 나이가 중요합니다.",rom:"hangugeseneun naiga jungyohamnida",jp:"韓国では年齢が重要です。"},
+{cat:"ニュース・社会話題",ne:"어른 앞에서는 두 손으로 받습니다.",rom:"eoreun apeseneun du soneuro batseumnida",jp:"目上の人の前では両手で受け取ります。"},
+{cat:"ニュース・社会話題",ne:"어른보다 먼저 술을 마시면 안 됩니다.",rom:"eoreunboda meonjeo sureul masimyeon an doemnida",jp:"目上の人より先にお酒を飲んではいけません。"},
+{cat:"ニュース・社会話題",ne:"어른 앞에서 술을 마실 때는 고개를 돌립니다.",rom:"eoreun apeseo sureul masil ttaeneun gogaereul dollimnnida",jp:"目上の人の前でお酒を飲むときは顔を背けます。"},
+{cat:"ニュース・社会話題",ne:"신발을 벗고 들어갑니다.",rom:"sinbareul beotgo deureogamnida",jp:"靴を脱いで入ります。"},
+{cat:"ニュース・社会話題",ne:"밥은 남기지 않는 것이 좋습니다.",rom:"babeun namgiji anneun geosi joseumnida",jp:"ご飯は残さない方がいいです。"},
+{cat:"ニュース・社会話題",ne:"식사할 때 어른이 먼저 먹기 시작합니다.",rom:"siksahal ttae eoreuni meonjeo meokgi sijakamnida",jp:"食事の時は年上の人が先に食べ始めます。"},
+{cat:"ニュース・社会話題",ne:"한국에서는 젓가락으로만 먹지 않습니다.",rom:"hangugeseneun jeotgarageuloman meokji anseumnida",jp:"韓国では箸だけでは食べません。"},
+{cat:"ニュース・社会話題",ne:"숟가락과 젓가락을 같이 사용합니다.",rom:"sutgarakgwa jeotgarageul gachi sayonghamnida",jp:"スプーンと箸を一緒に使います。"},
+{cat:"ニュース・社会話題",ne:"밥그릇을 들고 먹지 않습니다.",rom:"bapgeureseul deulgo meokji anseumnida",jp:"ご飯茶碗を持って食べません。"},
+{cat:"ニュース・社会話題",ne:"일본과 달리 한국에서는...",rom:"ilbongwa dalli hangugeseneun...",jp:"日本と違って韓国では..."},
+{cat:"ニュース・社会話題",ne:"일본과 비슷하게 한국도...",rom:"ilbongwa biseutage hangukdo...",jp:"日本と同様に韓国も..."},
+{cat:"ニュース・社会話題",ne:"일본에서는 어떻게 해요?",rom:"ilboneseoneun eotteoke haeyo?",jp:"日本ではどうしますか？"},
+{cat:"ニュース・社会話題",ne:"한국과 일본은 비슷한 점이 많아요.",rom:"hangukgwa ilboneun biseusan jeomi manayo",jp:"韓国と日本は似ている点が多いです。"},
+{cat:"ニュース・社会話題",ne:"한국과 일본은 다른 점도 많아요.",rom:"hangukgwa ilboneun dareun jeomdo manayo",jp:"韓国と日本は違う点も多いです。"},
+{cat:"ニュース・社会話題",ne:"한국에서는 밥이 기본입니다.",rom:"hangugeseneun babi gibonimnida",jp:"韓国ではご飯が基本です。"},
+{cat:"ニュース・社会話題",ne:"한국은 매운 음식이 많아요.",rom:"hangugeun maeun eumsigi manayo",jp:"韓国は辛い食べ物が多いです。"},
+{cat:"ニュース・社会話題",ne:"반찬이 많이 나와요.",rom:"banchani mani nawayo",jp:"おかずがたくさん出てきます。"},
+{cat:"ニュース・社会話題",ne:"반찬은 리필이 무료예요.",rom:"banchaneun ripiri muryoyeyo",jp:"おかずのお代わりは無料です。"},
+{cat:"ニュース・社会話題",ne:"한국에서는 나이를 중요시합니다.",rom:"hangugeoeneun naireul jungyosihamnida",jp:"韓国では年齢を重視します。"},
+{cat:"ニュース・社会話題",ne:"한류가 세계적으로 인기입니다.",rom:"hallyuga segyejeogeuro ingiimnnida",jp:"韓流は世界的に人気です。"},
+{cat:"ニュース・社会話題",ne:"K-pop은 전 세계에서 사랑받고 있습니다.",rom:"keipapeun jeon segyeeseo sarangbatgo itseumnida",jp:"K-popは世界中で愛されています。"},
+{cat:"ニュース・社会話題",ne:"한국 드라마가 인기 있어요.",rom:"hanguk deuramaga ingi isseoyo",jp:"韓国ドラマは人気があります。"},
+{cat:"ニュース・社会話題",ne:"BTS는 세계적인 아이돌 그룹입니다.",rom:"biteuesineun segyejeogin aidol geurubimnnida",jp:"BTSは世界的なアイドルグループです。"},
+{cat:"ニュース・社会話題",ne:"한국 영화가 오스카 상을 받았습니다.",rom:"hanguk yeonghwaga oseuka sangeul badatseumnida",jp:"韓国映画がオスカー賞を受賞しました。"},
+{cat:"ニュース・社会話題",ne:"치맥 문화가 유명합니다.",rom:"chimaek munhwaga yumyeonghamnida",jp:"チメク文化が有名です。"},
+{cat:"ニュース・社会話題",ne:"카페 문화가 발달해 있어요.",rom:"kape munhwaga baldalhae isseoyo",jp:"カフェ文化が発達しています。"},
+{cat:"ニュース・社会話題",ne:"한국은 인터넷이 빠릅니다.",rom:"hangugeun inteonesi ppareuninida",jp:"韓国はインターネットが速いです。"},
+{cat:"ニュース・社会話題",ne:"한국에서는 카드 사용이 일반적입니다.",rom:"hangugeoeneun kadeu sayongi ilbanjeogimnida",jp:"韓国ではカード使用が一般的です。"},
+{cat:"ニュース・社会話題",ne:"배달 문화가 발달해 있어요.",rom:"baedal munhwaga baldalhae isseoyo",jp:"出前文化が発達しています。"},
+{cat:"ニュース・社会話題",ne:"설날은 음력 1월 1일입니다.",rom:"seollaleun eumnyeok ilwol ilirimnnida",jp:"正月は旧暦1月1日です。"},
+{cat:"ニュース・社会話題",ne:"설날에는 떡국을 먹습니다.",rom:"seollale-neun tteokgugeul meokseumnida",jp:"正月にはトックを食べます。"},
+{cat:"ニュース・社会話題",ne:"추석은 음력 8월 15일입니다.",rom:"chuseogeun eumnyeok palwol siboririmnnida",jp:"秋夕は旧暦8月15日です。"},
+{cat:"ニュース・社会話題",ne:"추석에는 성묘를 갑니다.",rom:"chuseogeeneun seongmyoreul gamnida",jp:"秋夕にはお墓参りに行きます。"},
+{cat:"ニュース・社会話題",ne:"어린이날은 5월 5일입니다.",rom:"eorininaleum owol oirimnnida",jp:"こどもの日は5月5日です。"},
+{cat:"ニュース・社会話題",ne:"한글날은 10월 9일입니다.",rom:"hangeullaleun siwol guirimnnida",jp:"ハングルの日は10月9日です。"},
+{cat:"ニュース・社会話題",ne:"삼일절은 3월 1일입니다.",rom:"samiljeoreun samwol iririmnnida",jp:"三一節は3月1日です。"},
+{cat:"ニュース・社会話題",ne:"광복절은 8월 15일입니다.",rom:"gwangbokjeoreun parwol siboririmnnida",jp:"光復節は8月15日です。"},
+{cat:"ニュース・社会話題",ne:"한국에서는 빼빼로데이가 있어요.",rom:"hangugeoeneun ppaepaero-deiga isseoyo",jp:"韓国にはペペロデーがあります。"},
+{cat:"ニュース・社会話題",ne:"11월 11일에 빼빼로를 주고받아요.",rom:"sibiwol sibirire ppaepaeroreul jugobadayo",jp:"11月11日にペペロを交換します。"},
+{cat:"問題解決・議論",ne:"문제가 있습니다.",rom:"munjega itseumnida",jp:"問題があります。"},
+{cat:"問題解決・議論",ne:"큰 문제가 생겼습니다.",rom:"keun munjega saenggyeotseumnida",jp:"大きな問題が発生しました。"},
+{cat:"問題解決・議論",ne:"이 점이 문제입니다.",rom:"i jeomi munjeimnida",jp:"この点が問題です。"},
+{cat:"問題解決・議論",ne:"해결해야 할 과제가 있습니다.",rom:"haegyeolhaeya hal gwajega itseumnida",jp:"解決すべき課題があります。"},
+{cat:"問題解決・議論",ne:"어려운 상황에 처해 있습니다.",rom:"eoryeoun sanghwange chyeohae itseumnida",jp:"困難な状況に置かれています。"},
+{cat:"問題解決・議論",ne:"이 문제를 어떻게 해결해야 할까요?",rom:"i munjereul eotteoke haegyeolhaeya halkkayo?",jp:"この問題をどう解決すべきでしょうか？"},
+{cat:"問題解決・議論",ne:"원인이 무엇일까요?",rom:"wonini mueosgilkkayo?",jp:"原因は何でしょうか？"},
+{cat:"問題解決・議論",ne:"근본적인 문제는 무엇입니까?",rom:"geunbonjeogin munjeneun mueosimnnikka?",jp:"根本的な問題は何ですか？"},
+{cat:"問題解決・議論",ne:"이 상태로는 안 됩니다.",rom:"i sangtaeroneun an doemnida",jp:"このままではいけません。"},
+{cat:"問題解決・議論",ne:"개선이 필요합니다.",rom:"gaesoni piryohamnida",jp:"改善が必要です。"},
+{cat:"問題解決・議論",ne:"제 생각에는 이렇게 하면 좋겠습니다.",rom:"je saenggageneun ireoke hamyeon joketsseumnida",jp:"私の考えでは、こうすればいいと思います。"},
+{cat:"問題解決・議論",ne:"한 가지 방법이 있습니다.",rom:"han gaji bangbeobi itseumnida",jp:"1つ方法があります。"},
+{cat:"問題解決・議論",ne:"이렇게 해 보는 것은 어떨까요?",rom:"ireoke hae boneun geoseun eotteolkkayo?",jp:"こうしてみるのはどうでしょう？"},
+{cat:"問題解決・議論",ne:"대안을 제시하겠습니다.",rom:"daeaneul jesihagetsseumnida",jp:"代案を提示します。"},
+{cat:"問題解決・議論",ne:"여러 가지 해결책이 있습니다.",rom:"yeoreo gaji haegyeolchaegi itseumnida",jp:"いくつかの解決策があります。"},
+{cat:"問題解決・議論",ne:"첫째로, 이것을 해야 합니다.",rom:"cheotjjaero, igeoseul haeya hamnida",jp:"まず、これをすべきです。"},
+{cat:"問題解決・議論",ne:"둘째로, 이것을 고려해야 합니다.",rom:"duljjaero, igeoseul goryeohaeya hamnida",jp:"次に、これを考慮すべきです。"},
+{cat:"問題解決・議論",ne:"장기적인 해결책이 필요합니다.",rom:"janggijeogin haegyeolchaegi piryohamnida",jp:"長期的な解決策が必要です。"},
+{cat:"問題解決・議論",ne:"단기적으로는 이것이 효과적입니다.",rom:"danggijeogeuro-neun igeosi hyogwajogimnida",jp:"短期的にはこれが効果的です。"},
+{cat:"問題解決・議論",ne:"전문가의 도움이 필요합니다.",rom:"jeonmungaui doumi piryohamnida",jp:"専門家の助けが必要です。"},
+{cat:"問題解決・議論",ne:"그 의견에 동의합니다.",rom:"geu uigyeone donguihamnida",jp:"その意見に同意します。"},
+{cat:"問題解決・議論",ne:"저도 그렇게 생각합니다.",rom:"jeodo geureoke saenggakamnida",jp:"私もそう思います。"},
+{cat:"問題解決・議論",ne:"좋은 생각입니다.",rom:"joeun saenggagimnida",jp:"良い考えです。"},
+{cat:"問題解決・議論",ne:"그 방법이 효과적일 것 같습니다.",rom:"geu bangbeobi hyogwajoegil geot gatseumnida",jp:"その方法が効果的だと思います。"},
+{cat:"問題解決・議論",ne:"저는 다른 의견입니다.",rom:"jeoneun dareun uigyeonimnida",jp:"私は違う意見です。"},
+{cat:"問題解決・議論",ne:"그것에는 동의하기 어렵습니다.",rom:"geugeoseneun donguihagi eoryeopseumnida",jp:"それには同意しかねます。"},
+{cat:"問題解決・議論",ne:"그 방법에는 문제가 있습니다.",rom:"geu bangbeobeneun munjega itseumnida",jp:"その方法には問題があります。"},
+{cat:"問題解決・議論",ne:"다른 관점에서 보면...",rom:"dareun gwanjeomeseo bomyeon...",jp:"別の観点から見ると..."},
+{cat:"問題解決・議論",ne:"그러나 이런 점도 고려해야 합니다.",rom:"geureona ireon jeomdo goryeohaeya hamnida",jp:"しかし、こういう点も考慮すべきです。"},
+{cat:"問題解決・議論",ne:"절충안을 찾아봅시다.",rom:"jeolchunganeul chajabopsida",jp:"折衷案を探しましょう。"},
+{cat:"問題解決・議論",ne:"이 문제에 대해 논의해 봅시다.",rom:"i munje-e daehae nonuihae bopsida",jp:"この問題について議論しましょう。"},
+{cat:"問題解決・議論",ne:"여러분의 의견을 듣고 싶습니다.",rom:"yeoreobunui uigyeoneul deutgo sipseumnida",jp:"皆さんの意見を聞きたいです。"},
+{cat:"問題解決・議論",ne:"찬반 의견을 들어 봅시다.",rom:"chanban uigyeoneul deureo bopsida",jp:"賛否の意見を聞いてみましょう。"},
+{cat:"問題解決・議論",ne:"장점과 단점을 비교해 봅시다.",rom:"jangjeomgwa danjeomeul bigyohae bopsida",jp:"長所と短所を比較してみましょう。"},
+{cat:"問題解決・議論",ne:"다양한 관점에서 검토해야 합니다.",rom:"dayanghan gwanjeomeseo geomtohaeya hamnida",jp:"様々な観点から検討すべきです。"},
+{cat:"問題解決・議論",ne:"구체적으로 말씀해 주시겠습니까?",rom:"guchejeogeuro malssumhae jusigetsseumnikka?",jp:"具体的におっしゃっていただけますか？"},
+{cat:"問題解決・議論",ne:"예를 들어 주시겠습니까?",rom:"yereul deureo jusigetsseumnikka?",jp:"例を挙げていただけますか？"},
+{cat:"問題解決・議論",ne:"근거가 무엇입니까?",rom:"geungeo-ga mueosimnikka?",jp:"根拠は何ですか？"},
+{cat:"問題解決・議論",ne:"그 주장을 뒷받침할 자료가 있습니까?",rom:"geu jujangeul dwitbatchimhal jaryoga itseunikka?",jp:"その主張を裏付ける資料はありますか？"},
+{cat:"問題解決・議論",ne:"결론을 내려야 합니다.",rom:"gyeoloneul naeryeoya hamnida",jp:"結論を出さなければなりません。"},
+{cat:"問題解決・議論",ne:"타협점을 찾아봅시다.",rom:"tahyeopjeomeul chajabopsida",jp:"妥協点を探しましょう。"},
+{cat:"問題解決・議論",ne:"양보할 수 있는 부분이 있습니까?",rom:"yangbohal su itneun bubuni itseumnkka?",jp:"譲歩できる部分はありますか？"},
+{cat:"問題解決・議論",ne:"서로 양보가 필요합니다.",rom:"seoro yangboga piryohamnida",jp:"お互いに譲歩が必要です。"},
+{cat:"問題解決・議論",ne:"중간 지점을 찾아봅시다.",rom:"junggan jijeomeul chajabopsida",jp:"中間点を探しましょう。"},
+{cat:"問題解決・議論",ne:"이 정도면 합의할 수 있을 것 같습니다.",rom:"i jeongdomyeon hapuihal su isseul geot gatseumnida",jp:"これくらいなら合意できそうです。"},
+{cat:"問題解決・議論",ne:"합의에 이르렀습니다.",rom:"hapuie ireossseumnida",jp:"合意に至りました。"},
+{cat:"問題解決・議論",ne:"이것으로 결정합시다.",rom:"igeoseuro gyeoljeonghapsida",jp:"これで決定しましょう。"},
+{cat:"問題解決・議論",ne:"모두 동의하십니까?",rom:"modu donguihasimnikka?",jp:"皆さん同意されますか？"},
+{cat:"問題解決・議論",ne:"이의 없으시면 이렇게 진행하겠습니다.",rom:"uii eopsseusimyeon ireoke jinhaenghagetseumnida",jp:"異議がなければこのように進めます。"},
+{cat:"問題解決・議論",ne:"성공적인 논의였습니다.",rom:"seonggungjeogin nonuiyeotsseumnida",jp:"成功的な議論でした。"},
+{cat:"感情の詳細表現",ne:"너무 기뻐서 말이 안 나와요.",rom:"neomu gippeoseo mari an nawayo",jp:"嬉しすぎて言葉が出ません。"},
+{cat:"感情の詳細表現",ne:"기쁨을 감출 수가 없어요.",rom:"gippeumeul gamchul suga eopseoyo",jp:"喜びを隠せません。"},
+{cat:"感情の詳細表現",ne:"꿈만 같아요.",rom:"kkumman gatayo",jp:"夢のようです。"},
+{cat:"感情の詳細表現",ne:"믿을 수가 없어요.",rom:"mideul suga eopseoyo",jp:"信じられません。"},
+{cat:"感情の詳細表現",ne:"이렇게 좋을 수가!",rom:"ireoke joeul suga!",jp:"こんなに嬉しいなんて！"},
+{cat:"感情の詳細表現",ne:"기대 이상이에요.",rom:"gidae isangieyo",jp:"期待以上です。"},
+{cat:"感情の詳細表現",ne:"정말 감격스러워요.",rom:"jeongmal gamgyeokseureoweoyo",jp:"本当に感激です。"},
+{cat:"感情の詳細表現",ne:"마음이 벅차요.",rom:"maeumi beokchayo",jp:"胸がいっぱいです。"},
+{cat:"感情の詳細表現",ne:"행복해서 눈물이 나요.",rom:"haengbokaeseo nunmuri nayo",jp:"幸せで涙が出ます。"},
+{cat:"感情の詳細表現",ne:"가슴이 뛰어요.",rom:"gaseumi ttwiyeoyo",jp:"胸がドキドキします。"},
+{cat:"感情の詳細表現",ne:"설레요.",rom:"seolleoyo",jp:"ときめきます/わくわくします。"},
+{cat:"感情の詳細表現",ne:"들떠 있어요.",rom:"deulttyeo isseoyo",jp:"浮き足立っています。"},
+{cat:"感情の詳細表現",ne:"마음이 아파요.",rom:"maeumi apayo",jp:"心が痛みます。"},
+{cat:"感情の詳細表現",ne:"가슴이 찢어질 것 같아요.",rom:"gaseumi jjijeojil geot gatayo",jp:"胸が張り裂けそうです。"},
+{cat:"感情の詳細表現",ne:"눈물이 멈추지 않아요.",rom:"nunmuri meomchuji anayo",jp:"涙が止まりません。"},
+{cat:"感情の詳細表現",ne:"슬픔에 잠겨 있어요.",rom:"seulpeume jamgyeo isseoyo",jp:"悲しみに沈んでいます。"},
+{cat:"感情の詳細表現",ne:"우울한 기분이에요.",rom:"uulhan gibumieyo",jp:"憂鬱な気分です。"},
+{cat:"感情の詳細表現",ne:"공허한 느낌이에요.",rom:"gongheohan neukkimieyo",jp:"虚しい感じです。"},
+{cat:"感情の詳細表現",ne:"마음에 구멍이 뚫린 것 같아요.",rom:"maeume gumeongi ttullin geot gatayo",jp:"心に穴が空いたようです。"},
+{cat:"感情の詳細表現",ne:"위로가 필요해요.",rom:"wiroga piryohaeyo",jp:"慰めが必要です。"},
+{cat:"感情の詳細表現",ne:"아무것도 하기 싫어요.",rom:"amugeotdo hagi sirheoyo",jp:"何もしたくありません。"},
+{cat:"感情の詳細表現",ne:"힘이 빠져요.",rom:"himi ppajyeoyo",jp:"力が抜けます。"},
+{cat:"感情の詳細表現",ne:"무기력해요.",rom:"mugiryeokaeyo",jp:"無気力です。"},
+{cat:"感情の詳細表現",ne:"삶의 의미를 모르겠어요.",rom:"sarmui uimireul moreugesseoyo",jp:"人生の意味がわかりません。"},
+{cat:"感情の詳細表現",ne:"화가 나서 미치겠어요.",rom:"hwaga naseo michigesseoyo",jp:"怒りで狂いそうです。"},
+{cat:"感情の詳細表現",ne:"분노가 치밀어 올라요.",rom:"bunnoga chimireo ollayo",jp:"怒りがこみ上げてきます。"},
+{cat:"感情の詳細表現",ne:"참을 수가 없어요.",rom:"chameul suga eopseoyo",jp:"我慢できません。"},
+{cat:"感情の詳細表現",ne:"어이가 없어요.",rom:"eoiga eopseoyo",jp:"あきれます。"},
+{cat:"感情の詳細表現",ne:"황당해요.",rom:"hwangdanghaeyo",jp:"呆然とします。"},
+{cat:"感情の詳細表現",ne:"기가 막혀요.",rom:"giga makyeoyo",jp:"あきれてものが言えません。"},
+{cat:"感情の詳細表現",ne:"열 받아요.",rom:"yeol badayo",jp:"頭にきます。"},
+{cat:"感情の詳細表現",ne:"속이 부글부글 끓어요.",rom:"sogi bugeulbugeul kkeureoheoyo",jp:"腹の中が煮えくり返ります。"},
+{cat:"感情の詳細表現",ne:"뚜껑이 열렸어요.",rom:"ttukkeongi yeollyeosseoyo",jp:"キレました。"},
+{cat:"感情の詳細表現",ne:"화를 참기 어려워요.",rom:"hwarul chamgi eoryeowoyo",jp:"怒りを抑えるのが難しいです。"},
+{cat:"感情の詳細表現",ne:"불만이 쌓여요.",rom:"bulmani ssahyeoyo",jp:"不満が溜まります。"},
+{cat:"感情の詳細表現",ne:"불공평해요.",rom:"bulgongpyeonghaeyo",jp:"不公平です。"},
+{cat:"感情の詳細表現",ne:"부당한 대우를 받았어요.",rom:"budanghan daewureul badasseoyo",jp:"不当な扱いを受けました。"},
+{cat:"感情の詳細表現",ne:"걱정이 태산이에요.",rom:"geokjeongi taesanieyo",jp:"心配が山積みです。"},
+{cat:"感情の詳細表現",ne:"마음이 불안해요.",rom:"maeumi buranhaeyo",jp:"心が不安です。"},
+{cat:"感情の詳細表現",ne:"가슴이 답답해요.",rom:"gaseumi dapdapaeyo",jp:"胸が苦しいです。"},
+{cat:"感情の詳細表現",ne:"초조해요.",rom:"chojohaeyo",jp:"焦ります。"},
+{cat:"感情の詳細表現",ne:"불안감에 시달려요.",rom:"burangame sidallyeoyo",jp:"不安感に悩まされています。"},
+{cat:"感情の詳細表現",ne:"잠이 안 와요.",rom:"jami an wayo",jp:"眠れません。"},
+{cat:"感情の詳細表現",ne:"신경이 쓰여요.",rom:"singyeongi sseuyeoyo",jp:"気になります。"},
+{cat:"感情の詳細表現",ne:"안절부절못해요.",rom:"anjeolbujeolmotaeyo",jp:"落ち着きません。"},
+{cat:"感情の詳細表現",ne:"손에 땀이 나요.",rom:"sone ttami nayo",jp:"手に汗をかきます。"},
+{cat:"感情の詳細表現",ne:"심장이 두근거려요.",rom:"simjangi dugeungeoryeoyo",jp:"心臓がドキドキします。"},
+{cat:"感情の詳細表現",ne:"최악의 상황을 상상해요.",rom:"choeagui sanghwangeul sangsanghaeyo",jp:"最悪の状況を想像してしまいます。"},
+{cat:"感情の詳細表現",ne:"두려워요.",rom:"duryeowoyo",jp:"恐れています。"},
+{cat:"感情の詳細表現",ne:"후회돼요.",rom:"huhoedoeyo",jp:"後悔します。"},
+{cat:"感情の詳細表現",ne:"후회막급이에요.",rom:"huhoemakgeubieyp",jp:"後悔先に立たずです。"},
+{cat:"感情の詳細表現",ne:"그때 그랬어야 했는데.",rom:"geuttae geuraesseoya haenneunde",jp:"あの時そうすべきだったのに。"},
+{cat:"感情の詳細表現",ne:"왜 그랬을까요?",rom:"wae geuraesseulkkayo?",jp:"なぜそうしたんでしょう？"},
+{cat:"感情の詳細表現",ne:"정말 어리석었어요.",rom:"jeongmal eoriseogeosseoyo",jp:"本当に愚かでした。"},
+{cat:"感情の詳細表現",ne:"제 잘못이에요.",rom:"je jalmosieyo",jp:"私のせいです。"},
+{cat:"感情の詳細表現",ne:"반성하고 있어요.",rom:"banseonghago isseoyo",jp:"反省しています。"},
+{cat:"感情の詳細表現",ne:"다시는 그러지 않을게요.",rom:"dasineun geureoji aneulgeyo",jp:"二度とそうしません。"},
+{cat:"感情の詳細表現",ne:"죄책감이 들어요.",rom:"joechaekgami deuleoyo",jp:"罪悪感を感じます。"},
+{cat:"感情の詳細表現",ne:"양심의 가책을 느껴요.",rom:"yangsimui gachaegeul neukkkyeoyo",jp:"良心の呵責を感じます。"},
+{cat:"感情の詳細表現",ne:"진심으로 감사드립니다.",rom:"jinsimeuro gamsadeurimnida",jp:"心より感謝いたします。"},
+{cat:"感情の詳細表現",ne:"뭐라고 감사를 드려야 할지 모르겠어요.",rom:"mworago gamsareul deuryeoya halji moreugesseoyo",jp:"何とお礼を言えばいいかわかりません。"},
+{cat:"感情の詳細表現",ne:"평생 잊지 않겠습니다.",rom:"pyeongsaeng itji anketsseumnida",jp:"一生忘れません。"},
+{cat:"感情の詳細表現",ne:"은혜를 갚겠습니다.",rom:"eunhyereul gapketsseumnida",jp:"ご恩に報います。"},
+{cat:"感情の詳細表現",ne:"깊이 감동받았습니다.",rom:"gipi gamdongbadatseumnida",jp:"深く感動しました。"},
+{cat:"感情の詳細表現",ne:"마음에 깊이 와닿았어요.",rom:"maeume gipi wadahaseoyo",jp:"心に深く響きました。"},
+{cat:"感情の詳細表現",ne:"눈물이 핑 돌았어요.",rom:"nunmuri ping dorasseoyo",jp:"涙がにじみました。"},
+{cat:"感情の詳細表現",ne:"가슴이 따뜻해졌어요.",rom:"gaseumi ttatteushaejyeosseoyo",jp:"心が温かくなりました。"},
+{cat:"感情の詳細表現",ne:"너무 감동적이에요.",rom:"neomu gamdongjeogieyo",jp:"とても感動的です。"},
+{cat:"感情の詳細表現",ne:"잊을 수 없는 순간이에요.",rom:"ijeul su eomneun sunganieyo",jp:"忘れられない瞬間です。"}
+];
+
+const CARDS = RAW_CARDS.map((c,i)=>({...c,id:i}));
+const S = { mode:'jp2kr', cardMode:'jp2kr', filtered:[], order:[], idx:0, done:new Set(), muted:false, activeCat:'すべて' };
+
+function shuffle(a){a=[...a];for(let i=a.length-1;i>0;i--){const j=0|Math.random()*(i+1);[a[i],a[j]]=[a[j],a[i]];}return a;}
+function cur(){return S.order.length?CARDS[S.order[S.idx]]:null;}
+function allCats(){const s=new Set(),r=['すべて'];CARDS.forEach(c=>{if(!s.has(c.cat)){s.add(c.cat);r.push(c.cat);}});return r;}
+function getFiltered(){return S.activeCat==='すべて'?CARDS.map(c=>c.id):CARDS.filter(c=>c.cat===S.activeCat).map(c=>c.id);}
+
+function updateStats(){
+  const total=S.filtered.length, done=S.filtered.filter(id=>S.done.has(id)).length;
+  document.getElementById('totalCount').textContent=total;
+  document.getElementById('remainCount').textContent=total-done;
+  document.getElementById('masteredCount').textContent=done;
+  document.getElementById('percentCount').textContent=total?Math.round(done/total*100):0;
+  document.getElementById('progressBar').style.width=(total?done/total*100:0)+'%';
+}
+
+function buildCats(){
+  const inner=document.getElementById('catInner'); inner.innerHTML='';
+  allCats().forEach(cat=>{
+    const n=cat==='すべて'?CARDS.length:CARDS.filter(c=>c.cat===cat).length;
+    const b=document.createElement('button');
+    b.className='cat-btn'+(S.activeCat===cat?' active':'');
+    b.textContent=cat+' ('+n+')';
+    b.onclick=()=>{S.activeCat=cat;init();};
+    inner.appendChild(b);
+  });
+}
+
+function showCard(){
+  const c=cur(); if(!c) return;
+  S.cardMode=S.mode==='rand'?(Math.random()<.5?'jp2kr':'kr2jp'):S.mode;
+  const m=S.cardMode, isDone=S.done.has(c.id);
+  document.getElementById('flashcard').classList.remove('revealed');
+  document.getElementById('showBtn').style.display='';
+  document.getElementById('hideBtn').style.display='none';
+  document.getElementById('cardCat').textContent=c.cat;
+  document.getElementById('cardCounter').textContent=(S.idx+1)+' / '+S.order.length;
+  document.getElementById('doneBadge').style.display=isDone?'block':'none';
+  document.getElementById('doneBtn').className='ctrl-btn btn-done'+(isDone?' marked':'');
+  const qJp=document.getElementById('qJp'), qKr=document.getElementById('qKr');
+  if(m==='jp2kr'){ qJp.textContent=c.jp; qJp.style.display=''; qKr.style.display='none'; }
+  else           { qKr.textContent=c.ne; qKr.style.display=''; qJp.style.display='none'; }
+  const aKr=document.getElementById('aKr'), aJp=document.getElementById('aJp');
+  if(m==='jp2kr'){ aKr.textContent=c.ne; aKr.style.display=''; aJp.style.display='none'; }
+  else           { aJp.textContent=c.jp; aJp.style.display=''; aKr.style.display='none'; }
+  document.getElementById('aRom').textContent=c.rom;
+}
+
+function revealCard(){
+  document.getElementById('flashcard').classList.add('revealed');
+  document.getElementById('showBtn').style.display='none';
+  document.getElementById('hideBtn').style.display='';
+  const btn=document.getElementById('speakBtn');
+  if(S.cardMode!=='jp2kr'){ btn.style.display='none'; return; }
+  btn.style.display='';
+  const c=cur(); if(!c||S.muted) return;
+  window.speechSynthesis&&window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(c.ne);
+  u.lang='ko-KR'; u.rate=.85;
+  btn.classList.add('playing');
+  u.onend=u.onerror=()=>btn.classList.remove('playing');
+  window.speechSynthesis&&window.speechSynthesis.speak(u);
+}
+function unrevealCard(){
+  document.getElementById('flashcard').classList.remove('revealed');
+  document.getElementById('showBtn').style.display='';
+  document.getElementById('hideBtn').style.display='none';
+  window.speechSynthesis&&window.speechSynthesis.cancel();
+}
+function handleCardClick(){
+  if(!document.getElementById('flashcard').classList.contains('revealed')) revealCard();
+  else unrevealCard();
+}
+function speakAnswer(e){
+  e.stopPropagation(); if(S.muted||S.cardMode!=='jp2kr') return;
+  const c=cur(); if(!c) return;
+  window.speechSynthesis&&window.speechSynthesis.cancel();
+  const btn=document.getElementById('speakBtn');
+  const u=new SpeechSynthesisUtterance(c.ne);
+  u.lang='ko-KR'; u.rate=.85;
+  btn.classList.add('playing');
+  u.onend=u.onerror=()=>btn.classList.remove('playing');
+  window.speechSynthesis.speak(u);
+}
+
+function nextCard(){S.idx=(S.idx+1)%S.order.length; showCard();}
+function prevCard(){S.idx=(S.idx-1+S.order.length)%S.order.length; showCard();}
+function markDone(){
+  const c=cur(); if(!c) return;
+  S.done.add(c.id); updateStats();
+  document.getElementById('doneBtn').className='ctrl-btn btn-done marked';
+  document.getElementById('doneBadge').style.display='block';
+  if(S.filtered.every(id=>S.done.has(id))){
+    document.getElementById('completeMsg').textContent=S.filtered.length+'枚すべて覚えました！🎉';
+    document.getElementById('completeScreen').classList.add('show');
+    return;
+  }
+  setTimeout(nextCard,300);
+}
+function resetAll(){
+  S.done.clear(); S.order=[...S.filtered]; S.idx=0;
+  document.getElementById('completeScreen').classList.remove('show');
+  updateStats(); showCard();
+}
+function init(){
+  S.filtered=getFiltered(); S.order=[...S.filtered]; S.idx=0;
+  buildCats(); updateStats(); showCard();
+}
+
+document.querySelectorAll('.mode-btn').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.mode-btn').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active'); S.mode=b.dataset.mode; showCard();
+}));
+document.getElementById('shuffleBtn').onclick=()=>{S.order=shuffle(S.order);S.idx=0;showCard();};
+document.getElementById('muteBtn').onclick=()=>{
+  S.muted=!S.muted;
+  document.getElementById('muteBtn').textContent=S.muted?'🔇':'🔊';
+};
+document.getElementById('listBtn').onclick=()=>{
+  document.getElementById('listSearch').value=''; buildList('');
+  document.getElementById('listModalOverlay').classList.add('show');
+};
+document.getElementById('listCloseBtn').onclick=()=>document.getElementById('listModalOverlay').classList.remove('show');
+document.getElementById('listModalOverlay').onclick=e=>{if(e.target.id==='listModalOverlay')document.getElementById('listModalOverlay').classList.remove('show');};
+document.getElementById('listSearch').oninput=e=>buildList(e.target.value);
+
+function buildList(q){
+  const body=document.getElementById('listModalBody'); body.innerHTML='';
+  q=(q||'').toLowerCase();
+  const shown=CARDS.filter(c=>!q||c.ne.includes(q)||c.jp.includes(q));
+  document.getElementById('listCount').textContent=' ('+shown.length+'件)';
+  const g={}; shown.forEach(c=>(g[c.cat]=g[c.cat]||[]).push(c));
+  Object.entries(g).forEach(([cat,cards])=>{
+    const h=document.createElement('div'); h.className='list-cat-header'; h.textContent=cat; body.appendChild(h);
+    cards.forEach(card=>{
+      const r=document.createElement('div');
+      r.className='list-row'+(S.done.has(card.id)?' mastered':'');
+      r.innerHTML='<div><div class="list-jp">'+card.jp+'</div></div><div><div class="list-kr">'+card.ne+'</div><div class="list-rom">'+card.rom+'</div></div>';
+      r.onclick=()=>{
+        document.getElementById('listModalOverlay').classList.remove('show');
+        const i=S.order.indexOf(card.id);
+        if(i>=0){S.idx=i;}else{S.activeCat=card.cat;init();const j=S.order.indexOf(card.id);if(j>=0)S.idx=j;}
+        showCard(); updateStats();
+      };
+      body.appendChild(r);
+    });
+  });
+}
+
+document.addEventListener('keydown',e=>{
+  if(document.getElementById('listModalOverlay').classList.contains('show')){if(e.key==='Escape')document.getElementById('listModalOverlay').classList.remove('show');return;}
+  if(e.key==='ArrowRight') nextCard();
+  else if(e.key==='ArrowLeft') prevCard();
+  else if(e.key==='Enter'&&!document.getElementById('flashcard').classList.contains('revealed')) revealCard();
+  else if(e.key==='c'||e.key==='C') markDone();
+});
+
+init();
+</script>
+</body>
+</html>
