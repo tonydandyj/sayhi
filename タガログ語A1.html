@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇵🇭 タガログ語フラッシュカード</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=M+PLUS+Rounded+1c:wght@400;500;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+/* =====================================================
+   🇵🇭 フィリピン南国リゾート ライトテーマ
+   コンセプト: セブ島の浅瀬 — 空・海・白砂浜・ハイビスカス
+   ===================================================== */
+:root {
+  /* ── パレット ── */
+  --ocean:      #0891b2;   /* ディープターコイズ（海の深み） */
+  --sky:        #38bdf8;   /* スカイブルー */
+  --lagoon:     #06b6d4;   /* ラグーン */
+  --coral:      #f97316;   /* コーラルオレンジ（ハイビスカス） */
+  --sun:        #fbbf24;   /* サンセットイエロー */
+  --sand:       #fef9f0;   /* 白砂浜（背景） */
+  --foam:       #ffffff;   /* 波の泡（カード） */
+  --palm:       #16a34a;   /* パームグリーン（✓覚えた） */
+
+  /* ── テキスト ── */
+  --text:       #0c2340;   /* 深海ネイビー（メインテキスト） */
+  --text-mid:   #1e5070;   /* 中間ブルーグレー */
+  --text-muted: #6ea8c4;   /* ミューテッドスカイ */
+
+  /* ── サーフェス ── */
+  --bg:         #e0f7fc;   /* 極淡アクアグラデ起点 */
+  --bg2:        #bae6fd;   /* グラデ終点 */
+  --glass:      rgba(255,255,255,0.72);
+  --glass2:     rgba(255,255,255,0.50);
+  --border:     rgba(8,145,178,0.20);
+  --border2:    rgba(8,145,178,0.38);
+
+  /* ── フォント ── */
+  --jp:         'M PLUS Rounded 1c', 'Nunito', sans-serif;
+  --foreign:    'Noto Sans', 'Nunito', sans-serif;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+
+body{
+  background: linear-gradient(160deg, #c8eefa 0%, #a8dfed 30%, #b3e8f8 60%, #d4f1f9 100%);
+  color:var(--text);
+  font-family:var(--jp);
+  display:flex;flex-direction:column;height:100dvh;
+  position:relative;
+}
+
+/* 背景の装飾波 */
+body::before{
+  content:'';
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse 80% 40% at 20% 10%,  rgba(56,189,248,.18) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 85% 80%,  rgba(249,115,22,.10) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 30% at 50% 50%,  rgba(255,255,255,.25) 0%, transparent 80%);
+}
+body > *{position:relative;z-index:1}
+
+/* ── ヘッダー ── */
+header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:9px 16px;
+  background: linear-gradient(135deg, var(--ocean) 0%, var(--lagoon) 100%);
+  border-bottom: 2px solid rgba(255,255,255,.25);
+  position:sticky;top:0;z-index:10;flex-shrink:0;
+  box-shadow: 0 3px 16px rgba(8,145,178,.30);
+}
+.logo{
+  font-size:.95rem;font-weight:800;color:#fff;
+  display:flex;align-items:center;gap:7px;letter-spacing:.03em;
+  text-shadow:0 1px 4px rgba(0,0,0,.20);
+}
+.hbtns{display:flex;gap:6px}
+.hbtn{
+  background:rgba(255,255,255,.22);
+  border:1px solid rgba(255,255,255,.40);
+  color:#fff;
+  width:36px;height:36px;border-radius:10px;cursor:pointer;font-size:1rem;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .18s,transform .12s;
+  backdrop-filter:blur(6px);
+}
+.hbtn:hover{background:rgba(255,255,255,.38);transform:scale(1.08)}
+.hbtn:active{transform:scale(.95)}
+.hbtn.active-flash{background:var(--palm);border-color:var(--palm);color:#fff}
+
+/* ── モードボタン ── */
+.mode-row{display:flex;gap:8px;padding:8px 14px;flex-shrink:0}
+.mbtn{
+  flex:1;padding:7px 4px;border-radius:22px;
+  border:1.5px solid var(--border2);
+  background:var(--glass2);
+  color:var(--text-mid);
+  cursor:pointer;font-family:var(--jp);font-size:.82rem;font-weight:700;
+  transition:.2s;backdrop-filter:blur(4px);
+}
+.mbtn:hover{border-color:var(--ocean);color:var(--ocean);background:rgba(255,255,255,.7)}
+.mbtn.active{
+  background:linear-gradient(135deg, var(--ocean), var(--sky));
+  color:#fff;border-color:var(--ocean);
+  box-shadow:0 3px 12px rgba(8,145,178,.35);
+}
+
+/* ── 統計バー ── */
+.stats{
+  display:flex;align-items:center;gap:8px;
+  padding:4px 16px;flex-shrink:0;font-size:.74rem;color:var(--text-muted);
+}
+.stat-num{color:var(--ocean);font-weight:700}
+.prog-wrap{flex:1;background:rgba(8,145,178,.15);border-radius:6px;height:6px;overflow:hidden}
+.prog-bar{
+  height:100%;
+  background:linear-gradient(90deg, var(--ocean), var(--sky), var(--sun));
+  border-radius:6px;transition:width .5s cubic-bezier(.4,0,.2,1);
+}
+.stat-pct{color:var(--coral);font-weight:800;min-width:34px;text-align:right}
+
+/* ── カテゴリスクロール ── */
+.cat-scroll{
+  overflow-x:auto;display:flex;gap:7px;
+  padding:5px 14px 10px;flex-shrink:0;
+  scrollbar-width:thin;
+  scrollbar-color:var(--sky) rgba(8,145,178,.12);
+}
+.cat-scroll::-webkit-scrollbar{height:5px}
+.cat-scroll::-webkit-scrollbar-track{background:rgba(8,145,178,.10);border-radius:4px}
+.cat-scroll::-webkit-scrollbar-thumb{background:var(--sky);border-radius:4px}
+.cat-scroll::-webkit-scrollbar-thumb:hover{background:var(--ocean)}
+.cpill{
+  flex-shrink:0;padding:5px 13px;border-radius:22px;
+  border:1.5px solid var(--border2);
+  background:rgba(255,255,255,.60);
+  color:var(--text-mid);
+  cursor:pointer;font-size:.74rem;font-family:var(--jp);font-weight:600;
+  transition:.18s;backdrop-filter:blur(4px);white-space:nowrap;
+}
+.cpill:hover{
+  border-color:var(--ocean);color:var(--ocean);
+  background:rgba(255,255,255,.85);
+  box-shadow:0 2px 8px rgba(8,145,178,.18);
+}
+.cpill.active{
+  background:linear-gradient(135deg, var(--ocean), var(--lagoon));
+  border-color:var(--ocean);color:#fff;
+  box-shadow:0 2px 10px rgba(8,145,178,.35);
+}
+
+/* ── カードエリア ── */
+.card-area{flex:1;display:flex;align-items:center;justify-content:center;padding:6px 14px;min-height:0}
+.card{
+  width:100%;max-width:560px;
+  background:rgba(255,255,255,.82);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border:1.5px solid rgba(255,255,255,.90);
+  border-radius:24px;
+  padding:20px 22px 18px;
+  cursor:pointer;
+  position:relative;
+  overflow:hidden;
+  transition:transform .18s cubic-bezier(.4,0,.2,1), box-shadow .18s;
+  box-shadow:
+    0 8px 32px rgba(8,145,178,.16),
+    0 2px 8px rgba(0,0,0,.06),
+    inset 0 1px 0 rgba(255,255,255,.9);
+  display:flex;flex-direction:column;gap:10px;
+  min-height:185px;max-height:300px;
+  justify-content:center;
+}
+/* カード上部の装飾ライン */
+.card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg, var(--ocean), var(--sky), var(--coral), var(--sun));
+  border-radius:24px 24px 0 0;
+}
+.card:hover{
+  transform:translateY(-3px) scale(1.005);
+  box-shadow:
+    0 16px 48px rgba(8,145,178,.22),
+    0 4px 12px rgba(0,0,0,.08),
+    inset 0 1px 0 rgba(255,255,255,.9);
+}
+.card-meta{display:flex;justify-content:space-between;align-items:center;margin-top:2px}
+.cat-label{
+  font-size:.71rem;font-weight:700;
+  background:linear-gradient(135deg,rgba(8,145,178,.12),rgba(56,189,248,.12));
+  color:var(--ocean);
+  padding:3px 10px;border-radius:14px;
+  border:1px solid rgba(8,145,178,.25);
+}
+.card-count{font-size:.72rem;color:var(--text-muted);font-weight:600}
+.card-body{
+  text-align:center;flex:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:10px;
+}
+.foreign-text{
+  font-family:var(--foreign);
+  font-size:clamp(1.5rem,5vw,2.4rem);
+  font-weight:700;color:var(--text);line-height:1.2;
+  letter-spacing:.01em;
+}
+.jp-text{
+  font-family:var(--jp);
+  font-size:clamp(1.2rem,4vw,1.8rem);
+  font-weight:700;color:var(--text);line-height:1.3;
+}
+.rom-text{
+  font-family:var(--foreign);
+  font-size:clamp(.78rem,2.2vw,.95rem);
+  color:var(--text-muted);font-style:italic;font-weight:400;
+  background:rgba(8,145,178,.07);
+  padding:3px 12px;border-radius:10px;
+}
+.hint-tap{
+  font-size:.73rem;color:var(--text-muted);
+  display:flex;align-items:center;gap:4px;
+  background:rgba(8,145,178,.07);
+  padding:4px 12px;border-radius:12px;
+}
+.speak-btn{
+  background:linear-gradient(135deg,rgba(8,145,178,.12),rgba(56,189,248,.12));
+  border:1.5px solid rgba(8,145,178,.28);
+  color:var(--ocean);
+  padding:5px 16px;border-radius:20px;cursor:pointer;
+  font-size:.8rem;font-family:var(--jp);font-weight:700;
+  transition:.18s;margin-top:4px;
+}
+.speak-btn:hover{
+  background:linear-gradient(135deg, var(--ocean), var(--sky));
+  color:#fff;border-color:var(--ocean);
+  box-shadow:0 3px 10px rgba(8,145,178,.30);
+}
+.speak-btn.pulsing{animation:pulse .8s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+/* ── 操作ボタン行 ── */
+.action-row{display:flex;gap:6px;padding:6px 14px;flex-shrink:0}
+.abtn{
+  flex:1;padding:9px 4px;border-radius:14px;
+  border:1.5px solid var(--border2);
+  background:rgba(255,255,255,.65);
+  color:var(--text-mid);
+  cursor:pointer;font-family:var(--jp);font-size:.8rem;font-weight:700;
+  transition:.18s;backdrop-filter:blur(4px);
+}
+.abtn:hover{
+  background:rgba(255,255,255,.90);
+  border-color:var(--ocean);color:var(--ocean);
+  box-shadow:0 2px 8px rgba(8,145,178,.18);
+}
+.abtn:active{transform:scale(.96)}
+/* ▶ 表示ボタン：スカイブルー */
+.abtn.primary{
+  background:linear-gradient(135deg, var(--ocean) 0%, var(--sky) 100%);
+  color:#fff;border-color:var(--ocean);
+  box-shadow:0 3px 12px rgba(8,145,178,.35);
+}
+.abtn.primary:hover{filter:brightness(1.08);box-shadow:0 5px 16px rgba(8,145,178,.42)}
+/* 次へ ボタン：コーラル */
+.abtn.danger{
+  background:linear-gradient(135deg, #f97316 0%, #fb923c 100%);
+  color:#fff;border-color:var(--coral);
+  box-shadow:0 3px 12px rgba(249,115,22,.30);
+}
+.abtn.danger:hover{filter:brightness(1.08);box-shadow:0 5px 16px rgba(249,115,22,.38)}
+/* ✓ 覚えた：パームグリーン */
+.abtn.success{
+  background:linear-gradient(135deg, #16a34a 0%, #22c55e 100%);
+  color:#fff;border-color:var(--palm);
+  box-shadow:0 3px 12px rgba(22,163,74,.28);
+}
+.abtn.success:hover{filter:brightness(1.08);box-shadow:0 5px 16px rgba(22,163,74,.36)}
+
+/* ── キーボードヒント ── */
+.kb-hints{
+  padding:3px 14px 8px;text-align:center;
+  font-size:.67rem;color:var(--text-muted);opacity:.7;flex-shrink:0;
+}
+
+/* ── 完了オーバーレイ ── */
+.done-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(200,238,250,.90);
+  backdrop-filter:blur(14px);
+  z-index:100;align-items:center;justify-content:center;flex-direction:column;gap:14px;
+}
+.done-overlay.show{display:flex}
+.done-trophy{font-size:5rem;animation:bounce 1s ease-in-out infinite}
+@keyframes bounce{0%,100%{transform:scale(1) rotate(-3deg)}50%{transform:scale(1.18) rotate(3deg)}}
+.done-msg{font-size:1.5rem;font-weight:800;color:var(--ocean);text-shadow:0 2px 8px rgba(8,145,178,.20)}
+.done-sub{font-size:.9rem;color:var(--text-muted)}
+
+/* ── モーダル ── */
+.modal-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(8,70,100,.35);
+  backdrop-filter:blur(6px);
+  z-index:50;overflow-y:auto;padding:20px;
+}
+.modal-overlay.show{display:flex;align-items:flex-start;justify-content:center}
+.modal{
+  background:rgba(255,255,255,.95);
+  backdrop-filter:blur(16px);
+  border:1.5px solid rgba(8,145,178,.20);
+  border-radius:20px;width:100%;max-width:580px;overflow:hidden;
+  box-shadow:0 20px 60px rgba(8,80,120,.20);
+}
+.modal-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 18px;
+  background:linear-gradient(135deg, var(--ocean), var(--lagoon));
+}
+.modal-title{font-weight:800;font-size:1rem;color:#fff}
+.modal-close{
+  background:rgba(255,255,255,.25);border:1px solid rgba(255,255,255,.40);
+  color:#fff;font-size:1.2rem;cursor:pointer;
+  padding:3px 8px;border-radius:8px;transition:.15s;
+}
+.modal-close:hover{background:rgba(255,255,255,.40)}
+.search-input{
+  width:100%;background:#f0f9ff;
+  border:none;border-bottom:2px solid rgba(8,145,178,.20);
+  color:var(--text);
+  padding:10px 16px;font-family:var(--jp);font-size:.9rem;outline:none;
+}
+.search-input:focus{border-bottom-color:var(--ocean);background:#e8f5fd}
+.modal-body{max-height:70vh;overflow-y:auto;padding:8px 0}
+.cat-group-title{
+  padding:8px 18px 4px;font-size:.72rem;
+  color:var(--ocean);font-weight:800;letter-spacing:.08em;
+  background:rgba(8,145,178,.06);
+}
+.list-row{
+  display:flex;align-items:center;padding:9px 18px;
+  cursor:pointer;gap:12px;
+  border-bottom:1px solid rgba(8,145,178,.08);transition:.15s;
+}
+.list-row:hover{background:rgba(8,145,178,.07)}
+.list-row.mastered{opacity:.38}
+.list-foreign{font-family:var(--foreign);font-size:.9rem;font-weight:700;flex:1;color:var(--text)}
+.list-jp{font-family:var(--jp);font-size:.82rem;color:var(--text-muted);flex:1}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">🇵🇭 タガログ語 フラッシュカード</div>
+  <div class="hbtns">
+    <button class="hbtn" id="btnList" title="一覧">📋</button>
+    <button class="hbtn" id="btnReset" title="リセット">🔄</button>
+    <button class="hbtn" id="btnShuffle" title="シャッフル">🔀</button>
+    <button class="hbtn" id="btnMute" title="ミュート">🔊</button>
+  </div>
+</header>
+
+<div class="mode-row">
+  <button class="mbtn active" data-mode="ja2tl">和 → 比</button>
+  <button class="mbtn" data-mode="tl2ja">比 → 和</button>
+  <button class="mbtn" data-mode="random">🎲 ランダム</button>
+</div>
+
+<div class="stats">
+  <span>全<span class="stat-num" id="statTotal">0</span>件</span>
+  <span>残り<span class="stat-num" id="statLeft">0</span>件</span>
+  <span>✓<span class="stat-num" id="statDone">0</span>件</span>
+  <div class="prog-wrap"><div class="prog-bar" id="progBar" style="width:0%"></div></div>
+  <span class="stat-pct" id="statPct">0%</span>
+</div>
+
+<div class="cat-scroll" id="catScroll"></div>
+
+<div class="card-area">
+  <div class="card" id="mainCard">
+    <div class="card-meta">
+      <span class="cat-label" id="cardCat">—</span>
+      <span class="card-count" id="cardCount">0 / 0</span>
+    </div>
+    <div class="card-body" id="cardBody">
+      <div class="hint-tap">👆 カードをタップして開始</div>
+    </div>
+  </div>
+</div>
+
+<div class="action-row">
+  <button class="abtn" id="btnPrev">← 戻る</button>
+  <button class="abtn primary" id="btnReveal">▶ 表示</button>
+  <button class="abtn" id="btnUncheck">◀ 戻す</button>
+  <button class="abtn success" id="btnMaster">✓ 覚えた</button>
+  <button class="abtn danger" id="btnNext">次へ →</button>
+</div>
+
+<div class="kb-hints">→ 次へ ／ ← 戻る ／ Enter 答えを見る ／ C 覚えた</div>
+
+<div class="done-overlay" id="doneOverlay">
+  <div class="done-trophy">🏆</div>
+  <div class="done-msg">全カードチェック完了！</div>
+  <div class="done-sub">リセットして最初から始めます…</div>
+</div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">📋 カード一覧</span>
+      <button class="modal-close" id="modalClose">✕</button>
+    </div>
+    <input type="text" class="search-input" id="searchInput" placeholder="🔍 日本語・タガログ語で検索…">
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+const CARDS_RAW = [
+  // ===== 挨拶・基本 (25枚) =====
+  {id:"gr01",cat:"挨拶・基本",foreign:"Kumusta?",rom:"ku-mus-ta",ja:"元気ですか？／こんにちは。"},
+  {id:"gr02",cat:"挨拶・基本",foreign:"Kumusta ka?",rom:"ku-mus-ta ka",ja:"元気ですか？（カジュアル）"},
+  {id:"gr03",cat:"挨拶・基本",foreign:"Kumusta po kayo?",rom:"ku-mus-ta po ka-yo",ja:"お元気ですか？（丁寧）"},
+  {id:"gr04",cat:"挨拶・基本",foreign:"Mabuti naman.",rom:"ma-bu-ti na-man",ja:"元気です。"},
+  {id:"gr05",cat:"挨拶・基本",foreign:"Ayos lang.",rom:"a-yos lang",ja:"まあまあです。"},
+  {id:"gr06",cat:"挨拶・基本",foreign:"Magandang umaga.",rom:"ma-gan-dang u-ma-ga",ja:"おはようございます。"},
+  {id:"gr07",cat:"挨拶・基本",foreign:"Magandang tanghali.",rom:"ma-gan-dang tang-ha-li",ja:"こんにちは（正午頃）。"},
+  {id:"gr08",cat:"挨拶・基本",foreign:"Magandang hapon.",rom:"ma-gan-dang ha-pon",ja:"こんにちは（午後）。"},
+  {id:"gr09",cat:"挨拶・基本",foreign:"Magandang gabi.",rom:"ma-gan-dang ga-bi",ja:"こんばんは。"},
+  {id:"gr10",cat:"挨拶・基本",foreign:"Paalam.",rom:"pa-a-lam",ja:"さようなら。"},
+  {id:"gr11",cat:"挨拶・基本",foreign:"Ingat ka.",rom:"in-gat ka",ja:"気をつけて。"},
+  {id:"gr12",cat:"挨拶・基本",foreign:"Salamat.",rom:"sa-la-mat",ja:"ありがとう。"},
+  {id:"gr13",cat:"挨拶・基本",foreign:"Salamat po.",rom:"sa-la-mat po",ja:"ありがとうございます。（丁寧）"},
+  {id:"gr14",cat:"挨拶・基本",foreign:"Maraming salamat.",rom:"ma-ra-ming sa-la-mat",ja:"どうもありがとうございます。"},
+  {id:"gr15",cat:"挨拶・基本",foreign:"Walang anuman.",rom:"wa-lang a-nu-man",ja:"どういたしまして。"},
+  {id:"gr16",cat:"挨拶・基本",foreign:"Oo.",rom:"o-o",ja:"はい。"},
+  {id:"gr17",cat:"挨拶・基本",foreign:"Opo / Oho",rom:"o-po / o-ho",ja:"はい。（丁寧）"},
+  {id:"gr18",cat:"挨拶・基本",foreign:"Hindi.",rom:"hin-di",ja:"いいえ。"},
+  {id:"gr19",cat:"挨拶・基本",foreign:"Hindi po.",rom:"hin-di po",ja:"いいえ。（丁寧）"},
+  {id:"gr20",cat:"挨拶・基本",foreign:"Pasensya na.",rom:"pa-sen-sya na",ja:"ごめんなさい。"},
+  {id:"gr21",cat:"挨拶・基本",foreign:"Paumanhin.",rom:"pa-u-man-hin",ja:"失礼します。／すみません。"},
+  {id:"gr22",cat:"挨拶・基本",foreign:"Sige.",rom:"si-ge",ja:"いいですよ。／了解。"},
+  {id:"gr23",cat:"挨拶・基本",foreign:"Okay lang.",rom:"o-key lang",ja:"大丈夫です。"},
+  {id:"gr24",cat:"挨拶・基本",foreign:"Magandang araw!",rom:"ma-gan-dang a-raw",ja:"良い一日を！"},
+  {id:"gr25",cat:"挨拶・基本",foreign:"Maligayang pagdating!",rom:"ma-li-ga-yang pag-da-ting",ja:"ようこそ！"},
+
+  // ===== 自己紹介 (20枚) =====
+  {id:"in01",cat:"自己紹介",foreign:"Ako si [名前].",rom:"a-ko si",ja:"私は[名前]です。"},
+  {id:"in02",cat:"自己紹介",foreign:"Ang pangalan ko ay [名前].",rom:"ang pa-nga-lan ko ay",ja:"私の名前は[名前]です。"},
+  {id:"in03",cat:"自己紹介",foreign:"Ano ang pangalan mo?",rom:"a-no ang pa-nga-lan mo",ja:"あなたの名前は何ですか？"},
+  {id:"in04",cat:"自己紹介",foreign:"Taga-Japan ako.",rom:"ta-ga Ja-pan a-ko",ja:"私は日本出身です。"},
+  {id:"in05",cat:"自己紹介",foreign:"Taga-saan ka?",rom:"ta-ga-sa-an ka",ja:"どこの出身ですか？"},
+  {id:"in06",cat:"自己紹介",foreign:"Saan ka galing?",rom:"sa-an ka ga-ling",ja:"どこから来ましたか？"},
+  {id:"in07",cat:"自己紹介",foreign:"Nakatira ako sa Tokyo.",rom:"na-ka-ti-ra a-ko sa To-kyo",ja:"東京に住んでいます。"},
+  {id:"in08",cat:"自己紹介",foreign:"Estudyante ako.",rom:"es-tud-yan-te a-ko",ja:"私は学生です。"},
+  {id:"in09",cat:"自己紹介",foreign:"Guro siya.",rom:"gu-ro si-ya",ja:"彼／彼女は先生です。"},
+  {id:"in10",cat:"自己紹介",foreign:"Empleyado ako.",rom:"em-ple-ya-do a-ko",ja:"私は会社員です。"},
+  {id:"in11",cat:"自己紹介",foreign:"Nagtatrabaho ako.",rom:"nag-ta-tra-ba-ho a-ko",ja:"働いています。"},
+  {id:"in12",cat:"自己紹介",foreign:"Ilang taon ka na?",rom:"i-lang ta-on ka na",ja:"何歳ですか？"},
+  {id:"in13",cat:"自己紹介",foreign:"Dalawampu't lima na ako.",rom:"da-la-wam-pu't li-ma na a-ko",ja:"25歳です。"},
+  {id:"in14",cat:"自己紹介",foreign:"Ikinagagalak kitang makilala.",rom:"i-ki-na-ga-ga-lak ki-tang ma-ki-la-la",ja:"はじめまして。（お会いできて嬉しいです）"},
+  {id:"in15",cat:"自己紹介",foreign:"Masaya akong makilala ka.",rom:"ma-sa-ya a-kong ma-ki-la-la ka",ja:"あなたに会えて嬉しいです。"},
+  {id:"in16",cat:"自己紹介",foreign:"May asawa na ako.",rom:"may a-sa-wa na a-ko",ja:"私は結婚しています。"},
+  {id:"in17",cat:"自己紹介",foreign:"Wala pa akong asawa.",rom:"wa-la pa a-kong a-sa-wa",ja:"私はまだ独身です。"},
+  {id:"in18",cat:"自己紹介",foreign:"May dalawang anak ako.",rom:"may da-la-wang a-nak a-ko",ja:"子供が2人います。"},
+  {id:"in19",cat:"自己紹介",foreign:"Bunso ako sa pamilya.",rom:"bun-so a-ko sa pa-mi-lya",ja:"家族の末っ子です。"},
+  {id:"in20",cat:"自己紹介",foreign:"Ako ang panganay.",rom:"a-ko ang pa-nga-nay",ja:"私は長子です。"},
+
+  // ===== 疑問詞 (15枚) =====
+  {id:"wh01",cat:"疑問詞",foreign:"Ano ito?",rom:"a-no i-to",ja:"これは何ですか？"},
+  {id:"wh02",cat:"疑問詞",foreign:"Ano iyan?",rom:"a-no i-yan",ja:"それは何ですか？"},
+  {id:"wh03",cat:"疑問詞",foreign:"Sino siya?",rom:"si-no si-ya",ja:"彼／彼女は誰ですか？"},
+  {id:"wh04",cat:"疑問詞",foreign:"Kanino ito?",rom:"ka-ni-no i-to",ja:"これは誰のですか？"},
+  {id:"wh05",cat:"疑問詞",foreign:"Saan ka nakatira?",rom:"sa-an ka na-ka-ti-ra",ja:"どこに住んでいますか？"},
+  {id:"wh06",cat:"疑問詞",foreign:"Nasaan ang banyo?",rom:"na-sa-an ang ban-yo",ja:"トイレはどこですか？"},
+  {id:"wh07",cat:"疑問詞",foreign:"Kailan ka darating?",rom:"kai-lan ka da-ra-ting",ja:"いつ来ますか？"},
+  {id:"wh08",cat:"疑問詞",foreign:"Kailan ang birthday mo?",rom:"kai-lan ang bert-day mo",ja:"誕生日はいつですか？"},
+  {id:"wh09",cat:"疑問詞",foreign:"Bakit ka nandito?",rom:"ba-kit ka nan-di-to",ja:"なぜここにいるのですか？"},
+  {id:"wh10",cat:"疑問詞",foreign:"Paano pumunta doon?",rom:"pa-a-no pu-mun-ta do-on",ja:"どうやってそこへ行きますか？"},
+  {id:"wh11",cat:"疑問詞",foreign:"Magkano ito?",rom:"mag-ka-no i-to",ja:"これはいくらですか？"},
+  {id:"wh12",cat:"疑問詞",foreign:"Ilan kayo?",rom:"i-lan ka-yo",ja:"何人ですか？"},
+  {id:"wh13",cat:"疑問詞",foreign:"Alin ang gusto mo?",rom:"a-lin ang gus-to mo",ja:"どれが欲しいですか？"},
+  {id:"wh14",cat:"疑問詞",foreign:"Gaano katagal?",rom:"ga-a-no ka-ta-gal",ja:"どのくらい時間がかかりますか？"},
+  {id:"wh15",cat:"疑問詞",foreign:"Gaano kalayo?",rom:"ga-a-no ka-la-yo",ja:"どのくらい遠いですか？"},
+
+  // ===== 代名詞・指示詞 (15枚) =====
+  {id:"pr01",cat:"代名詞・指示詞",foreign:"Ako",rom:"a-ko",ja:"私"},
+  {id:"pr02",cat:"代名詞・指示詞",foreign:"Ikaw / Ka",rom:"i-kaw / ka",ja:"あなた"},
+  {id:"pr03",cat:"代名詞・指示詞",foreign:"Siya",rom:"si-ya",ja:"彼／彼女"},
+  {id:"pr04",cat:"代名詞・指示詞",foreign:"Kami",rom:"ka-mi",ja:"私たち（相手を含まない）"},
+  {id:"pr05",cat:"代名詞・指示詞",foreign:"Tayo",rom:"ta-yo",ja:"私たち（相手を含む）"},
+  {id:"pr06",cat:"代名詞・指示詞",foreign:"Kayo",rom:"ka-yo",ja:"あなたたち／あなた（丁寧）"},
+  {id:"pr07",cat:"代名詞・指示詞",foreign:"Sila",rom:"si-la",ja:"彼ら／彼女ら"},
+  {id:"pr08",cat:"代名詞・指示詞",foreign:"Ito",rom:"i-to",ja:"これ（近くのもの）"},
+  {id:"pr09",cat:"代名詞・指示詞",foreign:"Iyan",rom:"i-yan",ja:"それ（相手の近くのもの）"},
+  {id:"pr10",cat:"代名詞・指示詞",foreign:"Iyon",rom:"i-yon",ja:"あれ（遠くのもの）"},
+  {id:"pr11",cat:"代名詞・指示詞",foreign:"Dito",rom:"di-to",ja:"ここ"},
+  {id:"pr12",cat:"代名詞・指示詞",foreign:"Diyan",rom:"di-yan",ja:"そこ"},
+  {id:"pr13",cat:"代名詞・指示詞",foreign:"Doon",rom:"do-on",ja:"あそこ"},
+  {id:"pr14",cat:"代名詞・指示詞",foreign:"Akin ito.",rom:"a-kin i-to",ja:"これは私のものです。"},
+  {id:"pr15",cat:"代名詞・指示詞",foreign:"Sa iyo iyan.",rom:"sa i-yo i-yan",ja:"それはあなたのものです。"},
+
+  // ===== 所有・存在 (15枚) =====
+  {id:"ow01",cat:"所有・存在",foreign:"May pera ako.",rom:"may pe-ra a-ko",ja:"お金があります。"},
+  {id:"ow02",cat:"所有・存在",foreign:"Wala akong pera.",rom:"wa-la a-kong pe-ra",ja:"お金がありません。"},
+  {id:"ow03",cat:"所有・存在",foreign:"May oras ka ba?",rom:"may o-ras ka ba",ja:"時間はありますか？"},
+  {id:"ow04",cat:"所有・存在",foreign:"Wala akong oras.",rom:"wa-la a-kong o-ras",ja:"時間がありません。"},
+  {id:"ow05",cat:"所有・存在",foreign:"May kotse siya.",rom:"may kot-se si-ya",ja:"彼／彼女は車を持っています。"},
+  {id:"ow06",cat:"所有・存在",foreign:"Nasa bahay ako.",rom:"na-sa ba-hay a-ko",ja:"家にいます。"},
+  {id:"ow07",cat:"所有・存在",foreign:"Nasa trabaho siya.",rom:"na-sa tra-ba-ho si-ya",ja:"彼は職場にいます。"},
+  {id:"ow08",cat:"所有・存在",foreign:"Nasaan ang ospital?",rom:"na-sa-an ang os-pi-tal",ja:"病院はどこですか？"},
+  {id:"ow09",cat:"所有・存在",foreign:"Wala na.",rom:"wa-la na",ja:"もうありません。"},
+  {id:"ow10",cat:"所有・存在",foreign:"Meron po.",rom:"me-ron po",ja:"あります。（丁寧）"},
+  {id:"ow11",cat:"所有・存在",foreign:"Wala po.",rom:"wa-la po",ja:"ありません。（丁寧）"},
+  {id:"ow12",cat:"所有・存在",foreign:"Nasa mesa ang susi.",rom:"na-sa me-sa ang su-si",ja:"鍵はテーブルの上にあります。"},
+  {id:"ow13",cat:"所有・存在",foreign:"May tao sa loob.",rom:"may ta-o sa lo-ob",ja:"中に人がいます。"},
+  {id:"ow14",cat:"所有・存在",foreign:"Walang tao sa loob.",rom:"wa-lang ta-o sa lo-ob",ja:"中に人がいません。"},
+  {id:"ow15",cat:"所有・存在",foreign:"May tindahan sa kanto.",rom:"may tin-da-han sa kan-to",ja:"角に店があります。"},
+
+  // ===== 日常動詞 (20枚) =====
+  {id:"vb01",cat:"日常動詞",foreign:"Kumakain ako.",rom:"ku-ma-ka-in a-ko",ja:"私は食べています。"},
+  {id:"vb02",cat:"日常動詞",foreign:"Kumain ako.",rom:"ku-ma-in a-ko",ja:"食べました。（過去）"},
+  {id:"vb03",cat:"日常動詞",foreign:"Kakain ako.",rom:"ka-ka-in a-ko",ja:"食べます。（未来）"},
+  {id:"vb04",cat:"日常動詞",foreign:"Umiinom ako ng tubig.",rom:"u-mi-i-nom a-ko ng tu-big",ja:"水を飲んでいます。"},
+  {id:"vb05",cat:"日常動詞",foreign:"Pumunta ako sa trabaho.",rom:"pu-mun-ta a-ko sa tra-ba-ho",ja:"仕事へ行きました。"},
+  {id:"vb06",cat:"日常動詞",foreign:"Pupunta ako sa palengke.",rom:"pu-pun-ta a-ko sa pa-leng-ke",ja:"市場へ行きます。"},
+  {id:"vb07",cat:"日常動詞",foreign:"Natutulog ako.",rom:"na-tu-tu-log a-ko",ja:"寝ています。"},
+  {id:"vb08",cat:"日常動詞",foreign:"Nag-aaral ako.",rom:"nag-a-a-ral a-ko",ja:"勉強しています。"},
+  {id:"vb09",cat:"日常動詞",foreign:"Nagtatrabaho siya.",rom:"nag-ta-tra-ba-ho si-ya",ja:"彼は働いています。"},
+  {id:"vb10",cat:"日常動詞",foreign:"Naglalakad ako.",rom:"nag-la-la-kad a-ko",ja:"歩いています。"},
+  {id:"vb11",cat:"日常動詞",foreign:"Sumusulat ako.",rom:"su-mu-su-lat a-ko",ja:"書いています。"},
+  {id:"vb12",cat:"日常動詞",foreign:"Bumabasa ako.",rom:"bu-ma-ba-sa a-ko",ja:"読んでいます。"},
+  {id:"vb13",cat:"日常動詞",foreign:"Nagluluto siya.",rom:"nag-lu-lu-to si-ya",ja:"彼／彼女は料理しています。"},
+  {id:"vb14",cat:"日常動詞",foreign:"Nanonood ako ng TV.",rom:"na-no-no-od a-ko ng TV",ja:"テレビを見ています。"},
+  {id:"vb15",cat:"日常動詞",foreign:"Tumatawa siya.",rom:"tu-ma-ta-wa si-ya",ja:"彼は笑っています。"},
+  {id:"vb16",cat:"日常動詞",foreign:"Umiiyak siya.",rom:"u-mi-i-yak si-ya",ja:"彼女は泣いています。"},
+  {id:"vb17",cat:"日常動詞",foreign:"Naglalaro kami.",rom:"nag-la-la-ro ka-mi",ja:"私たちは遊んでいます。"},
+  {id:"vb18",cat:"日常動詞",foreign:"Nagbabayad siya.",rom:"nag-ba-ba-yad si-ya",ja:"彼は支払っています。"},
+  {id:"vb19",cat:"日常動詞",foreign:"Nagmamaneho siya.",rom:"nag-ma-ma-ne-ho si-ya",ja:"彼は運転しています。"},
+  {id:"vb20",cat:"日常動詞",foreign:"Umuuwi na siya.",rom:"u-mu-u-wi na si-ya",ja:"彼はもう帰っています。"},
+
+  // ===== 欲求・必要・能力 (15枚) =====
+  {id:"wt01",cat:"欲求・必要・能力",foreign:"Gusto ko ng kape.",rom:"gus-to ko ng ka-pe",ja:"コーヒーが欲しいです。"},
+  {id:"wt02",cat:"欲求・必要・能力",foreign:"Gusto ko kumain.",rom:"gus-to ko ku-ma-in",ja:"食べたいです。"},
+  {id:"wt03",cat:"欲求・必要・能力",foreign:"Gusto ko matulog.",rom:"gus-to ko ma-tu-log",ja:"寝たいです。"},
+  {id:"wt04",cat:"欲求・必要・能力",foreign:"Ayoko.",rom:"a-yo-ko",ja:"欲しくない／嫌です。"},
+  {id:"wt05",cat:"欲求・必要・能力",foreign:"Kailangan ko ng tubig.",rom:"kai-la-ngan ko ng tu-big",ja:"水が必要です。"},
+  {id:"wt06",cat:"欲求・必要・能力",foreign:"Kailangan ko ng tulong.",rom:"kai-la-ngan ko ng tu-long",ja:"助けが必要です。"},
+  {id:"wt07",cat:"欲求・必要・能力",foreign:"Kailangan ko magpahinga.",rom:"kai-la-ngan ko mag-pa-hin-ga",ja:"休む必要があります。"},
+  {id:"wt08",cat:"欲求・必要・能力",foreign:"Marunong ka bang mag-Ingles?",rom:"ma-ru-nong ka bang mag-ing-les",ja:"英語は話せますか？"},
+  {id:"wt09",cat:"欲求・必要・能力",foreign:"Konti lang.",rom:"kon-ti lang",ja:"少しだけ。"},
+  {id:"wt10",cat:"欲求・必要・能力",foreign:"Kaya ko.",rom:"ka-ya ko",ja:"できます。"},
+  {id:"wt11",cat:"欲求・必要・能力",foreign:"Hindi ko kaya.",rom:"hin-di ko ka-ya",ja:"できません。"},
+  {id:"wt12",cat:"欲求・必要・能力",foreign:"Nakakaintindi ako ng kaunti.",rom:"na-ka-ka-in-tin-di a-ko ng kaun-ti",ja:"少し理解できます。"},
+  {id:"wt13",cat:"欲求・必要・能力",foreign:"Nakakasalita ka ba ng Tagalog?",rom:"na-ka-ka-sa-li-ta ka ba ng ta-ga-log",ja:"タガログ語を話せますか？"},
+  {id:"wt14",cat:"欲求・必要・能力",foreign:"Gusto ko rin.",rom:"gus-to ko rin",ja:"私もそうしたいです。"},
+  {id:"wt15",cat:"欲求・必要・能力",foreign:"Sana mapunta ako sa Pilipinas.",rom:"sa-na ma-pun-ta a-ko sa Pi-li-pi-nas",ja:"フィリピンに行けたらいいな。"},
+
+  // ===== 形容詞・状態 (20枚) =====
+  {id:"aj01",cat:"形容詞・状態",foreign:"Masaya ako.",rom:"ma-sa-ya a-ko",ja:"私は嬉しいです。"},
+  {id:"aj02",cat:"形容詞・状態",foreign:"Malungkot siya.",rom:"ma-lung-kot si-ya",ja:"彼は悲しんでいます。"},
+  {id:"aj03",cat:"形容詞・状態",foreign:"Pagod ako.",rom:"pa-god a-ko",ja:"疲れています。"},
+  {id:"aj04",cat:"形容詞・状態",foreign:"Gutom ako.",rom:"gu-tom a-ko",ja:"お腹が空きました。"},
+  {id:"aj05",cat:"形容詞・状態",foreign:"Uhaw ako.",rom:"u-haw a-ko",ja:"のどが渇きました。"},
+  {id:"aj06",cat:"形容詞・状態",foreign:"Inaantok ako.",rom:"i-na-an-tok a-ko",ja:"眠いです。"},
+  {id:"aj07",cat:"形容詞・状態",foreign:"Mainit dito.",rom:"ma-i-nit di-to",ja:"ここは暑いです。"},
+  {id:"aj08",cat:"形容詞・状態",foreign:"Malamig ang tubig.",rom:"ma-la-mig ang tu-big",ja:"水が冷たいです。"},
+  {id:"aj09",cat:"形容詞・状態",foreign:"Masarap ito.",rom:"ma-sa-rap i-to",ja:"これはおいしいです。"},
+  {id:"aj10",cat:"形容詞・状態",foreign:"Mahal iyan.",rom:"ma-hal i-yan",ja:"それは高いです。"},
+  {id:"aj11",cat:"形容詞・状態",foreign:"Mura ito.",rom:"mu-ra i-to",ja:"これは安いです。"},
+  {id:"aj12",cat:"形容詞・状態",foreign:"Malayo ba?",rom:"ma-la-yo ba",ja:"遠いですか？"},
+  {id:"aj13",cat:"形容詞・状態",foreign:"Malapit lang.",rom:"ma-la-pit lang",ja:"すぐ近くです。"},
+  {id:"aj14",cat:"形容詞・状態",foreign:"Malaki ang bahay.",rom:"ma-la-ki ang ba-hay",ja:"その家は大きいです。"},
+  {id:"aj15",cat:"形容詞・状態",foreign:"Mabait siya.",rom:"ma-ba-it si-ya",ja:"彼は親切です。"},
+  {id:"aj16",cat:"形容詞・状態",foreign:"Maganda ang lugar.",rom:"ma-gan-da ang lu-gar",ja:"その場所はきれいです。"},
+  {id:"aj17",cat:"形容詞・状態",foreign:"Mabilis siya.",rom:"ma-bi-lis si-ya",ja:"彼は速いです。"},
+  {id:"aj18",cat:"形容詞・状態",foreign:"Mabagal.",rom:"ma-ba-gal",ja:"遅い。"},
+  {id:"aj19",cat:"形容詞・状態",foreign:"Maingay dito.",rom:"ma-i-ngay di-to",ja:"ここはうるさいです。"},
+  {id:"aj20",cat:"形容詞・状態",foreign:"Tahimik ang lugar.",rom:"ta-hi-mik ang lu-gar",ja:"この場所は静かです。"},
+
+  // ===== 数字・数え方 (18枚) =====
+  {id:"nu01",cat:"数字・数え方",foreign:"Isa",rom:"i-sa",ja:"1"},
+  {id:"nu02",cat:"数字・数え方",foreign:"Dalawa",rom:"da-la-wa",ja:"2"},
+  {id:"nu03",cat:"数字・数え方",foreign:"Tatlo",rom:"tat-lo",ja:"3"},
+  {id:"nu04",cat:"数字・数え方",foreign:"Apat",rom:"a-pat",ja:"4"},
+  {id:"nu05",cat:"数字・数え方",foreign:"Lima",rom:"li-ma",ja:"5"},
+  {id:"nu06",cat:"数字・数え方",foreign:"Anim",rom:"a-nim",ja:"6"},
+  {id:"nu07",cat:"数字・数え方",foreign:"Pito",rom:"pi-to",ja:"7"},
+  {id:"nu08",cat:"数字・数え方",foreign:"Walo",rom:"wa-lo",ja:"8"},
+  {id:"nu09",cat:"数字・数え方",foreign:"Siyam",rom:"si-yam",ja:"9"},
+  {id:"nu10",cat:"数字・数え方",foreign:"Sampu",rom:"sam-pu",ja:"10"},
+  {id:"nu11",cat:"数字・数え方",foreign:"Labing-isa",rom:"la-bing-i-sa",ja:"11"},
+  {id:"nu12",cat:"数字・数え方",foreign:"Dalawampu",rom:"da-la-wam-pu",ja:"20"},
+  {id:"nu13",cat:"数字・数え方",foreign:"Isang daan",rom:"i-sang da-an",ja:"100"},
+  {id:"nu14",cat:"数字・数え方",foreign:"Isang libo",rom:"i-sang li-bo",ja:"1,000"},
+  {id:"nu15",cat:"数字・数え方",foreign:"Isa lang.",rom:"i-sa lang",ja:"1つだけ。"},
+  {id:"nu16",cat:"数字・数え方",foreign:"Dalawa kami.",rom:"da-la-wa ka-mi",ja:"私たちは2人です。"},
+  {id:"nu17",cat:"数字・数え方",foreign:"Ilang piso?",rom:"i-lang pi-so",ja:"何ペソですか？"},
+  {id:"nu18",cat:"数字・数え方",foreign:"Dalawa, pakiusap.",rom:"da-la-wa pa-ki-u-sap",ja:"2つお願いします。"},
+
+  // ===== 時間・曜日 (20枚) =====
+  {id:"tm01",cat:"時間・曜日",foreign:"Anong oras na?",rom:"a-nong o-ras na",ja:"今、何時ですか？"},
+  {id:"tm02",cat:"時間・曜日",foreign:"Alas-singko na.",rom:"a-las-sing-ko na",ja:"5時です。"},
+  {id:"tm03",cat:"時間・曜日",foreign:"Alas-sais y medya.",rom:"a-las sa-is i med-ya",ja:"6時半です。"},
+  {id:"tm04",cat:"時間・曜日",foreign:"Huli na ako.",rom:"hu-li na a-ko",ja:"遅れました。"},
+  {id:"tm05",cat:"時間・曜日",foreign:"Maaga akong gumising.",rom:"ma-a-ga a-kong gu-mi-sing",ja:"私は早く起きました。"},
+  {id:"tm06",cat:"時間・曜日",foreign:"Ngayon",rom:"nga-yon",ja:"今日"},
+  {id:"tm07",cat:"時間・曜日",foreign:"Bukas",rom:"bu-kas",ja:"明日"},
+  {id:"tm08",cat:"時間・曜日",foreign:"Kahapon",rom:"ka-ha-pon",ja:"昨日"},
+  {id:"tm09",cat:"時間・曜日",foreign:"Mamaya",rom:"ma-ma-ya",ja:"後で"},
+  {id:"tm10",cat:"時間・曜日",foreign:"Kanina",rom:"ka-ni-na",ja:"さっき"},
+  {id:"tm11",cat:"時間・曜日",foreign:"Ngayong umaga",rom:"nga-yong u-ma-ga",ja:"今朝"},
+  {id:"tm12",cat:"時間・曜日",foreign:"Ngayong gabi",rom:"nga-yong ga-bi",ja:"今晩"},
+  {id:"tm13",cat:"時間・曜日",foreign:"Lunes",rom:"lu-nes",ja:"月曜日"},
+  {id:"tm14",cat:"時間・曜日",foreign:"Martes",rom:"mar-tes",ja:"火曜日"},
+  {id:"tm15",cat:"時間・曜日",foreign:"Miyerkules",rom:"mi-yer-ku-les",ja:"水曜日"},
+  {id:"tm16",cat:"時間・曜日",foreign:"Huwebes",rom:"hu-we-bes",ja:"木曜日"},
+  {id:"tm17",cat:"時間・曜日",foreign:"Biyernes",rom:"bi-yer-nes",ja:"金曜日"},
+  {id:"tm18",cat:"時間・曜日",foreign:"Sabado",rom:"sa-ba-do",ja:"土曜日"},
+  {id:"tm19",cat:"時間・曜日",foreign:"Linggo",rom:"ling-go",ja:"日曜日／教会"},
+  {id:"tm20",cat:"時間・曜日",foreign:"Anong araw ngayon?",rom:"a-nong a-raw nga-yon",ja:"今日は何曜日ですか？"},
+
+  // ===== 色 (12枚) =====
+  {id:"cl01",cat:"色",foreign:"Pula",rom:"pu-la",ja:"赤"},
+  {id:"cl02",cat:"色",foreign:"Asul",rom:"a-sul",ja:"青"},
+  {id:"cl03",cat:"色",foreign:"Berde",rom:"ber-de",ja:"緑"},
+  {id:"cl04",cat:"色",foreign:"Dilaw",rom:"di-law",ja:"黄色"},
+  {id:"cl05",cat:"色",foreign:"Itim",rom:"i-tim",ja:"黒"},
+  {id:"cl06",cat:"色",foreign:"Puti",rom:"pu-ti",ja:"白"},
+  {id:"cl07",cat:"色",foreign:"Kahel",rom:"ka-hel",ja:"オレンジ"},
+  {id:"cl08",cat:"色",foreign:"Rosas",rom:"ro-sas",ja:"ピンク"},
+  {id:"cl09",cat:"色",foreign:"Kayumanggi",rom:"ka-yu-mang-gi",ja:"茶色"},
+  {id:"cl10",cat:"色",foreign:"Abo",rom:"a-bo",ja:"グレー"},
+  {id:"cl11",cat:"色",foreign:"Lila",rom:"li-la",ja:"紫"},
+  {id:"cl12",cat:"色",foreign:"Anong kulay ito?",rom:"a-nong ku-lay i-to",ja:"これは何色ですか？"},
+
+  // ===== 家族・人間関係 (15枚) =====
+  {id:"fm01",cat:"家族・人間関係",foreign:"Nanay",rom:"na-nay",ja:"お母さん"},
+  {id:"fm02",cat:"家族・人間関係",foreign:"Tatay",rom:"ta-tay",ja:"お父さん"},
+  {id:"fm03",cat:"家族・人間関係",foreign:"Kapatid",rom:"ka-pa-tid",ja:"兄弟／姉妹"},
+  {id:"fm04",cat:"家族・人間関係",foreign:"Anak",rom:"a-nak",ja:"子供"},
+  {id:"fm05",cat:"家族・人間関係",foreign:"Lolo",rom:"lo-lo",ja:"おじいさん"},
+  {id:"fm06",cat:"家族・人間関係",foreign:"Lola",rom:"lo-la",ja:"おばあさん"},
+  {id:"fm07",cat:"家族・人間関係",foreign:"Asawa",rom:"a-sa-wa",ja:"配偶者（夫／妻）"},
+  {id:"fm08",cat:"家族・人間関係",foreign:"Kaibigan",rom:"ka-i-bi-gan",ja:"友達"},
+  {id:"fm09",cat:"家族・人間関係",foreign:"Kapitbahay",rom:"ka-pit-ba-hay",ja:"隣人"},
+  {id:"fm10",cat:"家族・人間関係",foreign:"Siya ang aking nanay.",rom:"si-ya ang a-king na-nay",ja:"彼女は私の母です。"},
+  {id:"fm11",cat:"家族・人間関係",foreign:"Ito ang aking pamilya.",rom:"i-to ang a-king pa-mi-lya",ja:"こちらが私の家族です。"},
+  {id:"fm12",cat:"家族・人間関係",foreign:"May apat kaming magkakapatid.",rom:"may a-pat ka-ming mag-ka-ka-pa-tid",ja:"私たちは4人兄弟です。"},
+  {id:"fm13",cat:"家族・人間関係",foreign:"Kaibigan ko siya.",rom:"ka-i-bi-gan ko si-ya",ja:"彼は私の友達です。"},
+  {id:"fm14",cat:"家族・人間関係",foreign:"Lalaki",rom:"la-la-ki",ja:"男性"},
+  {id:"fm15",cat:"家族・人間関係",foreign:"Babae",rom:"ba-ba-e",ja:"女性"},
+
+  // ===== 買い物 (15枚) =====
+  {id:"sh01",cat:"買い物",foreign:"Pabili po.",rom:"pa-bi-li po",ja:"これを買いたいのですが。"},
+  {id:"sh02",cat:"買い物",foreign:"Gusto ko nito.",rom:"gus-to ko ni-to",ja:"これが欲しいです。"},
+  {id:"sh03",cat:"買い物",foreign:"Sobrang mahal naman!",rom:"sob-rang ma-hal na-man",ja:"高すぎますよ！"},
+  {id:"sh04",cat:"買い物",foreign:"Puwede bang tumawad?",rom:"pu-we-de bang tu-ma-wad",ja:"値切れますか？"},
+  {id:"sh05",cat:"買い物",foreign:"Bibili ako nito.",rom:"bi-bi-li a-ko ni-to",ja:"これを買います。"},
+  {id:"sh06",cat:"買い物",foreign:"Saan ako magbabayad?",rom:"sa-an a-ko mag-ba-ba-yad",ja:"どこで払いますか？"},
+  {id:"sh07",cat:"買い物",foreign:"May sukli ka ba sa 500?",rom:"may suk-li ka ba sa li-ma-da-an",ja:"500ペソのおつりはありますか？"},
+  {id:"sh08",cat:"買い物",foreign:"May ibang kulay ba?",rom:"may i-bang ku-lay ba",ja:"他の色はありますか？"},
+  {id:"sh09",cat:"買い物",foreign:"Pwede ko bang subukan ito?",rom:"pwe-de ko bang su-bu-kan i-to",ja:"試着できますか？"},
+  {id:"sh10",cat:"買い物",foreign:"May size medium po ba kayo?",rom:"may saiz mi-dyum po ba ka-yo",ja:"Mサイズはありますか？"},
+  {id:"sh11",cat:"買い物",foreign:"Magkano lahat?",rom:"mag-ka-no la-hat",ja:"合計いくらですか？"},
+  {id:"sh12",cat:"買い物",foreign:"Mahal.",rom:"ma-hal",ja:"高い。"},
+  {id:"sh13",cat:"買い物",foreign:"Mura.",rom:"mu-ra",ja:"安い。"},
+  {id:"sh14",cat:"買い物",foreign:"Kukunin ko na ito.",rom:"ku-ku-nin ko na i-to",ja:"これにします。"},
+  {id:"sh15",cat:"買い物",foreign:"Bayad ko po.",rom:"ba-yad ko po",ja:"お会計お願いします。"},
+
+  // ===== 食事・レストラン (20枚) =====
+  {id:"fd01",cat:"食事・レストラン",foreign:"Kain tayo!",rom:"ka-in ta-yo",ja:"食べましょう！"},
+  {id:"fd02",cat:"食事・レストラン",foreign:"Kumain ka na ba?",rom:"ku-ma-in ka na ba",ja:"もう食べた？（定番の挨拶）"},
+  {id:"fd03",cat:"食事・レストラン",foreign:"Tara, kain tayo.",rom:"ta-ra ka-in ta-yo",ja:"さあ、食べに行こう。"},
+  {id:"fd04",cat:"食事・レストラン",foreign:"Anong masarap dito?",rom:"a-nong ma-sa-rap di-to",ja:"ここでは何が美味しいですか？"},
+  {id:"fd05",cat:"食事・レストラン",foreign:"Anong recommended ninyo?",rom:"a-nong re-ko-men-ded nin-yo",ja:"おすすめは何ですか？"},
+  {id:"fd06",cat:"食事・レストラン",foreign:"Maaari ko bang makita ang menu?",rom:"ma-a-a-ri ko bang ma-ki-ta ang me-nu",ja:"メニューを見せてもらえますか？"},
+  {id:"fd07",cat:"食事・レストラン",foreign:"Tubig lang, please.",rom:"tu-big lang ples",ja:"水だけでお願いします。"},
+  {id:"fd08",cat:"食事・レストラン",foreign:"Ang sarap!",rom:"ang sa-rap",ja:"美味しい！"},
+  {id:"fd09",cat:"食事・レストラン",foreign:"Busog na ako.",rom:"bu-sog na a-ko",ja:"お腹いっぱいです。"},
+  {id:"fd10",cat:"食事・レストラン",foreign:"Pa-bill po.",rom:"pa-bil po",ja:"お会計お願いします。"},
+  {id:"fd11",cat:"食事・レストラン",foreign:"Gutom na ako.",rom:"gu-tom na a-ko",ja:"お腹が空きました。"},
+  {id:"fd12",cat:"食事・レストラン",foreign:"Uhaw na ako.",rom:"u-haw na a-ko",ja:"のどが渇きました。"},
+  {id:"fd13",cat:"食事・レストラン",foreign:"Ayaw ko ng maanghang.",rom:"a-yaw ko ng ma-ang-hang",ja:"辛いのは嫌です。"},
+  {id:"fd14",cat:"食事・レストラン",foreign:"Isang order ng adobo, please.",rom:"i-sang or-der ng a-do-bo",ja:"アドボを1つお願いします。"},
+  {id:"fd15",cat:"食事・レストラン",foreign:"Isa pang tubig.",rom:"i-sa pang tu-big",ja:"水をもう一つ。"},
+  {id:"fd16",cat:"食事・レストラン",foreign:"Gusto ko ng kape.",rom:"gus-to ko ng ka-pe",ja:"コーヒーが欲しいです。"},
+  {id:"fd17",cat:"食事・レストラン",foreign:"Pasalubong",rom:"pa-sa-lu-bong",ja:"お土産（帰省時の贈り物）"},
+  {id:"fd18",cat:"食事・レストラン",foreign:"Kumain kami sa labas kagabi.",rom:"ku-ma-in ka-mi sa la-bas ka-ga-bi",ja:"昨夜は外食しました。"},
+  {id:"fd19",cat:"食事・レストラン",foreign:"Gusto ko pong mag-order.",rom:"gus-to ko pong mag-or-der",ja:"注文をお願いします。（丁寧）"},
+  {id:"fd20",cat:"食事・レストラン",foreign:"Isang Sinigang at dalawang kanin.",rom:"i-sang si-ni-gang at da-la-wang ka-nin",ja:"シニガン1つとご飯2つ。"},
+
+  // ===== 移動・交通 (18枚) =====
+  {id:"tr01",cat:"移動・交通",foreign:"Para po!",rom:"pa-ra po",ja:"止めてください！（乗り物を）"},
+  {id:"tr02",cat:"移動・交通",foreign:"Dito lang po.",rom:"di-to lang po",ja:"ここで降ります。"},
+  {id:"tr03",cat:"移動・交通",foreign:"Kaliwa",rom:"ka-li-wa",ja:"左"},
+  {id:"tr04",cat:"移動・交通",foreign:"Kanan",rom:"ka-nan",ja:"右"},
+  {id:"tr05",cat:"移動・交通",foreign:"Deretso lang.",rom:"de-ret-so lang",ja:"まっすぐです。"},
+  {id:"tr06",cat:"移動・交通",foreign:"Malayo pa po ba?",rom:"ma-la-yo pa po ba",ja:"まだ遠いですか？"},
+  {id:"tr07",cat:"移動・交通",foreign:"Lakad lang po ba?",rom:"la-kad lang po ba",ja:"歩いて行けますか？"},
+  {id:"tr08",cat:"移動・交通",foreign:"Saan ang istasyon?",rom:"sa-an ang is-ta-syon",ja:"駅はどこですか？"},
+  {id:"tr09",cat:"移動・交通",foreign:"Magkano po ang pasahe?",rom:"mag-ka-no po ang pa-sa-he",ja:"運賃はいくらですか？"},
+  {id:"tr10",cat:"移動・交通",foreign:"Pupunta ako sa paliparan.",rom:"pu-pun-ta a-ko sa pa-li-pa-ran",ja:"空港へ行きます。"},
+  {id:"tr11",cat:"移動・交通",foreign:"Kuya, sa SM Mall po.",rom:"ku-ya sa es-em mol po",ja:"お兄さん、SMモールまでお願いします。"},
+  {id:"tr12",cat:"移動・交通",foreign:"Gaano katagal po?",rom:"ga-a-no ka-ta-gal po",ja:"どれくらいかかりますか？"},
+  {id:"tr13",cat:"移動・交通",foreign:"Saan ang sakayan ng dyip?",rom:"sa-an ang sa-ka-yan ng dyip",ja:"ジープニー乗り場はどこですか？"},
+  {id:"tr14",cat:"移動・交通",foreign:"Jeepney",rom:"dyip-ni",ja:"ジープニー（乗り合いバス）"},
+  {id:"tr15",cat:"移動・交通",foreign:"Tricycle",rom:"tri-sik-kol",ja:"トライシクル"},
+  {id:"tr16",cat:"移動・交通",foreign:"LRT / MRT",rom:"el-ar-ti / em-ar-ti",ja:"LRT / MRT（マニラの電車）"},
+  {id:"tr17",cat:"移動・交通",foreign:"Paano ako pupunta sa paliparan?",rom:"pa-a-no a-ko pu-pun-ta sa pa-li-pa-ran",ja:"空港にはどうやって行きますか？"},
+  {id:"tr18",cat:"移動・交通",foreign:"Sakay po.",rom:"sa-kay po",ja:"乗ります。（運転手に）"},
+
+  // ===== 場所・施設 (15枚) =====
+  {id:"pl01",cat:"場所・施設",foreign:"Bangko",rom:"bang-ko",ja:"銀行"},
+  {id:"pl02",cat:"場所・施設",foreign:"Ospital",rom:"os-pi-tal",ja:"病院"},
+  {id:"pl03",cat:"場所・施設",foreign:"Palengke",rom:"pa-leng-ke",ja:"市場"},
+  {id:"pl04",cat:"場所・施設",foreign:"Tindahan",rom:"tin-da-han",ja:"店"},
+  {id:"pl05",cat:"場所・施設",foreign:"Eskwelahan",rom:"es-kwe-la-han",ja:"学校"},
+  {id:"pl06",cat:"場所・施設",foreign:"Simbahan",rom:"sim-ba-han",ja:"教会"},
+  {id:"pl07",cat:"場所・施設",foreign:"Parke",rom:"par-ke",ja:"公園"},
+  {id:"pl08",cat:"場所・施設",foreign:"Paliparan",rom:"pa-li-pa-ran",ja:"空港"},
+  {id:"pl09",cat:"場所・施設",foreign:"Hotel",rom:"ho-tel",ja:"ホテル"},
+  {id:"pl10",cat:"場所・施設",foreign:"Saan ang CR?",rom:"sa-an ang si-ar",ja:"トイレはどこ？（CR = Comfort Room）"},
+  {id:"pl11",cat:"場所・施設",foreign:"Bahay",rom:"ba-hay",ja:"家"},
+  {id:"pl12",cat:"場所・施設",foreign:"Opisina",rom:"o-pi-si-na",ja:"オフィス"},
+  {id:"pl13",cat:"場所・施設",foreign:"Istasyong panggatong",rom:"is-tas-yong pang-ga-tong",ja:"ガソリンスタンド"},
+  {id:"pl14",cat:"場所・施設",foreign:"Paaralan",rom:"pa-a-ra-lan",ja:"学校（別の言い方）"},
+  {id:"pl15",cat:"場所・施設",foreign:"Restaurant",rom:"res-to-rant",ja:"レストラン"},
+
+  // ===== ホテル (12枚) =====
+  {id:"ht01",cat:"ホテル",foreign:"May bakanteng kwarto ba kayo?",rom:"may ba-kan-teng kwar-to ba ka-yo",ja:"空いている部屋はありますか？"},
+  {id:"ht02",cat:"ホテル",foreign:"Magkano po ang isang gabi?",rom:"mag-ka-no po ang i-sang ga-bi",ja:"1泊いくらですか？"},
+  {id:"ht03",cat:"ホテル",foreign:"Gusto ko ng kwartong may aircon.",rom:"gus-to ko ng kwar-tong may er-kon",ja:"エアコン付きの部屋が欲しいです。"},
+  {id:"ht04",cat:"ホテル",foreign:"Ilang gabi kayo manatili?",rom:"i-lang ga-bi ka-yo ma-na-ti-li",ja:"何泊されますか？"},
+  {id:"ht05",cat:"ホテル",foreign:"Tatlong gabi lang.",rom:"tat-long ga-bi lang",ja:"3泊だけです。"},
+  {id:"ht06",cat:"ホテル",foreign:"Check-in po.",rom:"chek-in po",ja:"チェックインをお願いします。"},
+  {id:"ht07",cat:"ホテル",foreign:"Check-out po.",rom:"chek-awt po",ja:"チェックアウトをお願いします。"},
+  {id:"ht08",cat:"ホテル",foreign:"Maaari po bang humingi ng tuwalya?",rom:"ma-a-a-ri po bang hu-min-gi ng tu-wal-ya",ja:"タオルをいただけますか？"},
+  {id:"ht09",cat:"ホテル",foreign:"May Wi-Fi ba dito?",rom:"may wai-fai ba di-to",ja:"ここにWi-Fiはありますか？"},
+  {id:"ht10",cat:"ホテル",foreign:"Ano ang password ng Wi-Fi?",rom:"a-no ang pas-word ng wai-fai",ja:"Wi-Fiのパスワードは何ですか？"},
+  {id:"ht11",cat:"ホテル",foreign:"May problema ang aircon.",rom:"may prob-le-ma ang er-kon",ja:"エアコンが故障しています。"},
+  {id:"ht12",cat:"ホテル",foreign:"Saan ang elevator?",rom:"sa-an ang e-le-ba-tor",ja:"エレベーターはどこですか？"},
+
+  // ===== 依頼・許可 (15枚) =====
+  {id:"rq01",cat:"依頼・許可",foreign:"Pakiulit po.",rom:"pa-ki-u-lit po",ja:"もう一度言ってください。"},
+  {id:"rq02",cat:"依頼・許可",foreign:"Dahan-dahan lang po, please.",rom:"da-han-da-han lang po",ja:"ゆっくり話してください。"},
+  {id:"rq03",cat:"依頼・許可",foreign:"Puwede ba akong umupo dito?",rom:"pu-we-de ba a-kong u-mu-po di-to",ja:"ここに座ってもいいですか？"},
+  {id:"rq04",cat:"依頼・許可",foreign:"Maaari ba akong pumasok?",rom:"ma-a-a-ri ba a-kong pu-ma-sok",ja:"入ってもいいですか？"},
+  {id:"rq05",cat:"依頼・許可",foreign:"Pwede bang magtanong?",rom:"pwe-de bang mag-ta-nong",ja:"質問してもいいですか？"},
+  {id:"rq06",cat:"依頼・許可",foreign:"Pakitulong.",rom:"pa-ki-tu-long",ja:"手伝ってください。"},
+  {id:"rq07",cat:"依頼・許可",foreign:"Pakisulat dito.",rom:"pa-ki-su-lat di-to",ja:"ここに書いてください。"},
+  {id:"rq08",cat:"依頼・許可",foreign:"Maaari po bang lumabas?",rom:"ma-a-a-ri po bang lu-ma-bas",ja:"出てもいいですか？（丁寧）"},
+  {id:"rq09",cat:"依頼・許可",foreign:"Pakibukas ang pintuan.",rom:"pa-ki-bu-kas ang pin-tu-an",ja:"ドアを開けてください。"},
+  {id:"rq10",cat:"依頼・許可",foreign:"Pakihintay lang.",rom:"pa-ki-hin-tay lang",ja:"少し待ってください。"},
+  {id:"rq11",cat:"依頼・許可",foreign:"Sabihin mo nga ulit.",rom:"sa-bi-hin mo nga u-lit",ja:"もう一度言って。"},
+  {id:"rq12",cat:"依頼・許可",foreign:"Pakiusap.",rom:"pa-ki-u-sap",ja:"お願いします。"},
+  {id:"rq13",cat:"依頼・許可",foreign:"Maaari bang humingi ng tulong?",rom:"ma-a-a-ri bang hu-min-gi ng tu-long",ja:"助けを求めてもいいですか？"},
+  {id:"rq14",cat:"依頼・許可",foreign:"Hindi pwede.",rom:"hin-di pwe-de",ja:"できません／だめです。"},
+  {id:"rq15",cat:"依頼・許可",foreign:"Sige, pwede.",rom:"si-ge pwe-de",ja:"はい、いいですよ。"},
+
+  // ===== 命令・指示 (15枚) =====
+  {id:"cm01",cat:"命令・指示",foreign:"Umupo ka.",rom:"u-mu-po ka",ja:"座って。"},
+  {id:"cm02",cat:"命令・指示",foreign:"Tumayo ka.",rom:"tu-ma-yo ka",ja:"立って。"},
+  {id:"cm03",cat:"命令・指示",foreign:"Halika dito.",rom:"ha-li-ka di-to",ja:"こっちに来て。"},
+  {id:"cm04",cat:"命令・指示",foreign:"Tingnan mo.",rom:"ting-nan mo",ja:"見て。"},
+  {id:"cm05",cat:"命令・指示",foreign:"Pakinggan mo.",rom:"pa-king-gan mo",ja:"聞いて。"},
+  {id:"cm06",cat:"命令・指示",foreign:"Buksan mo ang pinto.",rom:"buk-san mo ang pin-to",ja:"ドアを開けて。"},
+  {id:"cm07",cat:"命令・指示",foreign:"Isara mo ang bintana.",rom:"i-sa-ra mo ang bin-ta-na",ja:"窓を閉めて。"},
+  {id:"cm08",cat:"命令・指示",foreign:"Patayin mo ang ilaw.",rom:"pa-ta-yin mo ang i-law",ja:"電気を消して。"},
+  {id:"cm09",cat:"命令・指示",foreign:"Buksan mo ang ilaw.",rom:"buk-san mo ang i-law",ja:"電気をつけて。"},
+  {id:"cm10",cat:"命令・指示",foreign:"Bilisan mo.",rom:"bi-li-san mo",ja:"急いで。"},
+  {id:"cm11",cat:"命令・指示",foreign:"Dahan-dahan ka.",rom:"da-han-da-han ka",ja:"ゆっくりしなさい。"},
+  {id:"cm12",cat:"命令・指示",foreign:"Tumahimik ka.",rom:"tu-ma-hi-mik ka",ja:"静かにして。"},
+  {id:"cm13",cat:"命令・指示",foreign:"Hintayin mo ako.",rom:"hin-ta-yin mo a-ko",ja:"待って。"},
+  {id:"cm14",cat:"命令・指示",foreign:"Sundan mo ako.",rom:"sun-dan mo a-ko",ja:"ついてきて。"},
+  {id:"cm15",cat:"命令・指示",foreign:"Huwag.",rom:"hu-wag",ja:"やめて／しないで。"},
+
+  // ===== 緊急・健康 (15枚) =====
+  {id:"em01",cat:"緊急・健康",foreign:"Tulong!",rom:"tu-long",ja:"助けて！"},
+  {id:"em02",cat:"緊急・健康",foreign:"May problema.",rom:"may prob-le-ma",ja:"問題があります。"},
+  {id:"em03",cat:"緊急・健康",foreign:"May sakit ako.",rom:"may sa-kit a-ko",ja:"体調が悪いです。"},
+  {id:"em04",cat:"緊急・健康",foreign:"Masakit ang tiyan ko.",rom:"ma-sa-kit ang ti-yan ko",ja:"お腹が痛いです。"},
+  {id:"em05",cat:"緊急・健康",foreign:"Masakit ang ulo ko.",rom:"ma-sa-kit ang u-lo ko",ja:"頭が痛いです。"},
+  {id:"em06",cat:"緊急・健康",foreign:"Kailangan ko ng doktor.",rom:"kai-la-ngan ko ng dok-tor",ja:"医者が必要です。"},
+  {id:"em07",cat:"緊急・健康",foreign:"Nawawala ako.",rom:"na-wa-wa-la a-ko",ja:"迷子になりました。"},
+  {id:"em08",cat:"緊急・健康",foreign:"Tawagan mo ang pulis.",rom:"ta-wa-gan mo ang pu-lis",ja:"警察を呼んでください。"},
+  {id:"em09",cat:"緊急・健康",foreign:"Ninakawan ako.",rom:"ni-na-ka-wan a-ko",ja:"盗まれました。"},
+  {id:"em10",cat:"緊急・健康",foreign:"Nawala ang aking pasaporte.",rom:"na-wa-la ang a-king pa-sa-por-te",ja:"パスポートを紛失しました。"},
+  {id:"em11",cat:"緊急・健康",foreign:"May allergy ako sa ...",rom:"may a-ler-dyi a-ko sa",ja:"〜にアレルギーがあります。"},
+  {id:"em12",cat:"緊急・健康",foreign:"Matindi ang sakit.",rom:"ma-tin-di ang sa-kit",ja:"痛みがひどいです。"},
+  {id:"em13",cat:"緊急・健康",foreign:"Nasaan ang pinakamalapit na parmasya?",rom:"na-sa-an ang pi-na-ka-ma-la-pit na par-ma-sya",ja:"一番近い薬局はどこですか？"},
+  {id:"em14",cat:"緊急・健康",foreign:"Langaw ang dugo.",rom:"la-ngaw ang du-go",ja:"出血しています。"},
+  {id:"em15",cat:"緊急・健康",foreign:"Kailangan ko ng ambulansya.",rom:"kai-la-ngan ko ng am-bu-lan-sya",ja:"救急車が必要です。"},
+
+  // ===== 便利フレーズ (15枚) =====
+  {id:"us01",cat:"便利フレーズ",foreign:"Ano ulit?",rom:"a-no u-lit",ja:"もう一回何て？"},
+  {id:"us02",cat:"便利フレーズ",foreign:"Hindi ko narinig.",rom:"hin-di ko na-ri-nig",ja:"聞こえませんでした。"},
+  {id:"us03",cat:"便利フレーズ",foreign:"Hindi ko naiintindihan.",rom:"hin-di ko na-i-in-tin-di-han",ja:"わかりませんでした。"},
+  {id:"us04",cat:"便利フレーズ",foreign:"Pwede mong ulitin?",rom:"pwe-de mong u-li-tin",ja:"もう一度言ってくれますか？"},
+  {id:"us05",cat:"便利フレーズ",foreign:"Ano ang ibig sabihin niyan?",rom:"a-no ang i-big sa-bi-hin ni-yan",ja:"それはどういう意味ですか？"},
+  {id:"us06",cat:"便利フレーズ",foreign:"Paano sabihin sa Tagalog?",rom:"pa-a-no sa-bi-hin sa ta-ga-log",ja:"タガログ語で何と言いますか？"},
+  {id:"us07",cat:"便利フレーズ",foreign:"Alam mo ba?",rom:"a-lam mo ba",ja:"知ってる？"},
+  {id:"us08",cat:"便利フレーズ",foreign:"Sigurado ka ba?",rom:"si-gu-ra-do ka ba",ja:"本当に？／確か？"},
+  {id:"us09",cat:"便利フレーズ",foreign:"Depende.",rom:"de-pen-de",ja:"場合による。"},
+  {id:"us10",cat:"便利フレーズ",foreign:"Kahit ano.",rom:"ka-hit a-no",ja:"何でもいいよ。"},
+  {id:"us11",cat:"便利フレーズ",foreign:"Kahit saan.",rom:"ka-hit sa-an",ja:"どこでもいい。"},
+  {id:"us12",cat:"便利フレーズ",foreign:"Ikaw ang bahala.",rom:"i-kaw ang ba-ha-la",ja:"あなたに任せます。"},
+  {id:"us13",cat:"便利フレーズ",foreign:"Teka, maghanap muna tayo.",rom:"te-ka mag-ha-nap mu-na ta-yo",ja:"ちょっと、先に探しましょう。"},
+  {id:"us14",cat:"便利フレーズ",foreign:"Hindi ko alam.",rom:"hin-di ko a-lam",ja:"わかりません。"},
+  {id:"us15",cat:"便利フレーズ",foreign:"Naiintindihan ko.",rom:"na-i-in-tin-di-han ko",ja:"わかります。"},
+
+  // ===== 文化的表現 (12枚) =====
+  {id:"cu01",cat:"文化的表現",foreign:"Mano po.",rom:"ma-no po",ja:"（目上の方の手の甲に額を当てる敬意の挨拶）"},
+  {id:"cu02",cat:"文化的表現",foreign:"Kain na!",rom:"ka-in na",ja:"さあ食べて！"},
+  {id:"cu03",cat:"文化的表現",foreign:"Busog ka na ba?",rom:"bu-sog ka na ba",ja:"もうお腹いっぱい？"},
+  {id:"cu04",cat:"文化的表現",foreign:"Libre ka ba?",rom:"lib-re ka ba",ja:"暇ですか？"},
+  {id:"cu05",cat:"文化的表現",foreign:"Pasalubong ko sa iyo.",rom:"pa-sa-lu-bong ko sa i-yo",ja:"あなたへのお土産です。"},
+  {id:"cu06",cat:"文化的表現",foreign:"Maligayang kaarawan!",rom:"ma-li-ga-yang ka-a-ra-wan",ja:"お誕生日おめでとう！"},
+  {id:"cu07",cat:"文化的表現",foreign:"Maligayang Pasko!",rom:"ma-li-ga-yang pas-ko",ja:"メリークリスマス！"},
+  {id:"cu08",cat:"文化的表現",foreign:"Maligayang Bagong Taon!",rom:"ma-li-ga-yang ba-gong ta-on",ja:"新年おめでとう！"},
+  {id:"cu09",cat:"文化的表現",foreign:"Sayang!",rom:"sa-yang",ja:"もったいない！／残念！"},
+  {id:"cu10",cat:"文化的表現",foreign:"Tara!",rom:"ta-ra",ja:"さあ、行こう！"},
+  {id:"cu11",cat:"文化的表現",foreign:"Sana all!",rom:"sa-na ol",ja:"いいなぁ！（みんなそうだといいのに）"},
+  {id:"cu12",cat:"文化的表現",foreign:"God bless you.",rom:"god bles yu",ja:"神のご加護がありますように。"},
+
+  // ===== 丁寧表現・po の使い方 (12枚) =====
+  {id:"po01",cat:"丁寧表現・po",foreign:"Salamat po.",rom:"sa-la-mat po",ja:"ありがとうございます。（丁寧）"},
+  {id:"po02",cat:"丁寧表現・po",foreign:"Opo.",rom:"o-po",ja:"はい。（丁寧、目上の人に）"},
+  {id:"po03",cat:"丁寧表現・po",foreign:"Hindi po.",rom:"hin-di po",ja:"いいえ。（丁寧）"},
+  {id:"po04",cat:"丁寧表現・po",foreign:"Kumusta po kayo?",rom:"ku-mus-ta po ka-yo",ja:"お元気ですか？（丁寧）"},
+  {id:"po05",cat:"丁寧表現・po",foreign:"Mabuti po, salamat.",rom:"ma-bu-ti po sa-la-mat",ja:"元気です、ありがとうございます。（丁寧）"},
+  {id:"po06",cat:"丁寧表現・po",foreign:"Pakiusap po.",rom:"pa-ki-u-sap po",ja:"お願いいたします。（丁寧）"},
+  {id:"po07",cat:"丁寧表現・po",foreign:"Paumanhin po.",rom:"pa-u-man-hin po",ja:"失礼いたします。（丁寧）"},
+  {id:"po08",cat:"丁寧表現・po",foreign:"Magandang umaga po.",rom:"ma-gan-dang u-ma-ga po",ja:"おはようございます。（丁寧）"},
+  {id:"po09",cat:"丁寧表現・po",foreign:"Maraming salamat po.",rom:"ma-ra-ming sa-la-mat po",ja:"どうもありがとうございます。（丁寧）"},
+  {id:"po10",cat:"丁寧表現・po",foreign:"Saan po ang banyo?",rom:"sa-an po ang ban-yo",ja:"トイレはどこですか？（丁寧）"},
+  {id:"po11",cat:"丁寧表現・po",foreign:"Kayo po.",rom:"ka-yo po",ja:"あなた様。（目上の人への2人称）"},
+  {id:"po12",cat:"丁寧表現・po",foreign:"Maaari po ba?",rom:"ma-a-a-ri po ba",ja:"よろしいですか？（丁寧）"},
+
+  // ===== 副詞・程度 (12枚) =====
+  {id:"av01",cat:"副詞・程度",foreign:"Marami",rom:"ma-ra-mi",ja:"たくさん"},
+  {id:"av02",cat:"副詞・程度",foreign:"Kaunti",rom:"kaun-ti",ja:"少し"},
+  {id:"av03",cat:"副詞・程度",foreign:"Napaka-",rom:"na-pa-ka",ja:"とても〜（最上級）"},
+  {id:"av04",cat:"副詞・程度",foreign:"Masyadong mahal.",rom:"mas-ya-dong ma-hal",ja:"高すぎる。"},
+  {id:"av05",cat:"副詞・程度",foreign:"Mabilis",rom:"ma-bi-lis",ja:"速く"},
+  {id:"av06",cat:"副詞・程度",foreign:"Dahan-dahan",rom:"da-han-da-han",ja:"ゆっくり"},
+  {id:"av07",cat:"副詞・程度",foreign:"Palagi",rom:"pa-la-gi",ja:"いつも"},
+  {id:"av08",cat:"副詞・程度",foreign:"Minsan",rom:"min-san",ja:"時々"},
+  {id:"av09",cat:"副詞・程度",foreign:"Hindi na.",rom:"hin-di na",ja:"もう〜しない。"},
+  {id:"av10",cat:"副詞・程度",foreign:"Pa rin.",rom:"pa rin",ja:"まだ〜している。"},
+  {id:"av11",cat:"副詞・程度",foreign:"Tuwing araw",rom:"tu-wing a-raw",ja:"毎日"},
+  {id:"av12",cat:"副詞・程度",foreign:"Sigurado.",rom:"si-gu-ra-do",ja:"確かに。"},
+
+  // ===== 電話・通信 (10枚) =====
+  {id:"ph01",cat:"電話・通信",foreign:"Ano ang numero mo?",rom:"a-no ang nu-me-ro mo",ja:"電話番号は何ですか？"},
+  {id:"ph02",cat:"電話・通信",foreign:"Tawagan mo ako.",rom:"ta-wa-gan mo a-ko",ja:"電話してください。"},
+  {id:"ph03",cat:"電話・通信",foreign:"Text mo ako.",rom:"teks mo a-ko",ja:"メッセージして。"},
+  {id:"ph04",cat:"電話・通信",foreign:"May Wi-Fi ba dito?",rom:"may wai-fai ba di-to",ja:"ここにWi-Fiはありますか？"},
+  {id:"ph05",cat:"電話・通信",foreign:"Ano ang password ng Wi-Fi?",rom:"a-no ang pas-word ng wai-fai",ja:"Wi-Fiのパスワードは何ですか？"},
+  {id:"ph06",cat:"電話・通信",foreign:"Walang signal.",rom:"wa-lang sig-nal",ja:"電波がありません。"},
+  {id:"ph07",cat:"電話・通信",foreign:"Naubos na ang battery ko.",rom:"na-u-bos na ang bat-tri ko",ja:"携帯の充電がなくなりました。"},
+  {id:"ph08",cat:"電話・通信",foreign:"Hindi ko marinig.",rom:"hin-di ko ma-ri-nig",ja:"聞こえません。"},
+  {id:"ph09",cat:"電話・通信",foreign:"Ano ang email address mo?",rom:"a-no ang i-meyl ad-res mo",ja:"メールアドレスは何ですか？"},
+  {id:"ph10",cat:"電話・通信",foreign:"Maaari bang mag-selfie?",rom:"ma-a-a-ri bang mag-sel-pi",ja:"写真を撮ってもいいですか？"},
+
+  // ===== 天気 (10枚) =====
+  {id:"wt16",cat:"天気",foreign:"Mainit ngayon.",rom:"ma-i-nit nga-yon",ja:"今日は暑いです。"},
+  {id:"wt17",cat:"天気",foreign:"Malamig ngayon.",rom:"ma-la-mig nga-yon",ja:"今日は寒いです。"},
+  {id:"wt18",cat:"天気",foreign:"Umuulan.",rom:"u-mu-u-lan",ja:"雨が降っています。"},
+  {id:"wt19",cat:"天気",foreign:"Maaraw ngayon.",rom:"ma-a-raw nga-yon",ja:"今日は晴れています。"},
+  {id:"wt20",cat:"天気",foreign:"Maulap.",rom:"ma-u-lap",ja:"曇りです。"},
+  {id:"wt21",cat:"天気",foreign:"Bagyo",rom:"bag-yo",ja:"台風"},
+  {id:"wt22",cat:"天気",foreign:"Anong panahon ngayon?",rom:"a-nong pa-na-hon nga-yon",ja:"今どんな天気ですか？"},
+  {id:"wt23",cat:"天気",foreign:"Mahangin.",rom:"ma-ha-ngin",ja:"風が強いです。"},
+  {id:"wt24",cat:"天気",foreign:"Maganda ang panahon.",rom:"ma-gan-da ang pa-na-hon",ja:"天気がいいです。"},
+  {id:"wt25",cat:"天気",foreign:"Malamig ang gabi.",rom:"ma-la-mig ang ga-bi",ja:"夜は寒いです。"},
+
+  // ===== 文法パターン (15枚) =====
+  {id:"gr26",cat:"文法パターン",foreign:"Mayroon akong tanong.",rom:"may-ro-on a-kong ta-nong",ja:"質問があります。"},
+  {id:"gr27",cat:"文法パターン",foreign:"Kapag umuulan, nananatili ako sa bahay.",rom:"ka-pag u-mu-u-lan na-na-na-ti-li a-ko sa ba-hay",ja:"雨が降ったら家にいます。"},
+  {id:"gr28",cat:"文法パターン",foreign:"Pagkatapos kumain, mag-aaral ako.",rom:"pag-ka-ta-pos ku-ma-in mag-a-a-ral a-ko",ja:"食べた後、勉強します。"},
+  {id:"gr29",cat:"文法パターン",foreign:"Bago matulog, nagbabasa ako.",rom:"ba-go ma-tu-log nag-ba-ba-sa a-ko",ja:"寝る前に読書します。"},
+  {id:"gr30",cat:"文法パターン",foreign:"Habang kumakain ako, nanonood ako ng TV.",rom:"ha-bang ku-ma-ka-in a-ko na-no-no-od a-ko ng TV",ja:"食べながらテレビを見ます。"},
+  {id:"gr31",cat:"文法パターン",foreign:"Kung gusto mo, sumama ka.",rom:"kung gus-to mo su-ma-ma ka",ja:"良ければ一緒に来て。"},
+  {id:"gr32",cat:"文法パターン",foreign:"Kahit pagod, nagtatrabaho pa rin ako.",rom:"ka-hit pa-god nag-ta-tra-ba-ho pa rin a-ko",ja:"疲れていても働いています。"},
+  {id:"gr33",cat:"文法パターン",foreign:"Hindi ako [形容詞].",rom:"hin-di a-ko",ja:"私は〜ではありません。（否定）"},
+  {id:"gr34",cat:"文法パターン",foreign:"Sino ang [역割]?",rom:"si-no ang",ja:"〜は誰ですか？"},
+  {id:"gr35",cat:"文法パターン",foreign:"Ang [名詞] ay [形容詞].",rom:"ang ... ay",ja:"〜は〜です。（基本文型）"},
+  {id:"gr36",cat:"文法パターン",foreign:"Puwede bang...?",rom:"pu-we-de bang",ja:"〜してもいいですか？"},
+  {id:"gr37",cat:"文法パターン",foreign:"Paano gamitin ito?",rom:"pa-a-no ga-mi-tin i-to",ja:"これをどう使いますか？"},
+  {id:"gr38",cat:"文法パターン",foreign:"Sabihin mo kung kailangan mo ng tulong.",rom:"sa-bi-hin mo kung kai-la-ngan mo ng tu-long",ja:"助けが必要なら言ってね。"},
+  {id:"gr39",cat:"文法パターン",foreign:"Gusto ko rin nang...",rom:"gus-to ko rin nang",ja:"私も〜したいです。"},
+  {id:"gr40",cat:"文法パターン",foreign:"Mabuti nang...",rom:"ma-bu-ti nang",ja:"〜する方がいいです。"},
+
+  // ===== -um- 動詞活用 (12枚) =====
+  {id:"cv01",cat:"-um-動詞活用",foreign:"kumain → kumakain → kakain",rom:"ku-ma-in / ku-ma-ka-in / ka-ka-in",ja:"食べる（過去・現在・未来）"},
+  {id:"cv02",cat:"-um-動詞活用",foreign:"uminom → umiinom → iinom",rom:"u-mi-nom / u-mi-i-nom / i-i-nom",ja:"飲む（過去・現在・未来）"},
+  {id:"cv03",cat:"-um-動詞活用",foreign:"pumunta → pumupunta → pupunta",rom:"pu-mun-ta / pu-mu-pun-ta / pu-pun-ta",ja:"行く（過去・現在・未来）"},
+  {id:"cv04",cat:"-um-動詞活用",foreign:"umalis → umaalis → aalis",rom:"u-ma-lis / u-ma-a-lis / a-a-lis",ja:"出発する（過去・現在・未来）"},
+  {id:"cv05",cat:"-um-動詞活用",foreign:"umuwi → umuuwi → uuwi",rom:"u-mu-wi / u-mu-u-wi / u-u-wi",ja:"帰る（過去・現在・未来）"},
+  {id:"cv06",cat:"-um-動詞活用",foreign:"umupo → umuupo → uupo",rom:"u-mu-po / u-mu-u-po / u-u-po",ja:"座る（過去・現在・未来）"},
+  {id:"cv07",cat:"-um-動詞活用",foreign:"tumayo → tumatayo → tatayo",rom:"tu-ma-yo / tu-ma-ta-yo / ta-ta-yo",ja:"立つ（過去・現在・未来）"},
+  {id:"cv08",cat:"-um-動詞活用",foreign:"bumili → bumibili → bibili",rom:"bu-mi-li / bu-mi-bi-li / bi-bi-li",ja:"買う（過去・現在・未来）"},
+  {id:"cv09",cat:"-um-動詞活用",foreign:"sumulat → sumusulat → susulat",rom:"su-mu-lat / su-mu-su-lat / su-su-lat",ja:"書く（過去・現在・未来）"},
+  {id:"cv10",cat:"-um-動詞活用",foreign:"bumasa → bumabasa → babasa",rom:"bu-ma-sa / bu-ma-ba-sa / ba-ba-sa",ja:"読む（過去・現在・未来）"},
+  {id:"cv11",cat:"-um-動詞活用",foreign:"tumawa → tumatawa → tatawa",rom:"tu-ma-wa / tu-ma-ta-wa / ta-ta-wa",ja:"笑う（過去・現在・未来）"},
+  {id:"cv12",cat:"-um-動詞活用",foreign:"umiyak → umiiyak → iiyak",rom:"u-mi-yak / u-mi-i-yak / i-i-yak",ja:"泣く（過去・現在・未来）"},
+
+  // ===== mag- 動詞活用 (10枚) =====
+  {id:"mg01",cat:"mag-動詞活用",foreign:"magluto → nagluto → nagluluto → magluluto",rom:"nag-lu-to / nag-lu-lu-to / mag-lu-lu-to",ja:"料理する（基本・過去・現在・未来）"},
+  {id:"mg02",cat:"mag-動詞活用",foreign:"maglinis → naglinis → naglilinis → maglilinis",rom:"nag-li-nis / nag-li-li-nis / mag-li-li-nis",ja:"掃除する（基本・過去・現在・未来）"},
+  {id:"mg03",cat:"mag-動詞活用",foreign:"mag-aral → nag-aral → nag-aaral → mag-aaral",rom:"nag-a-ral / nag-a-a-ral / mag-a-a-ral",ja:"勉強する（基本・過去・現在・未来）"},
+  {id:"mg04",cat:"mag-動詞活用",foreign:"magtrabaho → nagtrabaho → nagtatrabaho",rom:"nag-tra-ba-ho / nag-ta-tra-ba-ho",ja:"働く（基本・過去・現在）"},
+  {id:"mg05",cat:"mag-動詞活用",foreign:"maglakad → naglakad → naglalakad",rom:"nag-la-kad / nag-la-la-kad",ja:"歩く（基本・過去・現在）"},
+  {id:"mg06",cat:"mag-動詞活用",foreign:"magsalita → nagsalita → nagsasalita",rom:"nag-sa-li-ta / nag-sa-sa-li-ta",ja:"話す（基本・過去・現在）"},
+  {id:"mg07",cat:"mag-動詞活用",foreign:"maglaro → naglaro → naglalaro",rom:"nag-la-ro / nag-la-la-ro",ja:"遊ぶ（基本・過去・現在）"},
+  {id:"mg08",cat:"mag-動詞活用",foreign:"magbayad → nagbayad → nagbabayad",rom:"nag-ba-yad / nag-ba-ba-yad",ja:"支払う（基本・過去・現在）"},
+  {id:"mg09",cat:"mag-動詞活用",foreign:"mag-text → nag-text → nagti-text",rom:"nag-teks / nag-ti-teks",ja:"テキストする（基本・過去・現在）"},
+  {id:"mg10",cat:"mag-動詞活用",foreign:"maglaba → naglaba → naglalaba",rom:"nag-la-ba / nag-la-la-ba",ja:"洗濯する（基本・過去・現在）"},
+
+  // ===== 感情・気持ち (12枚) =====
+  {id:"em16",cat:"感情・気持ち",foreign:"Masaya ako.",rom:"ma-sa-ya a-ko",ja:"嬉しいです。"},
+  {id:"em17",cat:"感情・気持ち",foreign:"Malungkot ako.",rom:"ma-lung-kot a-ko",ja:"悲しいです。"},
+  {id:"em18",cat:"感情・気持ち",foreign:"Galit ako.",rom:"ga-lit a-ko",ja:"怒っています。"},
+  {id:"em19",cat:"感情・気持ち",foreign:"Natatakot ako.",rom:"na-ta-ta-kot a-ko",ja:"怖いです。"},
+  {id:"em20",cat:"感情・気持ち",foreign:"Nagtataka ako.",rom:"nag-ta-ta-ka a-ko",ja:"不思議に思っています。"},
+  {id:"em21",cat:"感情・気持ち",foreign:"Natutuwa ako.",rom:"na-tu-tu-wa a-ko",ja:"喜んでいます。"},
+  {id:"em22",cat:"感情・気持ち",foreign:"Nahihiya ako.",rom:"na-hi-hi-ya a-ko",ja:"恥ずかしいです。"},
+  {id:"em23",cat:"感情・気持ち",foreign:"Excited ako!",rom:"ek-sai-ted a-ko",ja:"ワクワクしています！"},
+  {id:"em24",cat:"感情・気持ち",foreign:"Naiinis ako.",rom:"na-i-i-nis a-ko",ja:"イライラしています。"},
+  {id:"em25",cat:"感情・気持ち",foreign:"Nagmamahal ako sa iyo.",rom:"nag-ma-ma-hal a-ko sa i-yo",ja:"あなたを愛しています。"},
+  {id:"em26",cat:"感情・気持ち",foreign:"Miss kita.",rom:"mis ki-ta",ja:"あなたに会いたいです。"},
+  {id:"em27",cat:"感情・気持ち",foreign:"Hay nako!",rom:"hay na-ko",ja:"あー、もう！（嘆き）"},
+];
+
+const LSKEY = 'tagalog_mastered_v1';
+let cards = [];
+let mastered = new Set();
+let filteredIds = [];
+let curIdx = 0;
+let mode = 'ja2tl';
+let curCat = 'すべて';
+let revealed = false;
+let isMuted = false;
+let cardMode = 'ja2tl';
+
+function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+function loadMastered(){
+  try{const d=localStorage.getItem(LSKEY);if(d)mastered=new Set(JSON.parse(d));}catch(e){}
+}
+function saveMastered(){
+  try{localStorage.setItem(LSKEY,JSON.stringify([...mastered]));}catch(e){}
+}
+
+function init(){
+  loadMastered();
+  cards = CARDS_RAW.map((d,i)=>({...d,_id:d.id||i}));
+  buildCatButtons();
+  applyFilter();
+  updateStats();
+  renderCard();
+}
+
+function buildCatButtons(){
+  const el=document.getElementById('catScroll');
+  const cats=['すべて',...new Set(cards.map(c=>c.cat))];
+  el.innerHTML=cats.map(c=>`<button class="cpill${c===curCat?' active':''}" data-cat="${escHtml(c)}">${escHtml(c)}</button>`).join('');
+  el.querySelectorAll('.cpill').forEach(b=>b.addEventListener('click',()=>{
+    curCat=b.dataset.cat;
+    el.querySelectorAll('.cpill').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    applyFilter();
+    curIdx=0;revealed=false;renderCard();
+  }));
+}
+
+function applyFilter(){
+  filteredIds = cards
+    .filter(c=>curCat==='すべて'||c.cat===curCat)
+    .filter(c=>!mastered.has(c._id))
+    .map(c=>c._id);
+  updateStats();
+}
+
+function updateStats(){
+  const total=cards.filter(c=>curCat==='すべて'||c.cat===curCat).length;
+  const done=cards.filter(c=>(curCat==='すべて'||c.cat===curCat)&&mastered.has(c._id)).length;
+  const left=filteredIds.length;
+  const pct=total>0?Math.round(done/total*100):0;
+  document.getElementById('statTotal').textContent=total;
+  document.getElementById('statLeft').textContent=left;
+  document.getElementById('statDone').textContent=done;
+  document.getElementById('progBar').style.width=pct+'%';
+  document.getElementById('statPct').textContent=pct+'%';
+}
+
+function getCard(){
+  if(filteredIds.length===0)return null;
+  const id=filteredIds[curIdx];
+  return cards.find(c=>c._id===id)||null;
+}
+
+// ★修正2: タガログ語音声エンジン - fil-PH を優先、なければ en-US でフォールバック
+function speakForeign(text, onDone){
+  if(isMuted){if(onDone)onDone();return;}
+  window.speechSynthesis.cancel();
+
+  function doSpeak(lang){
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = lang;
+    u.rate = 0.8;
+    u.pitch = 1.0;
+    u.onend = ()=>{ if(onDone)onDone(); };
+    u.onerror = ()=>{ if(onDone)onDone(); };
+    window.speechSynthesis.speak(u);
+  }
+
+  // 利用可能な音声を検索: fil-PH > tl-PH > fil > en-PH > en-US の順で優先
+  const voices = window.speechSynthesis.getVoices();
+  const preferred = ['fil-PH','tl-PH','fil','en-PH','en-US'];
+  let chosen = null;
+  for(const lang of preferred){
+    const v = voices.find(v => v.lang === lang || v.lang.startsWith(lang.split('-')[0]+'-PH'));
+    if(v){ chosen = v.lang; break; }
+  }
+  doSpeak(chosen || 'fil-PH');
+}
+
+function speakJapanese(text, onDone){
+  if(isMuted){if(onDone)onDone();return;}
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'ja-JP';
+  u.rate = 0.85;
+  u.onend = ()=>{ if(onDone)onDone(); };
+  u.onerror = ()=>{ if(onDone)onDone(); };
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(u);
+}
+
+function speakAnswer(btn){
+  const card=getCard();if(!card)return;
+  const b=btn||document.getElementById('speakBtn');
+  if(b)b.classList.add('pulsing');
+  const done=()=>{if(b)b.classList.remove('pulsing');};
+  if(cardMode==='ja2tl') speakForeign(card.foreign,done);
+  else speakJapanese(card.ja,done);
+}
+
+function renderCard(){
+  const card=getCard();
+  const body=document.getElementById('cardBody');
+  const catEl=document.getElementById('cardCat');
+  const countEl=document.getElementById('cardCount');
+  updateStats();
+
+  if(!card){
+    catEl.textContent='—';
+    countEl.textContent='0 / 0';
+    body.innerHTML='<div class="hint-tap">🎉 このカテゴリは全部覚えました！</div>';
+    return;
+  }
+
+  catEl.textContent=card.cat;
+  countEl.textContent=(curIdx+1)+' / '+filteredIds.length;
+
+  if(mode==='random') cardMode=Math.random()<.5?'ja2tl':'tl2ja';
+  else cardMode=mode;
+
+  if(!revealed){
+    const qText = cardMode==='ja2tl'
+      ? `<div class="jp-text">${escHtml(card.ja)}</div>`
+      : `<div class="foreign-text">${escHtml(card.foreign)}</div>
+         <div class="rom-text">${escHtml(card.rom)}</div>`;
+    body.innerHTML=qText+'<div class="hint-tap">👆 タップして答えを見る</div>';
+  } else {
+    const aText = cardMode==='ja2tl'
+      ? `<div class="foreign-text">${escHtml(card.foreign)}</div>
+         <div class="rom-text">${escHtml(card.rom)}</div>`
+      : `<div class="jp-text">${escHtml(card.ja)}</div>`;
+    body.innerHTML=aText+`<button class="speak-btn" id="speakBtn">🔊 読み上げ</button>`;
+    document.getElementById('speakBtn').addEventListener('click',e=>{
+      e.stopPropagation();speakAnswer(e.currentTarget);
+    });
+    speakAnswer(null);
+  }
+}
+
+// Card click
+document.getElementById('mainCard').addEventListener('click',()=>{
+  if(!getCard())return;
+  revealed=!revealed;renderCard();
+});
+
+// Buttons
+document.getElementById('btnReveal').addEventListener('click',()=>{
+  if(!getCard())return;
+  if(!revealed){revealed=true;renderCard();}
+});
+document.getElementById('btnPrev').addEventListener('click',()=>{
+  if(filteredIds.length===0)return;
+  curIdx=(curIdx-1+filteredIds.length)%filteredIds.length;
+  revealed=false;renderCard();
+});
+document.getElementById('btnNext').addEventListener('click',()=>{
+  if(filteredIds.length===0)return;
+  curIdx=(curIdx+1)%filteredIds.length;
+  revealed=false;renderCard();
+});
+document.getElementById('btnUncheck').addEventListener('click',()=>{
+  if(filteredIds.length===0)return;
+  curIdx=(curIdx-1+filteredIds.length)%filteredIds.length;
+  revealed=false;renderCard();
+});
+document.getElementById('btnMaster').addEventListener('click',()=>{
+  const card=getCard();if(!card)return;
+  mastered.add(card._id);
+  saveMastered();
+  applyFilter();
+  const total=cards.filter(c=>curCat==='すべて'||c.cat===curCat).length;
+  const done=cards.filter(c=>(curCat==='すべて'||c.cat===curCat)&&mastered.has(c._id)).length;
+  if(done>=total&&total>0){showDone();return;}
+  if(curIdx>=filteredIds.length)curIdx=0;
+  revealed=false;renderCard();
+});
+
+document.querySelectorAll('.mbtn').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.mbtn').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  mode=b.dataset.mode;
+  revealed=false;renderCard();
+}));
+
+const btnReset=document.getElementById('btnReset');
+btnReset.addEventListener('click',()=>{
+  if(mastered.size===0)return;
+  mastered.clear();saveMastered();
+  applyFilter();curIdx=0;revealed=false;renderCard();
+  btnReset.textContent='✅';btnReset.classList.add('active-flash');
+  setTimeout(()=>{btnReset.textContent='🔄';btnReset.classList.remove('active-flash');},800);
+});
+
+const btnShuffle=document.getElementById('btnShuffle');
+btnShuffle.addEventListener('click',()=>{
+  for(let i=filteredIds.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [filteredIds[i],filteredIds[j]]=[filteredIds[j],filteredIds[i]];
+  }
+  curIdx=0;revealed=false;renderCard();
+  btnShuffle.textContent='✅';btnShuffle.classList.add('active-flash');
+  setTimeout(()=>{btnShuffle.textContent='🔀';btnShuffle.classList.remove('active-flash');},800);
+});
+
+document.getElementById('btnMute').addEventListener('click',function(){
+  isMuted=!isMuted;
+  this.textContent=isMuted?'🔇':'🔊';
+  if(isMuted)window.speechSynthesis.cancel();
+});
+
+function showDone(){
+  const ov=document.getElementById('doneOverlay');
+  ov.classList.add('show');
+  setTimeout(()=>{
+    ov.classList.remove('show');
+    mastered.clear();saveMastered();
+    applyFilter();curIdx=0;revealed=false;renderCard();
+  },1800);
+}
+
+// Modal
+document.getElementById('btnList').addEventListener('click',openModal);
+document.getElementById('modalClose').addEventListener('click',closeModal);
+document.getElementById('modalOverlay').addEventListener('click',e=>{
+  if(e.target===document.getElementById('modalOverlay'))closeModal();
+});
+document.getElementById('searchInput').addEventListener('input',renderModal);
+
+function openModal(){
+  document.getElementById('modalOverlay').classList.add('show');
+  document.getElementById('searchInput').value='';
+  renderModal();
+}
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('show');
+}
+function renderModal(){
+  const q=document.getElementById('searchInput').value.toLowerCase();
+  const body=document.getElementById('modalBody');
+  const cats=[...new Set(cards.map(c=>c.cat))];
+  let html='';
+  cats.forEach(cat=>{
+    const rows=cards.filter(c=>{
+      if(c.cat!==cat)return false;
+      if(!q)return true;
+      return c.foreign.toLowerCase().includes(q)||c.ja.includes(q)||c.rom.toLowerCase().includes(q);
+    });
+    if(rows.length===0)return;
+    html+=`<div class="cat-group-title">${escHtml(cat)}</div>`;
+    rows.forEach(c=>{
+      const m=mastered.has(c._id)?'mastered':'';
+      html+=`<div class="list-row ${m}" data-id="${escHtml(String(c._id))}">
+        <span class="list-foreign">${escHtml(c.foreign)}</span>
+        <span class="list-jp">${escHtml(c.ja)}</span>
+      </div>`;
+    });
+  });
+  body.innerHTML=html||'<div style="padding:20px;color:var(--text-muted);text-align:center">該当なし</div>';
+  body.querySelectorAll('.list-row').forEach(row=>{
+    row.addEventListener('click',()=>{
+      const id=row.dataset.id;
+      const target=cards.find(c=>String(c._id)===id);
+      if(!target)return;
+      if(curCat!==target.cat&&curCat!=='すべて'){
+        curCat='すべて';
+        document.querySelectorAll('.cpill').forEach(p=>{
+          p.classList.toggle('active',p.dataset.cat==='すべて');
+        });
+        applyFilter();
+      }
+      let idx=filteredIds.indexOf(target._id);
+      if(idx===-1){
+        filteredIds=cards.filter(c=>curCat==='すべて'||c.cat===curCat).map(c=>c._id);
+        idx=filteredIds.indexOf(target._id);
+      }
+      if(idx!==-1)curIdx=idx;
+      revealed=false;
+      closeModal();
+      renderCard();
+    });
+  });
+}
+
+// Keyboard
+document.addEventListener('keydown',e=>{
+  if(document.getElementById('modalOverlay').classList.contains('show')){
+    if(e.key==='Escape')closeModal();return;
+  }
+  if(e.key==='ArrowRight'||e.key==='ArrowLeft'){
+    const d=e.key==='ArrowRight'?1:-1;
+    if(filteredIds.length===0)return;
+    curIdx=(curIdx+d+filteredIds.length)%filteredIds.length;
+    revealed=false;renderCard();
+  }else if(e.key==='Enter'||e.key===' '){
+    e.preventDefault();
+    if(!getCard())return;
+    revealed=!revealed;renderCard();
+  }else if(e.key.toLowerCase()==='c'){
+    document.getElementById('btnMaster').click();
+  }
+});
+
+// 音声ロード後に再初期化
+window.speechSynthesis.onvoiceschanged = function(){};
+
+init();
+</script>
+</body>
+</html>

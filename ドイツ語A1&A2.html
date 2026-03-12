@@ -1,0 +1,1669 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>🇩🇪 ドイツ語 フラッシュカード</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=M+PLUS+Rounded+1c:wght@400;500;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black:     #1a1a1a;
+  --red:       #cc0000;
+  --gold:      #ffcc00;
+  --cream:     #fffdf0;
+  --forest:    #2d5016;
+  --text:      #1a1a2e;
+  --text-mid:  #3d3d5c;
+  --text-muted:#7a7a9a;
+  --glass:     rgba(255,255,255,0.84);
+  --glass2:    rgba(255,255,255,0.55);
+  --border:    rgba(204,0,0,0.18);
+  --border2:   rgba(204,0,0,0.35);
+  --jp:        'M PLUS Rounded 1c', 'Nunito', sans-serif;
+  --foreign:   'Noto Sans', 'Nunito', sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{
+  font-family:var(--jp);
+  background: linear-gradient(145deg,#fffbe8 0%,#fff3cd 40%,#ffe8a0 100%);
+  color:var(--text);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  height:100vh;
+  overflow:hidden;
+}
+
+/* ===== HEADER ===== */
+header{
+  width:100%;
+  background:linear-gradient(135deg,#1a1a1a 0%,#2d2d2d 60%,#1a0a0a 100%);
+  padding:8px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-shrink:0;
+  box-shadow:0 3px 16px rgba(0,0,0,0.35);
+  z-index:10;
+}
+.header-title{
+  font-family:var(--foreign);
+  font-weight:800;
+  font-size:clamp(0.9rem,2.8vw,1.15rem);
+  color:#ffcc00;
+  letter-spacing:0.03em;
+  display:flex;align-items:center;gap:6px;
+}
+.header-title span{color:#fff;font-weight:600;font-size:0.9em;}
+.header-btns{display:flex;gap:6px;}
+.hbtn{
+  background:rgba(255,255,255,0.1);
+  border:1px solid rgba(255,204,0,0.25);
+  border-radius:8px;
+  color:#ffcc00;
+  font-size:1rem;
+  width:34px;height:34px;
+  cursor:pointer;
+  transition:all .18s;
+  display:flex;align-items:center;justify-content:center;
+  backdrop-filter:blur(6px);
+}
+.hbtn:hover{background:rgba(255,204,0,0.18);transform:scale(1.08);}
+.hbtn:active{transform:scale(.92);}
+
+/* ===== MODE SELECTOR ===== */
+.mode-bar{
+  display:flex;gap:7px;padding:7px 16px 5px;flex-shrink:0;
+  width:100%;max-width:700px;
+}
+.mode-btn{
+  flex:1;padding:6px 0;border-radius:50px;border:none;cursor:pointer;
+  font-family:var(--jp);font-size:0.8rem;font-weight:700;
+  background:var(--glass);color:var(--text-mid);
+  border:1.5px solid var(--border);
+  transition:all .2s;backdrop-filter:blur(8px);
+  box-shadow:0 2px 8px rgba(0,0,0,0.07);
+}
+.mode-btn.active{
+  background:linear-gradient(135deg,#1a1a1a 0%,#cc0000 100%);
+  color:#ffcc00;border-color:transparent;
+  box-shadow:0 3px 12px rgba(204,0,0,0.3);
+}
+.mode-btn:hover:not(.active){background:rgba(255,204,0,0.2);transform:translateY(-1px);}
+
+/* ===== STATS ===== */
+.stats-bar{
+  display:flex;align-items:center;gap:8px;
+  padding:4px 16px;flex-shrink:0;
+  font-size:0.72rem;color:var(--text-mid);font-weight:600;
+  width:100%;max-width:700px;
+}
+.stats-bar span{white-space:nowrap;}
+.progress-wrap{flex:1;background:rgba(204,0,0,0.1);border-radius:4px;height:6px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,#cc0000,#ffcc00);border-radius:4px;transition:width .4s ease;}
+.pct{color:var(--red);font-weight:700;}
+
+/* ===== CATEGORY SCROLL ===== */
+.cat-scroll{
+  overflow-x:auto;display:flex;gap:7px;
+  padding:5px 16px 10px;flex-shrink:0;
+  width:100%;max-width:700px;
+  scrollbar-width:thin;
+  scrollbar-color:var(--gold) rgba(204,0,0,.12);
+}
+.cat-scroll::-webkit-scrollbar{height:5px;}
+.cat-scroll::-webkit-scrollbar-track{background:rgba(204,0,0,.10);border-radius:4px;}
+.cat-scroll::-webkit-scrollbar-thumb{background:var(--gold);border-radius:4px;}
+.cat-scroll::-webkit-scrollbar-thumb:hover{background:var(--red);}
+.cat-pill{
+  white-space:nowrap;padding:4px 12px;border-radius:50px;
+  font-size:0.72rem;font-weight:700;border:none;cursor:pointer;
+  background:var(--glass);color:var(--text-mid);
+  border:1.5px solid var(--border);
+  transition:all .18s;backdrop-filter:blur(6px);
+  box-shadow:0 2px 6px rgba(0,0,0,0.06);
+}
+.cat-pill.active{
+  background:linear-gradient(135deg,#1a1a1a 0%,#a00000 100%);
+  color:#ffcc00;border-color:transparent;
+  box-shadow:0 3px 10px rgba(204,0,0,0.28);
+}
+.cat-pill:hover:not(.active){background:rgba(255,204,0,0.2);transform:translateY(-1px);}
+
+/* ===== CARD AREA ===== */
+.card-area{
+  flex:1;display:flex;align-items:center;justify-content:center;
+  padding:0 16px;min-height:0;overflow:hidden;
+  width:100%;max-width:700px;
+}
+.card{
+  background:var(--glass);
+  backdrop-filter:blur(18px);
+  border-radius:20px;
+  border:1px solid var(--border2);
+  box-shadow:0 8px 32px rgba(204,0,0,0.12),0 2px 8px rgba(0,0,0,0.08);
+  width:100%;max-width:680px;
+  overflow:hidden;
+  cursor:pointer;
+  transition:transform .2s,box-shadow .2s;
+  position:relative;
+}
+.card:hover{transform:translateY(-3px) scale(1.005);box-shadow:0 14px 40px rgba(204,0,0,0.18);}
+.card:active{transform:scale(.98);}
+.card-accent{
+  height:4px;
+  background:linear-gradient(90deg,#1a1a1a 33.3%,#cc0000 33.3% 66.6%,#ffcc00 66.6%);
+}
+.card-top{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:9px 14px 4px;
+}
+.card-cat-label{
+  font-size:0.68rem;font-weight:700;
+  background:linear-gradient(135deg,rgba(26,26,26,0.1),rgba(204,0,0,0.1));
+  color:var(--text-mid);padding:2px 9px;border-radius:50px;
+  border:1px solid var(--border);
+}
+.card-counter{font-size:0.72rem;color:var(--text-muted);font-weight:600;}
+.card-body{
+  padding:12px 20px 16px;
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  min-height:130px;justify-content:center;
+}
+.card-question{
+  font-family:var(--foreign);
+  font-size:clamp(1.4rem,5vw,2.2rem);
+  font-weight:700;color:var(--text);
+  line-height:1.3;margin-bottom:8px;
+}
+.card-question.jp{
+  font-family:var(--jp);
+  font-size:clamp(1.1rem,4vw,1.7rem);
+}
+.card-hint{font-size:0.75rem;color:var(--text-muted);margin-top:4px;}
+.card-answer{
+  font-family:var(--foreign);
+  font-size:clamp(1.3rem,4.5vw,2rem);
+  font-weight:700;color:var(--red);
+  line-height:1.3;margin-bottom:8px;
+}
+.card-answer.jp{
+  font-family:var(--jp);
+  font-size:clamp(1.1rem,3.5vw,1.6rem);
+}
+.card-divider{width:60px;height:2px;background:linear-gradient(90deg,#cc0000,#ffcc00);border-radius:2px;margin:8px auto;}
+.speak-btn{
+  background:linear-gradient(135deg,rgba(204,0,0,0.12),rgba(255,204,0,0.12));
+  border:1.5px solid var(--border2);
+  border-radius:50px;padding:5px 14px;
+  font-size:0.82rem;cursor:pointer;color:var(--text-mid);
+  transition:all .18s;margin-top:4px;
+  display:flex;align-items:center;gap:5px;
+  backdrop-filter:blur(6px);
+}
+.speak-btn:hover{background:rgba(255,204,0,0.25);transform:translateY(-1px);}
+.speak-btn.playing{animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(204,0,0,0.3);}50%{box-shadow:0 0 0 7px rgba(204,0,0,0);}}
+
+/* ===== CONTROLS ===== */
+.controls{
+  display:flex;gap:6px;padding:6px 16px 8px;flex-shrink:0;
+  width:100%;max-width:700px;
+}
+.ctrl-btn{
+  flex:1;padding:8px 4px;border-radius:12px;border:none;cursor:pointer;
+  font-family:var(--jp);font-size:0.75rem;font-weight:700;
+  transition:all .18s;backdrop-filter:blur(8px);
+  box-shadow:0 3px 10px rgba(0,0,0,0.08);
+}
+.ctrl-btn:active{transform:scale(.93);}
+.btn-prev,.btn-revert{background:var(--glass);color:var(--text-mid);border:1.5px solid var(--border);}
+.btn-prev:hover,.btn-revert:hover{background:rgba(255,204,0,0.2);}
+.btn-reveal{
+  background:linear-gradient(135deg,#a00000 0%,#cc0000 100%);
+  color:#fff;border:none;
+  box-shadow:0 3px 12px rgba(204,0,0,0.3);
+}
+.btn-reveal:hover{transform:translateY(-2px);box-shadow:0 5px 16px rgba(204,0,0,0.4);}
+.btn-check{
+  background:linear-gradient(135deg,#2d5016 0%,#3d7020 100%);
+  color:#fff;border:none;
+  box-shadow:0 3px 12px rgba(45,80,22,0.3);
+}
+.btn-check:hover{transform:translateY(-2px);box-shadow:0 5px 16px rgba(45,80,22,0.4);}
+.btn-check.checked{background:linear-gradient(135deg,#555,#777);box-shadow:none;}
+.btn-next{
+  background:linear-gradient(135deg,#cc9900 0%,#ffcc00 100%);
+  color:#1a1a1a;border:none;
+  box-shadow:0 3px 12px rgba(255,204,0,0.3);
+}
+.btn-next:hover{transform:translateY(-2px);box-shadow:0 5px 16px rgba(255,204,0,0.4);}
+
+/* ===== KEYBOARD HINT ===== */
+.kb-hint{
+  text-align:center;font-size:0.62rem;color:var(--text-muted);
+  padding:2px 16px 6px;flex-shrink:0;
+  width:100%;max-width:700px;
+}
+
+/* ===== MODAL ===== */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(26,26,26,0.65);
+  backdrop-filter:blur(4px);z-index:100;
+  display:none;align-items:center;justify-content:center;
+}
+.modal-overlay.open{display:flex;}
+.modal{
+  background:var(--cream);
+  border-radius:18px;
+  width:min(94vw,620px);
+  max-height:88vh;
+  display:flex;flex-direction:column;
+  overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,0.3);
+}
+.modal-header{
+  background:linear-gradient(135deg,#1a1a1a 0%,#cc0000 100%);
+  padding:14px 16px;
+  display:flex;align-items:center;gap:10px;
+}
+.modal-title{font-family:var(--foreign);font-weight:800;color:#ffcc00;font-size:1rem;}
+.modal-search{
+  flex:1;padding:6px 12px;border-radius:50px;border:none;
+  font-family:var(--jp);font-size:0.82rem;
+  background:rgba(255,255,255,0.18);color:#fff;
+  outline:none;
+}
+.modal-search::placeholder{color:rgba(255,255,255,0.5);}
+.modal-close{
+  background:rgba(255,255,255,0.15);border:none;border-radius:50%;
+  width:30px;height:30px;cursor:pointer;color:#fff;font-size:1rem;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .15s;
+}
+.modal-close:hover{background:rgba(255,255,255,0.3);}
+.modal-body{overflow-y:auto;padding:0 0 10px;}
+.modal-cat-header{
+  font-weight:700;font-size:0.72rem;color:var(--red);
+  padding:10px 14px 4px;text-transform:uppercase;letter-spacing:0.08em;
+  border-bottom:1px solid var(--border);
+}
+.modal-row{
+  display:flex;gap:8px;padding:7px 14px;
+  cursor:pointer;transition:background .15s;align-items:flex-start;
+  border-bottom:1px solid rgba(204,0,0,0.06);
+}
+.modal-row:hover{background:rgba(255,204,0,0.12);}
+.modal-row.mastered{opacity:0.38;}
+.modal-de{font-family:var(--foreign);font-weight:600;font-size:0.84rem;color:var(--text);flex:1;}
+.modal-ja{font-size:0.78rem;color:var(--text-mid);flex:1;}
+
+/* ===== COMPLETE OVERLAY ===== */
+.complete-overlay{
+  position:fixed;inset:0;
+  background:rgba(255,252,220,0.88);
+  backdrop-filter:blur(12px);
+  z-index:200;
+  display:none;align-items:center;justify-content:center;
+  flex-direction:column;gap:10px;
+}
+.complete-overlay.show{display:flex;}
+.complete-icon{font-size:3.5rem;}
+.complete-text{font-size:1.3rem;font-weight:800;color:var(--red);}
+.complete-sub{font-size:0.85rem;color:var(--text-mid);}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-title">🇩🇪 <span>ドイツ語</span> フラッシュカード</div>
+  <div class="header-btns">
+    <button class="hbtn" id="btnList" title="一覧">📋</button>
+    <button class="hbtn" id="btnReset" title="リセット">🔄</button>
+    <button class="hbtn" id="btnShuffle" title="シャッフル">🔀</button>
+    <button class="hbtn" id="btnMute" title="ミュート">🔊</button>
+  </div>
+</header>
+
+<!-- MODE -->
+<div class="mode-bar">
+  <button class="mode-btn active" data-mode="ja2de">和 → 独</button>
+  <button class="mode-btn" data-mode="de2ja">独 → 和</button>
+  <button class="mode-btn" data-mode="random">🎲 ランダム</button>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <span id="statTotal">全0件</span>
+  <span id="statRem">残り0件</span>
+  <span id="statDone">✓0件</span>
+  <div class="progress-wrap"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  <span class="pct" id="statPct">0%</span>
+</div>
+
+<!-- CATEGORY SCROLL -->
+<div class="cat-scroll" id="catScroll"></div>
+
+<!-- CARD -->
+<div class="card-area">
+  <div class="card" id="mainCard">
+    <div class="card-accent"></div>
+    <div class="card-top">
+      <span class="card-cat-label" id="cardCat">–</span>
+      <span class="card-counter" id="cardCounter">0 / 0</span>
+    </div>
+    <div class="card-body" id="cardBody">
+      <div class="card-question" id="cardQ"></div>
+      <div class="card-hint" id="cardHint">👆 タップして答えを見る</div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTROLS -->
+<div class="controls">
+  <button class="ctrl-btn btn-prev" id="btnPrev">← 戻る</button>
+  <button class="ctrl-btn btn-reveal" id="btnReveal">▶ 表示</button>
+  <button class="ctrl-btn btn-revert" id="btnRevert">◀ 戻す</button>
+  <button class="ctrl-btn btn-check" id="btnCheck">✓ 覚えた</button>
+  <button class="ctrl-btn btn-next" id="btnNext">次へ →</button>
+</div>
+
+<!-- KB HINT -->
+<div class="kb-hint">→ 次へ ／ ← 戻る ／ Enter 答えを見る ／ C 覚えた</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">📋 例文一覧</span>
+      <input class="modal-search" id="modalSearch" placeholder="検索…" autocomplete="off">
+      <button class="modal-close" id="modalClose">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- COMPLETE OVERLAY -->
+<div class="complete-overlay" id="completeOverlay">
+  <div class="complete-icon">🏆</div>
+  <div class="complete-text">全カード完了！</div>
+  <div class="complete-sub">チェックを解除してもう一度挑戦しましょう</div>
+</div>
+
+<script>
+// ===== CARD DATA =====
+const CARDS_RAW = [
+  // ===== 挨拶・基本 =====
+  {id:"gr01",cat:"挨拶・基本",foreign:"Hallo!",ja:"こんにちは！"},
+  {id:"gr02",cat:"挨拶・基本",foreign:"Guten Morgen!",ja:"おはようございます！"},
+  {id:"gr03",cat:"挨拶・基本",foreign:"Guten Tag!",ja:"こんにちは！（昼間）"},
+  {id:"gr04",cat:"挨拶・基本",foreign:"Guten Abend!",ja:"こんばんは！"},
+  {id:"gr05",cat:"挨拶・基本",foreign:"Gute Nacht!",ja:"おやすみなさい！"},
+  {id:"gr06",cat:"挨拶・基本",foreign:"Tschüss!",ja:"じゃあね！"},
+  {id:"gr07",cat:"挨拶・基本",foreign:"Auf Wiedersehen!",ja:"さようなら！"},
+  {id:"gr08",cat:"挨拶・基本",foreign:"Bis bald!",ja:"またね！"},
+  {id:"gr09",cat:"挨拶・基本",foreign:"Bis später!",ja:"またあとで！"},
+  {id:"gr10",cat:"挨拶・基本",foreign:"Wie geht es Ihnen?",ja:"お元気ですか？（丁寧）"},
+  {id:"gr11",cat:"挨拶・基本",foreign:"Wie geht's?",ja:"元気？（カジュアル）"},
+  {id:"gr12",cat:"挨拶・基本",foreign:"Mir geht es gut, danke.",ja:"元気です、ありがとう。"},
+  {id:"gr13",cat:"挨拶・基本",foreign:"Nicht so gut.",ja:"あまり良くありません。"},
+  {id:"gr14",cat:"挨拶・基本",foreign:"Danke schön!",ja:"ありがとうございます！"},
+  {id:"gr15",cat:"挨拶・基本",foreign:"Bitte schön!",ja:"どういたしまして！"},
+  {id:"gr16",cat:"挨拶・基本",foreign:"Keine Ursache.",ja:"お気になさらず。"},
+  {id:"gr17",cat:"挨拶・基本",foreign:"Entschuldigung!",ja:"すみません！"},
+  {id:"gr18",cat:"挨拶・基本",foreign:"Es tut mir leid.",ja:"ごめんなさい。"},
+  {id:"gr19",cat:"挨拶・基本",foreign:"Bitte!",ja:"お願いします！／どうぞ！"},
+  {id:"gr20",cat:"挨拶・基本",foreign:"Ja.",ja:"はい。"},
+  {id:"gr21",cat:"挨拶・基本",foreign:"Nein.",ja:"いいえ。"},
+  {id:"gr22",cat:"挨拶・基本",foreign:"Guten Abend, Frau Müller.",ja:"こんばんは、ミュラーさん。"},
+  {id:"gr23",cat:"挨拶・基本",foreign:"Danke, gut. Und dir?",ja:"元気だよ、ありがとう。君は？"},
+  {id:"gr24",cat:"挨拶・基本",foreign:"Prost!",ja:"乾杯！"},
+  {id:"gr25",cat:"挨拶・基本",foreign:"Mahlzeit!",ja:"お疲れ様！／いただきます！"},
+  {id:"gr26",cat:"挨拶・基本",foreign:"Herzlichen Glückwunsch!",ja:"おめでとうございます！"},
+  {id:"gr27",cat:"挨拶・基本",foreign:"Alles Gute!",ja:"お元気で！"},
+  {id:"gr28",cat:"挨拶・基本",foreign:"Willkommen!",ja:"ようこそ！"},
+
+  // ===== 自己紹介 =====
+  {id:"si01",cat:"自己紹介",foreign:"Ich heiße Anna.",ja:"私はアンナです。"},
+  {id:"si02",cat:"自己紹介",foreign:"Wie heißen Sie?",ja:"お名前は何ですか？（丁寧）"},
+  {id:"si03",cat:"自己紹介",foreign:"Wie heißt du?",ja:"君の名前は何？（カジュアル）"},
+  {id:"si04",cat:"自己紹介",foreign:"Ich komme aus Japan.",ja:"私は日本から来ました。"},
+  {id:"si05",cat:"自己紹介",foreign:"Woher kommen Sie?",ja:"どちらのご出身ですか？"},
+  {id:"si06",cat:"自己紹介",foreign:"Ich wohne in Berlin.",ja:"私はベルリンに住んでいます。"},
+  {id:"si07",cat:"自己紹介",foreign:"Wo wohnen Sie?",ja:"どこに住んでいますか？"},
+  {id:"si08",cat:"自己紹介",foreign:"Ich bin Student.",ja:"私は学生です。"},
+  {id:"si09",cat:"自己紹介",foreign:"Ich bin 25 Jahre alt.",ja:"私は25歳です。"},
+  {id:"si10",cat:"自己紹介",foreign:"Wie alt bist du?",ja:"君は何歳？"},
+  {id:"si11",cat:"自己紹介",foreign:"Ich lerne Deutsch.",ja:"私はドイツ語を勉強しています。"},
+  {id:"si12",cat:"自己紹介",foreign:"Freut mich!",ja:"はじめまして！"},
+  {id:"si13",cat:"自己紹介",foreign:"Ich bin verheiratet.",ja:"私は結婚しています。"},
+  {id:"si14",cat:"自己紹介",foreign:"Ich bin ledig.",ja:"独身です。"},
+  {id:"si15",cat:"自己紹介",foreign:"Meine Hobbys sind Lesen und Reisen.",ja:"趣味は読書と旅行です。"},
+  {id:"si16",cat:"自己紹介",foreign:"Ich habe zwei Kinder.",ja:"私には子供が2人います。"},
+  {id:"si17",cat:"自己紹介",foreign:"Ich heiße Lukas und wohne in Berlin.",ja:"私はルーカスといい、ベルリンに住んでいます。"},
+  {id:"si18",cat:"自己紹介",foreign:"Ich arbeite in einer Firma.",ja:"私は会社で働いています。"},
+  {id:"si19",cat:"自己紹介",foreign:"Ich interessiere mich für Musik.",ja:"私は音楽に興味があります。"},
+  {id:"si20",cat:"自己紹介",foreign:"Was sind Sie von Beruf?",ja:"お仕事は何ですか？（丁寧）"},
+  {id:"si21",cat:"自己紹介",foreign:"Was bist du von Beruf?",ja:"お仕事は何をされていますか？"},
+  {id:"si22",cat:"自己紹介",foreign:"Ich bin Ingenieur.",ja:"私はエンジニアです。"},
+  {id:"si23",cat:"自己紹介",foreign:"Ich arbeite als Lehrerin.",ja:"私は教師として働いています。"},
+  {id:"si24",cat:"自己紹介",foreign:"Wie ist Ihre Telefonnummer?",ja:"お電話番号は何番ですか？"},
+
+  // ===== 疑問詞 =====
+  {id:"qw01",cat:"疑問詞",foreign:"Was ist das?",ja:"これは何ですか？"},
+  {id:"qw02",cat:"疑問詞",foreign:"Wer ist das?",ja:"あれは誰ですか？"},
+  {id:"qw03",cat:"疑問詞",foreign:"Wo ist das?",ja:"それはどこにありますか？"},
+  {id:"qw04",cat:"疑問詞",foreign:"Wohin gehst du?",ja:"どこへ行くの？"},
+  {id:"qw05",cat:"疑問詞",foreign:"Woher kommst du?",ja:"どこから来たの？"},
+  {id:"qw06",cat:"疑問詞",foreign:"Wann fährt der Zug?",ja:"電車はいつ出ますか？"},
+  {id:"qw07",cat:"疑問詞",foreign:"Warum lernst du Deutsch?",ja:"なぜドイツ語を学んでいるの？"},
+  {id:"qw08",cat:"疑問詞",foreign:"Wie heißt du?",ja:"あなたの名前は？"},
+  {id:"qw09",cat:"疑問詞",foreign:"Wie viel kostet das?",ja:"これはいくらですか？"},
+  {id:"qw10",cat:"疑問詞",foreign:"Wie viele Kinder haben Sie?",ja:"お子さんは何人いますか？"},
+  {id:"qw11",cat:"疑問詞",foreign:"Welcher Bus fährt zum Bahnhof?",ja:"どのバスが駅へ行きますか？"},
+  {id:"qw12",cat:"疑問詞",foreign:"Wie lange dauert das?",ja:"それはどのくらいかかりますか？"},
+  {id:"qw13",cat:"疑問詞",foreign:"Was möchten Sie trinken?",ja:"何をお飲みになりますか？"},
+  {id:"qw14",cat:"疑問詞",foreign:"Wann haben Sie geöffnet?",ja:"何時に開いていますか？"},
+  {id:"qw15",cat:"疑問詞",foreign:"Wie weit ist es bis zum Zentrum?",ja:"中心部までどのくらいの距離ですか？"},
+
+  // ===== 数字・数え方 =====
+  {id:"nu01",cat:"数字・数え方",foreign:"eins, zwei, drei",ja:"1、2、3"},
+  {id:"nu02",cat:"数字・数え方",foreign:"vier, fünf, sechs",ja:"4、5、6"},
+  {id:"nu03",cat:"数字・数え方",foreign:"sieben, acht, neun, zehn",ja:"7、8、9、10"},
+  {id:"nu04",cat:"数字・数え方",foreign:"elf, zwölf, dreizehn",ja:"11、12、13"},
+  {id:"nu05",cat:"数字・数え方",foreign:"vierzehn, fünfzehn",ja:"14、15"},
+  {id:"nu06",cat:"数字・数え方",foreign:"zwanzig, dreißig, vierzig",ja:"20、30、40"},
+  {id:"nu07",cat:"数字・数え方",foreign:"fünfzig, sechzig, siebzig",ja:"50、60、70"},
+  {id:"nu08",cat:"数字・数え方",foreign:"achtzig, neunzig, hundert",ja:"80、90、100"},
+  {id:"nu09",cat:"数字・数え方",foreign:"tausend",ja:"1000"},
+  {id:"nu10",cat:"数字・数え方",foreign:"Das macht zusammen vierzehn Euro fünfzig.",ja:"合わせて14ユーロ50です。"},
+  {id:"nu11",cat:"数字・数え方",foreign:"Ich brauche zwei Fahrkarten.",ja:"切符を2枚必要です。"},
+  {id:"nu12",cat:"数字・数え方",foreign:"der erste, der zweite, der dritte",ja:"1番目、2番目、3番目"},
+  {id:"nu13",cat:"数字・数え方",foreign:"Ich wohne im dritten Stock.",ja:"私は3階に住んでいます。"},
+  {id:"nu14",cat:"数字・数え方",foreign:"Ich bin am fünften März geboren.",ja:"私は3月5日生まれです。"},
+
+  // ===== 時間・曜日 =====
+  {id:"ti01",cat:"時間・曜日",foreign:"Wie spät ist es?",ja:"今何時ですか？"},
+  {id:"ti02",cat:"時間・曜日",foreign:"Es ist drei Uhr.",ja:"3時です。"},
+  {id:"ti03",cat:"時間・曜日",foreign:"Es ist halb vier.",ja:"3時30分です。"},
+  {id:"ti04",cat:"時間・曜日",foreign:"Es ist Viertel nach zwei.",ja:"2時15分です。"},
+  {id:"ti05",cat:"時間・曜日",foreign:"Es ist Viertel vor fünf.",ja:"4時45分です。"},
+  {id:"ti06",cat:"時間・曜日",foreign:"Es ist halb zehn.",ja:"9時30分です。"},
+  {id:"ti07",cat:"時間・曜日",foreign:"Heute ist Montag.",ja:"今日は月曜日です。"},
+  {id:"ti08",cat:"時間・曜日",foreign:"Morgen ist Dienstag.",ja:"明日は火曜日です。"},
+  {id:"ti09",cat:"時間・曜日",foreign:"Montag, Dienstag, Mittwoch",ja:"月曜日、火曜日、水曜日"},
+  {id:"ti10",cat:"時間・曜日",foreign:"Donnerstag, Freitag",ja:"木曜日、金曜日"},
+  {id:"ti11",cat:"時間・曜日",foreign:"Samstag, Sonntag",ja:"土曜日、日曜日"},
+  {id:"ti12",cat:"時間・曜日",foreign:"heute, morgen, gestern",ja:"今日、明日、昨日"},
+  {id:"ti13",cat:"時間・曜日",foreign:"Am Wochenende treffe ich meine Freunde.",ja:"週末、友達に会います。"},
+  {id:"ti14",cat:"時間・曜日",foreign:"Der Kurs beginnt im September.",ja:"講座は9月に始まります。"},
+  {id:"ti15",cat:"時間・曜日",foreign:"Ich habe am Samstag Geburtstag.",ja:"私の誕生日は土曜日です。"},
+  {id:"ti16",cat:"時間・曜日",foreign:"Wir fahren im Sommer in den Urlaub.",ja:"私たちは夏に休暇へ行きます。"},
+  {id:"ti17",cat:"時間・曜日",foreign:"Um wie viel Uhr beginnt der Kurs?",ja:"講座は何時に始まりますか？"},
+  {id:"ti18",cat:"時間・曜日",foreign:"Ich stehe jeden Tag um sechs Uhr auf.",ja:"私は毎日6時に起きます。"},
+  {id:"ti19",cat:"時間・曜日",foreign:"Mein Geburtstag ist im Juli.",ja:"私の誕生日は7月です。"},
+  {id:"ti20",cat:"時間・曜日",foreign:"Der erste Mai.",ja:"5月1日。"},
+
+  // ===== 天気・季節 =====
+  {id:"we01",cat:"天気・季節",foreign:"Die Sonne scheint.",ja:"日が照っています。"},
+  {id:"we02",cat:"天気・季節",foreign:"Es regnet.",ja:"雨が降っています。"},
+  {id:"we03",cat:"天気・季節",foreign:"Es ist kalt heute.",ja:"今日は寒いです。"},
+  {id:"we04",cat:"天気・季節",foreign:"Im Winter schneit es oft.",ja:"冬はよく雪が降ります。"},
+  {id:"we05",cat:"天気・季節",foreign:"Wie ist das Wetter heute?",ja:"今日の天気はどうですか？"},
+  {id:"we06",cat:"天気・季節",foreign:"Es ist warm.",ja:"暖かいです。"},
+  {id:"we07",cat:"天気・季節",foreign:"Es ist heiß.",ja:"暑いです。"},
+  {id:"we08",cat:"天気・季節",foreign:"Es ist bewölkt.",ja:"曇っています。"},
+  {id:"we09",cat:"天気・季節",foreign:"Das Wetter heute ist aber schön!",ja:"今日の天気は本当にいいですね！"},
+  {id:"we10",cat:"天気・季節",foreign:"Es ist heute kälter als gestern.",ja:"今日は昨日より寒いです。"},
+  {id:"we11",cat:"天気・季節",foreign:"Im Frühling blühen die Blumen.",ja:"春に花が咲きます。"},
+  {id:"we12",cat:"天気・季節",foreign:"Im Herbst werden die Blätter bunt.",ja:"秋に葉が色づきます。"},
+
+  // ===== 家族・人間関係 =====
+  {id:"fa01",cat:"家族・人間関係",foreign:"Das ist meine Mutter.",ja:"これは私の母です。"},
+  {id:"fa02",cat:"家族・人間関係",foreign:"Mein Vater ist Arzt.",ja:"私の父は医者です。"},
+  {id:"fa03",cat:"家族・人間関係",foreign:"Ich habe einen Bruder.",ja:"私には兄（弟）がいます。"},
+  {id:"fa04",cat:"家族・人間関係",foreign:"Ich habe eine Schwester.",ja:"私には姉（妹）がいます。"},
+  {id:"fa05",cat:"家族・人間関係",foreign:"Meine Familie hat vier Personen.",ja:"私の家族は4人です。"},
+  {id:"fa06",cat:"家族・人間関係",foreign:"Meine Eltern wohnen in Osaka.",ja:"両親は大阪に住んでいます。"},
+  {id:"fa07",cat:"家族・人間関係",foreign:"Er ist mein bester Freund.",ja:"彼は私の親友です。"},
+  {id:"fa08",cat:"家族・人間関係",foreign:"Sie ist meine Kollegin.",ja:"彼女は私の同僚です。"},
+  {id:"fa09",cat:"家族・人間関係",foreign:"Wie viele Geschwister hast du?",ja:"きょうだいは何人いますか？"},
+  {id:"fa10",cat:"家族・人間関係",foreign:"Das sind meine Großeltern.",ja:"これは私の祖父母です。"},
+  {id:"fa11",cat:"家族・人間関係",foreign:"Haben Sie Kinder?",ja:"子供はいますか？"},
+  {id:"fa12",cat:"家族・人間関係",foreign:"Ja, ich habe einen Sohn und eine Tochter.",ja:"はい、息子と娘が一人ずついます。"},
+  {id:"fa13",cat:"家族・人間関係",foreign:"Das ist meine Schwester. Sie heißt Emma.",ja:"こちらは私の妹です。名前はエマです。"},
+  {id:"fa14",cat:"家族・人間関係",foreign:"Mein Mann arbeitet in einer Bank.",ja:"夫は銀行で働いています。"},
+  {id:"fa15",cat:"家族・人間関係",foreign:"Meine Frau kommt aus Österreich.",ja:"妻はオーストリア出身です。"},
+
+  // ===== 住まい・家具 =====
+  {id:"ho01",cat:"住まい・家具",foreign:"Ich wohne in einer Wohnung.",ja:"私はアパートに住んでいます。"},
+  {id:"ho02",cat:"住まい・家具",foreign:"Das ist mein Zimmer.",ja:"これは私の部屋です。"},
+  {id:"ho03",cat:"住まい・家具",foreign:"Hier ist das Badezimmer.",ja:"ここがお風呂です。"},
+  {id:"ho04",cat:"住まい・家具",foreign:"Wo ist die Küche?",ja:"キッチンはどこ？"},
+  {id:"ho05",cat:"住まい・家具",foreign:"Das Bett ist groß.",ja:"ベッドが大きいです。"},
+  {id:"ho06",cat:"住まい・家具",foreign:"Der Tisch ist neu.",ja:"テーブルが新品です。"},
+  {id:"ho07",cat:"住まい・家具",foreign:"Das Sofa ist bequem.",ja:"ソファが快適です。"},
+  {id:"ho08",cat:"住まい・家具",foreign:"Das Sofa steht vor dem Fenster.",ja:"ソファは窓の前に置いてあります。"},
+  {id:"ho09",cat:"住まい・家具",foreign:"Ich putze das Haus.",ja:"家を掃除します。"},
+  {id:"ho10",cat:"住まい・家具",foreign:"Wir suchen eine neue Wohnung.",ja:"私たちは新しいアパートを探しています。"},
+  {id:"ho11",cat:"住まい・家具",foreign:"Die Wohnung hat drei Zimmer.",ja:"そのアパートは部屋が3つあります。"},
+  {id:"ho12",cat:"住まい・家具",foreign:"Ich habe mir ein neues Bett gekauft.",ja:"新しいベッドを買いました。"},
+  {id:"ho13",cat:"住まい・家具",foreign:"Ich wohne in einem Haus mit Garten.",ja:"庭付きの家に住んでいます。"},
+  {id:"ho14",cat:"住まい・家具",foreign:"Die Miete ist teuer.",ja:"家賃が高いです。"},
+  {id:"ho15",cat:"住まい・家具",foreign:"Das Fenster ist kaputt.",ja:"窓が壊れています。"},
+
+  // ===== 日常動詞 =====
+  {id:"vb01",cat:"日常動詞",foreign:"Ich gehe zur Arbeit.",ja:"仕事に行きます。"},
+  {id:"vb02",cat:"日常動詞",foreign:"Ich frühstücke um acht Uhr.",ja:"8時に朝食を食べます。"},
+  {id:"vb03",cat:"日常動詞",foreign:"Ich arbeite bis fünf Uhr.",ja:"5時まで働きます。"},
+  {id:"vb04",cat:"日常動詞",foreign:"Ich sehe abends fern.",ja:"夜テレビを見ます。"},
+  {id:"vb05",cat:"日常動詞",foreign:"Ich gehe um elf Uhr ins Bett.",ja:"11時に寝ます。"},
+  {id:"vb06",cat:"日常動詞",foreign:"Ich komme um sechs Uhr nach Hause.",ja:"6時に帰宅します。"},
+  {id:"vb07",cat:"日常動詞",foreign:"Er spielt Fußball.",ja:"彼はサッカーをします。"},
+  {id:"vb08",cat:"日常動詞",foreign:"Wir lernen Deutsch.",ja:"私たちはドイツ語を学んでいます。"},
+  {id:"vb09",cat:"日常動詞",foreign:"Ich trinke Kaffee.",ja:"私はコーヒーを飲みます。"},
+  {id:"vb10",cat:"日常動詞",foreign:"Sie kocht das Abendessen.",ja:"彼女は夕食を作ります。"},
+  {id:"vb11",cat:"日常動詞",foreign:"Er liest ein Buch.",ja:"彼は本を読んでいます。"},
+  {id:"vb12",cat:"日常動詞",foreign:"Ich schlafe gut.",ja:"よく眠れます。"},
+  {id:"vb13",cat:"日常動詞",foreign:"Wir fahren mit dem Auto.",ja:"私たちは車で行きます。"},
+  {id:"vb14",cat:"日常動詞",foreign:"Er schreibt eine E-Mail.",ja:"彼はメールを書きます。"},
+  {id:"vb15",cat:"日常動詞",foreign:"Ich höre Musik.",ja:"音楽を聴きます。"},
+  {id:"vb16",cat:"日常動詞",foreign:"Sie spricht sehr gut Englisch.",ja:"彼女は英語がとても上手です。"},
+  {id:"vb17",cat:"日常動詞",foreign:"Ich vergesse oft meinen Schlüssel.",ja:"よく鍵を忘れます。"},
+  {id:"vb18",cat:"日常動詞",foreign:"Er weiß das nicht.",ja:"彼はそれを知りません。"},
+
+  // ===== sein / haben / werden =====
+  {id:"sh01",cat:"sein・haben・werden",foreign:"Ich bin Student.",ja:"私は学生です。"},
+  {id:"sh02",cat:"sein・haben・werden",foreign:"Du bist nett.",ja:"君は親切だね。"},
+  {id:"sh03",cat:"sein・haben・werden",foreign:"Er ist müde.",ja:"彼は疲れています。"},
+  {id:"sh04",cat:"sein・haben・werden",foreign:"Wir sind aus Japan.",ja:"私たちは日本出身です。"},
+  {id:"sh05",cat:"sein・haben・werden",foreign:"Ihr seid spät.",ja:"君たち遅いよ。"},
+  {id:"sh06",cat:"sein・haben・werden",foreign:"Sie sind Lehrerin.",ja:"彼女は教師です。"},
+  {id:"sh07",cat:"sein・haben・werden",foreign:"Ich habe Hunger.",ja:"お腹が空いています。"},
+  {id:"sh08",cat:"sein・haben・werden",foreign:"Du hast Durst.",ja:"喉が渇いているね。"},
+  {id:"sh09",cat:"sein・haben・werden",foreign:"Er hat ein Auto.",ja:"彼は車を持っています。"},
+  {id:"sh10",cat:"sein・haben・werden",foreign:"Wir haben Zeit.",ja:"私たちは時間があります。"},
+  {id:"sh11",cat:"sein・haben・werden",foreign:"Ich werde Arzt.",ja:"私は医者になります。"},
+  {id:"sh12",cat:"sein・haben・werden",foreign:"Er wird 30 Jahre alt.",ja:"彼は30歳になります。"},
+  {id:"sh13",cat:"sein・haben・werden",foreign:"Es wird kalt.",ja:"寒くなってきます。"},
+  {id:"sh14",cat:"sein・haben・werden",foreign:"Es wird dunkel.",ja:"暗くなってきます。"},
+  {id:"sh15",cat:"sein・haben・werden",foreign:"Das Wetter wird besser.",ja:"天気が良くなります。"},
+
+  // ===== 話法の助動詞 =====
+  {id:"mo01",cat:"話法の助動詞",foreign:"Ich kann schwimmen.",ja:"私は泳げます。"},
+  {id:"mo02",cat:"話法の助動詞",foreign:"Kannst du mir helfen?",ja:"手伝ってくれる？"},
+  {id:"mo03",cat:"話法の助動詞",foreign:"Er kann gut Deutsch sprechen.",ja:"彼はドイツ語を上手に話せます。"},
+  {id:"mo04",cat:"話法の助動詞",foreign:"Sie kann nicht kommen.",ja:"彼女は来られません。"},
+  {id:"mo05",cat:"話法の助動詞",foreign:"Ich muss heute arbeiten.",ja:"今日は仕事しなければなりません。"},
+  {id:"mo06",cat:"話法の助動詞",foreign:"Du musst pünktlich sein.",ja:"時間通りでなければなりません。"},
+  {id:"mo07",cat:"話法の助動詞",foreign:"Wir müssen noch einkaufen.",ja:"まだ買い物しなければなりません。"},
+  {id:"mo08",cat:"話法の助動詞",foreign:"Man muss hier leise sein.",ja:"ここでは静かにしなければなりません。"},
+  {id:"mo09",cat:"話法の助動詞",foreign:"Ich will Deutsch lernen.",ja:"私はドイツ語を学びたい。"},
+  {id:"mo10",cat:"話法の助動詞",foreign:"Er will nach Japan reisen.",ja:"彼は日本に旅行したい。"},
+  {id:"mo11",cat:"話法の助動詞",foreign:"Wir wollen ins Kino gehen.",ja:"映画を見に行きたい。"},
+  {id:"mo12",cat:"話法の助動詞",foreign:"Darf ich hier sitzen?",ja:"ここに座ってもいいですか？"},
+  {id:"mo13",cat:"話法の助動詞",foreign:"Hier darf man nicht rauchen.",ja:"ここでは喫煙してはいけません。"},
+  {id:"mo14",cat:"話法の助動詞",foreign:"Du sollst mehr Wasser trinken.",ja:"もっと水を飲むべきです。"},
+  {id:"mo15",cat:"話法の助動詞",foreign:"Er soll um acht Uhr kommen.",ja:"彼は8時に来ることになっています。"},
+  {id:"mo16",cat:"話法の助動詞",foreign:"Soll ich das Fenster öffnen?",ja:"窓を開けましょうか？"},
+  {id:"mo17",cat:"話法の助動詞",foreign:"Ich möchte ein Eis, bitte.",ja:"アイスをお願いします。"},
+  {id:"mo18",cat:"話法の助動詞",foreign:"Möchten Sie etwas trinken?",ja:"何かお飲みになりますか？"},
+  {id:"mo19",cat:"話法の助動詞",foreign:"Ich möchte gern bestellen.",ja:"注文したいのですが。"},
+  {id:"mo20",cat:"話法の助動詞",foreign:"Ich möchte bitte zahlen.",ja:"お会計をお願いします。"},
+  {id:"mo21",cat:"話法の助動詞",foreign:"Kann ich mit Karte bezahlen?",ja:"カードで払えますか？"},
+  {id:"mo22",cat:"話法の助動詞",foreign:"Können Sie mir helfen?",ja:"手伝っていただけますか？"},
+  {id:"mo23",cat:"話法の助動詞",foreign:"Wir müssen nach Hause gehen.",ja:"私たちは家に帰らなければなりません。"},
+  {id:"mo24",cat:"話法の助動詞",foreign:"Ich muss das nicht machen.",ja:"それをしなくてもいいです。"},
+  {id:"mo25",cat:"話法の助動詞",foreign:"Wir wollen im Sommer nach Spanien fliegen.",ja:"私たちは夏にスペインへ行きたい。"},
+
+  // ===== 分離動詞 =====
+  {id:"sp01",cat:"分離動詞",foreign:"Ich stehe um sieben Uhr auf.",ja:"私は7時に起きます。"},
+  {id:"sp02",cat:"分離動詞",foreign:"Wann stehst du morgen auf?",ja:"明日はいつ起きる？"},
+  {id:"sp03",cat:"分離動詞",foreign:"Er kauft im Supermarkt ein.",ja:"彼はスーパーで買い物します。"},
+  {id:"sp04",cat:"分離動詞",foreign:"Wir fangen um neun Uhr an.",ja:"9時に始めます。"},
+  {id:"sp05",cat:"分離動詞",foreign:"Ich rufe dich später an.",ja:"あとで電話するね。"},
+  {id:"sp06",cat:"分離動詞",foreign:"Sie kommt um acht Uhr an.",ja:"彼女は8時に到着します。"},
+  {id:"sp07",cat:"分離動詞",foreign:"Ich lade dich ein.",ja:"招待するよ。"},
+  {id:"sp08",cat:"分離動詞",foreign:"Er bringt Blumen mit.",ja:"彼は花を持ってきます。"},
+  {id:"sp09",cat:"分離動詞",foreign:"Ich ziehe mich an.",ja:"服を着ます。"},
+  {id:"sp10",cat:"分離動詞",foreign:"Mach bitte die Tür zu.",ja:"ドアを閉めてください。"},
+  {id:"sp11",cat:"分離動詞",foreign:"Mach bitte das Licht an.",ja:"電気をつけてください。"},
+  {id:"sp12",cat:"分離動詞",foreign:"Mach bitte das Licht aus.",ja:"電気を消してください。"},
+  {id:"sp13",cat:"分離動詞",foreign:"Ich räume die Wohnung auf.",ja:"アパートを片付けます。"},
+  {id:"sp14",cat:"分離動詞",foreign:"Wir sehen jeden Abend fern.",ja:"毎晩テレビを見ます。"},
+  {id:"sp15",cat:"分離動詞",foreign:"Ich gebe das Geld zurück.",ja:"お金を返します。"},
+  {id:"sp16",cat:"分離動詞",foreign:"Wann kommst du morgen an?",ja:"君は明日、いつ到着しますか？"},
+  {id:"sp17",cat:"分離動詞",foreign:"Ich gehe am Wochenende aus.",ja:"週末に外出します。"},
+  {id:"sp18",cat:"分離動詞",foreign:"Er sieht gut aus.",ja:"彼はかっこいいです。"},
+  {id:"sp19",cat:"分離動詞",foreign:"Ich bereite das Frühstück vor.",ja:"朝食を準備します。"},
+  {id:"sp20",cat:"分離動詞",foreign:"Sie zieht nächsten Monat um.",ja:"彼女は来月引っ越します。"},
+
+  // ===== 食事・レストラン =====
+  {id:"re01",cat:"食事・レストラン",foreign:"Einen Tisch für zwei, bitte.",ja:"2人用の席をお願いします。"},
+  {id:"re02",cat:"食事・レストラン",foreign:"Die Speisekarte, bitte.",ja:"メニューをお願いします。"},
+  {id:"re03",cat:"食事・レストラン",foreign:"Was empfehlen Sie?",ja:"おすすめは何ですか？"},
+  {id:"re04",cat:"食事・レストラン",foreign:"Ich nehme das Schnitzel.",ja:"シュニッツェルをください。"},
+  {id:"re05",cat:"食事・レストラン",foreign:"Ich hätte gern ein Bier.",ja:"ビールをください。"},
+  {id:"re06",cat:"食事・レストラン",foreign:"Die Rechnung, bitte.",ja:"お会計をお願いします。"},
+  {id:"re07",cat:"食事・レストラン",foreign:"Das Essen ist lecker.",ja:"ご飯がおいしいです。"},
+  {id:"re08",cat:"食事・レストラン",foreign:"Es hat mir gut geschmeckt.",ja:"おいしかったです。"},
+  {id:"re09",cat:"食事・レストラン",foreign:"Haben Sie vegetarische Gerichte?",ja:"ベジタリアン料理はありますか？"},
+  {id:"re10",cat:"食事・レストラン",foreign:"Ich bin allergisch gegen Nüsse.",ja:"ナッツアレルギーがあります。"},
+  {id:"re11",cat:"食事・レストラン",foreign:"Guten Appetit!",ja:"召し上がれ！"},
+  {id:"re12",cat:"食事・レストラン",foreign:"Ein Kaffee, bitte.",ja:"コーヒー1つ、お願いします。"},
+  {id:"re13",cat:"食事・レストラン",foreign:"Zum Frühstück esse ich Müsli mit Milch.",ja:"朝食はミューズリーをミルクで食べます。"},
+  {id:"re14",cat:"食事・レストラン",foreign:"Ich esse kein Fleisch.",ja:"肉は食べません。"},
+  {id:"re15",cat:"食事・レストラン",foreign:"Isst du Fleisch oder bist du Vegetarier?",ja:"肉を食べる？それともベジタリアン？"},
+  {id:"re16",cat:"食事・レストラン",foreign:"Das Rezept ist einfach.",ja:"そのレシピは簡単です。"},
+  {id:"re17",cat:"食事・レストラン",foreign:"Ich koche heute Abend.",ja:"今晩料理します。"},
+  {id:"re18",cat:"食事・レストラン",foreign:"Ich bin hungrig.",ja:"お腹がすきました。"},
+
+  // ===== 買い物 =====
+  {id:"sh01",cat:"買い物",foreign:"Wie viel kostet das?",ja:"これはいくらですか？"},
+  {id:"sh02",cat:"買い物",foreign:"Das kostet zehn Euro.",ja:"10ユーロです。"},
+  {id:"sh03",cat:"買い物",foreign:"Haben Sie das in größer?",ja:"もっと大きいサイズはありますか？"},
+  {id:"sh04",cat:"買い物",foreign:"Ich nehme das.",ja:"これにします。"},
+  {id:"sh05",cat:"買い物",foreign:"Das ist zu teuer!",ja:"高すぎます！"},
+  {id:"sh06",cat:"買い物",foreign:"Haben Sie Äpfel?",ja:"リンゴはありますか？"},
+  {id:"sh07",cat:"買い物",foreign:"Ja, die Äpfel sind frisch.",ja:"はい、そのリンゴは新鮮です。"},
+  {id:"sh08",cat:"買い物",foreign:"Ich bezahle bar.",ja:"現金でお願いします。"},
+  {id:"sh09",cat:"買い物",foreign:"Gibt es Rabatt?",ja:"割引はありますか？"},
+  {id:"sh10",cat:"買い物",foreign:"Ich suche Schuhe.",ja:"靴を探しています。"},
+  {id:"sh11",cat:"買い物",foreign:"In welcher Größe?",ja:"何サイズですか？"},
+  {id:"sh12",cat:"買い物",foreign:"Kann ich das anprobieren?",ja:"試着できますか？"},
+  {id:"sh13",cat:"買い物",foreign:"Das passt mir nicht.",ja:"サイズが合いません。"},
+  {id:"sh14",cat:"買い物",foreign:"Haben Sie Wechselgeld?",ja:"おつりはありますか？"},
+  {id:"sh15",cat:"買い物",foreign:"Ich möchte das zurückgeben.",ja:"返品したいのですが。"},
+  {id:"sh16",cat:"買い物",foreign:"Wo finde ich die Kasse?",ja:"レジはどこですか？"},
+  {id:"sh17",cat:"買い物",foreign:"Der Supermarkt hat bis 22 Uhr geöffnet.",ja:"スーパーは22時まで開いています。"},
+
+  // ===== 移動・交通 =====
+  {id:"tr01",cat:"移動・交通",foreign:"Wo ist der Bahnhof?",ja:"駅はどこですか？"},
+  {id:"tr02",cat:"移動・交通",foreign:"Gehen Sie geradeaus.",ja:"まっすぐ行ってください。"},
+  {id:"tr03",cat:"移動・交通",foreign:"Biegen Sie links ab.",ja:"左に曲がってください。"},
+  {id:"tr04",cat:"移動・交通",foreign:"Fahren Sie mit dem Bus.",ja:"バスで行ってください。"},
+  {id:"tr05",cat:"移動・交通",foreign:"Ein Ticket nach Berlin, bitte.",ja:"ベルリン行きの切符をお願いします。"},
+  {id:"tr06",cat:"移動・交通",foreign:"Einfach oder hin und zurück?",ja:"片道ですか、往復ですか？"},
+  {id:"tr07",cat:"移動・交通",foreign:"Von welchem Gleis fährt der Zug ab?",ja:"その電車は何番線から出発しますか？"},
+  {id:"tr08",cat:"移動・交通",foreign:"Ich fahre mit dem Fahrrad.",ja:"自転車で行きます。"},
+  {id:"tr09",cat:"移動・交通",foreign:"Der Flug ist verspätet.",ja:"飛行機が遅れています。"},
+  {id:"tr10",cat:"移動・交通",foreign:"Ich brauche ein Taxi.",ja:"タクシーが必要です。"},
+  {id:"tr11",cat:"移動・交通",foreign:"Wie komme ich zum Flughafen?",ja:"空港へはどう行きますか？"},
+  {id:"tr12",cat:"移動・交通",foreign:"Fährt der Bus zum Stadtzentrum?",ja:"このバスは市内中心部に行きますか？"},
+  {id:"tr13",cat:"移動・交通",foreign:"Ich möchte ein Ticket nach München buchen.",ja:"ミュンヘンまでのチケットを予約したいです。"},
+  {id:"tr14",cat:"移動・交通",foreign:"Der Zug hat zwanzig Minuten Verspätung.",ja:"電車が20分遅れています。"},
+  {id:"tr15",cat:"移動・交通",foreign:"Ich bin mit dem Zug gefahren.",ja:"電車に乗って行きました。"},
+  {id:"tr16",cat:"移動・交通",foreign:"Wo ist die nächste U-Bahn-Station?",ja:"最寄りの地下鉄の駅はどこですか？"},
+  {id:"tr17",cat:"移動・交通",foreign:"Ich habe eine Reservierung auf den Namen Meier.",ja:"マイヤーという名前で予約しています。"},
+
+  // ===== ホテル =====
+  {id:"ht01",cat:"ホテル",foreign:"Ich habe ein Zimmer gebucht.",ja:"部屋を予約しました。"},
+  {id:"ht02",cat:"ホテル",foreign:"Ein Einzelzimmer, bitte.",ja:"シングルルームをお願いします。"},
+  {id:"ht03",cat:"ホテル",foreign:"Wie viel pro Nacht?",ja:"1泊いくらですか？"},
+  {id:"ht04",cat:"ホテル",foreign:"Das Frühstück ist inklusive.",ja:"朝食付きです。"},
+  {id:"ht05",cat:"ホテル",foreign:"Ich möchte auschecken.",ja:"チェックアウトしたいです。"},
+  {id:"ht06",cat:"ホテル",foreign:"Der Schlüssel, bitte.",ja:"鍵をお願いします。"},
+  {id:"ht07",cat:"ホテル",foreign:"Ist das Zimmer sauber?",ja:"部屋はきれいですか？"},
+  {id:"ht08",cat:"ホテル",foreign:"Ich brauche Handtücher.",ja:"タオルが必要です。"},
+  {id:"ht09",cat:"ホテル",foreign:"Haben Sie ein freies Zimmer?",ja:"空室はありますか？"},
+  {id:"ht10",cat:"ホテル",foreign:"Das WLAN funktioniert nicht.",ja:"WIFIが繋がりません。"},
+  {id:"ht11",cat:"ホテル",foreign:"Ich möchte ein Zimmer mit Meerblick.",ja:"海の見える部屋を希望します。"},
+  {id:"ht12",cat:"ホテル",foreign:"Um wie viel Uhr beginnt das Frühstück?",ja:"朝食は何時から始まりますか？"},
+  {id:"ht13",cat:"ホテル",foreign:"Bitte wecken Sie mich um sieben Uhr.",ja:"7時に起こしてください。"},
+
+  // ===== 健康・緊急 =====
+  {id:"he01",cat:"健康・緊急",foreign:"Ich habe Kopfschmerzen.",ja:"頭痛がします。"},
+  {id:"he02",cat:"健康・緊急",foreign:"Der Fuß tut mir weh.",ja:"足が痛いです。"},
+  {id:"he03",cat:"健康・緊急",foreign:"Ich fühle mich nicht gut.",ja:"気分が良くありません。"},
+  {id:"he04",cat:"健康・緊急",foreign:"Ich bin krank.",ja:"私は病気です。"},
+  {id:"he05",cat:"健康・緊急",foreign:"Hilfe!",ja:"助けて！"},
+  {id:"he06",cat:"健康・緊急",foreign:"Rufen Sie bitte einen Arzt!",ja:"医者を呼んでください！"},
+  {id:"he07",cat:"健康・緊急",foreign:"Ich brauche ein Krankenhaus.",ja:"病院が必要です。"},
+  {id:"he08",cat:"健康・緊急",foreign:"Ich habe Fieber.",ja:"熱があります。"},
+  {id:"he09",cat:"健康・緊急",foreign:"Ich habe Bauchschmerzen.",ja:"お腹が痛いです。"},
+  {id:"he10",cat:"健康・緊急",foreign:"Mir ist schlecht.",ja:"気持ち悪いです。"},
+  {id:"he11",cat:"健康・緊急",foreign:"Ich habe mich verletzt.",ja:"怪我をしました。"},
+  {id:"he12",cat:"健康・緊急",foreign:"Du solltest zum Arzt gehen.",ja:"医者に行くべきだよ。"},
+  {id:"he13",cat:"健康・緊急",foreign:"Ich nehme diese Tabletten.",ja:"この薬を飲んでいます。"},
+  {id:"he14",cat:"健康・緊急",foreign:"Ich bin allergisch gegen Penicillin.",ja:"ペニシリンアレルギーがあります。"},
+  {id:"he15",cat:"健康・緊急",foreign:"Bitte rufen Sie die Polizei!",ja:"警察を呼んでください！"},
+  {id:"he16",cat:"健康・緊急",foreign:"Fühlen Sie sich nicht gut?",ja:"気分が優れませんか？"},
+
+  // ===== 場所・施設 =====
+  {id:"pl01",cat:"場所・施設",foreign:"Wo ist die Apotheke?",ja:"薬局はどこですか？"},
+  {id:"pl02",cat:"場所・施設",foreign:"Das Krankenhaus ist gleich um die Ecke.",ja:"病院はすぐ角を曲がったところです。"},
+  {id:"pl03",cat:"場所・施設",foreign:"Wo ist die Bank?",ja:"銀行はどこですか？"},
+  {id:"pl04",cat:"場所・施設",foreign:"Es ist neben dem Supermarkt.",ja:"スーパーの隣です。"},
+  {id:"pl05",cat:"場所・施設",foreign:"Ich bin in der Stadt.",ja:"街の中にいます。"},
+  {id:"pl06",cat:"場所・施設",foreign:"Hier ist die Post.",ja:"ここが郵便局です。"},
+  {id:"pl07",cat:"場所・施設",foreign:"Wo ist das Rathaus?",ja:"市役所はどこですか？"},
+  {id:"pl08",cat:"場所・施設",foreign:"Die Schule ist nicht weit.",ja:"学校はそれほど遠くありません。"},
+  {id:"pl09",cat:"場所・施設",foreign:"Gegenüber dem Hotel ist ein Park.",ja:"ホテルの向かいに公園があります。"},
+  {id:"pl10",cat:"場所・施設",foreign:"Links oder rechts?",ja:"左ですか右ですか？"},
+  {id:"pl11",cat:"場所・施設",foreign:"Gehen Sie geradeaus und dann links.",ja:"まっすぐ行って、それから左です。"},
+  {id:"pl12",cat:"場所・施設",foreign:"Die Adresse ist Hauptstraße 10.",ja:"住所はハウプトシュトラーセ10番地です。"},
+
+  // ===== 銀行・郵便局 =====
+  {id:"bk01",cat:"銀行・郵便局",foreign:"Ich möchte Geld auf mein Konto einzahlen.",ja:"私の口座に入金したいです。"},
+  {id:"bk02",cat:"銀行・郵便局",foreign:"Wechseln Sie auch Fremdwährung?",ja:"外貨両替も扱っていますか？"},
+  {id:"bk03",cat:"銀行・郵便局",foreign:"Ich möchte bitte zehn Briefmarken.",ja:"切手を10枚ください。"},
+  {id:"bk04",cat:"銀行・郵便局",foreign:"Ich möchte Geld abheben.",ja:"お金を引き出したいです。"},
+  {id:"bk05",cat:"銀行・郵便局",foreign:"Wie ist der Wechselkurs?",ja:"両替レートはどのくらいですか？"},
+  {id:"bk06",cat:"銀行・郵便局",foreign:"Ich möchte ein Paket schicken.",ja:"小包を送りたいです。"},
+  {id:"bk07",cat:"銀行・郵便局",foreign:"Wie viel kostet das Porto?",ja:"送料はいくらですか？"},
+
+  // ===== 依頼・許可 =====
+  {id:"rq01",cat:"依頼・許可",foreign:"Können Sie das wiederholen?",ja:"もう一度言ってください。"},
+  {id:"rq02",cat:"依頼・許可",foreign:"Sprechen Sie bitte langsamer.",ja:"もう少しゆっくり話してください。"},
+  {id:"rq03",cat:"依頼・許可",foreign:"Darf ich hier sitzen?",ja:"ここに座ってもいいですか？"},
+  {id:"rq04",cat:"依頼・許可",foreign:"Könnten Sie mir helfen?",ja:"手伝っていただけませんか？（丁寧）"},
+  {id:"rq05",cat:"依頼・許可",foreign:"Darf man hier fotografieren?",ja:"ここで写真を撮ってもいいですか？"},
+  {id:"rq06",cat:"依頼・許可",foreign:"Können Sie das bitte aufschreiben?",ja:"書いていただけますか？"},
+  {id:"rq07",cat:"依頼・許可",foreign:"Kannst du mir bitte das Salz geben?",ja:"塩を取ってくれますか？"},
+  {id:"rq08",cat:"依頼・許可",foreign:"Könnten Sie das Fenster öffnen?",ja:"窓を開けていただけますか？"},
+  {id:"rq09",cat:"依頼・許可",foreign:"Hier darf man nicht rauchen.",ja:"ここでは喫煙してはいけません。"},
+  {id:"rq10",cat:"依頼・許可",foreign:"Darf ich das Telefon benutzen?",ja:"電話を使ってもいいですか？"},
+
+  // ===== 命令形 =====
+  {id:"im01",cat:"命令形",foreign:"Kommen Sie bitte herein!",ja:"どうぞお入りください！"},
+  {id:"im02",cat:"命令形",foreign:"Gehen Sie geradeaus!",ja:"まっすぐ進んでください！"},
+  {id:"im03",cat:"命令形",foreign:"Setzen Sie sich, bitte.",ja:"どうぞお座りください。"},
+  {id:"im04",cat:"命令形",foreign:"Warten Sie bitte einen Moment.",ja:"少々お待ちください。"},
+  {id:"im05",cat:"命令形",foreign:"Komm mal her!",ja:"こっちへ来て！（カジュアル）"},
+  {id:"im06",cat:"命令形",foreign:"Schreib das bitte auf.",ja:"それを書き留めて。（カジュアル）"},
+  {id:"im07",cat:"命令形",foreign:"Sei bitte ruhig!",ja:"静かにしてください！（カジュアル）"},
+  {id:"im08",cat:"命令形",foreign:"Öffnen Sie die Tür bitte.",ja:"ドアを開けてください。"},
+  {id:"im09",cat:"命令形",foreign:"Sagen Sie das bitte noch einmal.",ja:"もう一度おっしゃってください。"},
+  {id:"im10",cat:"命令形",foreign:"Bitte warten Sie hier.",ja:"ここでお待ちください。"},
+
+  // ===== 便利フレーズ =====
+  {id:"us01",cat:"便利フレーズ",foreign:"Ich verstehe nicht.",ja:"分かりません。"},
+  {id:"us02",cat:"便利フレーズ",foreign:"Wie bitte?",ja:"え？（もう一度）"},
+  {id:"us03",cat:"便利フレーズ",foreign:"Was bedeutet das?",ja:"それはどういう意味ですか？"},
+  {id:"us04",cat:"便利フレーズ",foreign:"Können Sie das buchstabieren?",ja:"スペルを言ってください。"},
+  {id:"us05",cat:"便利フレーズ",foreign:"Ich glaube schon.",ja:"そう思います。"},
+  {id:"us06",cat:"便利フレーズ",foreign:"Vielleicht.",ja:"たぶん。"},
+  {id:"us07",cat:"便利フレーズ",foreign:"Natürlich.",ja:"もちろん。"},
+  {id:"us08",cat:"便利フレーズ",foreign:"Kein Problem.",ja:"問題ありません。"},
+  {id:"us09",cat:"便利フレーズ",foreign:"Das stimmt.",ja:"そうですね。"},
+  {id:"us10",cat:"便利フレーズ",foreign:"Das ist nicht richtig.",ja:"それは正しくありません。"},
+  {id:"us11",cat:"便利フレーズ",foreign:"Ich weiß nicht.",ja:"知りません。"},
+  {id:"us12",cat:"便利フレーズ",foreign:"Moment bitte.",ja:"少々お待ちください。"},
+  {id:"us13",cat:"便利フレーズ",foreign:"Ich bin einverstanden.",ja:"同意します。"},
+  {id:"us14",cat:"便利フレーズ",foreign:"Ich bin nicht sicher.",ja:"よく分かりません。"},
+  {id:"us15",cat:"便利フレーズ",foreign:"Das ist eine gute Idee.",ja:"それはいいアイデアですね。"},
+  {id:"us16",cat:"便利フレーズ",foreign:"Entschuldigung, ich habe das nicht verstanden.",ja:"すみません、聞き取れませんでした。"},
+  {id:"us17",cat:"便利フレーズ",foreign:"Kann ich Ihnen helfen?",ja:"お手伝いしましょうか？"},
+
+  // ===== 感情・気持ち =====
+  {id:"em01",cat:"感情・気持ち",foreign:"Ich freue mich sehr auf das Konzert.",ja:"そのコンサートをとても楽しみにしています。"},
+  {id:"em02",cat:"感情・気持ち",foreign:"Ich bin traurig.",ja:"悲しいです。"},
+  {id:"em03",cat:"感情・気持ち",foreign:"Ich bin glücklich.",ja:"幸せです。"},
+  {id:"em04",cat:"感情・気持ち",foreign:"Das finde ich nicht gut.",ja:"それは良くないと思います。"},
+  {id:"em05",cat:"感情・気持ち",foreign:"Tut mir leid, das habe ich nicht gewusst.",ja:"ごめん、それは知らなかった。"},
+  {id:"em06",cat:"感情・気持ち",foreign:"Das ist wunderbar!",ja:"素晴らしいです！"},
+  {id:"em07",cat:"感情・気持ち",foreign:"Ich bin wütend.",ja:"怒っています。"},
+  {id:"em08",cat:"感情・気持ち",foreign:"Ich habe Angst.",ja:"怖いです。"},
+  {id:"em09",cat:"感情・気持ち",foreign:"Ich bin überrascht.",ja:"驚いています。"},
+  {id:"em10",cat:"感情・気持ち",foreign:"Das macht mich glücklich.",ja:"それは私を幸せにします。"},
+  {id:"em11",cat:"感情・気持ち",foreign:"Ich freue mich auf das Wochenende.",ja:"週末を楽しみにしています。"},
+  {id:"em12",cat:"感情・気持ち",foreign:"Ich vermisse dich.",ja:"あなたが恋しいです。"},
+  {id:"em13",cat:"感情・気持ち",foreign:"Das gefällt mir sehr.",ja:"それがとても気に入りました。"},
+  {id:"em14",cat:"感情・気持ち",foreign:"Ich langweile mich.",ja:"退屈しています。"},
+
+  // ===== 趣味・余暇 =====
+  {id:"hb01",cat:"趣味・余暇",foreign:"Mein Hobby ist Fotografieren.",ja:"私の趣味は写真撮影です。"},
+  {id:"hb02",cat:"趣味・余暇",foreign:"Ich interessiere mich für klassische Musik.",ja:"私はクラシック音楽に興味があります。"},
+  {id:"hb03",cat:"趣味・余暇",foreign:"Treibst du regelmäßig Sport?",ja:"定期的にスポーツをしていますか？"},
+  {id:"hb04",cat:"趣味・余暇",foreign:"Ich spiele gerne Gitarre.",ja:"ギターを弾くのが好きです。"},
+  {id:"hb05",cat:"趣味・余暇",foreign:"Am Wochenende gehe ich wandern.",ja:"週末にハイキングに行きます。"},
+  {id:"hb06",cat:"趣味・余暇",foreign:"Ich lese gerne Romane.",ja:"小説を読むのが好きです。"},
+  {id:"hb07",cat:"趣味・余暇",foreign:"Ich male in meiner Freizeit.",ja:"余暇に絵を描きます。"},
+  {id:"hb08",cat:"趣味・余暇",foreign:"Ich treffe mich oft mit Freunden.",ja:"よく友達と会います。"},
+  {id:"hb09",cat:"趣味・余暇",foreign:"Wir gehen heute Abend ins Kino.",ja:"今晩映画館に行きます。"},
+  {id:"hb10",cat:"趣味・余暇",foreign:"Spielst du ein Instrument?",ja:"楽器を演奏しますか？"},
+
+  // ===== 仕事・キャリア =====
+  {id:"wk01",cat:"仕事・キャリア",foreign:"Ich bewerbe mich um eine Stelle als Verkäuferin.",ja:"私は販売員の職に応募しています。"},
+  {id:"wk02",cat:"仕事・キャリア",foreign:"Er arbeitet schon seit fünf Jahren bei der Firma.",ja:"彼はもう5年間その会社で働いています。"},
+  {id:"wk03",cat:"仕事・キャリア",foreign:"Mein Kollege ist sehr hilfsbereit.",ja:"私の同僚はとても助けになります。"},
+  {id:"wk04",cat:"仕事・キャリア",foreign:"Ich habe ein Vorstellungsgespräch.",ja:"面接があります。"},
+  {id:"wk05",cat:"仕事・キャリア",foreign:"Das Meeting beginnt um zehn Uhr.",ja:"会議は10時に始まります。"},
+  {id:"wk06",cat:"仕事・キャリア",foreign:"Ich arbeite im Homeoffice.",ja:"在宅勤務しています。"},
+  {id:"wk07",cat:"仕事・キャリア",foreign:"Ich habe Urlaub genommen.",ja:"有給休暇を取りました。"},
+  {id:"wk08",cat:"仕事・キャリア",foreign:"Wie ist Ihr Chef?",ja:"上司はどんな方ですか？"},
+  {id:"wk09",cat:"仕事・キャリア",foreign:"Ich bin selbstständig.",ja:"私は自営業です。"},
+  {id:"wk10",cat:"仕事・キャリア",foreign:"Das Gehalt ist gut.",ja:"給料は良いです。"},
+
+  // ===== コミュニケーション =====
+  {id:"co01",cat:"コミュニケーション",foreign:"Hier ist Lukas. Kann ich bitte mit Frau Schmidt sprechen?",ja:"ルーカスです。シュミットさんとお話しできますか？"},
+  {id:"co02",cat:"コミュニケーション",foreign:"Die Verbindung ist schlecht. Können Sie mich zurückrufen?",ja:"回線が悪いです。かけ直してくれますか？"},
+  {id:"co03",cat:"コミュニケーション",foreign:"Ich habe deine E-Mail noch nicht bekommen.",ja:"君のメールはまだ届いていないよ。"},
+  {id:"co04",cat:"コミュニケーション",foreign:"Ich schicke Ihnen eine Nachricht.",ja:"メッセージを送ります。"},
+  {id:"co05",cat:"コミュニケーション",foreign:"Können Sie mir Ihre E-Mail-Adresse geben?",ja:"メールアドレスを教えていただけますか？"},
+  {id:"co06",cat:"コミュニケーション",foreign:"Ich rufe Sie morgen an.",ja:"明日お電話します。"},
+  {id:"co07",cat:"コミュニケーション",foreign:"Können Sie mir bitte eine SMS schicken?",ja:"SMSを送っていただけますか？"},
+
+  // ===== 形容詞・状態 =====
+  {id:"aj01",cat:"形容詞・状態",foreign:"Das Buch ist interessant.",ja:"その本は面白いです。"},
+  {id:"aj02",cat:"形容詞・状態",foreign:"Die Stadt ist groß.",ja:"その街は大きいです。"},
+  {id:"aj03",cat:"形容詞・状態",foreign:"Das Zimmer ist klein aber gemütlich.",ja:"部屋は小さいが居心地がいいです。"},
+  {id:"aj04",cat:"形容詞・状態",foreign:"Das Essen ist sehr lecker.",ja:"その料理はとてもおいしいです。"},
+  {id:"aj05",cat:"形容詞・状態",foreign:"Er ist sehr freundlich.",ja:"彼はとても親切です。"},
+  {id:"aj06",cat:"形容詞・状態",foreign:"Die Prüfung war schwer.",ja:"試験は難しかったです。"},
+  {id:"aj07",cat:"形容詞・状態",foreign:"Das ist einfach.",ja:"それは簡単です。"},
+  {id:"aj08",cat:"形容詞・状態",foreign:"Die Musik ist laut.",ja:"音楽が大きいです。"},
+  {id:"aj09",cat:"形容詞・状態",foreign:"Das Wetter ist schön.",ja:"天気がいいです。"},
+  {id:"aj10",cat:"形容詞・状態",foreign:"Ich bin sehr müde.",ja:"とても疲れています。"},
+  {id:"aj11",cat:"形容詞・状態",foreign:"Das ist billig.",ja:"それは安いです。"},
+  {id:"aj12",cat:"形容詞・状態",foreign:"Der Kaffee ist heiß.",ja:"コーヒーが熱いです。"},
+  {id:"aj13",cat:"形容詞・状態",foreign:"Das Auto ist neu.",ja:"その車は新しいです。"},
+  {id:"aj14",cat:"形容詞・状態",foreign:"Sie ist sehr intelligent.",ja:"彼女はとても賢いです。"},
+  {id:"aj15",cat:"形容詞・状態",foreign:"Das Kind ist süß.",ja:"その子供は可愛いです。"},
+
+  // ===== 比較級・最上級 =====
+  {id:"cp01",cat:"比較・最上級",foreign:"Dieses Auto ist schneller.",ja:"この車はより速いです。"},
+  {id:"cp02",cat:"比較・最上級",foreign:"Deutsch ist schwieriger als Englisch.",ja:"ドイツ語は英語より難しいです。"},
+  {id:"cp03",cat:"比較・最上級",foreign:"Das ist das beste Restaurant hier.",ja:"ここで一番良いレストランです。"},
+  {id:"cp04",cat:"比較・最上級",foreign:"Er ist größer als ich.",ja:"彼は私より背が高いです。"},
+  {id:"cp05",cat:"比較・最上級",foreign:"Das ist der günstigste Preis.",ja:"これが一番安い値段です。"},
+  {id:"cp06",cat:"比較・最上級",foreign:"Es ist heute kälter als gestern.",ja:"今日は昨日より寒いです。"},
+  {id:"cp07",cat:"比較・最上級",foreign:"Welcher Film ist am interessantesten?",ja:"どの映画が一番面白いですか？"},
+  {id:"cp08",cat:"比較・最上級",foreign:"Das ist das schönste Kleid.",ja:"これが一番きれいなドレスです。"},
+  {id:"cp09",cat:"比較・最上級",foreign:"Sie spricht besser Deutsch als er.",ja:"彼女は彼よりドイツ語が上手です。"},
+  {id:"cp10",cat:"比較・最上級",foreign:"Das ist das älteste Gebäude in der Stadt.",ja:"これは街で一番古い建物です。"},
+
+  // ===== 現在完了形 =====
+  {id:"pf01",cat:"現在完了形",foreign:"Ich habe ein Buch gelesen.",ja:"私は本を読みました。"},
+  {id:"pf02",cat:"現在完了形",foreign:"Er hat einen Kuchen gebacken.",ja:"彼はケーキを焼きました。"},
+  {id:"pf03",cat:"現在完了形",foreign:"Wir haben einen Film gesehen.",ja:"私たちは映画を見ました。"},
+  {id:"pf04",cat:"現在完了形",foreign:"Was hast du am Wochenende gemacht?",ja:"週末は何をしましたか？"},
+  {id:"pf05",cat:"現在完了形",foreign:"Ich habe Deutsch gelernt.",ja:"ドイツ語を勉強しました。"},
+  {id:"pf06",cat:"現在完了形",foreign:"Ich habe Pizza gegessen.",ja:"ピザを食べました。"},
+  {id:"pf07",cat:"現在完了形",foreign:"Er hat Kaffee getrunken.",ja:"彼はコーヒーを飲みました。"},
+  {id:"pf08",cat:"現在完了形",foreign:"Ich habe den Schlüssel vergessen.",ja:"鍵を忘れました。"},
+  {id:"pf09",cat:"現在完了形",foreign:"Er hat mich angerufen.",ja:"彼が電話してくれました。"},
+  {id:"pf10",cat:"現在完了形",foreign:"Wir haben die Wohnung aufgeräumt.",ja:"アパートを片付けました。"},
+  {id:"pf11",cat:"現在完了形",foreign:"Hast du gut geschlafen?",ja:"よく眠れた？"},
+  {id:"pf12",cat:"現在完了形",foreign:"Ich bin nach Berlin gefahren.",ja:"ベルリンに行きました。"},
+  {id:"pf13",cat:"現在完了形",foreign:"Er ist nach Japan geflogen.",ja:"彼は日本に飛びました。"},
+  {id:"pf14",cat:"現在完了形",foreign:"Wir sind um sechs Uhr aufgestanden.",ja:"6時に起きました。"},
+  {id:"pf15",cat:"現在完了形",foreign:"Ich bin ins Kino gegangen.",ja:"映画を見に行きました。"},
+  {id:"pf16",cat:"現在完了形",foreign:"Was ist passiert?",ja:"何が起きたのですか？"},
+  {id:"pf17",cat:"現在完了形",foreign:"Der Zug ist schon abgefahren.",ja:"電車はもう出発しました。"},
+  {id:"pf18",cat:"現在完了形",foreign:"Sie ist letztes Jahr umgezogen.",ja:"彼女は去年引っ越しました。"},
+  {id:"pf19",cat:"現在完了形",foreign:"Ich bin zu spät gekommen.",ja:"遅刻しました。"},
+  {id:"pf20",cat:"現在完了形",foreign:"Sie hat die Prüfung bestanden.",ja:"彼女は試験に受かりました。"},
+  {id:"pf21",cat:"現在完了形",foreign:"Ich habe das nicht gewusst.",ja:"それは知りませんでした。"},
+  {id:"pf22",cat:"現在完了形",foreign:"Bist du mit dem Fahrrad gefahren?",ja:"自転車に乗って行ったの？"},
+  {id:"pf23",cat:"現在完了形",foreign:"Er ist groß geworden.",ja:"彼は大きくなりました。"},
+  {id:"pf24",cat:"現在完了形",foreign:"Ich habe eingekauft.",ja:"買い物しました。"},
+
+  // ===== 過去形（Präteritum） =====
+  {id:"pt01",cat:"過去形",foreign:"Ich war gestern krank.",ja:"昨日は病気でした。"},
+  {id:"pt02",cat:"過去形",foreign:"Er war im Urlaub.",ja:"彼は休暇中でした。"},
+  {id:"pt03",cat:"過去形",foreign:"Wir waren in Paris.",ja:"私たちはパリにいました。"},
+  {id:"pt04",cat:"過去形",foreign:"Das Wetter war schön.",ja:"天気が良かったです。"},
+  {id:"pt05",cat:"過去形",foreign:"Ich hatte keine Zeit.",ja:"時間がありませんでした。"},
+  {id:"pt06",cat:"過去形",foreign:"Er hatte Kopfschmerzen.",ja:"彼は頭痛がありました。"},
+  {id:"pt07",cat:"過去形",foreign:"Wir hatten viel Spaß.",ja:"とても楽しかったです。"},
+  {id:"pt08",cat:"過去形",foreign:"Ich konnte nicht kommen.",ja:"来ることができませんでした。"},
+  {id:"pt09",cat:"過去形",foreign:"Er musste arbeiten.",ja:"彼は働かなければなりませんでした。"},
+  {id:"pt10",cat:"過去形",foreign:"Gestern konnte ich nicht schlafen.",ja:"昨日眠れませんでした。"},
+  {id:"pt11",cat:"過去形",foreign:"Letztes Jahr wollten wir nach Italien reisen.",ja:"去年、私たちはイタリアへ旅行したかった。"},
+  {id:"pt12",cat:"過去形",foreign:"Als ich ein Kind war, habe ich viel gespielt.",ja:"子供の頃、たくさん遊びました。"},
+  {id:"pt13",cat:"過去形",foreign:"Früher hatte ich ein großes Haus.",ja:"以前、私は大きな家を持っていました。"},
+  {id:"pt14",cat:"過去形",foreign:"Letztes Jahr war ich in Italien.",ja:"去年、私はイタリアにいました。"},
+
+  // ===== 前置詞 =====
+  {id:"pr01",cat:"前置詞",foreign:"Ich wohne bei meinen Eltern.",ja:"私は両親のもとに住んでいます。"},
+  {id:"pr02",cat:"前置詞",foreign:"Wir gehen morgen ins Kino.",ja:"私たちは明日、映画館に行きます。"},
+  {id:"pr03",cat:"前置詞",foreign:"Die Brille ist auf dem Tisch.",ja:"メガネはテーブルの上にあります。"},
+  {id:"pr04",cat:"前置詞",foreign:"Leg bitte das Buch auf den Tisch.",ja:"本をテーブルの上に置いてください。"},
+  {id:"pr05",cat:"前置詞",foreign:"Ich fahre mit dem Zug.",ja:"電車で行きます。"},
+  {id:"pr06",cat:"前置詞",foreign:"Ich komme aus Japan.",ja:"私は日本から来ました。"},
+  {id:"pr07",cat:"前置詞",foreign:"Ich gehe zum Arzt.",ja:"医者に行きます。"},
+  {id:"pr08",cat:"前置詞",foreign:"Wir gehen zur Schule.",ja:"学校に行きます。"},
+  {id:"pr09",cat:"前置詞",foreign:"Er kommt vom Bahnhof.",ja:"彼は駅から来ます。"},
+  {id:"pr10",cat:"前置詞",foreign:"Ich gehe durch den Park.",ja:"公園を通り抜けます。"},
+  {id:"pr11",cat:"前置詞",foreign:"Das Geschenk ist für dich.",ja:"プレゼントは君のためです。"},
+  {id:"pr12",cat:"前置詞",foreign:"Ich bin gegen den Plan.",ja:"私はその計画に反対です。"},
+  {id:"pr13",cat:"前置詞",foreign:"Er geht ohne seinen Schirm.",ja:"彼は傘なしで行きます。"},
+  {id:"pr14",cat:"前置詞",foreign:"Er arbeitet bis achtzehn Uhr.",ja:"彼は18時まで働きます。"},
+  {id:"pr15",cat:"前置詞",foreign:"Nach dem Essen gehe ich spazieren.",ja:"食事のあと散歩に行きます。"},
+  {id:"pr16",cat:"前置詞",foreign:"Seit einem Jahr lerne ich Deutsch.",ja:"1年前からドイツ語を学んでいます。"},
+  {id:"pr17",cat:"前置詞",foreign:"Ohne meinen Kaffee kann ich nicht arbeiten.",ja:"コーヒーなしでは仕事ができません。"},
+  {id:"pr18",cat:"前置詞",foreign:"Ich gehe nach der Arbeit einkaufen.",ja:"仕事の後に買い物に行きます。"},
+  {id:"pr19",cat:"前置詞",foreign:"Die Katze sitzt unter dem Stuhl.",ja:"猫は椅子の下に座っています。"},
+  {id:"pr20",cat:"前置詞",foreign:"Das Bild hängt an der Wand.",ja:"絵は壁に掛かっています。"},
+  {id:"pr21",cat:"前置詞",foreign:"Ich hänge das Bild an die Wand.",ja:"私は絵を壁に掛けます。"},
+  {id:"pr22",cat:"前置詞",foreign:"Trotz des Regens gehen wir spazieren.",ja:"雨にもかかわらず、散歩に行きます。"},
+  {id:"pr23",cat:"前置詞",foreign:"Das ist das Auto meines Vaters.",ja:"これは私の父の車です。"},
+  {id:"pr24",cat:"前置詞",foreign:"Außer mir spricht niemand Japanisch.",ja:"私以外に誰も日本語を話しません。"},
+
+  // ===== 従属接続詞・語順 =====
+  {id:"wt01",cat:"語順・接続詞",foreign:"Ich bleibe zu Hause, weil es regnet.",ja:"雨が降っているので、家にいます。"},
+  {id:"wt02",cat:"語順・接続詞",foreign:"Wenn ich Zeit habe, besuche ich dich.",ja:"時間があれば、君を訪ねるよ。"},
+  {id:"wt03",cat:"語順・接続詞",foreign:"Er sagt, dass er morgen kommt.",ja:"彼は明日来ると言っています。"},
+  {id:"wt04",cat:"語順・接続詞",foreign:"Ich weiß nicht, ob das stimmt.",ja:"それが正しいのかどうか分かりません。"},
+  {id:"wt05",cat:"語順・接続詞",foreign:"Ich finde, dass Deutsch eine schöne Sprache ist.",ja:"ドイツ語は美しい言語だと思います。"},
+  {id:"wt06",cat:"語順・接続詞",foreign:"Ich bin müde, weil ich wenig geschlafen habe.",ja:"あまり眠れなかったので、疲れています。"},
+  {id:"wt07",cat:"語順・接続詞",foreign:"Das ist der Mann, der in meiner Nähe wohnt.",ja:"あれは私の近所に住んでいる男性です。"},
+  {id:"wt08",cat:"語順・接続詞",foreign:"Weißt du, ob der Bus schon gekommen ist?",ja:"バスがもう来たかどうか知っていますか？"},
+  {id:"wt09",cat:"語順・接続詞",foreign:"Obwohl es regnet, gehen wir spazieren.",ja:"雨が降っているけれど、散歩に行きます。"},
+  {id:"wt10",cat:"語順・接続詞",foreign:"Ich esse, während ich fernsehe.",ja:"テレビを見ながら食べます。"},
+  {id:"wt11",cat:"語順・接続詞",foreign:"Bevor ich ins Bett gehe, putze ich die Zähne.",ja:"寝る前に歯を磨きます。"},
+  {id:"wt12",cat:"語順・接続詞",foreign:"Nachdem ich gegessen habe, gehe ich joggen.",ja:"食事の後にジョギングに行きます。"},
+
+  // ===== 再帰動詞 =====
+  {id:"rf01",cat:"再帰動詞",foreign:"Ich fühle mich heute nicht gut.",ja:"今日は体調が良くない。"},
+  {id:"rf02",cat:"再帰動詞",foreign:"Wir müssen uns beeilen.",ja:"急がないと。"},
+  {id:"rf03",cat:"再帰動詞",foreign:"Hast du dich schon für den Kurs angemeldet?",ja:"もうその講座に申し込みましたか？"},
+  {id:"rf04",cat:"再帰動詞",foreign:"Ich putze mir die Zähne.",ja:"私は歯を磨きます。"},
+  {id:"rf05",cat:"再帰動詞",foreign:"Ich setze mich hin.",ja:"座ります。"},
+  {id:"rf06",cat:"再帰動詞",foreign:"Worüber ärgerst du dich?",ja:"何に腹を立てているのですか？"},
+  {id:"rf07",cat:"再帰動詞",foreign:"Ich erinnere mich an ihn.",ja:"彼のことを覚えています。"},
+  {id:"rf08",cat:"再帰動詞",foreign:"Sie interessiert sich für Sport.",ja:"彼女はスポーツに興味があります。"},
+  {id:"rf09",cat:"再帰動詞",foreign:"Ich freue mich auf das Wochenende.",ja:"週末を楽しみにしています。"},
+  {id:"rf10",cat:"再帰動詞",foreign:"Ich wasche mich jeden Morgen.",ja:"毎朝体を洗います。"},
+
+  // ===== 形容詞の格変化 =====
+  {id:"da01",cat:"形容詞の格変化",foreign:"Ich möchte ein neues Auto kaufen.",ja:"私は新しい車を買いたい。"},
+  {id:"da02",cat:"形容詞の格変化",foreign:"Das ist der beste Kuchen, den ich kenne.",ja:"これは私が知っている中で最高のケーキだ。"},
+  {id:"da03",cat:"形容詞の格変化",foreign:"Mit netten Leuten kann man gut reden.",ja:"親切な人とはうまく話せる。"},
+  {id:"da04",cat:"形容詞の格変化",foreign:"Ich suche ein gutes Restaurant.",ja:"良いレストランを探しています。"},
+  {id:"da05",cat:"形容詞の格変化",foreign:"Das ist ein schönes Bild.",ja:"これはきれいな絵です。"},
+  {id:"da06",cat:"形容詞の格変化",foreign:"Ich habe einen alten Freund getroffen.",ja:"古い友人に会いました。"},
+  {id:"da07",cat:"形容詞の格変化",foreign:"Sie trägt ein rotes Kleid.",ja:"彼女は赤いドレスを着ています。"},
+  {id:"da08",cat:"形容詞の格変化",foreign:"Er wohnt in einer kleinen Stadt.",ja:"彼は小さな街に住んでいます。"},
+
+  // ===== 名詞の性と格 =====
+  {id:"nm01",cat:"名詞の性と格",foreign:"Der Mann ist nett.",ja:"その男性は親切です。"},
+  {id:"nm02",cat:"名詞の性と格",foreign:"Ich sehe den Mann.",ja:"私はその男性を見ます。"},
+  {id:"nm03",cat:"名詞の性と格",foreign:"Er hat einen Hund und eine Katze.",ja:"彼は犬と猫を一匹ずつ飼っています。"},
+  {id:"nm04",cat:"名詞の性と格",foreign:"Die Frau ist Ärztin.",ja:"その女性は医者です。"},
+  {id:"nm05",cat:"名詞の性と格",foreign:"Ich helfe dem Mann.",ja:"私はその男性を手伝います。"},
+  {id:"nm06",cat:"名詞の性と格",foreign:"Das ist das Buch des Lehrers.",ja:"これは先生の本です。"},
+  {id:"nm07",cat:"名詞の性と格",foreign:"Ich gebe der Frau eine Rose.",ja:"その女性にバラをあげます。"},
+  {id:"nm08",cat:"名詞の性と格",foreign:"Das ist ein schöner Tag.",ja:"これは良い日です。"},
+  {id:"nm09",cat:"名詞の性と格",foreign:"Kein Problem.",ja:"問題ありません。"},
+  {id:"nm10",cat:"名詞の性と格",foreign:"Ich habe kein Geld.",ja:"お金がありません。"},
+  {id:"nm11",cat:"名詞の性と格",foreign:"Das ist mein Freund.",ja:"これは私の友達です。"},
+  {id:"nm12",cat:"名詞の性と格",foreign:"Ich liebe dich.",ja:"愛しています。"},
+  {id:"nm13",cat:"名詞の性と格",foreign:"Er gibt mir das Buch.",ja:"彼は私に本をくれます。"},
+
+  // ===== 接続法II式（丁寧・仮定） =====
+  {id:"kj01",cat:"接続法II式",foreign:"Könnten Sie mir bitte helfen?",ja:"手伝っていただけませんか？（丁寧）"},
+  {id:"kj02",cat:"接続法II式",foreign:"Ich würde gerne ein Haus am Meer kaufen.",ja:"海辺に家を買いたいものです。"},
+  {id:"kj03",cat:"接続法II式",foreign:"Könnten Sie das bitte wiederholen?",ja:"もう一度おっしゃっていただけますか？"},
+  {id:"kj04",cat:"接続法II式",foreign:"Ich würde gerne mehr Zeit haben.",ja:"もっと時間があればいいのに。"},
+  {id:"kj05",cat:"接続法II式",foreign:"Könnten Sie mir den Weg zeigen?",ja:"道を教えていただけますか？"},
+  {id:"kj06",cat:"接続法II式",foreign:"Es wäre schön, wenn du kommen könntest.",ja:"君が来られたら嬉しいのに。"},
+  {id:"kj07",cat:"接続法II式",foreign:"Dürfte ich Sie etwas fragen?",ja:"一つお聞きしてもよろしいですか？"},
+  {id:"kj08",cat:"接続法II式",foreign:"Du solltest mehr schlafen.",ja:"もっと寝たほうがいいよ。"},
+
+  // ===== 指示代名詞・不定代名詞 =====
+  {id:"pn01",cat:"代名詞",foreign:"Welches Buch nimmst du? – Ich nehme dieses.",ja:"どの本を取るの？ – これを取るよ。"},
+  {id:"pn02",cat:"代名詞",foreign:"Ich habe nichts gehört.",ja:"私は何も聞こえなかった。"},
+  {id:"pn03",cat:"代名詞",foreign:"Jemand hat an die Tür geklopft.",ja:"誰かがドアをノックした。"},
+  {id:"pn04",cat:"代名詞",foreign:"Niemand war zu Hause.",ja:"誰も家にいませんでした。"},
+  {id:"pn05",cat:"代名詞",foreign:"Ich mag alles.",ja:"何でも好きです。"},
+  {id:"pn06",cat:"代名詞",foreign:"Man muss das selbst machen.",ja:"それは自分でしなければなりません。"},
+  {id:"pn07",cat:"代名詞",foreign:"Das ist mir egal.",ja:"どちらでも構いません。"},
+  {id:"pn08",cat:"代名詞",foreign:"Ich habe etwas für dich.",ja:"君に何かあるよ。"},
+  {id:"pn09",cat:"代名詞",foreign:"Das Kleid gefällt mir sehr gut.",ja:"そのドレス、とても気に入りました。"},
+  {id:"pn10",cat:"代名詞",foreign:"Ich helfe dir gerne.",ja:"喜んでお手伝いします。"},
+  {id:"pn11",cat:"代名詞",foreign:"Ich schenke meiner Mutter Blumen.",ja:"母に花をプレゼントします。"},
+
+  // ===== 色 =====
+  {id:"cl01",cat:"色",foreign:"Das Auto ist rot.",ja:"その車は赤いです。"},
+  {id:"cl02",cat:"色",foreign:"Der Himmel ist blau.",ja:"空は青いです。"},
+  {id:"cl03",cat:"色",foreign:"Das Gras ist grün.",ja:"草は緑です。"},
+  {id:"cl04",cat:"色",foreign:"Die Sonne ist gelb.",ja:"太陽は黄色です。"},
+  {id:"cl05",cat:"色",foreign:"Die Nacht ist schwarz.",ja:"夜は黒いです。"},
+  {id:"cl06",cat:"色",foreign:"Der Schnee ist weiß.",ja:"雪は白いです。"},
+  {id:"cl07",cat:"色",foreign:"Sie trägt ein rotes Kleid.",ja:"彼女は赤いドレスを着ています。"},
+  {id:"cl08",cat:"色",foreign:"Ich mag die graue Jacke.",ja:"グレーのジャケットが好きです。"},
+  {id:"cl09",cat:"色",foreign:"Das braune Brot ist frisch.",ja:"茶色いパンは新鮮です。"},
+  {id:"cl10",cat:"色",foreign:"Die lila Blumen sind schön.",ja:"紫の花がきれいです。"},
+
+  // ===== 幹母音変化動詞 =====
+  {id:"st01",cat:"幹母音変化動詞",foreign:"Er fährt mit dem Bus.",ja:"彼はバスに乗ります。（fahren）"},
+  {id:"st02",cat:"幹母音変化動詞",foreign:"Sie schläft noch.",ja:"彼女はまだ寝ています。（schlafen）"},
+  {id:"st03",cat:"幹母音変化動詞",foreign:"Er liest ein Buch.",ja:"彼は本を読んでいます。（lesen）"},
+  {id:"st04",cat:"幹母音変化動詞",foreign:"Sie sieht einen Film.",ja:"彼女は映画を見ます。（sehen）"},
+  {id:"st05",cat:"幹母音変化動詞",foreign:"Er spricht Deutsch.",ja:"彼はドイツ語を話します。（sprechen）"},
+  {id:"st06",cat:"幹母音変化動詞",foreign:"Sie isst einen Apfel.",ja:"彼女はりんごを食べます。（essen）"},
+  {id:"st07",cat:"幹母音変化動詞",foreign:"Er nimmt den Bus.",ja:"彼はバスに乗ります。（nehmen）"},
+  {id:"st08",cat:"幹母音変化動詞",foreign:"Er gibt mir das Buch.",ja:"彼は私に本をくれます。（geben）"},
+  {id:"st09",cat:"幹母音変化動詞",foreign:"Er läuft schnell.",ja:"彼は速く走ります。（laufen）"},
+  {id:"st10",cat:"幹母音変化動詞",foreign:"Er weiß das nicht.",ja:"彼はそれを知りません。（wissen）"},
+  {id:"st11",cat:"幹母音変化動詞",foreign:"Trägst du eine Brille?",ja:"眼鏡をかけていますか？（tragen）"},
+  {id:"st12",cat:"幹母音変化動詞",foreign:"Sie hilft mir immer.",ja:"彼女はいつも助けてくれます。（helfen）"},
+  {id:"st13",cat:"幹母音変化動詞",foreign:"Er wirft den Ball.",ja:"彼はボールを投げます。（werfen）"},
+
+  // ===== 未来・予定 =====
+  {id:"fu01",cat:"未来・予定",foreign:"Morgen arbeite ich.",ja:"明日働きます。"},
+  {id:"fu02",cat:"未来・予定",foreign:"Ich werde morgen lernen.",ja:"明日勉強する予定です。"},
+  {id:"fu03",cat:"未来・予定",foreign:"Nächste Woche reise ich nach München.",ja:"来週ミュンヘンへ行きます。"},
+  {id:"fu04",cat:"未来・予定",foreign:"Wir werden nächstes Jahr heiraten.",ja:"私たちは来年結婚します。"},
+  {id:"fu05",cat:"未来・予定",foreign:"Das wird sehr schön sein.",ja:"それはとても素晴らしいでしょう。"},
+  {id:"fu06",cat:"未来・予定",foreign:"Ich denke, das wird klappen.",ja:"うまくいくと思います。"},
+  {id:"fu07",cat:"未来・予定",foreign:"Nächsten Monat ziehe ich um.",ja:"来月引っ越します。"},
+  {id:"fu08",cat:"未来・予定",foreign:"Ich habe vor, nach Deutschland zu fahren.",ja:"ドイツへ行くつもりです。"},
+
+  // ===== 旅行・観光 =====
+  {id:"tv01",cat:"旅行・観光",foreign:"Ich reise gerne.",ja:"旅行するのが好きです。"},
+  {id:"tv02",cat:"旅行・観光",foreign:"Wo kann ich die Eintrittskarten kaufen?",ja:"入場券はどこで買えますか？"},
+  {id:"tv03",cat:"旅行・観光",foreign:"Wie lange dauert die Fahrt?",ja:"移動にどのくらいかかりますか？"},
+  {id:"tv04",cat:"旅行・観光",foreign:"Ich möchte das Museum besuchen.",ja:"博物館を訪れたいです。"},
+  {id:"tv05",cat:"旅行・観光",foreign:"Wann öffnet das Museum?",ja:"博物館は何時に開きますか？"},
+  {id:"tv06",cat:"旅行・観光",foreign:"Haben Sie einen Stadtplan?",ja:"市街地図はありますか？"},
+  {id:"tv07",cat:"旅行・観光",foreign:"Was gibt es hier zu sehen?",ja:"ここには何が見どころですか？"},
+  {id:"tv08",cat:"旅行・観光",foreign:"Können Sie ein gutes Restaurant empfehlen?",ja:"良いレストランを推薦していただけますか？"},
+  {id:"tv09",cat:"旅行・観光",foreign:"Ich habe meinen Pass verloren.",ja:"パスポートをなくしました。"},
+  {id:"tv10",cat:"旅行・観光",foreign:"Wo ist die Touristeninformation?",ja:"観光案内所はどこですか？"},
+
+  // ===== 教育・学習 =====
+  {id:"ed01",cat:"教育・学習",foreign:"Ich studiere an der Universität.",ja:"大学で勉強しています。"},
+  {id:"ed02",cat:"教育・学習",foreign:"Mein Lieblingsfach ist Mathematik.",ja:"好きな科目は数学です。"},
+  {id:"ed03",cat:"教育・学習",foreign:"Ich habe die Prüfung bestanden.",ja:"試験に合格しました。"},
+  {id:"ed04",cat:"教育・学習",foreign:"Der Unterricht beginnt um acht Uhr.",ja:"授業は8時に始まります。"},
+  {id:"ed05",cat:"教育・学習",foreign:"Ich muss die Hausaufgaben machen.",ja:"宿題をしなければなりません。"},
+  {id:"ed06",cat:"教育・学習",foreign:"Deutsch lernen macht Spaß.",ja:"ドイツ語を学ぶのは楽しいです。"},
+  {id:"ed07",cat:"教育・学習",foreign:"Ich verstehe die Grammatik nicht.",ja:"文法が分かりません。"},
+  {id:"ed08",cat:"教育・学習",foreign:"Können Sie das erklären?",ja:"説明していただけますか？"},
+
+  // ===== 日常会話フレーズ =====
+  {id:"dc01",cat:"日常会話",foreign:"Was machst du heute Abend?",ja:"今晩何するの？"},
+  {id:"dc02",cat:"日常会話",foreign:"Hast du Lust, ins Kino zu gehen?",ja:"映画に行かない？"},
+  {id:"dc03",cat:"日常会話",foreign:"Ich komme gerne mit.",ja:"喜んで一緒に行くよ。"},
+  {id:"dc04",cat:"日常会話",foreign:"Tut mir leid, ich habe keine Zeit.",ja:"ごめん、時間がないんだ。"},
+  {id:"dc05",cat:"日常会話",foreign:"Das macht nichts.",ja:"気にしないで。"},
+  {id:"dc06",cat:"日常会話",foreign:"Wie wäre es mit morgen?",ja:"明日はどう？"},
+  {id:"dc07",cat:"日常会話",foreign:"Das klingt gut!",ja:"それいいね！"},
+  {id:"dc08",cat:"日常会話",foreign:"Ich bin gleich da.",ja:"もうすぐ着きます。"},
+  {id:"dc09",cat:"日常会話",foreign:"Ich habe keine Ahnung.",ja:"全然分かりません。"},
+  {id:"dc10",cat:"日常会話",foreign:"Pass auf dich auf!",ja:"気をつけてね！"},
+  {id:"dc11",cat:"日常会話",foreign:"Ruf mich an!",ja:"電話してね！"},
+  {id:"dc12",cat:"日常会話",foreign:"Wir sehen uns!",ja:"また会おう！"},
+  {id:"dc13",cat:"日常会話",foreign:"Viel Spaß!",ja:"楽しんでね！"},
+  {id:"dc14",cat:"日常会話",foreign:"Viel Erfolg!",ja:"頑張ってね！"},
+  {id:"dc15",cat:"日常会話",foreign:"Wie war dein Tag?",ja:"今日はどうだった？"},
+  {id:"dc16",cat:"日常会話",foreign:"Nicht schlecht.",ja:"悪くないよ。"},
+  {id:"dc17",cat:"日常会話",foreign:"Ich bin gleich fertig.",ja:"もうすぐ終わります。"},
+  {id:"dc18",cat:"日常会話",foreign:"Warte mal kurz.",ja:"ちょっと待って。"},
+  {id:"dc19",cat:"日常会話",foreign:"Das stimmt nicht.",ja:"それは違います。"},
+  {id:"dc20",cat:"日常会話",foreign:"Ich habe einen langen Tag gehabt.",ja:"長い一日でした。"},
+
+  // ===== 文化的表現 =====
+  {id:"cu01",cat:"文化的表現",foreign:"Prost! Auf dein Wohl!",ja:"乾杯！あなたの健康のために！"},
+  {id:"cu02",cat:"文化的表現",foreign:"Guten Appetit!",ja:"召し上がれ！"},
+  {id:"cu03",cat:"文化的表現",foreign:"Herzlichen Glückwunsch zum Geburtstag!",ja:"誕生日おめでとう！"},
+  {id:"cu04",cat:"文化的表現",foreign:"Frohe Weihnachten!",ja:"メリークリスマス！"},
+  {id:"cu05",cat:"文化的表現",foreign:"Frohes neues Jahr!",ja:"明けましておめでとうございます！"},
+  {id:"cu06",cat:"文化的表現",foreign:"Schönes Wochenende!",ja:"良い週末を！"},
+  {id:"cu07",cat:"文化的表現",foreign:"Gute Besserung!",ja:"お大事に！"},
+  {id:"cu08",cat:"文化的表現",foreign:"Danke gleichfalls!",ja:"あなたもどうぞ！"},
+  {id:"cu09",cat:"文化的表現",foreign:"Das ist mir wichtig.",ja:"それは私にとって大切です。"},
+  {id:"cu10",cat:"文化的表現",foreign:"Ehrensache!",ja:"もちろんです！（光栄です）"},
+
+  // ===== 旅行での会話 =====
+  {id:"tr_ex01",cat:"旅行会話",foreign:"Entschuldigung, sprechen Sie Englisch?",ja:"すみません、英語を話せますか？"},
+  {id:"tr_ex02",cat:"旅行会話",foreign:"Ich bin Tourist.",ja:"私は観光客です。"},
+  {id:"tr_ex03",cat:"旅行会話",foreign:"Wo kann ich Geld wechseln?",ja:"どこでお金を両替できますか？"},
+  {id:"tr_ex04",cat:"旅行会話",foreign:"Wie weit ist es bis zum Stadtzentrum?",ja:"中心部までどのくらいの距離ですか？"},
+  {id:"tr_ex05",cat:"旅行会話",foreign:"Ich habe meine Tasche verloren.",ja:"バッグをなくしました。"},
+  {id:"tr_ex06",cat:"旅行会話",foreign:"Kann ich hier bezahlen?",ja:"ここで支払えますか？"},
+  {id:"tr_ex07",cat:"旅行会話",foreign:"Gibt es einen Geldautomaten hier?",ja:"ATMはありますか？"},
+  {id:"tr_ex08",cat:"旅行会話",foreign:"Ich brauche einen Arzt.",ja:"医者が必要です。"},
+  {id:"tr_ex09",cat:"旅行会話",foreign:"Bitte rufen Sie ein Taxi für mich.",ja:"タクシーを呼んでください。"},
+  {id:"tr_ex10",cat:"旅行会話",foreign:"Wie lange hat die Apotheke geöffnet?",ja:"薬局は何時まで開いていますか？"},
+
+  // ===== 体・健康詳細 =====
+  {id:"bd01",cat:"体・健康詳細",foreign:"Ich habe Halsschmerzen.",ja:"喉が痛いです。"},
+  {id:"bd02",cat:"体・健康詳細",foreign:"Mein Rücken tut weh.",ja:"背中が痛いです。"},
+  {id:"bd03",cat:"体・健康詳細",foreign:"Ich habe mir den Arm gebrochen.",ja:"腕を骨折しました。"},
+  {id:"bd04",cat:"体・健康詳細",foreign:"Ich habe einen Schnitt am Finger.",ja:"指に切り傷があります。"},
+  {id:"bd05",cat:"体・健康詳細",foreign:"Ich bin erkältet.",ja:"風邪をひいています。"},
+  {id:"bd06",cat:"体・健康詳細",foreign:"Ich habe Durchfall.",ja:"下痢しています。"},
+  {id:"bd07",cat:"体・健康詳細",foreign:"Mir dreht sich der Kopf.",ja:"目が回ります。"},
+  {id:"bd08",cat:"体・健康詳細",foreign:"Ich brauche ein Rezept.",ja:"処方箋が必要です。"},
+  {id:"bd09",cat:"体・健康詳細",foreign:"Haben Sie diese Tabletten?",ja:"この薬はありますか？"},
+  {id:"bd10",cat:"体・健康詳細",foreign:"Seit wann haben Sie die Schmerzen?",ja:"いつからその痛みがありますか？"},
+
+  // ===== 住まいの詳細 =====
+  {id:"hd01",cat:"住まいの詳細",foreign:"Ich suche eine Zwei-Zimmer-Wohnung.",ja:"2部屋のアパートを探しています。"},
+  {id:"hd02",cat:"住まいの詳細",foreign:"Wie hoch ist die Miete?",ja:"家賃はいくらですか？"},
+  {id:"hd03",cat:"住まいの詳細",foreign:"Ist der Strom inklusive?",ja:"電気代は込みですか？"},
+  {id:"hd04",cat:"住まいの詳細",foreign:"Ich ziehe nächsten Monat um.",ja:"来月引っ越します。"},
+  {id:"hd05",cat:"住まいの詳細",foreign:"Die Heizung funktioniert nicht.",ja:"暖房が壊れています。"},
+  {id:"hd06",cat:"住まいの詳細",foreign:"Wann kann ich einziehen?",ja:"いつ入居できますか？"},
+  {id:"hd07",cat:"住まいの詳細",foreign:"Ich brauche einen Parkplatz.",ja:"駐車場が必要です。"},
+  {id:"hd08",cat:"住まいの詳細",foreign:"Das Haus hat einen schönen Garten.",ja:"その家には素敵な庭があります。"},
+
+  // ===== 食材・料理 =====
+  {id:"fd01",cat:"食材・料理",foreign:"Ich brauche Mehl, Eier und Butter.",ja:"小麦粉、卵、バターが必要です。"},
+  {id:"fd02",cat:"食材・料理",foreign:"Haben Sie frisches Gemüse?",ja:"新鮮な野菜はありますか？"},
+  {id:"fd03",cat:"食材・料理",foreign:"Ich mag keine Zwiebeln.",ja:"玉ねぎは苦手です。"},
+  {id:"fd04",cat:"食材・料理",foreign:"Das Steak ist zu durch.",ja:"ステーキが焼きすぎです。"},
+  {id:"fd05",cat:"食材・料理",foreign:"Ich esse lieber Fisch als Fleisch.",ja:"肉より魚の方が好きです。"},
+  {id:"fd06",cat:"食材・料理",foreign:"Das Brot riecht gut.",ja:"パンが良い香りです。"},
+  {id:"fd07",cat:"食材・料理",foreign:"Ich trinke gern Rotwein.",ja:"赤ワインが好きです。"},
+  {id:"fd08",cat:"食材・料理",foreign:"Zum Frühstück trinke ich Orangensaft.",ja:"朝食にオレンジジュースを飲みます。"},
+
+  // ===== 数字・金額詳細 =====
+  {id:"mn01",cat:"数字・金額",foreign:"Das macht zusammen dreißig Euro.",ja:"合計30ユーロです。"},
+  {id:"mn02",cat:"数字・金額",foreign:"Ich habe nur fünfzig Euro dabei.",ja:"50ユーロしか持っていません。"},
+  {id:"mn03",cat:"数字・金額",foreign:"Das Wechselgeld ist fünf Euro.",ja:"おつりは5ユーロです。"},
+  {id:"mn04",cat:"数字・金額",foreign:"Es kostet neunundneunzig Euro neunundneunzig.",ja:"99ユーロ99セントです。"},
+  {id:"mn05",cat:"数字・金額",foreign:"Ich habe hundert Euro.",ja:"100ユーロ持っています。"},
+  {id:"mn06",cat:"数字・金額",foreign:"Der Kurs kostet zweihundert Euro.",ja:"コースは200ユーロかかります。"},
+  {id:"mn07",cat:"数字・金額",foreign:"Mein Telefonnummer ist 0157-555-48-23.",ja:"私の電話番号は0157-555-48-23です。"},
+
+  // ===== 敬称と丁寧表現 =====
+  {id:"po01",cat:"敬称・丁寧表現",foreign:"Entschuldigen Sie bitte.",ja:"失礼いたします。"},
+  {id:"po02",cat:"敬称・丁寧表現",foreign:"Darf ich mich vorstellen?",ja:"自己紹介させていただいてもよろしいですか？"},
+  {id:"po03",cat:"敬称・丁寧表現",foreign:"Wie ist Ihr Name, bitte?",ja:"お名前をお教えいただけますか？"},
+  {id:"po04",cat:"敬称・丁寧表現",foreign:"Ich freue mich, Sie kennenzulernen.",ja:"お会いできて光栄です。"},
+  {id:"po05",cat:"敬称・丁寧表現",foreign:"Bitte nehmen Sie Platz.",ja:"どうぞお座りください。"},
+  {id:"po06",cat:"敬称・丁寧表現",foreign:"Haben Sie einen Moment Zeit?",ja:"少し時間がありますか？"},
+  {id:"po07",cat:"敬称・丁寧表現",foreign:"Vielen Dank für Ihre Hilfe.",ja:"ご支援ありがとうございます。"},
+  {id:"po08",cat:"敬称・丁寧表現",foreign:"Es war sehr nett von Ihnen.",ja:"ご親切にありがとうございます。"},
+  {id:"po09",cat:"敬称・丁寧表現",foreign:"Auf Wiederhören.",ja:"（電話での）さようなら。"},
+  {id:"po10",cat:"敬称・丁寧表現",foreign:"Mit freundlichen Grüßen.",ja:"よろしくお願いいたします。（メール結び）"},
+
+  // ===== 動詞の人称変化 =====
+  {id:"cv01",cat:"動詞の人称変化",foreign:"Ich mache die Hausaufgaben.",ja:"宿題をします。"},
+  {id:"cv02",cat:"動詞の人称変化",foreign:"Du spielst Klavier.",ja:"君はピアノを弾きます。"},
+  {id:"cv03",cat:"動詞の人称変化",foreign:"Wir wohnen in Berlin.",ja:"私たちはベルリンに住んでいます。"},
+  {id:"cv04",cat:"動詞の人称変化",foreign:"Ihr trinkt Kaffee.",ja:"君たちはコーヒーを飲みます。"},
+  {id:"cv05",cat:"動詞の人称変化",foreign:"Sie kochen zusammen.",ja:"彼らは一緒に料理します。"},
+  {id:"cv06",cat:"動詞の人称変化",foreign:"Ich heiße... / Wie heißt du?",ja:"私は...と言います / 君の名前は？"},
+  {id:"cv07",cat:"動詞の人称変化",foreign:"Er/Sie lernt Deutsch.",ja:"彼/彼女はドイツ語を学びます。"},
+  {id:"cv08",cat:"動詞の人称変化",foreign:"Ich komme aus Japan.",ja:"私は日本から来ました。"},
+
+  // ===== 受動態 =====
+  {id:"pv01",cat:"受動態",foreign:"Das Auto wird repariert.",ja:"車が修理されています。"},
+  {id:"pv02",cat:"受動態",foreign:"Das Fenster wurde geöffnet.",ja:"窓が開けられました。"},
+  {id:"pv03",cat:"受動態",foreign:"Das Paket wird geliefert.",ja:"小包が配達されます。"},
+  {id:"pv04",cat:"受動態",foreign:"Das Gebäude wurde 1900 gebaut.",ja:"その建物は1900年に建てられました。"},
+  {id:"pv05",cat:"受動態",foreign:"Die E-Mail wurde gestern gesendet.",ja:"メールは昨日送られました。"},
+
+  // ===== 旅行準備 =====
+  {id:"tp01",cat:"旅行準備",foreign:"Ich brauche ein Visum für Deutschland.",ja:"ドイツのビザが必要です。"},
+  {id:"tp02",cat:"旅行準備",foreign:"Mein Pass läuft bald ab.",ja:"パスポートがもうすぐ期限切れになります。"},
+  {id:"tp03",cat:"旅行準備",foreign:"Ich packe meinen Koffer.",ja:"スーツケースを詰めています。"},
+  {id:"tp04",cat:"旅行準備",foreign:"Ich habe mein Gepäck aufgegeben.",ja:"荷物を預けました。"},
+  {id:"tp05",cat:"旅行準備",foreign:"Das Handgepäck darf fünf Kilo wiegen.",ja:"機内持ち込み手荷物は5キロまでです。"},
+  {id:"tp06",cat:"旅行準備",foreign:"Wann muss ich am Flughafen sein?",ja:"空港には何時に行けばいいですか？"},
+  {id:"tp07",cat:"旅行準備",foreign:"Wo ist der Check-in-Schalter?",ja:"チェックインカウンターはどこですか？"},
+  {id:"tp08",cat:"旅行準備",foreign:"Mein Flug geht um dreizehn Uhr dreißig.",ja:"フライトは13時30分です。"},
+  {id:"tp09",cat:"旅行準備",foreign:"Ich habe einen Fensterplatz reserviert.",ja:"窓側の席を予約しました。"},
+  {id:"tp10",cat:"旅行準備",foreign:"Mein Flug wurde gestrichen.",ja:"フライトがキャンセルされました。"},
+  // ===== 電話・メール =====
+  {id:"ph01",cat:"電話・メール",foreign:"Bitte hinterlassen Sie eine Nachricht.",ja:"メッセージを残してください。"},
+  {id:"ph02",cat:"電話・メール",foreign:"Ich rufe Sie zurück.",ja:"折り返しお電話します。"},
+  {id:"ph03",cat:"電話・メール",foreign:"Die Leitung ist besetzt.",ja:"話し中です。"},
+  {id:"ph04",cat:"電話・メール",foreign:"Können Sie mir Ihre Nummer geben?",ja:"番号を教えていただけますか？"},
+  {id:"ph05",cat:"電話・メール",foreign:"Ich habe eine SMS bekommen.",ja:"SMSを受け取りました。"},
+  {id:"ph06",cat:"電話・メール",foreign:"Schicken Sie mir bitte eine E-Mail.",ja:"メールを送ってください。"},
+  {id:"ph07",cat:"電話・メール",foreign:"Ich antworte auf Ihre E-Mail.",ja:"あなたのメールに返信します。"},
+  {id:"ph08",cat:"電話・メール",foreign:"Bitte bestätigen Sie den Termin.",ja:"日程を確認してください。"},
+  // ===== 体の部位 =====
+  {id:"bo01",cat:"体の部位",foreign:"Das ist der Kopf.",ja:"これは頭です。"},
+  {id:"bo02",cat:"体の部位",foreign:"Die Augen sind müde.",ja:"目が疲れています。"},
+  {id:"bo03",cat:"体の部位",foreign:"Ich habe mir den Knöchel verstaucht.",ja:"足首をねんざしました。"},
+  {id:"bo04",cat:"体の部位",foreign:"Mein Knie tut weh.",ja:"膝が痛いです。"},
+  {id:"bo05",cat:"体の部位",foreign:"Ich kann den Arm nicht heben.",ja:"腕を上げられません。"},
+  {id:"bo06",cat:"体の部位",foreign:"Ich habe Zahnschmerzen.",ja:"歯が痛いです。"},
+  {id:"bo07",cat:"体の部位",foreign:"Meine Schultern sind verspannt.",ja:"肩がこっています。"},
+  // ===== 方向・位置 =====
+  {id:"dr01",cat:"方向・位置",foreign:"Es ist geradeaus.",ja:"まっすぐです。"},
+  {id:"dr02",cat:"方向・位置",foreign:"Es ist links.",ja:"左です。"},
+  {id:"dr03",cat:"方向・位置",foreign:"Es ist rechts.",ja:"右です。"},
+  {id:"dr04",cat:"方向・位置",foreign:"Es ist oben.",ja:"上です。"},
+  {id:"dr05",cat:"方向・位置",foreign:"Es ist unten.",ja:"下です。"},
+  {id:"dr06",cat:"方向・位置",foreign:"Es ist vorne.",ja:"前です。"},
+  {id:"dr07",cat:"方向・位置",foreign:"Es ist hinten.",ja:"後ろです。"},
+  {id:"dr08",cat:"方向・位置",foreign:"Das Museum ist fünf Minuten zu Fuß.",ja:"博物館は徒歩5分です。"},
+  // ===== 複合文・A2表現 =====
+  {id:"cx01",cat:"複合文・高度表現",foreign:"Ich finde es toll, dass du Deutsch lernst.",ja:"君がドイツ語を学んでいるのは素晴らしいと思います。"},
+  {id:"cx02",cat:"複合文・高度表現",foreign:"Je mehr ich übe, desto besser wird mein Deutsch.",ja:"練習すればするほど、ドイツ語が上達します。"},
+  {id:"cx03",cat:"複合文・高度表現",foreign:"Entweder bleibe ich zu Hause oder ich gehe ins Kino.",ja:"家にいるか映画館に行くかどちらかです。"},
+  {id:"cx04",cat:"複合文・高度表現",foreign:"Ich weiß, dass Deutsch schwierig ist, aber ich lerne weiter.",ja:"ドイツ語が難しいのは分かっていますが、学び続けます。"},
+  {id:"cx05",cat:"複合文・高度表現",foreign:"Sowohl Deutsch als auch Englisch sind wichtig.",ja:"ドイツ語も英語も両方大切です。"},
+  {id:"cx06",cat:"複合文・高度表現",foreign:"Obwohl ich müde bin, lerne ich weiter.",ja:"疲れているけれど学び続けます。"},
+  {id:"cx07",cat:"複合文・高度表現",foreign:"Ich habe so viel gelernt, dass ich jetzt Deutsch sprechen kann.",ja:"たくさん勉強したので、今ではドイツ語が話せます。"},
+  {id:"cx08",cat:"複合文・高度表現",foreign:"Statt Kaffee zu trinken, trinke ich Tee.",ja:"コーヒーの代わりにお茶を飲みます。"},
+  // ===== 関係代名詞 =====
+  {id:"rl01",cat:"関係代名詞",foreign:"Das ist das Buch, das ich gelesen habe.",ja:"これは私が読んだ本です。"},
+  {id:"rl02",cat:"関係代名詞",foreign:"Der Mann, der dort steht, ist mein Vater.",ja:"そこに立っている男性は私の父です。"},
+  {id:"rl03",cat:"関係代名詞",foreign:"Die Frau, die ich kenne, kommt aus Berlin.",ja:"私が知っているその女性はベルリン出身です。"},
+  {id:"rl04",cat:"関係代名詞",foreign:"Das Restaurant, das wir besucht haben, war gut.",ja:"私たちが行ったレストランは良かったです。"},
+  {id:"rl05",cat:"関係代名詞",foreign:"Ich suche jemanden, der mir helfen kann.",ja:"手伝ってくれる人を探しています。"},
+
+  // ===== 天気の詳細 =====
+  {id:"wx01",cat:"天気の詳細",foreign:"Es gibt ein Gewitter.",ja:"雷雨があります。"},
+  {id:"wx02",cat:"天気の詳細",foreign:"Der Wind weht stark.",ja:"強い風が吹いています。"},
+  {id:"wx03",cat:"天気の詳細",foreign:"Es ist neblig.",ja:"霧が立ち込めています。"},
+  {id:"wx04",cat:"天気の詳細",foreign:"Die Temperaturen steigen.",ja:"気温が上がっています。"},
+  {id:"wx05",cat:"天気の詳細",foreign:"Morgen wird es regnen.",ja:"明日雨が降るでしょう。"},
+  {id:"wx06",cat:"天気の詳細",foreign:"Das Wetter wechselt oft.",ja:"天気がよく変わります。"},
+  {id:"wx07",cat:"天気の詳細",foreign:"Wie wird das Wetter morgen?",ja:"明日の天気はどうなりますか？"},
+  {id:"wx08",cat:"天気の詳細",foreign:"Im Frühling regnet es oft.",ja:"春はよく雨が降ります。"},
+  // ===== 学校・大学 =====
+  {id:"sc01",cat:"学校・大学",foreign:"Welches Fach studieren Sie?",ja:"何を専攻していますか？"},
+  {id:"sc02",cat:"学校・大学",foreign:"Ich studiere Informatik.",ja:"私は情報科学を勉強しています。"},
+  {id:"sc03",cat:"学校・大学",foreign:"Das Semester beginnt im Oktober.",ja:"学期は10月に始まります。"},
+  {id:"sc04",cat:"学校・大学",foreign:"Ich schreibe morgen eine Prüfung.",ja:"明日試験を受けます。"},
+  {id:"sc05",cat:"学校・大学",foreign:"Ich habe mein Studium abgeschlossen.",ja:"大学を卒業しました。"},
+  {id:"sc06",cat:"学校・大学",foreign:"Wo ist die Bibliothek?",ja:"図書館はどこですか？"},
+  {id:"sc07",cat:"学校・大学",foreign:"Ich muss die Hausaufgaben machen.",ja:"宿題をしなければなりません。"},
+  {id:"sc08",cat:"学校・大学",foreign:"Ich habe eine gute Note bekommen.",ja:"良い点数をもらいました。"},
+  // ===== 食材・料理 =====
+  {id:"fd01",cat:"食材・料理",foreign:"Ich brauche Mehl, Eier und Butter.",ja:"小麦粉、卵、バターが必要です。"},
+  {id:"fd02",cat:"食材・料理",foreign:"Haben Sie frisches Gemüse?",ja:"新鮮な野菜はありますか？"},
+  {id:"fd03",cat:"食材・料理",foreign:"Ich mag keine Zwiebeln.",ja:"玉ねぎは苦手です。"},
+  {id:"fd04",cat:"食材・料理",foreign:"Das Steak ist zu durch.",ja:"ステーキが焼きすぎです。"},
+  {id:"fd05",cat:"食材・料理",foreign:"Ich esse lieber Fisch als Fleisch.",ja:"肉より魚の方が好きです。"},
+  {id:"fd06",cat:"食材・料理",foreign:"Das Brot riecht gut.",ja:"パンが良い香りです。"},
+  {id:"fd07",cat:"食材・料理",foreign:"Zum Frühstück trinke ich Orangensaft.",ja:"朝食にオレンジジュースを飲みます。"},
+  {id:"fd08",cat:"食材・料理",foreign:"Ich koche Suppe mit Kartoffeln.",ja:"ジャガイモ入りのスープを作ります。"},
+  // ===== A2 応用表現 =====
+  {id:"a2_01",cat:"A2応用表現",foreign:"Ich lerne seit drei Monaten Deutsch.",ja:"3ヶ月前からドイツ語を学んでいます。"},
+  {id:"a2_02",cat:"A2応用表現",foreign:"Seit wann lernst du Deutsch?",ja:"いつからドイツ語を学んでいますか？"},
+  {id:"a2_03",cat:"A2応用表現",foreign:"Das Kleid gefällt mir nicht.",ja:"そのドレスは気に入りません。"},
+  {id:"a2_04",cat:"A2応用表現",foreign:"Ich habe keine Lust dazu.",ja:"その気持ちになれません。"},
+  {id:"a2_05",cat:"A2応用表現",foreign:"Das ist es nicht wert.",ja:"その価値はありません。"},
+  {id:"a2_06",cat:"A2応用表現",foreign:"Ich war noch nie in Deutschland.",ja:"ドイツにはまだ行ったことがありません。"},
+  {id:"a2_07",cat:"A2応用表現",foreign:"Das hätte ich nicht gedacht.",ja:"そんなこと思いもしませんでした。"},
+  {id:"a2_08",cat:"A2応用表現",foreign:"Ich bin damit einverstanden.",ja:"それに同意します。"},
+  {id:"a2_09",cat:"A2応用表現",foreign:"Dazu habe ich keine Meinung.",ja:"それについては意見がありません。"},
+  {id:"a2_10",cat:"A2応用表現",foreign:"Das kann ich mir vorstellen.",ja:"それは想像できます。"},
+  {id:"a2_11",cat:"A2応用表現",foreign:"Ich verstehe das nicht ganz.",ja:"それがよく分かりません。"},
+  {id:"a2_12",cat:"A2応用表現",foreign:"Das ist eine gute Frage.",ja:"それはいい質問ですね。"},
+  {id:"a2_13",cat:"A2応用表現",foreign:"Ich muss darüber nachdenken.",ja:"それについて考えなければなりません。"},
+  {id:"a2_14",cat:"A2応用表現",foreign:"Eigentlich wollte ich das nicht.",ja:"本当はそれを望んでいませんでした。"},
+  {id:"a2_15",cat:"A2応用表現",foreign:"So ist das nicht gemeint.",ja:"そういう意味ではありません。"},
+];
+
+// ===== APP STATE =====
+const LS_KEY = 'german_mastered_v1';
+let cards = [];
+let filtered = [];
+let currentIdx = 0;
+let currentCat = 'すべて';
+let currentMode = 'ja2de';
+let revealed = false;
+let mastered = new Set();
+let isMuted = false;
+let isSpeaking = false;
+
+function escHtml(s) {
+  return String(s)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
+}
+
+function loadMastered() {
+  try {
+    const d = localStorage.getItem(LS_KEY);
+    if (d) mastered = new Set(JSON.parse(d));
+  } catch(e) { mastered = new Set(); }
+}
+function saveMastered() {
+  try { localStorage.setItem(LS_KEY, JSON.stringify([...mastered])); } catch(e){}
+}
+
+function init() {
+  loadMastered();
+  cards = CARDS_RAW.map((d, i) => ({ ...d, _id: d.id || i }));
+  buildCatButtons();
+  applyFilter();
+  updateStats();
+  renderCard();
+}
+
+function buildCatButtons() {
+  const cats = ['すべて', ...new Set(cards.map(c => c.cat))];
+  const scroll = document.getElementById('catScroll');
+  scroll.innerHTML = '';
+  cats.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'cat-pill' + (cat === currentCat ? ' active' : '');
+    btn.textContent = cat;
+    btn.onclick = () => selectCat(cat);
+    scroll.appendChild(btn);
+  });
+}
+
+function selectCat(cat) {
+  currentCat = cat;
+  document.querySelectorAll('.cat-pill').forEach(b => {
+    b.classList.toggle('active', b.textContent === cat);
+  });
+  applyFilter();
+  currentIdx = 0;
+  revealed = false;
+  renderCard();
+  updateStats();
+}
+
+function applyFilter() {
+  if (currentCat === 'すべて') {
+    filtered = [...cards];
+  } else {
+    filtered = cards.filter(c => c.cat === currentCat);
+  }
+}
+
+function updateStats() {
+  const total = filtered.length;
+  const done = filtered.filter(c => mastered.has(c._id)).length;
+  const rem = total - done;
+  const pct = total ? Math.round(done / total * 100) : 0;
+  document.getElementById('statTotal').textContent = `全${total}件`;
+  document.getElementById('statRem').textContent = `残り${rem}件`;
+  document.getElementById('statDone').textContent = `✓${done}件`;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('statPct').textContent = pct + '%';
+}
+
+function getCard() {
+  return filtered[currentIdx] || null;
+}
+
+function getEffectiveMode(card) {
+  if (currentMode === 'random') return Math.random() < 0.5 ? 'ja2de' : 'de2ja';
+  return currentMode;
+}
+
+function renderCard() {
+  const card = getCard();
+  const body = document.getElementById('cardBody');
+  const qEl = document.getElementById('cardQ');
+  const catLbl = document.getElementById('cardCat');
+  const counter = document.getElementById('cardCounter');
+
+  if (!card) {
+    catLbl.textContent = '–';
+    counter.textContent = '0 / 0';
+    body.innerHTML = '<div class="card-question">カードがありません</div>';
+    return;
+  }
+
+  catLbl.textContent = card.cat;
+  counter.textContent = `${currentIdx + 1} / ${filtered.length}`;
+
+  const isMastered = mastered.has(card._id);
+  document.getElementById('btnCheck').classList.toggle('checked', isMastered);
+
+  if (!revealed) {
+    const mode = getEffectiveMode(card);
+    const qText = mode === 'ja2de' ? card.ja : card.foreign;
+    const isJp = mode === 'ja2de';
+    body.innerHTML = `
+      <div class="card-question${isJp ? ' jp' : ''}" id="cardQ">${escHtml(qText)}</div>
+      <div class="card-hint">👆 タップして答えを見る</div>
+    `;
+  } else {
+    const mode = getEffectiveMode(card);
+    const qText = mode === 'ja2de' ? card.ja : card.foreign;
+    const aText = mode === 'ja2de' ? card.foreign : card.ja;
+    const qIsJp = mode === 'ja2de';
+    const aIsJp = mode === 'de2ja';
+    body.innerHTML = `
+      <div class="card-question${qIsJp ? ' jp' : ''}">${escHtml(qText)}</div>
+      <div class="card-divider"></div>
+      <div class="card-answer${aIsJp ? ' jp' : ''}" id="cardA">${escHtml(aText)}</div>
+      <button class="speak-btn" id="speakBtn" onclick="event.stopPropagation();speakAnswer()">🔊 読み上げ</button>
+    `;
+  }
+}
+
+function revealCard() {
+  if (revealed) {
+    revealed = false;
+    renderCard();
+    return;
+  }
+  revealed = true;
+  renderCard();
+  speakAnswer();
+}
+
+function speakAnswer() {
+  const card = getCard();
+  if (!card) return;
+  const mode = getEffectiveMode(card);
+  const btn = document.getElementById('speakBtn');
+  if (btn) { btn.classList.add('playing'); }
+  const onDone = () => {
+    if (btn) btn.classList.remove('playing');
+  };
+  if (mode === 'ja2de') {
+    speakForeign(card.foreign, onDone);
+  } else {
+    speakJapanese(card.ja, onDone);
+  }
+}
+
+function speakForeign(text, onDone) {
+  if (isMuted) { if (onDone) onDone(); return; }
+  window.speechSynthesis.cancel();
+  function doSpeak(lang) {
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = lang;
+    u.rate = 0.8;
+    u.pitch = 1.0;
+    u.onend = () => { if (onDone) onDone(); };
+    u.onerror = () => { if (onDone) onDone(); };
+    window.speechSynthesis.speak(u);
+  }
+  const voices = window.speechSynthesis.getVoices();
+  const preferred = ['de-DE', 'de', 'en-US'];
+  let chosen = null;
+  for (const lang of preferred) {
+    const v = voices.find(v => v.lang === lang || v.lang.startsWith('de'));
+    if (v) { chosen = v.lang; break; }
+  }
+  doSpeak(chosen || 'de-DE');
+}
+
+function speakJapanese(text, onDone) {
+  if (isMuted) { if (onDone) onDone(); return; }
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'ja-JP';
+  u.rate = 0.85;
+  u.onend = () => { if (onDone) onDone(); };
+  u.onerror = () => { if (onDone) onDone(); };
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(u);
+}
+
+function nextCard() {
+  window.speechSynthesis.cancel();
+  let next = currentIdx + 1;
+  let count = 0;
+  while (next < filtered.length) {
+    if (!mastered.has(filtered[next]._id)) break;
+    next++;
+    count++;
+    if (count > filtered.length) break;
+  }
+  if (next >= filtered.length) {
+    // check if all mastered
+    const allDone = filtered.every(c => mastered.has(c._id));
+    if (allDone) {
+      showComplete();
+      return;
+    }
+    next = 0;
+    while (next < filtered.length && mastered.has(filtered[next]._id)) next++;
+  }
+  currentIdx = next;
+  revealed = false;
+  renderCard();
+}
+
+function prevCard() {
+  window.speechSynthesis.cancel();
+  let prev = currentIdx - 1;
+  if (prev < 0) prev = filtered.length - 1;
+  currentIdx = prev;
+  revealed = false;
+  renderCard();
+}
+
+function checkCard() {
+  const card = getCard();
+  if (!card) return;
+  if (mastered.has(card._id)) return;
+  mastered.add(card._id);
+  saveMastered();
+  updateStats();
+  document.getElementById('btnCheck').classList.add('checked');
+  setTimeout(() => nextCard(), 300);
+}
+
+function showComplete() {
+  const ov = document.getElementById('completeOverlay');
+  ov.classList.add('show');
+  setTimeout(() => {
+    mastered.clear();
+    saveMastered();
+    updateStats();
+    currentIdx = 0;
+    revealed = false;
+    renderCard();
+    ov.classList.remove('show');
+  }, 1800);
+}
+
+// Header buttons
+document.getElementById('btnList').onclick = openModal;
+document.getElementById('btnReset').onclick = () => {
+  if (mastered.size === 0) return;
+  mastered.clear();
+  saveMastered();
+  currentIdx = 0;
+  revealed = false;
+  updateStats();
+  renderCard();
+  const btn = document.getElementById('btnReset');
+  btn.textContent = '✅';
+  setTimeout(() => btn.textContent = '🔄', 800);
+};
+document.getElementById('btnShuffle').onclick = () => {
+  for (let i = filtered.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [filtered[i], filtered[j]] = [filtered[j], filtered[i]];
+  }
+  currentIdx = 0;
+  revealed = false;
+  renderCard();
+  const btn = document.getElementById('btnShuffle');
+  btn.textContent = '✅';
+  setTimeout(() => btn.textContent = '🔀', 800);
+};
+document.getElementById('btnMute').onclick = () => {
+  isMuted = !isMuted;
+  document.getElementById('btnMute').textContent = isMuted ? '🔇' : '🔊';
+  if (isMuted) window.speechSynthesis.cancel();
+};
+
+// Mode buttons
+document.querySelectorAll('.mode-btn').forEach(btn => {
+  btn.onclick = () => {
+    currentMode = btn.dataset.mode;
+    document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    revealed = false;
+    renderCard();
+  };
+});
+
+// Controls
+document.getElementById('mainCard').onclick = revealCard;
+document.getElementById('btnReveal').onclick = (e) => { e.stopPropagation(); if(!revealed){revealed=true;renderCard();speakAnswer();} };
+document.getElementById('btnRevert').onclick = (e) => { e.stopPropagation(); revealed=false; renderCard(); };
+document.getElementById('btnPrev').onclick = (e) => { e.stopPropagation(); prevCard(); };
+document.getElementById('btnNext').onclick = (e) => { e.stopPropagation(); nextCard(); };
+document.getElementById('btnCheck').onclick = (e) => { e.stopPropagation(); checkCard(); };
+
+// Keyboard
+document.addEventListener('keydown', e => {
+  if (document.getElementById('modalOverlay').classList.contains('open')) {
+    if (e.key === 'Escape') closeModal();
+    return;
+  }
+  if (e.key === 'ArrowRight') nextCard();
+  else if (e.key === 'ArrowLeft') prevCard();
+  else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); revealCard(); }
+  else if (e.key === 'c' || e.key === 'C') checkCard();
+});
+
+// Modal
+function openModal() {
+  buildModal('');
+  document.getElementById('modalOverlay').classList.add('open');
+  document.getElementById('modalSearch').value = '';
+  document.getElementById('modalSearch').focus();
+}
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+}
+document.getElementById('modalClose').onclick = closeModal;
+document.getElementById('modalOverlay').onclick = (e) => { if(e.target===document.getElementById('modalOverlay')) closeModal(); };
+document.getElementById('modalSearch').oninput = (e) => buildModal(e.target.value);
+
+function buildModal(query) {
+  const q = query.trim().toLowerCase();
+  const body = document.getElementById('modalBody');
+  const cats = [...new Set(cards.map(c => c.cat))];
+  let html = '';
+  cats.forEach(cat => {
+    const items = cards.filter(c => c.cat === cat && (
+      !q || c.foreign.toLowerCase().includes(q) || c.ja.includes(q)
+    ));
+    if (items.length === 0) return;
+    html += `<div class="modal-cat-header">${escHtml(cat)}</div>`;
+    items.forEach(c => {
+      const isMast = mastered.has(c._id);
+      html += `<div class="modal-row${isMast?' mastered':''}" data-id="${escHtml(c._id)}">
+        <span class="modal-de">${escHtml(c.foreign)}</span>
+        <span class="modal-ja">${escHtml(c.ja)}</span>
+      </div>`;
+    });
+  });
+  body.innerHTML = html;
+  body.querySelectorAll('.modal-row').forEach(row => {
+    row.onclick = () => {
+      const id = row.dataset.id;
+      const cardIdx = cards.findIndex(c => String(c._id) === String(id));
+      if (cardIdx < 0) return;
+      const targetCat = cards[cardIdx].cat;
+      if (currentCat !== targetCat && currentCat !== 'すべて') {
+        selectCat('すべて');
+      }
+      const filtIdx = filtered.findIndex(c => String(c._id) === String(id));
+      if (filtIdx >= 0) {
+        currentIdx = filtIdx;
+        revealed = false;
+        renderCard();
+      }
+      closeModal();
+    };
+  });
+}
+
+init();
+window.speechSynthesis.onvoiceschanged = function(){};
+</script>
+</body>
+</html>

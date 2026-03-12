@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇮🇩 インドネシア語フラッシュカード</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=M+PLUS+Rounded+1c:wght@400;500;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --jungle:    #059669;
+  --leaf:      #34d399;
+  --terracotta:#d97706;
+  --gold:      #fbbf24;
+  --cream:     #fefce8;
+  --red:       #dc2626;
+  --text:      #1a3a2a;
+  --text-mid:  #2d6a4f;
+  --text-muted:#6aaa88;
+  --glass:     rgba(255,255,255,0.80);
+  --glass2:    rgba(255,255,255,0.55);
+  --border:    rgba(5,150,105,0.22);
+  --border2:   rgba(5,150,105,0.40);
+  --jp:        'M PLUS Rounded 1c', 'Nunito', sans-serif;
+  --foreign:   'Noto Sans', 'Nunito', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  height: 100%;
+  overflow: hidden;
+  font-family: var(--jp);
+  background: linear-gradient(135deg, #d1fae5 0%, #fefce8 40%, #ecfdf5 70%, #fef3c7 100%);
+  color: var(--text);
+}
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background: radial-gradient(ellipse at 20% 20%, rgba(52,211,153,0.18) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 80%, rgba(251,191,36,0.13) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+#app {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column;
+  height: 100vh; height: 100dvh;
+  max-width: 640px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+/* HEADER */
+header {
+  background: linear-gradient(135deg, #065f46 0%, #059669 60%, #0d9488 100%);
+  color: #fff;
+  padding: 10px 14px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-shrink: 0;
+  box-shadow: 0 2px 12px rgba(5,150,105,0.35);
+}
+.header-left { display: flex; align-items: center; gap: 7px; }
+.header-left h1 {
+  font-family: var(--foreign);
+  font-size: clamp(0.88rem, 3.2vw, 1.05rem);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  color: #fff;
+}
+.flag { font-size: 1.4em; }
+.header-btns { display: flex; gap: 6px; }
+.hbtn {
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #fff;
+  border-radius: 8px;
+  width: 34px; height: 34px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.18s, transform 0.12s;
+  flex-shrink: 0;
+}
+.hbtn:hover { background: rgba(255,255,255,0.30); transform: scale(1.08); }
+.hbtn:active { transform: scale(0.92); }
+
+/* MODE */
+.mode-row {
+  display: flex; gap: 7px; padding: 8px 14px 6px;
+  flex-shrink: 0;
+}
+.mbtn {
+  flex: 1;
+  padding: 7px 4px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border2);
+  background: var(--glass2);
+  color: var(--text-mid);
+  font-family: var(--jp);
+  font-size: 0.78rem; font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s;
+  backdrop-filter: blur(6px);
+}
+.mbtn:hover { background: var(--glass); border-color: var(--jungle); }
+.mbtn.active {
+  background: linear-gradient(135deg, #065f46 0%, #059669 100%);
+  color: #fff; border-color: transparent;
+  box-shadow: 0 3px 12px rgba(5,150,105,0.38);
+}
+
+/* STATS */
+.stats-row {
+  display: flex; align-items: center; gap: 8px;
+  padding: 3px 14px 5px;
+  font-size: 0.72rem; color: var(--text-mid); font-weight: 600;
+  flex-shrink: 0;
+}
+.stat-item { white-space: nowrap; }
+.prog-wrap {
+  flex: 1;
+  height: 6px; background: rgba(5,150,105,0.15);
+  border-radius: 3px; overflow: hidden;
+}
+.prog-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--jungle), var(--gold));
+  border-radius: 3px;
+  transition: width 0.4s ease;
+}
+.pct { white-space: nowrap; font-weight: 700; color: var(--jungle); }
+
+/* CATEGORY SCROLL */
+.cat-scroll {
+  overflow-x: auto;
+  display: flex;
+  gap: 7px;
+  padding: 4px 14px 8px;
+  flex-shrink: 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--leaf) rgba(5,150,105,.12);
+}
+.cat-scroll::-webkit-scrollbar { height: 5px; }
+.cat-scroll::-webkit-scrollbar-track { background: rgba(5,150,105,.10); border-radius: 4px; }
+.cat-scroll::-webkit-scrollbar-thumb { background: var(--leaf); border-radius: 4px; }
+.cat-scroll::-webkit-scrollbar-thumb:hover { background: var(--jungle); }
+.cpill {
+  padding: 5px 12px;
+  border-radius: 16px;
+  border: 1.5px solid var(--border);
+  background: var(--glass2);
+  color: var(--text-mid);
+  font-size: 0.73rem; font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.17s;
+  flex-shrink: 0;
+  backdrop-filter: blur(6px);
+}
+.cpill:hover { background: var(--glass); border-color: var(--jungle); }
+.cpill.active {
+  background: linear-gradient(135deg, #065f46, #059669);
+  color: #fff; border-color: transparent;
+  box-shadow: 0 2px 10px rgba(5,150,105,0.35);
+}
+
+/* CARD AREA */
+.card-area {
+  flex: 1;
+  display: flex; flex-direction: column;
+  padding: 6px 14px 4px;
+  overflow: hidden;
+  min-height: 0;
+}
+.card-wrap {
+  flex: 1;
+  perspective: 900px;
+  min-height: 0;
+}
+.card {
+  width: 100%; height: 100%;
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+  border-radius: 18px;
+  border: 1.5px solid var(--border2);
+  box-shadow: 0 8px 32px rgba(5,150,105,0.13), 0 1px 4px rgba(0,0,0,0.06);
+  display: flex; flex-direction: column;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  overflow: hidden;
+  position: relative;
+}
+.card:hover { transform: translateY(-2px) scale(1.003); box-shadow: 0 12px 40px rgba(5,150,105,0.18); }
+.card:active { transform: scale(0.97); }
+.card-accent {
+  height: 4px;
+  background: linear-gradient(90deg, var(--red) 50%, #fff 50%);
+  flex-shrink: 0;
+}
+.card-meta {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 8px 14px 2px;
+  flex-shrink: 0;
+}
+.cat-label {
+  font-size: 0.66rem; font-weight: 700;
+  color: var(--jungle);
+  background: rgba(5,150,105,0.10);
+  padding: 2px 8px; border-radius: 10px;
+  letter-spacing: 0.02em;
+}
+.card-counter { font-size: 0.66rem; color: var(--text-muted); font-weight: 600; }
+.card-body {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 8px 18px 6px; text-align: center;
+  gap: 8px; min-height: 0;
+}
+.card-main {
+  font-family: var(--foreign);
+  font-size: clamp(1.4rem, 5vw, 2.2rem);
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.25;
+}
+.card-main.jp {
+  font-family: var(--jp);
+  font-size: clamp(1.1rem, 4vw, 1.7rem);
+  color: var(--text-mid);
+}
+.rom {
+  font-family: var(--foreign);
+  font-size: clamp(0.72rem, 2.2vw, 0.92rem);
+  font-style: italic;
+  color: var(--text-muted);
+  background: rgba(5,150,105,0.07);
+  padding: 3px 10px; border-radius: 8px;
+  letter-spacing: 0.03em;
+}
+.tap-hint {
+  font-size: 0.72rem; color: var(--text-muted);
+  margin-top: 4px;
+}
+.speak-btn {
+  background: rgba(5,150,105,0.10);
+  border: 1px solid rgba(5,150,105,0.25);
+  border-radius: 50%; width: 38px; height: 38px;
+  font-size: 1.1rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s; flex-shrink: 0;
+  margin-top: 4px;
+}
+.speak-btn:hover { background: rgba(5,150,105,0.20); transform: scale(1.1); }
+.speak-btn.pulsing { animation: pulse 0.7s infinite alternate; }
+@keyframes pulse { from { box-shadow: 0 0 0 0 rgba(5,150,105,0.4); } to { box-shadow: 0 0 0 8px rgba(5,150,105,0); } }
+.divider { width: 80%; height: 1px; background: var(--border); margin: 4px 0; flex-shrink: 0; }
+
+/* BUTTONS */
+.btn-row {
+  display: flex; gap: 6px;
+  padding: 6px 14px 8px;
+  flex-shrink: 0;
+}
+.btn {
+  flex: 1; padding: 9px 4px;
+  border-radius: 12px;
+  border: none; cursor: pointer;
+  font-family: var(--jp);
+  font-size: 0.73rem; font-weight: 700;
+  transition: all 0.15s;
+  display: flex; align-items: center; justify-content: center; gap: 3px;
+}
+.btn:active { transform: scale(0.94); }
+.btn-back { background: var(--glass2); border: 1.5px solid var(--border); color: var(--text-mid); backdrop-filter: blur(6px); }
+.btn-back:hover { background: var(--glass); border-color: var(--jungle); }
+.btn-reveal {
+  background: linear-gradient(135deg, #065f46, #059669);
+  color: #fff;
+  box-shadow: 0 3px 10px rgba(5,150,105,0.35);
+  flex: 1.3;
+}
+.btn-reveal:hover { box-shadow: 0 5px 16px rgba(5,150,105,0.45); transform: translateY(-1px); }
+.btn-unreveal { background: var(--glass2); border: 1.5px solid var(--border); color: var(--text-mid); backdrop-filter: blur(6px); }
+.btn-check {
+  background: linear-gradient(135deg, #34d399, #059669);
+  color: #fff;
+  box-shadow: 0 3px 10px rgba(52,211,153,0.35);
+}
+.btn-check:hover { box-shadow: 0 5px 16px rgba(52,211,153,0.45); transform: translateY(-1px); }
+.btn-next {
+  background: linear-gradient(135deg, var(--terracotta), var(--gold));
+  color: #fff;
+  box-shadow: 0 3px 10px rgba(217,119,6,0.35);
+  flex: 1.3;
+}
+.btn-next:hover { box-shadow: 0 5px 16px rgba(217,119,6,0.45); transform: translateY(-1px); }
+
+/* KEYBOARD HINT */
+.kbd-hint {
+  text-align: center;
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  padding: 0 14px 6px;
+  flex-shrink: 0;
+  letter-spacing: 0.01em;
+}
+
+/* COMPLETE OVERLAY */
+#complete-overlay {
+  display: none;
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(10px);
+  align-items: center; justify-content: center;
+  flex-direction: column; gap: 12px;
+  animation: fadeIn 0.3s ease;
+}
+#complete-overlay.show { display: flex; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.complete-box {
+  background: linear-gradient(135deg, #065f46 0%, #059669 60%, #0d9488 100%);
+  border-radius: 24px;
+  padding: 30px 40px;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 20px 60px rgba(5,150,105,0.4);
+}
+.complete-box .trophy { font-size: 3.5rem; margin-bottom: 8px; }
+.complete-box h2 { font-size: 1.4rem; font-weight: 800; }
+.complete-box p { font-size: 0.88rem; opacity: 0.85; margin-top: 4px; }
+
+/* MODAL */
+#modal-overlay {
+  display: none;
+  position: fixed; inset: 0; z-index: 100;
+  background: rgba(26,58,42,0.5);
+  backdrop-filter: blur(4px);
+  align-items: flex-end;
+}
+#modal-overlay.show { display: flex; }
+#modal {
+  width: 100%; max-height: 85vh;
+  background: #fefce8;
+  border-radius: 24px 24px 0 0;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 -8px 40px rgba(5,150,105,0.2);
+  animation: slideUp 0.28s ease;
+}
+@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+.modal-hdr {
+  background: linear-gradient(135deg, #065f46, #059669);
+  padding: 14px 16px;
+  display: flex; align-items: center; gap: 10px;
+  flex-shrink: 0;
+}
+.modal-hdr h2 { color: #fff; font-size: 1rem; font-weight: 800; flex: 1; }
+#modal-search {
+  flex: 1;
+  padding: 7px 12px;
+  border-radius: 12px;
+  border: none;
+  background: rgba(255,255,255,0.9);
+  font-family: var(--jp);
+  font-size: 0.82rem;
+  color: var(--text);
+  outline: none;
+}
+.close-btn {
+  background: rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #fff; border-radius: 8px;
+  width: 30px; height: 30px;
+  font-size: 1rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.close-btn:hover { background: rgba(255,255,255,0.35); }
+#modal-list { overflow-y: auto; padding: 8px 0 16px; }
+.modal-cat-title {
+  font-size: 0.7rem; font-weight: 800;
+  color: var(--jungle);
+  padding: 8px 16px 3px;
+  text-transform: uppercase; letter-spacing: 0.05em;
+  background: rgba(5,150,105,0.05);
+}
+.modal-row {
+  display: flex; gap: 10px; align-items: center;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(5,150,105,0.08);
+  transition: background 0.12s;
+}
+.modal-row:hover { background: rgba(5,150,105,0.06); }
+.modal-row.mastered { opacity: 0.38; }
+.modal-row-text { flex: 1; min-width: 0; }
+.modal-foreign { font-family: var(--foreign); font-size: 0.84rem; font-weight: 600; color: var(--text); }
+.modal-ja { font-size: 0.74rem; color: var(--text-muted); }
+.modal-check { color: var(--jungle); font-size: 1rem; flex-shrink: 0; }
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <div class="header-left">
+      <span class="flag">🇮🇩</span>
+      <h1>インドネシア語 フラッシュカード</h1>
+    </div>
+    <div class="header-btns">
+      <button class="hbtn" id="btn-list" title="一覧">📋</button>
+      <button class="hbtn" id="btn-reset" title="リセット">🔄</button>
+      <button class="hbtn" id="btn-shuffle" title="シャッフル">🔀</button>
+      <button class="hbtn" id="btn-mute" title="ミュート">🔊</button>
+    </div>
+  </header>
+
+  <div class="mode-row">
+    <button class="mbtn active" data-mode="ja2id">和 → 印</button>
+    <button class="mbtn" data-mode="id2ja">印 → 和</button>
+    <button class="mbtn" data-mode="random">🎲 ランダム</button>
+  </div>
+
+  <div class="stats-row">
+    <span class="stat-item" id="stat-total">全0件</span>
+    <span class="stat-item" id="stat-rem">残り0件</span>
+    <span class="stat-item" id="stat-done">✓0件</span>
+    <div class="prog-wrap"><div class="prog-bar" id="prog-bar" style="width:0%"></div></div>
+    <span class="pct" id="stat-pct">0%</span>
+  </div>
+
+  <div class="cat-scroll" id="cat-scroll"></div>
+
+  <div class="card-area">
+    <div class="card-wrap">
+      <div class="card" id="main-card" onclick="toggleReveal()">
+        <div class="card-accent"></div>
+        <div class="card-meta">
+          <span class="cat-label" id="card-cat">カテゴリ</span>
+          <span class="card-counter" id="card-counter">0 / 0</span>
+        </div>
+        <div class="card-body" id="card-body">
+          <div class="card-main" id="card-question">読み込み中...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-back" onclick="prevCard()">← 戻る</button>
+    <button class="btn btn-reveal" id="btn-reveal" onclick="toggleReveal()">▶ 表示</button>
+    <button class="btn btn-unreveal" id="btn-unreveal" onclick="toggleReveal()" style="display:none">◀ 戻す</button>
+    <button class="btn btn-check" onclick="markMastered()">✓ 覚えた</button>
+    <button class="btn btn-next" onclick="nextCard()">次へ →</button>
+  </div>
+
+  <div class="kbd-hint">→ 次へ ／ ← 戻る ／ Enter 答えを見る ／ C 覚えた</div>
+</div>
+
+<div id="complete-overlay">
+  <div class="complete-box">
+    <div class="trophy">🏆</div>
+    <h2>全カード完了！</h2>
+    <p>チェックを解除してリスタートします</p>
+  </div>
+</div>
+
+<div id="modal-overlay" onclick="closeModal(event)">
+  <div id="modal">
+    <div class="modal-hdr">
+      <h2>📋 例文一覧</h2>
+      <input type="text" id="modal-search" placeholder="検索（日本語・インドネシア語）" oninput="filterModal()">
+      <button class="close-btn" onclick="closeModalDirect()">✕</button>
+    </div>
+    <div id="modal-list"></div>
+  </div>
+</div>
+
+<script>
+// ─────────────── CARD DATA ───────────────
+const CARDS_RAW = [
+// ── 挨拶・基本 ──
+{id:"gr01",cat:"挨拶・基本",foreign:"Halo!",rom:"ha-lo",ja:"こんにちは！"},
+{id:"gr02",cat:"挨拶・基本",foreign:"Selamat pagi!",rom:"se-la-mat pa-gi",ja:"おはようございます！"},
+{id:"gr03",cat:"挨拶・基本",foreign:"Selamat siang!",rom:"se-la-mat si-ang",ja:"こんにちは！（昼）"},
+{id:"gr04",cat:"挨拶・基本",foreign:"Selamat sore!",rom:"se-la-mat so-re",ja:"こんにちは！（夕方）"},
+{id:"gr05",cat:"挨拶・基本",foreign:"Selamat malam!",rom:"se-la-mat ma-lam",ja:"こんばんは！"},
+{id:"gr06",cat:"挨拶・基本",foreign:"Selamat tidur!",rom:"se-la-mat ti-dur",ja:"おやすみなさい！"},
+{id:"gr07",cat:"挨拶・基本",foreign:"Apa kabar?",rom:"a-pa ka-bar",ja:"お元気ですか？"},
+{id:"gr08",cat:"挨拶・基本",foreign:"Kabar baik.",rom:"ka-bar ba-ik",ja:"元気です。"},
+{id:"gr09",cat:"挨拶・基本",foreign:"Baik-baik saja.",rom:"ba-ik ba-ik sa-ja",ja:"まあまあです。"},
+{id:"gr10",cat:"挨拶・基本",foreign:"Terima kasih.",rom:"te-ri-ma ka-sih",ja:"ありがとうございます。"},
+{id:"gr11",cat:"挨拶・基本",foreign:"Terima kasih banyak.",rom:"te-ri-ma ka-sih ba-nyak",ja:"どうもありがとうございます。"},
+{id:"gr12",cat:"挨拶・基本",foreign:"Sama-sama.",rom:"sa-ma sa-ma",ja:"どういたしまして。"},
+{id:"gr13",cat:"挨拶・基本",foreign:"Kembali.",rom:"kem-ba-li",ja:"こちらこそ。"},
+{id:"gr14",cat:"挨拶・基本",foreign:"Maaf.",rom:"ma-af",ja:"すみません。/ ごめんなさい。"},
+{id:"gr15",cat:"挨拶・基本",foreign:"Permisi.",rom:"per-mi-si",ja:"すみません。（通る時）"},
+{id:"gr16",cat:"挨拶・基本",foreign:"Tidak apa-apa.",rom:"ti-dak a-pa a-pa",ja:"大丈夫です。"},
+{id:"gr17",cat:"挨拶・基本",foreign:"Ya.",rom:"ya",ja:"はい。"},
+{id:"gr18",cat:"挨拶・基本",foreign:"Tidak.",rom:"ti-dak",ja:"いいえ。（動詞を否定）"},
+{id:"gr19",cat:"挨拶・基本",foreign:"Bukan.",rom:"bu-kan",ja:"いいえ。（名詞を否定）"},
+{id:"gr20",cat:"挨拶・基本",foreign:"Sampai jumpa!",rom:"sam-pai jum-pa",ja:"さようなら！"},
+{id:"gr21",cat:"挨拶・基本",foreign:"Sampai nanti!",rom:"sam-pai nan-ti",ja:"また後で！"},
+{id:"gr22",cat:"挨拶・基本",foreign:"Sampai besok!",rom:"sam-pai be-sok",ja:"また明日！"},
+{id:"gr23",cat:"挨拶・基本",foreign:"Hati-hati di jalan!",rom:"ha-ti ha-ti di ja-lan",ja:"気をつけて行ってらっしゃい！"},
+{id:"gr24",cat:"挨拶・基本",foreign:"Selamat jalan!",rom:"se-la-mat ja-lan",ja:"いってらっしゃい！"},
+{id:"gr25",cat:"挨拶・基本",foreign:"Bagaimana kabar Anda?",rom:"ba-gai-ma-na ka-bar an-da",ja:"あなたはお元気ですか？（丁寧）"},
+
+// ── 自己紹介 ──
+{id:"in01",cat:"自己紹介",foreign:"Siapa nama Anda?",rom:"si-a-pa na-ma an-da",ja:"お名前は何ですか？"},
+{id:"in02",cat:"自己紹介",foreign:"Nama saya Ken.",rom:"na-ma sa-ya ken",ja:"私の名前はケンです。"},
+{id:"in03",cat:"自己紹介",foreign:"Saya dari Jepang.",rom:"sa-ya da-ri je-pang",ja:"私は日本から来ました。"},
+{id:"in04",cat:"自己紹介",foreign:"Saya orang Jepang.",rom:"sa-ya o-rang je-pang",ja:"私は日本人です。"},
+{id:"in05",cat:"自己紹介",foreign:"Saya tinggal di Tokyo.",rom:"sa-ya ting-gal di to-kyo",ja:"東京に住んでいます。"},
+{id:"in06",cat:"自己紹介",foreign:"Saya mahasiswa.",rom:"sa-ya ma-ha-sis-wa",ja:"私は学生です。"},
+{id:"in07",cat:"自己紹介",foreign:"Saya bekerja di perusahaan.",rom:"sa-ya be-ker-ja di pe-ru-sa-ha-an",ja:"会社で働いています。"},
+{id:"in08",cat:"自己紹介",foreign:"Senang bertemu dengan Anda.",rom:"se-nang ber-te-mu de-ngan an-da",ja:"お会いできて嬉しいです。"},
+{id:"in09",cat:"自己紹介",foreign:"Umur saya dua puluh tahun.",rom:"u-mur sa-ya du-a pu-luh ta-hun",ja:"私は20歳です。"},
+{id:"in10",cat:"自己紹介",foreign:"Saya sudah menikah.",rom:"sa-ya su-dah me-ni-kah",ja:"私は結婚しています。"},
+{id:"in11",cat:"自己紹介",foreign:"Saya belum menikah.",rom:"sa-ya be-lum me-ni-kah",ja:"私は結婚していません。"},
+{id:"in12",cat:"自己紹介",foreign:"Nama panggilan saya Yuki.",rom:"na-ma pang-gi-lan sa-ya yu-ki",ja:"私のニックネームはユキです。"},
+{id:"in13",cat:"自己紹介",foreign:"Pekerjaan saya guru.",rom:"pe-ker-ja-an sa-ya gu-ru",ja:"私の職業は先生です。"},
+{id:"in14",cat:"自己紹介",foreign:"Senang berkenalan!",rom:"se-nang ber-ke-na-lan",ja:"会えて嬉しい！"},
+
+// ── 疑問詞 ──
+{id:"wh01",cat:"疑問詞",foreign:"Apa ini?",rom:"a-pa i-ni",ja:"これは何ですか？"},
+{id:"wh02",cat:"疑問詞",foreign:"Apa itu?",rom:"a-pa i-tu",ja:"それは何ですか？"},
+{id:"wh03",cat:"疑問詞",foreign:"Siapa dia?",rom:"si-a-pa di-a",ja:"彼/彼女は誰ですか？"},
+{id:"wh04",cat:"疑問詞",foreign:"Di mana toilet?",rom:"di ma-na toi-let",ja:"トイレはどこですか？"},
+{id:"wh05",cat:"疑問詞",foreign:"Ke mana kamu pergi?",rom:"ke ma-na ka-mu per-gi",ja:"どこに行くの？"},
+{id:"wh06",cat:"疑問詞",foreign:"Dari mana kamu datang?",rom:"da-ri ma-na ka-mu da-tang",ja:"どこから来たの？"},
+{id:"wh07",cat:"疑問詞",foreign:"Kapan kamu datang?",rom:"ka-pan ka-mu da-tang",ja:"いつ来たの？"},
+{id:"wh08",cat:"疑問詞",foreign:"Kapan ulang tahunmu?",rom:"ka-pan u-lang ta-hun-mu",ja:"誕生日はいつ？"},
+{id:"wh09",cat:"疑問詞",foreign:"Bagaimana caranya?",rom:"ba-gai-ma-na ca-ra-nya",ja:"どうやれば？/ やり方は？"},
+{id:"wh10",cat:"疑問詞",foreign:"Berapa harganya?",rom:"be-ra-pa har-ga-nya",ja:"いくらですか？"},
+{id:"wh11",cat:"疑問詞",foreign:"Berapa umurmu?",rom:"be-ra-pa u-mur-mu",ja:"何歳ですか？"},
+{id:"wh12",cat:"疑問詞",foreign:"Kenapa kamu sedih?",rom:"ke-na-pa ka-mu se-dih",ja:"なぜ悲しいの？"},
+{id:"wh13",cat:"疑問詞",foreign:"Mengapa kamu terlambat?",rom:"me-nga-pa ka-mu ter-lam-bat",ja:"なぜ遅れたの？"},
+{id:"wh14",cat:"疑問詞",foreign:"Anda tinggal di mana?",rom:"an-da ting-gal di ma-na",ja:"どこに住んでいますか？"},
+{id:"wh15",cat:"疑問詞",foreign:"Berapa banyak?",rom:"be-ra-pa ba-nyak",ja:"どれくらいの量？"},
+
+// ── 代名詞・指示詞 ──
+{id:"pr01",cat:"代名詞・指示詞",foreign:"Saya",rom:"sa-ya",ja:"私（丁寧）"},
+{id:"pr02",cat:"代名詞・指示詞",foreign:"Aku",rom:"a-ku",ja:"私（カジュアル）"},
+{id:"pr03",cat:"代名詞・指示詞",foreign:"Kamu / Anda",rom:"ka-mu / an-da",ja:"あなた（カジュアル／丁寧）"},
+{id:"pr04",cat:"代名詞・指示詞",foreign:"Dia",rom:"di-a",ja:"彼／彼女"},
+{id:"pr05",cat:"代名詞・指示詞",foreign:"Kami",rom:"ka-mi",ja:"私たち（聞き手を含まない）"},
+{id:"pr06",cat:"代名詞・指示詞",foreign:"Kita",rom:"ki-ta",ja:"私たち（聞き手を含む）"},
+{id:"pr07",cat:"代名詞・指示詞",foreign:"Mereka",rom:"me-re-ka",ja:"彼ら"},
+{id:"pr08",cat:"代名詞・指示詞",foreign:"Ini",rom:"i-ni",ja:"これ／この"},
+{id:"pr09",cat:"代名詞・指示詞",foreign:"Itu",rom:"i-tu",ja:"それ／あれ"},
+{id:"pr10",cat:"代名詞・指示詞",foreign:"Di sini",rom:"di si-ni",ja:"ここ"},
+{id:"pr11",cat:"代名詞・指示詞",foreign:"Di sana",rom:"di sa-na",ja:"あそこ"},
+{id:"pr12",cat:"代名詞・指示詞",foreign:"Di situ",rom:"di si-tu",ja:"そこ"},
+
+// ── 所有・存在 ──
+{id:"ex01",cat:"所有・存在",foreign:"Ada.",rom:"a-da",ja:"あります。/ います。"},
+{id:"ex02",cat:"所有・存在",foreign:"Tidak ada.",rom:"ti-dak a-da",ja:"ありません。/ いません。"},
+{id:"ex03",cat:"所有・存在",foreign:"Saya punya kucing.",rom:"sa-ya pu-nya ku-cing",ja:"私は猫を飼っています。"},
+{id:"ex04",cat:"所有・存在",foreign:"Ini milik saya.",rom:"i-ni mi-lik sa-ya",ja:"これは私のものです。"},
+{id:"ex05",cat:"所有・存在",foreign:"Ada orang di dalam.",rom:"a-da o-rang di da-lam",ja:"中に人がいます。"},
+{id:"ex06",cat:"所有・存在",foreign:"Tidak ada orang di dalam.",rom:"ti-dak a-da o-rang di da-lam",ja:"中に人がいません。"},
+{id:"ex07",cat:"所有・存在",foreign:"HP saya ada di kamar.",rom:"hp sa-ya a-da di ka-mar",ja:"携帯は部屋にあります。"},
+{id:"ex08",cat:"所有・存在",foreign:"Kunci ada di meja.",rom:"kun-ci a-da di me-ja",ja:"鍵はテーブルの上にあります。"},
+{id:"ex09",cat:"所有・存在",foreign:"Dompet ada di dalam tas.",rom:"dom-pet a-da di da-lam tas",ja:"財布はカバンの中にあります。"},
+
+// ── 日常動詞 ──
+{id:"vb01",cat:"日常動詞",foreign:"Saya makan nasi.",rom:"sa-ya ma-kan na-si",ja:"私はご飯を食べます。"},
+{id:"vb02",cat:"日常動詞",foreign:"Saya minum air putih.",rom:"sa-ya mi-num a-ir pu-tih",ja:"私は水を飲みます。"},
+{id:"vb03",cat:"日常動詞",foreign:"Saya tidur di kamar.",rom:"sa-ya ti-dur di ka-mar",ja:"私は部屋で寝ます。"},
+{id:"vb04",cat:"日常動詞",foreign:"Saya bangun jam lima.",rom:"sa-ya ba-ngun jam li-ma",ja:"私は5時に起きます。"},
+{id:"vb05",cat:"日常動詞",foreign:"Saya bekerja dari Senin sampai Jumat.",rom:"sa-ya be-ker-ja da-ri se-nin sam-pai ju-mat",ja:"月曜から金曜まで働きます。"},
+{id:"vb06",cat:"日常動詞",foreign:"Saya belajar bahasa Indonesia.",rom:"sa-ya be-la-jar ba-ha-sa in-do-ne-si-a",ja:"インドネシア語を勉強します。"},
+{id:"vb07",cat:"日常動詞",foreign:"Saya membaca buku.",rom:"sa-ya mem-ba-ca bu-ku",ja:"私は本を読みます。"},
+{id:"vb08",cat:"日常動詞",foreign:"Saya menulis surat.",rom:"sa-ya me-nu-lis su-rat",ja:"私は手紙を書きます。"},
+{id:"vb09",cat:"日常動詞",foreign:"Saya mendengarkan musik.",rom:"sa-ya men-de-ngar-kan mu-sik",ja:"私は音楽を聴きます。"},
+{id:"vb10",cat:"日常動詞",foreign:"Saya menonton TV.",rom:"sa-ya me-non-ton tv",ja:"私はテレビを見ます。"},
+{id:"vb11",cat:"日常動詞",foreign:"Saya pergi ke kantor.",rom:"sa-ya per-gi ke kan-tor",ja:"私はオフィスに行きます。"},
+{id:"vb12",cat:"日常動詞",foreign:"Saya pulang ke rumah.",rom:"sa-ya pu-lang ke ru-mah",ja:"私は家に帰ります。"},
+{id:"vb13",cat:"日常動詞",foreign:"Saya memasak untuk keluarga.",rom:"sa-ya me-ma-sak un-tuk ke-lu-ar-ga",ja:"家族のために料理をします。"},
+{id:"vb14",cat:"日常動詞",foreign:"Saya mandi setiap hari.",rom:"sa-ya man-di se-ti-ap ha-ri",ja:"毎日お風呂に入ります。"},
+{id:"vb15",cat:"日常動詞",foreign:"Saya membeli sayur di pasar.",rom:"sa-ya mem-be-li sa-yur di pa-sar",ja:"市場で野菜を買います。"},
+
+// ── 欲求・能力 ──
+{id:"mo01",cat:"欲求・能力",foreign:"Saya mau pergi.",rom:"sa-ya mau per-gi",ja:"行きたいです。"},
+{id:"mo02",cat:"欲求・能力",foreign:"Saya ingin belajar.",rom:"sa-ya ing-in be-la-jar",ja:"勉強したいです。"},
+{id:"mo03",cat:"欲求・能力",foreign:"Saya perlu bantuan.",rom:"sa-ya per-lu ban-tu-an",ja:"助けが必要です。"},
+{id:"mo04",cat:"欲求・能力",foreign:"Saya harus pergi.",rom:"sa-ya ha-rus per-gi",ja:"行かなければなりません。"},
+{id:"mo05",cat:"欲求・能力",foreign:"Saya bisa berbicara bahasa Indonesia.",rom:"sa-ya bi-sa ber-bi-ca-ra ba-ha-sa in-do-ne-si-a",ja:"インドネシア語が話せます。"},
+{id:"mo06",cat:"欲求・能力",foreign:"Saya tidak bisa.",rom:"sa-ya ti-dak bi-sa",ja:"できません。"},
+{id:"mo07",cat:"欲求・能力",foreign:"Saya bisa sedikit bahasa Indonesia.",rom:"sa-ya bi-sa se-di-kit ba-ha-sa in-do-ne-si-a",ja:"インドネシア語が少しできます。"},
+{id:"mo08",cat:"欲求・能力",foreign:"Saya tidak bisa makan pedas.",rom:"sa-ya ti-dak bi-sa ma-kan pe-das",ja:"辛いものは食べられません。"},
+{id:"mo09",cat:"欲求・能力",foreign:"Saya bisa berenang.",rom:"sa-ya bi-sa be-re-nang",ja:"泳げます。"},
+{id:"mo10",cat:"欲求・能力",foreign:"Saya mau ke dokter.",rom:"sa-ya mau ke dok-ter",ja:"医者に行きたいです。"},
+{id:"mo11",cat:"欲求・能力",foreign:"Boleh saya masuk?",rom:"bo-leh sa-ya ma-suk",ja:"入ってもいいですか？"},
+{id:"mo12",cat:"欲求・能力",foreign:"Tolong bantu saya.",rom:"to-long ban-tu sa-ya",ja:"助けてください。"},
+
+// ── 形容詞・状態 ──
+{id:"aj01",cat:"形容詞・状態",foreign:"Besar.",rom:"be-sar",ja:"大きい。"},
+{id:"aj02",cat:"形容詞・状態",foreign:"Kecil.",rom:"ke-cil",ja:"小さい。"},
+{id:"aj03",cat:"形容詞・状態",foreign:"Mahal.",rom:"ma-hal",ja:"高い（値段）。"},
+{id:"aj04",cat:"形容詞・状態",foreign:"Murah.",rom:"mu-rah",ja:"安い。"},
+{id:"aj05",cat:"形容詞・状態",foreign:"Baik.",rom:"ba-ik",ja:"良い。/ 親切な。"},
+{id:"aj06",cat:"形容詞・状態",foreign:"Buruk.",rom:"bu-ruk",ja:"悪い。"},
+{id:"aj07",cat:"形容詞・状態",foreign:"Panas.",rom:"pa-nas",ja:"暑い。/ 熱い。"},
+{id:"aj08",cat:"形容詞・状態",foreign:"Dingin.",rom:"di-ngin",ja:"寒い。/ 冷たい。"},
+{id:"aj09",cat:"形容詞・状態",foreign:"Enak.",rom:"e-nak",ja:"美味しい。"},
+{id:"aj10",cat:"形容詞・状態",foreign:"Pedas.",rom:"pe-das",ja:"辛い。"},
+{id:"aj11",cat:"形容詞・状態",foreign:"Senang.",rom:"se-nang",ja:"嬉しい。"},
+{id:"aj12",cat:"形容詞・状態",foreign:"Sedih.",rom:"se-dih",ja:"悲しい。"},
+{id:"aj13",cat:"形容詞・状態",foreign:"Capek.",rom:"ca-pek",ja:"疲れた。"},
+{id:"aj14",cat:"形容詞・状態",foreign:"Sakit.",rom:"sa-kit",ja:"病気。/ 痛い。"},
+{id:"aj15",cat:"形容詞・状態",foreign:"Cantik.",rom:"can-tik",ja:"きれい。/ かわいい。（女性）"},
+{id:"aj16",cat:"形容詞・状態",foreign:"Ganteng.",rom:"gan-teng",ja:"かっこいい。（男性）"},
+{id:"aj17",cat:"形容詞・状態",foreign:"Bagus.",rom:"ba-gus",ja:"いい。/ 素晴らしい。"},
+{id:"aj18",cat:"形容詞・状態",foreign:"Ramai.",rom:"ra-mai",ja:"賑やか。/ 混雑している。"},
+{id:"aj19",cat:"形容詞・状態",foreign:"Sepi.",rom:"se-pi",ja:"静か。/ 寂しい。"},
+{id:"aj20",cat:"形容詞・状態",foreign:"Jauh.",rom:"ja-uh",ja:"遠い。"},
+{id:"aj21",cat:"形容詞・状態",foreign:"Dekat.",rom:"de-kat",ja:"近い。"},
+
+// ── 数字 ──
+{id:"nu01",cat:"数字・数え方",foreign:"Satu",rom:"sa-tu",ja:"1"},
+{id:"nu02",cat:"数字・数え方",foreign:"Dua",rom:"du-a",ja:"2"},
+{id:"nu03",cat:"数字・数え方",foreign:"Tiga",rom:"ti-ga",ja:"3"},
+{id:"nu04",cat:"数字・数え方",foreign:"Empat",rom:"em-pat",ja:"4"},
+{id:"nu05",cat:"数字・数え方",foreign:"Lima",rom:"li-ma",ja:"5"},
+{id:"nu06",cat:"数字・数え方",foreign:"Enam",rom:"e-nam",ja:"6"},
+{id:"nu07",cat:"数字・数え方",foreign:"Tujuh",rom:"tu-juh",ja:"7"},
+{id:"nu08",cat:"数字・数え方",foreign:"Delapan",rom:"de-la-pan",ja:"8"},
+{id:"nu09",cat:"数字・数え方",foreign:"Sembilan",rom:"sem-bi-lan",ja:"9"},
+{id:"nu10",cat:"数字・数え方",foreign:"Sepuluh",rom:"se-pu-luh",ja:"10"},
+{id:"nu11",cat:"数字・数え方",foreign:"Dua puluh",rom:"du-a pu-luh",ja:"20"},
+{id:"nu12",cat:"数字・数え方",foreign:"Seratus",rom:"se-ra-tus",ja:"100"},
+{id:"nu13",cat:"数字・数え方",foreign:"Seribu",rom:"se-ri-bu",ja:"1000"},
+{id:"nu14",cat:"数字・数え方",foreign:"Setengah",rom:"se-te-ngah",ja:"半分 / 0.5"},
+{id:"nu15",cat:"数字・数え方",foreign:"Berapa harganya?",rom:"be-ra-pa har-ga-nya",ja:"いくらですか？"},
+{id:"nu16",cat:"数字・数え方",foreign:"Lima ribu rupiah.",rom:"li-ma ri-bu ru-pi-ah",ja:"5000ルピアです。"},
+
+// ── 時間・曜日 ──
+{id:"ti01",cat:"時間・曜日",foreign:"Jam berapa sekarang?",rom:"jam be-ra-pa se-ka-rang",ja:"今何時ですか？"},
+{id:"ti02",cat:"時間・曜日",foreign:"Sekarang jam delapan pagi.",rom:"se-ka-rang jam de-la-pan pa-gi",ja:"今は朝8時です。"},
+{id:"ti03",cat:"時間・曜日",foreign:"Sekarang jam setengah tujuh.",rom:"se-ka-rang jam se-te-ngah tu-juh",ja:"今は6時半です。"},
+{id:"ti04",cat:"時間・曜日",foreign:"Hari ini hari Senin.",rom:"ha-ri i-ni ha-ri se-nin",ja:"今日は月曜日です。"},
+{id:"ti05",cat:"時間・曜日",foreign:"Besok hari Selasa.",rom:"be-sok ha-ri se-la-sa",ja:"明日は火曜日です。"},
+{id:"ti06",cat:"時間・曜日",foreign:"Kemarin hari Minggu.",rom:"ke-ma-rin ha-ri ming-gu",ja:"昨日は日曜日でした。"},
+{id:"ti07",cat:"時間・曜日",foreign:"Hari ini",rom:"ha-ri i-ni",ja:"今日"},
+{id:"ti08",cat:"時間・曜日",foreign:"Besok",rom:"be-sok",ja:"明日"},
+{id:"ti09",cat:"時間・曜日",foreign:"Kemarin",rom:"ke-ma-rin",ja:"昨日"},
+{id:"ti10",cat:"時間・曜日",foreign:"Minggu depan",rom:"ming-gu de-pan",ja:"来週"},
+{id:"ti11",cat:"時間・曜日",foreign:"Bulan depan",rom:"bu-lan de-pan",ja:"来月"},
+{id:"ti12",cat:"時間・曜日",foreign:"Tahun lalu",rom:"ta-hun la-lu",ja:"去年"},
+{id:"ti13",cat:"時間・曜日",foreign:"Saya libur hari Sabtu.",rom:"sa-ya li-bur ha-ri sab-tu",ja:"私は土曜日が休みです。"},
+{id:"ti14",cat:"時間・曜日",foreign:"Saya lahir tahun sembilan belas sembilan puluh lima.",rom:"sa-ya la-hir ta-hun...",ja:"私は1995年生まれです。"},
+
+// ── 色 ──
+{id:"co01",cat:"色",foreign:"Merah",rom:"me-rah",ja:"赤"},
+{id:"co02",cat:"色",foreign:"Putih",rom:"pu-tih",ja:"白"},
+{id:"co03",cat:"色",foreign:"Hitam",rom:"hi-tam",ja:"黒"},
+{id:"co04",cat:"色",foreign:"Biru",rom:"bi-ru",ja:"青"},
+{id:"co05",cat:"色",foreign:"Hijau",rom:"hi-jau",ja:"緑"},
+{id:"co06",cat:"色",foreign:"Kuning",rom:"ku-ning",ja:"黄色"},
+{id:"co07",cat:"色",foreign:"Oranye",rom:"o-ran-ye",ja:"オレンジ"},
+{id:"co08",cat:"色",foreign:"Merah muda",rom:"me-rah mu-da",ja:"ピンク"},
+{id:"co09",cat:"色",foreign:"Coklat",rom:"cok-lat",ja:"茶色"},
+{id:"co10",cat:"色",foreign:"Abu-abu",rom:"a-bu a-bu",ja:"灰色"},
+{id:"co11",cat:"色",foreign:"Ungu",rom:"un-gu",ja:"紫"},
+{id:"co12",cat:"色",foreign:"Ada warna lain?",rom:"a-da war-na la-in",ja:"他の色はありますか？"},
+
+// ── 家族・人間関係 ──
+{id:"fa01",cat:"家族・人間関係",foreign:"Ayah",rom:"a-yah",ja:"父"},
+{id:"fa02",cat:"家族・人間関係",foreign:"Ibu",rom:"i-bu",ja:"母"},
+{id:"fa03",cat:"家族・人間関係",foreign:"Kakak laki-laki",rom:"ka-kak la-ki la-ki",ja:"兄"},
+{id:"fa04",cat:"家族・人間関係",foreign:"Kakak perempuan",rom:"ka-kak pe-rem-pu-an",ja:"姉"},
+{id:"fa05",cat:"家族・人間関係",foreign:"Adik laki-laki",rom:"a-dik la-ki la-ki",ja:"弟"},
+{id:"fa06",cat:"家族・人間関係",foreign:"Adik perempuan",rom:"a-dik pe-rem-pu-an",ja:"妹"},
+{id:"fa07",cat:"家族・人間関係",foreign:"Suami",rom:"su-a-mi",ja:"夫"},
+{id:"fa08",cat:"家族・人間関係",foreign:"Istri",rom:"is-tri",ja:"妻"},
+{id:"fa09",cat:"家族・人間関係",foreign:"Anak",rom:"a-nak",ja:"子供"},
+{id:"fa10",cat:"家族・人間関係",foreign:"Teman",rom:"te-man",ja:"友達"},
+{id:"fa11",cat:"家族・人間関係",foreign:"Saya punya satu kakak perempuan.",rom:"sa-ya pu-nya sa-tu ka-kak pe-rem-pu-an",ja:"私には姉が一人います。"},
+{id:"fa12",cat:"家族・人間関係",foreign:"Suami saya bekerja di bank.",rom:"su-a-mi sa-ya be-ker-ja di bank",ja:"私の夫は銀行で働いています。"},
+{id:"fa13",cat:"家族・人間関係",foreign:"Istri saya guru.",rom:"is-tri sa-ya gu-ru",ja:"私の妻は先生です。"},
+{id:"fa14",cat:"家族・人間関係",foreign:"Teman saya orang Indonesia.",rom:"te-man sa-ya o-rang in-do-ne-si-a",ja:"私の友人はインドネシア人です。"},
+
+// ── 買い物 ──
+{id:"sh01",cat:"買い物",foreign:"Ini berapa?",rom:"i-ni be-ra-pa",ja:"これはいくらですか？"},
+{id:"sh02",cat:"買い物",foreign:"Mahal sekali!",rom:"ma-hal se-ka-li",ja:"とても高い！"},
+{id:"sh03",cat:"買い物",foreign:"Ada yang lebih murah?",rom:"a-da yang le-bih mu-rah",ja:"もっと安いのはありますか？"},
+{id:"sh04",cat:"買い物",foreign:"Boleh kurang?",rom:"bo-leh ku-rang",ja:"負けてもらえますか？"},
+{id:"sh05",cat:"買い物",foreign:"Saya mau beli ini.",rom:"sa-ya mau be-li i-ni",ja:"これを買います。"},
+{id:"sh06",cat:"買い物",foreign:"Saya cari sepatu.",rom:"sa-ya ca-ri se-pa-tu",ja:"靴を探しています。"},
+{id:"sh07",cat:"買い物",foreign:"Boleh saya coba?",rom:"bo-leh sa-ya co-ba",ja:"試着してもいいですか？"},
+{id:"sh08",cat:"買い物",foreign:"Ukuran saya M.",rom:"u-ku-ran sa-ya em",ja:"私のサイズはMです。"},
+{id:"sh09",cat:"買い物",foreign:"Terlalu besar.",rom:"ter-la-lu be-sar",ja:"大きすぎます。"},
+{id:"sh10",cat:"買い物",foreign:"Terlalu kecil.",rom:"ter-la-lu ke-cil",ja:"小さすぎます。"},
+{id:"sh11",cat:"買い物",foreign:"Saya ambil yang ini.",rom:"sa-ya am-bil yang i-ni",ja:"これにします。"},
+{id:"sh12",cat:"買い物",foreign:"Ada ukuran M?",rom:"a-da u-ku-ran em",ja:"Mサイズはありますか？"},
+
+// ── 食事・レストラン ──
+{id:"re01",cat:"食事・レストラン",foreign:"Saya mau pesan.",rom:"sa-ya mau pe-san",ja:"注文したいです。"},
+{id:"re02",cat:"食事・レストラン",foreign:"Menu, tolong.",rom:"me-nu to-long",ja:"メニューをください。"},
+{id:"re03",cat:"食事・レストラン",foreign:"Saya pesan nasi goreng.",rom:"sa-ya pe-san na-si go-reng",ja:"ナシゴレンを注文します。"},
+{id:"re04",cat:"食事・レストラン",foreign:"Air putih saja.",rom:"a-ir pu-tih sa-ja",ja:"お水だけで結構です。"},
+{id:"re05",cat:"食事・レストラン",foreign:"Tidak pakai pedas.",rom:"ti-dak pa-kai pe-das",ja:"辛いのはなしで。"},
+{id:"re06",cat:"食事・レストラン",foreign:"Enak sekali!",rom:"e-nak se-ka-li",ja:"とても美味しい！"},
+{id:"re07",cat:"食事・レストラン",foreign:"Minta bon, tolong.",rom:"min-ta bon to-long",ja:"お会計をお願いします。"},
+{id:"re08",cat:"食事・レストラン",foreign:"Apa yang paling laris?",rom:"a-pa yang pa-ling la-ris",ja:"一番人気は何ですか？"},
+{id:"re09",cat:"食事・レストラン",foreign:"Meja untuk dua orang.",rom:"me-ja un-tuk du-a o-rang",ja:"2人用のテーブルを。"},
+{id:"re10",cat:"食事・レストラン",foreign:"Pisah atau jadi satu?",rom:"pi-sah a-tau ja-di sa-tu",ja:"別々に？それとも一緒に？"},
+{id:"re11",cat:"食事・レストラン",foreign:"Yang ini, tolong.",rom:"yang i-ni to-long",ja:"これをください。"},
+{id:"re12",cat:"食事・レストラン",foreign:"Makan dulu.",rom:"ma-kan du-lu",ja:"先に食べましょう。"},
+
+// ── 移動・交通 ──
+{id:"tr01",cat:"移動・交通",foreign:"Saya mau ke Bandung.",rom:"sa-ya mau ke ban-dung",ja:"バンドンに行きたいです。"},
+{id:"tr02",cat:"移動・交通",foreign:"Di mana halte bus?",rom:"di ma-na hal-te bus",ja:"バス停はどこですか？"},
+{id:"tr03",cat:"移動・交通",foreign:"Bus ini ke mana?",rom:"bus i-ni ke ma-na",ja:"このバスはどこ行きですか？"},
+{id:"tr04",cat:"移動・交通",foreign:"Tolong berhenti di sini.",rom:"to-long ber-hen-ti di si-ni",ja:"ここで止めてください。"},
+{id:"tr05",cat:"移動・交通",foreign:"Jalan lurus terus.",rom:"ja-lan lu-rus te-rus",ja:"まっすぐ進んでください。"},
+{id:"tr06",cat:"移動・交通",foreign:"Belok kiri.",rom:"be-lok ki-ri",ja:"左に曲がってください。"},
+{id:"tr07",cat:"移動・交通",foreign:"Belok kanan.",rom:"be-lok ka-nan",ja:"右に曲がってください。"},
+{id:"tr08",cat:"移動・交通",foreign:"Lalu lintas macet.",rom:"la-lu lin-tas ma-cet",ja:"交通渋滞です。"},
+{id:"tr09",cat:"移動・交通",foreign:"Naik taksi lebih mudah.",rom:"na-ik tak-si le-bih mu-dah",ja:"タクシーの方が楽です。"},
+{id:"tr10",cat:"移動・交通",foreign:"Tiket ke Jogja berapa?",rom:"ti-ket ke jog-ja be-ra-pa",ja:"ジョグジャへのチケットはいくらですか？"},
+{id:"tr11",cat:"移動・交通",foreign:"Satu tiket, tolong.",rom:"sa-tu ti-ket to-long",ja:"チケットを一枚ください。"},
+{id:"tr12",cat:"移動・交通",foreign:"Turun di mana?",rom:"tu-run di ma-na",ja:"どこで降りますか？"},
+
+// ── 場所・施設 ──
+{id:"pl01",cat:"場所・施設",foreign:"Bank",rom:"bank",ja:"銀行"},
+{id:"pl02",cat:"場所・施設",foreign:"Rumah sakit",rom:"ru-mah sa-kit",ja:"病院"},
+{id:"pl03",cat:"場所・施設",foreign:"Pasar",rom:"pa-sar",ja:"市場"},
+{id:"pl04",cat:"場所・施設",foreign:"Sekolah",rom:"se-ko-lah",ja:"学校"},
+{id:"pl05",cat:"場所・施設",foreign:"Masjid",rom:"mas-jid",ja:"モスク"},
+{id:"pl06",cat:"場所・施設",foreign:"Apotek",rom:"a-po-tek",ja:"薬局"},
+{id:"pl07",cat:"場所・施設",foreign:"Kantor pos",rom:"kan-tor pos",ja:"郵便局"},
+{id:"pl08",cat:"場所・施設",foreign:"Stasiun",rom:"sta-si-un",ja:"駅"},
+{id:"pl09",cat:"場所・施設",foreign:"Hotel",rom:"ho-tel",ja:"ホテル"},
+{id:"pl10",cat:"場所・施設",foreign:"Restoran",rom:"res-to-ran",ja:"レストラン"},
+{id:"pl11",cat:"場所・施設",foreign:"Toilet di sebelah kiri.",rom:"toi-let di se-be-lah ki-ri",ja:"トイレは左側にあります。"},
+{id:"pl12",cat:"場所・施設",foreign:"Pasar di dekat sini.",rom:"pa-sar di de-kat si-ni",ja:"市場はこの近くにあります。"},
+{id:"pl13",cat:"場所・施設",foreign:"Stasiun jauh dari sini.",rom:"sta-si-un ja-uh da-ri si-ni",ja:"駅はここから遠いです。"},
+
+// ── ホテル ──
+{id:"ht01",cat:"ホテル",foreign:"Saya mau check-in.",rom:"sa-ya mau check-in",ja:"チェックインしたいです。"},
+{id:"ht02",cat:"ホテル",foreign:"Kamar untuk satu orang.",rom:"ka-mar un-tuk sa-tu o-rang",ja:"一人用の部屋を。"},
+{id:"ht03",cat:"ホテル",foreign:"Ada Wi-Fi?",rom:"a-da wi-fi",ja:"Wi-Fiはありますか？"},
+{id:"ht04",cat:"ホテル",foreign:"AC-nya tidak dingin.",rom:"ac-nya ti-dak di-ngin",ja:"エアコンが冷えません。"},
+{id:"ht05",cat:"ホテル",foreign:"Kapan check-out?",rom:"ka-pan check-out",ja:"チェックアウトはいつですか？"},
+{id:"ht06",cat:"ホテル",foreign:"Tolong bersihkan kamar saya.",rom:"to-long ber-sih-kan ka-mar sa-ya",ja:"部屋を掃除してください。"},
+{id:"ht07",cat:"ホテル",foreign:"Sarapan termasuk?",rom:"sa-ra-pan ter-ma-suk",ja:"朝食は含まれますか？"},
+
+// ── 依頼・許可 ──
+{id:"rq01",cat:"依頼・許可",foreign:"Tolong!",rom:"to-long",ja:"お願いします！/ 助けて！"},
+{id:"rq02",cat:"依頼・許可",foreign:"Boleh saya foto?",rom:"bo-leh sa-ya fo-to",ja:"写真を撮ってもいいですか？"},
+{id:"rq03",cat:"依頼・許可",foreign:"Silakan.",rom:"si-la-kan",ja:"どうぞ。"},
+{id:"rq04",cat:"依頼・許可",foreign:"Minta tolong.",rom:"min-ta to-long",ja:"お願いがあります。"},
+{id:"rq05",cat:"依頼・許可",foreign:"Bisa diulang?",rom:"bi-sa di-u-lang",ja:"繰り返してもらえますか？"},
+{id:"rq06",cat:"依頼・許可",foreign:"Tolong pelan-pelan.",rom:"to-long pe-lan pe-lan",ja:"ゆっくり話してください。"},
+{id:"rq07",cat:"依頼・許可",foreign:"Boleh saya duduk di sini?",rom:"bo-leh sa-ya du-duk di si-ni",ja:"ここに座ってもいいですか？"},
+
+// ── 命令・指示 ──
+{id:"cm01",cat:"命令・指示",foreign:"Duduk!",rom:"du-duk",ja:"座って！"},
+{id:"cm02",cat:"命令・指示",foreign:"Berdiri!",rom:"ber-di-ri",ja:"立って！"},
+{id:"cm03",cat:"命令・指示",foreign:"Ke sini!",rom:"ke si-ni",ja:"こっちに来て！"},
+{id:"cm04",cat:"命令・指示",foreign:"Lihat!",rom:"li-hat",ja:"見て！"},
+{id:"cm05",cat:"命令・指示",foreign:"Dengarkan!",rom:"de-ngar-kan",ja:"聞いて！"},
+{id:"cm06",cat:"命令・指示",foreign:"Buka pintunya.",rom:"bu-ka pin-tu-nya",ja:"ドアを開けて。"},
+{id:"cm07",cat:"命令・指示",foreign:"Tutup jendelanya.",rom:"tu-tup jen-de-la-nya",ja:"窓を閉めて。"},
+{id:"cm08",cat:"命令・指示",foreign:"Cepat!",rom:"ce-pat",ja:"急いで！"},
+{id:"cm09",cat:"命令・指示",foreign:"Pelan-pelan.",rom:"pe-lan pe-lan",ja:"ゆっくり。"},
+{id:"cm10",cat:"命令・指示",foreign:"Tunggu saya.",rom:"tung-gu sa-ya",ja:"待って。"},
+{id:"cm11",cat:"命令・指示",foreign:"Jangan sentuh!",rom:"ja-ngan sen-tuh",ja:"触らないで！"},
+{id:"cm12",cat:"命令・指示",foreign:"Masuk.",rom:"ma-suk",ja:"入って。"},
+{id:"cm13",cat:"命令・指示",foreign:"Keluar.",rom:"ke-lu-ar",ja:"出て。"},
+{id:"cm14",cat:"命令・指示",foreign:"Ikuti saya.",rom:"i-ku-ti sa-ya",ja:"ついてきて。"},
+{id:"cm15",cat:"命令・指示",foreign:"Diam.",rom:"di-am",ja:"静かにして。"},
+
+// ── 緊急・健康 ──
+{id:"em01",cat:"緊急・健康",foreign:"Tolong!",rom:"to-long",ja:"助けて！"},
+{id:"em02",cat:"緊急・健康",foreign:"Kebakaran!",rom:"ke-ba-kar-an",ja:"火事だ！"},
+{id:"em03",cat:"緊急・健康",foreign:"Maling!",rom:"ma-ling",ja:"泥棒！"},
+{id:"em04",cat:"緊急・健康",foreign:"Saya tersesat.",rom:"sa-ya ter-se-sat",ja:"道に迷いました。"},
+{id:"em05",cat:"緊急・健康",foreign:"Saya kehilangan tas.",rom:"sa-ya ke-hi-lang-an tas",ja:"カバンをなくしました。"},
+{id:"em06",cat:"緊急・健康",foreign:"Polisi!",rom:"po-li-si",ja:"警察！"},
+{id:"em07",cat:"緊急・健康",foreign:"Di mana rumah sakit?",rom:"di ma-na ru-mah sa-kit",ja:"病院はどこですか？"},
+{id:"em08",cat:"緊急・健康",foreign:"Saya butuh bantuan.",rom:"sa-ya bu-tuh ban-tu-an",ja:"助けが必要です。"},
+{id:"em09",cat:"緊急・健康",foreign:"Saya sakit.",rom:"sa-ya sa-kit",ja:"私は病気です。"},
+{id:"em10",cat:"緊急・健康",foreign:"Saya demam.",rom:"sa-ya de-mam",ja:"熱があります。"},
+{id:"em11",cat:"緊急・健康",foreign:"Saya pusing.",rom:"sa-ya pu-sing",ja:"頭がクラクラします。"},
+{id:"em12",cat:"緊急・健康",foreign:"Saya batuk.",rom:"sa-ya ba-tuk",ja:"咳が出ます。"},
+{id:"em13",cat:"緊急・健康",foreign:"Saya lapar.",rom:"sa-ya la-par",ja:"お腹が空きました。"},
+{id:"em14",cat:"緊急・健康",foreign:"Saya haus.",rom:"sa-ya haus",ja:"喉が渇きました。"},
+{id:"em15",cat:"緊急・健康",foreign:"Harus istirahat.",rom:"ha-rus is-ti-ra-hat",ja:"休まなければなりません。"},
+
+// ── 便利フレーズ ──
+{id:"us01",cat:"便利フレーズ",foreign:"Maaf, saya tidak mengerti.",rom:"ma-af sa-ya ti-dak me-nger-ti",ja:"すみません、わかりません。"},
+{id:"us02",cat:"便利フレーズ",foreign:"Bisa diulang?",rom:"bi-sa di-u-lang",ja:"繰り返してもらえますか？"},
+{id:"us03",cat:"便利フレーズ",foreign:"Tolong bicara pelan-pelan.",rom:"to-long bi-ca-ra pe-lan pe-lan",ja:"ゆっくり話してください。"},
+{id:"us04",cat:"便利フレーズ",foreign:"Apa artinya?",rom:"a-pa ar-ti-nya",ja:"どういう意味ですか？"},
+{id:"us05",cat:"便利フレーズ",foreign:"Saya tidak tahu.",rom:"sa-ya ti-dak ta-hu",ja:"知りません。"},
+{id:"us06",cat:"便利フレーズ",foreign:"Saya mengerti.",rom:"sa-ya me-nger-ti",ja:"わかりました。"},
+{id:"us07",cat:"便利フレーズ",foreign:"Bagaimana caranya ke stasiun?",rom:"ba-gai-ma-na ca-ra-nya ke sta-si-un",ja:"駅への行き方はどうすればいいですか？"},
+{id:"us08",cat:"便利フレーズ",foreign:"Tunggu sebentar.",rom:"tung-gu se-ben-tar",ja:"少々お待ちください。"},
+{id:"us09",cat:"便利フレーズ",foreign:"Tidak masalah.",rom:"ti-dak ma-sa-lah",ja:"問題ありません。"},
+{id:"us10",cat:"便利フレーズ",foreign:"Oke.",rom:"o-ke",ja:"OK。"},
+{id:"us11",cat:"便利フレーズ",foreign:"Betul.",rom:"be-tul",ja:"正しい。/ そうです。"},
+{id:"us12",cat:"便利フレーズ",foreign:"Sudah.",rom:"su-dah",ja:"もう終わった。/ はい（確認）。"},
+
+// ── 丁寧表現 ──
+{id:"po01",cat:"丁寧表現",foreign:"Bapak / Ibu",rom:"ba-pak / i-bu",ja:"〜さん（男性/女性への敬称）"},
+{id:"po02",cat:"丁寧表現",foreign:"Pak, boleh saya tanya?",rom:"pak bo-leh sa-ya ta-nya",ja:"すみません、聞いてもいいですか？（男性へ）"},
+{id:"po03",cat:"丁寧表現",foreign:"Bu, ini kamar saya.",rom:"bu i-ni ka-mar sa-ya",ja:"先生（女性）、これが私の部屋です。"},
+{id:"po04",cat:"丁寧表現",foreign:"Silakan duduk, Pak.",rom:"si-la-kan du-duk pak",ja:"どうぞお座りください。"},
+{id:"po05",cat:"丁寧表現",foreign:"Terima kasih atas bantuannya.",rom:"te-ri-ma ka-sih a-tas ban-tu-an-nya",ja:"お手伝いいただきありがとうございます。"},
+{id:"po06",cat:"丁寧表現",foreign:"Maaf mengganggu.",rom:"ma-af meng-gang-gu",ja:"お邪魔してすみません。"},
+{id:"po07",cat:"丁寧表現",foreign:"Dengan hormat,",rom:"de-ngan hor-mat",ja:"謹んで、（手紙の書き出し）"},
+
+// ── 副詞・程度 ──
+{id:"ad01",cat:"副詞・程度",foreign:"Sangat",rom:"sa-ngat",ja:"とても"},
+{id:"ad02",cat:"副詞・程度",foreign:"Agak",rom:"a-gak",ja:"少し / やや"},
+{id:"ad03",cat:"副詞・程度",foreign:"Sudah",rom:"su-dah",ja:"もう（完了）"},
+{id:"ad04",cat:"副詞・程度",foreign:"Belum",rom:"be-lum",ja:"まだ（未完了）"},
+{id:"ad05",cat:"副詞・程度",foreign:"Juga",rom:"ju-ga",ja:"〜も"},
+{id:"ad06",cat:"副詞・程度",foreign:"Lagi",rom:"la-gi",ja:"もう一度 / また"},
+{id:"ad07",cat:"副詞・程度",foreign:"Sangat enak sekali.",rom:"sa-ngat e-nak se-ka-li",ja:"とても美味しいです。"},
+{id:"ad08",cat:"副詞・程度",foreign:"Saya juga mau.",rom:"sa-ya ju-ga mau",ja:"私も欲しいです。"},
+{id:"ad09",cat:"副詞・程度",foreign:"Belum makan.",rom:"be-lum ma-kan",ja:"まだ食べていません。"},
+{id:"ad10",cat:"副詞・程度",foreign:"Sudah makan.",rom:"su-dah ma-kan",ja:"もう食べました。"},
+
+// ── 電話・通信 ──
+{id:"ph01",cat:"電話・通信",foreign:"Nomor HP kamu berapa?",rom:"no-mor hp ka-mu be-ra-pa",ja:"携帯番号は何番ですか？"},
+{id:"ph02",cat:"電話・通信",foreign:"Bisa minta nomor kamu?",rom:"bi-sa min-ta no-mor ka-mu",ja:"番号を教えてもらえますか？"},
+{id:"ph03",cat:"電話・通信",foreign:"Ada Wi-Fi di sini?",rom:"a-da wi-fi di si-ni",ja:"ここにWi-Fiはありますか？"},
+{id:"ph04",cat:"電話・通信",foreign:"Baterai saya habis.",rom:"ba-te-rai sa-ya ha-bis",ja:"バッテリーが切れました。"},
+{id:"ph05",cat:"電話・通信",foreign:"Halo, siapa ini?",rom:"ha-lo si-a-pa i-ni",ja:"もしもし、どなたですか？"},
+{id:"ph06",cat:"電話・通信",foreign:"Boleh pakai charger-mu?",rom:"bo-leh pa-kai char-ger-mu",ja:"充電器を借りてもいいですか？"},
+{id:"ph07",cat:"電話・通信",foreign:"Kirim pesan ke saya.",rom:"ki-rim pe-san ke sa-ya",ja:"私にメッセージを送って。"},
+
+// ── 天気 ──
+{id:"wt01",cat:"天気",foreign:"Hari ini panas.",rom:"ha-ri i-ni pa-nas",ja:"今日は暑いです。"},
+{id:"wt02",cat:"天気",foreign:"Cuaca mendung.",rom:"cu-a-ca men-dung",ja:"曇りです。"},
+{id:"wt03",cat:"天気",foreign:"Akan hujan.",rom:"a-kan hu-jan",ja:"雨が降りそうです。"},
+{id:"wt04",cat:"天気",foreign:"Sedang hujan.",rom:"se-dang hu-jan",ja:"雨が降っています。"},
+{id:"wt05",cat:"天気",foreign:"Udara dingin.",rom:"u-da-ra di-ngin",ja:"空気が冷たいです。"},
+{id:"wt06",cat:"天気",foreign:"Cerah sekali hari ini.",rom:"ce-rah se-ka-li ha-ri i-ni",ja:"今日はとても晴れています。"},
+{id:"wt07",cat:"天気",foreign:"Angin kencang.",rom:"a-ngin ken-cang",ja:"風が強いです。"},
+{id:"wt08",cat:"天気",foreign:"Di Bali pantainya indah.",rom:"di ba-li pan-tai-nya in-dah",ja:"バリの海は美しいです。"},
+
+// ── 文法パターン（進行・完了・未来）──
+{id:"gp01",cat:"文法パターン",foreign:"Saya sedang makan.",rom:"sa-ya se-dang ma-kan",ja:"私は今食べています。（進行形）"},
+{id:"gp02",cat:"文法パターン",foreign:"Saya sudah makan.",rom:"sa-ya su-dah ma-kan",ja:"私はもう食べました。（完了）"},
+{id:"gp03",cat:"文法パターン",foreign:"Saya akan makan.",rom:"sa-ya a-kan ma-kan",ja:"私は食べるつもりです。（未来）"},
+{id:"gp04",cat:"文法パターン",foreign:"Dia sedang belajar.",rom:"di-a se-dang be-la-jar",ja:"彼/彼女は今勉強しています。"},
+{id:"gp05",cat:"文法パターン",foreign:"Dia sudah pergi.",rom:"di-a su-dah per-gi",ja:"彼/彼女はもう行きました。"},
+{id:"gp06",cat:"文法パターン",foreign:"Dia akan datang.",rom:"di-a a-kan da-tang",ja:"彼/彼女は来るつもりです。"},
+{id:"gp07",cat:"文法パターン",foreign:"Kalau hujan, saya di rumah saja.",rom:"ka-lau hu-jan sa-ya di ru-mah sa-ja",ja:"雨が降ったら家にいます。"},
+{id:"gp08",cat:"文法パターン",foreign:"Sesudah makan, saya belajar.",rom:"se-su-dah ma-kan sa-ya be-la-jar",ja:"食べた後、勉強します。"},
+{id:"gp09",cat:"文法パターン",foreign:"Sebelum tidur, saya membaca buku.",rom:"se-be-lum ti-dur sa-ya mem-ba-ca bu-ku",ja:"寝る前に本を読みます。"},
+{id:"gp10",cat:"文法パターン",foreign:"Sambil makan, saya menonton TV.",rom:"sam-bil ma-kan sa-ya me-non-ton tv",ja:"食べながらテレビを見ます。"},
+{id:"gp11",cat:"文法パターン",foreign:"Saya belajar supaya bisa bicara.",rom:"sa-ya be-la-jar su-pa-ya bi-sa bi-ca-ra",ja:"話せるように勉強しています。"},
+
+// ── me-動詞 ──
+{id:"mv01",cat:"me-動詞",foreign:"Memakan",rom:"me-ma-kan",ja:"食べる（me-形）"},
+{id:"mv02",cat:"me-動詞",foreign:"Meminum",rom:"me-mi-num",ja:"飲む（me-形）"},
+{id:"mv03",cat:"me-動詞",foreign:"Memasak",rom:"me-ma-sak",ja:"料理する"},
+{id:"mv04",cat:"me-動詞",foreign:"Menulis",rom:"me-nu-lis",ja:"書く"},
+{id:"mv05",cat:"me-動詞",foreign:"Membaca",rom:"mem-ba-ca",ja:"読む"},
+{id:"mv06",cat:"me-動詞",foreign:"Membeli",rom:"mem-be-li",ja:"買う"},
+{id:"mv07",cat:"me-動詞",foreign:"Membawa",rom:"mem-ba-wa",ja:"持つ・運ぶ"},
+{id:"mv08",cat:"me-動詞",foreign:"Membuka",rom:"mem-bu-ka",ja:"開ける"},
+{id:"mv09",cat:"me-動詞",foreign:"Menutup",rom:"me-nu-tup",ja:"閉める"},
+{id:"mv10",cat:"me-動詞",foreign:"Mengambil",rom:"me-ngam-bil",ja:"取る"},
+{id:"mv11",cat:"me-動詞",foreign:"Mendengar",rom:"men-de-ngar",ja:"聞く"},
+{id:"mv12",cat:"me-動詞",foreign:"Melihat",rom:"me-li-hat",ja:"見る"},
+{id:"mv13",cat:"me-動詞",foreign:"Mencari",rom:"men-ca-ri",ja:"探す"},
+{id:"mv14",cat:"me-動詞",foreign:"Mencuci",rom:"men-cu-ci",ja:"洗う"},
+{id:"mv15",cat:"me-動詞",foreign:"Membantu",rom:"mem-ban-tu",ja:"助ける"},
+{id:"mv16",cat:"me-動詞",foreign:"Menunggu",rom:"me-nung-gu",ja:"待つ"},
+{id:"mv17",cat:"me-動詞",foreign:"Mengirim",rom:"me-ngi-rim",ja:"送る"},
+{id:"mv18",cat:"me-動詞",foreign:"Menjual",rom:"men-ju-al",ja:"売る"},
+{id:"mv19",cat:"me-動詞",foreign:"Memakai",rom:"me-ma-kai",ja:"使う・着る"},
+{id:"mv20",cat:"me-動詞",foreign:"Bertanya",rom:"ber-ta-nya",ja:"尋ねる"},
+
+// ── ber-動詞 ──
+{id:"bv01",cat:"ber-動詞",foreign:"Berbicara",rom:"ber-bi-ca-ra",ja:"話す"},
+{id:"bv02",cat:"ber-動詞",foreign:"Berjalan",rom:"ber-ja-lan",ja:"歩く"},
+{id:"bv03",cat:"ber-動詞",foreign:"Berlari",rom:"ber-la-ri",ja:"走る"},
+{id:"bv04",cat:"ber-動詞",foreign:"Bekerja",rom:"be-ker-ja",ja:"働く"},
+{id:"bv05",cat:"ber-動詞",foreign:"Belajar",rom:"be-la-jar",ja:"勉強する"},
+{id:"bv06",cat:"ber-動詞",foreign:"Bermain",rom:"ber-main",ja:"遊ぶ"},
+{id:"bv07",cat:"ber-動詞",foreign:"Bernyanyi",rom:"ber-nya-nyi",ja:"歌う"},
+{id:"bv08",cat:"ber-動詞",foreign:"Berenang",rom:"be-re-nang",ja:"泳ぐ"},
+{id:"bv09",cat:"ber-動詞",foreign:"Berdiri",rom:"ber-di-ri",ja:"立つ"},
+{id:"bv10",cat:"ber-動詞",foreign:"Bertemu",rom:"ber-te-mu",ja:"会う"},
+{id:"bv11",cat:"ber-動詞",foreign:"Berbelanja",rom:"ber-be-lan-ja",ja:"買い物する"},
+{id:"bv12",cat:"ber-動詞",foreign:"Bepergian",rom:"be-per-gi-an",ja:"旅行する"},
+{id:"bv13",cat:"ber-動詞",foreign:"Berdoa",rom:"ber-do-a",ja:"祈る"},
+{id:"bv14",cat:"ber-動詞",foreign:"Berjanji",rom:"ber-jan-ji",ja:"約束する"},
+{id:"bv15",cat:"ber-動詞",foreign:"Beristirahat",rom:"ber-is-ti-ra-hat",ja:"休む"},
+
+// ── 感情・気持ち ──
+{id:"em01a",cat:"感情・気持ち",foreign:"Saya senang.",rom:"sa-ya se-nang",ja:"嬉しいです。"},
+{id:"em02a",cat:"感情・気持ち",foreign:"Saya sedih.",rom:"sa-ya se-dih",ja:"悲しいです。"},
+{id:"em03a",cat:"感情・気持ち",foreign:"Saya marah.",rom:"sa-ya ma-rah",ja:"怒っています。"},
+{id:"em04a",cat:"感情・気持ち",foreign:"Saya takut.",rom:"sa-ya ta-kut",ja:"怖いです。"},
+{id:"em05a",cat:"感情・気持ち",foreign:"Saya malu.",rom:"sa-ya ma-lu",ja:"恥ずかしいです。"},
+{id:"em06a",cat:"感情・気持ち",foreign:"Saya kangen.",rom:"sa-ya kan-gen",ja:"恋しいです。/ 会いたいです。"},
+{id:"em07a",cat:"感情・気持ち",foreign:"Saya khawatir.",rom:"sa-ya kha-wa-tir",ja:"心配しています。"},
+{id:"em08a",cat:"感情・気持ち",foreign:"Saya bosan.",rom:"sa-ya bo-san",ja:"退屈しています。"},
+{id:"em09a",cat:"感情・気持ち",foreign:"Saya terkejut.",rom:"sa-ya ter-ke-jut",ja:"びっくりしました。"},
+{id:"em10a",cat:"感情・気持ち",foreign:"Saya lega.",rom:"sa-ya le-ga",ja:"ほっとしました。"},
+
+// ── 文化的表現 ──
+{id:"cu01",cat:"文化的表現",foreign:"Selamat ulang tahun!",rom:"se-la-mat u-lang ta-hun",ja:"お誕生日おめでとう！"},
+{id:"cu02",cat:"文化的表現",foreign:"Selamat Tahun Baru!",rom:"se-la-mat ta-hun ba-ru",ja:"新年おめでとう！"},
+{id:"cu03",cat:"文化的表現",foreign:"Selamat Natal!",rom:"se-la-mat na-tal",ja:"メリークリスマス！"},
+{id:"cu04",cat:"文化的表現",foreign:"Selamat Hari Raya!",rom:"se-la-mat ha-ri ra-ya",ja:"（イスラム教の祭日）おめでとう！"},
+{id:"cu05",cat:"文化的表現",foreign:"Selamat Idul Fitri!",rom:"se-la-mat i-dul fit-ri",ja:"断食明けおめでとう！"},
+{id:"cu06",cat:"文化的表現",foreign:"Semoga sukses!",rom:"se-mo-ga suk-ses",ja:"成功を祈ります！"},
+{id:"cu07",cat:"文化的表現",foreign:"Semoga sehat selalu.",rom:"se-mo-ga se-hat se-la-lu",ja:"いつも健康でありますように。"},
+{id:"cu08",cat:"文化的表現",foreign:"Insya Allah.",rom:"in-sya al-lah",ja:"神の御心のままに。"},
+{id:"cu09",cat:"文化的表現",foreign:"Assalamualaikum.",rom:"as-sa-la-mu-a-lai-kum",ja:"こんにちは。（イスラム教の挨拶）"},
+{id:"cu10",cat:"文化的表現",foreign:"Waalaikumsalam.",rom:"wa-a-lai-kum-sa-lam",ja:"こんにちは。（上への返答）"},
+{id:"cu11",cat:"文化的表現",foreign:"Sudah makan?",rom:"su-dah ma-kan",ja:"もうご飯食べた？（定番の挨拶）"},
+{id:"cu12",cat:"文化的表現",foreign:"Mau ke mana?",rom:"mau ke ma-na",ja:"どこ行くの？（カジュアルな挨拶）"},
+{id:"cu13",cat:"文化的表現",foreign:"Oleh-oleh dari Jepang.",rom:"o-leh o-leh da-ri je-pang",ja:"日本からのお土産です。"},
+{id:"cu14",cat:"文化的表現",foreign:"Hati-hati!",rom:"ha-ti ha-ti",ja:"気をつけて！"},
+{id:"cu15",cat:"文化的表現",foreign:"Ayo! / Yuk!",rom:"a-yo / yuk",ja:"さぁ行こう！"},
+{id:"cu16",cat:"文化的表現",foreign:"Masa sih?",rom:"ma-sa sih",ja:"まさか！/ うそでしょ？"},
+
+// ── 誘い・約束 ──
+{id:"in01a",cat:"誘い・約束",foreign:"Yuk, makan!",rom:"yuk ma-kan",ja:"さあ、食べに行こう！"},
+{id:"in02a",cat:"誘い・約束",foreign:"Ayo pergi!",rom:"a-yo per-gi",ja:"行こう！"},
+{id:"in03a",cat:"誘い・約束",foreign:"Kamu mau ikut?",rom:"ka-mu mau i-kut",ja:"あなたも行きたい？"},
+{id:"in04a",cat:"誘い・約束",foreign:"Nanti kita ketemu.",rom:"nan-ti ki-ta ke-te-mu",ja:"後で会いましょう。"},
+{id:"in05a",cat:"誘い・約束",foreign:"Kapan kamu luang?",rom:"ka-pan ka-mu lu-ang",ja:"いつ暇ですか？"},
+{id:"in06a",cat:"誘い・約束",foreign:"Minggu depan saya sibuk.",rom:"ming-gu de-pan sa-ya si-buk",ja:"来週は忙しいです。"},
+{id:"in07a",cat:"誘い・約束",foreign:"Hari Minggu saya free.",rom:"ha-ri ming-gu sa-ya fri",ja:"日曜日は空いてます。"},
+{id:"in08a",cat:"誘い・約束",foreign:"Di mana kita bertemu?",rom:"di ma-na ki-ta ber-te-mu",ja:"どこで会いますか？"},
+{id:"in09a",cat:"誘い・約束",foreign:"Di depan gerbang, ya.",rom:"di de-pan ger-bang ya",ja:"門の前でね。"},
+{id:"in10a",cat:"誘い・約束",foreign:"Sampai ketemu nanti!",rom:"sam-pai ke-te-mu nan-ti",ja:"また後で会いましょう！"},
+
+// ── 重複語 ──
+{id:"rd01",cat:"重複語",foreign:"anak-anak",rom:"a-nak a-nak",ja:"子供たち"},
+{id:"rd02",cat:"重複語",foreign:"orang-orang",rom:"o-rang o-rang",ja:"人々"},
+{id:"rd03",cat:"重複語",foreign:"buku-buku",rom:"bu-ku bu-ku",ja:"本（複数）"},
+{id:"rd04",cat:"重複語",foreign:"sayur-mayur",rom:"sa-yur ma-yur",ja:"野菜類"},
+{id:"rd05",cat:"重複語",foreign:"buah-buahan",rom:"bu-ah bu-ah-an",ja:"果物類"},
+{id:"rd06",cat:"重複語",foreign:"kira-kira",rom:"ki-ra ki-ra",ja:"だいたい / おおよそ"},
+{id:"rd07",cat:"重複語",foreign:"pelan-pelan",rom:"pe-lan pe-lan",ja:"ゆっくり"},
+{id:"rd08",cat:"重複語",foreign:"hati-hati",rom:"ha-ti ha-ti",ja:"気をつけて"},
+{id:"rd09",cat:"重複語",foreign:"masing-masing",rom:"ma-sing ma-sing",ja:"それぞれ"},
+{id:"rd10",cat:"重複語",foreign:"jalan-jalan",rom:"ja-lan ja-lan",ja:"散歩する / 旅行する"},
+{id:"rd11",cat:"重複語",foreign:"tiba-tiba",rom:"ti-ba ti-ba",ja:"突然"},
+{id:"rd12",cat:"重複語",foreign:"kadang-kadang",rom:"ka-dang ka-dang",ja:"時々"},
+{id:"rd13",cat:"重複語",foreign:"bersih-bersih",rom:"ber-sih ber-sih",ja:"掃除する"},
+{id:"rd14",cat:"重複語",foreign:"makan-makan",rom:"ma-kan ma-kan",ja:"みんなで食べる / 食事会"},
+
+// ── 好き・嫌い ──
+{id:"lk01",cat:"好き・嫌い",foreign:"Saya suka kopi.",rom:"sa-ya su-ka ko-pi",ja:"私はコーヒーが好きです。"},
+{id:"lk02",cat:"好き・嫌い",foreign:"Saya tidak suka pedas.",rom:"sa-ya ti-dak su-ka pe-das",ja:"私は辛いのが好きじゃありません。"},
+{id:"lk03",cat:"好き・嫌い",foreign:"Hobi saya berenang.",rom:"ho-bi sa-ya be-re-nang",ja:"私の趣味は水泳です。"},
+{id:"lk04",cat:"好き・嫌い",foreign:"Apa hobimu?",rom:"a-pa ho-bi-mu",ja:"あなたの趣味は何ですか？"},
+{id:"lk05",cat:"好き・嫌い",foreign:"Saya sangat suka pantai.",rom:"sa-ya sa-ngat su-ka pan-tai",ja:"私は海がとても好きです。"},
+{id:"lk06",cat:"好き・嫌い",foreign:"Saya suka musik pop.",rom:"sa-ya su-ka mu-sik pop",ja:"ポップミュージックが好きです。"},
+{id:"lk07",cat:"好き・嫌い",foreign:"Kamu suka apa?",rom:"ka-mu su-ka a-pa",ja:"何が好きですか？"},
+{id:"lk08",cat:"好き・嫌い",foreign:"Saya suka sekali makanan Indonesia.",rom:"sa-ya su-ka se-ka-li ma-kan-an in-do-ne-si-a",ja:"インドネシア料理がとても好きです。"},
+
+// ── 位置・場所表現 ──
+{id:"lo01",cat:"位置表現",foreign:"Di sebelah kiri",rom:"di se-be-lah ki-ri",ja:"左側に"},
+{id:"lo02",cat:"位置表現",foreign:"Di sebelah kanan",rom:"di se-be-lah ka-nan",ja:"右側に"},
+{id:"lo03",cat:"位置表現",foreign:"Di depan",rom:"di de-pan",ja:"前に"},
+{id:"lo04",cat:"位置表現",foreign:"Di belakang",rom:"di be-la-kang",ja:"後ろに"},
+{id:"lo05",cat:"位置表現",foreign:"Di samping",rom:"di sam-ping",ja:"隣に"},
+{id:"lo06",cat:"位置表現",foreign:"Di dalam",rom:"di da-lam",ja:"中に"},
+{id:"lo07",cat:"位置表現",foreign:"Di atas",rom:"di a-tas",ja:"上に"},
+{id:"lo08",cat:"位置表現",foreign:"Di bawah",rom:"di ba-wah",ja:"下に"},
+{id:"lo09",cat:"位置表現",foreign:"Di pojok",rom:"di po-jok",ja:"角に"},
+{id:"lo10",cat:"位置表現",foreign:"Rumah saya di depan sekolah.",rom:"ru-mah sa-ya di de-pan se-ko-lah",ja:"私の家は学校の前にあります。"},
+{id:"lo11",cat:"位置表現",foreign:"Kantor pos di belakang bank.",rom:"kan-tor pos di be-la-kang bank",ja:"郵便局は銀行の後ろにあります。"},
+{id:"lo12",cat:"位置表現",foreign:"Apotek di samping rumah sakit.",rom:"a-po-tek di sam-ping ru-mah sa-kit",ja:"薬局は病院の隣にあります。"},
+
+// ── 習慣の表現 ──
+{id:"ha01",cat:"習慣表現",foreign:"Setiap hari saya belajar.",rom:"se-ti-ap ha-ri sa-ya be-la-jar",ja:"毎日勉強しています。"},
+{id:"ha02",cat:"習慣表現",foreign:"Setiap pagi, saya olahraga.",rom:"se-ti-ap pa-gi sa-ya o-lah-ra-ga",ja:"毎朝運動しています。"},
+{id:"ha03",cat:"習慣表現",foreign:"Setiap malam, saya menonton TV.",rom:"se-ti-ap ma-lam sa-ya me-non-ton tv",ja:"毎晩テレビを見ます。"},
+{id:"ha04",cat:"習慣表現",foreign:"Biasanya saya tidur jam sepuluh.",rom:"bi-a-sa-nya sa-ya ti-dur jam se-pu-luh",ja:"普段は10時に寝ます。"},
+{id:"ha05",cat:"習慣表現",foreign:"Biasanya saya makan siang jam dua belas.",rom:"bi-a-sa-nya sa-ya ma-kan si-ang jam du-a be-las",ja:"普段は12時に昼食を食べます。"},
+{id:"ha06",cat:"習慣表現",foreign:"Saya selalu sarapan sebelum kerja.",rom:"sa-ya se-la-lu sa-ra-pan se-be-lum ker-ja",ja:"仕事前にいつも朝食を食べます。"},
+
+// ── 受け身（di-）──
+{id:"pa01",cat:"受け身（di-）",foreign:"Buku ini ditulis oleh dia.",rom:"bu-ku i-ni di-tu-lis o-leh di-a",ja:"この本は彼/彼女に書かれた。"},
+{id:"pa02",cat:"受け身（di-）",foreign:"Pintu dibuka.",rom:"pin-tu di-bu-ka",ja:"ドアが開けられた。"},
+{id:"pa03",cat:"受け身（di-）",foreign:"Nasi sudah dimasak.",rom:"na-si su-dah di-ma-sak",ja:"ご飯はもう炊かれた。"},
+{id:"pa04",cat:"受け身（di-）",foreign:"Tas saya dicuri.",rom:"tas sa-ya di-cu-ri",ja:"カバンが盗まれた。"},
+{id:"pa05",cat:"受け身（di-）",foreign:"Makanan sudah dipesan.",rom:"ma-kan-an su-dah di-pe-san",ja:"食べ物はもう注文された。"},
+{id:"pa06",cat:"受け身（di-）",foreign:"Surat itu dikirim kemarin.",rom:"su-rat i-tu di-ki-rim ke-ma-rin",ja:"その手紙は昨日送られた。"},
+];
+
+// ─────────────── STATE ───────────────
+const LS_KEY = 'indonesian_mastered_v1';
+let cards = [];
+let filtered = [];
+let currentIdx = 0;
+let revealed = false;
+let mode = 'ja2id';
+let currentCat = 'すべて';
+let mastered = new Set();
+let isMuted = false;
+let isSpeaking = false;
+
+// ─────────────── UTIL ───────────────
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function loadMastered() {
+  try { mastered = new Set(JSON.parse(localStorage.getItem(LS_KEY) || '[]')); } catch(e) { mastered = new Set(); }
+}
+function saveMastered() {
+  try { localStorage.setItem(LS_KEY, JSON.stringify([...mastered])); } catch(e) {}
+}
+
+// ─────────────── SPEECH ───────────────
+function speakForeign(text, onDone) {
+  if (isMuted) { if (onDone) onDone(); return; }
+  window.speechSynthesis.cancel();
+  function doSpeak(lang) {
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = lang; u.rate = 0.8; u.pitch = 1.0;
+    u.onend = () => { isSpeaking = false; setSpeakBtnPulse(false); if (onDone) onDone(); };
+    u.onerror = () => { isSpeaking = false; setSpeakBtnPulse(false); if (onDone) onDone(); };
+    window.speechSynthesis.speak(u);
+  }
+  const voices = window.speechSynthesis.getVoices();
+  const preferred = ['id-ID','in-ID','id','en-ID','en-US'];
+  let chosen = null;
+  for (const lang of preferred) {
+    const v = voices.find(v => v.lang === lang || v.lang.startsWith('id'));
+    if (v) { chosen = v.lang; break; }
+  }
+  isSpeaking = true; setSpeakBtnPulse(true);
+  doSpeak(chosen || 'id-ID');
+}
+function speakJapanese(text, onDone) {
+  if (isMuted) { if (onDone) onDone(); return; }
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'ja-JP'; u.rate = 0.85;
+  u.onend = () => { isSpeaking = false; setSpeakBtnPulse(false); if (onDone) onDone(); };
+  u.onerror = () => { isSpeaking = false; setSpeakBtnPulse(false); if (onDone) onDone(); };
+  isSpeaking = true; setSpeakBtnPulse(true);
+  window.speechSynthesis.speak(u);
+}
+function speakAnswer() {
+  const card = filtered[currentIdx];
+  if (!card) return;
+  const effectiveMode = mode === 'random' ? card._randMode : mode;
+  if (effectiveMode === 'ja2id') speakForeign(card.foreign);
+  else speakJapanese(card.ja);
+}
+function setSpeakBtnPulse(v) {
+  const btn = document.getElementById('speak-btn');
+  if (btn) btn.classList.toggle('pulsing', v);
+}
+
+// ─────────────── INIT ───────────────
+function init() {
+  loadMastered();
+  cards = CARDS_RAW.map((d, i) => ({ ...d, _id: d.id || i }));
+  buildCatButtons();
+  applyFilter();
+  updateStats();
+  renderCard();
+}
+
+// ─────────────── CATEGORIES ───────────────
+function buildCatButtons() {
+  const cats = ['すべて', ...new Set(cards.map(c => c.cat))];
+  const scroll = document.getElementById('cat-scroll');
+  scroll.innerHTML = '';
+  cats.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'cpill' + (cat === currentCat ? ' active' : '');
+    btn.textContent = cat;
+    btn.onclick = () => selectCat(cat);
+    scroll.appendChild(btn);
+  });
+}
+function selectCat(cat) {
+  currentCat = cat;
+  document.querySelectorAll('.cpill').forEach(b => b.classList.toggle('active', b.textContent === cat));
+  applyFilter();
+  currentIdx = 0;
+  revealed = false;
+  updateStats();
+  renderCard();
+}
+
+// ─────────────── FILTER ───────────────
+function applyFilter() {
+  if (currentCat === 'すべて') filtered = [...cards];
+  else filtered = cards.filter(c => c.cat === currentCat);
+  skipMastered();
+}
+function skipMastered() {
+  // find first non-mastered from current
+  if (filtered.length === 0) return;
+  let attempts = 0;
+  while (mastered.has(filtered[currentIdx]?._id) && attempts < filtered.length) {
+    currentIdx = (currentIdx + 1) % filtered.length;
+    attempts++;
+  }
+}
+
+// ─────────────── STATS ───────────────
+function updateStats() {
+  const total = filtered.length;
+  const done = filtered.filter(c => mastered.has(c._id)).length;
+  const rem = total - done;
+  const pct = total > 0 ? Math.round(done / total * 100) : 0;
+  document.getElementById('stat-total').textContent = `全${total}件`;
+  document.getElementById('stat-rem').textContent = `残り${rem}件`;
+  document.getElementById('stat-done').textContent = `✓${done}件`;
+  document.getElementById('prog-bar').style.width = pct + '%';
+  document.getElementById('stat-pct').textContent = pct + '%';
+}
+
+// ─────────────── RENDER ───────────────
+function renderCard() {
+  revealed = false;
+  showRevealBtn();
+  const card = filtered[currentIdx];
+  if (!card) {
+    document.getElementById('card-question').textContent = 'カードがありません';
+    document.getElementById('card-cat').textContent = '';
+    document.getElementById('card-counter').textContent = '';
+    document.getElementById('card-body').innerHTML = '<div class="card-main">カードがありません</div>';
+    return;
+  }
+  const effectiveMode = mode === 'random'
+    ? (Math.random() < 0.5 ? 'ja2id' : 'id2ja')
+    : mode;
+  card._randMode = effectiveMode;
+
+  document.getElementById('card-cat').textContent = card.cat;
+  document.getElementById('card-counter').textContent = `${currentIdx + 1} / ${filtered.length}`;
+
+  const body = document.getElementById('card-body');
+  if (effectiveMode === 'ja2id') {
+    body.innerHTML = `
+      <div class="card-main jp">${escHtml(card.ja)}</div>
+      <div class="tap-hint">👆 タップして答えを見る</div>
+    `;
+  } else {
+    body.innerHTML = `
+      <div class="card-main">${escHtml(card.foreign)}</div>
+      <div class="rom">${escHtml(card.rom)}</div>
+      <div class="tap-hint">👆 タップして答えを見る</div>
+    `;
+  }
+}
+
+function revealCard() {
+  if (!filtered[currentIdx]) return;
+  revealed = true;
+  showRevealBtn();
+  const card = filtered[currentIdx];
+  const effectiveMode = card._randMode || mode;
+  const body = document.getElementById('card-body');
+
+  if (effectiveMode === 'ja2id') {
+    body.innerHTML = `
+      <div class="card-main jp">${escHtml(card.ja)}</div>
+      <div class="divider"></div>
+      <div class="card-main">${escHtml(card.foreign)}</div>
+      <div class="rom">${escHtml(card.rom)}</div>
+      <button class="speak-btn" id="speak-btn" onclick="event.stopPropagation();speakAnswer()">🔊</button>
+    `;
+  } else {
+    body.innerHTML = `
+      <div class="card-main">${escHtml(card.foreign)}</div>
+      <div class="divider"></div>
+      <div class="card-main jp">${escHtml(card.ja)}</div>
+      <button class="speak-btn" id="speak-btn" onclick="event.stopPropagation();speakAnswer()">🔊</button>
+    `;
+  }
+  speakAnswer();
+}
+
+function toggleReveal() {
+  if (!revealed) revealCard();
+  else renderCard();
+}
+
+function showRevealBtn() {
+  document.getElementById('btn-reveal').style.display = revealed ? 'none' : '';
+  document.getElementById('btn-unreveal').style.display = revealed ? '' : 'none';
+}
+
+// ─────────────── NAV ───────────────
+function nextCard() {
+  if (filtered.length === 0) return;
+  // check all mastered
+  const allDone = filtered.every(c => mastered.has(c._id));
+  if (allDone) { showComplete(); return; }
+  let next = (currentIdx + 1) % filtered.length;
+  let attempts = 0;
+  while (mastered.has(filtered[next]._id) && attempts < filtered.length) {
+    next = (next + 1) % filtered.length;
+    attempts++;
+  }
+  currentIdx = next;
+  renderCard();
+  updateStats();
+}
+function prevCard() {
+  if (filtered.length === 0) return;
+  let prev = (currentIdx - 1 + filtered.length) % filtered.length;
+  currentIdx = prev;
+  renderCard();
+  updateStats();
+}
+function markMastered() {
+  const card = filtered[currentIdx];
+  if (!card) return;
+  mastered.add(card._id);
+  saveMastered();
+  const allDone = filtered.every(c => mastered.has(c._id));
+  if (allDone) { updateStats(); showComplete(); return; }
+  updateStats();
+  nextCard();
+}
+
+// ─────────────── COMPLETE ───────────────
+function showComplete() {
+  const overlay = document.getElementById('complete-overlay');
+  overlay.classList.add('show');
+  setTimeout(() => {
+    overlay.classList.remove('show');
+    mastered.clear();
+    saveMastered();
+    currentIdx = 0;
+    updateStats();
+    renderCard();
+  }, 1800);
+}
+
+// ─────────────── MODAL ───────────────
+function openModal() {
+  document.getElementById('modal-overlay').classList.add('show');
+  document.getElementById('modal-search').value = '';
+  renderModalList('');
+  setTimeout(() => document.getElementById('modal-search').focus(), 200);
+}
+function closeModal(e) {
+  if (e.target === document.getElementById('modal-overlay')) closeModalDirect();
+}
+function closeModalDirect() {
+  document.getElementById('modal-overlay').classList.remove('show');
+}
+function filterModal() {
+  renderModalList(document.getElementById('modal-search').value.toLowerCase());
+}
+function renderModalList(q) {
+  const grouped = {};
+  cards.forEach(card => {
+    if (q && !card.foreign.toLowerCase().includes(q) && !card.ja.includes(q) && !card.rom.toLowerCase().includes(q)) return;
+    if (!grouped[card.cat]) grouped[card.cat] = [];
+    grouped[card.cat].push(card);
+  });
+  const list = document.getElementById('modal-list');
+  list.innerHTML = '';
+  Object.keys(grouped).forEach(cat => {
+    const title = document.createElement('div');
+    title.className = 'modal-cat-title';
+    title.textContent = cat;
+    list.appendChild(title);
+    grouped[cat].forEach(card => {
+      const row = document.createElement('div');
+      row.className = 'modal-row' + (mastered.has(card._id) ? ' mastered' : '');
+      row.innerHTML = `<div class="modal-row-text">
+        <div class="modal-foreign">${escHtml(card.foreign)}</div>
+        <div class="modal-ja">${escHtml(card.ja)}</div>
+      </div>${mastered.has(card._id) ? '<span class="modal-check">✓</span>' : ''}`;
+      row.onclick = () => jumpToCard(card);
+      list.appendChild(row);
+    });
+  });
+}
+function jumpToCard(card) {
+  closeModalDirect();
+  if (card.cat !== currentCat) {
+    currentCat = 'すべて';
+    document.querySelectorAll('.cpill').forEach(b => b.classList.toggle('active', b.textContent === 'すべて'));
+    applyFilter();
+  }
+  const idx = filtered.findIndex(c => c._id === card._id);
+  if (idx !== -1) currentIdx = idx;
+  renderCard();
+  updateStats();
+}
+
+// ─────────────── HEADER BUTTONS ───────────────
+document.getElementById('btn-list').onclick = openModal;
+document.getElementById('btn-reset').onclick = () => {
+  if (mastered.size === 0) return;
+  mastered.clear();
+  saveMastered();
+  currentIdx = 0;
+  updateStats();
+  renderCard();
+  const btn = document.getElementById('btn-reset');
+  btn.textContent = '✅';
+  setTimeout(() => btn.textContent = '🔄', 800);
+};
+document.getElementById('btn-shuffle').onclick = () => {
+  for (let i = filtered.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [filtered[i], filtered[j]] = [filtered[j], filtered[i]];
+  }
+  currentIdx = 0;
+  renderCard();
+  updateStats();
+  const btn = document.getElementById('btn-shuffle');
+  btn.textContent = '✅';
+  setTimeout(() => btn.textContent = '🔀', 800);
+};
+document.getElementById('btn-mute').onclick = () => {
+  isMuted = !isMuted;
+  document.getElementById('btn-mute').textContent = isMuted ? '🔇' : '🔊';
+  if (isMuted) window.speechSynthesis.cancel();
+};
+
+// ─────────────── MODE BUTTONS ───────────────
+document.querySelectorAll('.mbtn').forEach(btn => {
+  btn.onclick = () => {
+    mode = btn.dataset.mode;
+    document.querySelectorAll('.mbtn').forEach(b => b.classList.toggle('active', b === btn));
+    currentIdx = 0;
+    renderCard();
+  };
+});
+
+// ─────────────── KEYBOARD ───────────────
+document.addEventListener('keydown', e => {
+  if (document.getElementById('modal-overlay').classList.contains('show')) {
+    if (e.key === 'Escape') closeModalDirect();
+    return;
+  }
+  if (e.key === 'ArrowRight') nextCard();
+  else if (e.key === 'ArrowLeft') prevCard();
+  else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleReveal(); }
+  else if (e.key.toLowerCase() === 'c') markMastered();
+  else if (e.key === 'Escape') closeModalDirect();
+});
+
+// ─────────────── START ───────────────
+window.speechSynthesis.onvoiceschanged = function(){};
+init();
+</script>
+</body>
+</html>

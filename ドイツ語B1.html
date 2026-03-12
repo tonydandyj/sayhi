@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>🇩🇪 ドイツ語 B1 フラッシュカード</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=M+PLUS+Rounded+1c:wght@400;500;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black:     #1a1a1a;
+  --red:       #cc0000;
+  --gold:      #ffcc00;
+  --cream:     #fffdf0;
+  --forest:    #2d5016;
+  --text:      #1a1a2e;
+  --text-mid:  #3d3d5c;
+  --text-muted:#7a7a9a;
+  --glass:     rgba(255,255,255,0.84);
+  --glass2:    rgba(255,255,255,0.55);
+  --border:    rgba(204,0,0,0.18);
+  --border2:   rgba(204,0,0,0.35);
+  --jp:        'M PLUS Rounded 1c', 'Nunito', sans-serif;
+  --foreign:   'Noto Sans', 'Nunito', sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{
+  font-family:var(--jp);
+  background: linear-gradient(145deg,#fffbe8 0%,#fff3cd 40%,#ffe8a0 100%);
+  color:var(--text);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  height:100vh;
+  overflow:hidden;
+}
+
+/* ===== HEADER ===== */
+header{
+  width:100%;
+  background:linear-gradient(135deg,#1a1a1a 0%,#2d2d2d 60%,#1a0a0a 100%);
+  padding:8px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-shrink:0;
+  box-shadow:0 3px 16px rgba(0,0,0,0.35);
+  z-index:10;
+}
+.header-title{
+  font-family:var(--foreign);
+  font-weight:800;
+  font-size:clamp(0.9rem,2.8vw,1.15rem);
+  color:#ffcc00;
+  letter-spacing:0.03em;
+  display:flex;align-items:center;gap:6px;
+}
+.header-title span{color:#fff;font-weight:600;font-size:0.9em;}
+.header-btns{display:flex;gap:6px;}
+.hbtn{
+  background:rgba(255,255,255,0.1);
+  border:1px solid rgba(255,204,0,0.25);
+  border-radius:8px;
+  color:#ffcc00;
+  font-size:1rem;
+  width:34px;height:34px;
+  cursor:pointer;
+  transition:all .18s;
+  display:flex;align-items:center;justify-content:center;
+  backdrop-filter:blur(6px);
+}
+.hbtn:hover{background:rgba(255,204,0,0.18);transform:scale(1.08);}
+.hbtn:active{transform:scale(.92);}
+
+/* ===== MODE SELECTOR ===== */
+.mode-bar{
+  display:flex;gap:7px;padding:7px 16px 5px;flex-shrink:0;
+  width:100%;max-width:700px;
+}
+.mode-btn{
+  flex:1;padding:6px 0;border-radius:50px;border:none;cursor:pointer;
+  font-family:var(--jp);font-size:0.8rem;font-weight:700;
+  background:var(--glass);color:var(--text-mid);
+  border:1.5px solid var(--border);
+  transition:all .2s;backdrop-filter:blur(8px);
+  box-shadow:0 2px 8px rgba(0,0,0,0.07);
+}
+.mode-btn.active{
+  background:linear-gradient(135deg,#1a1a1a 0%,#cc0000 100%);
+  color:#ffcc00;border-color:transparent;
+  box-shadow:0 3px 12px rgba(204,0,0,0.3);
+}
+.mode-btn:hover:not(.active){background:rgba(255,204,0,0.2);transform:translateY(-1px);}
+
+/* ===== STATS ===== */
+.stats-bar{
+  display:flex;align-items:center;gap:8px;
+  padding:4px 16px;flex-shrink:0;
+  font-size:0.72rem;color:var(--text-mid);font-weight:600;
+  width:100%;max-width:700px;
+}
+.stats-bar span{white-space:nowrap;}
+.progress-wrap{flex:1;background:rgba(204,0,0,0.1);border-radius:4px;height:6px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,#cc0000,#ffcc00);border-radius:4px;transition:width .4s ease;}
+.pct{color:var(--red);font-weight:700;}
+
+/* ===== CATEGORY SCROLL ===== */
+.cat-scroll{
+  overflow-x:auto;display:flex;gap:7px;
+  padding:5px 16px 10px;flex-shrink:0;
+  width:100%;max-width:700px;
+  scrollbar-width:thin;
+  scrollbar-color:var(--gold) rgba(204,0,0,.12);
+}
+.cat-scroll::-webkit-scrollbar{height:5px;}
+.cat-scroll::-webkit-scrollbar-track{background:rgba(204,0,0,.10);border-radius:4px;}
+.cat-scroll::-webkit-scrollbar-thumb{background:var(--gold);border-radius:4px;}
+.cat-scroll::-webkit-scrollbar-thumb:hover{background:var(--red);}
+.cat-pill{
+  white-space:nowrap;padding:4px 12px;border-radius:50px;
+  font-size:0.72rem;font-weight:700;border:none;cursor:pointer;
+  background:var(--glass);color:var(--text-mid);
+  border:1.5px solid var(--border);
+  transition:all .18s;backdrop-filter:blur(6px);
+  box-shadow:0 2px 6px rgba(0,0,0,0.06);
+}
+.cat-pill.active{
+  background:linear-gradient(135deg,#1a1a1a 0%,#a00000 100%);
+  color:#ffcc00;border-color:transparent;
+  box-shadow:0 3px 10px rgba(204,0,0,0.28);
+}
+.cat-pill:hover:not(.active){background:rgba(255,204,0,0.2);transform:translateY(-1px);}
+
+/* ===== CARD AREA ===== */
+.card-area{
+  flex:1;display:flex;align-items:center;justify-content:center;
+  padding:0 16px;min-height:0;overflow:hidden;
+  width:100%;max-width:700px;
+}
+.card{
+  background:var(--glass);
+  backdrop-filter:blur(18px);
+  border-radius:20px;
+  border:1px solid var(--border2);
+  box-shadow:0 8px 32px rgba(204,0,0,0.12),0 2px 8px rgba(0,0,0,0.08);
+  width:100%;max-width:680px;
+  overflow:hidden;
+  cursor:pointer;
+  transition:transform .2s,box-shadow .2s;
+  position:relative;
+}
+.card:hover{transform:translateY(-3px) scale(1.005);box-shadow:0 14px 40px rgba(204,0,0,0.18);}
+.card:active{transform:scale(.98);}
+.card-accent{
+  height:4px;
+  background:linear-gradient(90deg,#1a1a1a 33.3%,#cc0000 33.3% 66.6%,#ffcc00 66.6%);
+}
+.card-top{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:9px 14px 4px;
+}
+.card-cat-label{
+  font-size:0.68rem;font-weight:700;
+  background:linear-gradient(135deg,rgba(26,26,26,0.1),rgba(204,0,0,0.1));
+  color:var(--text-mid);padding:2px 9px;border-radius:50px;
+  border:1px solid var(--border);
+}
+.card-counter{font-size:0.72rem;color:var(--text-muted);font-weight:600;}
+.card-body{
+  padding:12px 20px 16px;
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  min-height:130px;justify-content:center;
+}
+.card-question{
+  font-family:var(--foreign);
+  font-size:clamp(1.4rem,5vw,2.2rem);
+  font-weight:700;color:var(--text);
+  line-height:1.3;margin-bottom:8px;
+}
+.card-question.jp{
+  font-family:var(--jp);
+  font-size:clamp(1.1rem,4vw,1.7rem);
+}
+.card-hint{font-size:0.75rem;color:var(--text-muted);margin-top:4px;}
+.card-answer{
+  font-family:var(--foreign);
+  font-size:clamp(1.3rem,4.5vw,2rem);
+  font-weight:700;color:var(--red);
+  line-height:1.3;margin-bottom:8px;
+}
+.card-answer.jp{
+  font-family:var(--jp);
+  font-size:clamp(1.1rem,3.5vw,1.6rem);
+}
+.card-divider{width:60px;height:2px;background:linear-gradient(90deg,#cc0000,#ffcc00);border-radius:2px;margin:8px auto;}
+.speak-btn{
+  background:linear-gradient(135deg,rgba(204,0,0,0.12),rgba(255,204,0,0.12));
+  border:1.5px solid var(--border2);
+  border-radius:50px;padding:5px 14px;
+  font-size:0.82rem;cursor:pointer;color:var(--text-mid);
+  transition:all .18s;margin-top:4px;
+  display:flex;align-items:center;gap:5px;
+  backdrop-filter:blur(6px);
+}
+.speak-btn:hover{background:rgba(255,204,0,0.25);transform:translateY(-1px);}
+.speak-btn.playing{animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(204,0,0,0.3);}50%{box-shadow:0 0 0 7px rgba(204,0,0,0);}}
+
+/* ===== CONTROLS ===== */
+.controls{
+  display:flex;gap:6px;padding:6px 16px 8px;flex-shrink:0;
+  width:100%;max-width:700px;
+}
+.ctrl-btn{
+  flex:1;padding:8px 4px;border-radius:12px;border:none;cursor:pointer;
+  font-family:var(--jp);font-size:0.75rem;font-weight:700;
+  transition:all .18s;backdrop-filter:blur(8px);
+  box-shadow:0 3px 10px rgba(0,0,0,0.08);
+}
+.ctrl-btn:active{transform:scale(.93);}
+.btn-prev,.btn-revert{background:var(--glass);color:var(--text-mid);border:1.5px solid var(--border);}
+.btn-prev:hover,.btn-revert:hover{background:rgba(255,204,0,0.2);}
+.btn-reveal{
+  background:linear-gradient(135deg,#a00000 0%,#cc0000 100%);
+  color:#fff;border:none;
+  box-shadow:0 3px 12px rgba(204,0,0,0.3);
+}
+.btn-reveal:hover{transform:translateY(-2px);box-shadow:0 5px 16px rgba(204,0,0,0.4);}
+.btn-check{
+  background:linear-gradient(135deg,#2d5016 0%,#3d7020 100%);
+  color:#fff;border:none;
+  box-shadow:0 3px 12px rgba(45,80,22,0.3);
+}
+.btn-check:hover{transform:translateY(-2px);box-shadow:0 5px 16px rgba(45,80,22,0.4);}
+.btn-check.checked{background:linear-gradient(135deg,#555,#777);box-shadow:none;}
+.btn-next{
+  background:linear-gradient(135deg,#cc9900 0%,#ffcc00 100%);
+  color:#1a1a1a;border:none;
+  box-shadow:0 3px 12px rgba(255,204,0,0.3);
+}
+.btn-next:hover{transform:translateY(-2px);box-shadow:0 5px 16px rgba(255,204,0,0.4);}
+
+/* ===== KEYBOARD HINT ===== */
+.kb-hint{
+  text-align:center;font-size:0.62rem;color:var(--text-muted);
+  padding:2px 16px 6px;flex-shrink:0;
+  width:100%;max-width:700px;
+}
+
+/* ===== MODAL ===== */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(26,26,26,0.65);
+  backdrop-filter:blur(4px);z-index:100;
+  display:none;align-items:center;justify-content:center;
+}
+.modal-overlay.open{display:flex;}
+.modal{
+  background:var(--cream);
+  border-radius:18px;
+  width:min(94vw,620px);
+  max-height:88vh;
+  display:flex;flex-direction:column;
+  overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,0.3);
+}
+.modal-header{
+  background:linear-gradient(135deg,#1a1a1a 0%,#cc0000 100%);
+  padding:14px 16px;
+  display:flex;align-items:center;gap:10px;
+}
+.modal-title{font-family:var(--foreign);font-weight:800;color:#ffcc00;font-size:1rem;}
+.modal-search{
+  flex:1;padding:6px 12px;border-radius:50px;border:none;
+  font-family:var(--jp);font-size:0.82rem;
+  background:rgba(255,255,255,0.18);color:#fff;
+  outline:none;
+}
+.modal-search::placeholder{color:rgba(255,255,255,0.5);}
+.modal-close{
+  background:rgba(255,255,255,0.15);border:none;border-radius:50%;
+  width:30px;height:30px;cursor:pointer;color:#fff;font-size:1rem;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .15s;
+}
+.modal-close:hover{background:rgba(255,255,255,0.3);}
+.modal-body{overflow-y:auto;padding:0 0 10px;}
+.modal-cat-header{
+  font-weight:700;font-size:0.72rem;color:var(--red);
+  padding:10px 14px 4px;text-transform:uppercase;letter-spacing:0.08em;
+  border-bottom:1px solid var(--border);
+}
+.modal-row{
+  display:flex;gap:8px;padding:7px 14px;
+  cursor:pointer;transition:background .15s;align-items:flex-start;
+  border-bottom:1px solid rgba(204,0,0,0.06);
+}
+.modal-row:hover{background:rgba(255,204,0,0.12);}
+.modal-row.mastered{opacity:0.38;}
+.modal-de{font-family:var(--foreign);font-weight:600;font-size:0.84rem;color:var(--text);flex:1;}
+.modal-ja{font-size:0.78rem;color:var(--text-mid);flex:1;}
+
+/* ===== COMPLETE OVERLAY ===== */
+.complete-overlay{
+  position:fixed;inset:0;
+  background:rgba(255,252,220,0.88);
+  backdrop-filter:blur(12px);
+  z-index:200;
+  display:none;align-items:center;justify-content:center;
+  flex-direction:column;gap:10px;
+}
+.complete-overlay.show{display:flex;}
+.complete-icon{font-size:3.5rem;}
+.complete-text{font-size:1.3rem;font-weight:800;color:var(--red);}
+.complete-sub{font-size:0.85rem;color:var(--text-mid);}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-title">🇩🇪 <span>ドイツ語 B1</span> フラッシュカード</div>
+  <div class="header-btns">
+    <button class="hbtn" id="btnList" title="一覧">📋</button>
+    <button class="hbtn" id="btnReset" title="リセット">🔄</button>
+    <button class="hbtn" id="btnShuffle" title="シャッフル">🔀</button>
+    <button class="hbtn" id="btnMute" title="ミュート">🔊</button>
+  </div>
+</header>
+
+<!-- MODE -->
+<div class="mode-bar">
+  <button class="mode-btn active" data-mode="ja2de">和 → 独</button>
+  <button class="mode-btn" data-mode="de2ja">独 → 和</button>
+  <button class="mode-btn" data-mode="random">🎲 ランダム</button>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <span id="statTotal">全0件</span>
+  <span id="statRem">残り0件</span>
+  <span id="statDone">✓0件</span>
+  <div class="progress-wrap"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  <span class="pct" id="statPct">0%</span>
+</div>
+
+<!-- CATEGORY SCROLL -->
+<div class="cat-scroll" id="catScroll"></div>
+
+<!-- CARD -->
+<div class="card-area">
+  <div class="card" id="mainCard">
+    <div class="card-accent"></div>
+    <div class="card-top">
+      <span class="card-cat-label" id="cardCat">–</span>
+      <span class="card-counter" id="cardCounter">0 / 0</span>
+    </div>
+    <div class="card-body" id="cardBody">
+      <div class="card-question" id="cardQ"></div>
+      <div class="card-hint" id="cardHint">👆 タップして答えを見る</div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTROLS -->
+<div class="controls">
+  <button class="ctrl-btn btn-prev" id="btnPrev">← 戻る</button>
+  <button class="ctrl-btn btn-reveal" id="btnReveal">▶ 表示</button>
+  <button class="ctrl-btn btn-revert" id="btnRevert">◀ 戻す</button>
+  <button class="ctrl-btn btn-check" id="btnCheck">✓ 覚えた</button>
+  <button class="ctrl-btn btn-next" id="btnNext">次へ →</button>
+</div>
+
+<!-- KB HINT -->
+<div class="kb-hint">→ 次へ ／ ← 戻る ／ Enter 答えを見る ／ C 覚えた</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">📋 例文一覧</span>
+      <input class="modal-search" id="modalSearch" placeholder="検索…" autocomplete="off">
+      <button class="modal-close" id="modalClose">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- COMPLETE OVERLAY -->
+<div class="complete-overlay" id="completeOverlay">
+  <div class="complete-icon">🏆</div>
+  <div class="complete-text">全カード完了！</div>
+  <div class="complete-sub">チェックを解除してもう一度挑戦しましょう</div>
+</div>
+
+<script>
+// ===== CARD DATA =====
+const CARDS_RAW = [
+  // ===== 関係代名詞 =====
+  {id:"rel01",cat:"関係代名詞",foreign:"Das ist der Mann, der mir gestern geholfen hat.",ja:"昨日私を助けてくれたのは、あの男性です。"},
+  {id:"rel02",cat:"関係代名詞",foreign:"Kennst du die Frau, mit der ich gerade gesprochen habe?",ja:"私がちょうど話していた女性を知っていますか？"},
+  {id:"rel03",cat:"関係代名詞",foreign:"Das Buch, das ich lese, ist sehr spannend.",ja:"私が読んでいる本はとても面白いです。"},
+  {id:"rel04",cat:"関係代名詞",foreign:"Die Stadt, in der ich geboren wurde, ist klein.",ja:"私が生まれた街は小さな街です。"},
+  {id:"rel05",cat:"関係代名詞",foreign:"Das ist der Kollege, der mir bei dem Projekt geholfen hat.",ja:"彼はそのプロジェクトを手伝ってくれた同僚です。"},
+  {id:"rel06",cat:"関係代名詞",foreign:"Ich suche ein Buch, das sich mit deutscher Geschichte beschäftigt.",ja:"ドイツ史を扱う本を探しています。"},
+  {id:"rel07",cat:"関係代名詞",foreign:"Die Firma, für die ich arbeite, expandiert international.",ja:"私が働いている会社は国際展開しています。"},
+  {id:"rel08",cat:"関係代名詞",foreign:"Das Problem, über das wir gesprochen haben, ist noch nicht gelöst.",ja:"私たちが話していた問題はまだ解決していません。"},
+  {id:"rel09",cat:"関係代名詞",foreign:"Die Stadt, in der ich studiert habe, ist sehr lebendig.",ja:"私が勉強した街はとても活気があります。"},
+  {id:"rel10",cat:"関係代名詞",foreign:"Das ist der Kollege, mit dem ich am häufigsten zusammenarbeite.",ja:"こちらが私が最も頻繁に一緒に仕事をしている同僚です。"},
+  {id:"rel11",cat:"関係代名詞",foreign:"Die Wohnung, die wir besichtigt haben, war leider zu teuer.",ja:"私たちが内覧したアパートは残念ながら高すぎた。"},
+  {id:"rel12",cat:"関係代名詞",foreign:"Das Buch, das mir mein Freund empfohlen hat, ist wirklich spannend.",ja:"友人に勧められた本は本当に面白い。"},
+  {id:"rel13",cat:"関係代名詞",foreign:"Die Stadt, in der ich aufgewachsen bin, hat sich sehr verändert.",ja:"私が育った町はとても変わった。"},
+  {id:"rel14",cat:"関係代名詞",foreign:"Die Nachbarin, deren Hund immer bellt, ist letzte Woche ausgezogen.",ja:"いつも犬が吠えていた隣人は先週引っ越した。"},
+  {id:"rel15",cat:"関係代名詞",foreign:"Alles, was er gesagt hat, war gelogen.",ja:"彼が言ったことはすべて嘘だった。"},
+  {id:"rel16",cat:"関係代名詞",foreign:"Das ist das Beste, was mir je passiert ist.",ja:"それは私に起こった最高のことだ。"},
+  {id:"rel17",cat:"関係代名詞",foreign:"Der Film, den wir gestern gesehen haben, war beeindruckend.",ja:"昨日見た映画は印象的でした。"},
+  {id:"rel18",cat:"関係代名詞",foreign:"Das ist die Firma, bei der ich arbeite.",ja:"それが私が働いている会社です。"},
+  {id:"rel19",cat:"関係代名詞",foreign:"Kennst du jemanden, der sich mit Computern gut auskennt?",ja:"コンピュータに詳しい人を誰か知っている？"},
+  {id:"rel20",cat:"関係代名詞",foreign:"Das ist genau der Kurs, nach dem ich schon lange gesucht habe.",ja:"これは、ずっと探していたコースです。"},
+
+  // ===== 受動態 =====
+  {id:"pas01",cat:"受動態",foreign:"Hier wird Deutsch gesprochen.",ja:"ここではドイツ語が話されています。"},
+  {id:"pas02",cat:"受動態",foreign:"Das Auto wird gerade repariert.",ja:"車はちょうど修理されているところです。"},
+  {id:"pas03",cat:"受動態",foreign:"Der Brief wurde gestern geschickt.",ja:"その手紙は昨日送られました。"},
+  {id:"pas04",cat:"受動態",foreign:"Die Hausaufgaben müssen bis morgen gemacht werden.",ja:"宿題は明日までにやらなければなりません。"},
+  {id:"pas05",cat:"受動態",foreign:"Das Gebäude wird derzeit renoviert.",ja:"その建物は現在改装されています。"},
+  {id:"pas06",cat:"受動態",foreign:"Die E-Mails werden jeden Morgen beantwortet.",ja:"メールは毎朝返信されています。"},
+  {id:"pas07",cat:"受動態",foreign:"Das Problem wurde schnell gelöst.",ja:"問題はすぐ解決されました。"},
+  {id:"pas08",cat:"受動態",foreign:"Neue Mitarbeiter werden intensiv geschult.",ja:"新しい社員は徹底的に研修されます。"},
+  {id:"pas09",cat:"受動態",foreign:"Die Entscheidung wird nächste Woche getroffen.",ja:"決定は来週行われます。"},
+  {id:"pas10",cat:"受動態",foreign:"In Deutschland wird viel Brot gegessen.",ja:"ドイツではパンがたくさん食べられる。"},
+  {id:"pas11",cat:"受動態",foreign:"Das Gebäude wurde im 18. Jahrhundert gebaut.",ja:"その建物は18世紀に建てられた。"},
+  {id:"pas12",cat:"受動態",foreign:"Der Antrag muss bis Freitag eingereicht werden.",ja:"申請書は金曜日までに提出されなければならない。"},
+  {id:"pas13",cat:"受動態",foreign:"Hier darf nicht geraucht werden.",ja:"ここでは喫煙は許可されていない。"},
+  {id:"pas14",cat:"受動態",foreign:"Bei der Besprechung wurde über das neue Projekt diskutiert.",ja:"会議で新しいプロジェクトについて議論された。"},
+  {id:"pas15",cat:"受動態",foreign:"Mir wurde gesagt, dass die Prüfung verschoben wird.",ja:"試験が延期されると言われた。"},
+  {id:"pas16",cat:"受動態",foreign:"Der Fehler wurde von mir korrigiert.",ja:"そのミスは私によって修正されました。"},
+  {id:"pas17",cat:"受動態",foreign:"Alle Teilnehmer wurden rechtzeitig über die Änderungen informiert.",ja:"すべての参加者には、変更について時間どおりに通知されました。"},
+  {id:"pas18",cat:"受動態",foreign:"In Deutschland wird großen Wert darauf gelegt, den Müll sorgfältig zu trennen.",ja:"ドイツでは、ゴミをきちんと分別することが非常に重視されています。"},
+  {id:"pas19",cat:"受動態",foreign:"Die Unterlagen werden im Moment noch von der Personalabteilung geprüft.",ja:"書類は現在、人事部によって確認されているところです。"},
+  {id:"pas20",cat:"受動態",foreign:"Das Fenster ist geöffnet.",ja:"窓が開いています（開けられた状態です）。"},
+
+  // ===== 接続法II式 =====
+  {id:"k2_01",cat:"接続法II式",foreign:"Ich hätte gern ein Glas Wasser.",ja:"水を一杯いただきたいのですが。"},
+  {id:"k2_02",cat:"接続法II式",foreign:"Könnten Sie mir bitte helfen?",ja:"手伝っていただけませんか？"},
+  {id:"k2_03",cat:"接続法II式",foreign:"Wenn ich mehr Zeit hätte, würde ich verreisen.",ja:"もっと時間があれば、旅行するのに。"},
+  {id:"k2_04",cat:"接続法II式",foreign:"Das wäre super!",ja:"それは素晴らしいですね！"},
+  {id:"k2_05",cat:"接続法II式",foreign:"Ich würde gern mitkommen, aber ich muss arbeiten.",ja:"一緒に行きたいのですが、働かなくてはなりません。"},
+  {id:"k2_06",cat:"接続法II式",foreign:"An deiner Stelle würde ich mich sofort beim Arzt anmelden.",ja:"君の立場なら、すぐに医者に予約を入れるけどな。"},
+  {id:"k2_07",cat:"接続法II式",foreign:"Könnten Sie mir bitte erklären, wie ich zum Rathaus komme?",ja:"市役所への行き方を説明していただけますか？"},
+  {id:"k2_08",cat:"接続法II式",foreign:"Wenn ich reich wäre, würde ich ein Haus am Meer kaufen.",ja:"お金持ちだったら、海辺の家を買うのに。"},
+  {id:"k2_09",cat:"接続法II式",foreign:"Es wäre schön, wenn du morgen mitkommen könntest.",ja:"明日一緒に来てくれたら嬉しいんだけど。"},
+  {id:"k2_10",cat:"接続法II式",foreign:"Ich hätte gern einen Termin am Donnerstagnachmittag.",ja:"木曜日の午後に予約を取りたいのですが。"},
+  {id:"k2_11",cat:"接続法II式",foreign:"Dürfte ich Sie kurz um einen Gefallen bitten?",ja:"ちょっとお願いしてもよろしいですか？"},
+  {id:"k2_12",cat:"接続法II式",foreign:"Wenn ich besser Deutsch sprechen könnte, würde ich mich für diese Stelle bewerben.",ja:"もっとドイツ語がうまく話せたら、このポストに応募するのに。"},
+  {id:"k2_13",cat:"接続法II式",foreign:"Ich würde gerne mehr Zeit für meine Hobbys haben.",ja:"趣味のための時間がもっと欲しいです。"},
+  {id:"k2_14",cat:"接続法II式",foreign:"Ich würde an deiner Stelle diese Gelegenheit nutzen.",ja:"私ならその機会を利用します。"},
+  {id:"k2_15",cat:"接続法II式",foreign:"Es wäre besser, wenn wir früher anfangen würden.",ja:"もっと早く始めたほうが良いでしょう。"},
+  {id:"k2_16",cat:"接続法II式",foreign:"Ich hätte das anders gemacht.",ja:"私なら違うやり方をしていたでしょう。"},
+  {id:"k2_17",cat:"接続法II式",foreign:"Ich wüsste gern, ob der Kurs noch freie Plätze hat.",ja:"その講座にまだ空きがあるかどうか知りたいのですが。"},
+  {id:"k2_18",cat:"接続法II式",foreign:"Wenn ich mehr Erfahrung hätte, würde ich mich auf diese Stelle bewerben.",ja:"もっと経験があればこの職に応募するでしょう。"},
+  {id:"k2_19",cat:"接続法II式",foreign:"Ich würde Ihnen empfehlen, sich gut vorzubereiten.",ja:"よく準備することをおすすめします。"},
+  {id:"k2_20",cat:"接続法II式",foreign:"Wenn ich du wäre, würde ich diese Chance nutzen.",ja:"私があなたならそのチャンスを使います。"},
+
+  // ===== 接続法II式・過去 =====
+  {id:"k2p01",cat:"接続法II式・過去",foreign:"Wenn ich das gewusst hätte, hätte ich mich anders entschieden.",ja:"それを知っていたら、違う決断をしていたのに。"},
+  {id:"k2p02",cat:"接続法II式・過去",foreign:"Wir hätten den Zug noch erreicht, wenn wir fünf Minuten früher losgegangen wären.",ja:"5分早く出ていたら、電車に間に合っていたのに。"},
+  {id:"k2p03",cat:"接続法II式・過去",foreign:"An seiner Stelle hätte ich das Angebot sofort angenommen.",ja:"彼の立場だったら、すぐにそのオファーを受けていただろう。"},
+  {id:"k2p04",cat:"接続法II式・過去",foreign:"Hätte ich mehr gelernt, hätte ich eine bessere Note bekommen.",ja:"もっと勉強していたら、もっと良い成績を取れていたのに。"},
+  {id:"k2p05",cat:"接続法II式・過去",foreign:"Das hätte nicht passieren dürfen.",ja:"そんなことは起きてはならなかった。"},
+  {id:"k2p06",cat:"接続法II式・過去",foreign:"Es wäre schön gewesen, wenn Sie mich früher über die Änderung informiert hätten.",ja:"変更について、もっと早く知らせていただけていたら良かったのですが。"},
+  {id:"k2p07",cat:"接続法II式・過去",foreign:"Ich wünschte, ich hätte früher mit dem Deutschlernen angefangen.",ja:"もっと早くドイツ語の勉強を始めていればよかったのに。"},
+  {id:"k2p08",cat:"接続法II式・過去",foreign:"Ich hätte nie gedacht, dass mir das Leben im Ausland einmal so viel Freude bereiten würde.",ja:"海外での生活がこれほど楽しいものになるとは、かつては思いもしませんでした。"},
+
+  // ===== zu不定詞句 =====
+  {id:"inf01",cat:"zu不定詞句",foreign:"Ich habe vor, Deutsch zu lernen.",ja:"私はドイツ語を学ぶつもりです。"},
+  {id:"inf02",cat:"zu不定詞句",foreign:"Es ist wichtig, regelmäßig zu üben.",ja:"定期的に練習することが重要です。"},
+  {id:"inf03",cat:"zu不定詞句",foreign:"Er hat vergessen, das Licht auszuschalten.",ja:"彼は電気を消すのを忘れました。"},
+  {id:"inf04",cat:"zu不定詞句",foreign:"Sie bittet mich, ihr zu helfen.",ja:"彼女は私に助けてと頼んでいます。"},
+  {id:"inf05",cat:"zu不定詞句",foreign:"Ich lerne jeden Tag Deutsch, um die B1-Prüfung zu bestehen.",ja:"B1試験に合格するために、毎日ドイツ語を勉強している。"},
+  {id:"inf06",cat:"zu不定詞句",foreign:"Es ist schwierig, in dieser Stadt eine bezahlbare Wohnung zu finden.",ja:"この街で手頃な家賃のアパートを見つけるのは難しい。"},
+  {id:"inf07",cat:"zu不定詞句",foreign:"Er hat versucht, das Problem allein zu lösen.",ja:"彼は一人でその問題を解決しようとした。"},
+  {id:"inf08",cat:"zu不定詞句",foreign:"Ich habe keine Lust, heute Abend auszugehen.",ja:"今晩出かける気分ではない。"},
+  {id:"inf09",cat:"zu不定詞句",foreign:"Vergiss nicht, die Tür abzuschließen, bevor du gehst.",ja:"出かける前にドアの鍵をかけることを忘れないで。"},
+  {id:"inf10",cat:"zu不定詞句",foreign:"Es lohnt sich, dieses Museum zu besuchen.",ja:"この美術館は訪れる価値がある。"},
+  {id:"inf11",cat:"zu不定詞句",foreign:"Es fällt mir schwer, mich an das kalte Wetter zu gewöhnen.",ja:"寒い天候に慣れるのは私には大変だ。"},
+  {id:"inf12",cat:"zu不定詞句",foreign:"Ich habe beschlossen, meine Karriere zu ändern.",ja:"キャリアを変えることに決めました。"},
+
+  // ===== 副文・接続詞（weil/obwohl/damit） =====
+  {id:"sub01",cat:"副文・接続詞",foreign:"Ich bleibe zu Hause, weil ich krank bin.",ja:"病気なので、家にいます。"},
+  {id:"sub02",cat:"副文・接続詞",foreign:"Obwohl es geregnet hat, sind wir spazieren gegangen.",ja:"雨が降ったけれど、私たちは散歩に行きました。"},
+  {id:"sub03",cat:"副文・接続詞",foreign:"Ich lerne Deutsch, damit ich in Deutschland studieren kann.",ja:"ドイツで勉強できるように、ドイツ語を学んでいます。"},
+  {id:"sub04",cat:"副文・接続詞",foreign:"Sie fährt nach Berlin, um ihre Freunde zu besuchen.",ja:"彼女は友人を訪ねるためにベルリンへ行きます。"},
+  {id:"sub05",cat:"副文・接続詞",foreign:"Da ich wenig Zeit hatte, habe ich das Treffen abgesagt.",ja:"時間がなかったので会議をキャンセルしました。"},
+  {id:"sub06",cat:"副文・接続詞",foreign:"Der Zug hatte Verspätung, deshalb bin ich zu spät zur Arbeit gekommen.",ja:"電車が遅れたので仕事に遅れました。"},
+  {id:"sub07",cat:"副文・接続詞",foreign:"Ich war müde, trotzdem habe ich weitergearbeitet.",ja:"疲れていたが仕事を続けました。"},
+  {id:"sub08",cat:"副文・接続詞",foreign:"Er ist nicht nur fleißig, sondern auch sehr kreativ.",ja:"彼は勤勉なだけでなく、とても創造的でもある。"},
+  {id:"sub09",cat:"副文・接続詞",foreign:"Entweder rufst du den Vermieter an, oder ich schreibe ihm eine E-Mail.",ja:"君が大家に電話するか、私がメールを書くかだ。"},
+  {id:"sub10",cat:"副文・接続詞",foreign:"Weder das Hotel noch die Lage haben uns überzeugt.",ja:"ホテルも立地も私たちを納得させなかった。"},
+  {id:"sub11",cat:"副文・接続詞",foreign:"Je länger ich Deutsch lerne, desto besser verstehe ich die kulturellen Unterschiede.",ja:"ドイツ語を学べば学ぶほど、文化的な違いがよりよく理解できるようになります。"},
+  {id:"sub12",cat:"副文・接続詞",foreign:"Indem man regelmäßig liest, erweitert man seinen Wortschatz.",ja:"定期的に読書をすることで語彙が広がる。"},
+  {id:"sub13",cat:"副文・接続詞",foreign:"Zwar war das Essen gut, aber der Service war katastrophal.",ja:"確かに料理はよかったが、サービスはひどかった。"},
+  {id:"sub14",cat:"副文・接続詞",foreign:"Anstatt ständig zu klagen, könnte man versuchen, aktiv nach einer Lösung zu suchen.",ja:"いつも不満を言う代わりに、積極的に解決策を探そうとすることもできるはずです。"},
+  {id:"sub15",cat:"副文・接続詞",foreign:"Je nachdem, wie das Wetter wird, fahren wir an den See oder bleiben zu Hause.",ja:"天気次第で、湖に行くか家にいるかだ。"},
+  {id:"sub16",cat:"副文・接続詞",foreign:"Ich habe mir ein Fahrrad gekauft, damit ich nicht mehr so oft mit dem Auto fahren muss.",ja:"車にあまり頻繁に乗らなくてすむように、自転車を買いました。"},
+  {id:"sub17",cat:"副文・接続詞",foreign:"Seitdem ich regelmäßig Sport treibe, fühle ich mich deutlich fitter.",ja:"定期的に運動をするようになってから、体調も明らかによくなりました。"},
+  {id:"sub18",cat:"副文・接続詞",foreign:"Ich glaube, dass er nicht gekommen ist, weil er den Termin vergessen hat.",ja:"彼は予定を忘れたから来なかったのだと思う。"},
+
+  // ===== 時間の副文 =====
+  {id:"tim01",cat:"時間の副文",foreign:"Seitdem ich in Berlin lebe, habe ich viele neue Freunde gefunden.",ja:"ベルリンに住んで以来、たくさんの新しい友人ができた。"},
+  {id:"tim02",cat:"時間の副文",foreign:"Bevor du den Vertrag unterschreibst, solltest du ihn sorgfältig durchlesen.",ja:"契約書に署名する前に、注意深く読むべきだ。"},
+  {id:"tim03",cat:"時間の副文",foreign:"Nachdem ich die Prüfung bestanden hatte, habe ich eine Woche Urlaub gemacht.",ja:"試験に合格した後、一週間休暇を取った。"},
+  {id:"tim04",cat:"時間の副文",foreign:"Während ich auf den Bus wartete, fing es plötzlich an zu regnen.",ja:"バスを待っている間に、突然雨が降り出した。"},
+  {id:"tim05",cat:"時間の副文",foreign:"Als ich ein Kind war, haben wir jeden Sommer am See Urlaub gemacht.",ja:"子供の頃、毎年夏に湖で休暇を過ごした。"},
+  {id:"tim06",cat:"時間の副文",foreign:"Immer wenn ich Stress habe, gehe ich im Park spazieren.",ja:"ストレスがあるたびに、公園を散歩する。"},
+  {id:"tim07",cat:"時間の副文",foreign:"Bis ich eine neue Wohnung gefunden habe, wohne ich bei meinen Eltern.",ja:"新しいアパートが見つかるまで、両親のところに住んでいる。"},
+  {id:"tim08",cat:"時間の副文",foreign:"Als ich gestern nach Hause kam, stand ein Paket vor der Tür.",ja:"昨日帰宅したとき、ドアの前に荷物があった。"},
+  {id:"tim09",cat:"時間の副文",foreign:"Nachdem er die E-Mail gelesen hatte, rief er sofort seinen Chef an.",ja:"メールを読んだ後、彼はすぐに上司に電話した。"},
+  {id:"tim10",cat:"時間の副文",foreign:"Als wir am Bahnhof ankamen, war der Zug schon abgefahren.",ja:"駅に着いたとき、電車はもう出発していた。"},
+  {id:"tim11",cat:"時間の副文",foreign:"Wir werden uns treffen, sobald ich angekommen bin.",ja:"到着したらすぐ会いましょう。"},
+  {id:"tim12",cat:"時間の副文",foreign:"Sobald alle Unterlagen vollständig sind, wird der Antrag sofort bearbeitet.",ja:"書類がすべて揃い次第、申請はすぐに処理される。"},
+
+  // ===== 過去完了形 =====
+  {id:"plp01",cat:"過去完了形",foreign:"Ich war müde, weil ich die ganze Nacht gearbeitet hatte.",ja:"一晩中働いていたので疲れていた。"},
+  {id:"plp02",cat:"過去完了形",foreign:"Bevor sie nach Deutschland zog, hatte sie drei Jahre in Frankreich gelebt.",ja:"ドイツに引っ越す前、彼女はフランスに3年住んでいた。"},
+  {id:"plp03",cat:"過去完了形",foreign:"Sie erzählte mir, dass sie vor zwei Jahren ihren Job verloren hatte.",ja:"彼女は2年前に職を失ったと話してくれました。"},
+  {id:"plp04",cat:"過去完了形",foreign:"Nachdem wir gegessen hatten, sind wir spazieren gegangen.",ja:"食事が終わった後、散歩に行きました。"},
+  {id:"plp05",cat:"過去完了形",foreign:"Als ich in Berlin ankam, hatte ich meinen Koffer vergessen.",ja:"ベルリンに着いた時、スーツケースを忘れていました。"},
+
+  // ===== 間接話法 =====
+  {id:"ind01",cat:"間接話法",foreign:"Der Sprecher sagte, die Situation sei unter Kontrolle.",ja:"報道官は状況はコントロール下にあると述べた。"},
+  {id:"ind02",cat:"間接話法",foreign:"Die Zeitung berichtet, der Minister habe seinen Rücktritt erklärt.",ja:"新聞は大臣が辞任を表明したと報じている。"},
+  {id:"ind03",cat:"間接話法",foreign:"Er meinte, er könne leider nicht kommen.",ja:"彼は残念ながら来られないと言った。"},
+  {id:"ind04",cat:"間接話法",foreign:"Sie sagte, sie wisse nicht, worum es gehe.",ja:"彼女は何が問題なのか分からないと言った。"},
+  {id:"ind05",cat:"間接話法",foreign:"Er hat mir erzählt, dass er demnächst eine längere Reise nach Südamerika plant.",ja:"彼は、近々南米への長期旅行を計画していると私に話しました。"},
+  {id:"ind06",cat:"間接話法",foreign:"Es heißt, dass die Lebensqualität in dieser Stadt sehr hoch sei.",ja:"この街の生活の質はとても高いと言われています。"},
+  {id:"ind07",cat:"間接話法",foreign:"In der E-Mail stand, dass der Termin aus organisatorischen Gründen verschoben werden muss.",ja:"メールには、運営上の理由により日程を延期しなければならないと書かれていました。"},
+  {id:"ind08",cat:"間接話法",foreign:"Mir wurde gesagt, dass ich die Unterlagen spätestens bis Freitag einreichen muss.",ja:"遅くとも金曜日までに書類を提出しなければならないと、私は言われました。"},
+
+  // ===== 比較表現 =====
+  {id:"cmp01",cat:"比較表現",foreign:"Mein Auto ist schneller als deins.",ja:"私の車はあなたのより速いです。"},
+  {id:"cmp02",cat:"比較表現",foreign:"Dieser Kuchen schmeckt besser als der gestrige.",ja:"このケーキは昨日のよりおいしいです。"},
+  {id:"cmp03",cat:"比較表現",foreign:"Das ist der beste Film, den ich je gesehen habe.",ja:"これは私が今まで見た中で最高の映画です。"},
+  {id:"cmp04",cat:"比較表現",foreign:"Sie ist genauso alt wie ich.",ja:"彼女は私と同じ年齢です。"},
+  {id:"cmp05",cat:"比較表現",foreign:"Je länger man wartet, desto schwieriger wird die Entscheidung.",ja:"待てば待つほど決断は難しくなる。"},
+  {id:"cmp06",cat:"比較表現",foreign:"Je mehr ich übe, desto besser werde ich.",ja:"練習すればするほど上手くなる。"},
+  {id:"cmp07",cat:"比較表現",foreign:"Er tut so, als ob er alles verstanden hätte.",ja:"彼はすべて理解したかのように振る舞っている。"},
+  {id:"cmp08",cat:"比較表現",foreign:"Die neue Wohnung ist deutlich größer als die alte.",ja:"新しいアパートは古いものよりずっと広い。"},
+  {id:"cmp09",cat:"比較表現",foreign:"Dieses Semester ist genauso anstrengend wie das letzte.",ja:"今学期は前の学期と同じくらい大変だ。"},
+  {id:"cmp10",cat:"比較表現",foreign:"Im Vergleich zu Japan wirkt der Alltag in Deutschland auf mich etwas entspannter.",ja:"日本と比べると、ドイツの日常はややのんびりしているように感じます。"},
+
+  // ===== 動詞の前置詞支配 =====
+  {id:"vpr01",cat:"前置詞結合動詞",foreign:"Ich warte auf den Bus.",ja:"私はバスを待っています。"},
+  {id:"vpr02",cat:"前置詞結合動詞",foreign:"Wir freuen uns auf den Urlaub.",ja:"私たちは休暇を楽しみにしています。"},
+  {id:"vpr03",cat:"前置詞結合動詞",foreign:"Er interessiert sich für Kunst.",ja:"彼は芸術に興味があります。"},
+  {id:"vpr04",cat:"前置詞結合動詞",foreign:"Ich warte seit einer Stunde auf den Techniker.",ja:"1時間前から技術者を待っている。"},
+  {id:"vpr05",cat:"前置詞結合動詞",foreign:"Sie hat lange über das Angebot nachgedacht.",ja:"彼女はそのオファーについて長く考えた。"},
+  {id:"vpr06",cat:"前置詞結合動詞",foreign:"Wir müssen uns auf die Prüfung vorbereiten.",ja:"試験の準備をしなければならない。"},
+  {id:"vpr07",cat:"前置詞結合動詞",foreign:"Er kümmert sich liebevoll um seine kranke Mutter.",ja:"彼は病気の母親を愛情を込めて世話している。"},
+  {id:"vpr08",cat:"前置詞結合動詞",foreign:"Ich habe mich über die Verspätung des Fluges geärgert.",ja:"フライトの遅延に腹が立った。"},
+  {id:"vpr09",cat:"前置詞結合動詞",foreign:"Sie träumt davon, ein eigenes Café zu eröffnen.",ja:"彼女は自分のカフェを開くことを夢見ている。"},
+  {id:"vpr10",cat:"前置詞結合動詞",foreign:"Die Entscheidung hängt von den Ergebnissen der Untersuchung ab.",ja:"その決定は検査結果次第だ。"},
+  {id:"vpr11",cat:"前置詞結合動詞",foreign:"Ich freue mich sehr darauf, Sie nächste Woche persönlich kennenzulernen.",ja:"来週、あなたに直接お会いできるのをとても楽しみにしています。"},
+
+  // ===== 再帰動詞 =====
+  {id:"ref01",cat:"再帰動詞",foreign:"Ich muss mich bis Freitag für den Kurs anmelden.",ja:"金曜日までに講座に申し込まなければならない。"},
+  {id:"ref02",cat:"再帰動詞",foreign:"Wir haben uns über das Geschenk sehr gefreut.",ja:"プレゼントをとても喜んだ。"},
+  {id:"ref03",cat:"再帰動詞",foreign:"Kannst du dich noch an unseren ersten Urlaub erinnern?",ja:"最初の旅行のことをまだ覚えてる？"},
+  {id:"ref04",cat:"再帰動詞",foreign:"Ich interessiere mich sehr für deutsche Geschichte.",ja:"ドイツの歴史にとても興味がある。"},
+  {id:"ref05",cat:"再帰動詞",foreign:"Sie hat sich um die Stelle als Projektleiterin beworben.",ja:"彼女はプロジェクトリーダーのポストに応募した。"},
+  {id:"ref06",cat:"再帰動詞",foreign:"Wir müssen uns beeilen, sonst verpassen wir den Zug.",ja:"急がないと電車に乗り遅れる。"},
+  {id:"ref07",cat:"再帰動詞",foreign:"Er hat sich entschieden, den Job zu wechseln.",ja:"彼は転職することに決めた。"},
+  {id:"ref08",cat:"再帰動詞",foreign:"Ich habe mich an das Leben in der Großstadt gewöhnt.",ja:"大都市での生活に慣れた。"},
+  {id:"ref09",cat:"再帰動詞",foreign:"Sie beschwerte sich beim Vermieter über den Lärm.",ja:"彼女は騒音について大家に苦情を言った。"},
+  {id:"ref10",cat:"再帰動詞",foreign:"Wir haben uns darauf geeinigt, das Projekt in zwei Phasen aufzuteilen.",ja:"私たちは、そのプロジェクトを2つの段階に分けることで合意しました。"},
+  {id:"ref11",cat:"再帰動詞",foreign:"Manchmal ärgere ich mich über mich selbst, weil ich immer wieder die gleichen Fehler mache.",ja:"時々、自分で自分に腹が立ちます。なぜなら、何度も同じミスを繰り返してしまうからです。"},
+
+  // ===== lassen =====
+  {id:"las01",cat:"lassen",foreign:"Ich lasse mir morgen die Haare schneiden.",ja:"明日髪を切ってもらう。"},
+  {id:"las02",cat:"lassen",foreign:"Er hat sein Auto in der Werkstatt reparieren lassen.",ja:"彼は修理工場で車を修理してもらった。"},
+  {id:"las03",cat:"lassen",foreign:"Lass mich bitte ausreden!",ja:"最後まで話させてくれ！"},
+  {id:"las04",cat:"lassen",foreign:"Das Fenster lässt sich nicht öffnen.",ja:"その窓は開かない。"},
+  {id:"las05",cat:"lassen",foreign:"Sie hat ihre Tasche im Zug liegen lassen.",ja:"彼女は電車にバッグを置き忘れた。"},
+
+  // ===== 話法助動詞・主観的用法 =====
+  {id:"mod01",cat:"話法助動詞応用",foreign:"Er soll sehr zuverlässig sein.",ja:"彼はとても信頼できるらしい。"},
+  {id:"mod02",cat:"話法助動詞応用",foreign:"Das dürfte ungefähr drei Stunden dauern.",ja:"それはおよそ3時間かかるだろう。"},
+  {id:"mod03",cat:"話法助動詞応用",foreign:"Sie muss krank sein, sie fehlt schon seit drei Tagen.",ja:"彼女は病気に違いない、もう3日も欠席している。"},
+  {id:"mod04",cat:"話法助動詞応用",foreign:"Er will in Harvard studiert haben, aber ich bezweifle das.",ja:"彼はハーバードで学んだと主張しているが、疑わしい。"},
+
+  // ===== 2格・前置詞 =====
+  {id:"gen01",cat:"2格・前置詞",foreign:"Während des Semesters darf man die Prüfungen nicht verschieben.",ja:"学期中に試験を延期することはできない。"},
+  {id:"gen02",cat:"2格・前置詞",foreign:"Trotz des schlechten Wetters haben viele Besucher teilgenommen.",ja:"悪天候にもかかわらず、多くの来場者が参加した。"},
+  {id:"gen03",cat:"2格・前置詞",foreign:"Wegen der Baustelle ist die Straße gesperrt.",ja:"工事のため道路が閉鎖されている。"},
+  {id:"gen04",cat:"2格・前置詞",foreign:"Aufgrund des starken Regens wurde das Spiel abgesagt.",ja:"大雨のため試合が中止された。"},
+  {id:"gen05",cat:"2格・前置詞",foreign:"Anstelle eines Geschenks wünscht er sich eine Spende an eine Hilfsorganisation.",ja:"プレゼントの代わりに、援助団体への寄付を望んでいる。"},
+  {id:"gen06",cat:"2格・前置詞",foreign:"Außerhalb der Öffnungszeiten ist das Gebäude geschlossen.",ja:"営業時間外は建物は閉まっている。"},
+  {id:"gen07",cat:"2格・前置詞",foreign:"Im Gegensatz zu Deutschland ist in Japan das Trinkgeld nicht üblich.",ja:"ドイツとは対照的に、日本ではチップは一般的ではない。"},
+  {id:"gen08",cat:"2格・前置詞",foreign:"Abgesehen von ein paar kleinen Fehlern war die Präsentation sehr gelungen.",ja:"いくつかの小さなミスを除けば、プレゼンはとても成功だった。"},
+  {id:"gen09",cat:"2格・前置詞",foreign:"Im Laufe der Zeit hat sich mein Deutsch deutlich verbessert.",ja:"時間の経過とともにドイツ語がかなり上達した。"},
+  {id:"gen10",cat:"2格・前置詞",foreign:"Innerhalb eines Monats muss der Widerspruch eingelegt werden.",ja:"1か月以内に異議申立てを行わなければならない。"},
+
+  // ===== 意見・主張 =====
+  {id:"opi01",cat:"意見・主張",foreign:"Meiner Meinung nach sollte man mehr Zeit mit der Familie verbringen.",ja:"私の考えでは家族ともっと時間を過ごすべきです。"},
+  {id:"opi02",cat:"意見・主張",foreign:"Ich bin der Ansicht, dass Umweltschutz wichtig ist.",ja:"環境保護は重要だという考えです。"},
+  {id:"opi03",cat:"意見・主張",foreign:"Einerseits ist Homeoffice praktisch, andererseits fehlt mir der Kontakt zu den Kollegen.",ja:"一方で在宅勤務は便利ですが、他方で同僚との接触がなくなるのが寂しいです。"},
+  {id:"opi04",cat:"意見・主張",foreign:"Ich stimme dir grundsätzlich zu, allerdings sehe ich die Situation etwas differenzierter.",ja:"基本的には君に賛成だが、私はこの状況をもう少し違った角度から見ている。"},
+  {id:"opi05",cat:"意見・主張",foreign:"Ich bin dagegen, weil das meiner Erfahrung nach nicht funktioniert.",ja:"私の経験ではうまくいかないので、反対だ。"},
+  {id:"opi06",cat:"意見・主張",foreign:"Aus meiner Sicht überwiegen die Vorteile deutlich.",ja:"私の観点からは、利点が明らかに上回っている。"},
+  {id:"opi07",cat:"意見・主張",foreign:"Es gibt sowohl Vorteile als auch Nachteile bei diesem Vorschlag.",ja:"この提案には長所も短所もある。"},
+  {id:"opi08",cat:"意見・主張",foreign:"Zusammenfassend lässt sich sagen, dass die Digitalisierung unser Leben stark verändert hat.",ja:"まとめると、デジタル化は私たちの生活を大きく変えたと言える。"},
+  {id:"opi09",cat:"意見・主張",foreign:"Offen gesagt, finde ich die Entscheidung der Regierung schwer nachzuvollziehen.",ja:"率直に言うと、政府の決定は理解しがたいと感じます。"},
+  {id:"opi10",cat:"意見・主張",foreign:"Da bin ich anderer Meinung, und zwar aus folgendem Grund:",ja:"その点は異なる意見で、理由は次の通りだ。"},
+  {id:"opi11",cat:"意見・主張",foreign:"Darf ich dazu noch etwas ergänzen?",ja:"それに関してもう少し補足してもいいですか？"},
+  {id:"opi12",cat:"意見・主張",foreign:"Ich persönlich halte es für sinnvoll, regelmäßig Pausen zu machen.",ja:"私個人としては、定期的に休憩をとることが望ましいと考えています。"},
+
+  // ===== 仕事・キャリア =====
+  {id:"job01",cat:"仕事・キャリア",foreign:"Ich bewerbe mich um die Stelle als Projektmanager.",ja:"プロジェクトマネージャーの職に応募します。"},
+  {id:"job02",cat:"仕事・キャリア",foreign:"Könnten Sie mir mehr über das Unternehmen erzählen?",ja:"会社についてもっと詳しく教えていただけますか？"},
+  {id:"job03",cat:"仕事・キャリア",foreign:"Wir müssen den Termin leider verschieben.",ja:"申し訳ありませんが、約束の日時を変更しなければなりません。"},
+  {id:"job04",cat:"仕事・キャリア",foreign:"Ich schicke Ihnen die Unterlagen per E-Mail.",ja:"書類をメールでお送りします。"},
+  {id:"job05",cat:"仕事・キャリア",foreign:"Zurzeit arbeite ich in einem mittelständischen Unternehmen, das sich auf erneuerbare Energien spezialisiert hat.",ja:"現在、再生可能エネルギーを専門とする中堅企業で働いています。"},
+  {id:"job06",cat:"仕事・キャリア",foreign:"In meiner letzten Position war ich für die Koordination von internationalen Teams zuständig.",ja:"前職では、国際的なチームの調整を担当していました。"},
+  {id:"job07",cat:"仕事・キャリア",foreign:"Wenn ich befördert würde, könnte ich mehr Geld verdienen.",ja:"昇進したら、もっと稼げます。"},
+  {id:"job08",cat:"仕事・キャリア",foreign:"Ich möchte mich hiermit um die ausgeschriebene Stelle bewerben.",ja:"ここに募集されたポストに応募いたします。"},
+  {id:"job09",cat:"仕事・キャリア",foreign:"Mein Arbeitsvertrag ist auf ein Jahr befristet.",ja:"私の雇用契約は1年の期限付きだ。"},
+  {id:"job10",cat:"仕事・キャリア",foreign:"Die Firma bietet flexible Arbeitszeiten und Homeoffice-Möglichkeiten an.",ja:"その会社はフレックスタイムと在宅勤務の可能性を提供している。"},
+  {id:"job11",cat:"仕事・キャリア",foreign:"Ich bin für dieses Projekt verantwortlich.",ja:"このプロジェクトを担当しています。"},
+  {id:"job12",cat:"仕事・キャリア",foreign:"Die Zusammenarbeit im Team funktioniert sehr gut.",ja:"チームの協力はとても良く機能しています。"},
+  {id:"job13",cat:"仕事・キャリア",foreign:"Aufgrund der Umstrukturierung wurden mehrere Mitarbeiter entlassen.",ja:"リストラのため、数人の社員が解雇された。"},
+  {id:"job14",cat:"仕事・キャリア",foreign:"Ich bin davon überzeugt, dass gute Kommunikation im Team entscheidend ist.",ja:"プロジェクトが成功するかどうかは、チーム内の良好なコミュニケーションにかかっています。"},
+
+  // ===== 健康・医療 =====
+  {id:"hlth01",cat:"健康・医療",foreign:"Ich habe mich erkältet und fühle mich schwach.",ja:"風邪をひいて、体がだるいです。"},
+  {id:"hlth02",cat:"健康・医療",foreign:"Ich bin gegen Pollen allergisch.",ja:"私は花粉アレルギーです。"},
+  {id:"hlth03",cat:"健康・医療",foreign:"Nehmen Sie dieses Medikament dreimal täglich ein.",ja:"この薬を1日3回服用してください。"},
+  {id:"hlth04",cat:"健康・医療",foreign:"Ich habe seit drei Tagen starke Halsschmerzen und Fieber.",ja:"3日前からひどい喉の痛みと熱がある。"},
+  {id:"hlth05",cat:"健康・医療",foreign:"Der Arzt hat mir ein Antibiotikum verschrieben und mich krankgeschrieben.",ja:"医者は抗生物質を処方し、病気休暇の証明書を書いてくれた。"},
+  {id:"hlth06",cat:"健康・医療",foreign:"Sie sollten sich unbedingt gegen Grippe impfen lassen.",ja:"必ずインフルエンザの予防接種を受けるべきです。"},
+  {id:"hlth07",cat:"健康・医療",foreign:"Ich vertrage dieses Medikament nicht. Gibt es eine Alternative?",ja:"この薬が体に合わないのですが、代替はありますか？"},
+  {id:"hlth08",cat:"健康・医療",foreign:"Gibt es Nebenwirkungen, mit denen ich bei diesem Medikament rechnen muss?",ja:"この薬には、どのような副作用が予想されますか。"},
+  {id:"hlth09",cat:"健康・医療",foreign:"Wenn sich die Beschwerden bis morgen nicht bessern, soll ich noch einmal wiederkommen.",ja:"症状が明日までに改善しなければ、もう一度来るようにと言われました。"},
+  {id:"hlth10",cat:"健康・医療",foreign:"Bitte bringen Sie Ihre Versichertenkarte und den Überweisungsschein mit.",ja:"保険証と紹介状をお持ちください。"},
+  {id:"hlth11",cat:"健康・医療",foreign:"Die Ärztin hat mir geraten, mehr auf eine ausgewogene Ernährung zu achten.",ja:"女性医師はバランスの取れた食事にもっと気をつけるよう勧めた。"},
+  {id:"hlth12",cat:"健康・医療",foreign:"In letzter Zeit fühle ich mich oft erschöpft, obwohl ich ausreichend schlafe.",ja:"最近、十分に睡眠をとっているにもかかわらず、よく疲れを感じます。"},
+
+  // ===== 旅行・交通 =====
+  {id:"trv01",cat:"旅行・交通",foreign:"Ich möchte einen Tisch für zwei Personen reservieren.",ja:"2名でテーブルを予約したいのですが。"},
+  {id:"trv02",cat:"旅行・交通",foreign:"Haben Sie noch ein Einzelzimmer frei?",ja:"シングルルームはまだ空いていますか？"},
+  {id:"trv03",cat:"旅行・交通",foreign:"Können Sie mir bitte erklären, wie ich am schnellsten zum Hauptbahnhof komme?",ja:"中央駅に最速で行くにはどう行けばよいか、教えていただけますか。"},
+  {id:"trv04",cat:"旅行・交通",foreign:"Ich habe online ein Ticket gebucht, aber beim Einchecken ist ein Fehler aufgetreten.",ja:"オンラインでチケットを予約しましたが、チェックインの際にエラーが発生しました。"},
+  {id:"trv05",cat:"旅行・交通",foreign:"Leider hat unser Flug mehrere Stunden Verspätung, sodass wir den Anschlusszug wahrscheinlich verpassen.",ja:"残念ながら、私たちの便は数時間遅れており、おそらく乗り継ぎの電車に間に合わないでしょう。"},
+  {id:"trv06",cat:"旅行・交通",foreign:"Der Zug hat 20 Minuten Verspätung. Sie können eine Entschädigung beantragen.",ja:"電車は20分遅延している。補償を申請できます。"},
+  {id:"trv07",cat:"旅行・交通",foreign:"Ab welchem Gleis fährt der ICE nach Frankfurt?",ja:"フランクフルト行きのICEは何番線から出ますか？"},
+  {id:"trv08",cat:"旅行・交通",foreign:"Entschuldigen Sie, ich glaube, ich habe meinen Rucksack im Zug liegen lassen.",ja:"すみません、電車にリュックサックを置き忘れたと思うのですが。"},
+  {id:"trv09",cat:"旅行・交通",foreign:"Wissen Sie zufällig, ob dieser Zug wegen des Streiks pünktlich fährt?",ja:"ストライキの影響で、この電車が時間どおりに運行しているか、たまたまご存じですか。"},
+  {id:"trv10",cat:"旅行・交通",foreign:"Die Autobahn war wegen eines Unfalls komplett gesperrt.",ja:"事故のため高速道路が完全に閉鎖されていた。"},
+  {id:"trv11",cat:"旅行・交通",foreign:"Ich möchte eine Hin- und Rückfahrkarte nach Hamburg buchen, am liebsten mit Sitzplatzreservierung.",ja:"ハンブルク往復切符を、できれば座席指定付きで予約したい。"},
+  {id:"trv12",cat:"旅行・交通",foreign:"Der Mietwagen muss vollgetankt zurückgegeben werden.",ja:"レンタカーは満タンで返却しなければならない。"},
+
+  // ===== 買い物・クレーム =====
+  {id:"shp01",cat:"買い物・クレーム",foreign:"Ich suche ein Geschenk für meine Freundin.",ja:"彼女へのプレゼントを探しています。"},
+  {id:"shp02",cat:"買い物・クレーム",foreign:"Können Sie mir etwas empfehlen?",ja:"何かお勧めはありますか？"},
+  {id:"shp03",cat:"買い物・クレーム",foreign:"Ich möchte diese Hose umtauschen. Sie ist zu klein.",ja:"このズボンを交換したいです。小さすぎます。"},
+  {id:"shp04",cat:"買い物・クレーム",foreign:"Ich möchte diesen Artikel umtauschen, weil er einen Defekt hat.",ja:"この商品は欠陥があるので交換したいのですが。"},
+  {id:"shp05",cat:"買い物・クレーム",foreign:"Haben Sie den Kassenbon noch? Den brauchen wir für die Rückgabe.",ja:"レシートはまだお持ちですか？返品に必要です。"},
+  {id:"shp06",cat:"買い物・クレーム",foreign:"Das Gerät ist innerhalb der Garantiezeit kaputtgegangen.",ja:"その機器は保証期間内に壊れた。"},
+  {id:"shp07",cat:"買い物・クレーム",foreign:"Ich habe die Ware online bestellt, aber es wurde der falsche Artikel geliefert.",ja:"ネットで注文したが、違う商品が届いた。"},
+  {id:"shp08",cat:"買い物・クレーム",foreign:"Laut Verbraucherschutzgesetz habe ich ein 14-tägiges Widerrufsrecht.",ja:"消費者保護法によれば、14日間の撤回権がある。"},
+  {id:"shp09",cat:"買い物・クレーム",foreign:"Leider entspricht die Ware nicht der Beschreibung auf Ihrer Webseite.",ja:"残念ながら、商品が御社のウェブサイトの説明と一致していないため、返品したいと考えています。"},
+  {id:"shp10",cat:"買い物・クレーム",foreign:"Darf ich fragen, ob es möglich wäre, einen kleinen Rabatt zu bekommen, wenn ich zwei Stück kaufe?",ja:"2つ購入した場合、少し割引していただくことは可能かお伺いしてもよろしいでしょうか。"},
+
+  // ===== フォーマル文書・メール =====
+  {id:"frm01",cat:"フォーマル表現",foreign:"Sehr geehrte Damen und Herren, ich schreibe Ihnen bezüglich meiner Reklamation.",ja:"拝啓、クレームの件でご連絡いたします。"},
+  {id:"frm02",cat:"フォーマル表現",foreign:"Ich möchte Sie darauf hinweisen, dass die Lieferung noch nicht eingetroffen ist.",ja:"配送がまだ届いていないことをお知らせいたします。"},
+  {id:"frm03",cat:"フォーマル表現",foreign:"Ich bitte Sie, den Betrag bis zum 15. des Monats zu überweisen.",ja:"月の15日までにお振込みいただきますようお願いいたします。"},
+  {id:"frm04",cat:"フォーマル表現",foreign:"Für Rückfragen stehe ich Ihnen jederzeit gern zur Verfügung.",ja:"ご質問がございましたら、いつでも喜んで対応いたします。"},
+  {id:"frm05",cat:"フォーマル表現",foreign:"Anbei sende ich Ihnen die gewünschten Unterlagen.",ja:"ご希望の書類を添付してお送りいたします。"},
+  {id:"frm06",cat:"フォーマル表現",foreign:"Ich würde mich freuen, wenn Sie mir kurz bestätigen könnten, dass die E-Mail bei Ihnen angekommen ist.",ja:"このメールが届いているか、簡単にご確認いただければ幸いです。"},
+  {id:"frm07",cat:"フォーマル表現",foreign:"Leider muss ich den vereinbarten Termin absagen und bitte um einen Ersatztermin.",ja:"残念ながら約束の日程をキャンセルしなければならず、代わりの日程をお願いいたします。"},
+  {id:"frm08",cat:"フォーマル表現",foreign:"Mit freundlichen Grüßen",ja:"敬具（フォーマルな結び）"},
+  {id:"frm09",cat:"フォーマル表現",foreign:"Wären Sie so freundlich, mich mit der zuständigen Person zu verbinden?",ja:"担当の方につないでいただけますでしょうか。"},
+  {id:"frm10",cat:"フォーマル表現",foreign:"In Bezug auf Ihre Anfrage möchte ich Folgendes mitteilen.",ja:"お問い合わせに関して、以下をお伝えいたします。"},
+
+  // ===== 電話 =====
+  {id:"tel01",cat:"電話・予約",foreign:"Guten Tag, hier spricht Tanaka. Ich rufe wegen meines Termins an.",ja:"こんにちは、田中と申します。予約の件でお電話しています。"},
+  {id:"tel02",cat:"電話・予約",foreign:"Könnten Sie mich bitte mit der zuständigen Abteilung verbinden?",ja:"担当部署に繋いでいただけますか？"},
+  {id:"tel03",cat:"電話・予約",foreign:"Leider ist Herr Müller gerade nicht erreichbar. Soll ich ihm etwas ausrichten?",ja:"あいにくミュラーさんは今つかまりません。伝言を承りましょうか？"},
+  {id:"tel04",cat:"電話・予約",foreign:"Könnten Sie ihn bitten, mich zurückzurufen?",ja:"折り返し電話をお願いしていただけますか？"},
+  {id:"tel05",cat:"電話・予約",foreign:"Ich rufe an, um mich nach dem Stand meiner Bewerbung zu erkundigen.",ja:"応募の進捗状況を確認するためにお電話しています。"},
+  {id:"tel06",cat:"電話・予約",foreign:"Könnten Sie mir den Termin bestätigen, den wir vereinbart haben?",ja:"予約した予定を確認してもらえますか？"},
+  {id:"tel07",cat:"電話・予約",foreign:"Falls Sie nicht verfügbar sind, würde ich einen anderen Termin vorschlagen.",ja:"都合が悪ければ、別の日を提案します。"},
+
+  // ===== 住居・引越し =====
+  {id:"hom01",cat:"住居・引越し",foreign:"Wir suchen eine Dreizimmerwohnung mit Balkon in zentraler Lage.",ja:"中心部にある、バルコニー付き3部屋のアパートを探している。"},
+  {id:"hom02",cat:"住居・引越し",foreign:"Die Nebenkosten betragen monatlich etwa 200 Euro.",ja:"管理費は月額約200ユーロだ。"},
+  {id:"hom03",cat:"住居・引越し",foreign:"Der Vermieter hat die Kaution noch nicht zurückgezahlt.",ja:"大家はまだ敷金を返金していない。"},
+  {id:"hom04",cat:"住居・引越し",foreign:"Wir müssen den Mietvertrag bis Ende des Monats kündigen.",ja:"月末までに賃貸契約を解約しなければならない。"},
+  {id:"hom05",cat:"住居・引越し",foreign:"Die Nachbarn haben sich über laute Musik nach 22 Uhr beschwert.",ja:"隣人が夜10時以降の大音量の音楽について苦情を言った。"},
+  {id:"hom06",cat:"住居・引越し",foreign:"Ich habe mich beim Einwohnermeldeamt umgemeldet.",ja:"住民登録所で転居届を出した。"},
+
+  // ===== 役所・行政手続き =====
+  {id:"bur01",cat:"行政・手続き",foreign:"Für die Aufenthaltsgenehmigung benötigen Sie einen Nachweis über Krankenversicherung.",ja:"滞在許可には健康保険の証明が必要です。"},
+  {id:"bur02",cat:"行政・手続き",foreign:"Ich muss meinen Reisepass verlängern lassen, bevor er abläuft.",ja:"パスポートが切れる前に更新しなければならない。"},
+  {id:"bur03",cat:"行政・手続き",foreign:"Bitte füllen Sie dieses Formular vollständig aus und unterschreiben Sie es.",ja:"この用紙にすべて記入し、署名してください。"},
+  {id:"bur04",cat:"行政・手続き",foreign:"Die Bearbeitungszeit für den Antrag beträgt etwa sechs Wochen.",ja:"申請の処理には約6週間かかる。"},
+  {id:"bur05",cat:"行政・手続き",foreign:"Sie haben Anspruch auf Kindergeld, wenn Sie in Deutschland gemeldet sind.",ja:"ドイツに住民登録していれば、児童手当を受ける権利がある。"},
+  {id:"bur06",cat:"行政・手続き",foreign:"Ich habe einen Termin bei der Ausländerbehörde am Mittwoch um 10 Uhr.",ja:"水曜日の10時に外国人局の予約がある。"},
+  {id:"bur07",cat:"行政・手続き",foreign:"Ich muss meine Steuererklärung bis Ende Juli abgeben.",ja:"7月末までに確定申告を提出しなければならない。"},
+
+  // ===== 銀行・保険 =====
+  {id:"bnk01",cat:"銀行・保険",foreign:"Ich möchte ein Girokonto eröffnen. Welche Unterlagen brauche ich dafür?",ja:"普通預金口座を開設したいのですが、どんな書類が必要ですか？"},
+  {id:"bnk02",cat:"銀行・保険",foreign:"Ich habe einen Dauerauftrag für die Miete eingerichtet.",ja:"家賃の自動振込を設定した。"},
+  {id:"bnk03",cat:"銀行・保険",foreign:"Können Sie mir erklären, welche Versicherungen in Deutschland Pflicht sind?",ja:"ドイツではどの保険が義務なのか説明していただけますか？"},
+  {id:"bnk04",cat:"銀行・保険",foreign:"Meine Haftpflichtversicherung hat den Schaden vollständig übernommen.",ja:"私の個人賠償責任保険が損害を全額カバーした。"},
+
+  // ===== 教育・試験 =====
+  {id:"edu01",cat:"教育・試験",foreign:"Dieser Kurs besteht aus 12 Lektionen.",ja:"このコースは12課で構成されています。"},
+  {id:"edu02",cat:"教育・試験",foreign:"Ich bereite mich gerade auf die B1-Prüfung vor.",ja:"今B1試験の準備をしています。"},
+  {id:"edu03",cat:"教育・試験",foreign:"Die Aussprache im Deutschen ist manchmal schwierig.",ja:"ドイツ語の発音は時々難しいです。"},
+  {id:"edu04",cat:"教育・試験",foreign:"Die mündliche Prüfung besteht aus drei Teilen: Präsentation, Diskussion und Bildbeschreibung.",ja:"口述試験はプレゼンテーション、ディスカッション、写真描写の3部構成だ。"},
+  {id:"edu05",cat:"教育・試験",foreign:"Um an der Universität zugelassen zu werden, braucht man eine anerkannte Hochschulzugangsberechtigung.",ja:"大学に入学するには、認められた大学入学資格が必要だ。"},
+  {id:"edu06",cat:"教育・試験",foreign:"Das Zeugnis muss von einem vereidigten Übersetzer übersetzt werden.",ja:"証明書は宣誓翻訳家によって翻訳されなければならない。"},
+  {id:"edu07",cat:"教育・試験",foreign:"Ich habe mich für ein Fernstudium im Bereich Betriebswirtschaft eingeschrieben.",ja:"経営学の通信教育に入学した。"},
+
+  // ===== メディア・ニュース =====
+  {id:"med01",cat:"メディア・社会",foreign:"Laut einer aktuellen Umfrage sind die meisten Bürger mit der Regierung unzufrieden.",ja:"最新の世論調査によると、大半の市民は政府に不満だ。"},
+  {id:"med02",cat:"メディア・社会",foreign:"In den sozialen Medien verbreiten sich Falschinformationen leider sehr schnell.",ja:"ソーシャルメディアでは残念ながら偽情報が非常に速く拡散する。"},
+  {id:"med03",cat:"メディア・社会",foreign:"Es ist wichtig, Nachrichten aus verschiedenen Quellen zu vergleichen.",ja:"異なる情報源のニュースを比較することが重要だ。"},
+  {id:"med04",cat:"メディア・社会",foreign:"Hast du die Nachrichten heute Morgen gehört?",ja:"今朝のニュースを聞きましたか？"},
+  {id:"med05",cat:"メディア・社会",foreign:"Laut Zeitung soll es morgen regnen.",ja:"新聞によると、明日は雨だそうです。"},
+  {id:"med06",cat:"メディア・社会",foreign:"Ich lese gerne Artikel über Technologie.",ja:"テクノロジーに関する記事を読むのが好きです。"},
+
+  // ===== 環境・社会問題 =====
+  {id:"env01",cat:"環境・社会問題",foreign:"Wir sollten mehr öffentliche Verkehrsmittel nutzen, um den CO₂-Ausstoß zu reduzieren.",ja:"CO₂排出を減らすために、もっと公共交通機関を利用すべきだ。"},
+  {id:"env02",cat:"環境・社会問題",foreign:"Die Mülltrennung ist in Deutschland gesetzlich vorgeschrieben.",ja:"ドイツではゴミの分別は法律で義務付けられている。"},
+  {id:"env03",cat:"環境・社会問題",foreign:"Durch den Klimawandel nehmen extreme Wetterereignisse weltweit zu.",ja:"気候変動により、極端な気象現象が世界的に増加している。"},
+  {id:"env04",cat:"環境・社会問題",foreign:"Die Regierung hat beschlossen, den Ausbau erneuerbarer Energien zu fördern.",ja:"政府は再生可能エネルギーの拡大を促進することを決定した。"},
+  {id:"env05",cat:"環境・社会問題",foreign:"Meiner Ansicht nach sollte jeder Einzelne versuchen, seinen ökologischen Fußabdruck zu verkleinern.",ja:"私の考えでは、誰もが自分の環境負荷を減らそうと努力すべきです。"},
+  {id:"env06",cat:"環境・社会問題",foreign:"Auf der einen Seite bietet die Digitalisierung viele neue Chancen, auf der anderen Seite gehen dadurch auch Arbeitsplätze verloren.",ja:"一方でデジタル化は多くの新しいチャンスをもたらしますが、他方でそのせいで失われる雇用もあります。"},
+  {id:"env07",cat:"環境・社会問題",foreign:"Wenn mehr recycelt würde, wäre die Umwelt sauberer.",ja:"もっとリサイクルすれば、環境がきれいになります。"},
+  {id:"env08",cat:"環境・社会問題",foreign:"In vielen Großstädten fehlt bezahlbarer Wohnraum.",ja:"多くの大都市で手頃な住居が不足している。"},
+  {id:"env09",cat:"環境・社会問題",foreign:"Ich finde, dass Bildung eine entscheidende Rolle dabei spielt, soziale Ungleichheiten zu verringern.",ja:"教育は、社会的不平等を減らすうえで決定的な役割を果たすと私は思います。"},
+
+  // ===== テクノロジー =====
+  {id:"tec01",cat:"テクノロジー",foreign:"Mein Internetanschluss funktioniert seit gestern nicht mehr.",ja:"昨日からインターネット接続が使えない。"},
+  {id:"tec02",cat:"テクノロジー",foreign:"Durch die Digitalisierung verändern sich viele Berufe grundlegend.",ja:"デジタル化によって多くの職業が根本的に変わっている。"},
+  {id:"tec03",cat:"テクノロジー",foreign:"Man sollte regelmäßig ein Backup seiner Daten machen, um Datenverlust zu vermeiden.",ja:"データの紛失を避けるために、定期的にバックアップを取るべきだ。"},
+  {id:"tec04",cat:"テクノロジー",foreign:"Achten Sie darauf, keine verdächtigen E-Mail-Anhänge zu öffnen.",ja:"不審なメールの添付ファイルを開かないように注意してください。"},
+  {id:"tec05",cat:"テクノロジー",foreign:"Mein Computer ist abgestürzt, ohne dass ich die wichtigen Änderungen gespeichert habe.",ja:"重要な変更を保存しないまま、コンピューターがクラッシュしてしまいました。"},
+  {id:"tec06",cat:"テクノロジー",foreign:"In der Zukunft wird künstliche Intelligenz eine noch größere Rolle im Alltag spielen.",ja:"将来、人工知能は日常生活でさらに大きな役割を果たすようになるでしょう。"},
+
+  // ===== 感情・日常会話 =====
+  {id:"emo01",cat:"感情・日常会話",foreign:"Es tut mir wirklich leid zu hören, dass du deinen Job verloren hast.",ja:"仕事を失ったと聞いて本当に残念だ。"},
+  {id:"emo02",cat:"感情・日常会話",foreign:"Ich kann mir vorstellen, wie frustrierend das für dich sein muss.",ja:"それがどれほど悔しいか想像できる。"},
+  {id:"emo03",cat:"感情・日常会話",foreign:"Ich freue mich riesig für dich, dass du die Prüfung bestanden hast!",ja:"試験に合格したこと、本当にうれしいよ！"},
+  {id:"emo04",cat:"感情・日常会話",foreign:"Ich bin total enttäuscht, dass er sein Versprechen nicht gehalten hat.",ja:"彼が約束を守らなかったことに本当に失望した。"},
+  {id:"emo05",cat:"感情・日常会話",foreign:"Mach dir keine Sorgen, das wird schon wieder.",ja:"心配しないで、きっとうまくいくよ。"},
+  {id:"emo06",cat:"感情・日常会話",foreign:"Ehrlich gesagt war ich von dem Film ein bisschen enttäuscht.",ja:"正直に言うと、その映画には少しがっかりしました。"},
+  {id:"emo07",cat:"感情・日常会話",foreign:"Könnten wir das Treffen eventuell auf nächste Woche verschieben?",ja:"打ち合わせを来週に延期することは可能でしょうか。"},
+  {id:"emo08",cat:"感情・日常会話",foreign:"Im Großen und Ganzen war der Abend sehr gelungen.",ja:"全体として、その夜はとても良い時間でした。"},
+  {id:"emo09",cat:"感情・日常会話",foreign:"Was hältst du davon, wenn wir nach der Arbeit noch etwas trinken gehen?",ja:"仕事の後に一杯飲みに行くのはどう思う？"},
+
+  // ===== 未来・計画 =====
+  {id:"fut01",cat:"未来・計画",foreign:"Ich werde mich nächste Woche um die Bewerbung kümmern.",ja:"来週応募の手続きをする。"},
+  {id:"fut02",cat:"未来・計画",foreign:"Das Wetter wird morgen wahrscheinlich besser werden.",ja:"明日の天気はおそらくよくなるだろう。"},
+  {id:"fut03",cat:"未来・計画",foreign:"Er wird wohl schon zu Hause sein.",ja:"彼はもう家にいるだろう。"},
+  {id:"fut04",cat:"未来・計画",foreign:"Nächstes Jahr werde ich nach Spanien reisen, um Spanisch zu lernen.",ja:"来年はスペイン語を学ぶためにスペインに旅行します。"},
+  {id:"fut05",cat:"未来・計画",foreign:"Ich habe vor, meine Deutschkenntnisse weiter zu verbessern.",ja:"ドイツ語能力をさらに伸ばすつもりです。"},
+  {id:"fut06",cat:"未来・計画",foreign:"Sobald ich genug Geld gespart habe, plane ich, mir eine größere Wohnung zu suchen.",ja:"十分なお金が貯まり次第、もっと広いアパートを探すつもりです。"},
+  {id:"fut07",cat:"未来・計画",foreign:"Wenn alles nach Plan läuft, möchte ich spätestens nächstes Jahr mit einer neuen Weiterbildung anfangen.",ja:"すべて計画どおりに進めば、遅くとも来年には新たな研修を始めたいと思っています。"},
+  {id:"fut08",cat:"未来・計画",foreign:"An deiner Stelle würde ich nicht so lange warten, sondern mich so schnell wie möglich bewerben.",ja:"君の立場なら、そんなに長く待たず、できるだけ早く応募するよ。"},
+  {id:"fut09",cat:"未来・計画",foreign:"Wir werden in Zukunft mehr auf Nachhaltigkeit achten müssen.",ja:"将来、私たちはもっと持続可能性に注意しなければならないだろう。"},
+
+  // ===== 接続副詞・文結合 =====
+  {id:"kon01",cat:"接続副詞",foreign:"Es regnet. Trotzdem gehe ich spazieren.",ja:"雨が降っている。それでも私は散歩に行きます。"},
+  {id:"kon02",cat:"接続副詞",foreign:"Ich habe viel Arbeit. Deshalb kann ich heute nicht kommen.",ja:"仕事がたくさんある。だから今日は来られません。"},
+  {id:"kon03",cat:"接続副詞",foreign:"Er ist krank. Außerdem hat er keine Zeit.",ja:"彼は病気です。その上、時間もありません。"},
+  {id:"kon04",cat:"接続副詞",foreign:"Da die Mieten in der Innenstadt ständig steigen, ziehen immer mehr Menschen ins Umland.",ja:"都心の家賃が常に上がっているため、ますます多くの人が郊外に引っ越しています。"},
+  {id:"kon05",cat:"接続副詞",foreign:"Außerdem muss ich noch den Bericht fertigstellen.",ja:"その上、レポートも仕上げなければならない。"},
+  {id:"kon06",cat:"接続副詞",foreign:"Soweit ich weiß, findet die Veranstaltung im großen Saal statt.",ja:"私の知る限り、そのイベントは大ホールで行われる。"},
+  {id:"kon07",cat:"接続副詞",foreign:"Statt eine Pause zu machen, hat er einfach weitergearbeitet.",ja:"休憩する代わりに、彼はただ仕事を続けた。"},
+
+  // ===== 試験対策フレーズ =====
+  {id:"prz01",cat:"試験・プレゼン",foreign:"Ich möchte heute über das Thema Vor- und Nachteile des Stadtlebens sprechen.",ja:"今日は「都市生活のメリット・デメリット」というテーマについて話したい。"},
+  {id:"prz02",cat:"試験・プレゼン",foreign:"Zunächst möchte ich meine eigenen Erfahrungen dazu schildern.",ja:"まず、それに関する自分の経験を述べたい。"},
+  {id:"prz03",cat:"試験・プレゼン",foreign:"Zum Schluss möchte ich meine persönliche Meinung zusammenfassen.",ja:"最後に個人的な意見をまとめたい。"},
+  {id:"prz04",cat:"試験・プレゼン",foreign:"Auf dem Bild sieht man eine Familie, die in einem Park picknickt.",ja:"写真には公園でピクニックをしている家族が写っている。"},
+  {id:"prz05",cat:"試験・プレゼン",foreign:"Im Vordergrund steht ein Mann, der mit seinem Hund spazieren geht.",ja:"前景には犬と散歩している男性がいる。"},
+  {id:"prz06",cat:"試験・プレゼン",foreign:"Im Hintergrund erkennt man ein großes Gebäude, das wie ein Museum aussieht.",ja:"背景には美術館のように見える大きな建物がある。"},
+  {id:"prz07",cat:"試験・プレゼン",foreign:"Ich vermute, dass das Foto im Sommer aufgenommen wurde.",ja:"その写真は夏に撮られたのではないかと思う。"},
+  {id:"prz08",cat:"試験・プレゼン",foreign:"In meinem Heimatland sieht die Situation etwas anders aus.",ja:"私の母国では状況がやや異なる。"},
+  {id:"prz09",cat:"試験・プレゼン",foreign:"Ich möchte gern auf das eingehen, was mein Gesprächspartner gerade gesagt hat.",ja:"パートナーが今言ったことについて触れたい。"},
+  {id:"prz10",cat:"試験・プレゼン",foreign:"Entschuldigung, darf ich kurz etwas dazu sagen?",ja:"すみません、それについて少し発言してもいいですか？"},
+
+  // ===== 複合語・語彙強化 =====
+  {id:"voc01",cat:"語彙・複合語",foreign:"Die Aufenthaltserlaubnis muss rechtzeitig verlängert werden.",ja:"滞在許可は期日通りに更新しなければならない。"},
+  {id:"voc02",cat:"語彙・複合語",foreign:"Die Lebenshaltungskosten in München sind deutlich höher als in Leipzig.",ja:"ミュンヘンの生活費はライプツィヒよりかなり高い。"},
+  {id:"voc03",cat:"語彙・複合語",foreign:"Die Geschwindigkeitsbegrenzung auf dieser Straße beträgt 30 km/h.",ja:"この道路の速度制限は時速30キロだ。"},
+  {id:"voc04",cat:"語彙・複合語",foreign:"Die Verbraucherzentrale berät kostenlos bei Problemen mit Verträgen.",ja:"消費者センターは契約問題について無料で相談に応じてくれる。"},
+  {id:"voc05",cat:"語彙・複合語",foreign:"Man sollte sich regelmäßig ärztlich untersuchen lassen.",ja:"定期的に健康診断を受けるべきだ。"},
+  {id:"voc06",cat:"語彙・複合語",foreign:"Niemand hat mir Bescheid gesagt, dass die Sitzung ausfällt.",ja:"会議がキャンセルになったと誰も教えてくれなかった。"},
+  {id:"voc07",cat:"語彙・複合語",foreign:"Der Arbeitslose hat sich beim Jobcenter gemeldet.",ja:"その失業者はハローワークに届け出た。"},
+  {id:"voc08",cat:"語彙・複合語",foreign:"Für Jugendliche und Erwachsene gelten unterschiedliche Tarife.",ja:"青少年と成人には異なる料金が適用される。"},
+
+  // ===== n変化名詞 =====
+  {id:"ndk01",cat:"n変化名詞",foreign:"Ich muss dem Kollegen die Unterlagen noch geben.",ja:"同僚にまだ書類を渡さなければならない。"},
+  {id:"ndk02",cat:"n変化名詞",foreign:"Hast du den Namen des Kunden notiert?",ja:"顧客の名前をメモした？"},
+  {id:"ndk03",cat:"n変化名詞",foreign:"Der Polizist hat den Zeugen befragt.",ja:"警察官は証人に聞き取りをした。"},
+  {id:"ndk04",cat:"n変化名詞",foreign:"Wir sollten den Experten um Rat fragen.",ja:"専門家に助言を求めるべきだ。"},
+  {id:"ndk05",cat:"n変化名詞",foreign:"Ich habe den Namen des Studenten vergessen.",ja:"その学生の名前を忘れました。"},
+
+  // ===== 分離動詞・重要語彙 =====
+  {id:"sep01",cat:"分離動詞応用",foreign:"Ich muss meine Kinder jeden Morgen von der Schule abholen.",ja:"毎朝学校に子供たちを迎えに行かなければならない。"},
+  {id:"sep02",cat:"分離動詞応用",foreign:"Wir nehmen an der Veranstaltung teil, obwohl sie am Wochenende stattfindet.",ja:"週末に行われるが、そのイベントに参加する。"},
+  {id:"sep03",cat:"分離動詞応用",foreign:"Ich schlage vor, dass wir das Meeting auf nächste Woche verschieben.",ja:"会議を来週に延期することを提案する。"},
+  {id:"sep04",cat:"分離動詞応用",foreign:"Das Unternehmen beabsichtigt, 50 neue Mitarbeiter einzustellen.",ja:"その企業は50人の新規社員を採用する予定だ。"},
+  {id:"sep05",cat:"分離動詞応用",foreign:"Er hat das ganze Geld für unnötige Sachen ausgegeben.",ja:"彼は不要な物にお金を全部使ってしまった。"},
+  {id:"sep06",cat:"分離動詞応用",foreign:"Die Polizei hat den Dieb nach drei Tagen festgenommen.",ja:"警察は3日後に泥棒を逮捕した。"},
+
+  // ===== 実用イディオム =====
+  {id:"idi01",cat:"実用イディオム",foreign:"Ich verstehe nur Bahnhof.",ja:"ちんぷんかんぷんです（駅しか理解できない）。"},
+  {id:"idi02",cat:"実用イディオム",foreign:"Das ist nicht mein Bier.",ja:"それは私の関知するところではありません。"},
+  {id:"idi03",cat:"実用イディオム",foreign:"Ich habe die Nase voll von diesem Stress.",ja:"このストレスにはもううんざりです。"},
+  {id:"idi04",cat:"実用イディオム",foreign:"Keine Sorge, alles ist in Butter.",ja:"心配しないで、全て順調です。"},
+  {id:"idi05",cat:"実用イディオム",foreign:"Jetzt haben wir den Salat!",ja:"大変なことになった！"},
+  {id:"idi06",cat:"実用イディオム",foreign:"Um ehrlich zu sein, fällt es mir manchmal schwer, mich an die deutsche Bürokratie zu gewöhnen.",ja:"正直なところ、ドイツの官僚的な手続きに慣れるのは時々難しく感じます。"},
+  {id:"idi07",cat:"実用イディオム",foreign:"Im Alltag versuche ich, möglichst viel auf Deutsch zu erledigen, auch wenn ich dabei Fehler mache.",ja:"日常生活では、たとえ間違いをしても、できるだけ多くのことをドイツ語でこなそうとしています。"},
+  {id:"idi08",cat:"実用イディオム",foreign:"Anfangs war ich oft verunsichert, aber mit der Zeit wurde ich immer selbstständiger.",ja:"最初のうちはよく不安になりましたが、時間が経つにつれて、だんだん自立できるようになりました。"},
+
+  // ===== 感謝・謝罪 =====
+  {id:"apol01",cat:"感謝・謝罪",foreign:"Ich möchte mich herzlich für Ihre Hilfe bedanken.",ja:"ご支援に心から感謝申し上げます。"},
+  {id:"apol02",cat:"感謝・謝罪",foreign:"Es tut mir wirklich leid, dass ich zu spät gekommen bin.",ja:"遅刻して本当に申し訳ありません。"},
+  {id:"apol03",cat:"感謝・謝罪",foreign:"Das war keine Absicht.",ja:"わざとではありませんでした。"},
+  {id:"apol04",cat:"感謝・謝罪",foreign:"Macht nichts!",ja:"気にしないで！"},
+  {id:"apol05",cat:"感謝・謝罪",foreign:"Entschuldige, dass ich so spät antworte, aber ich war beruflich extrem eingespannt.",ja:"返事がこんなに遅くなってしまってごめん、ここ数日は仕事でとても忙しかったんだ。"},
+  {id:"apol06",cat:"感謝・謝罪",foreign:"Es freut mich wirklich sehr, dass du dir trotz deines vollen Terminkalenders Zeit für mich genommen hast.",ja:"忙しいスケジュールにもかかわらず、時間を割いてくれて本当にうれしいです。"},
+
+  // ===== 文化・余暇 =====
+  {id:"clt01",cat:"文化・余暇",foreign:"In meiner Freizeit lese ich gern Romane, die auf wahren Begebenheiten beruhen.",ja:"余暇には、実話に基づいた小説を読むのが好きです。"},
+  {id:"clt02",cat:"文化・余暇",foreign:"Ich interessiere mich vor allem für Filme, die gesellschaftliche Probleme kritisch darstellen.",ja:"特に、社会問題を批判的に描いた映画に関心があります。"},
+  {id:"clt03",cat:"文化・余暇",foreign:"Das Konzert war restlos ausverkauft.",ja:"コンサートは完売だった。"},
+  {id:"clt04",cat:"文化・余暇",foreign:"Am Wochenende waren wir in einer Ausstellung über moderne Kunst.",ja:"週末に現代美術の展覧会に行った。"},
+  {id:"clt05",cat:"文化・余暇",foreign:"Der Film basiert auf einem wahren Ereignis.",ja:"映画は実話に基づいている。"},
+  {id:"clt06",cat:"文化・余暇",foreign:"In meiner Freizeit engagiere ich mich in einem Sportverein als Trainer.",ja:"余暇にはスポーツクラブでコーチとして活動している。"},
+];
+
+// ===== APP STATE =====
+const LS_KEY = 'german_mastered_b1_v1';
+let cards = [];
+let filtered = [];
+let currentIdx = 0;
+let currentCat = 'すべて';
+let currentMode = 'ja2de';
+let revealed = false;
+let mastered = new Set();
+let isMuted = false;
+let isSpeaking = false;
+
+function escHtml(s) {
+  return String(s)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
+}
+
+function loadMastered() {
+  try {
+    const d = localStorage.getItem(LS_KEY);
+    if (d) mastered = new Set(JSON.parse(d));
+  } catch(e) { mastered = new Set(); }
+}
+function saveMastered() {
+  try { localStorage.setItem(LS_KEY, JSON.stringify([...mastered])); } catch(e){}
+}
+
+function init() {
+  loadMastered();
+  cards = CARDS_RAW.map((d, i) => ({ ...d, _id: d.id || i }));
+  buildCatButtons();
+  applyFilter();
+  updateStats();
+  renderCard();
+}
+
+function buildCatButtons() {
+  const cats = ['すべて', ...new Set(cards.map(c => c.cat))];
+  const scroll = document.getElementById('catScroll');
+  scroll.innerHTML = '';
+  cats.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'cat-pill' + (cat === currentCat ? ' active' : '');
+    btn.textContent = cat;
+    btn.onclick = () => selectCat(cat);
+    scroll.appendChild(btn);
+  });
+}
+
+function selectCat(cat) {
+  currentCat = cat;
+  document.querySelectorAll('.cat-pill').forEach(b => {
+    b.classList.toggle('active', b.textContent === cat);
+  });
+  applyFilter();
+  currentIdx = 0;
+  revealed = false;
+  renderCard();
+  updateStats();
+}
+
+function applyFilter() {
+  if (currentCat === 'すべて') {
+    filtered = [...cards];
+  } else {
+    filtered = cards.filter(c => c.cat === currentCat);
+  }
+}
+
+function updateStats() {
+  const total = filtered.length;
+  const done = filtered.filter(c => mastered.has(c._id)).length;
+  const rem = total - done;
+  const pct = total ? Math.round(done / total * 100) : 0;
+  document.getElementById('statTotal').textContent = `全${total}件`;
+  document.getElementById('statRem').textContent = `残り${rem}件`;
+  document.getElementById('statDone').textContent = `✓${done}件`;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('statPct').textContent = pct + '%';
+}
+
+function getCard() {
+  return filtered[currentIdx] || null;
+}
+
+function getEffectiveMode(card) {
+  if (currentMode === 'random') return Math.random() < 0.5 ? 'ja2de' : 'de2ja';
+  return currentMode;
+}
+
+function renderCard() {
+  const card = getCard();
+  const body = document.getElementById('cardBody');
+  const qEl = document.getElementById('cardQ');
+  const catLbl = document.getElementById('cardCat');
+  const counter = document.getElementById('cardCounter');
+
+  if (!card) {
+    catLbl.textContent = '–';
+    counter.textContent = '0 / 0';
+    body.innerHTML = '<div class="card-question">カードがありません</div>';
+    return;
+  }
+
+  catLbl.textContent = card.cat;
+  counter.textContent = `${currentIdx + 1} / ${filtered.length}`;
+
+  const isMastered = mastered.has(card._id);
+  document.getElementById('btnCheck').classList.toggle('checked', isMastered);
+
+  if (!revealed) {
+    const mode = getEffectiveMode(card);
+    const qText = mode === 'ja2de' ? card.ja : card.foreign;
+    const isJp = mode === 'ja2de';
+    body.innerHTML = `
+      <div class="card-question${isJp ? ' jp' : ''}" id="cardQ">${escHtml(qText)}</div>
+      <div class="card-hint">👆 タップして答えを見る</div>
+    `;
+  } else {
+    const mode = getEffectiveMode(card);
+    const qText = mode === 'ja2de' ? card.ja : card.foreign;
+    const aText = mode === 'ja2de' ? card.foreign : card.ja;
+    const qIsJp = mode === 'ja2de';
+    const aIsJp = mode === 'de2ja';
+    body.innerHTML = `
+      <div class="card-question${qIsJp ? ' jp' : ''}">${escHtml(qText)}</div>
+      <div class="card-divider"></div>
+      <div class="card-answer${aIsJp ? ' jp' : ''}" id="cardA">${escHtml(aText)}</div>
+      <button class="speak-btn" id="speakBtn" onclick="event.stopPropagation();speakAnswer()">🔊 読み上げ</button>
+    `;
+  }
+}
+
+function revealCard() {
+  if (revealed) {
+    revealed = false;
+    renderCard();
+    return;
+  }
+  revealed = true;
+  renderCard();
+  speakAnswer();
+}
+
+function speakAnswer() {
+  const card = getCard();
+  if (!card) return;
+  const mode = getEffectiveMode(card);
+  const btn = document.getElementById('speakBtn');
+  if (btn) { btn.classList.add('playing'); }
+  const onDone = () => {
+    if (btn) btn.classList.remove('playing');
+  };
+  if (mode === 'ja2de') {
+    speakForeign(card.foreign, onDone);
+  } else {
+    speakJapanese(card.ja, onDone);
+  }
+}
+
+function speakForeign(text, onDone) {
+  if (isMuted) { if (onDone) onDone(); return; }
+  window.speechSynthesis.cancel();
+  function doSpeak(lang) {
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = lang;
+    u.rate = 0.8;
+    u.pitch = 1.0;
+    u.onend = () => { if (onDone) onDone(); };
+    u.onerror = () => { if (onDone) onDone(); };
+    window.speechSynthesis.speak(u);
+  }
+  const voices = window.speechSynthesis.getVoices();
+  const preferred = ['de-DE', 'de', 'en-US'];
+  let chosen = null;
+  for (const lang of preferred) {
+    const v = voices.find(v => v.lang === lang || v.lang.startsWith('de'));
+    if (v) { chosen = v.lang; break; }
+  }
+  doSpeak(chosen || 'de-DE');
+}
+
+function speakJapanese(text, onDone) {
+  if (isMuted) { if (onDone) onDone(); return; }
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'ja-JP';
+  u.rate = 0.85;
+  u.onend = () => { if (onDone) onDone(); };
+  u.onerror = () => { if (onDone) onDone(); };
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(u);
+}
+
+function nextCard() {
+  window.speechSynthesis.cancel();
+  let next = currentIdx + 1;
+  let count = 0;
+  while (next < filtered.length) {
+    if (!mastered.has(filtered[next]._id)) break;
+    next++;
+    count++;
+    if (count > filtered.length) break;
+  }
+  if (next >= filtered.length) {
+    // check if all mastered
+    const allDone = filtered.every(c => mastered.has(c._id));
+    if (allDone) {
+      showComplete();
+      return;
+    }
+    next = 0;
+    while (next < filtered.length && mastered.has(filtered[next]._id)) next++;
+  }
+  currentIdx = next;
+  revealed = false;
+  renderCard();
+}
+
+function prevCard() {
+  window.speechSynthesis.cancel();
+  let prev = currentIdx - 1;
+  if (prev < 0) prev = filtered.length - 1;
+  currentIdx = prev;
+  revealed = false;
+  renderCard();
+}
+
+function checkCard() {
+  const card = getCard();
+  if (!card) return;
+  if (mastered.has(card._id)) return;
+  mastered.add(card._id);
+  saveMastered();
+  updateStats();
+  document.getElementById('btnCheck').classList.add('checked');
+  setTimeout(() => nextCard(), 300);
+}
+
+function showComplete() {
+  const ov = document.getElementById('completeOverlay');
+  ov.classList.add('show');
+  setTimeout(() => {
+    mastered.clear();
+    saveMastered();
+    updateStats();
+    currentIdx = 0;
+    revealed = false;
+    renderCard();
+    ov.classList.remove('show');
+  }, 1800);
+}
+
+// Header buttons
+document.getElementById('btnList').onclick = openModal;
+document.getElementById('btnReset').onclick = () => {
+  if (mastered.size === 0) return;
+  mastered.clear();
+  saveMastered();
+  currentIdx = 0;
+  revealed = false;
+  updateStats();
+  renderCard();
+  const btn = document.getElementById('btnReset');
+  btn.textContent = '✅';
+  setTimeout(() => btn.textContent = '🔄', 800);
+};
+document.getElementById('btnShuffle').onclick = () => {
+  for (let i = filtered.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [filtered[i], filtered[j]] = [filtered[j], filtered[i]];
+  }
+  currentIdx = 0;
+  revealed = false;
+  renderCard();
+  const btn = document.getElementById('btnShuffle');
+  btn.textContent = '✅';
+  setTimeout(() => btn.textContent = '🔀', 800);
+};
+document.getElementById('btnMute').onclick = () => {
+  isMuted = !isMuted;
+  document.getElementById('btnMute').textContent = isMuted ? '🔇' : '🔊';
+  if (isMuted) window.speechSynthesis.cancel();
+};
+
+// Mode buttons
+document.querySelectorAll('.mode-btn').forEach(btn => {
+  btn.onclick = () => {
+    currentMode = btn.dataset.mode;
+    document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    revealed = false;
+    renderCard();
+  };
+});
+
+// Controls
+document.getElementById('mainCard').onclick = revealCard;
+document.getElementById('btnReveal').onclick = (e) => { e.stopPropagation(); if(!revealed){revealed=true;renderCard();speakAnswer();} };
+document.getElementById('btnRevert').onclick = (e) => { e.stopPropagation(); revealed=false; renderCard(); };
+document.getElementById('btnPrev').onclick = (e) => { e.stopPropagation(); prevCard(); };
+document.getElementById('btnNext').onclick = (e) => { e.stopPropagation(); nextCard(); };
+document.getElementById('btnCheck').onclick = (e) => { e.stopPropagation(); checkCard(); };
+
+// Keyboard
+document.addEventListener('keydown', e => {
+  if (document.getElementById('modalOverlay').classList.contains('open')) {
+    if (e.key === 'Escape') closeModal();
+    return;
+  }
+  if (e.key === 'ArrowRight') nextCard();
+  else if (e.key === 'ArrowLeft') prevCard();
+  else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); revealCard(); }
+  else if (e.key === 'c' || e.key === 'C') checkCard();
+});
+
+// Modal
+function openModal() {
+  buildModal('');
+  document.getElementById('modalOverlay').classList.add('open');
+  document.getElementById('modalSearch').value = '';
+  document.getElementById('modalSearch').focus();
+}
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+}
+document.getElementById('modalClose').onclick = closeModal;
+document.getElementById('modalOverlay').onclick = (e) => { if(e.target===document.getElementById('modalOverlay')) closeModal(); };
+document.getElementById('modalSearch').oninput = (e) => buildModal(e.target.value);
+
+function buildModal(query) {
+  const q = query.trim().toLowerCase();
+  const body = document.getElementById('modalBody');
+  const cats = [...new Set(cards.map(c => c.cat))];
+  let html = '';
+  cats.forEach(cat => {
+    const items = cards.filter(c => c.cat === cat && (
+      !q || c.foreign.toLowerCase().includes(q) || c.ja.includes(q)
+    ));
+    if (items.length === 0) return;
+    html += `<div class="modal-cat-header">${escHtml(cat)}</div>`;
+    items.forEach(c => {
+      const isMast = mastered.has(c._id);
+      html += `<div class="modal-row${isMast?' mastered':''}" data-id="${escHtml(c._id)}">
+        <span class="modal-de">${escHtml(c.foreign)}</span>
+        <span class="modal-ja">${escHtml(c.ja)}</span>
+      </div>`;
+    });
+  });
+  body.innerHTML = html;
+  body.querySelectorAll('.modal-row').forEach(row => {
+    row.onclick = () => {
+      const id = row.dataset.id;
+      const cardIdx = cards.findIndex(c => String(c._id) === String(id));
+      if (cardIdx < 0) return;
+      const targetCat = cards[cardIdx].cat;
+      if (currentCat !== targetCat && currentCat !== 'すべて') {
+        selectCat('すべて');
+      }
+      const filtIdx = filtered.findIndex(c => String(c._id) === String(id));
+      if (filtIdx >= 0) {
+        currentIdx = filtIdx;
+        revealed = false;
+        renderCard();
+      }
+      closeModal();
+    };
+  });
+}
+
+init();
+window.speechSynthesis.onvoiceschanged = function(){};
+</script>
+</body>
+</html>

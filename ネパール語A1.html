@@ -561,6 +561,7 @@ kbd {
   </div>
   <div class="header-controls">
     <button class="icon-btn" id="listBtn" title="一覧">📋</button>
+    <button class="icon-btn" id="resetBtn" title="チェック解除">🔄</button>
     <button class="icon-btn" id="shuffleBtn" title="シャッフル">🔀</button>
     <button class="icon-btn" id="muteBtn" title="ミュート">🔊</button>
   </div>
@@ -619,7 +620,6 @@ kbd {
     <div class="trophy">🏆</div>
     <h2>すべて覚えました！</h2>
     <p>おめでとうございます！全カードを制覇しました。</p>
-    <button class="ctrl-btn next" onclick="resetAll()" style="margin-top:12px">もう一度やり直す</button>
   </div>
 
   <div class="keyboard-hint">
@@ -1555,9 +1555,14 @@ function renderCard() {
   const remaining = filteredCards.filter(c => !masteredSet.has(c.id));
 
   if (remaining.length === 0) {
+    // 全チェック済み → 自動解除してリストに戻る
     flashcard.style.display = 'none';
     controls.style.display  = 'none';
     complete.classList.add('show');
+    setTimeout(() => {
+      complete.classList.remove('show');
+      resetAll();
+    }, 1800);
     return;
   }
 
@@ -1689,11 +1694,7 @@ function prevCard() {
 function toggleMastered() {
   const card = filteredCards[currentIndex];
   if (!card) return;
-  if (masteredSet.has(card.id)) {
-    masteredSet.delete(card.id);
-  } else {
-    masteredSet.add(card.id);
-  }
+  masteredSet.add(card.id);
   updateStats();
   updateMasteredBtn();
   // 覚えたら0.3秒後に次へ
@@ -1733,6 +1734,13 @@ document.querySelectorAll('.mode-btn').forEach(btn => {
     mode = btn.dataset.mode;
     renderCard();
   });
+});
+
+document.getElementById('resetBtn').addEventListener('click', () => {
+  if (masteredSet.size === 0) return;
+  resetAll();
+  document.getElementById('resetBtn').textContent = '✅';
+  setTimeout(() => document.getElementById('resetBtn').textContent = '🔄', 800);
 });
 
 document.getElementById('shuffleBtn').addEventListener('click', () => {
