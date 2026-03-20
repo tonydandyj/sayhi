@@ -1,0 +1,1880 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇻🇳 ベトナム語B2レベル重要頻出語彙 1000例文集</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=M+PLUS+Rounded+1c:wght@400;500;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+/* =====================================================
+   🇻🇳 ベトナム語 B1 — ホイアンのランタン祭りテーマ
+   コンセプト: 旧市街の石畳・シルクランタンの暖光・
+               古い瓦屋根越しに見える満月
+   ===================================================== */
+:root {
+  /* ── パレット ── */
+  --teal:       #00b4aa;   /* ホイアン水路ティール */
+  --lantern:    #ff9a3c;   /* ランタンオレンジ */
+  --amber:      #ffd166;   /* 月光アンバー */
+  --silk:       #e85d9a;   /* シルクピンク（✓覚えた） */
+  --jade:       #06d6a0;   /* ジェードグリーン（✓完了） */
+
+  /* ── テキスト ── */
+  --text:       #f5f0e8;   /* 暖かいオフホワイト */
+  --text-mid:   #c8bfaa;   /* 旧紙色ミッド */
+  --text-muted: #7a7060;   /* くすんだセピア */
+
+  /* ── サーフェス ── */
+  --bg:         #0d0c0a;   /* 深夜の石畳 */
+  --surface:    #161310;   /* 暗い木材色 */
+  --surface2:   #1f1b15;   /* カード背景 */
+  --glass:      rgba(31,27,21,0.90);
+  --glass2:     rgba(31,27,21,0.65);
+  --border:     rgba(255,154,60,0.18);
+  --border2:    rgba(255,154,60,0.32);
+
+  /* ── フォント ── */
+  --jp:         'M PLUS Rounded 1c', 'Nunito', sans-serif;
+  --foreign:    'Noto Sans', 'Nunito', sans-serif;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+
+body{
+  background: linear-gradient(160deg, #0d0c0a 0%, #12100d 35%, #161310 70%, #0d0c0a 100%);
+  color:var(--text);
+  font-family:var(--jp);
+  display:flex;flex-direction:column;height:100dvh;
+  position:relative;
+  align-items:center;
+}
+
+/* 背景装飾（ランタングロー） */
+body::before{
+  content:'';
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse 65% 40% at 20% 15%,  rgba(255,154,60,.10) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 45% at 80% 80%,  rgba(0,180,170,.08) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 30% at 55% 50%,  rgba(232,93,154,.05) 0%, transparent 80%);
+}
+body > *{position:relative;z-index:1}
+
+/* ── アプリラッパー ── */
+#app{
+  width:100%;max-width:640px;
+  display:flex;flex-direction:column;
+  height:100dvh;overflow:hidden;
+  flex-shrink:0;
+}
+
+/* ── ヘッダー ── */
+header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:9px 16px;
+  background: linear-gradient(135deg, #1a1005 0%, #241808 50%, #1a1205 100%);
+  border-bottom: 2px solid rgba(255,154,60,.35);
+  position:sticky;top:0;z-index:10;flex-shrink:0;
+  width:100%;
+  box-shadow: 0 3px 20px rgba(255,154,60,.18), 0 1px 0 rgba(255,209,102,.15);
+}
+.logo{
+  font-size:.95rem;font-weight:800;color:var(--lantern);
+  display:flex;align-items:center;gap:7px;letter-spacing:.03em;
+  text-shadow:0 0 14px rgba(255,154,60,.55);
+}
+.hbtns{display:flex;gap:6px}
+.hbtn{
+  background:rgba(255,154,60,.14);
+  border:1px solid rgba(255,154,60,.32);
+  color:var(--lantern);
+  width:36px;height:36px;border-radius:10px;cursor:pointer;font-size:1rem;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .18s,transform .12s;
+  backdrop-filter:blur(6px);
+}
+.hbtn:hover{background:rgba(255,154,60,.28);transform:scale(1.08)}
+.hbtn:active{transform:scale(.95)}
+.hbtn.active-flash{background:var(--jade);border-color:var(--jade);color:#0a1a14}
+.hbtn.auto-on{
+  background:linear-gradient(135deg,var(--teal),#007a72);
+  border-color:var(--teal);color:#fff;
+  box-shadow:0 0 10px rgba(0,180,170,.55);
+  animation:auto-pulse 1.4s ease-in-out infinite;
+}
+@keyframes auto-pulse{
+  0%,100%{box-shadow:0 0 6px rgba(0,180,170,.50);}
+  50%{box-shadow:0 0 18px rgba(0,180,170,.90);}
+}
+
+/* ── モードボタン ── */
+.mode-row{display:flex;gap:8px;padding:8px 14px;flex-shrink:0}
+.mbtn{
+  flex:1;padding:7px 4px;border-radius:22px;
+  border:1.5px solid var(--border2);
+  background:var(--glass2);
+  color:var(--text-mid);
+  cursor:pointer;font-family:var(--jp);font-size:.82rem;font-weight:700;
+  transition:.2s;backdrop-filter:blur(4px);
+}
+.mbtn:hover{border-color:var(--lantern);color:var(--lantern);background:rgba(255,154,60,.10)}
+.mbtn.active{
+  background:linear-gradient(135deg, var(--teal), #007a72);
+  color:#fff;border-color:var(--teal);
+  box-shadow:0 3px 12px rgba(0,180,170,.40);
+}
+
+/* ── 統計バー ── */
+.stats{
+  display:flex;align-items:center;gap:8px;
+  padding:4px 16px;flex-shrink:0;font-size:.74rem;color:var(--text-muted);
+}
+.stat-num{color:var(--lantern);font-weight:700}
+.prog-wrap{flex:1;background:rgba(255,154,60,.12);border-radius:6px;height:6px;overflow:hidden}
+.prog-bar{
+  height:100%;
+  background:linear-gradient(90deg, var(--teal), var(--lantern), var(--amber));
+  border-radius:6px;transition:width .5s cubic-bezier(.4,0,.2,1);
+}
+.stat-pct{color:var(--teal);font-weight:800;min-width:34px;text-align:right}
+
+/* ── カテゴリスクロール ── */
+.cat-scroll{
+  overflow-x:auto;display:flex;gap:7px;
+  padding:5px 14px 10px;flex-shrink:0;
+  scrollbar-width:thin;
+  scrollbar-color:var(--lantern) rgba(255,154,60,.10);
+}
+.cat-scroll::-webkit-scrollbar{height:5px}
+.cat-scroll::-webkit-scrollbar-track{background:rgba(255,154,60,.08);border-radius:4px}
+.cat-scroll::-webkit-scrollbar-thumb{background:rgba(255,154,60,.45);border-radius:4px}
+.cat-scroll::-webkit-scrollbar-thumb:hover{background:var(--lantern)}
+.cpill{
+  flex-shrink:0;padding:5px 13px;border-radius:22px;
+  border:1.5px solid var(--border2);
+  background:rgba(31,27,21,.70);
+  color:var(--text-mid);
+  cursor:pointer;font-size:.74rem;font-family:var(--jp);font-weight:600;
+  transition:.18s;backdrop-filter:blur(4px);white-space:nowrap;
+}
+.cpill:hover{
+  border-color:var(--lantern);color:var(--lantern);
+  background:rgba(255,154,60,.10);
+  box-shadow:0 2px 8px rgba(255,154,60,.18);
+}
+.cpill.active{
+  background:linear-gradient(135deg, var(--teal), #007a72);
+  border-color:var(--teal);color:#fff;
+  box-shadow:0 2px 10px rgba(0,180,170,.40);
+}
+
+/* ── カードエリア ── */
+.card-area{flex:1;display:flex;align-items:center;justify-content:center;padding:6px 14px;min-height:0}
+.card{
+  width:100%;max-width:560px;
+  background:rgba(31,27,21,.85);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border:1.5px solid rgba(255,154,60,.22);
+  border-radius:24px;
+  padding:20px 22px 18px;
+  cursor:pointer;
+  position:relative;
+  overflow:hidden;
+  transition:transform .18s cubic-bezier(.4,0,.2,1), box-shadow .18s;
+  box-shadow:
+    0 8px 32px rgba(0,0,0,.50),
+    0 2px 8px rgba(0,0,0,.30),
+    inset 0 1px 0 rgba(255,154,60,.10);
+  display:flex;flex-direction:column;gap:10px;
+  min-height:185px;max-height:300px;
+  justify-content:center;
+}
+.card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg, var(--teal), var(--lantern), var(--amber), var(--silk));
+  border-radius:24px 24px 0 0;
+}
+.card:hover{
+  transform:translateY(-3px) scale(1.005);
+  box-shadow:
+    0 16px 48px rgba(0,180,170,.15),
+    0 4px 12px rgba(0,0,0,.35),
+    inset 0 1px 0 rgba(255,154,60,.15);
+}
+.card-meta{display:flex;justify-content:space-between;align-items:center;margin-top:2px}
+.cat-label{
+  font-size:.71rem;font-weight:700;
+  background:linear-gradient(135deg,rgba(0,180,170,.20),rgba(255,154,60,.15));
+  color:var(--lantern);
+  padding:3px 10px;border-radius:14px;
+  border:1px solid rgba(255,154,60,.30);
+}
+.card-count{font-size:.72rem;color:var(--text-muted);font-weight:600}
+.card-body{
+  text-align:center;flex:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:10px;
+}
+.foreign-text{
+  font-family:var(--foreign);
+  font-size:clamp(1.5rem,5vw,2.4rem);
+  font-weight:700;color:var(--text);line-height:1.2;
+  letter-spacing:.01em;
+}
+.jp-text{
+  font-family:var(--jp);
+  font-size:clamp(1.2rem,4vw,1.8rem);
+  font-weight:700;color:var(--text);line-height:1.3;
+}
+.note-text{
+  font-family:var(--foreign);
+  font-size:clamp(.76rem,2vw,.90rem);
+  color:var(--amber);font-style:italic;font-weight:400;
+  background:rgba(255,209,102,.10);
+  padding:3px 12px;border-radius:10px;
+  border:1px solid rgba(255,209,102,.20);
+}
+.hint-tap{
+  font-size:.73rem;color:var(--text-muted);
+  display:flex;align-items:center;gap:4px;
+  background:rgba(255,154,60,.07);
+  padding:4px 12px;border-radius:12px;
+}
+.speak-btn{
+  background:linear-gradient(135deg,rgba(0,180,170,.15),rgba(255,209,102,.12));
+  border:1.5px solid rgba(0,180,170,.32);
+  color:var(--teal);
+  padding:5px 16px;border-radius:20px;cursor:pointer;
+  font-size:.8rem;font-family:var(--jp);font-weight:700;
+  transition:.18s;margin-top:4px;
+}
+.speak-btn:hover{
+  background:linear-gradient(135deg, var(--teal), var(--lantern));
+  color:#0a1a14;border-color:var(--teal);
+  box-shadow:0 3px 10px rgba(0,180,170,.30);
+}
+.speak-btn.pulsing{animation:pulse .8s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+/* ── 操作ボタン行 ── */
+.action-row{display:flex;gap:6px;padding:6px 14px;flex-shrink:0}
+.abtn{
+  flex:1;padding:9px 4px;border-radius:14px;
+  border:1.5px solid var(--border2);
+  background:rgba(31,27,21,.65);
+  color:var(--text-mid);
+  cursor:pointer;font-family:var(--jp);font-size:.8rem;font-weight:700;
+  transition:.18s;backdrop-filter:blur(4px);
+}
+.abtn:hover{
+  background:rgba(255,154,60,.12);
+  border-color:var(--lantern);color:var(--lantern);
+  box-shadow:0 2px 8px rgba(255,154,60,.18);
+}
+.abtn:active{transform:scale(.96)}
+/* ▶ 表示ボタン：ティール */
+.abtn.primary{
+  background:linear-gradient(135deg, var(--teal) 0%, #007a72 100%);
+  color:#fff;border-color:var(--teal);
+  box-shadow:0 3px 12px rgba(0,180,170,.35);
+}
+.abtn.primary:hover{filter:brightness(1.10);box-shadow:0 5px 16px rgba(0,180,170,.45)}
+/* 次へ ボタン：ランタンオレンジ */
+.abtn.danger{
+  background:linear-gradient(135deg, var(--lantern) 0%, var(--amber) 100%);
+  color:#1a0a00;border-color:var(--lantern);
+  box-shadow:0 3px 12px rgba(255,154,60,.30);
+}
+.abtn.danger:hover{filter:brightness(1.08);box-shadow:0 5px 16px rgba(255,154,60,.40)}
+/* ✓ 覚えた：シルクピンク */
+.abtn.success{
+  background:linear-gradient(135deg, #d04080 0%, var(--silk) 100%);
+  color:#fff;border-color:var(--silk);
+  box-shadow:0 3px 12px rgba(232,93,154,.28);
+}
+.abtn.success:hover{filter:brightness(1.08);box-shadow:0 5px 16px rgba(232,93,154,.38)}
+
+/* ── キーボードヒント ── */
+.kb-hints{
+  padding:3px 14px 8px;text-align:center;
+  font-size:.67rem;color:var(--text-muted);opacity:.7;flex-shrink:0;
+}
+
+/* ── 完了オーバーレイ ── */
+.done-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(13,12,10,.92);
+  backdrop-filter:blur(14px);
+  z-index:100;align-items:center;justify-content:center;flex-direction:column;gap:14px;
+}
+.done-overlay.show{display:flex}
+.done-trophy{font-size:5rem;animation:bounce 1s ease-in-out infinite}
+@keyframes bounce{0%,100%{transform:scale(1) rotate(-3deg)}50%{transform:scale(1.18) rotate(3deg)}}
+.done-msg{font-size:1.5rem;font-weight:800;color:var(--lantern);text-shadow:0 0 20px rgba(255,154,60,.50)}
+.done-sub{font-size:.9rem;color:var(--text-muted)}
+
+/* ── モーダル ── */
+.modal-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,.65);
+  backdrop-filter:blur(6px);
+  z-index:50;overflow-y:auto;padding:20px;
+}
+.modal-overlay.show{display:flex;align-items:flex-start;justify-content:center}
+.modal{
+  background:rgba(22,19,16,.97);
+  backdrop-filter:blur(16px);
+  border:1.5px solid rgba(255,154,60,.22);
+  border-radius:20px;width:100%;max-width:580px;overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,.65);
+}
+.modal-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 18px;
+  background:linear-gradient(135deg, #241808, #1a1205);
+  border-bottom:1px solid rgba(255,154,60,.20);
+}
+.modal-title{font-weight:800;font-size:1rem;color:var(--lantern)}
+.modal-close{
+  background:rgba(255,154,60,.15);border:1px solid rgba(255,154,60,.30);
+  color:var(--lantern);font-size:1.2rem;cursor:pointer;
+  padding:3px 8px;border-radius:8px;transition:.15s;
+}
+.modal-close:hover{background:rgba(255,154,60,.30)}
+.search-input{
+  width:100%;background:rgba(31,27,21,.80);
+  border:none;border-bottom:2px solid rgba(255,154,60,.18);
+  color:var(--text);
+  padding:10px 16px;font-family:var(--jp);font-size:.9rem;outline:none;
+}
+.search-input::placeholder{color:var(--text-muted)}
+.search-input:focus{border-bottom-color:var(--lantern);background:rgba(31,27,21,.95)}
+.modal-body{max-height:70vh;overflow-y:auto;padding:8px 0}
+.cat-group-title{
+  padding:8px 18px 4px;font-size:.72rem;
+  color:var(--lantern);font-weight:800;letter-spacing:.08em;
+  background:rgba(255,154,60,.06);
+}
+.list-row{
+  display:flex;align-items:center;padding:9px 18px;
+  cursor:pointer;gap:12px;
+  border-bottom:1px solid rgba(255,154,60,.07);transition:.15s;
+}
+.list-row:hover{background:rgba(255,154,60,.07)}
+.list-row.mastered{opacity:.35}
+.list-foreign{font-family:var(--foreign);font-size:.9rem;font-weight:700;flex:1;color:var(--text)}
+.list-jp{font-family:var(--jp);font-size:.82rem;color:var(--text-muted);flex:1}
+</style>
+</head>
+<body>
+<div id="app">
+
+<header>
+  <div class="logo">🇻🇳 ベトナム語B2レベル重要頻出語彙 1000例文集</div>
+  <div class="hbtns">
+    <button class="hbtn" id="btnList" title="一覧">📋</button>
+    <button class="hbtn" id="btnReset" title="リセット">🔄</button>
+    <button class="hbtn" id="btnShuffle" title="シャッフル">🔀</button>
+    <button class="hbtn" id="btnAuto" title="自動再生">▶️</button>
+    <button class="hbtn" id="btnMute" title="ミュート">🔊</button>
+  </div>
+</header>
+
+<div class="mode-row">
+  <button class="mbtn active" data-mode="ja2vi">和 → 越</button>
+  <button class="mbtn" data-mode="vi2ja">越 → 和</button>
+  <button class="mbtn" data-mode="random">🎲 ランダム</button>
+</div>
+
+<div class="stats">
+  <span>全<span class="stat-num" id="statTotal">0</span>件</span>
+  <span>残り<span class="stat-num" id="statLeft">0</span>件</span>
+  <span>✓<span class="stat-num" id="statDone">0</span>件</span>
+  <div class="prog-wrap"><div class="prog-bar" id="progBar" style="width:0%"></div></div>
+  <span class="stat-pct" id="statPct">0%</span>
+</div>
+
+<div class="cat-scroll" id="catScroll"></div>
+
+<div class="card-area">
+  <div class="card" id="mainCard">
+    <div class="card-meta">
+      <span class="cat-label" id="cardCat">—</span>
+      <span class="card-count" id="cardCount">0 / 0</span>
+    </div>
+    <div class="card-body" id="cardBody">
+      <div class="hint-tap">👆 カードをタップして開始</div>
+    </div>
+  </div>
+</div>
+
+<div class="action-row">
+  <button class="abtn" id="btnPrev">← 戻る</button>
+  <button class="abtn primary" id="btnReveal">▶ 表示</button>
+  <button class="abtn" id="btnUncheck">◀ 戻す</button>
+  <button class="abtn success" id="btnMaster">✓ 覚えた</button>
+  <button class="abtn danger" id="btnNext">次へ →</button>
+</div>
+
+<div class="kb-hints">→ 次へ ／ ← 戻る ／ Enter 答えを見る ／ C 覚えた</div>
+
+<div class="done-overlay" id="doneOverlay">
+  <div class="done-trophy">🏆</div>
+  <div class="done-msg">全カードチェック完了！</div>
+  <div class="done-sub">リセットして最初から始めます…</div>
+</div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">📋 カード一覧</span>
+      <button class="modal-close" id="modalClose">✕</button>
+    </div>
+    <input type="text" class="search-input" id="searchInput" placeholder="🔍 日本語・ベトナム語で検索…">
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+</div><!-- #app -->
+
+<script>
+const CARDS_RAW = [
+{id:"b2_1",cat:`政治・外交 (100例)`,foreign:`Chính phủ đã thông qua chính sách mới nhằm thúc đẩy tăng trưởng kinh tế.`,ja:`政府は経済成長促進のため新政策を承認した。`},
+{id:"b2_2",cat:`政治・外交 (100例)`,foreign:`Quan hệ ngoại giao giữa hai nước đang được cải thiện đáng kể.`,ja:`両国間の外交関係は大きく改善している。`},
+{id:"b2_3",cat:`政治・外交 (100例)`,foreign:`Cuộc họp thượng đỉnh tập trung vào vấn đề biến đổi khí hậu.`,ja:`首脳会議は気候変動問題に焦点を当てた。`},
+{id:"b2_4",cat:`政治・外交 (100例)`,foreign:`Các bên liên quan vẫn chưa đạt được thỏa thuận cuối cùng.`,ja:`関係者はまだ最終合意に至っていない。`},
+{id:"b2_5",cat:`政治・外交 (100例)`,foreign:`Chính sách này gây ra nhiều tranh cãi trong dư luận.`,ja:`この政策は世論で大きな議論を呼んでいる。`},
+{id:"b2_6",cat:`政治・外交 (100例)`,foreign:`Chính phủ cam kết cải thiện môi trường đầu tư.`,ja:`政府は投資環境の改善を約束した。`},
+{id:"b2_7",cat:`政治・外交 (100例)`,foreign:`Luật mới sẽ có hiệu lực từ năm tới.`,ja:`新法は来年施行される。`},
+{id:"b2_8",cat:`政治・外交 (100例)`,foreign:`Các nhà lãnh đạo kêu gọi hợp tác quốc tế.`,ja:`指導者たちは国際協力を呼びかけた。`},
+{id:"b2_9",cat:`政治・外交 (100例)`,foreign:`Vấn đề an ninh khu vực đang được quan tâm.`,ja:`地域安全保障が注目されている。`},
+{id:"b2_10",cat:`政治・外交 (100例)`,foreign:`Dự luật này đã được thông qua với đa số phiếu.`,ja:`法案は多数決で可決された。`},
+{id:"b2_11",cat:`政治・外交 (100例)`,foreign:`Các cuộc đàm phán vẫn đang tiếp diễn.`,ja:`交渉は継続中である。`},
+{id:"b2_12",cat:`政治・外交 (100例)`,foreign:`Quyết định này có ảnh hưởng lâu dài.`,ja:`この決定は長期的影響を持つ。`},
+{id:"b2_13",cat:`政治・外交 (100例)`,foreign:`Chính phủ đối mặt với nhiều thách thức.`,ja:`政府は多くの課題に直面している。`},
+{id:"b2_14",cat:`政治・外交 (100例)`,foreign:`Các bên nhất trí tăng cường hợp tác.`,ja:`各国は協力強化で一致した。`},
+{id:"b2_15",cat:`政治・外交 (100例)`,foreign:`Tình hình chính trị vẫn còn bất ổn.`,ja:`政治情勢は依然不安定である。`},
+{id:"b2_16",cat:`政治・外交 (100例)`,foreign:`Chính phủ nhấn mạnh tầm quan trọng của ổn định chính trị.`,ja:`政府は政治安定の重要性を強調した。`},
+{id:"b2_17",cat:`政治・外交 (100例)`,foreign:`Các cuộc đàm phán đạt được tiến triển đáng kể.`,ja:`交渉は大きく進展した。`},
+{id:"b2_18",cat:`政治・外交 (100例)`,foreign:`Quan hệ song phương tiếp tục được củng cố.`,ja:`二国間関係は強化され続けている。`},
+{id:"b2_19",cat:`政治・外交 (100例)`,foreign:`Lệnh trừng phạt đã được áp dụng.`,ja:`制裁措置が実施された。`},
+{id:"b2_20",cat:`政治・外交 (100例)`,foreign:`Các bên vẫn còn bất đồng quan điểm.`,ja:`各者は依然として意見が一致していない。`},
+{id:"b2_21",cat:`政治・外交 (100例)`,foreign:`Chính phủ cam kết minh bạch hóa chính sách.`,ja:`政府は政策の透明化を約束した。`},
+{id:"b2_22",cat:`政治・外交 (100例)`,foreign:`Tình hình khu vực đang có nhiều biến động.`,ja:`地域情勢が大きく変動している。`},
+{id:"b2_23",cat:`政治・外交 (100例)`,foreign:`Hiệp định đã được ký kết.`,ja:`協定が締結された。`},
+{id:"b2_24",cat:`政治・外交 (100例)`,foreign:`Các nước kêu gọi giải pháp hòa bình.`,ja:`各国は平和的解決を呼びかけた。`},
+{id:"b2_25",cat:`政治・外交 (100例)`,foreign:`Quyền lợi quốc gia được đặt lên hàng đầu.`,ja:`国家利益が最優先とされる。`},
+{id:"b2_26",cat:`政治・外交 (100例)`,foreign:`Chính phủ tái khẳng định lập trường của mình.`,ja:`政府は自らの立場を再確認した。`},
+{id:"b2_27",cat:`政治・外交 (100例)`,foreign:`Các cuộc đối thoại mang tính xây dựng.`,ja:`建設的な対話が行われた。`},
+{id:"b2_28",cat:`政治・外交 (100例)`,foreign:`Tình hình căng thẳng leo thang.`,ja:`緊張がエスカレートしている。`},
+{id:"b2_29",cat:`政治・外交 (100例)`,foreign:`Các bên đạt được đồng thuận.`,ja:`各者は合意に達した。`},
+{id:"b2_30",cat:`政治・外交 (100例)`,foreign:`Chính sách đối ngoại được điều chỉnh.`,ja:`外交政策が調整された。`},
+{id:"b2_31",cat:`政治・外交 (100例)`,foreign:`Vai trò lãnh đạo được củng cố.`,ja:`指導的役割が強化された。`},
+{id:"b2_32",cat:`政治・外交 (100例)`,foreign:`Các biện pháp trừng phạt được nới lỏng.`,ja:`制裁が緩和された。`},
+{id:"b2_33",cat:`政治・外交 (100例)`,foreign:`Tuyên bố chung đã được công bố.`,ja:`共同声明が発表された。`},
+{id:"b2_34",cat:`政治・外交 (100例)`,foreign:`Đàm phán rơi vào bế tắc.`,ja:`交渉が行き詰まった。`},
+{id:"b2_35",cat:`政治・外交 (100例)`,foreign:`Hợp tác khu vực được mở rộng.`,ja:`地域協力が拡大された。`},
+{id:"b2_36",cat:`政治・外交 (100例)`,foreign:`Tổng Bí thư, Chủ tịch nước chủ trì phiên họp về công tác đối ngoại.`,ja:`書記長兼国家主席が外交活動に関する会議の議長を務めた。`},
+{id:"b2_37",cat:`政治・外交 (100例)`,foreign:`Hai bên nhất trí tăng cường quan hệ Đối tác Chiến lược Toàn diện.`,ja:`双方は戦略的包括的パートナーシップ関係を強化することで一致した。`},
+{id:"b2_38",cat:`政治・外交 (100例)`,foreign:`Nghị quyết vừa được Quốc hội thông qua với đa số phiếu tán thành.`,ja:`その決議は国会で多数の賛成票により可決されたばかりだ。`},
+{id:"b2_39",cat:`政治・外交 (100例)`,foreign:`Việc thăm cấp Nhà nước mang ý nghĩa lịch sử trong quan hệ song phương.`,ja:`この国賓訪問は二国間関係において歴史的な意義を持つ。`},
+{id:"b2_40",cat:`政治・外交 (100例)`,foreign:`Ngoại trưởng khẳng định lập trường nhất quán của Việt Nam về vấn đề Biển Đông.`,ja:`外相は南シナ海問題に関するベトナムの一貫した立場を確認した。`},
+{id:"b2_41",cat:`政治・外交 (100例)`,foreign:`Chính phủ ban hành nghị định mới về việc sắp xếp tổ chức bộ máy.`,ja:`政府は機構配置に関する新たな政令を発布した。`},
+{id:"b2_42",cat:`政治・外交 (100例)`,foreign:`Hội nghị thượng đỉnh đã diễn ra trong không khí hữu nghị và hiểu biết lẫn nhau.`,ja:`首脳会議は友好と相互理解の雰囲気の中で行われた。`},
+{id:"b2_43",cat:`政治・外交 (100例)`,foreign:`Đoàn đại biểu cấp cao đã hội đàm với các nhà lãnh đạo cấp cao.`,ja:`高級代表団は高位指導者たちと会談した。`},
+{id:"b2_44",cat:`政治・外交 (100例)`,foreign:`Công hàm ngoại giao được trao cho Đại sứ Đặc mệnh Toàn quyền.`,ja:`外交文書が特命全権大使に手渡された。`},
+{id:"b2_45",cat:`政治・外交 (100例)`,foreign:`Chính sách đối ngoại độc lập, tự chủ, đa dạng hóa, đa phương hóa.`,ja:`独立・自主・多様化・多国間化の外交政策。`},
+{id:"b2_46",cat:`政治・外交 (100例)`,foreign:`Hai nước nhất trí thành lập đường dây nóng cấp cao.`,ja:`両国はハイレベルホットラインの設置で合意した。`},
+{id:"b2_47",cat:`政治・外交 (100例)`,foreign:`Việc ký kết hiệp định này mở ra một chương mới trong hợp tác.`,ja:`この協定の調印は協力に新たな章を開いた。`},
+{id:"b2_48",cat:`政治・外交 (100例)`,foreign:`Đại sứ quán tổ chức chiêu đãi nhân dịp Quốc khánh.`,ja:`大使館は建国記念日に際しレセプションを催した。`},
+{id:"b2_49",cat:`政治・外交 (100例)`,foreign:`Dư luận quốc tế đánh giá cao vai trò của Việt Nam tại ASEAN.`,ja:`国際世論はASEANにおけるベトナムの役割を高く評価している。`},
+{id:"b2_50",cat:`政治・外交 (100例)`,foreign:`Phát biểu của người phát ngôn Bộ Ngoại giao thu hút sự chú ý.`,ja:`外務省報道官の発表が注目を集めた。`},
+{id:"b2_51",cat:`政治・外交 (100例)`,foreign:`Đàm phán vòng mới về Hiệp định thương mại tự do song phương.`,ja:`二国間自由貿易協定に関する新たな交渉ラウンド。`},
+{id:"b2_52",cat:`政治・外交 (100例)`,foreign:`Chuyến thăm chính thức nhằm thúc đẩy hợp tác trên nhiều lĩnh vực.`,ja:`公式訪問は多くの分野での協力を促進することを目的としている。`},
+{id:"b2_53",cat:`政治・外交 (100例)`,foreign:`Việt Nam đảm nhiệm thành công vai trò Ủy viên không thường trực Hội đồng Bảo an.`,ja:`ベトナムは安全保障理事会の非常任理事国の役割を成功裏に果たした。`},
+{id:"b2_54",cat:`政治・外交 (100例)`,foreign:`Các bên kêu gọi kiềm chế và giải quyết tranh chấp bằng biện pháp hòa bình.`,ja:`関係諸国は自制し、紛争を平和的措置で解決するよう呼びかけている。`},
+{id:"b2_55",cat:`政治・外交 (100例)`,foreign:`Tuyên bố chung về quan hệ Đối tác toàn diện được thông qua.`,ja:`包括的パートナーシップ関係に関する共同声明が採択された。`},
+{id:"b2_56",cat:`政治・外交 (100例)`,foreign:`Bộ Chính trị chỉ đạo xây dựng chiến lược phát triển kinh tế - xã hội.`,ja:`政治局が経済社会発展戦略の策定を指示した。`},
+{id:"b2_57",cat:`政治・外交 (100例)`,foreign:`Nghị quyết liên quan đến công tác cán bộ được công bố.`,ja:`幹部業務に関する決議が公表された。`},
+{id:"b2_58",cat:`政治・外交 (100例)`,foreign:`Thủ tướng tham dự Hội nghị Cấp cao Đặc biệt ASEAN.`,ja:`首相はASEAN特別首脳会議に出席した。`},
+{id:"b2_59",cat:`政治・外交 (100例)`,foreign:`Việc phân giới cắm mốc trên đất liền đã hoàn thành.`,ja:`陸上の国境画定・標識設置が完了した。`},
+{id:"b2_60",cat:`政治・外交 (100例)`,foreign:`Hai bên trao đổi về các biện pháp xây dựng lòng tin chiến lược.`,ja:`双方は戦略的信頼醸成措置について協議した。`},
+{id:"b2_61",cat:`政治・外交 (100例)`,foreign:`Chủ tịch nước tiếp Đại sứ các nước trình Quốc thư.`,ja:`国家主席が各国大使の信任状捧呈を受け取った。`},
+{id:"b2_62",cat:`政治・外交 (100例)`,foreign:`Việt Nam ủng hộ mạnh mẽ chủ nghĩa đa phương.`,ja:`ベトナムは多国間主義を強く支持している。`},
+{id:"b2_63",cat:`政治・外交 (100例)`,foreign:`Hội thảo quốc tế về Biển Đông thu hút nhiều học giả.`,ja:`南シナ海に関する国際セミナーが多くの学者を集めた。`},
+{id:"b2_64",cat:`政治・外交 (100例)`,foreign:`Phó Thủ tướng tham dự Diễn đàn Kinh tế Thế giới tại Davos.`,ja:`副首相がダボスで開催された世界経済フォーラムに参加した。`},
+{id:"b2_65",cat:`政治・外交 (100例)`,foreign:`Việt Nam tích cực tham gia các hoạt động của ASEAN.`,ja:`ベトナムはASEANの活動に積極的に参加している。`},
+{id:"b2_66",cat:`政治・外交 (100例)`,foreign:`Quan hệ Việt Nam - Hoa Kỳ được nâng cấp lên Đối tác Chiến lược Toàn diện.`,ja:`ベトナムと米国の関係が戦略的包括的パートナーシップに格上げされた。`},
+{id:"b2_67",cat:`政治・外交 (100例)`,foreign:`Việt Nam và Trung Quốc tăng cường trao đổi đoàn cấp cao.`,ja:`ベトナムと中国は高級代表団の交流を強化している。`},
+{id:"b2_68",cat:`政治・外交 (100例)`,foreign:`Hợp tác Mekong - Lan Thương đạt nhiều kết quả.`,ja:`メコン・ランサン協力が多くの成果を上げている。`},
+{id:"b2_69",cat:`政治・外交 (100例)`,foreign:`Việt Nam kêu gọi các bên ở Myanmar kiềm chế, đối thoại.`,ja:`ベトナムはミャンマーの関係諸国に自制と対話を呼びかけている。`},
+{id:"b2_70",cat:`政治・外交 (100例)`,foreign:`Lãnh đạo cấp cao Việt Nam thăm chính thức Nhật Bản.`,ja:`ベトナム高級指導者が日本を公式訪問した。`},
+{id:"b2_71",cat:`政治・外交 (100例)`,foreign:`Việt Nam ủng hộ giải pháp hai nhà nước cho vấn đề Palestine.`,ja:`ベトナムはパレスチナ問題に対する二国家解決策を支持している。`},
+{id:"b2_72",cat:`政治・外交 (100例)`,foreign:`Hội nghị cấp cao APEC diễn ra tại San Francisco.`,ja:`APEC首脳会議がサンフランシスコで開催された。`},
+{id:"b2_73",cat:`政治・外交 (100例)`,foreign:`Việt Nam đề cao vai trò trung tâm của ASEAN.`,ja:`ベトナムはASEANの中心的役割を重視している。`},
+{id:"b2_74",cat:`政治・外交 (100例)`,foreign:`Căng thẳng thương mại Mỹ - Trung ảnh hưởng đến kinh tế toàn cầu.`,ja:`米中の貿易緊張が世界経済に影響を与えている。`},
+{id:"b2_75",cat:`政治・外交 (100例)`,foreign:`Việt Nam kêu gọi chấm dứt xung đột tại Ukraine bằng biện pháp hòa bình.`,ja:`ベトナムはウクライナ紛争の平和的措置による終結を呼びかけている。`},
+{id:"b2_76",cat:`政治・外交 (100例)`,foreign:`Thủ tướng Việt Nam dự Hội nghị G7 mở rộng tại Nhật Bản.`,ja:`ベトナム首相が日本で開催されたG7拡大会議に出席した。`},
+{id:"b2_77",cat:`政治・外交 (100例)`,foreign:`Quan hệ Đối tác chiến lược Việt Nam - Hàn Quốc phát triển tốt đẹp.`,ja:`ベトナムと韓国の戦略的パートナーシップ関係は良好に発展している。`},
+{id:"b2_78",cat:`政治・外交 (100例)`,foreign:`Việt Nam và Ấn Độ tăng cường hợp tác an ninh - quốc phòng.`,ja:`ベトナムとインドは安全保障・防衛協力を強化している。`},
+{id:"b2_79",cat:`政治・外交 (100例)`,foreign:`Hội nghị cấp cao đặc biệt ASEAN - Mỹ.`,ja:`ASEAN・米国特別首脳会議。`},
+{id:"b2_80",cat:`政治・外交 (100例)`,foreign:`Việt Nam kêu gọi bảo đảm an toàn, an ninh và tự do hàng hải ở Biển Đông.`,ja:`ベトナムは南シナ海での海洋の安全・安心・自由の確保を呼びかけている。`},
+{id:"b2_81",cat:`政治・外交 (100例)`,foreign:`Quan hệ hợp tác giữa Việt Nam và các nước châu Phi được mở rộng.`,ja:`ベトナムとアフリカ諸国との協力関係が拡大している。`},
+{id:"b2_82",cat:`政治・外交 (100例)`,foreign:`Việt Nam và Nga thúc đẩy hợp tác trong lĩnh vực năng lượng.`,ja:`ベトナムとロシアはエネルギー分野での協力を促進している。`},
+{id:"b2_83",cat:`政治・外交 (100例)`,foreign:`Hỗ trợ nhân đạo của cộng đồng quốc tế dành cho nạn nhân chất độc da cam.`,ja:`枯葉剤被害者に対する国際社会の人道的支援。`},
+{id:"b2_84",cat:`政治・外交 (100例)`,foreign:`Việt Nam đảm nhận vai trò điều phối quan hệ ASEAN - Trung Quốc.`,ja:`ベトナムがASEAN・中国関係の調整役を引き受けた。`},
+{id:"b2_85",cat:`政治・外交 (100例)`,foreign:`Diễn đàn khu vực ASEAN (ARF) bàn về an ninh khu vực.`,ja:`ASEAN地域フォーラムが地域の安全保障について協議した。`},
+{id:"b2_86",cat:`政治・外交 (100例)`,foreign:`Việt Nam kêu gọi tôn trọng luật pháp quốc tế.`,ja:`ベトナムは国際法の尊重を呼びかけている。`},
+{id:"b2_87",cat:`政治・外交 (100例)`,foreign:`Các nước cam kết tăng cường hợp tác ứng phó biến đổi khí hậu.`,ja:`各国が気候変動対応の協力強化を約束した。`},
+{id:"b2_88",cat:`政治・外交 (100例)`,foreign:`Việt Nam và Australia kỷ niệm 50 năm thiết lập quan hệ ngoại giao.`,ja:`ベトナムとオーストラリアが国交樹立50周年を祝った。`},
+{id:"b2_89",cat:`政治・外交 (100例)`,foreign:`Việt Nam ủng hộ cải tổ Liên Hợp Quốc.`,ja:`ベトナムは国連改革を支持している。`},
+{id:"b2_90",cat:`政治・外交 (100例)`,foreign:`Bộ Quốc phòng tổ chức diễn tập khu vực phòng thủ.`,ja:`国防省が防衛地域での訓練を実施した。`},
+{id:"b2_91",cat:`政治・外交 (100例)`,foreign:`Chủ quyền biển đảo thiêng liêng của Tổ quốc được giữ vững.`,ja:`祖国の神聖な島嶼・海洋主権が堅守されている。`},
+{id:"b2_92",cat:`政治・外交 (100例)`,foreign:`Lực lượng Cảnh sát biển làm nhiệm vụ tuần tra, kiểm soát trên biển.`,ja:`海上警察部隊が海上での巡視・取締り任務を行う。`},
+{id:"b2_93",cat:`政治・外交 (100例)`,foreign:`An ninh chính trị, trật tự an toàn xã hội được bảo đảm.`,ja:`政治的安全保障、社会秩序と安全が確保されている。`},
+{id:"b2_94",cat:`政治・外交 (100例)`,foreign:`Tàu hải quân Việt Nam tham gia diễn tập đa phương.`,ja:`ベトナム海軍艦艇が多国間訓練に参加した。`},
+{id:"b2_95",cat:`政治・外交 (100例)`,foreign:`Phòng không nhân dân được tăng cường.`,ja:`人民防空が強化されている。`},
+{id:"b2_96",cat:`政治・外交 (100例)`,foreign:`Đấu tranh phòng, chống tội phạm ma túy đạt nhiều kết quả.`,ja:`麻薬犯罪との闘い・予防が多くの成果を上げている。`},
+{id:"b2_97",cat:`政治・外交 (100例)`,foreign:`Công tác bảo vệ bí mật nhà nước được coi trọng.`,ja:`国家機密保護業務が重視されている。`},
+{id:"b2_98",cat:`政治・外交 (100例)`,foreign:`Phát hiện và xử lý tàu cá nước ngoài vi phạm vùng biển Việt Nam.`,ja:`ベトナム海域を侵犯した外国漁船の探知と処理。`},
+{id:"b2_99",cat:`政治・外交 (100例)`,foreign:`Lực lượng chức năng tăng cường tuần tra biên giới.`,ja:`機能部隊が国境巡視を強化している。`},
+{id:"b2_100",cat:`政治・外交 (100例)`,foreign:`Xây dựng thế trận lòng dân vững chắc.`,ja:`堅固な民心の陣地を構築する。`},
+{id:"b2_101",cat:`経済・金融 (100例)`,foreign:`Tỷ lệ lạm phát đang có xu hướng tăng trong quý này.`,ja:`今四半期はインフレ率が上昇傾向にある。`},
+{id:"b2_102",cat:`経済・金融 (100例)`,foreign:`Doanh nghiệp cần thích ứng với thị trường cạnh tranh khốc liệt.`,ja:`企業は激しい競争市場に適応する必要がある。`},
+{id:"b2_103",cat:`経済・金融 (100例)`,foreign:`Giá cổ phiếu đã giảm mạnh do ảnh hưởng của khủng hoảng.`,ja:`株価は危機の影響で急落した。`},
+{id:"b2_104",cat:`経済・金融 (100例)`,foreign:`Nhu cầu tiêu dùng đang phục hồi sau đại dịch.`,ja:`パンデミック後、消費需要が回復している。`},
+{id:"b2_105",cat:`経済・金融 (100例)`,foreign:`Công ty dự kiến mở rộng hoạt động ra thị trường quốc tế.`,ja:`企業は海外市場への拡大を計画している。`},
+{id:"b2_106",cat:`経済・金融 (100例)`,foreign:`Thị trường đang có dấu hiệu phục hồi.`,ja:`市場は回復の兆しを見せている。`},
+{id:"b2_107",cat:`経済・金融 (100例)`,foreign:`Doanh thu của công ty tăng trưởng ổn định.`,ja:`企業の売上は安定して成長している。`},
+{id:"b2_108",cat:`経済・金融 (100例)`,foreign:`Chi phí sản xuất ngày càng tăng.`,ja:`生産コストが増加している。`},
+{id:"b2_109",cat:`経済・金融 (100例)`,foreign:`Nhiều doanh nghiệp gặp khó khăn tài chính.`,ja:`多くの企業が財政難に直面している。`},
+{id:"b2_110",cat:`経済・金融 (100例)`,foreign:`Ngành du lịch đang dần phục hồi.`,ja:`観光業は徐々に回復している。`},
+{id:"b2_111",cat:`経済・金融 (100例)`,foreign:`Đầu tư nước ngoài tiếp tục gia tăng.`,ja:`外国投資が増加し続けている。`},
+{id:"b2_112",cat:`経済・金融 (100例)`,foreign:`Giá cả hàng hóa biến động mạnh.`,ja:`商品価格が大きく変動している。`},
+{id:"b2_113",cat:`経済・金融 (100例)`,foreign:`Cạnh tranh ngày càng khốc liệt.`,ja:`競争がますます激化している。`},
+{id:"b2_114",cat:`経済・金融 (100例)`,foreign:`Doanh nghiệp cần đổi mới sáng tạo.`,ja:`企業はイノベーションが必要である。`},
+{id:"b2_115",cat:`経済・金融 (100例)`,foreign:`Thị trường lao động có nhiều biến động.`,ja:`労働市場は大きく変動している。`},
+{id:"b2_116",cat:`経済・金融 (100例)`,foreign:`Nền kinh tế đang trên đà phục hồi.`,ja:`経済は回復軌道にある。`},
+{id:"b2_117",cat:`経済・金融 (100例)`,foreign:`Tăng trưởng GDP đạt mức kỳ vọng.`,ja:`GDP成長は期待水準に達した。`},
+{id:"b2_118",cat:`経済・金融 (100例)`,foreign:`Chi tiêu tiêu dùng tăng mạnh.`,ja:`消費支出が大幅に増加した。`},
+{id:"b2_119",cat:`経済・金融 (100例)`,foreign:`Lợi nhuận của doanh nghiệp giảm sút.`,ja:`企業利益が減少した。`},
+{id:"b2_120",cat:`経済・金融 (100例)`,foreign:`Thị trường bất động sản đang chững lại.`,ja:`不動産市場は停滞している。`},
+{id:"b2_121",cat:`経済・金融 (100例)`,foreign:`Các doanh nghiệp nhỏ gặp nhiều khó khăn.`,ja:`中小企業は多くの困難に直面している。`},
+{id:"b2_122",cat:`経済・金融 (100例)`,foreign:`Xuất khẩu tăng trưởng ổn định.`,ja:`輸出は安定成長している。`},
+{id:"b2_123",cat:`経済・金融 (100例)`,foreign:`Nhập khẩu giảm nhẹ trong tháng này.`,ja:`輸入は今月わずかに減少した。`},
+{id:"b2_124",cat:`経済・金融 (100例)`,foreign:`Chính sách thuế mới được áp dụng.`,ja:`新しい税制が導入された。`},
+{id:"b2_125",cat:`経済・金融 (100例)`,foreign:`Ngành công nghiệp đang chuyển mình.`,ja:`産業が変革している。`},
+{id:"b2_126",cat:`経済・金融 (100例)`,foreign:`Nền kinh tế đối mặt với suy thoái.`,ja:`経済は景気後退に直面している。`},
+{id:"b2_127",cat:`経済・金融 (100例)`,foreign:`Tăng trưởng bị chững lại.`,ja:`成長が鈍化している。`},
+{id:"b2_128",cat:`経済・金融 (100例)`,foreign:`Chi phí sinh hoạt tăng cao.`,ja:`生活費が高騰している。`},
+{id:"b2_129",cat:`経済・金融 (100例)`,foreign:`Lãi suất được điều chỉnh tăng.`,ja:`金利が引き上げられた。`},
+{id:"b2_130",cat:`経済・金融 (100例)`,foreign:`Doanh nghiệp cắt giảm nhân sự.`,ja:`企業が人員削減を行った。`},
+{id:"b2_131",cat:`経済・金融 (100例)`,foreign:`Thị trường tài chính biến động mạnh.`,ja:`金融市場が大きく変動している。`},
+{id:"b2_132",cat:`経済・金融 (100例)`,foreign:`Nguồn vốn đầu tư bị thu hẹp.`,ja:`投資資金が縮小している。`},
+{id:"b2_133",cat:`経済・金融 (100例)`,foreign:`Nhu cầu tiêu dùng suy giảm.`,ja:`消費需要が低下している。`},
+{id:"b2_134",cat:`経済・金融 (100例)`,foreign:`Chuỗi cung ứng bị gián đoạn.`,ja:`サプライチェーンが混乱している。`},
+{id:"b2_135",cat:`経済・金融 (100例)`,foreign:`Thị trường phục hồi chậm.`,ja:`市場の回復が遅れている。`},
+{id:"b2_136",cat:`経済・金融 (100例)`,foreign:`GDP quý II tăng trưởng ấn tượng so với cùng kỳ năm trước.`,ja:`第2四半期のGDPは前年同期比で印象的な成長を記録した。`},
+{id:"b2_137",cat:`経済・金融 (100例)`,foreign:`Lạm phát được kiểm soát ở mức dưới 4% theo mục tiêu Quốc hội đề ra.`,ja:`インフレ率は国会が設定した目標である4%未満に抑制されている。`},
+{id:"b2_138",cat:`経済・金融 (100例)`,foreign:`Vốn đầu tư trực tiếp nước ngoài giải ngân đạt kỷ lục mới.`,ja:`海外直接投資の実行額が新記録を達成した。`},
+{id:"b2_139",cat:`経済・金融 (100例)`,foreign:`Thị trường chứng khoán trải qua phiên giao dịch biến động mạnh.`,ja:`株式市場は大きく変動する取引セッションを経験した。`},
+{id:"b2_140",cat:`経済・金融 (100例)`,foreign:`Xuất khẩu hàng điện tử sang Hoa Kỳ tăng vọt.`,ja:`米国向け電子機器の輸出が急増した。`},
+{id:"b2_141",cat:`経済・金融 (100例)`,foreign:`Chính phủ ban hành gói hỗ trợ phục hồi kinh tế hậu đại dịch.`,ja:`政府はパンデミック後の経済回復支援パッケージを発令した。`},
+{id:"b2_142",cat:`経済・金融 (100例)`,foreign:`Doanh nghiệp cần tái cơ cấu để thích ứng với bối cảnh mới.`,ja:`企業は新たな状況に適応するために再編成する必要がある。`},
+{id:"b2_143",cat:`経済・金融 (100例)`,foreign:`Giá xăng dầu điều chỉnh tăng lần thứ ba liên tiếp.`,ja:`ガソリン価格が3回連続で値上げ調整された。`},
+{id:"b2_144",cat:`経済・金融 (100例)`,foreign:`Đồng Việt Nam mất giá nhẹ so với Đô la Mỹ.`,ja:`ベトナムドンは米ドルに対してわずかに下落した。`},
+{id:"b2_145",cat:`経済・金融 (100例)`,foreign:`Thặng dư thương mại cả năm ước đạt con số kỷ lục.`,ja:`通年の貿易黒字は記録的な数字に達する見込みだ。`},
+{id:"b2_146",cat:`経済・金融 (100例)`,foreign:`Ngân hàng Nhà nước điều chỉnh lãi suất điều hành.`,ja:`国家銀行が政策金利を調整した。`},
+{id:"b2_147",cat:`経済・金融 (100例)`,foreign:`Thủ tướng yêu cầu tháo gỡ khó khăn cho thị trường bất động sản.`,ja:`首相は不動産市場の困難を取り除くよう要求した。`},
+{id:"b2_148",cat:`経済・金融 (100例)`,foreign:`Kim ngạch xuất nhập khẩu vượt mốc 700 tỷ USD.`,ja:`輸出入総額が7000億米ドルの大台を超えた。`},
+{id:"b2_149",cat:`経済・金融 (100例)`,foreign:`Các tập đoàn đa quốc gia mở rộng đầu tư tại Việt Nam.`,ja:`多国籍企業がベトナムでの投資を拡大している。`},
+{id:"b2_150",cat:`経済・金融 (100例)`,foreign:`Kinh tế số đóng góp ngày càng lớn vào GDP.`,ja:`デジタル経済がGDPへの貢献をますます大きくしている。`},
+{id:"b2_151",cat:`経済・金融 (100例)`,foreign:`Chỉ số sản xuất công nghiệp phục hồi mạnh mẽ.`,ja:`鉱工業生産指数が力強く回復している。`},
+{id:"b2_152",cat:`経済・金融 (100例)`,foreign:`Cán cân thanh toán quốc tế duy trì trạng thái thặng dư.`,ja:`国際収支は黒字状態を維持している。`},
+{id:"b2_153",cat:`経済・金融 (100例)`,foreign:`Dự trữ ngoại hối đạt mức cao nhất từ trước đến nay.`,ja:`外貨準備が過去最高水準に達した。`},
+{id:"b2_154",cat:`経済・金融 (100例)`,foreign:`Diễn đàn Doanh nghiệp Việt Nam thường niên diễn ra tại Hà Nội.`,ja:`年次ベトナムビジネスフォーラムがハノイで開催された。`},
+{id:"b2_155",cat:`経済・金融 (100例)`,foreign:`Hàng hóa xuất khẩu chủ lực vẫn là điện thoại và linh kiện.`,ja:`主要輸出商品は依然として携帯電話と部品である。`},
+{id:"b2_156",cat:`経済・金融 (100例)`,foreign:`Thủ tục hải quan được đơn giản hóa để tạo thuận lợi thương mại.`,ja:`通関手続きは貿易促進のため簡素化された。`},
+{id:"b2_157",cat:`経済・金融 (100例)`,foreign:`Tín dụng tăng trưởng thấp hơn so với cùng kỳ do cầu yếu.`,ja:`信用成長は需要低迷により前年同期比で低い。`},
+{id:"b2_158",cat:`経済・金融 (100例)`,foreign:`Đầu tư công được đẩy mạnh như một động lực tăng trưởng.`,ja:`公共投資が成長の原動力として加速されている。`},
+{id:"b2_159",cat:`経済・金融 (100例)`,foreign:`Các khu công nghiệp tại các tỉnh phía Nam thu hút vốn FDI.`,ja:`南部各省の工業団地がFDIを誘致している。`},
+{id:"b2_160",cat:`経済・金融 (100例)`,foreign:`Tỷ giá trung tâm được Ngân hàng Nhà nước niêm yết hàng ngày.`,ja:`中央レートは国家銀行によって毎日公示されている。`},
+{id:"b2_161",cat:`経済・金融 (100例)`,foreign:`Chính sách tài khóa mở rộng nhằm kích thích tổng cầu.`,ja:`総需要を刺激するための拡張的財政政策。`},
+{id:"b2_162",cat:`経済・金融 (100例)`,foreign:`Nợ công vẫn trong giới hạn cho phép.`,ja:`公的債務は依然として許容範囲内にある。`},
+{id:"b2_163",cat:`経済・金融 (100例)`,foreign:`Thu ngân sách nhà nước vượt dự toán.`,ja:`国家予算収入は見積もりを上回った。`},
+{id:"b2_164",cat:`経済・金融 (100例)`,foreign:`Bội chi ngân sách được kiểm soát chặt chẽ.`,ja:`財政赤字は厳格に管理されている。`},
+{id:"b2_165",cat:`経済・金融 (100例)`,foreign:`Hiệp định EVFTA tạo ra cú hích cho xuất khẩu sang EU.`,ja:`EVFTA協定はEU向け輸出に弾みをつけた。`},
+{id:"b2_166",cat:`経済・金融 (100例)`,foreign:`Rào cản kỹ thuật trong thương mại quốc tế ngày càng phức tạp.`,ja:`国際貿易における技術的障壁はますます複雑化している。`},
+{id:"b2_167",cat:`経済・金融 (100例)`,foreign:`Các doanh nghiệp cần tuân thủ quy tắc xuất xứ hàng hóa.`,ja:`企業は原産地規則を遵守する必要がある。`},
+{id:"b2_168",cat:`経済・金融 (100例)`,foreign:`Chuỗi cung ứng toàn cầu đang có xu hướng dịch chuyển.`,ja:`グローバルサプライチェーンは移行する傾向にある。`},
+{id:"b2_169",cat:`経済・金融 (100例)`,foreign:`Việt Nam nằm trong nhóm các nền kinh tế tăng trưởng nhanh nhất khu vực.`,ja:`ベトナムは地域で最も急速に成長している経済グループに属している。`},
+{id:"b2_170",cat:`経済・金融 (100例)`,foreign:`Tỷ lệ thất nghiệp ở khu vực thành thị giảm nhẹ.`,ja:`都市部の失業率はわずかに減少した。`},
+{id:"b2_171",cat:`経済・金融 (100例)`,foreign:`Thu nhập bình quân đầu người tăng liên tục qua các năm.`,ja:`一人当たり平均所得は年々増加し続けている。`},
+{id:"b2_172",cat:`経済・金融 (100例)`,foreign:`Chỉ số giá tiêu dùng tăng chậm lại trong tháng này.`,ja:`消費者物価指数は今月、上昇が鈍化した。`},
+{id:"b2_173",cat:`経済・金融 (100例)`,foreign:`Ngành du lịch đặt mục tiêu đón 15 triệu khách quốc tế.`,ja:`観光業は外国人旅行客1500万人の受け入れを目標としている。`},
+{id:"b2_174",cat:`経済・金融 (100例)`,foreign:`Cơ cấu lại nền kinh tế gắn với đổi mới mô hình tăng trưởng.`,ja:`経済再編は成長モデルの刷新と結びついている。`},
+{id:"b2_175",cat:`経済・金融 (100例)`,foreign:`Năng suất lao động là yếu tố then chốt để nâng cao sức cạnh tranh.`,ja:`労働生産性は競争力を高めるための重要な要素だ。`},
+{id:"b2_176",cat:`経済・金融 (100例)`,foreign:`Hợp tác công tư được khuyến khích trong lĩnh vực cơ sở hạ tầng.`,ja:`インフラ分野では官民連携が奨励されている。`},
+{id:"b2_177",cat:`経済・金融 (100例)`,foreign:`Các hiệp định thương mại tự do thế hệ mới có những tiêu chuẩn cao.`,ja:`新世代自由貿易協定には高い基準がある。`},
+{id:"b2_178",cat:`経済・金融 (100例)`,foreign:`Sức ép lạm phát từ bên ngoài gia tăng.`,ja:`外部からのインフレ圧力が高まっている。`},
+{id:"b2_179",cat:`経済・金融 (100例)`,foreign:`Thị trường lao động phục hồi nhanh chóng sau đại dịch.`,ja:`労働市場はパンデミック後急速に回復した。`},
+{id:"b2_180",cat:`経済・金融 (100例)`,foreign:`Việt Nam là điểm đến hấp dẫn của dòng vốn đầu tư quốc tế.`,ja:`ベトナムは国際投資資金にとって魅力的な目的地である。`},
+{id:"b2_181",cat:`経済・金融 (100例)`,foreign:`Xu hướng tiêu dùng xanh đang lan rộng tại các đô thị lớn.`,ja:`グリーン消費の傾向が大都市で広がっている。`},
+{id:"b2_182",cat:`経済・金融 (100例)`,foreign:`Khởi nghiệp đổi mới sáng tạo nhận được nhiều hỗ trợ.`,ja:`スタートアップ・イノベーションは多くの支援を受けている。`},
+{id:"b2_183",cat:`経済・金融 (100例)`,foreign:`Chuyển đổi số trong doanh nghiệp là yêu cầu tất yếu.`,ja:`企業におけるデジタルトランスフォーメーションは必然的な要求だ。`},
+{id:"b2_184",cat:`経済・金融 (100例)`,foreign:`Kinh tế tuần hoàn là mô hình hướng tới phát triển bền vững.`,ja:`循環経済は持続可能な開発に向けたモデルである。`},
+{id:"b2_185",cat:`経済・金融 (100例)`,foreign:`Thương mại điện tử bùng nổ trong và sau đại dịch.`,ja:`電子商取引はパンデミック中およびその後で爆発的に増加した。`},
+{id:"b2_186",cat:`経済・金融 (100例)`,foreign:`Tốc độ tăng trưởng chậm lại.`,ja:`成長率が鈍化している。`},
+{id:"b2_187",cat:`経済・金融 (100例)`,foreign:`Nền kinh tế có dấu hiệu phục hồi.`,ja:`経済は回復の兆しを見せている。`},
+{id:"b2_188",cat:`経済・金融 (100例)`,foreign:`Chi phí đầu vào tăng cao.`,ja:`投入コストが高騰している。`},
+{id:"b2_189",cat:`経済・金融 (100例)`,foreign:`Áp lực lạm phát gia tăng.`,ja:`インフレ圧力が高まっている。`},
+{id:"b2_190",cat:`経済・金融 (100例)`,foreign:`Nguồn cung bị hạn chế.`,ja:`供給が制限されている。`},
+{id:"b2_191",cat:`経済・金融 (100例)`,foreign:`Nhu cầu thị trường biến động.`,ja:`市場需要が変動している。`},
+{id:"b2_192",cat:`経済・金融 (100例)`,foreign:`Cạnh tranh gay gắt hơn.`,ja:`競争が激しくなっている。`},
+{id:"b2_193",cat:`経済・金融 (100例)`,foreign:`Hiệu quả đầu tư chưa cao.`,ja:`投資効率が低い。`},
+{id:"b2_194",cat:`経済・金融 (100例)`,foreign:`Thị trường đang điều chỉnh.`,ja:`市場が調整局面にある。`},
+{id:"b2_195",cat:`経済・金融 (100例)`,foreign:`Rủi ro kinh tế gia tăng.`,ja:`経済リスクが増大している。`},
+{id:"b2_196",cat:`経済・金融 (100例)`,foreign:`Doanh nghiệp này đang đối mặt với nguy cơ mất thanh khoản.`,ja:`この企業は流動性喪失の危機に直面している。`},
+{id:"b2_197",cat:`経済・金融 (100例)`,foreign:`Kế hoạch mở rộng nhà máy đã bị hoãn do thị trường chưa phục hồi rõ rệt.`,ja:`市場回復が明確でないため、工場拡張計画は延期された。`},
+{id:"b2_198",cat:`経済・金融 (100例)`,foreign:`Việc đa dạng hóa nguồn cung giúp công ty giảm phụ thuộc vào một thị trường.`,ja:`調達先の多様化は、1つの市場への依存低下に役立つ。`},
+{id:"b2_199",cat:`経済・金融 (100例)`,foreign:`Doanh nghiệp kỳ vọng doanh số sẽ bứt phá trong mùa cao điểm cuối năm.`,ja:`その企業は年末の繁忙期に売上が大きく伸びると期待している。`},
+{id:"b2_200",cat:`経済・金融 (100例)`,foreign:`Một số thương hiệu nội địa đang dần lấy lại lợi thế cạnh tranh.`,ja:`一部の国内ブランドは徐々に競争優位を取り戻している。`},
+{id:"b2_201",cat:`社会・生活 (100例)`,foreign:`Tình trạng thất nghiệp đang gia tăng trong giới trẻ.`,ja:`若者の失業率が上昇している。`},
+{id:"b2_202",cat:`社会・生活 (100例)`,foreign:`Chính quyền địa phương đã triển khai nhiều biện pháp hỗ trợ.`,ja:`地方政府は多くの支援策を実施した。`},
+{id:"b2_203",cat:`社会・生活 (100例)`,foreign:`Ý thức cộng đồng đóng vai trò quan trọng trong việc phòng dịch.`,ja:`感染対策には社会意識が重要な役割を果たす。`},
+{id:"b2_204",cat:`社会・生活 (100例)`,foreign:`Khoảng cách giàu nghèo ngày càng rõ rệt.`,ja:`貧富の格差がますます顕著になっている。`},
+{id:"b2_205",cat:`社会・生活 (100例)`,foreign:`Người dân bày tỏ lo ngại về vấn đề an ninh.`,ja:`市民は安全問題に懸念を示している。`},
+{id:"b2_206",cat:`社会・生活 (100例)`,foreign:`Chất lượng cuộc sống đang được cải thiện.`,ja:`生活の質が向上している。`},
+{id:"b2_207",cat:`社会・生活 (100例)`,foreign:`Người dân ngày càng quan tâm đến sức khỏe.`,ja:`人々は健康にますます関心を持っている。`},
+{id:"b2_208",cat:`社会・生活 (100例)`,foreign:`Tình trạng ô nhiễm gây lo ngại.`,ja:`汚染問題が懸念されている。`},
+{id:"b2_209",cat:`社会・生活 (100例)`,foreign:`Các biện pháp mới đã được áp dụng.`,ja:`新しい対策が導入された。`},
+{id:"b2_210",cat:`社会・生活 (100例)`,foreign:`Dân số đô thị đang tăng nhanh.`,ja:`都市人口が急増している。`},
+{id:"b2_211",cat:`社会・生活 (100例)`,foreign:`Chính sách này nhận được sự ủng hộ rộng rãi.`,ja:`この政策は広く支持されている。`},
+{id:"b2_212",cat:`社会・生活 (100例)`,foreign:`Nhiều người phản đối quyết định này.`,ja:`多くの人がこの決定に反対している。`},
+{id:"b2_213",cat:`社会・生活 (100例)`,foreign:`Tình trạng quá tải đang xảy ra.`,ja:`過密状態が発生している。`},
+{id:"b2_214",cat:`社会・生活 (100例)`,foreign:`Các tổ chức xã hội tham gia hỗ trợ.`,ja:`社会団体が支援に参加している。`},
+{id:"b2_215",cat:`社会・生活 (100例)`,foreign:`Nhận thức của người dân đã thay đổi.`,ja:`人々の意識が変化している。`},
+{id:"b2_216",cat:`社会・生活 (100例)`,foreign:`Tỷ lệ tội phạm có xu hướng giảm.`,ja:`犯罪率は減少傾向にある。`},
+{id:"b2_217",cat:`社会・生活 (100例)`,foreign:`Các vấn đề xã hội cần được giải quyết.`,ja:`社会問題は解決される必要がある。`},
+{id:"b2_218",cat:`社会・生活 (100例)`,foreign:`Người dân phản ánh nhiều bất cập.`,ja:`市民は多くの問題点を指摘している。`},
+{id:"b2_219",cat:`社会・生活 (100例)`,foreign:`Cơ sở hạ tầng đang được cải thiện.`,ja:`インフラが改善されている。`},
+{id:"b2_220",cat:`社会・生活 (100例)`,foreign:`Chính sách mới mang lại hiệu quả tích cực.`,ja:`新政策は良い効果をもたらした。`},
+{id:"b2_221",cat:`社会・生活 (100例)`,foreign:`Dân số già đang gia tăng.`,ja:`高齢化が進んでいる。`},
+{id:"b2_222",cat:`社会・生活 (100例)`,foreign:`Tình trạng kẹt xe ngày càng nghiêm trọng.`,ja:`交通渋滞が深刻化している。`},
+{id:"b2_223",cat:`社会・生活 (100例)`,foreign:`Nhà ở giá rẻ đang thiếu hụt.`,ja:`低価格住宅が不足している。`},
+{id:"b2_224",cat:`社会・生活 (100例)`,foreign:`An ninh trật tự được đảm bảo.`,ja:`治安が維持されている。`},
+{id:"b2_225",cat:`社会・生活 (100例)`,foreign:`Cộng đồng tham gia tích cực vào hoạt động xã hội.`,ja:`地域社会が積極的に参加している。`},
+{id:"b2_226",cat:`社会・生活 (100例)`,foreign:`Chênh lệch thu nhập ngày càng lớn.`,ja:`所得格差が拡大している。`},
+{id:"b2_227",cat:`社会・生活 (100例)`,foreign:`Tỷ lệ nghèo giảm dần.`,ja:`貧困率が徐々に低下している。`},
+{id:"b2_228",cat:`社会・生活 (100例)`,foreign:`Người dân gặp nhiều khó khăn trong sinh hoạt.`,ja:`市民は生活に苦しんでいる。`},
+{id:"b2_229",cat:`社会・生活 (100例)`,foreign:`Chính sách xã hội cần được điều chỉnh.`,ja:`社会政策は調整が必要である。`},
+{id:"b2_230",cat:`社会・生活 (100例)`,foreign:`Tình trạng di cư gia tăng.`,ja:`移住が増加している。`},
+{id:"b2_231",cat:`社会・生活 (100例)`,foreign:`Cơ hội việc làm bị hạn chế.`,ja:`雇用機会が制限されている。`},
+{id:"b2_232",cat:`社会・生活 (100例)`,foreign:`Các vấn đề đô thị trở nên phức tạp.`,ja:`都市問題が複雑化している。`},
+{id:"b2_233",cat:`社会・生活 (100例)`,foreign:`Hệ thống giao thông quá tải.`,ja:`交通システムが過負荷状態である。`},
+{id:"b2_234",cat:`社会・生活 (100例)`,foreign:`Dịch vụ công được cải thiện.`,ja:`公共サービスが改善されている。`},
+{id:"b2_235",cat:`社会・生活 (100例)`,foreign:`Ý thức pháp luật được nâng cao.`,ja:`法意識が向上している。`},
+{id:"b2_236",cat:`社会・生活 (100例)`,foreign:`Dân số Việt Nam chính thức cán mốc 100 triệu người.`,ja:`ベトナムの人口が正式に1億人の大台に達した。`},
+{id:"b2_237",cat:`社会・生活 (100例)`,foreign:`Tỷ lệ hộ nghèo giảm xuống còn mức thấp kỷ lục.`,ja:`貧困世帯の割合が記録的な低水準にまで減少した。`},
+{id:"b2_238",cat:`社会・生活 (100例)`,foreign:`Tình trạng ùn tắc giao thông tại Hà Nội và TP.HCM ngày càng nghiêm trọng.`,ja:`ハノイとホーチミン市の交通渋滞状況はますます深刻になっている。`},
+{id:"b2_239",cat:`社会・生活 (100例)`,foreign:`An sinh xã hội được đảm bảo, nhất là với các đối tượng dễ bị tổn thương.`,ja:`社会福祉は、特に脆弱な対象者に対して確保されている。`},
+{id:"b2_240",cat:`社会・生活 (100例)`,foreign:`Vấn đề ô nhiễm không khí tại các thành phố lớn đang là mối quan tâm hàng đầu.`,ja:`大都市の大気汚染問題が主要な関心事となっている。`},
+{id:"b2_241",cat:`社会・生活 (100例)`,foreign:`Cháy chung cư khiến dư luận bức xúc về công tác phòng cháy chữa cháy.`,ja:`マンション火災が防火活動について世論の憤りを引き起こした。`},
+{id:"b2_242",cat:`社会・生活 (100例)`,foreign:`Bộ Y tế khuyến cáo người dân tiêm vaccine phòng bệnh đầy đủ.`,ja:`保健省は住民に疾病予防のワクチンを十分に接種するよう勧告した。`},
+{id:"b2_243",cat:`社会・生活 (100例)`,foreign:`Già hóa dân số đang diễn ra nhanh chóng.`,ja:`人口高齢化が急速に進行している。`},
+{id:"b2_244",cat:`社会・生活 (100例)`,foreign:`Tệ nạn xã hội như ma túy, mại dâm vẫn diễn biến phức tạp.`,ja:`麻薬、売春などの社会悪は依然として複雑に推移している。`},
+{id:"b2_245",cat:`社会・生活 (100例)`,foreign:`An toàn thực phẩm là vấn đề nhức nhối kéo dài nhiều năm.`,ja:`食品安全は長年にわたる深刻な問題だ。`},
+{id:"b2_246",cat:`社会・生活 (100例)`,foreign:`Phong trào hiến máu tình nguyện lan tỏa rộng khắp cả nước.`,ja:`ボランティア献血運動が全国に広がっている。`},
+{id:"b2_247",cat:`社会・生活 (100例)`,foreign:`Mức sống của người dân ngày càng được cải thiện.`,ja:`人々の生活水準は日々改善されている。`},
+{id:"b2_248",cat:`社会・生活 (100例)`,foreign:`Bất bình đẳng thu nhập giữa các vùng miền có xu hướng gia tăng.`,ja:`地域間の所得不平等は拡大する傾向にある。`},
+{id:"b2_249",cat:`社会・生活 (100例)`,foreign:`Giải quyết việc làm cho lao động nông thôn là ưu tiên hàng đầu.`,ja:`地方労働者の雇用解決は最優先事項である。`},
+{id:"b2_250",cat:`社会・生活 (100例)`,foreign:`Công tác phòng, chống thiên tai được các địa phương chủ động triển khai.`,ja:`自然災害の予防・対策業務は各地域で主体的に展開されている。`},
+{id:"b2_251",cat:`社会・生活 (100例)`,foreign:`Người dân vùng sâu, vùng xa được tiếp cận dịch vụ y tế chất lượng hơn.`,ja:`奥地・遠隔地の住民がより質の高い医療サービスにアクセスできるようになった。`},
+{id:"b2_252",cat:`社会・生活 (100例)`,foreign:`Tình hình tội phạm công nghệ cao ngày càng tinh vi.`,ja:`ハイテク犯罪の状況はますます巧妙になっている。`},
+{id:"b2_253",cat:`社会・生活 (100例)`,foreign:`Trật tự an toàn giao thông có nhiều chuyển biến tích cực.`,ja:`交通の秩序と安全には多くの前向きな変化が見られる。`},
+{id:"b2_254",cat:`社会・生活 (100例)`,foreign:`Các cấp, các ngành vào cuộc quyết liệt phòng chống dịch bệnh.`,ja:`各級・各部門が疾病予防に断固として取り組んでいる。`},
+{id:"b2_255",cat:`社会・生活 (100例)`,foreign:`Chương trình xây dựng nông thôn mới đạt được nhiều thành tựu.`,ja:`新しい農村建設プログラムは多くの成果を上げている。`},
+{id:"b2_256",cat:`社会・生活 (100例)`,foreign:`Nhà ở xã hội cho người thu nhập thấp vẫn còn thiếu.`,ja:`低所得者向けの社会住宅は依然として不足している。`},
+{id:"b2_257",cat:`社会・生活 (100例)`,foreign:`Phong trào toàn dân bảo vệ an ninh Tổ quốc được đẩy mạnh.`,ja:`祖国の安全保障を守る全民運動が推進されている。`},
+{id:"b2_258",cat:`社会・生活 (100例)`,foreign:`Xung đột thế hệ trong gia đình hiện đại ngày càng phổ biến.`,ja:`現代家族における世代間の対立はますます一般的になっている。`},
+{id:"b2_259",cat:`社会・生活 (100例)`,foreign:`Lối sống đô thị có nhiều thay đổi so với trước.`,ja:`都市部の生活様式は以前と比べて多くの変化がある。`},
+{id:"b2_260",cat:`社会・生活 (100例)`,foreign:`Người cao tuổi sống vui, sống khỏe, sống có ích.`,ja:`高齢者が楽しく、健康で、有益に生活している。`},
+{id:"b2_261",cat:`社会・生活 (100例)`,foreign:`Vấn nạn tin giả trên mạng xã hội gây hoang mang dư luận.`,ja:`ソーシャルメディア上の偽情報問題が世論を混乱させている。`},
+{id:"b2_262",cat:`社会・生活 (100例)`,foreign:`Bạo lực học đường đang là vấn đề nhức nhối của toàn xã hội.`,ja:`校内暴力は全社会にとって深刻な問題となっている。`},
+{id:"b2_263",cat:`社会・生活 (100例)`,foreign:`Xâm hại tình dục trẻ em gây phẫn nộ trong cộng đồng.`,ja:`子どもへの性的虐待が地域社会で憤りを引き起こしている。`},
+{id:"b2_264",cat:`社会・生活 (100例)`,foreign:`Tình trạng ô nhiễm môi trường do rác thải nhựa đáng báo động.`,ja:`プラスチック廃棄物による環境汚染状況が憂慮すべきものである。`},
+{id:"b2_265",cat:`社会・生活 (100例)`,foreign:`Nạn săn bắn, buôn bán động vật hoang dã trái phép vẫn diễn ra.`,ja:`野生動物の違法な狩猟・取引が依然として発生している。`},
+{id:"b2_266",cat:`社会・生活 (100例)`,foreign:`Tai nạn giao thông giảm cả 3 tiêu chí nhưng vẫn ở mức cao.`,ja:`交通事故は3指標すべてで減少したが、依然として高い水準にある。`},
+{id:"b2_267",cat:`社会・生活 (100例)`,foreign:`Cháy chung cư mini khiến nhiều người thiệt mạng.`,ja:`ミニマンション火災で多くの人が死亡した。`},
+{id:"b2_268",cat:`社会・生活 (100例)`,foreign:`Vấn đề an toàn thực phẩm tại các cổng trường học.`,ja:`学校門前での食品安全問題。`},
+{id:"b2_269",cat:`社会・生活 (100例)`,foreign:`Bất bình đẳng giới vẫn tồn tại trong một số lĩnh vực.`,ja:`一部の分野で依然としてジェンダー不平等が存在している。`},
+{id:"b2_270",cat:`社会・生活 (100例)`,foreign:`Tình trạng lừa đảo qua mạng ngày càng tinh vi, khó phát hiện.`,ja:`ネット詐欺の状況はますます巧妙化し、発見が困難になっている。`},
+{id:"b2_271",cat:`社会・生活 (100例)`,foreign:`Người trẻ Việt Nam kết hôn muộn hơn, tỷ lệ sinh giảm.`,ja:`ベトナムの若者は結婚が遅くなり、出生率が低下している。`},
+{id:"b2_272",cat:`社会・生活 (100例)`,foreign:`Ly hôn có xu hướng gia tăng ở các đô thị lớn.`,ja:`大都市では離婚が増加傾向にある。`},
+{id:"b2_273",cat:`社会・生活 (100例)`,foreign:`Vấn đề trầm cảm, tự tử ở lứa tuổi vị thành niên đáng lo ngại.`,ja:`青少年のうつ病、自殺問題が憂慮される。`},
+{id:"b2_274",cat:`社会・生活 (100例)`,foreign:`Sử dụng chất kích thích, ma túy tổng hợp trong giới trẻ diễn biến phức tạp.`,ja:`若者の間での覚醒剤、合成麻薬使用が複雑に推移している。`},
+{id:"b2_275",cat:`社会・生活 (100例)`,foreign:`Tình trạng "cháy vé" các chuyến bay dịp Tết.`,ja:`テト期間中の航空券の「完売」状況。`},
+{id:"b2_276",cat:`社会・生活 (100例)`,foreign:`Nỗi lo "lớp học ảo, học phí thật" từ các trung tâm tiếng Anh online.`,ja:`オンライン英語センターからの「架空のクラス、実際の授業料」の懸念。`},
+{id:"b2_277",cat:`社会・生活 (100例)`,foreign:`Chậm tiến độ các dự án giao thông trọng điểm.`,ja:`重要交通プロジェクトの遅延。`},
+{id:"b2_278",cat:`社会・生活 (100例)`,foreign:`Thiếu thuốc, vật tư y tế tại một số bệnh viện công.`,ja:`一部公立病院での薬品・医療物資不足。`},
+{id:"b2_279",cat:`社会・生活 (100例)`,foreign:`Giải cứu nông sản ùn ứ tại cửa khẩu biên giới phía Bắc.`,ja:`北部国境通関地での農産物滞留の救済。`},
+{id:"b2_280",cat:`社会・生活 (100例)`,foreign:`Phong trào "xanh hóa" trường học, văn phòng.`,ja:`学校、オフィスの「グリーン化」運動。`},
+{id:"b2_281",cat:`社会・生活 (100例)`,foreign:`Xu hướng sống tối giản trong giới trẻ.`,ja:`若者の間でのミニマリスト生活の傾向。`},
+{id:"b2_282",cat:`社会・生活 (100例)`,foreign:`Cộng đồng mạng tranh luận về vấn đề cho con học trường công hay trường tư.`,ja:`ネットコミュニティで子どもを公立か私立かに通わせる問題について議論している。`},
+{id:"b2_283",cat:`社会・生活 (100例)`,foreign:`Bảo vệ dữ liệu cá nhân trong thời đại số.`,ja:`デジタル時代における個人データ保護。`},
+{id:"b2_284",cat:`社会・生活 (100例)`,foreign:`Khủng hoảng tuổi lên 3 và cách ứng phó của cha mẹ hiện đại.`,ja:`イヤイヤ期と現代の親の対処法。`},
+{id:"b2_285",cat:`社会・生活 (100例)`,foreign:`Xu hướng du lịch chữa lành sau đại dịch.`,ja:`パンデミック後のヒーリング旅行の傾向。`},
+{id:"b2_286",cat:`社会・生活 (100例)`,foreign:`Lực lượng cứu hộ đang khẩn trương tìm kiếm các nạn nhân mất tích.`,ja:`救助隊は行方不明者の捜索を急いでいる。`},
+{id:"b2_287",cat:`社会・生活 (100例)`,foreign:`Vụ tai nạn nghiêm trọng đã khiến nhiều người thương vong.`,ja:`深刻な事故により多数の死傷者が出た。`},
+{id:"b2_288",cat:`社会・生活 (100例)`,foreign:`Nguyên nhân vụ cháy đang được cơ quan chức năng điều tra làm rõ.`,ja:`火災原因は当局によって調査中だ。`},
+{id:"b2_289",cat:`社会・生活 (100例)`,foreign:`Mưa lớn kéo dài gây ngập úng trên diện rộng tại nhiều khu vực.`,ja:`長雨により多くの地域で広範囲の浸水が発生した。`},
+{id:"b2_290",cat:`社会・生活 (100例)`,foreign:`Chính quyền địa phương đã sơ tán người dân đến nơi an toàn.`,ja:`地方当局は住民を安全な場所へ避難させた。`},
+{id:"b2_291",cat:`社会・生活 (100例)`,foreign:`Cảnh báo lũ quét và sạt lở đất đã được phát đi từ sớm.`,ja:`鉄砲水と土砂崩れへの警報は早い段階で発令されていた。`},
+{id:"b2_292",cat:`社会・生活 (100例)`,foreign:`Vụ việc đang thu hút sự chú ý đặc biệt của dư luận.`,ja:`その事件は世論の特別な関心を集めている。`},
+{id:"b2_293",cat:`社会・生活 (100例)`,foreign:`Công an đã bắt giữ nghi phạm để phục vụ công tác điều tra.`,ja:`警察は捜査のため容疑者を拘束した。`},
+{id:"b2_294",cat:`社会・生活 (100例)`,foreign:`Tình hình an ninh trật tự tại khu vực cơ bản đã được kiểm soát.`,ja:`その地域の治安状況はおおむねコントロールされた。`},
+{id:"b2_295",cat:`社会・生活 (100例)`,foreign:`Người dân được khuyến cáo hạn chế ra đường trong thời tiết xấu.`,ja:`住民には悪天候時の外出自粛が勧告されている。`},
+{id:"b2_296",cat:`社会・生活 (100例)`,foreign:`Cơ quan chức năng đã phong tỏa hiện trường để phục vụ khám nghiệm.`,ja:`当局は現場検証のため現場を封鎖した。`},
+{id:"b2_297",cat:`社会・生活 (100例)`,foreign:`Thiệt hại ban đầu được ước tính lên tới hàng chục tỷ đồng.`,ja:`初期被害額は数百億ドン規模に上ると見積もられている。`},
+{id:"b2_298",cat:`社会・生活 (100例)`,foreign:`Nhiều tuyến đường bị chia cắt do nước lũ dâng cao.`,ja:`洪水の増水で多くの道路が寸断された。`},
+{id:"b2_299",cat:`社会・生活 (100例)`,foreign:`Lực lượng chức năng tăng cường tuần tra nhằm ngăn chặn tội phạm.`,ja:`治安部隊は犯罪抑止のため巡回を強化している。`},
+{id:"b2_300",cat:`社会・生活 (100例)`,foreign:`Một số đối tượng lợi dụng tình hình để tung tin sai sự thật.`,ja:`一部の者が状況に乗じて虚偽情報を流した。`},
+{id:"b2_301",cat:`環境・気候 (100例)`,foreign:`Ô nhiễm không khí đang trở thành vấn đề nghiêm trọng.`,ja:`大気汚染が深刻な問題となっている。`},
+{id:"b2_302",cat:`環境・気候 (100例)`,foreign:`Chính phủ khuyến khích sử dụng năng lượng tái tạo.`,ja:`政府は再生可能エネルギー利用を推進している。`},
+{id:"b2_303",cat:`環境・気候 (100例)`,foreign:`Biến đổi khí hậu ảnh hưởng đến đời sống người dân.`,ja:`気候変動は人々の生活に影響を与えている。`},
+{id:"b2_304",cat:`環境・気候 (100例)`,foreign:`Việc bảo vệ môi trường là trách nhiệm chung.`,ja:`環境保護は共通の責任である。`},
+{id:"b2_305",cat:`環境・気候 (100例)`,foreign:`Lượng khí thải đã giảm đáng kể trong năm qua.`,ja:`排出量は昨年大きく減少した。`},
+{id:"b2_306",cat:`環境・気候 (100例)`,foreign:`Nguồn nước đang bị ô nhiễm nghiêm trọng.`,ja:`水資源が深刻に汚染されている。`},
+{id:"b2_307",cat:`環境・気候 (100例)`,foreign:`Các biện pháp bảo vệ môi trường được tăng cường.`,ja:`環境保護策が強化されている。`},
+{id:"b2_308",cat:`環境・気候 (100例)`,foreign:`Năng lượng sạch ngày càng được sử dụng rộng rãi.`,ja:`クリーンエネルギーの利用が広がっている。`},
+{id:"b2_309",cat:`環境・気候 (100例)`,foreign:`Rác thải nhựa là vấn đề cấp bách.`,ja:`プラスチックごみは緊急課題である。`},
+{id:"b2_310",cat:`環境・気候 (100例)`,foreign:`Ý thức bảo vệ môi trường đang được nâng cao.`,ja:`環境意識が高まっている。`},
+{id:"b2_311",cat:`環境・気候 (100例)`,foreign:`Các dự án xanh được triển khai.`,ja:`環境プロジェクトが実施されている。`},
+{id:"b2_312",cat:`環境・気候 (100例)`,foreign:`Biến đổi khí hậu gây thiệt hại lớn.`,ja:`気候変動が大きな損害を与えている。`},
+{id:"b2_313",cat:`環境・気候 (100例)`,foreign:`Nhiệt độ trung bình đang tăng.`,ja:`平均気温が上昇している。`},
+{id:"b2_314",cat:`環境・気候 (100例)`,foreign:`Các nguồn tài nguyên đang cạn kiệt.`,ja:`資源が枯渇しつつある。`},
+{id:"b2_315",cat:`環境・気候 (100例)`,foreign:`Chính sách môi trường được siết chặt.`,ja:`環境政策が強化されている。`},
+{id:"b2_316",cat:`環境・気候 (100例)`,foreign:`Mực nước biển đang dâng cao.`,ja:`海面上昇が進んでいる。`},
+{id:"b2_317",cat:`環境・気候 (100例)`,foreign:`Thiên tai gây thiệt hại nghiêm trọng.`,ja:`自然災害が深刻な被害をもたらした。`},
+{id:"b2_318",cat:`環境・気候 (100例)`,foreign:`Các biện pháp giảm phát thải được triển khai.`,ja:`排出削減策が実施されている。`},
+{id:"b2_319",cat:`環境・気候 (100例)`,foreign:`Năng lượng mặt trời được phát triển.`,ja:`太陽エネルギーが開発されている。`},
+{id:"b2_320",cat:`環境・気候 (100例)`,foreign:`Ô nhiễm nước ảnh hưởng đến sức khỏe.`,ja:`水質汚染が健康に影響している。`},
+{id:"b2_321",cat:`環境・気候 (100例)`,foreign:`Rừng đang bị suy giảm.`,ja:`森林が減少している。`},
+{id:"b2_322",cat:`環境・気候 (100例)`,foreign:`Chính sách xanh được ưu tiên.`,ja:`環境政策が優先されている。`},
+{id:"b2_323",cat:`環境・気候 (100例)`,foreign:`Các nguồn năng lượng thay thế được nghiên cứu.`,ja:`代替エネルギーが研究されている。`},
+{id:"b2_324",cat:`環境・気候 (100例)`,foreign:`Khí hậu thay đổi bất thường.`,ja:`気候が異常変動している。`},
+{id:"b2_325",cat:`環境・気候 (100例)`,foreign:`Ý thức cộng đồng về môi trường tăng lên.`,ja:`環境意識が向上している。`},
+{id:"b2_326",cat:`環境・気候 (100例)`,foreign:`Hệ sinh thái bị ảnh hưởng nghiêm trọng.`,ja:`生態系が深刻な影響を受けている。`},
+{id:"b2_327",cat:`環境・気候 (100例)`,foreign:`Nguồn tài nguyên bị khai thác quá mức.`,ja:`資源が過剰に利用されている。`},
+{id:"b2_328",cat:`環境・気候 (100例)`,foreign:`Các biện pháp bảo tồn được áp dụng.`,ja:`保全措置が実施されている。`},
+{id:"b2_329",cat:`環境・気候 (100例)`,foreign:`Ô nhiễm môi trường gia tăng.`,ja:`環境汚染が増加している。`},
+{id:"b2_330",cat:`環境・気候 (100例)`,foreign:`Năng lượng tái tạo được ưu tiên phát triển.`,ja:`再生可能エネルギーが優先されている。`},
+{id:"b2_331",cat:`環境・気候 (100例)`,foreign:`Chính sách môi trường mang lại hiệu quả.`,ja:`環境政策が効果を上げている。`},
+{id:"b2_332",cat:`環境・気候 (100例)`,foreign:`Khí thải gây hiệu ứng nhà kính.`,ja:`排出ガスが温室効果を引き起こす。`},
+{id:"b2_333",cat:`環境・気候 (100例)`,foreign:`Tài nguyên thiên nhiên cần được bảo vệ.`,ja:`自然資源は保護されるべきである。`},
+{id:"b2_334",cat:`環境・気候 (100例)`,foreign:`Môi trường sống bị đe dọa.`,ja:`生活環境が脅かされている。`},
+{id:"b2_335",cat:`環境・気候 (100例)`,foreign:`Biện pháp giảm thiểu được đề xuất.`,ja:`軽減策が提案された。`},
+{id:"b2_336",cat:`環境・気候 (100例)`,foreign:`Biến đổi khí hậu đang tác động ngày càng rõ rệt đến Việt Nam.`,ja:`気候変動がベトナムにますます明確に影響を与えている。`},
+{id:"b2_337",cat:`環境・気候 (100例)`,foreign:`Hạn hán và xâm nhập mặn diễn ra gay gắt tại Đồng bằng sông Cửu Long.`,ja:`メコンデルタで干ばつと塩水侵入が深刻に発生している。`},
+{id:"b2_338",cat:`環境・気候 (100例)`,foreign:`Chất lượng không khí tại Hà Nội ở mức có hại cho sức khỏe.`,ja:`ハノイの大気質は健康に有害なレベルである。`},
+{id:"b2_339",cat:`環境・気候 (100例)`,foreign:`Việt Nam cam kết đưa phát thải ròng về 0 vào năm 2050.`,ja:`ベトナムは2050年までに実質排出量をゼロにすることを約束した。`},
+{id:"b2_340",cat:`環境・気候 (100例)`,foreign:`Phát triển năng lượng tái tạo là ưu tiên trong chiến lược năng lượng quốc gia.`,ja:`再生可能エネルギーの開発は国家エネルギー戦略における優先事項だ。`},
+{id:"b2_341",cat:`環境・気候 (100例)`,foreign:`Ô nhiễm rác thải nhựa đang là thách thức lớn với môi trường biển.`,ja:`プラスチック廃棄物汚染は海洋環境にとって大きな課題となっている。`},
+{id:"b2_342",cat:`環境・気候 (100例)`,foreign:`Rừng đầu nguồn bị tàn phá gây ra lũ quét và sạt lở đất.`,ja:`水源林の破壊が鉄砲水や土砂崩れを引き起こしている。`},
+{id:"b2_343",cat:`環境・気候 (100例)`,foreign:`Nước biển dâng đe dọa sinh kế của hàng triệu người dân ven biển.`,ja:`海面上昇が沿岸部の何百万人もの人々の生計を脅かしている。`},
+{id:"b2_344",cat:`環境・気候 (100例)`,foreign:`Phân loại rác tại nguồn là giải pháp cần thiết.`,ja:`発生源でのゴミ分別は必要な解決策だ。`},
+{id:"b2_345",cat:`環境・気候 (100例)`,foreign:`Các nhà máy nhiệt điện than gây ô nhiễm môi trường nghiêm trọng.`,ja:`石炭火力発電所が環境を深刻に汚染している。`},
+{id:"b2_346",cat:`環境・気候 (100例)`,foreign:`Bảo vệ môi trường là trách nhiệm của toàn xã hội.`,ja:`環境保護は全社会の責任である。`},
+{id:"b2_347",cat:`環境・気候 (100例)`,foreign:`Hạn hán kéo dài khiến sản lượng nông nghiệp sụt giảm.`,ja:`長期化した干ばつが農業生産量を減少させた。`},
+{id:"b2_348",cat:`環境・気候 (100例)`,foreign:`Điện mặt trời mái nhà được khuyến khích lắp đặt.`,ja:`屋根置き太陽光発電の設置が奨励されている。`},
+{id:"b2_349",cat:`環境・気候 (100例)`,foreign:`Bão số 3 đổ bộ vào các tỉnh miền Trung gây thiệt hại nặng nề.`,ja:`台風第3号が中部各省に上陸し、甚大な被害をもたらした。`},
+{id:"b2_350",cat:`環境・気候 (100例)`,foreign:`Sử dụng tiết kiệm và hiệu quả tài nguyên nước.`,ja:`水資源の節約と効率的な使用。`},
+{id:"b2_351",cat:`環境・気候 (100例)`,foreign:`Nhiệt độ trung bình năm có xu hướng tăng.`,ja:`年平均気温は上昇傾向にある。`},
+{id:"b2_352",cat:`環境・気候 (100例)`,foreign:`Phát triển kinh tế xanh, kinh tế tuần hoàn.`,ja:`グリーン経済、循環経済の発展。`},
+{id:"b2_353",cat:`環境・気候 (100例)`,foreign:`Cả nước chung tay trồng 1 tỷ cây xanh.`,ja:`全国が一体となって10億本の植樹を行う。`},
+{id:"b2_354",cat:`環境・気候 (100例)`,foreign:`Mưa lớn kéo dài gây ngập úng diện rộng.`,ja:`長引く大雨が広範囲で浸水被害を引き起こした。`},
+{id:"b2_355",cat:`環境・気候 (100例)`,foreign:`Chất thải công nghiệp chưa qua xử lý xả thẳng ra môi trường.`,ja:`未処理の産業廃棄物が環境に直接排出されている。`},
+{id:"b2_356",cat:`環境・気候 (100例)`,foreign:`Nguồn nước mặt đang bị ô nhiễm ở nhiều lưu vực sông.`,ja:`多くの河流域で地表水源が汚染されている。`},
+{id:"b2_357",cat:`環境・気候 (100例)`,foreign:`Việt Nam là một trong những quốc gia chịu ảnh hưởng nặng nề nhất của biến đổi khí hậu.`,ja:`ベトナムは気候変動の最も深刻な影響を受ける国の一つである。`},
+{id:"b2_358",cat:`環境・気候 (100例)`,foreign:`Công nghệ xanh được ứng dụng trong xử lý ô nhiễm.`,ja:`グリーンテクノロジーが汚染処理に応用されている。`},
+{id:"b2_359",cat:`環境・気候 (100例)`,foreign:`Đa dạng sinh học ở các khu bảo tồn bị suy giảm.`,ja:`保護区の生物多様性が減少している。`},
+{id:"b2_360",cat:`環境・気候 (100例)`,foreign:`Các đô thị cần quy hoạch không gian xanh hợp lý.`,ja:`都市は緑地空間を合理的に計画する必要がある。`},
+{id:"b2_361",cat:`環境・気候 (100例)`,foreign:`Biến đổi khí hậu gây lũ lụt nghiêm trọng ở miền Trung.`,ja:`気候変動が中部で深刻な洪水を引き起こしている。`},
+{id:"b2_362",cat:`環境・気候 (100例)`,foreign:`Ô nhiễm không khí ở Hà Nội vượt ngưỡng cho phép.`,ja:`ハノイの大気汚染が許容基準を超えている。`},
+{id:"b2_363",cat:`環境・気候 (100例)`,foreign:`Rừng bị tàn phá đi kèm mất đa dạng sinh học.`,ja:`森林破壊が生物多様性喪失を伴っている。`},
+{id:"b2_364",cat:`環境・気候 (100例)`,foreign:`Khí hậu thay đổi bất thường ảnh hưởng đến sản xuất nông nghiệp.`,ja:`異常気象が農業生産に影響を与えている。`},
+{id:"b2_365",cat:`環境・気候 (100例)`,foreign:`Phát triển năng lượng tái tạo là xu thế tất yếu.`,ja:`再生可能エネルギー開発は必然的な流れである。`},
+{id:"b2_366",cat:`環境・気候 (100例)`,foreign:`Các nước kêu gọi giảm phát thải khí nhà kính.`,ja:`各国が温室効果ガス削減を呼びかけている。`},
+{id:"b2_367",cat:`環境・気候 (100例)`,foreign:`Hệ sinh thái biển đang bị đe dọa bởi rác thải nhựa.`,ja:`海洋生態系がプラスチックごみによって脅かされている。`},
+{id:"b2_368",cat:`環境・気候 (100例)`,foreign:`Việc bảo vệ rừng đầu nguồn là rất quan trọng.`,ja:`水源林の保護は非常に重要である。`},
+{id:"b2_369",cat:`環境・気候 (100例)`,foreign:`Năng lượng gió đang được đầu tư phát triển mạnh.`,ja:`風力エネルギーへの投資が活発に行われている。`},
+{id:"b2_370",cat:`環境・気候 (100例)`,foreign:`Xâm nhập mặn gây thiệt hại cho sản xuất nông nghiệp.`,ja:`塩害が農業生産に損害を与えている。`},
+{id:"b2_371",cat:`環境・気候 (100例)`,foreign:`Nước thải công nghiệp cần được xử lý trước khi thải ra môi trường.`,ja:`産業廃水は環境に排出する前に処理する必要がある。`},
+{id:"b2_372",cat:`環境・気候 (100例)`,foreign:`Biến đổi khí hậu là thách thức toàn cầu.`,ja:`気候変動は世界的な課題である。`},
+{id:"b2_373",cat:`環境・気候 (100例)`,foreign:`Phát triển bền vững là mục tiêu hướng tới.`,ja:`持続可能な発展は目指すべき目標である。`},
+{id:"b2_374",cat:`環境・気候 (100例)`,foreign:`Nguồn nước ngọt đang bị suy giảm nghiêm trọng.`,ja:`淡水資源が深刻に減少している。`},
+{id:"b2_375",cat:`環境・気候 (100例)`,foreign:`Sự nóng lên toàn cầu gây ra nhiều hiện tượng thời tiết cực đoan.`,ja:`地球温暖化が多くの異常気象を引き起こしている。`},
+{id:"b2_376",cat:`環境・気候 (100例)`,foreign:`Rừng ngập mặn đóng vai trò quan trọng trong việc bảo vệ bờ biển.`,ja:`マングローブ林は海岸保護に重要な役割を果たしている。`},
+{id:"b2_377",cat:`環境・気候 (100例)`,foreign:`Ô nhiễm môi trường biển đang ở mức báo động.`,ja:`海洋環境汚染が警戒レベルにある。`},
+{id:"b2_378",cat:`環境・気候 (100例)`,foreign:`Chính sách môi trường cần được thực thi nghiêm túc.`,ja:`環境政策は厳格に実施される必要がある。`},
+{id:"b2_379",cat:`環境・気候 (100例)`,foreign:`Năng lượng hạt nhân là một giải pháp cho vấn đề năng lượng.`,ja:`原子力エネルギーはエネルギー問題の一つの解決策である。`},
+{id:"b2_380",cat:`環境・気候 (100例)`,foreign:`Tái chế rác thải giúp giảm ô nhiễm môi trường.`,ja:`廃棄物のリサイクルは環境汚染削減に役立つ。`},
+{id:"b2_381",cat:`環境・気候 (100例)`,foreign:`Khai thác quá mức tài nguyên dẫn đến cạn kiệt.`,ja:`資源の過剰採取は枯渇を招く。`},
+{id:"b2_382",cat:`環境・気候 (100例)`,foreign:`Chất lượng không khí ảnh hưởng trực tiếp đến sức khỏe con người.`,ja:`大気の質は人間の健康に直接影響する。`},
+{id:"b2_383",cat:`環境・気候 (100例)`,foreign:`Cần có biện pháp mạnh để bảo vệ môi trường.`,ja:`環境保護のための強力な対策が必要である。`},
+{id:"b2_384",cat:`環境・気候 (100例)`,foreign:`Đa dạng sinh học là nền tảng của sự sống.`,ja:`生物多様性は生命の基盤である。`},
+{id:"b2_385",cat:`環境・気候 (100例)`,foreign:`Hạn hán kéo dài ảnh hưởng đến nguồn nước sinh hoạt.`,ja:`長引く干ばつが生活用水に影響している。`},
+{id:"b2_386",cat:`環境・気候 (100例)`,foreign:`Bão lũ gây thiệt hại nặng nề về người và của.`,ja:`台風や洪水が人命と財産に甚大な被害をもたらす。`},
+{id:"b2_387",cat:`環境・気候 (100例)`,foreign:`Ý thức bảo vệ môi trường của người dân ngày càng cao.`,ja:`住民の環境保護意識がますます高まっている。`},
+{id:"b2_388",cat:`環境・気候 (100例)`,foreign:`Phát triển công nghiệp cần đi đôi với bảo vệ môi trường.`,ja:`産業発展は環境保護と並行して行われる必要がある。`},
+{id:"b2_389",cat:`環境・気候 (100例)`,foreign:`Nhiều loài động vật đang đứng trước nguy cơ tuyệt chủng.`,ja:`多くの動物種が絶滅の危機に瀕している。`},
+{id:"b2_390",cat:`環境・気候 (100例)`,foreign:`Các khu bảo tồn thiên nhiên cần được mở rộng.`,ja:`自然保護区は拡大される必要がある。`},
+{id:"b2_391",cat:`環境・気候 (100例)`,foreign:`Nước biển dâng đe dọa các thành phố ven biển.`,ja:`海面上昇が沿岸都市を脅かしている。`},
+{id:"b2_392",cat:`環境・気候 (100例)`,foreign:`Rác thải nhựa khó phân hủy gây ô nhiễm đất và nước.`,ja:`分解しにくいプラスチックごみが土壌と水を汚染している。`},
+{id:"b2_393",cat:`環境・気候 (100例)`,foreign:`Cần giảm sử dụng túi nilon để bảo vệ môi trường.`,ja:`環境保護のためビニール袋の使用を減らす必要がある。`},
+{id:"b2_394",cat:`環境・気候 (100例)`,foreign:`Năng lượng mặt trời là nguồn năng lượng sạch và vô tận.`,ja:`太陽エネルギーはクリーンで無尽蔵なエネルギー源である。`},
+{id:"b2_395",cat:`環境・気候 (100例)`,foreign:`Chính phủ khuyến khích sử dụng phương tiện giao thông công cộng để giảm ô nhiễm.`,ja:`政府は汚染削減のため公共交通機関の利用を奨励している。`},
+{id:"b2_396",cat:`環境・気候 (100例)`,foreign:`Ô nhiễm tiếng ồn ở các đô thị lớn đang gia tăng.`,ja:`大都市での騒音公害が増加している。`},
+{id:"b2_397",cat:`環境・気候 (100例)`,foreign:`Suy thoái đất đang ảnh hưởng đến sản xuất nông nghiệp.`,ja:`土壌劣化が農業生産に影響している。`},
+{id:"b2_398",cat:`環境・気候 (100例)`,foreign:`Các dòng sông đang bị ô nhiễm nặng do chất thải công nghiệp.`,ja:`河川が産業廃棄物で深刻に汚染されている。`},
+{id:"b2_399",cat:`環境・気候 (100例)`,foreign:`Biến đổi khí hậu gây ra nhiều thảm họa thiên nhiên hơn.`,ja:`気候変動がより多くの自然災害を引き起こしている。`},
+{id:"b2_400",cat:`環境・気候 (100例)`,foreign:`Tương lai của hành tinh phụ thuộc vào hành động của chúng ta hôm nay.`,ja:`地球の未来は今日の私たちの行動にかかっている。`},
+{id:"b2_401",cat:`科学・技術 (100例)`,foreign:`Công nghệ trí tuệ nhân tạo đang phát triển nhanh chóng.`,ja:`AI技術は急速に発展している。`},
+{id:"b2_402",cat:`科学・技術 (100例)`,foreign:`Nghiên cứu mới đã chứng minh hiệu quả của phương pháp này.`,ja:`新研究はこの方法の有効性を証明した。`},
+{id:"b2_403",cat:`科学・技術 (100例)`,foreign:`Dữ liệu cá nhân cần được bảo vệ nghiêm ngặt.`,ja:`個人データは厳格に保護される必要がある。`},
+{id:"b2_404",cat:`科学・技術 (100例)`,foreign:`Ứng dụng này giúp cải thiện năng suất làm việc.`,ja:`このアプリは生産性向上に役立つ。`},
+{id:"b2_405",cat:`科学・技術 (100例)`,foreign:`Nhiều công ty đầu tư vào chuyển đổi số.`,ja:`多くの企業がデジタル化に投資している。`},
+{id:"b2_406",cat:`科学・技術 (100例)`,foreign:`Công nghệ mới giúp tiết kiệm chi phí.`,ja:`新技術はコスト削減に貢献する。`},
+{id:"b2_407",cat:`科学・技術 (100例)`,foreign:`Nghiên cứu này mở ra hướng đi mới.`,ja:`この研究は新たな方向性を示した。`},
+{id:"b2_408",cat:`科学・技術 (100例)`,foreign:`Dữ liệu lớn đang được khai thác hiệu quả.`,ja:`ビッグデータが有効活用されている。`},
+{id:"b2_409",cat:`科学・技術 (100例)`,foreign:`An ninh mạng trở thành ưu tiên hàng đầu.`,ja:`サイバーセキュリティが最優先事項となっている。`},
+{id:"b2_410",cat:`科学・技術 (100例)`,foreign:`Công nghệ này còn nhiều hạn chế.`,ja:`この技術にはまだ多くの制限がある。`},
+{id:"b2_411",cat:`科学・技術 (100例)`,foreign:`Sự phát triển này mang lại nhiều cơ hội.`,ja:`この発展は多くの機会をもたらす。`},
+{id:"b2_412",cat:`科学・技術 (100例)`,foreign:`Các chuyên gia đang nghiên cứu sâu hơn.`,ja:`専門家がさらに研究を進めている。`},
+{id:"b2_413",cat:`科学・技術 (100例)`,foreign:`Ứng dụng AI ngày càng phổ biến.`,ja:`AIの応用が普及している。`},
+{id:"b2_414",cat:`科学・技術 (100例)`,foreign:`Công nghệ giúp nâng cao hiệu quả.`,ja:`技術が効率向上に寄与している。`},
+{id:"b2_415",cat:`科学・技術 (100例)`,foreign:`Hệ thống được cải tiến liên tục.`,ja:`システムが継続的に改善されている。`},
+{id:"b2_416",cat:`科学・技術 (100例)`,foreign:`Công nghệ sinh học đang phát triển mạnh.`,ja:`バイオ技術が急速に発展している。`},
+{id:"b2_417",cat:`科学・技術 (100例)`,foreign:`Phát minh mới thu hút sự chú ý.`,ja:`新発明が注目を集めている。`},
+{id:"b2_418",cat:`科学・技術 (100例)`,foreign:`Hệ thống tự động hóa được áp dụng rộng rãi.`,ja:`自動化システムが広く導入されている。`},
+{id:"b2_419",cat:`科学・技術 (100例)`,foreign:`Nghiên cứu này có tính ứng dụng cao.`,ja:`この研究は応用性が高い。`},
+{id:"b2_420",cat:`科学・技術 (100例)`,foreign:`Công nghệ giúp giảm thiểu rủi ro.`,ja:`技術がリスク軽減に役立つ。`},
+{id:"b2_421",cat:`科学・技術 (100例)`,foreign:`Nhiều startup công nghệ xuất hiện.`,ja:`多くのテックスタートアップが登場している。`},
+{id:"b2_422",cat:`科学・技術 (100例)`,foreign:`Đổi mới công nghệ là yếu tố then chốt.`,ja:`技術革新は重要な要素である。`},
+{id:"b2_423",cat:`科学・技術 (100例)`,foreign:`Các thiết bị thông minh ngày càng phổ biến.`,ja:`スマートデバイスが普及している。`},
+{id:"b2_424",cat:`科学・技術 (100例)`,foreign:`Hệ thống dữ liệu được nâng cấp.`,ja:`データシステムがアップグレードされた。`},
+{id:"b2_425",cat:`科学・技術 (100例)`,foreign:`Công nghệ này đang trong giai đoạn thử nghiệm.`,ja:`この技術は試験段階にある。`},
+{id:"b2_426",cat:`科学・技術 (100例)`,foreign:`Đổi mới sáng tạo thúc đẩy tăng trưởng.`,ja:`イノベーションが成長を促進する。`},
+{id:"b2_427",cat:`科学・技術 (100例)`,foreign:`Công nghệ cao được ứng dụng rộng rãi.`,ja:`ハイテクが広く応用されている。`},
+{id:"b2_428",cat:`科学・技術 (100例)`,foreign:`Hệ thống AI ngày càng thông minh.`,ja:`AIシステムがより高度化している。`},
+{id:"b2_429",cat:`科学・技術 (100例)`,foreign:`Nghiên cứu khoa học được đầu tư mạnh.`,ja:`科学研究に多くの投資が行われている。`},
+{id:"b2_430",cat:`科学・技術 (100例)`,foreign:`Công nghệ giúp tối ưu hóa quy trình.`,ja:`技術がプロセス最適化に貢献する。`},
+{id:"b2_431",cat:`科学・技術 (100例)`,foreign:`Dữ liệu được phân tích chuyên sâu.`,ja:`データが詳細に分析されている。`},
+{id:"b2_432",cat:`科学・技術 (100例)`,foreign:`Bảo mật thông tin được tăng cường.`,ja:`情報セキュリティが強化されている。`},
+{id:"b2_433",cat:`科学・技術 (100例)`,foreign:`Công nghệ mở ra nhiều triển vọng.`,ja:`技術が多くの展望を開く。`},
+{id:"b2_434",cat:`科学・技術 (100例)`,foreign:`Các hệ thống tự động ngày càng phổ biến.`,ja:`自動システムが普及している。`},
+{id:"b2_435",cat:`科学・技術 (100例)`,foreign:`Phát triển bền vững dựa vào công nghệ.`,ja:`持続可能な発展は技術に依存する。`},
+{id:"b2_436",cat:`科学・技術 (100例)`,foreign:`Công nghệ số đang thay đổi mọi mặt đời sống.`,ja:`デジタル技術が生活のあらゆる側面を変えている。`},
+{id:"b2_437",cat:`科学・技術 (100例)`,foreign:`Trí tuệ nhân tạo có khả năng xử lý lượng lớn dữ liệu.`,ja:`人工知能は大量のデータを処理する能力がある。`},
+{id:"b2_438",cat:`科学・技術 (100例)`,foreign:`Internet vạn vật kết nối mọi thiết bị thông minh.`,ja:`IoTはあらゆるスマート機器を接続する。`},
+{id:"b2_439",cat:`科学・技術 (100例)`,foreign:`Công nghệ blockchain đảm bảo tính minh bạch và an toàn.`,ja:`ブロックチェーン技術は透明性と安全性を確保する。`},
+{id:"b2_440",cat:`科学・技術 (100例)`,foreign:`Robot đang thay thế con người trong nhiều công việc.`,ja:`ロボットが多くの仕事で人間を代替しつつある。`},
+{id:"b2_441",cat:`科学・技術 (100例)`,foreign:`Điện toán đám mây giúp lưu trữ dữ liệu hiệu quả.`,ja:`クラウドコンピューティングはデータ保存を効率的にする。`},
+{id:"b2_442",cat:`科学・技術 (100例)`,foreign:`Công nghệ in 3D được ứng dụng trong y học.`,ja:`3Dプリンティング技術が医療に応用されている。`},
+{id:"b2_443",cat:`科学・技術 (100例)`,foreign:`Thực tế ảo mở ra trải nghiệm mới cho người dùng.`,ja:`バーチャルリアリティは利用者に新たな体験をもたらす。`},
+{id:"b2_444",cat:`科学・技術 (100例)`,foreign:`Công nghệ nano có tiềm năng to lớn trong nhiều lĩnh vực.`,ja:`ナノテクノロジーは多くの分野で大きな可能性を秘めている。`},
+{id:"b2_445",cat:`科学・技術 (100例)`,foreign:`Mạng xã hội ảnh hưởng mạnh mẽ đến dư luận.`,ja:`ソーシャルメディアは世論に強い影響を与える。`},
+{id:"b2_446",cat:`科学・技術 (100例)`,foreign:`Thương mại điện tử đang bùng nổ tại Việt Nam.`,ja:`電子商取引がベトナムで爆発的に増加している。`},
+{id:"b2_447",cat:`科学・技術 (100例)`,foreign:`Thanh toán di động trở nên phổ biến.`,ja:`モバイル決済が普及している。`},
+{id:"b2_448",cat:`科学・技術 (100例)`,foreign:`Học máy giúp cải thiện độ chính xác của dự đoán.`,ja:`機械学習は予測の精度向上に役立つ。`},
+{id:"b2_449",cat:`科学・技術 (100例)`,foreign:`Công nghệ nhận dạng khuôn mặt được sử dụng trong an ninh.`,ja:`顔認識技術がセキュリティに使用されている。`},
+{id:"b2_450",cat:`科学・技術 (100例)`,foreign:`Xe tự lái đang được thử nghiệm tại nhiều quốc gia.`,ja:`自動運転車が多くの国で試験されている。`},
+{id:"b2_451",cat:`科学・技術 (100例)`,foreign:`Năng lượng thông minh giúp tiết kiệm điện.`,ja:`スマートエネルギーは節電に役立つ。`},
+{id:"b2_452",cat:`科学・技術 (100例)`,foreign:`Công nghệ y tế giúp chẩn đoán bệnh chính xác hơn.`,ja:`医療技術は病気の診断をより正確にする。`},
+{id:"b2_453",cat:`科学・技術 (100例)`,foreign:`Nông nghiệp công nghệ cao tăng năng suất cây trồng.`,ja:`ハイテク農業は作物の収量を増やす。`},
+{id:"b2_454",cat:`科学・技術 (100例)`,foreign:`Công nghệ giáo dục đang thay đổi cách học.`,ja:`教育技術が学び方を変えている。`},
+{id:"b2_455",cat:`科学・技術 (100例)`,foreign:`Ứng dụng di động giúp cuộc sống tiện lợi hơn.`,ja:`モバイルアプリは生活をより便利にする。`},
+{id:"b2_456",cat:`科学・技術 (100例)`,foreign:`Dữ liệu lớn giúp doanh nghiệp hiểu khách hàng hơn.`,ja:`ビッグデータは企業が顧客をより深く理解するのに役立つ。`},
+{id:"b2_457",cat:`科学・技術 (100例)`,foreign:`An ninh mạng là mối quan tâm hàng đầu của các tổ chức.`,ja:`サイバーセキュリティは組織の最大の関心事である。`},
+{id:"b2_458",cat:`科学・技術 (100例)`,foreign:`Trí tuệ nhân tạo có thể thay thế nhiều công việc.`,ja:`人工知能は多くの仕事を代替できる。`},
+{id:"b2_459",cat:`科学・技術 (100例)`,foreign:`Công nghệ sinh học tạo ra đột phá trong y học.`,ja:`バイオテクノロジーは医療に革命をもたらす。`},
+{id:"b2_460",cat:`科学・技術 (100例)`,foreign:`Robot phẫu thuật giúp ca mổ chính xác hơn.`,ja:`手術ロボットは手術をより正確にする。`},
+{id:"b2_461",cat:`科学・技術 (100例)`,foreign:`Công nghệ không gian đang phát triển nhanh.`,ja:`宇宙技術が急速に発展している。`},
+{id:"b2_462",cat:`科学・技術 (100例)`,foreign:`Vệ tinh nhân tạo phục vụ cho viễn thông và quan sát Trái Đất.`,ja:`人工衛星は通信と地球観測に役立つ。`},
+{id:"b2_463",cat:`科学・技術 (100例)`,foreign:`Pin năng lượng mặt trời ngày càng hiệu quả hơn.`,ja:`太陽電池パネルはますます効率的になっている。`},
+{id:"b2_464",cat:`科学・技術 (100例)`,foreign:`Xe điện góp phần giảm ô nhiễm môi trường.`,ja:`電気自動車は環境汚染の削減に貢献する。`},
+{id:"b2_465",cat:`科学・技術 (100例)`,foreign:`Công nghệ tái chế giúp xử lý rác thải hiệu quả.`,ja:`リサイクル技術は廃棄物処理を効率的にする。`},
+{id:"b2_466",cat:`科学・技術 (100例)`,foreign:`Nhà thông minh được trang bị các thiết bị tự động.`,ja:`スマートホームには自動化機器が装備されている。`},
+{id:"b2_467",cat:`科学・技術 (100例)`,foreign:`Công nghệ thực tế ảo được ứng dụng trong giải trí.`,ja:`VR技術はエンターテインメントに応用されている。`},
+{id:"b2_468",cat:`科学・技術 (100例)`,foreign:`Chatbot sử dụng AI để hỗ trợ khách hàng.`,ja:`チャットボットはAIを使って顧客をサポートする。`},
+{id:"b2_469",cat:`科学・技術 (100例)`,foreign:`Công nghệ chuỗi khối được ứng dụng trong tài chính.`,ja:`ブロックチェーン技術は金融に応用されている。`},
+{id:"b2_470",cat:`科学・技術 (100例)`,foreign:`Dữ liệu là tài sản quý giá trong thời đại số.`,ja:`データはデジタル時代の貴重な資産である。`},
+{id:"b2_471",cat:`科学・技術 (100例)`,foreign:`Công nghệ 5G mang lại tốc độ kết nối nhanh hơn.`,ja:`5G技術はより速い接続速度をもたらす。`},
+{id:"b2_472",cat:`科学・技術 (100例)`,foreign:`Internet đã thay đổi cách con người giao tiếp.`,ja:`インターネットは人々のコミュニケーション方法を変えた。`},
+{id:"b2_473",cat:`科学・技術 (100例)`,foreign:`Công nghệ thông tin là ngành học hấp dẫn.`,ja:`情報技術は魅力的な学問分野である。`},
+{id:"b2_474",cat:`科学・技術 (100例)`,foreign:`Phần mềm mã nguồn mở ngày càng phổ biến.`,ja:`オープンソースソフトウェアがますます普及している。`},
+{id:"b2_475",cat:`科学・技術 (100例)`,foreign:`Công nghệ giúp kết nối mọi người xuyên biên giới.`,ja:`技術は国境を越えて人々をつなぐ。`},
+{id:"b2_476",cat:`科学・技術 (100例)`,foreign:`Khoa học dữ liệu là lĩnh vực then chốt trong kỷ nguyên số.`,ja:`データサイエンスはデジタル時代の重要な分野である。`},
+{id:"b2_477",cat:`科学・技術 (100例)`,foreign:`Trí tuệ nhân tạo có thể học hỏi từ dữ liệu.`,ja:`人工知能はデータから学習できる。`},
+{id:"b2_478",cat:`科学・技術 (100例)`,foreign:`Robot đang được sử dụng trong sản xuất công nghiệp.`,ja:`ロボットが工業生産で使用されている。`},
+{id:"b2_479",cat:`科学・技術 (100例)`,foreign:`Công nghệ in 3D tạo ra các sản phẩm phức tạp.`,ja:`3Dプリンティングは複雑な製品を作り出す。`},
+{id:"b2_480",cat:`科学・技術 (100例)`,foreign:`Thực tế tăng cường kết hợp thế giới thực và ảo.`,ja:`ARは現実と仮想の世界を融合させる。`},
+{id:"b2_481",cat:`科学・技術 (100例)`,foreign:`Công nghệ giúp bảo tồn di sản văn hóa.`,ja:`技術は文化遺産の保存に役立つ。`},
+{id:"b2_482",cat:`科学・技術 (100例)`,foreign:`Ứng dụng học ngoại ngữ trực tuyến rất phổ biến.`,ja:`オンライン語学学習アプリは非常に人気がある。`},
+{id:"b2_483",cat:`科学・技術 (100例)`,foreign:`Công nghệ giúp người khuyết tật hòa nhập xã hội.`,ja:`技術は障害者の社会参加を助ける。`},
+{id:"b2_484",cat:`科学・技術 (100例)`,foreign:`Hệ thống quản lý học tập trực tuyến được nhiều trường sử dụng.`,ja:`オンライン学習管理システムは多くの学校で使用されている。`},
+{id:"b2_485",cat:`科学・技術 (100例)`,foreign:`Công nghệ nhận diện giọng nói ngày càng chính xác.`,ja:`音声認識技術はますます正確になっている。`},
+{id:"b2_486",cat:`科学・技術 (100例)`,foreign:`Dữ liệu lớn giúp dự đoán xu hướng thị trường.`,ja:`ビッグデータは市場トレンドの予測に役立つ。`},
+{id:"b2_487",cat:`科学・技術 (100例)`,foreign:`Trí tuệ nhân tạo có thể sáng tác nhạc và vẽ tranh.`,ja:`人工知能は作曲や絵画制作ができる。`},
+{id:"b2_488",cat:`科学・技術 (100例)`,foreign:`Công nghệ blockchain được ứng dụng trong bầu cử.`,ja:`ブロックチェーン技術は選挙に応用されている。`},
+{id:"b2_489",cat:`科学・技術 (100例)`,foreign:`Robot hình người đang được phát triển.`,ja:`人型ロボットが開発されている。`},
+{id:"b2_490",cat:`科学・技術 (100例)`,foreign:`Công nghệ sinh học giúp cải thiện giống cây trồng.`,ja:`バイオテクノロジーは作物の品種改良に役立つ。`},
+{id:"b2_491",cat:`科学・技術 (100例)`,foreign:`Kỹ thuật di truyền mở ra nhiều khả năng mới.`,ja:`遺伝子工学は多くの新たな可能性を開く。`},
+{id:"b2_492",cat:`科学・技術 (100例)`,foreign:`Công nghệ nano được ứng dụng trong sản xuất vật liệu mới.`,ja:`ナノテクノロジーは新材料の製造に応用されている。`},
+{id:"b2_493",cat:`科学・技術 (100例)`,foreign:`Internet vạn vật kết nối hàng tỷ thiết bị.`,ja:`IoTは数十億のデバイスを接続する。`},
+{id:"b2_494",cat:`科学・技術 (100例)`,foreign:`Điện toán lượng tử hứa hẹn tốc độ xử lý siêu việt.`,ja:`量子コンピューティングは超高速処理を約束する。`},
+{id:"b2_495",cat:`科学・技術 (100例)`,foreign:`Công nghệ thực tế ảo được sử dụng trong đào tạo.`,ja:`VR技術は訓練に使用されている。`},
+{id:"b2_496",cat:`科学・技術 (100例)`,foreign:`Ứng dụng trí tuệ nhân tạo trong y tế giúp chẩn đoán bệnh sớm.`,ja:`医療におけるAI応用は早期診断に役立つ。`},
+{id:"b2_497",cat:`科学・技術 (100例)`,foreign:`Công nghệ giúp tiết kiệm năng lượng trong các tòa nhà.`,ja:`技術は建物の省エネルギーに役立つ。`},
+{id:"b2_498",cat:`科学・技術 (100例)`,foreign:`Hệ thống giao thông thông minh giảm ùn tắc.`,ja:`スマート交通システムは渋滞を減らす。`},
+{id:"b2_499",cat:`科学・技術 (100例)`,foreign:`Công nghệ xử lý nước thải bảo vệ môi trường.`,ja:`廃水処理技術は環境を守る。`},
+{id:"b2_500",cat:`科学・技術 (100例)`,foreign:`Tương lai của công nghệ là sự kết hợp giữa con người và máy móc.`,ja:`技術の未来は人間と機械の融合である。`},
+{id:"b2_501",cat:`教育・文化 (100例)`,foreign:`Hệ thống giáo dục đang được cải cách toàn diện.`,ja:`教育制度が全面的に改革されている。`},
+{id:"b2_502",cat:`教育・文化 (100例)`,foreign:`Sinh viên cần phát triển kỹ năng tư duy phản biện.`,ja:`学生は批判的思考力を伸ばす必要がある。`},
+{id:"b2_503",cat:`教育・文化 (100例)`,foreign:`Sự kiện văn hóa thu hút đông đảo người tham gia.`,ja:`文化イベントに多くの人が参加した。`},
+{id:"b2_504",cat:`教育・文化 (100例)`,foreign:`Việc học ngoại ngữ ngày càng trở nên quan trọng.`,ja:`外国語学習の重要性が増している。`},
+{id:"b2_505",cat:`教育・文化 (100例)`,foreign:`Giáo dục trực tuyến ngày càng phổ biến.`,ja:`オンライン教育がますます普及している。`},
+{id:"b2_506",cat:`教育・文化 (100例)`,foreign:`Chương trình học được cập nhật thường xuyên.`,ja:`カリキュラムが定期的に更新されている。`},
+{id:"b2_507",cat:`教育・文化 (100例)`,foreign:`Sinh viên cần kỹ năng thực tế.`,ja:`学生は実践的スキルが必要である。`},
+{id:"b2_508",cat:`教育・文化 (100例)`,foreign:`Giáo dục đóng vai trò quan trọng.`,ja:`教育は重要な役割を果たす。`},
+{id:"b2_509",cat:`教育・文化 (100例)`,foreign:`Sự kiện thu hút sự chú ý lớn.`,ja:`イベントが大きな注目を集めた。`},
+{id:"b2_510",cat:`教育・文化 (100例)`,foreign:`Giáo viên cần đổi mới phương pháp giảng dạy.`,ja:`教師は教授法を改善する必要がある。`},
+{id:"b2_511",cat:`教育・文化 (100例)`,foreign:`Học sinh được khuyến khích sáng tạo.`,ja:`生徒は創造性を奨励されている。`},
+{id:"b2_512",cat:`教育・文化 (100例)`,foreign:`Giá trị văn hóa cần được bảo tồn.`,ja:`文化的価値は保護されるべきである。`},
+{id:"b2_513",cat:`教育・文化 (100例)`,foreign:`Sự đa dạng văn hóa được tôn trọng.`,ja:`文化の多様性が尊重されている。`},
+{id:"b2_514",cat:`教育・文化 (100例)`,foreign:`Hoạt động ngoại khóa ngày càng phổ biến.`,ja:`課外活動が普及している。`},
+{id:"b2_515",cat:`教育・文化 (100例)`,foreign:`Giáo dục là nền tảng của phát triển.`,ja:`教育は発展の基盤である。`},
+{id:"b2_516",cat:`教育・文化 (100例)`,foreign:`Hệ thống giáo dục cần đổi mới.`,ja:`教育制度は改革が必要である。`},
+{id:"b2_517",cat:`教育・文化 (100例)`,foreign:`Sinh viên đối mặt với áp lực học tập.`,ja:`学生は学業のプレッシャーに直面している。`},
+{id:"b2_518",cat:`教育・文化 (100例)`,foreign:`Giáo dục chất lượng cao được chú trọng.`,ja:`質の高い教育が重視されている。`},
+{id:"b2_519",cat:`教育・文化 (100例)`,foreign:`Nhiều chương trình đào tạo mới được triển khai.`,ja:`新しい教育プログラムが導入された。`},
+{id:"b2_520",cat:`教育・文化 (100例)`,foreign:`Văn hóa truyền thống được bảo tồn.`,ja:`伝統文化が保存されている。`},
+{id:"b2_521",cat:`教育・文化 (100例)`,foreign:`Các hoạt động nghệ thuật phát triển.`,ja:`芸術活動が発展している。`},
+{id:"b2_522",cat:`教育・文化 (100例)`,foreign:`Sự kiện thu hút giới trẻ.`,ja:`イベントが若者を惹きつけている。`},
+{id:"b2_523",cat:`教育・文化 (100例)`,foreign:`Giá trị lịch sử cần được gìn giữ.`,ja:`歴史的価値は守られるべきである。`},
+{id:"b2_524",cat:`教育・文化 (100例)`,foreign:`Học sinh được tiếp cận công nghệ.`,ja:`生徒は技術にアクセスしている。`},
+{id:"b2_525",cat:`教育・文化 (100例)`,foreign:`Giáo dục đóng góp vào phát triển xã hội.`,ja:`教育は社会発展に貢献する。`},
+{id:"b2_526",cat:`教育・文化 (100例)`,foreign:`Giáo dục đóng vai trò then chốt.`,ja:`教育は重要な役割を担う。`},
+{id:"b2_527",cat:`教育・文化 (100例)`,foreign:`Học sinh được tiếp cận kiến thức mới.`,ja:`生徒は新しい知識に触れている。`},
+{id:"b2_528",cat:`教育・文化 (100例)`,foreign:`Phương pháp giảng dạy được cải tiến.`,ja:`教育方法が改善された。`},
+{id:"b2_529",cat:`教育・文化 (100例)`,foreign:`Giáo dục toàn diện được chú trọng.`,ja:`全人教育が重視されている。`},
+{id:"b2_530",cat:`教育・文化 (100例)`,foreign:`Văn hóa truyền thống được phát huy.`,ja:`伝統文化が発展している。`},
+{id:"b2_531",cat:`教育・文化 (100例)`,foreign:`Hoạt động giáo dục được mở rộng.`,ja:`教育活動が拡大している。`},
+{id:"b2_532",cat:`教育・文化 (100例)`,foreign:`Sinh viên tham gia nghiên cứu khoa học.`,ja:`学生が研究に参加している。`},
+{id:"b2_533",cat:`教育・文化 (100例)`,foreign:`Giá trị văn hóa được truyền lại.`,ja:`文化価値が継承されている。`},
+{id:"b2_534",cat:`教育・文化 (100例)`,foreign:`Sự giao thoa văn hóa diễn ra mạnh mẽ.`,ja:`文化交流が活発である。`},
+{id:"b2_535",cat:`教育・文化 (100例)`,foreign:`Học tập suốt đời trở thành xu hướng.`,ja:`生涯学習がトレンドになっている。`},
+{id:"b2_536",cat:`教育・文化 (100例)`,foreign:`Lễ hội Tết thu hút du khách, giữ gìn bản sắc dân tộc.`,ja:`テト祭りが観光客を集め、民族アイデンティティ保持。`},
+{id:"b2_537",cat:`教育・文化 (100例)`,foreign:`Âm nhạc dân gian được UNESCO công nhận, phổ biến toàn cầu.`,ja:`民謡がUNESCO認定、世界的に普及。`},
+{id:"b2_538",cat:`教育・文化 (100例)`,foreign:`Phim Việt chiếm lĩnh phòng vé, cạnh tranh Hollywood.`,ja:`ベトナム映画が興行収入首位、ハリウッドと競う。`},
+{id:"b2_539",cat:`教育・文化 (100例)`,foreign:`Di sản văn hóa cần được bảo tồn.`,ja:`文化遺産は保存される必要がある。`},
+{id:"b2_540",cat:`教育・文化 (100例)`,foreign:`Ẩm thực Việt Nam hấp dẫn du khách quốc tế.`,ja:`ベトナム料理は外国人旅行者を魅了している。`},
+{id:"b2_541",cat:`教育・文化 (100例)`,foreign:`Nghệ thuật đường phố ngày càng phát triển.`,ja:`ストリートアートがますます発展している。`},
+{id:"b2_542",cat:`教育・文化 (100例)`,foreign:`Lễ hội truyền thống là dịp để cộng đồng gắn kết.`,ja:`伝統的な祭りは地域社会の結束の機会である。`},
+{id:"b2_543",cat:`教育・文化 (100例)`,foreign:`Áo dài Việt Nam được tôn vinh là biểu tượng văn hóa dân tộc.`,ja:`ベトナムのアオザイは民族文化の象徴として称えられている。`},
+{id:"b2_544",cat:`教育・文化 (100例)`,foreign:`Nón lá là hình ảnh bình dị của người nông dân Việt Nam.`,ja:`ノンラーはベトナム農民の素朴なイメージである。`},
+{id:"b2_545",cat:`教育・文化 (100例)`,foreign:`Quan họ Bắc Ninh là làn điệu dân ca trữ tình.`,ja:`バクニンの官賀民謡は抒情的な民謡である。`},
+{id:"b2_546",cat:`教育・文化 (100例)`,foreign:`Nhã nhạc cung đình Huế được UNESCO vinh danh.`,ja:`フエ宮廷雅楽はユネスコに認定されている。`},
+{id:"b2_547",cat:`教育・文化 (100例)`,foreign:`Cồng chiêng Tây Nguyên âm vang núi rừng.`,ja:`中部高原のゴングは山林に響き渡る。`},
+{id:"b2_548",cat:`教育・文化 (100例)`,foreign:`Múa rối nước là loại hình nghệ thuật độc đáo.`,ja:`水上人形劇はユニークな芸術形態である。`},
+{id:"b2_549",cat:`教育・文化 (100例)`,foreign:`Tranh Đông Hồ là nét đẹp văn hóa dân gian Bắc Bộ.`,ja:`ドンホー絵画は北部の民俗文化の美である。`},
+{id:"b2_550",cat:`教育・文化 (100例)`,foreign:`Lễ hội đền Trần khai ấn diễn ra hàng năm tại Nam Định.`,ja:`チャン廟での印開き祭りが毎年ナムディンで開催される。`},
+{id:"b2_551",cat:`教育・文化 (100例)`,foreign:`Ẩm thực Việt Nam đề cao sự hài hòa âm dương.`,ja:`ベトナム料理は陰陽の調和を重視する。`},
+{id:"b2_552",cat:`教育・文化 (100例)`,foreign:`Nước mắm Phú Quốc đã được bảo hộ chỉ dẫn địa lý tại châu Âu.`,ja:`フーコックのニョクマムは欧州で地理的表示保護を受けている。`},
+{id:"b2_553",cat:`教育・文化 (100例)`,foreign:`Phở Việt Nam trở thành món ăn nổi tiếng trên thế giới.`,ja:`ベトナムのフォーは世界的に有名な料理になった。`},
+{id:"b2_554",cat:`教育・文化 (100例)`,foreign:`Cà phê Việt Nam, đặc biệt là cà phê phin, mang hương vị đặc trưng.`,ja:`ベトナムコーヒー、特にフィンコーヒーは特徴的な風味を持つ。`},
+{id:"b2_555",cat:`教育・文化 (100例)`,foreign:`Lễ cưới truyền thống của người Việt gồm nhiều nghi thức.`,ja:`ベトナム人の伝統的な結婚式は多くの儀式からなる。`},
+{id:"b2_556",cat:`教育・文化 (100例)`,foreign:`Chữ Nôm - chữ viết cổ của dân tộc Việt Nam.`,ja:`チュノムはベトナム民族の古代文字である。`},
+{id:"b2_557",cat:`教育・文化 (100例)`,foreign:`Văn Miếu - Quốc Tử Giám là trường đại học đầu tiên của Việt Nam.`,ja:`文廟・国子監はベトナム最初の大学である。`},
+{id:"b2_558",cat:`教育・文化 (100例)`,foreign:`Trống đồng Đông Sơn là biểu tượng của văn hóa Việt cổ.`,ja:`ドンソン銅鼓は古代ベトナム文化の象徴である。`},
+{id:"b2_559",cat:`教育・文化 (100例)`,foreign:`Tục xin chữ đầu năm vẫn được nhiều người duy trì.`,ja:`年初に字を乞う習慣は多くの人に維持されている。`},
+{id:"b2_560",cat:`教育・文化 (100例)`,foreign:`Đi lễ chùa đầu năm cầu mong những điều tốt đẹp.`,ja:`年初の寺院参りで良いことを祈願する。`},
+{id:"b2_561",cat:`教育・文化 (100例)`,foreign:`Lễ Vu Lan báo hiếu cha mẹ.`,ja:`父母に恩返しするVu Lan祭。`},
+{id:"b2_562",cat:`教育・文化 (100例)`,foreign:`Tết Trung thu là tết của thiếu nhi.`,ja:`中秋節は子どものための祭りである。`},
+{id:"b2_563",cat:`教育・文化 (100例)`,foreign:`Giỗ Tổ Hùng Vương - ngày hội non sông.`,ja:`フン王命日は国の祭典である。`},
+{id:"b2_564",cat:`教育・文化 (100例)`,foreign:`Liên hoan phim năm nay quy tụ nhiều tác phẩm chất lượng.`,ja:`今年の映画祭には多くの質の高い作品が集まった。`},
+{id:"b2_565",cat:`教育・文化 (100例)`,foreign:`Nhiều nghệ sĩ trẻ đang tạo dấu ấn với phong cách sáng tạo riêng.`,ja:`多くの若手アーティストが独自の創造的スタイルで存在感を示している。`},
+{id:"b2_566",cat:`教育・文化 (100例)`,foreign:`Công tác bảo tồn di sản cần gắn liền với phát triển du lịch bền vững.`,ja:`文化遺産保護は持続可能な観光発展と結びつける必要がある。`},
+{id:"b2_567",cat:`教育・文化 (100例)`,foreign:`Nhiều chương trình nghệ thuật truyền thống đang được làm mới để tiếp cận giới trẻ.`,ja:`多くの伝統芸能プログラムが若者に届くよう刷新されている。`},
+{id:"b2_568",cat:`教育・文化 (100例)`,foreign:`Bộ phim nhanh chóng gây sốt phòng vé ngay sau khi ra mắt.`,ja:`その映画は公開直後に大ヒットとなった。`},
+{id:"b2_569",cat:`教育・文化 (100例)`,foreign:`Các nhà phê bình đánh giá cao chiều sâu nội dung của tác phẩm.`,ja:`批評家たちはその作品の内容の深さを高く評価した。`},
+{id:"b2_570",cat:`教育・文化 (100例)`,foreign:`Triển lãm giới thiệu nhiều tác phẩm phản ánh đời sống đương đại.`,ja:`展覧会では現代生活を映し出す多くの作品が紹介された。`},
+{id:"b2_571",cat:`教育・文化 (100例)`,foreign:`Việc số hóa di sản giúp công chúng tiếp cận nguồn tư liệu thuận tiện hơn.`,ja:`遺産のデジタル化は一般の人々が資料へより便利にアクセスする助けになる。`},
+{id:"b2_572",cat:`教育・文化 (100例)`,foreign:`Một số lễ hội truyền thống đang được phục dựng theo hướng nguyên bản.`,ja:`一部の伝統祭りは本来の姿に近い形で復元されている。`},
+{id:"b2_573",cat:`教育・文化 (100例)`,foreign:`Tác phẩm này đã giành nhiều giải thưởng tại các liên hoan quốc tế.`,ja:`この作品は国際映画祭・芸術祭で多くの賞を受賞した。`},
+{id:"b2_574",cat:`教育・文化 (100例)`,foreign:`Nghệ thuật đương đại ngày càng có chỗ đứng trong đời sống văn hóa.`,ja:`現代芸術は文化生活の中でますます地位を得ている。`},
+{id:"b2_575",cat:`教育・文化 (100例)`,foreign:`Một số nhà hát đang gặp khó khăn trong việc thu hút khán giả trẻ.`,ja:`一部の劇場は若い観客を引きつけることに苦労している。`},
+{id:"b2_576",cat:`教育・文化 (100例)`,foreign:`Tác giả cho biết cuốn sách được viết dựa trên trải nghiệm cá nhân.`,ja:`著者はその本が個人的経験に基づいて書かれたと述べた。`},
+{id:"b2_577",cat:`教育・文化 (100例)`,foreign:`Việc bảo vệ bản quyền trở nên cấp thiết trong môi trường số.`,ja:`著作権保護はデジタル環境で緊急性を増している。`},
+{id:"b2_578",cat:`教育・文化 (100例)`,foreign:`Sự kiện âm nhạc này đánh dấu màn trở lại của nhiều tên tuổi lớn.`,ja:`この音楽イベントは多くの大物の復帰を印象づけた。`},
+{id:"b2_579",cat:`教育・文化 (100例)`,foreign:`Các chuyên gia kêu gọi đầu tư dài hạn cho công nghiệp văn hóa.`,ja:`専門家は文化産業への長期投資を呼びかけている。`},
+{id:"b2_580",cat:`教育・文化 (100例)`,foreign:`Nhiều giá trị văn hóa bản địa đang được giới trẻ quan tâm trở lại.`,ja:`多くの地域固有の文化的価値が若者の間で再び注目されている。`},
+{id:"b2_581",cat:`教育・文化 (100例)`,foreign:`Đội tuyển bóng đá đã giành chiến thắng thuyết phục trước đối thủ mạnh.`,ja:`代表チームは強敵相手に説得力のある勝利を収めた。`},
+{id:"b2_582",cat:`教育・文化 (100例)`,foreign:`Huấn luyện viên cho rằng các cầu thủ đã thi đấu đúng đấu pháp đề ra.`,ja:`監督は選手たちが想定した戦術どおりに戦ったと述べた。`},
+{id:"b2_583",cat:`教育・文化 (100例)`,foreign:`Trận đấu diễn ra hấp dẫn với nhiều tình huống kịch tính.`,ja:`試合は見どころが多く、緊迫した展開となった。`},
+{id:"b2_584",cat:`教育・文化 (100例)`,foreign:`Vận động viên này đã phá kỷ lục quốc gia sau nhiều năm tồn tại.`,ja:`この選手は長年破られなかった国内記録を更新した。`},
+{id:"b2_585",cat:`教育・文化 (100例)`,foreign:`Người hâm mộ kỳ vọng đội nhà sẽ tiếp tục giữ vững phong độ.`,ja:`ファンは地元チームがこの好調を維持することを期待している。`},
+{id:"b2_586",cat:`教育・文化 (100例)`,foreign:`Đội bóng đang đối mặt với áp lực lớn trước trận quyết định.`,ja:`そのチームは決戦を前に大きなプレッシャーに直面している。`},
+{id:"b2_587",cat:`教育・文化 (100例)`,foreign:`Chấn thương của trụ cột khiến ban huấn luyện lo lắng.`,ja:`主力選手の負傷はコーチ陣を不安にさせている。`},
+{id:"b2_588",cat:`教育・文化 (100例)`,foreign:`Nhiều chuyên gia đánh giá giải đấu năm nay có chất lượng chuyên môn cao.`,ja:`多くの専門家は今年の大会の競技レベルが高いと評価している。`},
+{id:"b2_589",cat:`教育・文化 (100例)`,foreign:`Cầu thủ trẻ đang dần khẳng định vị trí trong đội hình chính.`,ja:`若手選手は徐々に先発メンバーでの地位を固めている。`},
+{id:"b2_590",cat:`教育・文化 (100例)`,foreign:`Ban tổ chức đã siết chặt công tác an ninh tại sân vận động.`,ja:`主催者はスタジアムでの警備を強化した。`},
+{id:"b2_591",cat:`教育・文化 (100例)`,foreign:`Đội chủ nhà tận dụng tốt lợi thế sân bãi để giành 3 điểm.`,ja:`ホームチームは地の利を生かして勝ち点3を獲得した。`},
+{id:"b2_592",cat:`教育・文化 (100例)`,foreign:`Giải đấu thu hút sự quan tâm của đông đảo khán giả trong và ngoài nước.`,ja:`その大会は国内外の多くの観客の関心を集めている。`},
+{id:"b2_593",cat:`教育・文化 (100例)`,foreign:`Trọng tài đã đưa ra quyết định gây tranh cãi ở cuối trận.`,ja:`審判は試合終盤に物議を醸す判定を下した。`},
+{id:"b2_594",cat:`教育・文化 (100例)`,foreign:`Thành tích này là kết quả của quá trình chuẩn bị kỹ lưỡng và lâu dài.`,ja:`この成績は綿密で長期的な準備の成果だ。`},
+{id:"b2_595",cat:`教育・文化 (100例)`,foreign:`Đoàn thể thao đặt mục tiêu giành thêm huy chương ở các nội dung thế mạnh.`,ja:`スポーツ代表団は得意種目でさらなるメダル獲得を目指している。`},
+{id:"b2_596",cat:`教育・文化 (100例)`,foreign:`Tinh thần thi đấu quả cảm đã giúp đội lội ngược dòng ngoạn mục.`,ja:`粘り強い闘志がチームの見事な逆転を支えた。`},
+{id:"b2_597",cat:`教育・文化 (100例)`,foreign:`Cầu thủ này đang có phong độ ghi bàn ấn tượng trong thời gian gần đây.`,ja:`この選手は最近、印象的な得点ペースを見せている。`},
+{id:"b2_598",cat:`教育・文化 (100例)`,foreign:`Huấn luyện viên nhấn mạnh tầm quan trọng của thể lực và kỷ luật chiến thuật.`,ja:`監督はフィジカルと戦術規律の重要性を強調した。`},
+{id:"b2_599",cat:`教育・文化 (100例)`,foreign:`Một số câu lạc bộ đang tích cực chiêu mộ nhân sự trước mùa giải mới.`,ja:`一部クラブは新シーズン前に積極的な補強を進めている。`},
+{id:"b2_600",cat:`教育・文化 (100例)`,foreign:`Trận chung kết được dự báo sẽ rất cân tài cân sức.`,ja:`決勝戦は非常に互角の勝負になると予想されている。`},
+{id:"b2_601",cat:`健康・医療 (100例)`,foreign:`Hệ thống y tế đang chịu áp lực lớn.`,ja:`医療システムは大きな負担を受けている。`},
+{id:"b2_602",cat:`健康・医療 (100例)`,foreign:`Các chuyên gia khuyến cáo nên tiêm phòng đầy đủ.`,ja:`専門家は十分なワクチン接種を推奨している。`},
+{id:"b2_603",cat:`健康・医療 (100例)`,foreign:`Chế độ ăn uống lành mạnh giúp phòng ngừa bệnh tật.`,ja:`健康的な食事は病気予防に役立つ。`},
+{id:"b2_604",cat:`健康・医療 (100例)`,foreign:`Số ca nhiễm đã giảm trong thời gian gần đây.`,ja:`感染者数は最近減少している。`},
+{id:"b2_605",cat:`健康・医療 (100例)`,foreign:`Người dân được khuyến khích tập thể dục thường xuyên.`,ja:`市民は定期的な運動を推奨されている。`},
+{id:"b2_606",cat:`健康・医療 (100例)`,foreign:`Dịch bệnh đang được kiểm soát.`,ja:`感染症は抑制されている。`},
+{id:"b2_607",cat:`健康・医療 (100例)`,foreign:`Bệnh viện đang quá tải.`,ja:`病院が過密状態である。`},
+{id:"b2_608",cat:`健康・医療 (100例)`,foreign:`Người dân cần tuân thủ hướng dẫn y tế.`,ja:`市民は医療指示に従う必要がある。`},
+{id:"b2_609",cat:`健康・医療 (100例)`,foreign:`Thuốc mới đã được phát triển.`,ja:`新薬が開発された。`},
+{id:"b2_610",cat:`健康・医療 (100例)`,foreign:`Các ca bệnh đang giảm dần.`,ja:`症例数が減少している。`},
+{id:"b2_611",cat:`健康・医療 (100例)`,foreign:`Chăm sóc sức khỏe là ưu tiên hàng đầu.`,ja:`健康管理は最優先である。`},
+{id:"b2_612",cat:`健康・医療 (100例)`,foreign:`Nhiều người mắc bệnh mãn tính.`,ja:`多くの人が慢性疾患を抱えている。`},
+{id:"b2_613",cat:`健康・医療 (100例)`,foreign:`Dịch vụ y tế được cải thiện.`,ja:`医療サービスが改善されている。`},
+{id:"b2_614",cat:`健康・医療 (100例)`,foreign:`Người dân được tiếp cận dịch vụ tốt hơn.`,ja:`市民はより良いサービスにアクセスしている。`},
+{id:"b2_615",cat:`健康・医療 (100例)`,foreign:`Chi phí y tế ngày càng tăng.`,ja:`医療費が増加している。`},
+{id:"b2_616",cat:`健康・医療 (100例)`,foreign:`Dịch bệnh có dấu hiệu bùng phát.`,ja:`感染症が再拡大の兆しを見せている。`},
+{id:"b2_617",cat:`健康・医療 (100例)`,foreign:`Người dân được khuyến cáo đeo khẩu trang.`,ja:`市民はマスク着用を推奨されている。`},
+{id:"b2_618",cat:`健康・医療 (100例)`,foreign:`Hệ miễn dịch cần được tăng cường.`,ja:`免疫力を高める必要がある。`},
+{id:"b2_619",cat:`健康・医療 (100例)`,foreign:`Các biện pháp phòng dịch được siết chặt.`,ja:`感染対策が強化されている。`},
+{id:"b2_620",cat:`健康・医療 (100例)`,foreign:`Thuốc điều trị mới được thử nghiệm.`,ja:`新薬が試験されている。`},
+{id:"b2_621",cat:`健康・医療 (100例)`,foreign:`Bệnh mãn tính ngày càng phổ biến.`,ja:`慢性疾患が増えている。`},
+{id:"b2_622",cat:`健康・医療 (100例)`,foreign:`Chăm sóc y tế cộng đồng được cải thiện.`,ja:`地域医療が改善されている。`},
+{id:"b2_623",cat:`健康・医療 (100例)`,foreign:`Dinh dưỡng hợp lý giúp tăng sức đề kháng.`,ja:`適切な栄養が免疫力を高める。`},
+{id:"b2_624",cat:`健康・医療 (100例)`,foreign:`Các cơ sở y tế được nâng cấp.`,ja:`医療施設が改善された。`},
+{id:"b2_625",cat:`健康・医療 (100例)`,foreign:`Người dân quan tâm đến sức khỏe tinh thần.`,ja:`人々はメンタルヘルスに関心を持っている。`},
+{id:"b2_626",cat:`健康・医療 (100例)`,foreign:`Dịch bệnh được kiểm soát hiệu quả.`,ja:`感染症が効果的に抑えられている。`},
+{id:"b2_627",cat:`健康・医療 (100例)`,foreign:`Người dân nâng cao ý thức phòng bệnh.`,ja:`市民は予防意識を高めている。`},
+{id:"b2_628",cat:`健康・医療 (100例)`,foreign:`Hệ thống y tế được củng cố.`,ja:`医療体制が強化された。`},
+{id:"b2_629",cat:`健康・医療 (100例)`,foreign:`Các biện pháp phòng ngừa được áp dụng.`,ja:`予防策が実施されている。`},
+{id:"b2_630",cat:`健康・医療 (100例)`,foreign:`Thuốc mới mang lại hiệu quả tích cực.`,ja:`新薬が良い効果を示している。`},
+{id:"b2_631",cat:`健康・医療 (100例)`,foreign:`Chăm sóc sức khỏe toàn diện được chú trọng.`,ja:`包括的医療が重視されている。`},
+{id:"b2_632",cat:`健康・医療 (100例)`,foreign:`Dịch bệnh có nguy cơ tái bùng phát.`,ja:`感染症が再拡大する恐れがある。`},
+{id:"b2_633",cat:`健康・医療 (100例)`,foreign:`Người dân được tiêm chủng đầy đủ.`,ja:`市民は完全にワクチン接種を受けている。`},
+{id:"b2_634",cat:`健康・医療 (100例)`,foreign:`Hệ thống y tế đáp ứng nhu cầu.`,ja:`医療体制が需要に対応している。`},
+{id:"b2_635",cat:`健康・医療 (100例)`,foreign:`Các bệnh viện được trang bị hiện đại.`,ja:`病院が近代化されている。`},
+{id:"b2_636",cat:`健康・医療 (100例)`,foreign:`Bộ Y tế phê duyệt vaccine phòng COVID-19 cho trẻ từ 5 đến 11 tuổi.`,ja:`保健省が5歳から11歳の子ども向けCOVID-19ワクチンを承認した。`},
+{id:"b2_637",cat:`健康・医療 (100例)`,foreign:`Số ca mắc sốt xuất huyết có xu hướng gia tăng.`,ja:`デング熱の感染者数は増加傾向にある。`},
+{id:"b2_638",cat:`健康・医療 (100例)`,foreign:`Ngành y tế nỗ lực nâng cao chất lượng khám, chữa bệnh.`,ja:`医療業界は診療・治療の質の向上に努力している。`},
+{id:"b2_639",cat:`健康・医療 (100例)`,foreign:`Bảo hiểm y tế toàn dân là mục tiêu hướng tới.`,ja:`全民健康保険は目指すべき目標である。`},
+{id:"b2_640",cat:`健康・医療 (100例)`,foreign:`Tỷ lệ mắc các bệnh không lây nhiễm như tim mạch, tiểu đường gia tăng.`,ja:`心血管疾患や糖尿病などの非感染性疾患の罹患率が増加している。`},
+{id:"b2_641",cat:`健康・医療 (100例)`,foreign:`Y học cổ truyền kết hợp với y học hiện đại.`,ja:`伝統医学と現代医学の結合。`},
+{id:"b2_642",cat:`健康・医療 (100例)`,foreign:`Dinh dưỡng hợp lý giúp nâng cao sức khỏe.`,ja:`合理的な栄養は健康増進に役立つ。`},
+{id:"b2_643",cat:`健康・医療 (100例)`,foreign:`Khám sức khỏe định kỳ giúp phát hiện sớm bệnh tật.`,ja:`定期的な健康診断は疾病の早期発見に役立つ。`},
+{id:"b2_644",cat:`健康・医療 (100例)`,foreign:`Ca ghép tạng thành công nhờ sự phối hợp của nhiều bệnh viện.`,ja:`多くの病院の連携により臓器移植手術が成功した。`},
+{id:"b2_645",cat:`健康・医療 (100例)`,foreign:`Ô nhiễm môi trường là nguyên nhân gây ra nhiều bệnh hô hấp.`,ja:`環境汚染が多くの呼吸器疾患の原因となっている。`},
+{id:"b2_646",cat:`健康・医療 (100例)`,foreign:`Người dân cần nâng cao ý thức phòng bệnh hơn chữa bệnh.`,ja:`人々は治療よりも予防の意識を高める必要がある。`},
+{id:"b2_647",cat:`健康・医療 (100例)`,foreign:`Hệ thống y tế cơ sở được củng cố.`,ja:`基礎医療システムが強化されている。`},
+{id:"b2_648",cat:`健康・医療 (100例)`,foreign:`Vận động thể lực thường xuyên giúp phòng ngừa bệnh tật.`,ja:`定期的な運動は疾病予防に役立つ。`},
+{id:"b2_649",cat:`健康・医療 (100例)`,foreign:`Số người mắc bệnh ung thư ngày càng trẻ hóa.`,ja:`がん患者の低年齢化が進んでいる。`},
+{id:"b2_650",cat:`健康・医療 (100例)`,foreign:`An toàn bệnh viện là yêu cầu không thể thiếu.`,ja:`病院の安全は欠かせない要求である。`},
+{id:"b2_651",cat:`健康・医療 (100例)`,foreign:`Đào tạo nhân lực y tế chất lượng cao được chú trọng.`,ja:`質の高い医療人材の育成が重視されている。`},
+{id:"b2_652",cat:`健康・医療 (100例)`,foreign:`Các bệnh viện tuyến cuối quá tải do bệnh nhân chuyển tuyến ồ ạt.`,ja:`患者の大量転院により最終ラインの病院が過負荷になっている。`},
+{id:"b2_653",cat:`健康・医療 (100例)`,foreign:`Y tế thông minh là xu hướng tất yếu.`,ja:`スマート医療は必然的な趨勢である。`},
+{id:"b2_654",cat:`健康・医療 (100例)`,foreign:`Sức khỏe tâm thần ngày càng được quan tâm.`,ja:`精神衛生がますます関心を集めている。`},
+{id:"b2_655",cat:`健康・医療 (100例)`,foreign:`Thai phụ cần được tiêm phòng đầy đủ.`,ja:`妊婦は十分に予防接種を受ける必要がある。`},
+{id:"b2_656",cat:`健康・医療 (100例)`,foreign:`Bữa ăn học đường cần đảm bảo dinh dưỡng.`,ja:`学校給食は栄養を確保する必要がある。`},
+{id:"b2_657",cat:`健康・医療 (100例)`,foreign:`Việt Nam tự sản xuất được một số loại thuốc điều trị chuyên sâu.`,ja:`ベトナムは一部の専門治療薬を自国生産している。`},
+{id:"b2_658",cat:`健康・医療 (100例)`,foreign:`Cảnh giác với các loại thực phẩm chức năng quảng cáo sai sự thật.`,ja:`虚偽広告の機能性食品に警戒する。`},
+{id:"b2_659",cat:`健康・医療 (100例)`,foreign:`Tác hại của thuốc lá điện tử đối với giới trẻ.`,ja:`若者に対する電子タバコの害。`},
+{id:"b2_660",cat:`健康・医療 (100例)`,foreign:`Ngành dược phát triển theo hướng hiện đại và hội nhập.`,ja:`製薬業界は現代化と統合の方向で発展している。`},
+{id:"b2_661",cat:`健康・医療 (100例)`,foreign:`Hệ thống y tế cơ sở đóng vai trò then chốt trong chăm sóc sức khỏe ban đầu.`,ja:`基礎医療システムは一次医療において重要な役割を果たしている。`},
+{id:"b2_662",cat:`健康・医療 (100例)`,foreign:`Bảo hiểm y tế toàn dân đã phủ sóng hơn 90% dân số.`,ja:`全民医療保険は人口の90%以上をカバーした。`},
+{id:"b2_663",cat:`健康・医療 (100例)`,foreign:`Tiêm chủng mở rộng đã giúp phòng ngừa hiệu quả nhiều bệnh truyền nhiễm.`,ja:`拡大予防接種は多くの感染症の効果的な予防に役立った。`},
+{id:"b2_664",cat:`健康・医療 (100例)`,foreign:`Bệnh không lây nhiễm chiếm tỷ lệ tử vong cao nhất.`,ja:`非感染性疾病が最も高い死亡率を占めている。`},
+{id:"b2_665",cat:`健康・医療 (100例)`,foreign:`Y tế từ xa giúp bệnh nhân vùng sâu vùng xa tiếp cận dịch vụ chăm sóc sức khỏe.`,ja:`遠隔医療は僻地の患者が医療サービスにアクセスするのを支援している。`},
+{id:"b2_666",cat:`健康・医療 (100例)`,foreign:`Việt Nam đã thực hiện thành công nhiều ca ghép tạng phức tạp.`,ja:`ベトナムは多くの複雑な臓器移植手術を成功させた。`},
+{id:"b2_667",cat:`健康・医療 (100例)`,foreign:`Sốt xuất huyết bùng phát mạnh vào mùa mưa.`,ja:`デング熱が雨季に大流行する。`},
+{id:"b2_668",cat:`健康・医療 (100例)`,foreign:`Chi phí khám chữa bệnh tăng cao gây áp lực cho người dân.`,ja:`医療費の上昇が国民に圧力をかけている。`},
+{id:"b2_669",cat:`健康・医療 (100例)`,foreign:`Thiếu hụt nhân lực y tế là thách thức lớn.`,ja:`医療人材の不足は大きな課題である。`},
+{id:"b2_670",cat:`健康・医療 (100例)`,foreign:`Thuốc giả và thuốc kém chất lượng gây nguy hiểm cho người sử dụng.`,ja:`偽薬や粗悪品が使用者に危険をもたらす。`},
+{id:"b2_671",cat:`健康・医療 (100例)`,foreign:`Chế độ dinh dưỡng hợp lý và tập thể dục thường xuyên giúp phòng ngừa nhiều bệnh tật.`,ja:`適切な栄養と定期的な運動が多くの病気の予防に役立つ。`},
+{id:"b2_672",cat:`健康・医療 (100例)`,foreign:`Tỷ lệ trẻ em suy dinh dưỡng đã giảm đáng kể.`,ja:`小児の栄養不良率が著しく低下した。`},
+{id:"b2_673",cat:`健康・医療 (100例)`,foreign:`Sức khỏe tâm thần đang trở thành vấn đề cần được quan tâm nhiều hơn.`,ja:`メンタルヘルスはより多くの関心が必要な問題となっている。`},
+{id:"b2_674",cat:`健康・医療 (100例)`,foreign:`Việt Nam đã tự chủ sản xuất được nhiều loại vaccine.`,ja:`ベトナムは多くのワクチンの自主生産を実現した。`},
+{id:"b2_675",cat:`健康・医療 (100例)`,foreign:`Kháng thuốc kháng sinh đang trở thành mối đe dọa nghiêm trọng.`,ja:`抗生物質耐性が深刻な脅威となっている。`},
+{id:"b2_676",cat:`健康・医療 (100例)`,foreign:`Dịch bệnh bùng phát đặt ra yêu cầu cấp bách về nâng cao năng lực y tế dự phòng.`,ja:`疫病の発生は予防医療の能力向上を緊急に要求している。`},
+{id:"b2_677",cat:`健康・医療 (100例)`,foreign:`Chương trình sàng lọc ung thư miễn phí đã được triển khai.`,ja:`無料がん検診プログラムが実施された。`},
+{id:"b2_678",cat:`健康・医療 (100例)`,foreign:`Tình trạng lạm dụng thuốc kháng sinh trong chăn nuôi ảnh hưởng đến sức khỏe con người.`,ja:`畜産での抗生物質乱用が人間の健康に影響している。`},
+{id:"b2_679",cat:`健康・医療 (100例)`,foreign:`Bệnh viện vệ tinh giúp giảm tải cho các bệnh viện trung ương.`,ja:`サテライト病院が中央病院の負担軽減に役立っている。`},
+{id:"b2_680",cat:`健康・医療 (100例)`,foreign:`Vaccine COVID-19 đạt hiệu quả cao, giảm tử vong đáng kể.`,ja:`COVID-19ワクチンが高効果で死亡率を大幅減。`},
+{id:"b2_681",cat:`健康・医療 (100例)`,foreign:`Bệnh viện quá tải do làn sóng dịch mới.`,ja:`新たな感染の波で病院が過負荷になっている。`},
+{id:"b2_682",cat:`健康・医療 (100例)`,foreign:`Dinh dưỡng kém dẫn đến béo phì ở trẻ em đô thị.`,ja:`栄養不良が都市児童の肥満を引き起こす。`},
+{id:"b2_683",cat:`健康・医療 (100例)`,foreign:`Bảo hiểm y tế giúp giảm gánh nặng chi phí khám chữa bệnh.`,ja:`医療保険は医療費の負担軽減に役立つ。`},
+{id:"b2_684",cat:`健康・医療 (100例)`,foreign:`Sức khỏe tâm thần cần được quan tâm đúng mức.`,ja:`精神衛生は適切な関心が必要である。`},
+{id:"b2_685",cat:`健康・医療 (100例)`,foreign:`Thuốc giả gây nguy hiểm cho sức khỏe người dân.`,ja:`偽薬は人々の健康に危険をもたらす。`},
+{id:"b2_686",cat:`健康・医療 (100例)`,foreign:`Chế độ ăn uống lành mạnh giúp phòng tránh bệnh tật.`,ja:`健康的な食生活は疾病予防に役立つ。`},
+{id:"b2_687",cat:`健康・医療 (100例)`,foreign:`Tập thể dục thường xuyên tốt cho sức khỏe tim mạch.`,ja:`定期的な運動は心臓血管の健康に良い。`},
+{id:"b2_688",cat:`健康・医療 (100例)`,foreign:`Bệnh nhân cần tuân thủ phác đồ điều trị của bác sĩ.`,ja:`患者は医師の治療計画に従う必要がある。`},
+{id:"b2_689",cat:`健康・医療 (100例)`,foreign:`Y học cổ truyền có nhiều bài thuốc quý.`,ja:`伝統医学には多くの貴重な処方がある。`},
+{id:"b2_690",cat:`健康・医療 (100例)`,foreign:`Công nghệ y tế hiện đại giúp chẩn đoán chính xác hơn.`,ja:`現代医療技術はより正確な診断に役立つ。`},
+{id:"b2_691",cat:`健康・医療 (100例)`,foreign:`Người cao tuổi cần được chăm sóc sức khỏe đặc biệt.`,ja:`高齢者は特別な健康ケアが必要である。`},
+{id:"b2_692",cat:`健康・医療 (100例)`,foreign:`Bệnh viện cần nâng cao chất lượng dịch vụ.`,ja:`病院はサービスの質を向上させる必要がある。`},
+{id:"b2_693",cat:`健康・医療 (100例)`,foreign:`Tiêm phòng đầy đủ giúp bảo vệ trẻ em khỏi nhiều bệnh nguy hiểm.`,ja:`十分な予防接種は子どもを多くの危険な病気から守る。`},
+{id:"b2_694",cat:`健康・医療 (100例)`,foreign:`Sức khỏe là vốn quý nhất của con người.`,ja:`健康は人間の最も貴重な財産である。`},
+{id:"b2_695",cat:`健康・医療 (100例)`,foreign:`Dịch bệnh có thể được kiểm soát nếu có biện pháp phòng ngừa kịp thời.`,ja:`感染症は適時の予防措置があれば抑制できる。`},
+{id:"b2_696",cat:`健康・医療 (100例)`,foreign:`Hệ thống y tế cần được đầu tư đồng bộ.`,ja:`医療システムには一貫した投資が必要である。`},
+{id:"b2_697",cat:`健康・医療 (100例)`,foreign:`Bác sĩ và y tá là những người hùng thầm lặng trong đại dịch.`,ja:`医師や看護師はパンデミックにおける縁の下の力持ちである。`},
+{id:"b2_698",cat:`健康・医療 (100例)`,foreign:`Ý thức phòng bệnh của người dân ngày càng được nâng cao.`,ja:`人々の予防意識はますます高まっている。`},
+{id:"b2_699",cat:`健康・医療 (100例)`,foreign:`Sức khỏe cộng đồng là trách nhiệm của mỗi cá nhân và toàn xã hội.`,ja:`公衆衛生は個人と社会全体の責任である。`},
+{id:"b2_700",cat:`健康・医療 (100例)`,foreign:`Tương lai của y học là sự kết hợp giữa công nghệ và chăm sóc nhân văn.`,ja:`医療の未来は技術と人間的ケアの融合である。`},
+{id:"b2_701",cat:`法律・安全 (100例)`,foreign:`Luật mới được ban hành.`,ja:`新法が公布された。`},
+{id:"b2_702",cat:`法律・安全 (100例)`,foreign:`Quy định này có hiệu lực ngay lập tức.`,ja:`この規則は即時発効する。`},
+{id:"b2_703",cat:`法律・安全 (100例)`,foreign:`Các cơ quan chức năng vào cuộc điều tra.`,ja:`当局が調査に乗り出した。`},
+{id:"b2_704",cat:`法律・安全 (100例)`,foreign:`Hành vi này vi phạm pháp luật.`,ja:`この行為は法律違反である。`},
+{id:"b2_705",cat:`法律・安全 (100例)`,foreign:`Bị cáo đã bị kết án.`,ja:`被告は有罪判決を受けた。`},
+{id:"b2_706",cat:`法律・安全 (100例)`,foreign:`Phiên tòa diễn ra công khai.`,ja:`裁判は公開で行われた。`},
+{id:"b2_707",cat:`法律・安全 (100例)`,foreign:`Luật pháp cần được thực thi nghiêm minh.`,ja:`法律は厳格に執行されるべきである。`},
+{id:"b2_708",cat:`法律・安全 (100例)`,foreign:`Các quy định được siết chặt.`,ja:`規制が強化された。`},
+{id:"b2_709",cat:`法律・安全 (100例)`,foreign:`Người vi phạm bị xử phạt.`,ja:`違反者は処罰される。`},
+{id:"b2_710",cat:`法律・安全 (100例)`,foreign:`Cơ quan chức năng đã ra quyết định.`,ja:`当局が決定を下した。`},
+{id:"b2_711",cat:`法律・安全 (100例)`,foreign:`Luật được sửa đổi để phù hợp thực tế.`,ja:`法律が実情に合わせ改正された。`},
+{id:"b2_712",cat:`法律・安全 (100例)`,foreign:`Quy trình pháp lý được đơn giản hóa.`,ja:`法的手続きが簡素化された。`},
+{id:"b2_713",cat:`法律・安全 (100例)`,foreign:`Các quy định được thực thi nghiêm túc.`,ja:`規則が厳格に施行されている。`},
+{id:"b2_714",cat:`法律・安全 (100例)`,foreign:`Cơ quan chức năng tăng cường kiểm tra.`,ja:`当局が検査を強化した。`},
+{id:"b2_715",cat:`法律・安全 (100例)`,foreign:`Vi phạm bị xử lý nghiêm.`,ja:`違反は厳しく処罰される。`},
+{id:"b2_716",cat:`法律・安全 (100例)`,foreign:`Hệ thống pháp luật được hoàn thiện.`,ja:`法制度が整備されている。`},
+{id:"b2_717",cat:`法律・安全 (100例)`,foreign:`Cải cách hành chính được đẩy mạnh.`,ja:`行政改革が推進されている。`},
+{id:"b2_718",cat:`法律・安全 (100例)`,foreign:`Thủ tục hành chính được cải thiện.`,ja:`行政手続きが改善された。`},
+{id:"b2_719",cat:`法律・安全 (100例)`,foreign:`Quy định mới gây tranh cãi.`,ja:`新規則が議論を呼んでいる。`},
+{id:"b2_720",cat:`法律・安全 (100例)`,foreign:`Luật đảm bảo quyền lợi công dân.`,ja:`法律が市民の権利を保障する。`},
+{id:"b2_721",cat:`法律・安全 (100例)`,foreign:`Quốc hội thông qua Luật Đất đai sửa đổi.`,ja:`国会が改正土地法を可決した。`},
+{id:"b2_722",cat:`法律・安全 (100例)`,foreign:`Bộ Công an đề xuất giảm mức phạt vi phạm nồng độ cồn.`,ja:`公安省がアルコール濃度違反の罰則軽減を提案した。`},
+{id:"b2_723",cat:`法律・安全 (100例)`,foreign:`Tòa án tuyên phạt bị cáo mức án tù chung thân.`,ja:`裁判所が被告に終身刑を言い渡した。`},
+{id:"b2_724",cat:`法律・安全 (100例)`,foreign:`Cải cách tư pháp là nhiệm vụ trọng tâm.`,ja:`司法改革は重点任務である。`},
+{id:"b2_725",cat:`法律・安全 (100例)`,foreign:`Viện Kiểm sát đề nghị mức án đối với các bị can.`,ja:`検察院が各被疑者に対する求刑を行った。`},
+{id:"b2_726",cat:`法律・安全 (100例)`,foreign:`Luật sư bào chữa cho thân chủ tại phiên tòa.`,ja:`弁護士が法廷で依頼人の弁護を行った。`},
+{id:"b2_727",cat:`法律・安全 (100例)`,foreign:`Xét xử lưu động các vụ án điểm để răn đe.`,ja:`威嚇のための注目事件の移動裁判。`},
+{id:"b2_728",cat:`法律・安全 (100例)`,foreign:`Quyền con người, quyền công dân được bảo đảm theo Hiến pháp.`,ja:`人権、市民権は憲法に従って保障されている。`},
+{id:"b2_729",cat:`法律・安全 (100例)`,foreign:`Hoàn thiện hệ thống pháp luật về phòng, chống tham nhũng.`,ja:`汚職防止に関する法体系の完成。`},
+{id:"b2_730",cat:`法律・安全 (100例)`,foreign:`Khởi tố vụ án liên quan đến sai phạm tại các dự án đầu tư.`,ja:`投資プロジェクトにおける違反に関連する事件の起訴。`},
+{id:"b2_731",cat:`法律・安全 (100例)`,foreign:`Xử lý nghiêm minh các hành vi vi phạm pháp luật.`,ja:`違法行為の厳格な処理。`},
+{id:"b2_732",cat:`法律・安全 (100例)`,foreign:`Bảo vệ quyền lợi của người tiêu dùng.`,ja:`消費者の権利保護。`},
+{id:"b2_733",cat:`法律・安全 (100例)`,foreign:`Quy định về cư trú được điều chỉnh theo hướng thuận lợi hơn.`,ja:`居住に関する規定がより有利な方向に調整された。`},
+{id:"b2_734",cat:`法律・安全 (100例)`,foreign:`Phổ biến, giáo dục pháp luật cho người dân.`,ja:`住民への法律の普及・教育。`},
+{id:"b2_735",cat:`法律・安全 (100例)`,foreign:`Đấu tranh với các loại tội phạm kinh tế, tham nhũng.`,ja:`経済犯罪、汚職との闘い。`},
+{id:"b2_736",cat:`法律・安全 (100例)`,foreign:`Thi hành án hình sự và dân sự được đẩy mạnh.`,ja:`刑事・民事判決の執行が促進されている。`},
+{id:"b2_737",cat:`法律・安全 (100例)`,foreign:`Luật sở hữu trí tuệ được sửa đổi, bổ sung.`,ja:`知的財産法が改正・補足された。`},
+{id:"b2_738",cat:`法律・安全 (100例)`,foreign:`Xây dựng nhà nước pháp quyền xã hội chủ nghĩa.`,ja:`社会主義法治国家の建設。`},
+{id:"b2_739",cat:`法律・安全 (100例)`,foreign:`Giải quyết đơn thư khiếu nại, tố cáo của công dân.`,ja:`市民の苦情・告訴の解決。`},
+{id:"b2_740",cat:`法律・安全 (100例)`,foreign:`Các hành vi bạo lực gia đình sẽ bị xử lý nghiêm.`,ja:`家庭内暴力行為は厳格に処理される。`},
+{id:"b2_741",cat:`法律・安全 (100例)`,foreign:`Hợp tác quốc tế trong đấu tranh phòng, chống tội phạm xuyên quốc gia.`,ja:`越境犯罪との闘いにおける国際協力。`},
+{id:"b2_742",cat:`法律・安全 (100例)`,foreign:`Luật An ninh mạng được triển khai thực hiện.`,ja:`サイバーセキュリティ法が施行されている。`},
+{id:"b2_743",cat:`法律・安全 (100例)`,foreign:`Cải cách thủ tục hành chính tư pháp.`,ja:`司法行政手続きの改革。`},
+{id:"b2_744",cat:`法律・安全 (100例)`,foreign:`Xây dựng đội ngũ cán bộ tư pháp liêm chính.`,ja:`廉潔な司法幹部チームの構築。`},
+{id:"b2_745",cat:`法律・安全 (100例)`,foreign:`Tuyên truyền về tác hại của ma túy và xử lý nghiêm tội phạm ma túy.`,ja:`麻薬の害についての宣伝と麻薬犯罪の厳格な処理。`},
+{id:"b2_746",cat:`法律・安全 (100例)`,foreign:`Tòa án nhân dân tối cao đã ra phán quyết cuối cùng về vụ án kinh tế lớn nhất trong năm.`,ja:`最高人民裁判所が今年最大の経済事件について最終判決を下した。`},
+{id:"b2_747",cat:`法律・安全 (100例)`,foreign:`Luật An ninh mạng quy định chặt chẽ về việc thu thập và xử lý dữ liệu cá nhân.`,ja:`サイバーセキュリティ法は個人データの収集・処理について厳格に規定している。`},
+{id:"b2_748",cat:`法律・安全 (100例)`,foreign:`Quyền sở hữu trí tuệ cần được bảo vệ nghiêm ngặt trong bối cảnh hội nhập quốc tế.`,ja:`国際統合の文脈において知的財産権は厳格に保護される必要がある。`},
+{id:"b2_749",cat:`法律・安全 (100例)`,foreign:`Bộ luật Hình sự sửa đổi bổ sung nhiều quy định về tội phạm công nghệ cao.`,ja:`改正刑法にはハイテク犯罪に関する多くの規定が追加された。`},
+{id:"b2_750",cat:`法律・安全 (100例)`,foreign:`Quyền tiếp cận thông tin của công dân được đảm bảo theo quy định của Hiến pháp.`,ja:`市民の情報アクセス権は憲法の規定により保障されている。`},
+{id:"b2_751",cat:`法律・安全 (100例)`,foreign:`Nhiều vụ án tham nhũng lớn đã được đưa ra xét xử công khai.`,ja:`多くの大規模汚職事件が公開裁判にかけられた。`},
+{id:"b2_752",cat:`法律・安全 (100例)`,foreign:`Luật Lao động mới bảo vệ tốt hơn quyền lợi của người lao động.`,ja:`新労働法は労働者の権利をより良く保護している。`},
+{id:"b2_753",cat:`法律・安全 (100例)`,foreign:`Vi phạm bản quyền trong lĩnh vực phần mềm và giải trí vẫn diễn ra phổ biến.`,ja:`ソフトウェアや娯楽分野での著作権侵害が依然として広く行われている。`},
+{id:"b2_754",cat:`法律・安全 (100例)`,foreign:`Cải cách tư pháp nhằm xây dựng nền tư pháp công bằng, minh bạch và hiệu quả.`,ja:`司法改革は公正、透明かつ効率的な司法制度の構築を目指している。`},
+{id:"b2_755",cat:`法律・安全 (100例)`,foreign:`Luật Đầu tư mới tạo hành lang pháp lý thuận lợi cho nhà đầu tư nước ngoài.`,ja:`新投資法は外国投資家に有利な法的枠組みを提供している。`},
+{id:"b2_756",cat:`法律・安全 (100例)`,foreign:`Hành vi lừa đảo qua mạng bị xử lý nghiêm theo quy định của pháp luật.`,ja:`オンライン詐欺行為は法律の規定に基づき厳しく処罰される。`},
+{id:"b2_757",cat:`法律・安全 (100例)`,foreign:`Luật Bảo vệ môi trường mới tăng cường chế tài đối với các hành vi gây ô nhiễm.`,ja:`新環境保護法は汚染行為に対する制裁を強化した。`},
+{id:"b2_758",cat:`法律・安全 (100例)`,foreign:`Bị cáo có quyền được suy đoán vô tội cho đến khi bản án có hiệu lực pháp luật.`,ja:`被告人は判決が法的効力を持つまで無罪と推定される権利を有する。`},
+{id:"b2_759",cat:`法律・安全 (100例)`,foreign:`Tranh chấp thương mại quốc tế ngày càng phức tạp đòi hỏi hệ thống pháp luật phải hoàn thiện hơn.`,ja:`国際商事紛争がますます複雑化し、法制度のさらなる整備が求められている。`},
+{id:"b2_760",cat:`法律・安全 (100例)`,foreign:`Luật Hôn nhân và Gia đình bảo vệ quyền lợi hợp pháp của phụ nữ và trẻ em.`,ja:`婚姻家族法は女性と子供の合法的な権利を保護している。`},
+{id:"b2_761",cat:`法律・安全 (100例)`,foreign:`An ninh trật tự được đảm bảo trong dịp lễ, Tết.`,ja:`祝祭日・旧正月期間中、治安は確保されている。`},
+{id:"b2_762",cat:`法律・安全 (100例)`,foreign:`Công an tăng cường tuần tra kiểm soát để ngăn chặn tội phạm.`,ja:`警察は犯罪防止のため巡回・取締りを強化している。`},
+{id:"b2_763",cat:`法律・安全 (100例)`,foreign:`Các đối tượng phạm tội đã bị bắt giữ.`,ja:`犯罪者は拘束された。`},
+{id:"b2_764",cat:`法律・安全 (100例)`,foreign:`Hệ thống camera giám sát giúp phát hiện vi phạm giao thông.`,ja:`監視カメラシステムが交通違反の発見に役立っている。`},
+{id:"b2_765",cat:`法律・安全 (100例)`,foreign:`Người dân cần nâng cao cảnh giác với tội phạm công nghệ cao.`,ja:`市民はハイテク犯罪に対する警戒を高める必要がある。`},
+{id:"b2_766",cat:`法律・安全 (100例)`,foreign:`Tình hình an ninh chính trị được giữ vững.`,ja:`政治的安全保障は維持されている。`},
+{id:"b2_767",cat:`法律・安全 (100例)`,foreign:`Lực lượng chức năng đã triệt phá nhiều đường dây buôn bán ma túy.`,ja:`機能部隊は多くの麻薬密売ルートを壊滅させた。`},
+{id:"b2_768",cat:`法律・安全 (100例)`,foreign:`An toàn giao thông là vấn đề được quan tâm hàng đầu.`,ja:`交通安全は最優先の関心事である。`},
+{id:"b2_769",cat:`法律・安全 (100例)`,foreign:`Xử phạt nghiêm các trường hợp vi phạm nồng độ cồn khi lái xe.`,ja:`飲酒運転の違反者を厳しく処罰する。`},
+{id:"b2_770",cat:`法律・安全 (100例)`,foreign:`Công tác phòng cháy chữa cháy tại các khu dân cư được tăng cường.`,ja:`住宅地での防火活動が強化されている。`},
+{id:"b2_771",cat:`法律・安全 (100例)`,foreign:`Phối hợp giữa quân đội và công an trong bảo vệ an ninh quốc gia.`,ja:`国家安全保障における軍隊と警察の連携。`},
+{id:"b2_772",cat:`法律・安全 (100例)`,foreign:`Ngăn chặn âm mưu diễn biến hòa bình của các thế lực thù địch.`,ja:`敵対勢力による「平和的変革」の陰謀を阻止する。`},
+{id:"b2_773",cat:`法律・安全 (100例)`,foreign:`Sẵn sàng chiến đấu trong mọi tình huống.`,ja:`あらゆる状況において戦闘準備ができている。`},
+{id:"b2_774",cat:`法律・安全 (100例)`,foreign:`Đảm bảo an ninh, an toàn các sự kiện chính trị quan trọng.`,ja:`重要な政治的イベントの安全確保。`},
+{id:"b2_775",cat:`法律・安全 (100例)`,foreign:`Chống khai thác khoáng sản trái phép tại các khu vực biên giới.`,ja:`国境地域での違法鉱物採掘の防止。`},
+{id:"b2_776",cat:`法律・安全 (100例)`,foreign:`Tình báo quốc phòng có nhiều đóng góp quan trọng.`,ja:`防衛情報機関が多くの重要な貢献をしている。`},
+{id:"b2_777",cat:`法律・安全 (100例)`,foreign:`Quân đội tham gia xây dựng kinh tế - xã hội ở vùng sâu, vùng xa.`,ja:`軍隊が遠隔地での経済社会建設に参加している。`},
+{id:"b2_778",cat:`法律・安全 (100例)`,foreign:`Dân quân tự vệ là lực lượng nòng cốt ở cơ sở.`,ja:`民兵自衛隊は基盤における中核的勢力である。`},
+{id:"b2_779",cat:`法律・安全 (100例)`,foreign:`Nâng cao khả năng tác chiến của không quân và hải quân.`,ja:`空軍と海軍の作戦能力向上。`},
+{id:"b2_780",cat:`法律・安全 (100例)`,foreign:`Việt Nam tham gia lực lượng gìn giữ hòa bình Liên Hợp Quốc.`,ja:`ベトナムが国連平和維持活動に参加している。`},
+{id:"b2_781",cat:`法律・安全 (100例)`,foreign:`Giáo dục quốc phòng và an ninh cho học sinh, sinh viên.`,ja:`生徒・学生のための国防・安全教育。`},
+{id:"b2_782",cat:`法律・安全 (100例)`,foreign:`Dự thảo luật đang được lấy ý kiến rộng rãi từ người dân và chuyên gia.`,ja:`法案草案は市民や専門家から広く意見を募っている。`},
+{id:"b2_783",cat:`法律・安全 (100例)`,foreign:`Nhiều quy định mới sẽ có hiệu lực từ đầu năm sau.`,ja:`多くの新規定が来年初めから施行される。`},
+{id:"b2_784",cat:`法律・安全 (100例)`,foreign:`Tòa án đã tuyên án sau nhiều ngày xét xử.`,ja:`裁判所は数日にわたる審理の末、判決を言い渡した。`},
+{id:"b2_785",cat:`法律・安全 (100例)`,foreign:`Bị cáo thừa nhận hành vi vi phạm trước hội đồng xét xử.`,ja:`被告は裁判官団の前で違法行為を認めた。`},
+{id:"b2_786",cat:`法律・安全 (100例)`,foreign:`Luật sư cho rằng cần xem xét toàn diện bối cảnh của vụ án.`,ja:`弁護士は事件の背景を総合的に検討する必要があると述べた。`},
+{id:"b2_787",cat:`法律・安全 (100例)`,foreign:`Cơ quan điều tra đã khởi tố vụ án để tiếp tục làm rõ.`,ja:`捜査機関はさらなる解明のため事件を立件した。`},
+{id:"b2_788",cat:`法律・安全 (100例)`,foreign:`Một số hành vi vi phạm sẽ bị xử phạt nặng hơn theo quy định mới.`,ja:`一部の違反行為は新規定によりより重く処罰される。`},
+{id:"b2_789",cat:`法律・安全 (100例)`,foreign:`Việc phổ biến pháp luật cần được thực hiện thường xuyên và dễ hiểu hơn.`,ja:`法律の普及啓発は継続的かつより分かりやすく行う必要がある。`},
+{id:"b2_790",cat:`法律・安全 (100例)`,foreign:`Nhiều ý kiến đề nghị tăng chế tài đối với hành vi gian lận thương mại.`,ja:`商業詐欺行為への制裁強化を求める意見が多い。`},
+{id:"b2_791",cat:`法律・安全 (100例)`,foreign:`Phiên tòa thu hút sự quan tâm lớn của công chúng.`,ja:`その裁判は世間の大きな関心を集めた。`},
+{id:"b2_792",cat:`法律・安全 (100例)`,foreign:`Bản án sơ thẩm đã bị kháng cáo lên cấp phúc thẩm.`,ja:`第一審判決は控訴審に不服申立てされた。`},
+{id:"b2_793",cat:`法律・安全 (100例)`,foreign:`Cơ quan chức năng khẳng định sẽ xử lý nghiêm theo đúng quy định pháp luật.`,ja:`当局は法令に従って厳正に対処すると明言した。`},
+{id:"b2_794",cat:`法律・安全 (100例)`,foreign:`Hành vi trốn thuế gây thất thu ngân sách nhà nước.`,ja:`脱税行為は国家財政収入の損失を招く。`},
+{id:"b2_795",cat:`法律・安全 (100例)`,foreign:`Nhiều vụ việc dân sự kéo dài do khó khăn trong thi hành án.`,ja:`多くの民事案件は判決執行の困難により長引いている。`},
+{id:"b2_796",cat:`法律・安全 (100例)`,foreign:`Quyền lợi hợp pháp của người lao động cần được bảo vệ tốt hơn.`,ja:`労働者の正当な権利利益はよりよく保護される必要がある。`},
+{id:"b2_797",cat:`法律・安全 (100例)`,foreign:`Cơ chế giải quyết tranh chấp ngoài tòa án ngày càng được quan tâm.`,ja:`裁判外紛争解決の仕組みへの関心が高まっている。`},
+{id:"b2_798",cat:`法律・安全 (100例)`,foreign:`Văn bản pháp lý này còn có cách hiểu khác nhau trong thực tế áp dụng.`,ja:`この法文書は実務適用上、解釈が分かれている。`},
+{id:"b2_799",cat:`法律・安全 (100例)`,foreign:`Việc sửa đổi luật nhằm khắc phục những bất cập đã bộc lộ.`,ja:`法改正は顕在化した問題点を是正することを目的としている。`},
+{id:"b2_800",cat:`法律・安全 (100例)`,foreign:`Nhiều doanh nghiệp mong muốn khung pháp lý rõ ràng và ổn định hơn.`,ja:`多くの企業はより明確で安定した法的枠組みを望んでいる。`},
+{id:"b2_801",cat:`ビジネス・労働 (100例)`,foreign:`Cuộc họp diễn ra theo kế hoạch.`,ja:`会議は予定通り行われた。`},
+{id:"b2_802",cat:`ビジネス・労働 (100例)`,foreign:`Các bên trao đổi ý kiến.`,ja:`各者が意見交換を行った。`},
+{id:"b2_803",cat:`ビジネス・労働 (100例)`,foreign:`Kế hoạch được thông qua.`,ja:`計画が承認された。`},
+{id:"b2_804",cat:`ビジネス・労働 (100例)`,foreign:`Mục tiêu được đặt ra rõ ràng.`,ja:`目標が明確に設定された。`},
+{id:"b2_805",cat:`ビジネス・労働 (100例)`,foreign:`Dự án đang được triển khai.`,ja:`プロジェクトが進行中である。`},
+{id:"b2_806",cat:`ビジネス・労働 (100例)`,foreign:`Tiến độ cần được đẩy nhanh.`,ja:`進捗を加速する必要がある。`},
+{id:"b2_807",cat:`ビジネス・労働 (100例)`,foreign:`Kết quả vượt mong đợi.`,ja:`結果は期待を上回った。`},
+{id:"b2_808",cat:`ビジネス・労働 (100例)`,foreign:`Chiến lược được điều chỉnh.`,ja:`戦略が調整された。`},
+{id:"b2_809",cat:`ビジネス・労働 (100例)`,foreign:`Nguồn lực được phân bổ hợp lý.`,ja:`資源が適切に配分された。`},
+{id:"b2_810",cat:`ビジネス・労働 (100例)`,foreign:`Hiệu quả công việc được nâng cao.`,ja:`業務効率が向上した。`},
+{id:"b2_811",cat:`ビジネス・労働 (100例)`,foreign:`Doanh nghiệp cần xây dựng chiến lược phát triển bền vững.`,ja:`企業は持続可能な発展戦略を構築する必要がある。`},
+{id:"b2_812",cat:`ビジネス・労働 (100例)`,foreign:`Thị trường lao động đang phục hồi mạnh mẽ.`,ja:`労働市場は力強く回復している。`},
+{id:"b2_813",cat:`ビジネス・労働 (100例)`,foreign:`Tỷ lệ tham gia lực lượng lao động đạt mức cao.`,ja:`労働力参加率が高い水準に達した。`},
+{id:"b2_814",cat:`ビジネス・労働 (100例)`,foreign:`Lương tối thiểu vùng được điều chỉnh tăng.`,ja:`地域別最低賃金が引き上げられた。`},
+{id:"b2_815",cat:`ビジネス・労働 (100例)`,foreign:`Lao động qua đào tạo có cơ hội việc làm tốt hơn.`,ja:`訓練を受けた労働者はより良い就職機会がある。`},
+{id:"b2_816",cat:`ビジネス・労働 (100例)`,foreign:`Xu hướng lao động trở về quê sau dịch.`,ja:`パンデミック後に労働者が故郷に戻る傾向。`},
+{id:"b2_817",cat:`ビジネス・労働 (100例)`,foreign:`Thiếu hụt lao động cục bộ ở một số ngành, lĩnh vực.`,ja:`一部の業種・分野における局地的な労働力不足。`},
+{id:"b2_818",cat:`ビジネス・労働 (100例)`,foreign:`Quan hệ lao động trong doanh nghiệp ngày càng hài hòa.`,ja:`企業における労使関係はますます調和的になっている。`},
+{id:"b2_819",cat:`ビジネス・労働 (100例)`,foreign:`Công đoàn đại diện bảo vệ quyền lợi chính đáng của người lao động.`,ja:`労働組合は労働者の正当な権利を代表し保護する。`},
+{id:"b2_820",cat:`ビジネス・労働 (100例)`,foreign:`Việc làm bấp bênh, phi chính thức còn phổ biến.`,ja:`不安定で非公式な雇用が依然として一般的である。`},
+{id:"b2_821",cat:`ビジネス・労働 (100例)`,foreign:`Kỹ năng mềm ngày càng được nhà tuyển dụng coi trọng.`,ja:`ソフトスキルが採用企業にますます重視されている。`},
+{id:"b2_822",cat:`ビジネス・労働 (100例)`,foreign:`Người lao động cần được trang bị kỹ năng để thích ứng với công nghệ mới.`,ja:`労働者は新技術に適応するためのスキルを身につける必要がある。`},
+{id:"b2_823",cat:`ビジネス・労働 (100例)`,foreign:`Tình trạng vi phạm pháp luật về lao động vẫn còn xảy ra.`,ja:`労働法違反の状況は依然として発生している。`},
+{id:"b2_824",cat:`ビジネス・労働 (100例)`,foreign:`An toàn vệ sinh lao động là ưu tiên trong các nhà máy.`,ja:`労働安全衛生は工場での優先事項である。`},
+{id:"b2_825",cat:`ビジネス・労働 (100例)`,foreign:`Năng suất lao động còn thấp so với nhiều nước trong khu vực.`,ja:`労働生産性は地域の多くの国と比較して依然として低い。`},
+{id:"b2_826",cat:`ビジネス・労働 (100例)`,foreign:`Lao động di cư đóng góp quan trọng cho kinh tế địa phương.`,ja:`移住労働者は地域経済に重要な貢献をしている。`},
+{id:"b2_827",cat:`ビジネス・労働 (100例)`,foreign:`Chính sách hỗ trợ người lao động mất việc làm.`,ja:`失業した労働者への支援政策。`},
+{id:"b2_828",cat:`ビジネス・労働 (100例)`,foreign:`Đối thoại tại nơi làm việc giúp giải quyết bất đồng.`,ja:`職場での対話は不一致の解決に役立つ。`},
+{id:"b2_829",cat:`ビジネス・労働 (100例)`,foreign:`Tạo việc làm bền vững cho thanh niên.`,ja:`若者のための持続可能な雇用創出。`},
+{id:"b2_830",cat:`ビジネス・労働 (100例)`,foreign:`Xu hướng làm việc từ xa, làm việc kết hợp phổ biến sau đại dịch.`,ja:`パンデミック後のリモートワーク、ハイブリッドワークの一般的傾向。`},
+{id:"b2_831",cat:`ビジネス・労働 (100例)`,foreign:`Thị trường lao động đang có sự dịch chuyển từ khu vực chính thức sang phi chính thức.`,ja:`労働市場では公式部門から非公式部門への移行が見られる。`},
+{id:"b2_832",cat:`ビジネス・労働 (100例)`,foreign:`Các khu công nghiệp cần đảm bảo nhà ở cho công nhân.`,ja:`工業団地は労働者向け住宅を確保する必要がある。`},
+{id:"b2_833",cat:`ビジネス・労働 (100例)`,foreign:`Người sử dụng lao động có trách nhiệm đóng bảo hiểm xã hội cho người lao động.`,ja:`使用者は労働者の社会保険を納付する責任がある。`},
+{id:"b2_834",cat:`ビジネス・労働 (100例)`,foreign:`Tranh chấp lao động tập thể được giải quyết thông qua hòa giải.`,ja:`集団的労働紛争は調停を通じて解決される。`},
+{id:"b2_835",cat:`ビジネス・労働 (100例)`,foreign:`Tái đào tạo nghề cho người lao động lớn tuổi.`,ja:`高年齢労働者のための職業再訓練。`},
+{id:"b2_836",cat:`ビジネス・労働 (100例)`,foreign:`Người lao động nữ được hưởng chế độ thai sản theo quy định.`,ja:`女性労働者は規定に従って出産休暇制度を享受する。`},
+{id:"b2_837",cat:`ビジネス・労働 (100例)`,foreign:`Đào tạo kỹ năng số cho người lao động là cần thiết.`,ja:`労働者へのデジタルスキル訓練が必要である。`},
+{id:"b2_838",cat:`ビジネス・労働 (100例)`,foreign:`Cơ hội việc làm trong lĩnh vực công nghệ thông tin rất lớn.`,ja:`情報技術分野の雇用機会は非常に大きい。`},
+{id:"b2_839",cat:`ビジネス・労働 (100例)`,foreign:`Doanh nghiệp cần chú trọng phát triển nguồn nhân lực.`,ja:`企業は人材育成に注力する必要がある。`},
+{id:"b2_840",cat:`ビジネス・労働 (100例)`,foreign:`Môi trường làm việc chuyên nghiệp thu hút nhân tài.`,ja:`プロフェッショナルな職場環境は人材を引きつける。`},
+{id:"b2_841",cat:`ビジネス・労働 (100例)`,foreign:`Làm việc nhóm là kỹ năng quan trọng trong môi trường doanh nghiệp.`,ja:`チームワークは企業環境で重要なスキルである。`},
+{id:"b2_842",cat:`ビジネス・労働 (100例)`,foreign:`Khởi nghiệp đang là xu hướng được nhiều bạn trẻ lựa chọn.`,ja:`起業は多くの若者が選ぶトレンドである。`},
+{id:"b2_843",cat:`ビジネス・労働 (100例)`,foreign:`Doanh nghiệp cần có chiến lược marketing hiệu quả.`,ja:`企業は効果的なマーケティング戦略を持つ必要がある。`},
+{id:"b2_844",cat:`ビジネス・労働 (100例)`,foreign:`Thương hiệu mạnh giúp doanh nghiệp cạnh tranh tốt hơn.`,ja:`強いブランドは企業の競争力向上に役立つ。`},
+{id:"b2_845",cat:`ビジネス・労働 (100例)`,foreign:`Khách hàng là trung tâm của mọi hoạt động kinh doanh.`,ja:`顧客はあらゆるビジネス活動の中心である。`},
+{id:"b2_846",cat:`ビジネス・労働 (100例)`,foreign:`Dịch vụ chăm sóc khách hàng tốt giúp giữ chân khách hàng.`,ja:`良いカスタマーサービスは顧客維持に役立つ。`},
+{id:"b2_847",cat:`ビジネス・労働 (100例)`,foreign:`Quản trị rủi ro là yếu tố quan trọng trong kinh doanh.`,ja:`リスク管理はビジネスにおいて重要な要素である。`},
+{id:"b2_848",cat:`ビジネス・労働 (100例)`,foreign:`Doanh nghiệp cần tuân thủ các quy định pháp luật về thuế.`,ja:`企業は税法に関する規定を遵守する必要がある。`},
+{id:"b2_849",cat:`ビジネス・労働 (100例)`,foreign:`Hợp tác quốc tế mở ra nhiều cơ hội cho doanh nghiệp.`,ja:`国際協力は企業に多くの機会をもたらす。`},
+{id:"b2_850",cat:`ビジネス・労働 (100例)`,foreign:`Xuất khẩu lao động là giải pháp tạo việc làm cho người lao động.`,ja:`労働者派遣は労働者の雇用創出の解決策である。`},
+{id:"b2_851",cat:`ビジネス・労働 (100例)`,foreign:`Thị trường lao động đang có nhu cầu lớn về lao động có tay nghề.`,ja:`労働市場は技能労働者への大きな需要がある。`},
+{id:"b2_852",cat:`ビジネス・労働 (100例)`,foreign:`Người lao động cần chủ động nâng cao trình độ chuyên môn.`,ja:`労働者は主体的に専門性を高める必要がある。`},
+{id:"b2_853",cat:`ビジネス・労働 (100例)`,foreign:`Chính sách tiền lương cần được cải thiện để thu hút lao động.`,ja:`賃金政策は労働者を引きつけるため改善される必要がある。`},
+{id:"b2_854",cat:`ビジネス・労働 (100例)`,foreign:`An toàn lao động là yếu tố không thể xem nhẹ.`,ja:`労働安全は軽視できない要素である。`},
+{id:"b2_855",cat:`ビジネス・労働 (100例)`,foreign:`Đình công xảy ra do bất đồng về quyền lợi.`,ja:`権利に関する不一致によりストライキが発生した。`},
+{id:"b2_856",cat:`ビジネス・労働 (100例)`,foreign:`Thương lượng tập thể giúp giải quyết xung đột lao động.`,ja:`団体交渉は労働紛争の解決に役立つ。`},
+{id:"b2_857",cat:`ビジネス・労働 (100例)`,foreign:`Người lao động có quyền thành lập và gia nhập công đoàn.`,ja:`労働者は労働組合を結成し加入する権利がある。`},
+{id:"b2_858",cat:`ビジネス・労働 (100例)`,foreign:`Sa thải lao động phải tuân thủ đúng quy định pháp luật.`,ja:`労働者の解雇は法律の規定に従わなければならない。`},
+{id:"b2_859",cat:`ビジネス・労働 (100例)`,foreign:`Hợp đồng lao động cần được ký kết rõ ràng.`,ja:`労働契約は明確に締結される必要がある。`},
+{id:"b2_860",cat:`ビジネス・労働 (100例)`,foreign:`Thời gian làm việc và nghỉ ngơi cần được đảm bảo.`,ja:`労働時間と休息時間は確保される必要がある。`},
+{id:"b2_861",cat:`ビジネス・労働 (100例)`,foreign:`Làm thêm giờ phải được trả lương theo quy định.`,ja:`時間外労働は規定に従って賃金が支払われなければならない。`},
+{id:"b2_862",cat:`ビジネス・労働 (100例)`,foreign:`Người lao động cần được trang bị bảo hộ lao động đầy đủ.`,ja:`労働者には十分な保護具が支給される必要がある。`},
+{id:"b2_863",cat:`ビジネス・労働 (100例)`,foreign:`Tai nạn lao động cần được báo cáo và xử lý kịp thời.`,ja:`労働災害は報告され適時に対処される必要がある。`},
+{id:"b2_864",cat:`ビジネス・労働 (100例)`,foreign:`Bệnh nghề nghiệp là vấn đề cần được quan tâm.`,ja:`職業病は関心を持つべき問題である。`},
+{id:"b2_865",cat:`ビジネス・労働 (100例)`,foreign:`Người lao động có quyền nghỉ phép năm theo quy định.`,ja:`労働者は規定に従って年次休暇を取る権利がある。`},
+{id:"b2_866",cat:`ビジネス・労働 (100例)`,foreign:`Chế độ bảo hiểm thất nghiệp hỗ trợ người lao động khi mất việc.`,ja:`失業保険制度は失業時に労働者を支援する。`},
+{id:"b2_867",cat:`ビジネス・労働 (100例)`,foreign:`Đào tạo nghề cho lao động nông thôn được chú trọng.`,ja:`地方労働者への職業訓練が重視されている。`},
+{id:"b2_868",cat:`ビジネス・労働 (100例)`,foreign:`Nhiều lao động trẻ có xu hướng khởi nghiệp.`,ja:`多くの若年労働者が起業する傾向にある。`},
+{id:"b2_869",cat:`ビジネス・労働 (100例)`,foreign:`Làm việc tự do (freelance) ngày càng phổ biến.`,ja:`フリーランスワークがますます一般的になっている。`},
+{id:"b2_870",cat:`ビジネス・労働 (100例)`,foreign:`Công nghệ thay đổi cách thức làm việc truyền thống.`,ja:`テクノロジーが伝統的な働き方を変えている。`},
+{id:"b2_871",cat:`ビジネス・労働 (100例)`,foreign:`Doanh nghiệp cần xây dựng văn hóa doanh nghiệp tích cực.`,ja:`企業はポジティブな企業文化を構築する必要がある。`},
+{id:"b2_872",cat:`ビジネス・労働 (100例)`,foreign:`Đạo đức kinh doanh là nền tảng của sự phát triển bền vững.`,ja:`ビジネス倫理は持続可能な発展の基盤である。`},
+{id:"b2_873",cat:`ビジネス・労働 (100例)`,foreign:`Trách nhiệm xã hội của doanh nghiệp ngày càng được đề cao.`,ja:`企業の社会的責任がますます重視されている。`},
+{id:"b2_874",cat:`ビジネス・労働 (100例)`,foreign:`Doanh nghiệp cần minh bạch trong hoạt động tài chính.`,ja:`企業は財務活動において透明である必要がある。`},
+{id:"b2_875",cat:`ビジネス・労働 (100例)`,foreign:`Báo cáo tài chính phải phản ánh trung thực tình hình doanh nghiệp.`,ja:`財務報告は企業の状況を正確に反映しなければならない。`},
+{id:"b2_876",cat:`ビジネス・労働 (100例)`,foreign:`Kiểm toán độc lập giúp đảm bảo tính chính xác của báo cáo tài chính.`,ja:`独立監査は財務報告の正確性確保に役立つ。`},
+{id:"b2_877",cat:`ビジネス・労働 (100例)`,foreign:`Quản trị công ty tốt giúp nâng cao hiệu quả hoạt động.`,ja:`良いコーポレートガバナンスは業務効率向上に役立つ。`},
+{id:"b2_878",cat:`ビジネス・労働 (100例)`,foreign:`Hội đồng quản trị chịu trách nhiệm trước cổ đông.`,ja:`取締役会は株主に対して責任を負う。`},
+{id:"b2_879",cat:`ビジネス・労働 (100例)`,foreign:`Đại hội đồng cổ đông thường niên được tổ chức mỗi năm một lần.`,ja:`年次株主総会は年に一度開催される。`},
+{id:"b2_880",cat:`ビジネス・労働 (100例)`,foreign:`Cổ tức được chi trả dựa trên kết quả kinh doanh.`,ja:`配当は業績に基づいて支払われる。`},
+{id:"b2_881",cat:`ビジネス・労働 (100例)`,foreign:`Doanh nghiệp cần có chiến lược phát triển dài hạn.`,ja:`企業は長期的な発展戦略を持つ必要がある。`},
+{id:"b2_882",cat:`ビジネス・労働 (100例)`,foreign:`Nghiên cứu thị trường là bước quan trọng trước khi tung sản phẩm mới.`,ja:`市場調査は新製品投入前の重要なステップである。`},
+{id:"b2_883",cat:`ビジネス・労働 (100例)`,foreign:`Quảng cáo giúp doanh nghiệp tiếp cận khách hàng tiềm năng.`,ja:`広告は企業が潜在顧客にリーチするのに役立つ。`},
+{id:"b2_884",cat:`ビジネス・労働 (100例)`,foreign:`Quan hệ công chúng đóng vai trò quan trọng trong xây dựng hình ảnh.`,ja:`パブリックリレーションズはイメージ構築に重要な役割を果たす。`},
+{id:"b2_885",cat:`ビジネス・労働 (100例)`,foreign:`Doanh nghiệp cần lắng nghe phản hồi của khách hàng.`,ja:`企業は顧客のフィードバックに耳を傾ける必要がある。`},
+{id:"b2_886",cat:`ビジネス・労働 (100例)`,foreign:`Chất lượng sản phẩm là yếu tố quyết định thành công.`,ja:`製品の品質は成功を左右する要素である。`},
+{id:"b2_887",cat:`ビジネス・労働 (100例)`,foreign:`Giá cả cạnh tranh giúp doanh nghiệp giành thị phần.`,ja:`競争力のある価格は企業の市場シェア獲得に役立つ。`},
+{id:"b2_888",cat:`ビジネス・労働 (100例)`,foreign:`Phân phối sản phẩm hiệu quả giúp tiếp cận khách hàng nhanh chóng.`,ja:`効果的な製品流通は顧客への迅速なアクセスに役立つ。`},
+{id:"b2_889",cat:`ビジネス・労働 (100例)`,foreign:`Dịch vụ hậu mãi tốt tạo niềm tin cho khách hàng.`,ja:`良いアフターサービスは顧客の信頼を生む。`},
+{id:"b2_890",cat:`ビジネス・労働 (100例)`,foreign:`Thương hiệu mạnh giúp doanh nghiệp vượt qua khủng hoảng.`,ja:`強いブランドは企業が危機を乗り越えるのに役立つ。`},
+{id:"b2_891",cat:`ビジネス・労働 (100例)`,foreign:`Doanh nghiệp cần bảo vệ bí mật kinh doanh.`,ja:`企業は営業秘密を保護する必要がある。`},
+{id:"b2_892",cat:`ビジネス・労働 (100例)`,foreign:`Sở hữu trí tuệ là tài sản quý giá của doanh nghiệp.`,ja:`知的財産は企業の貴重な資産である。`},
+{id:"b2_893",cat:`ビジネス・労働 (100例)`,foreign:`Đăng ký nhãn hiệu giúp bảo vệ thương hiệu.`,ja:`商標登録はブランド保護に役立つ。`},
+{id:"b2_894",cat:`ビジネス・労働 (100例)`,foreign:`Doanh nghiệp cần có kế hoạch kinh doanh chi tiết.`,ja:`企業は詳細な事業計画を持つ必要がある。`},
+{id:"b2_895",cat:`ビジネス・労働 (100例)`,foreign:`Khởi nghiệp cần có ý tưởng độc đáo và khả thi.`,ja:`スタートアップにはユニークで実現可能なアイデアが必要である。`},
+{id:"b2_896",cat:`ビジネス・労働 (100例)`,foreign:`Vốn là yếu tố quan trọng để bắt đầu kinh doanh.`,ja:`資金はビジネスを始めるための重要な要素である。`},
+{id:"b2_897",cat:`ビジネス・労働 (100例)`,foreign:`Doanh nghiệp cần quản lý dòng tiền hiệu quả.`,ja:`企業はキャッシュフローを効果的に管理する必要がある。`},
+{id:"b2_898",cat:`ビジネス・労働 (100例)`,foreign:`Lợi nhuận là mục tiêu hàng đầu của doanh nghiệp.`,ja:`利益は企業の最優先目標である。`},
+{id:"b2_899",cat:`ビジネス・労働 (100例)`,foreign:`Doanh nghiệp cần đóng góp cho cộng đồng và xã hội.`,ja:`企業は地域社会や社会に貢献する必要がある。`},
+{id:"b2_900",cat:`ビジネス・労働 (100例)`,foreign:`Phát triển bền vững là xu hướng tất yếu của doanh nghiệp hiện đại.`,ja:`持続可能な発展は現代企業の必然的な流れである。`},
+{id:"b2_901",cat:`抽象表現・慣用句 (100例)`,foreign:`đóng vai trò quan trọng`,ja:`重要な役割を果たす`},
+{id:"b2_902",cat:`抽象表現・慣用句 (100例)`,foreign:`gây ra tranh cãi`,ja:`議論を引き起こす`},
+{id:"b2_903",cat:`抽象表現・慣用句 (100例)`,foreign:`có xu hướng tăng/giảm`,ja:`増加/減少傾向にある`},
+{id:"b2_904",cat:`抽象表現・慣用句 (100例)`,foreign:`đạt được thỏa thuận`,ja:`合意に達する`},
+{id:"b2_905",cat:`抽象表現・慣用句 (100例)`,foreign:`đưa ra quyết định`,ja:`決定を下す`},
+{id:"b2_906",cat:`抽象表現・慣用句 (100例)`,foreign:`nhằm mục đích`,ja:`〜を目的として`},
+{id:"b2_907",cat:`抽象表現・慣用句 (100例)`,foreign:`trong bối cảnh`,ja:`〜という状況の中で`},
+{id:"b2_908",cat:`抽象表現・慣用句 (100例)`,foreign:`được coi là`,ja:`〜と見なされる`},
+{id:"b2_909",cat:`抽象表現・慣用句 (100例)`,foreign:`có khả năng`,ja:`〜の可能性がある`},
+{id:"b2_910",cat:`抽象表現・慣用句 (100例)`,foreign:`trở thành xu hướng`,ja:`トレンドになる`},
+{id:"b2_911",cat:`抽象表現・慣用句 (100例)`,foreign:`góp phần vào`,ja:`〜に貢献する`},
+{id:"b2_912",cat:`抽象表現・慣用句 (100例)`,foreign:`đi kèm với`,ja:`〜に伴って`},
+{id:"b2_913",cat:`抽象表現・慣用句 (100例)`,foreign:`dẫn đến hậu quả`,ja:`結果を招く`},
+{id:"b2_914",cat:`抽象表現・慣用句 (100例)`,foreign:`đặt ra thách thức`,ja:`課題を提起する`},
+{id:"b2_915",cat:`抽象表現・慣用句 (100例)`,foreign:`được đánh giá cao`,ja:`高く評価される`},
+{id:"b2_916",cat:`抽象表現・慣用句 (100例)`,foreign:`đóng góp tích cực`,ja:`積極的に貢献する`},
+{id:"b2_917",cat:`抽象表現・慣用句 (100例)`,foreign:`có ảnh hưởng đến`,ja:`〜に影響を与える`},
+{id:"b2_918",cat:`抽象表現・慣用句 (100例)`,foreign:`được triển khai`,ja:`実施される`},
+{id:"b2_919",cat:`抽象表現・慣用句 (100例)`,foreign:`được cải thiện`,ja:`改善される`},
+{id:"b2_920",cat:`抽象表現・慣用句 (100例)`,foreign:`đạt kết quả tốt`,ja:`良い結果を得る`},
+{id:"b2_921",cat:`抽象表現・慣用句 (100例)`,foreign:`gặp khó khăn`,ja:`困難に直面する`},
+{id:"b2_922",cat:`抽象表現・慣用句 (100例)`,foreign:`tăng cường hợp tác`,ja:`協力を強化する`},
+{id:"b2_923",cat:`抽象表現・慣用句 (100例)`,foreign:`đưa ra giải pháp`,ja:`解決策を提示する`},
+{id:"b2_924",cat:`抽象表現・慣用句 (100例)`,foreign:`phù hợp với`,ja:`〜に適している`},
+{id:"b2_925",cat:`抽象表現・慣用句 (100例)`,foreign:`đáp ứng nhu cầu`,ja:`需要に応える`},
+{id:"b2_926",cat:`抽象表現・慣用句 (100例)`,foreign:`đóng vai trò then chốt`,ja:`中核的役割を果たす`},
+{id:"b2_927",cat:`抽象表現・慣用句 (100例)`,foreign:`có xu hướng gia tăng`,ja:`増加傾向にある`},
+{id:"b2_928",cat:`抽象表現・慣用句 (100例)`,foreign:`được triển khai rộng rãi`,ja:`広く実施される`},
+{id:"b2_929",cat:`抽象表現・慣用句 (100例)`,foreign:`đạt được tiến bộ`,ja:`進歩を達成する`},
+{id:"b2_930",cat:`抽象表現・慣用句 (100例)`,foreign:`góp phần thúc đẩy`,ja:`促進に寄与する`},
+{id:"b2_931",cat:`抽象表現・慣用句 (100例)`,foreign:`được coi là yếu tố chính`,ja:`主要要因と見なされる`},
+{id:"b2_932",cat:`抽象表現・慣用句 (100例)`,foreign:`có tác động mạnh mẽ`,ja:`強い影響を与える`},
+{id:"b2_933",cat:`抽象表現・慣用句 (100例)`,foreign:`đặt nền tảng cho`,ja:`基盤を築く`},
+{id:"b2_934",cat:`抽象表現・慣用句 (100例)`,foreign:`mang lại lợi ích`,ja:`利益をもたらす`},
+{id:"b2_935",cat:`抽象表現・慣用句 (100例)`,foreign:`tạo ra cơ hội`,ja:`機会を創出する`},
+{id:"b2_936",cat:`抽象表現・慣用句 (100例)`,foreign:`Xét về tổng thể`,ja:`全体的に見て`},
+{id:"b2_937",cat:`抽象表現・慣用句 (100例)`,foreign:`Có thể lập luận rằng`,ja:`〜と主張できる`},
+{id:"b2_938",cat:`抽象表現・慣用句 (100例)`,foreign:`Điều này cho thấy rằng`,ja:`これは〜を示している`},
+{id:"b2_939",cat:`抽象表現・慣用句 (100例)`,foreign:`Một mặt…, mặt khác…`,ja:`一方では…他方では…`},
+{id:"b2_940",cat:`抽象表現・慣用句 (100例)`,foreign:`Không thể phủ nhận rằng`,ja:`〜は否定できない`},
+{id:"b2_941",cat:`抽象表現・慣用句 (100例)`,foreign:`Điều này đặt ra câu hỏi`,ja:`これは疑問を提起する`},
+{id:"b2_942",cat:`抽象表現・慣用句 (100例)`,foreign:`Xét trong dài hạn`,ja:`長期的に見ると`},
+{id:"b2_943",cat:`抽象表現・慣用句 (100例)`,foreign:`Có khả năng dẫn đến`,ja:`〜につながる可能性がある`},
+{id:"b2_944",cat:`抽象表現・慣用句 (100例)`,foreign:`Đóng vai trò quyết định`,ja:`決定的役割を果たす`},
+{id:"b2_945",cat:`抽象表現・慣用句 (100例)`,foreign:`Có thể thấy rõ rằng`,ja:`明らかに〜である`},
+{id:"b2_946",cat:`抽象表現・慣用句 (100例)`,foreign:`Điều này phản ánh thực tế rằng`,ja:`これは〜という現実を反映している`},
+{id:"b2_947",cat:`抽象表現・慣用句 (100例)`,foreign:`Có thể dự đoán rằng`,ja:`〜と予測できる`},
+{id:"b2_948",cat:`抽象表現・慣用句 (100例)`,foreign:`Từ góc độ kinh tế`,ja:`経済的観点から`},
+{id:"b2_949",cat:`抽象表現・慣用句 (100例)`,foreign:`Xét về mặt xã hội`,ja:`社会的観点から`},
+{id:"b2_950",cat:`抽象表現・慣用句 (100例)`,foreign:`Điều này dẫn đến hệ quả`,ja:`これは結果として〜を招く`},
+{id:"b2_951",cat:`抽象表現・慣用句 (100例)`,foreign:`Không chỉ…, mà còn…`,ja:`〜だけでなく…も`},
+{id:"b2_952",cat:`抽象表現・慣用句 (100例)`,foreign:`Điều này góp phần làm tăng`,ja:`これは〜の増加に寄与する`},
+{id:"b2_953",cat:`抽象表現・慣用句 (100例)`,foreign:`Có xu hướng chuyển sang`,ja:`〜へ移行する傾向がある`},
+{id:"b2_954",cat:`抽象表現・慣用句 (100例)`,foreign:`Đây là minh chứng cho`,ja:`これは〜の証拠である`},
+{id:"b2_955",cat:`抽象表現・慣用句 (100例)`,foreign:`Có thể thấy xu hướng rõ rệt`,ja:`明確な傾向が見られる`},
+{id:"b2_956",cat:`抽象表現・慣用句 (100例)`,foreign:`Trong bối cảnh toàn cầu hóa`,ja:`グローバル化の中で`},
+{id:"b2_957",cat:`抽象表現・慣用句 (100例)`,foreign:`Đáng chú ý là`,ja:`注目すべきは〜である`},
+{id:"b2_958",cat:`抽象表現・慣用句 (100例)`,foreign:`Theo các chuyên gia`,ja:`専門家によると`},
+{id:"b2_959",cat:`抽象表現・慣用句 (100例)`,foreign:`Số liệu cho thấy rằng`,ja:`データは〜を示している`},
+{id:"b2_960",cat:`抽象表現・慣用句 (100例)`,foreign:`Một vấn đề đáng quan ngại là`,ja:`懸念される問題は〜である`},
+{id:"b2_961",cat:`抽象表現・慣用句 (100例)`,foreign:`Cần có biện pháp kịp thời`,ja:`迅速な対策が必要である`},
+{id:"b2_962",cat:`抽象表現・慣用句 (100例)`,foreign:`Đây là thách thức lớn`,ja:`これは大きな課題である`},
+{id:"b2_963",cat:`抽象表現・慣用句 (100例)`,foreign:`Có tác động sâu rộng`,ja:`広範な影響を持つ`},
+{id:"b2_964",cat:`抽象表現・慣用句 (100例)`,foreign:`Đang thu hút sự chú ý`,ja:`注目を集めている`},
+{id:"b2_965",cat:`抽象表現・慣用句 (100例)`,foreign:`Đặt ra nhiều vấn đề mới`,ja:`多くの新たな問題を提起する`},
+{id:"b2_966",cat:`抽象表現・慣用句 (100例)`,foreign:`Vấn đề này gây tranh luận`,ja:`この問題は議論を引き起こしている`},
+{id:"b2_967",cat:`抽象表現・慣用句 (100例)`,foreign:`Nhiều ý kiến trái chiều được đưa ra`,ja:`様々な意見が出ている`},
+{id:"b2_968",cat:`抽象表現・慣用句 (100例)`,foreign:`Dư luận chia rẽ`,ja:`世論が分裂している`},
+{id:"b2_969",cat:`抽象表現・慣用句 (100例)`,foreign:`Một số người cho rằng`,ja:`一部の人は〜と考えている`},
+{id:"b2_970",cat:`抽象表現・慣用句 (100例)`,foreign:`Tuy nhiên, cũng có ý kiến khác`,ja:`しかし異なる意見もある`},
+{id:"b2_971",cat:`抽象表現・慣用句 (100例)`,foreign:`Vấn đề cần được xem xét kỹ lưỡng`,ja:`慎重に検討すべき問題である`},
+{id:"b2_972",cat:`抽象表現・慣用句 (100例)`,foreign:`Giải pháp vẫn còn hạn chế`,ja:`解決策はまだ不十分である`},
+{id:"b2_973",cat:`抽象表現・慣用句 (100例)`,foreign:`Cần có sự đồng thuận`,ja:`合意が必要である`},
+{id:"b2_974",cat:`抽象表現・慣用句 (100例)`,foreign:`Vấn đề ngày càng phức tạp`,ja:`問題がますます複雑化している`},
+{id:"b2_975",cat:`抽象表現・慣用句 (100例)`,foreign:`Đòi hỏi sự can thiệp của chính phủ`,ja:`政府の介入が求められている`},
+{id:"b2_976",cat:`抽象表現・慣用句 (100例)`,foreign:`Tóm lại`,ja:`まとめると`},
+{id:"b2_977",cat:`抽象表現・慣用句 (100例)`,foreign:`Nhìn chung`,ja:`全体的に見て`},
+{id:"b2_978",cat:`抽象表現・慣用句 (100例)`,foreign:`Có thể kết luận rằng`,ja:`〜と結論づけられる`},
+{id:"b2_979",cat:`抽象表現・慣用句 (100例)`,foreign:`Điều này cho thấy xu hướng`,ja:`これは傾向を示している`},
+{id:"b2_980",cat:`抽象表現・慣用句 (100例)`,foreign:`Triển vọng trong tương lai`,ja:`今後の展望`},
+{id:"b2_981",cat:`抽象表現・慣用句 (100例)`,foreign:`Cần tiếp tục theo dõi`,ja:`引き続き注視が必要`},
+{id:"b2_982",cat:`抽象表現・慣用句 (100例)`,foreign:`Vẫn còn nhiều thách thức`,ja:`まだ多くの課題がある`},
+{id:"b2_983",cat:`抽象表現・慣用句 (100例)`,foreign:`Cơ hội và thách thức song hành`,ja:`機会と課題が共存する`},
+{id:"b2_984",cat:`抽象表現・慣用句 (100例)`,foreign:`Xu hướng này sẽ tiếp diễn`,ja:`この傾向は続くだろう`},
+{id:"b2_985",cat:`抽象表現・慣用句 (100例)`,foreign:`Đây là vấn đề cần quan tâm`,ja:`注目すべき問題である`},
+{id:"b2_986",cat:`抽象表現・慣用句 (100例)`,foreign:`Tôi cho rằng đây là vấn đề quan trọng.`,ja:`これは重要な問題だと思う。`},
+{id:"b2_987",cat:`抽象表現・慣用句 (100例)`,foreign:`Theo quan điểm của tôi`,ja:`私の見解では`},
+{id:"b2_988",cat:`抽象表現・慣用句 (100例)`,foreign:`Điều này cần được xem xét thêm`,ja:`さらに検討が必要である`},
+{id:"b2_989",cat:`抽象表現・慣用句 (100例)`,foreign:`Tình hình có thể thay đổi`,ja:`状況は変わる可能性がある`},
+{id:"b2_990",cat:`抽象表現・慣用句 (100例)`,foreign:`Chúng ta cần hành động ngay`,ja:`すぐ行動する必要がある`},
+{id:"b2_991",cat:`抽象表現・慣用句 (100例)`,foreign:`Giải pháp này có thể hiệu quả`,ja:`この解決策は有効かもしれない`},
+{id:"b2_992",cat:`抽象表現・慣用句 (100例)`,foreign:`Cần cân nhắc kỹ lưỡng`,ja:`慎重に検討する必要がある`},
+{id:"b2_993",cat:`抽象表現・慣用句 (100例)`,foreign:`Điều này phụ thuộc vào nhiều yếu tố`,ja:`これは多くの要因に依存する`},
+{id:"b2_994",cat:`抽象表現・慣用句 (100例)`,foreign:`Có thể xảy ra trong tương lai`,ja:`将来起こり得る`},
+{id:"b2_995",cat:`抽象表現・慣用句 (100例)`,foreign:`Đây là cơ hội lớn`,ja:`これは大きなチャンスである`},
+{id:"b2_996",cat:`抽象表現・慣用句 (100例)`,foreign:`Do đó`,ja:`したがって`},
+{id:"b2_997",cat:`抽象表現・慣用句 (100例)`,foreign:`Hơn nữa`,ja:`さらに`},
+{id:"b2_998",cat:`抽象表現・慣用句 (100例)`,foreign:`Tuy nhiên`,ja:`しかしながら`},
+{id:"b2_999",cat:`抽象表現・慣用句 (100例)`,foreign:`Mặc dù vậy`,ja:`それにもかかわらず`},
+{id:"b2_1000",cat:`抽象表現・慣用句 (100例)`,foreign:`Nói cách khác`,ja:`言い換えれば`}
+];
+
+const CARDS = CARDS_RAW.map(c => ({
+  id: c.id,
+  category: c.cat || c.category || "未分類",
+  // normalize fields
+  q: c.q || c.foreign || c.question || "",
+  a: c.a || c.ja || c.answer || "",
+  question: c.q || c.foreign || c.question || "",
+  answer: c.a || c.ja || c.answer || ""
+}));
+
+
+const LSKEY = 'vietnamese_b1_mastered_v1';
+let cards = [];
+let mastered = new Set();
+let filteredIds = [];
+let curIdx = 0;
+let mode = 'ja2vi';
+let curCat = 'すべて';
+let revealed = false;
+let isMuted = false;
+let cardMode = 'ja2vi';
+
+function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+function loadMastered(){
+  try{const d=localStorage.getItem(LSKEY);if(d)mastered=new Set(JSON.parse(d));}catch(e){}
+}
+function saveMastered(){
+  try{localStorage.setItem(LSKEY,JSON.stringify([...mastered]));}catch(e){}
+}
+
+function init(){
+  loadMastered();
+  cards = CARDS_RAW.map((d,i)=>({...d,_id:d.id||i}));
+  buildCatButtons();
+  applyFilter();
+  updateStats();
+  renderCard();
+}
+
+function buildCatButtons(){
+  const el=document.getElementById('catScroll');
+  const cats=['すべて',...new Set(cards.map(c=>c.cat))];
+  el.innerHTML=cats.map(c=>`<button class="cpill${c===curCat?' active':''}" data-cat="${escHtml(c)}">${escHtml(c)}</button>`).join('');
+  el.querySelectorAll('.cpill').forEach(b=>b.addEventListener('click',()=>{
+    if(isAutoPlay) stopAutoPlay();
+    curCat=b.dataset.cat;
+    el.querySelectorAll('.cpill').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    applyFilter();
+    curIdx=0;revealed=false;renderCard();
+  }));
+}
+
+function applyFilter(){
+  filteredIds = cards
+    .filter(c=>curCat==='すべて'||c.cat===curCat)
+    .filter(c=>!mastered.has(c._id))
+    .map(c=>c._id);
+  updateStats();
+}
+
+function updateStats(){
+  const total=cards.filter(c=>curCat==='すべて'||c.cat===curCat).length;
+  const done=cards.filter(c=>(curCat==='すべて'||c.cat===curCat)&&mastered.has(c._id)).length;
+  const left=filteredIds.length;
+  const pct=total>0?Math.round(done/total*100):0;
+  document.getElementById('statTotal').textContent=total;
+  document.getElementById('statLeft').textContent=left;
+  document.getElementById('statDone').textContent=done;
+  document.getElementById('progBar').style.width=pct+'%';
+  document.getElementById('statPct').textContent=pct+'%';
+}
+
+function getCard(){
+  if(filteredIds.length===0)return null;
+  const id=filteredIds[curIdx];
+  return cards.find(c=>c._id===id)||null;
+}
+
+// Windows Chrome/Edge の先頭切れ対策
+const isWinChromium = /Windows/.test(navigator.userAgent) &&
+                      /Chrome|Edg/.test(navigator.userAgent);
+const sacrificeWord = (t) => isWinChromium ? 'ừ, ' + t : t;
+
+function speakForeign(text, onDone){
+  if(isMuted){if(onDone)onDone();return;}
+  window.speechSynthesis.cancel();
+  function doSpeak(lang){
+    const u=new SpeechSynthesisUtterance(sacrificeWord(text));
+    u.lang=lang; u.rate=0.82; u.pitch=1.0;
+    u.onend=()=>{if(onDone)onDone();};
+    u.onerror=()=>{if(onDone)onDone();};
+    window.speechSynthesis.speak(u);
+  }
+  const voices=window.speechSynthesis.getVoices();
+  const preferred=['vi-VN','vi','en-US'];
+  let chosen=null;
+  for(const lang of preferred){
+    const v=voices.find(v=>v.lang===lang||v.lang.startsWith('vi'));
+    if(v){chosen=v.lang;break;}
+  }
+  doSpeak(chosen||'vi-VN');
+}
+
+function speakJapanese(text, onDone){
+  if(isMuted){if(onDone)onDone();return;}
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='ja-JP'; u.rate=0.85;
+  u.onend=()=>{if(onDone)onDone();};
+  u.onerror=()=>{if(onDone)onDone();};
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(u);
+}
+
+function speakAnswer(btn){
+  const card=getCard();if(!card)return;
+  const b=btn||document.getElementById('speakBtn');
+  if(b)b.classList.add('pulsing');
+  const done=()=>{if(b)b.classList.remove('pulsing');};
+  if(cardMode==='ja2vi') speakForeign(card.foreign,done);
+  else speakJapanese(card.ja,done);
+}
+
+function renderCard(){
+  const card=getCard();
+  const body=document.getElementById('cardBody');
+  const catEl=document.getElementById('cardCat');
+  const countEl=document.getElementById('cardCount');
+  updateStats();
+
+  if(!card){
+    catEl.textContent='—';
+    countEl.textContent='0 / 0';
+    body.innerHTML='<div class="hint-tap">🎉 このカテゴリは全部覚えました！</div>';
+    return;
+  }
+
+  catEl.textContent=card.cat;
+  countEl.textContent=(curIdx+1)+' / '+filteredIds.length;
+
+  if(mode==='random') cardMode=Math.random()<.5?'ja2vi':'vi2ja';
+  else cardMode=mode;
+
+  if(!revealed){
+    const qText = cardMode==='ja2vi'
+      ? `<div class="jp-text">${escHtml(card.ja)}</div>`
+      : `<div class="foreign-text">${escHtml(card.foreign)}</div>`;
+    body.innerHTML=qText+'<div class="hint-tap">👆 タップして答えを見る</div>';
+  } else {
+    let aHTML = '';
+    if(cardMode==='ja2vi'){
+      aHTML = `<div class="foreign-text">${escHtml(card.foreign)}</div>`;
+      if(card.note) aHTML += `<div class="note-text">📝 ${escHtml(card.note)}</div>`;
+    } else {
+      aHTML = `<div class="jp-text">${escHtml(card.ja)}</div>`;
+      if(card.note) aHTML += `<div class="note-text">📝 ${escHtml(card.note)}</div>`;
+    }
+    aHTML += `<button class="speak-btn" id="speakBtn">🔊 読み上げ</button>`;
+    body.innerHTML=aHTML;
+    document.getElementById('speakBtn').addEventListener('click',e=>{
+      e.stopPropagation();speakAnswer(e.currentTarget);
+    });
+    speakAnswer(null);
+  }
+}
+
+// Card click
+document.getElementById('mainCard').addEventListener('click',()=>{
+  if(isAutoPlay){stopAutoPlay();return;}
+  if(!getCard())return;
+  revealed=!revealed;renderCard();
+});
+
+// Buttons
+document.getElementById('btnReveal').addEventListener('click',()=>{
+  if(isAutoPlay) stopAutoPlay();
+  if(!getCard())return;
+  if(!revealed){revealed=true;renderCard();}
+});
+document.getElementById('btnPrev').addEventListener('click',()=>{
+  if(isAutoPlay) stopAutoPlay();
+  if(filteredIds.length===0)return;
+  curIdx=(curIdx-1+filteredIds.length)%filteredIds.length;
+  revealed=false;renderCard();
+});
+document.getElementById('btnNext').addEventListener('click',()=>{
+  if(isAutoPlay) stopAutoPlay();
+  if(filteredIds.length===0)return;
+  curIdx=(curIdx+1)%filteredIds.length;
+  revealed=false;renderCard();
+});
+document.getElementById('btnUncheck').addEventListener('click',()=>{
+  if(isAutoPlay) stopAutoPlay();
+  if(filteredIds.length===0)return;
+  curIdx=(curIdx-1+filteredIds.length)%filteredIds.length;
+  revealed=false;renderCard();
+});
+document.getElementById('btnMaster').addEventListener('click',()=>{
+  if(isAutoPlay) stopAutoPlay();
+  const card=getCard();if(!card)return;
+  mastered.add(card._id);
+  saveMastered();
+  applyFilter();
+  const total=cards.filter(c=>curCat==='すべて'||c.cat===curCat).length;
+  const done=cards.filter(c=>(curCat==='すべて'||c.cat===curCat)&&mastered.has(c._id)).length;
+  if(done>=total&&total>0){showDone();return;}
+  if(curIdx>=filteredIds.length)curIdx=0;
+  revealed=false;renderCard();
+});
+
+document.querySelectorAll('.mbtn').forEach(b=>b.addEventListener('click',()=>{
+  if(isAutoPlay) stopAutoPlay();
+  document.querySelectorAll('.mbtn').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  mode=b.dataset.mode;
+  revealed=false;renderCard();
+}));
+
+const btnReset=document.getElementById('btnReset');
+btnReset.addEventListener('click',()=>{
+  if(mastered.size===0)return;
+  mastered.clear();saveMastered();
+  applyFilter();curIdx=0;revealed=false;renderCard();
+  btnReset.textContent='✅';btnReset.classList.add('active-flash');
+  setTimeout(()=>{btnReset.textContent='🔄';btnReset.classList.remove('active-flash');},800);
+});
+
+const btnShuffle=document.getElementById('btnShuffle');
+btnShuffle.addEventListener('click',()=>{
+  for(let i=filteredIds.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [filteredIds[i],filteredIds[j]]=[filteredIds[j],filteredIds[i]];
+  }
+  curIdx=0;revealed=false;renderCard();
+  btnShuffle.textContent='✅';btnShuffle.classList.add('active-flash');
+  setTimeout(()=>{btnShuffle.textContent='🔀';btnShuffle.classList.remove('active-flash');},800);
+});
+
+document.getElementById('btnMute').addEventListener('click',function(){
+  isMuted=!isMuted;
+  this.textContent=isMuted?'🔇':'🔊';
+  if(isMuted)window.speechSynthesis.cancel();
+});
+
+// ── 自動再生 ──────────────────────────────────────────────
+let isAutoPlay = false;
+let autoTimer  = null;
+
+function stopAutoPlay(){
+  isAutoPlay = false;
+  clearTimeout(autoTimer);
+  autoTimer = null;
+  window.speechSynthesis.cancel();
+  const btn = document.getElementById('btnAuto');
+  btn.textContent = '▶️';
+  btn.classList.remove('auto-on');
+  btn.title = '自動再生';
+}
+
+function autoStep(){
+  if(!isAutoPlay) return;
+  if(!getCard()){ stopAutoPlay(); return; }
+  revealed = false;
+  renderCard();
+  autoTimer = setTimeout(()=>{
+    if(!isAutoPlay) return;
+    revealed = true;
+    renderCard();
+    autoSpeakAndNext();
+  }, 2200);
+}
+
+function autoSpeakAndNext(){
+  if(!isAutoPlay) return;
+  const card = getCard();
+  if(!card){ stopAutoPlay(); return; }
+
+  if(isMuted){
+    autoTimer = setTimeout(()=>{ if(isAutoPlay) advanceAuto(); }, 3500);
+    return;
+  }
+
+  window.speechSynthesis.cancel();
+
+  const text = cardMode==='ja2vi' ? card.foreign : card.ja;
+  const spokenText = cardMode==='ja2vi' ? sacrificeWord(text) : text;
+
+  const u = new SpeechSynthesisUtterance(spokenText);
+  u.rate  = cardMode==='ja2vi' ? 0.82 : 0.85;
+  u.pitch = 1.0;
+
+  const onFinish = ()=>{
+    if(!isAutoPlay) return;
+    autoTimer = setTimeout(()=>{ if(isAutoPlay) advanceAuto(); }, 2500);
+  };
+  u.onend  = onFinish;
+  u.onerror= onFinish;
+
+  if(cardMode==='ja2vi'){
+    const voices  = window.speechSynthesis.getVoices();
+    let chosen = null;
+    const preferred = ['vi-VN','vi','en-US'];
+    for(const l of preferred){
+      const v = voices.find(v=>v.lang===l||v.lang.startsWith('vi'));
+      if(v){chosen=v.lang;break;}
+    }
+    u.lang = chosen||'vi-VN';
+  } else {
+    u.lang = 'ja-JP';
+  }
+
+  window.speechSynthesis.speak(u);
+}
+
+function advanceAuto(){
+  if(!isAutoPlay) return;
+  if(filteredIds.length === 0){ stopAutoPlay(); return; }
+  curIdx = (curIdx + 1) % filteredIds.length;
+  autoStep();
+}
+
+document.getElementById('btnAuto').addEventListener('click', function(){
+  if(isAutoPlay){
+    stopAutoPlay();
+  } else {
+    if(filteredIds.length === 0) return;
+    isAutoPlay = true;
+    this.textContent = '⏹️';
+    this.classList.add('auto-on');
+    this.title = '自動再生を停止';
+    autoStep();
+  }
+});
+
+function showDone(){
+  const ov=document.getElementById('doneOverlay');
+  ov.classList.add('show');
+  setTimeout(()=>{
+    ov.classList.remove('show');
+    mastered.clear();saveMastered();
+    applyFilter();curIdx=0;revealed=false;renderCard();
+  },1800);
+}
+
+// Modal
+document.getElementById('btnList').addEventListener('click',openModal);
+document.getElementById('modalClose').addEventListener('click',closeModal);
+document.getElementById('modalOverlay').addEventListener('click',e=>{
+  if(e.target===document.getElementById('modalOverlay'))closeModal();
+});
+document.getElementById('searchInput').addEventListener('input',renderModal);
+
+function openModal(){
+  if(isAutoPlay) stopAutoPlay();
+  document.getElementById('modalOverlay').classList.add('show');
+  document.getElementById('searchInput').value='';
+  renderModal();
+}
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('show');
+}
+function renderModal(){
+  const q=document.getElementById('searchInput').value.toLowerCase();
+  const body=document.getElementById('modalBody');
+  const cats=[...new Set(cards.map(c=>c.cat))];
+  let html='';
+  cats.forEach(cat=>{
+    const rows=cards.filter(c=>{
+      if(c.cat!==cat)return false;
+      if(!q)return true;
+      return c.foreign.toLowerCase().includes(q)||c.ja.includes(q);
+    });
+    if(rows.length===0)return;
+    html+=`<div class="cat-group-title">${escHtml(cat)}</div>`;
+    rows.forEach(c=>{
+      const m=mastered.has(c._id)?'mastered':'';
+      html+=`<div class="list-row ${m}" data-id="${escHtml(String(c._id))}">
+        <span class="list-foreign">${escHtml(c.foreign)}</span>
+        <span class="list-jp">${escHtml(c.ja)}</span>
+      </div>`;
+    });
+  });
+  body.innerHTML=html||'<div style="padding:20px;color:var(--text-muted);text-align:center">該当なし</div>';
+  body.querySelectorAll('.list-row').forEach(row=>{
+    row.addEventListener('click',()=>{
+      const id=row.dataset.id;
+      const target=cards.find(c=>String(c._id)===id);
+      if(!target)return;
+      if(curCat!==target.cat&&curCat!=='すべて'){
+        curCat='すべて';
+        document.querySelectorAll('.cpill').forEach(p=>{
+          p.classList.toggle('active',p.dataset.cat==='すべて');
+        });
+        applyFilter();
+      }
+      let idx=filteredIds.indexOf(target._id);
+      if(idx===-1){
+        filteredIds=cards.filter(c=>curCat==='すべて'||c.cat===curCat).map(c=>c._id);
+        idx=filteredIds.indexOf(target._id);
+      }
+      if(idx!==-1)curIdx=idx;
+      revealed=false;
+      closeModal();
+      renderCard();
+    });
+  });
+}
+
+// Keyboard
+document.addEventListener('keydown',e=>{
+  if(document.getElementById('modalOverlay').classList.contains('show')){
+    if(e.key==='Escape')closeModal();return;
+  }
+  if(e.key==='ArrowRight'||e.key==='ArrowLeft'){
+    const d=e.key==='ArrowRight'?1:-1;
+    if(filteredIds.length===0)return;
+    curIdx=(curIdx+d+filteredIds.length)%filteredIds.length;
+    revealed=false;renderCard();
+  }else if(e.key==='Enter'||e.key===' '){
+    e.preventDefault();
+    if(!getCard())return;
+    revealed=!revealed;renderCard();
+  }else if(e.key.toLowerCase()==='c'){
+    document.getElementById('btnMaster').click();
+  }
+});
+
+window.speechSynthesis.onvoiceschanged=function(){};
+
+init();
+</script>
+</body>
+</html>
