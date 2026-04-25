@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ラオス語 A1 フレーズ練習</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;600;700&family=Noto+Serif+Lao:wght@400;700&family=Zen+Kaku+Gothic+New:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#08080c;--surface:#0e0e18;--surface2:#141420;
+    --accent:#e8c84b;--accent2:#ce1515;--accent3:#7ec8c0;
+    --text:#f0eef8;--text-dim:#7a7890;--border:#1c1c30;
+    --btn-a:#e8c84b;--btn-b:#ce1515;--btn-c:#7ec8c0;--btn-d:#a78bfa;
+    --success:#56d364;--radius:12px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;}
+  body::before{content:'';position:fixed;inset:0;background:
+    radial-gradient(ellipse 55% 45% at 80% 10%,rgba(232,200,75,.07) 0%,transparent 55%),
+    radial-gradient(ellipse 40% 35% at 15% 85%,rgba(206,21,21,.06) 0%,transparent 55%);
+    pointer-events:none;z-index:0;}
+  body::after{content:'';position:fixed;top:0;left:0;right:0;height:2px;
+    background:linear-gradient(90deg,var(--accent2) 0%,var(--accent) 40%,var(--accent3) 70%,var(--btn-d) 100%);z-index:999;}
+  #app{position:relative;z-index:1;display:flex;flex-direction:column;height:100vh;overflow:hidden;}
+  header{flex-shrink:0;padding:9px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;background:rgba(8,8,12,.95);backdrop-filter:blur(14px);}
+  .flag-badge{font-size:22px;line-height:1;}
+  .header-text h1{font-family:'Zen Kaku Gothic New',sans-serif;font-size:1.05rem;color:var(--accent);letter-spacing:.04em;font-weight:700;}
+  .header-text p{font-size:.59rem;color:var(--text-dim);letter-spacing:.1em;text-transform:uppercase;margin-top:1px;}
+  .lesson-counter{margin-left:auto;background:var(--surface2);border:1px solid var(--border);border-radius:50px;padding:4px 14px;font-size:.66rem;color:var(--text-dim);white-space:nowrap;}
+  .lesson-counter span{color:var(--accent);font-weight:700;}
+  .nav-bar{flex-shrink:0;display:flex;gap:5px;padding:7px 16px;overflow-x:auto;scrollbar-width:none;background:var(--bg);border-bottom:1px solid var(--border);align-items:center;}
+  .nav-bar::-webkit-scrollbar{display:none;}
+  .skit-sep{flex-shrink:0;font-size:.55rem;color:rgba(232,200,75,.35);padding:0 3px;user-select:none;}
+  .nav-btn{flex-shrink:0;background:var(--surface);border:1px solid var(--border);color:var(--text-dim);border-radius:50px;padding:4px 11px;font-size:.62rem;font-family:'JetBrains Mono',monospace;cursor:pointer;transition:all .15s;white-space:nowrap;}
+  .nav-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .nav-btn.active{background:var(--accent);color:var(--bg);border-color:var(--accent);font-weight:600;}
+  main{flex:1;overflow:hidden;display:flex;align-items:stretch;justify-content:center;padding:10px 16px;gap:12px;}
+  .content-wrap{display:flex;gap:12px;width:100%;max-width:1100px;align-items:stretch;}
+  .col-left,.col-right{flex:1;display:flex;flex-direction:column;gap:8px;}
+  .skit-badge{display:inline-flex;align-items:center;gap:6px;font-size:.6rem;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(232,200,75,.4);border-radius:4px;padding:3px 12px;background:rgba(232,200,75,.07);align-self:flex-start;font-family:'Zen Kaku Gothic New',sans-serif;}
+  .phrase-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px 14px;position:relative;overflow:hidden;flex:1;display:flex;flex-direction:column;justify-content:center;}
+  .phrase-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent2),var(--accent),var(--accent3),var(--btn-d));}
+  .phrase-card::after{content:'ສ';position:absolute;bottom:8px;right:14px;font-family:'Noto Sans Lao',sans-serif;font-size:1.6rem;color:rgba(232,200,75,.07);pointer-events:none;}
+  .phrase-number{display:inline-flex;align-items:center;gap:6px;font-size:.6rem;color:var(--text-dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;}
+  .phrase-number-badge{background:var(--accent);color:var(--bg);border-radius:3px;padding:1px 7px;font-weight:700;font-size:.63rem;}
+  .phrase-lao{font-family:'Noto Serif Lao',serif;font-size:3rem;font-weight:700;line-height:1.7;color:var(--text);margin-bottom:6px;word-break:break-word;}
+  .phrase-romaji{font-size:1.6rem;color:var(--accent3);margin-bottom:5px;font-style:italic;letter-spacing:.02em;}
+  .phrase-japanese{font-size:1.8rem;color:var(--text-dim);font-family:'Zen Kaku Gothic New',sans-serif;}
+  .buttons-label{font-size:.58rem;color:var(--text-dim);letter-spacing:.1em;text-transform:uppercase;}
+  .example-buttons{display:grid;grid-template-columns:1fr 1fr;gap:7px;flex-shrink:0;}
+  .ex-btn{background:var(--surface2);border:1.5px solid var(--border);color:var(--text);border-radius:9px;padding:9px 12px;font-family:'Zen Kaku Gothic New',sans-serif;font-size:.82rem;cursor:pointer;text-align:left;transition:all .15s;display:flex;align-items:center;gap:8px;}
+  .ex-btn:hover{transform:translateY(-1px);}
+  .ex-btn[data-idx="0"]{border-color:rgba(232,200,75,.45);}
+  .ex-btn[data-idx="1"]{border-color:rgba(206,21,21,.5);}
+  .ex-btn[data-idx="2"]{border-color:rgba(126,200,192,.45);}
+  .ex-btn[data-idx="3"]{border-color:rgba(167,139,250,.45);}
+  .ex-btn[data-idx="0"]:hover,.ex-btn.active[data-idx="0"]{background:rgba(232,200,75,.12);border-color:var(--btn-a);box-shadow:0 0 0 2px rgba(232,200,75,.25);}
+  .ex-btn[data-idx="1"]:hover,.ex-btn.active[data-idx="1"]{background:rgba(206,21,21,.12);border-color:var(--btn-b);box-shadow:0 0 0 2px rgba(206,21,21,.25);}
+  .ex-btn[data-idx="2"]:hover,.ex-btn.active[data-idx="2"]{background:rgba(126,200,192,.12);border-color:var(--btn-c);box-shadow:0 0 0 2px rgba(126,200,192,.25);}
+  .ex-btn[data-idx="3"]:hover,.ex-btn.active[data-idx="3"]{background:rgba(167,139,250,.12);border-color:var(--btn-d);box-shadow:0 0 0 2px rgba(167,139,250,.25);}
+  .label-tag{font-size:.62rem;font-weight:700;font-family:'JetBrains Mono',monospace;padding:2px 6px;border-radius:3px;flex-shrink:0;}
+  .ex-btn[data-idx="0"] .label-tag{background:var(--btn-a);color:var(--bg);}
+  .ex-btn[data-idx="1"] .label-tag{background:var(--btn-b);color:#fff;}
+  .ex-btn[data-idx="2"] .label-tag{background:var(--btn-c);color:var(--bg);}
+  .ex-btn[data-idx="3"] .label-tag{background:var(--btn-d);color:#fff;}
+  .result-panel{background:var(--surface2);border:1px solid var(--border);border-radius:11px;overflow:hidden;animation:slideIn .2s ease;flex:1;display:flex;flex-direction:column;}
+  .result-placeholder{flex:1;display:flex;align-items:center;justify-content:center;border:1px dashed var(--border);border-radius:11px;color:var(--text-dim);font-size:.7rem;letter-spacing:.06em;text-align:center;padding:20px;line-height:2;font-family:'Zen Kaku Gothic New',sans-serif;}
+  @keyframes slideIn{from{opacity:0;transform:translateY(-5px);}to{opacity:1;transform:translateY(0);}}
+  .result-header{flex-shrink:0;padding:8px 16px;display:flex;align-items:center;gap:7px;border-bottom:1px solid var(--border);font-size:.63rem;color:var(--text-dim);letter-spacing:.08em;text-transform:uppercase;}
+  .result-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+  .result-body{padding:14px 16px;flex:1;display:flex;flex-direction:column;justify-content:center;}
+  .result-lao{font-family:'Noto Serif Lao',serif;font-size:2.5rem;font-weight:600;margin-bottom:5px;line-height:1.7;}
+  .result-romaji{font-size:1.56rem;font-style:italic;color:var(--accent3);margin-bottom:4px;letter-spacing:.02em;}
+  .result-japanese{font-family:'Zen Kaku Gothic New',sans-serif;font-size:1.76rem;color:var(--text-dim);margin-bottom:12px;}
+  .play-btn{display:inline-flex;align-items:center;gap:7px;padding:7px 16px;border-radius:50px;border:none;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:.66rem;font-weight:600;transition:all .14s;letter-spacing:.05em;align-self:flex-start;}
+  .play-btn svg{transition:transform .12s;}
+  .play-btn:hover svg{transform:scale(1.2);}
+  .play-btn[data-idx="0"]{background:var(--btn-a);color:var(--bg);}
+  .play-btn[data-idx="1"]{background:var(--btn-b);color:#fff;}
+  .play-btn[data-idx="2"]{background:var(--btn-c);color:var(--bg);}
+  .play-btn[data-idx="3"]{background:var(--btn-d);color:#fff;}
+  .play-btn:hover{filter:brightness(1.12);transform:translateY(-1px);}
+  .play-btn:active{transform:translateY(0);}
+  .play-btn.playing{animation:pulse .55s ease infinite alternate;}
+  @keyframes pulse{from{opacity:1;}to{opacity:.6;}}
+  .audio-status{font-size:.58rem;color:var(--text-dim);margin-top:5px;}
+  .audio-status.ready{color:var(--success);}
+  .toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%) translateY(60px);background:var(--surface2);border:1px solid var(--accent);color:var(--text);font-size:.72rem;padding:7px 18px;border-radius:50px;transition:transform .25s ease;z-index:100;white-space:nowrap;font-family:'Zen Kaku Gothic New',sans-serif;}
+  .toast.show{transform:translateX(-50%) translateY(0);}
+  .autoplay-btn{position:fixed;bottom:16px;right:16px;display:flex;align-items:center;gap:8px;padding:9px 18px;border-radius:50px;border:2px solid var(--accent);background:var(--bg);color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:600;cursor:pointer;z-index:50;transition:all .2s;letter-spacing:.05em;}
+  .autoplay-btn:hover{background:rgba(232,200,75,.1);box-shadow:0 0 16px rgba(232,200,75,.2);}
+  .autoplay-btn.playing{background:var(--accent);color:var(--bg);box-shadow:0 0 20px rgba(232,200,75,.4);animation:autoPulse 1.8s ease infinite;}
+  @keyframes autoPulse{0%,100%{box-shadow:0 0 20px rgba(232,200,75,.4);}50%{box-shadow:0 0 32px rgba(232,200,75,.65);}}
+  .autoplay-btn .ap-icon{font-size:.9rem;}
+  .autoplay-progress{position:fixed;bottom:58px;right:16px;background:var(--surface2);border:1px solid var(--border);border-radius:50px;padding:4px 14px;font-size:.62rem;color:var(--text-dim);font-family:'JetBrains Mono',monospace;z-index:50;transition:opacity .3s;opacity:0;pointer-events:none;white-space:nowrap;}
+  .autoplay-progress.visible{opacity:1;}
+  ::-webkit-scrollbar{width:5px;height:5px;}
+  ::-webkit-scrollbar-track{background:var(--surface);}
+  ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <div class="flag-badge">🇱🇦</div>
+    <div class="header-text">
+      <h1>ラオス語 フレーズ練習帳</h1>
+      <p>A1 Level · Set Phrase Substitution Drills</p>
+    </div>
+    <div class="lesson-counter">構文 <span id="currentNum">1</span> / 33</div>
+  </header>
+  <div class="nav-bar" id="navBar"></div>
+  <main>
+    <div class="content-wrap">
+      <div class="col-left">
+        <div class="skit-badge" id="skitBadge">スキット 1</div>
+        <div class="phrase-card" id="phraseCard"></div>
+      </div>
+      <div class="col-right">
+        <p class="buttons-label">▸ 入れ替え語を選んでください</p>
+        <div class="example-buttons" id="exampleButtons"></div>
+        <div id="resultArea">
+          <div class="result-placeholder">← A〜D のボタンを押すと<br>例文とラオス語音声が表示されます</div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<div class="toast" id="toast"></div>
+<button class="autoplay-btn" id="autoplayBtn" onclick="toggleAutoPlay()">
+  <span class="ap-icon">▶</span>
+  <span id="autoplayLabel">自動再生</span>
+</button>
+<div class="autoplay-progress" id="autoplayProgress"></div>
+<script>
+const AUDIO_DATA = {};
+
+const PHRASES = [
+  // ════ スキット 1 ════
+  {id:1,skit:1,lao:"ສະບາຍດີ, ແມ່ນ ___ ບໍ?",romaji:"Sabaidee, maen ___ baw?",japanese:"こんにちは、___さんですか？（丁寧な人物確認）",examples:[
+    {lao:"ສະບາຍດີ, ແມ່ນ ທ່ານ ມາລີ ບໍ?",romaji:"Sabaidee, maen Than Mali baw?",japanese:"こんにちは、マリーさんですか？",label:"マリーさん"},
+    {lao:"ສະບາຍດີ, ແມ່ນ ອາຈານ ບໍ?",romaji:"Sabaidee, maen achan baw?",japanese:"こんにちは、先生ですか？",label:"先生"},
+    {lao:"ສະບາຍດີ, ແມ່ນ ທ່ານ ໝໍ ບໍ?",romaji:"Sabaidee, maen than maw baw?",japanese:"こんにちは、お医者さんですか？",label:"医者"},
+    {lao:"ສະບາຍດີ, ແມ່ນ ເຈົ້າຂອງ ບໍ?",romaji:"Sabaidee, maen jao khong baw?",japanese:"こんにちは、オーナーさんですか？",label:"オーナー"},
+  ]},
+  {id:2,skit:1,lao:"ແມ່ນແລ້ວ. ຂ້ອຍຊື່ ___.",romaji:"Maen laew. Khoy seu ___.",japanese:"はい、そうです。私は___といいます。（肯定＋自己紹介）",examples:[
+    {lao:"ແມ່ນແລ້ວ. ຂ້ອຍຊື່ ຢູກິ.",romaji:"Maen laew. Khoy seu Yuki.",japanese:"はい、そうです。私はユキといいます。",label:"ユキ"},
+    {lao:"ແມ່ນແລ້ວ. ຂ້ອຍຊື່ ເຄນ.",romaji:"Maen laew. Khoy seu Ken.",japanese:"はい、そうです。私はケンといいます。",label:"ケン"},
+    {lao:"ແມ່ນແລ້ວ. ຂ້ອຍຊື່ ນອຍ.",romaji:"Maen laew. Khoy seu Noi.",japanese:"はい、そうです。私はノイといいます。",label:"ノイ"},
+    {lao:"ແມ່ນແລ້ວ. ຂ້ອຍຊື່ ສົມພອນ.",romaji:"Maen laew. Khoy seu Somphon.",japanese:"はい、そうです。私はソムポンといいます。",label:"ソムポン"},
+  ]},
+  {id:3,skit:1,lao:"ຍິນດີທີ່ໄດ້ຮູ້ຈັກ.",romaji:"Yindi thi dai hou chak.",japanese:"はじめまして。／お会いできて嬉しいです。",examples:[
+    {lao:"ຍິນດີທີ່ໄດ້ພົບ.",romaji:"Yindi thi dai phop.",japanese:"お会いできて嬉しいです。",label:"ພົບ（会う）"},
+    {lao:"ຍິນດີທີ່ໄດ້ເຫັນ.",romaji:"Yindi thi dai hen.",japanese:"お目にかかれて嬉しいです。",label:"ເຫັນ（見る）"},
+    {lao:"ຍິນດີທີ່ໄດ້ມາ.",romaji:"Yindi thi dai ma.",japanese:"来られて嬉しいです。",label:"ມາ（来る）"},
+    {lao:"ຍິນດີທີ່ໄດ້ລົມກັນ.",romaji:"Yindi thi dai lom kan.",japanese:"お話しできて嬉しいです。",label:"ລົມ（話す）"},
+  ]},
+  {id:4,skit:1,lao:"ຍິນດີຕ້ອນຮັບ ສູ່ ___.",romaji:"Yindi ton hap sou ___.",japanese:"___へようこそ。（歓迎表現）",examples:[
+    {lao:"ຍິນດີຕ້ອນຮັບ ສູ່ ບ້ານ ຂອງ ພວກເຮົາ.",romaji:"Yindi ton hap sou ban khong phuak hao.",japanese:"私たちの家へようこそ。",label:"私たちの家"},
+    {lao:"ຍິນດີຕ້ອນຮັບ ສູ່ ວຽງຈັນ.",romaji:"Yindi ton hap sou Viangchan.",japanese:"ビエンチャンへようこそ。",label:"ビエンチャン"},
+    {lao:"ຍິນດີຕ້ອນຮັບ ສູ່ ໂຮງຮຽນ.",romaji:"Yindi ton hap sou hong hian.",japanese:"学校へようこそ。",label:"学校"},
+    {lao:"ຍິນດີຕ້ອນຮັບ ສູ່ ຫ້ອງການ.",romaji:"Yindi ton hap sou hong kan.",japanese:"オフィスへようこそ。",label:"オフィス"},
+  ]},
+  {id:5,skit:1,lao:"ຂອບໃຈ ຫຼາຍໆ.",romaji:"Khop chai lai lai.",japanese:"どうもありがとうございます。（丁寧な感謝）",examples:[
+    {lao:"ຂອບໃຈ ຫຼາຍ.",romaji:"Khop chai lai.",japanese:"ありがとうございます。",label:"ຫຼາຍ（たくさん）"},
+    {lao:"ຂອບໃຈ ເດີ້.",romaji:"Khop chai der.",japanese:"ありがとうね。",label:"ເດີ້（親しみ）"},
+    {lao:"ຂອບໃຈ ທີ່ ຊ່ວຍ.",romaji:"Khop chai thi suay.",japanese:"助けてくれてありがとう。",label:"ທີ່ ຊ່ວຍ（助けて）"},
+    {lao:"ຂອບໃຈ ສຳລັບ ທຸກຢ່າງ.",romaji:"Khop chai samlap thuk yang.",japanese:"全てに感謝します。",label:"ທຸກຢ່າງ（全て）"},
+  ]},
+  {id:6,skit:1,lao:"ບໍ່ເປັນຫຍັງ.",romaji:"Baw pen yang.",japanese:"どういたしまして。／大丈夫です。",examples:[
+    {lao:"ບໍ່ເປັນຫຍັງ, ຍິນດີຊ່ວຍ.",romaji:"Baw pen yang, yindi suay.",japanese:"どういたしまして、喜んで助けます。",label:"ຍິນດີຊ່ວຍ（喜んで）"},
+    {lao:"ບໍ່ເປັນຫຍັງ, ສະບາຍໆ.",romaji:"Baw pen yang, sabai sabai.",japanese:"大丈夫、気楽にね。",label:"ສະບາຍໆ（気楽に）"},
+    {lao:"ບໍ່ເປັນຫຍັງ, ບັນຫາ ບໍ່ ມີ.",romaji:"Baw pen yang, banha baw mi.",japanese:"大丈夫、問題ないよ。",label:"ບັນຫາ ບໍ່ ມີ（問題ない）"},
+    {lao:"ບໍ່ເປັນຫຍັງ ດອກ.",romaji:"Baw pen yang dok.",japanese:"全然大丈夫だよ。",label:"ດອກ（強調）"},
+  ]},
+  {id:7,skit:1,lao:"ໄປ ___ ກັນ ເດີ້.",romaji:"Pai ___ kan der.",japanese:"さあ、___へ行きましょう。（勧誘表現）",examples:[
+    {lao:"ໄປ ຕະຫຼາດ ກັນ ເດີ້.",romaji:"Pai talat kan der.",japanese:"さあ、市場へ行きましょう。",label:"ຕະຫຼາດ（市場）"},
+    {lao:"ໄປ ກິນເຂົ້າ ກັນ ເດີ້.",romaji:"Pai kin khao kan der.",japanese:"さあ、ご飯を食べに行きましょう。",label:"ກິນເຂົ້າ（ご飯）"},
+    {lao:"ໄປ ຫຼິ້ນ ກັນ ເດີ້.",romaji:"Pai lin kan der.",japanese:"さあ、遊びに行きましょう。",label:"ຫຼິ້ນ（遊ぶ）"},
+    {lao:"ໄປ ເບິ່ງ ກັນ ເດີ້.",romaji:"Pai boeng kan der.",japanese:"さあ、見に行きましょう。",label:"ເບິ່ງ（見る）"},
+  ]},
+  // ════ スキット 2 ════
+  {id:8,skit:2,lao:"ສະບາຍດີ ___, ຍິນດີຕ້ອນຮັບ ສູ່ ເຮືອນ.",romaji:"Sabaidee ___, yindi ton hap sou huean.",japanese:"こんにちは___、我が家へようこそ。（家への歓迎）",examples:[
+    {lao:"ສະບາຍດີ ນ້ອງ, ຍິນດີຕ້ອນຮັບ ສູ່ ເຮືອນ.",romaji:"Sabaidee nong, yindi ton hap sou huean.",japanese:"こんにちは弟/妹さん、我が家へようこそ。",label:"ນ້ອງ（弟/妹）"},
+    {lao:"ສະບາຍດີ ອ້າຍ, ຍິນດີຕ້ອນຮັບ ສູ່ ເຮືອນ.",romaji:"Sabaidee ai, yindi ton hap sou huean.",japanese:"こんにちはお兄さん、我が家へようこそ。",label:"ອ້າຍ（お兄さん）"},
+    {lao:"ສະບາຍດີ ເພື່ອນ, ຍິນດີຕ້ອນຮັບ ສູ່ ເຮືອນ.",romaji:"Sabaidee pheuan, yindi ton hap sou huean.",japanese:"こんにちは友達、我が家へようこそ。",label:"ເພື່ອນ（友達）"},
+    {lao:"ສະບາຍດີ ແຂກ, ຍິນດີຕ້ອນຮັບ ສູ່ ເຮືອນ.",romaji:"Sabaidee khaek, yindi ton hap sou huean.",japanese:"こんにちはお客さん、我が家へようこそ。",label:"ແຂກ（お客さん）"},
+  ]},
+  {id:9,skit:2,lao:"ຂອບໃຈ ທີ່ ___.",romaji:"Khop chai thi ___.",japanese:"___してくれてありがとう。（理由付きの感謝）",examples:[
+    {lao:"ຂອບໃຈ ທີ່ ມາ.",romaji:"Khop chai thi ma.",japanese:"来てくれてありがとう。",label:"ມາ（来る）"},
+    {lao:"ຂອບໃຈ ທີ່ ຊ່ວຍ ຂ້ອຍ.",romaji:"Khop chai thi suay khoy.",japanese:"助けてくれてありがとう。",label:"ຊ່ວຍ（助ける）"},
+    {lao:"ຂອບໃຈ ທີ່ ສອນ ຂ້ອຍ.",romaji:"Khop chai thi son khoy.",japanese:"教えてくれてありがとう。",label:"ສອນ（教える）"},
+    {lao:"ຂອບໃຈ ທີ່ ລໍຖ້າ.",romaji:"Khop chai thi lo tha.",japanese:"待ってくれてありがとう。",label:"ລໍຖ້າ（待つ）"},
+  ]},
+  {id:10,skit:2,lao:"ຫິວ ___ ບໍ?",romaji:"Hiu ___ baw?",japanese:"___が欲しいですか？（欲求を尋ねる）",examples:[
+    {lao:"ຫິວ ນ້ຳ ບໍ?",romaji:"Hiu nam baw?",japanese:"喉が渇いていますか？",label:"ນ້ຳ（水）"},
+    {lao:"ຫິວ ເຂົ້າ ບໍ?",romaji:"Hiu khao baw?",japanese:"お腹が空いていますか？",label:"ເຂົ້າ（ご飯）"},
+    {lao:"ຫິວ ກາເຟ ບໍ?",romaji:"Hiu kafe baw?",japanese:"コーヒーが欲しいですか？",label:"ກາເຟ（コーヒー）"},
+    {lao:"ຫິວ ຊາ ບໍ?",romaji:"Hiu sa baw?",japanese:"お茶が欲しいですか？",label:"ຊາ（お茶）"},
+  ]},
+  {id:11,skit:2,lao:"ກິນ ___ ແລ້ວ ບໍ?",romaji:"Kin ___ laew baw?",japanese:"もう___を食べましたか？（完了の確認）",examples:[
+    {lao:"ກິນ ເຂົ້າເຊົ້າ ແລ້ວ ບໍ?",romaji:"Kin khao sao laew baw?",japanese:"もう朝ご飯を食べましたか？",label:"ເຂົ້າເຊົ້າ（朝食）"},
+    {lao:"ກິນ ເຂົ້າທ່ຽງ ແລ້ວ ບໍ?",romaji:"Kin khao thiang laew baw?",japanese:"もう昼ご飯を食べましたか？",label:"ເຂົ້າທ່ຽງ（昼食）"},
+    {lao:"ກິນ ເຂົ້າແລງ ແລ້ວ ບໍ?",romaji:"Kin khao laeng laew baw?",japanese:"もう夕ご飯を食べましたか？",label:"ເຂົ້າແລງ（夕食）"},
+    {lao:"ກິນ ຢາ ແລ້ວ ບໍ?",romaji:"Kin ya laew baw?",japanese:"もう薬を飲みましたか？",label:"ຢາ（薬）"},
+  ]},
+  {id:12,skit:2,lao:"ຍັງ ບໍ່ ທັນ ___ ເທື່ອ.",romaji:"Yang baw than ___ thuea.",japanese:"まだ___していません。（未完了の表現）",examples:[
+    {lao:"ຍັງ ບໍ່ ທັນ ອາບນ້ຳ ເທື່ອ.",romaji:"Yang baw than ap nam thuea.",japanese:"まだシャワーを浴びていません。",label:"ອາບນ້ຳ（シャワー）"},
+    {lao:"ຍັງ ບໍ່ ທັນ ນອນ ເທື່ອ.",romaji:"Yang baw than non thuea.",japanese:"まだ寝ていません。",label:"ນອນ（寝る）"},
+    {lao:"ຍັງ ບໍ່ ທັນ ເຮັດ ເທື່ອ.",romaji:"Yang baw than het thuea.",japanese:"まだやっていません。",label:"ເຮັດ（やる）"},
+    {lao:"ຍັງ ບໍ່ ທັນ ໄປ ເທື່ອ.",romaji:"Yang baw than pai thuea.",japanese:"まだ行っていません。",label:"ໄປ（行く）"},
+  ]},
+  {id:13,skit:2,lao:"ແນວນັ້ນ, ___ ນຳ ກັນ ເດີ້.",romaji:"Naew nan, ___ nam kan der.",japanese:"それなら、一緒に___しましょうね。（提案・勧誘）",examples:[
+    {lao:"ແນວນັ້ນ, ໄປ ນຳ ກັນ ເດີ້.",romaji:"Naew nan, pai nam kan der.",japanese:"それなら、一緒に行きましょうね。",label:"ໄປ（行く）"},
+    {lao:"ແນວນັ້ນ, ຫຼິ້ນ ນຳ ກັນ ເດີ້.",romaji:"Naew nan, lin nam kan der.",japanese:"それなら、一緒に遊びましょうね。",label:"ຫຼິ້ນ（遊ぶ）"},
+    {lao:"ແນວນັ້ນ, ເຮັດ ນຳ ກັນ ເດີ້.",romaji:"Naew nan, het nam kan der.",japanese:"それなら、一緒にやりましょうね。",label:"ເຮັດ（やる）"},
+    {lao:"ແນວນັ້ນ, ລົມ ນຳ ກັນ ເດີ້.",romaji:"Naew nan, lom nam kan der.",japanese:"それなら、一緒に話しましょうね。",label:"ລົມ（話す）"},
+  ]},
+  {id:14,skit:2,lao:"ໄດ້ ບໍ?",romaji:"Dai baw?",japanese:"いいですか？／できますか？（許可・可能性を尋ねる）",examples:[
+    {lao:"ກິນ ໄດ້ ບໍ?",romaji:"Kin dai baw?",japanese:"食べてもいいですか？",label:"ກິນ（食べる）"},
+    {lao:"ໄປ ໄດ້ ບໍ?",romaji:"Pai dai baw?",japanese:"行ってもいいですか？",label:"ໄປ（行く）"},
+    {lao:"ເວົ້າ ລາວ ໄດ້ ບໍ?",romaji:"Vao Lao dai baw?",japanese:"ラオス語を話せますか？",label:"ເວົ້າ ລາວ（ラオス語）"},
+    {lao:"ຊ່ວຍ ໄດ້ ບໍ?",romaji:"Suay dai baw?",japanese:"手伝ってもらえますか？",label:"ຊ່ວຍ（手伝う）"},
+  ]},
+  {id:15,skit:2,lao:"ເຊີນ ___.",romaji:"Chern ___.",japanese:"どうぞ___してください。（丁寧な勧め）",examples:[
+    {lao:"ເຊີນ ນັ່ງ.",romaji:"Chern nang.",japanese:"どうぞお座りください。",label:"ນັ່ງ（座る）"},
+    {lao:"ເຊີນ ເຂົ້າມາ.",romaji:"Chern khao ma.",japanese:"どうぞお入りください。",label:"ເຂົ້າມາ（入る）"},
+    {lao:"ເຊີນ ດື່ມ.",romaji:"Chern duem.",japanese:"どうぞお飲みください。",label:"ດື່ມ（飲む）"},
+    {lao:"ເຊີນ ເລີ່ມ.",romaji:"Chern loem.",japanese:"どうぞ始めてください。",label:"ເລີ່ມ（始める）"},
+  ]},
+  // ════ スキット 3 ════
+  {id:16,skit:3,lao:"ເຈົ້າ ອາຍຸ ຈັກ ປີ ແລ້ວ?",romaji:"Jao ayu chak pi laew?",japanese:"あなたは何歳ですか？（年齢を尋ねる）",examples:[
+    {lao:"ລູກ ອາຍຸ ຈັກ ປີ ແລ້ວ?",romaji:"Luk ayu chak pi laew?",japanese:"お子さんは何歳ですか？",label:"ລູກ（子供）"},
+    {lao:"ນ້ອງ ອາຍຸ ຈັກ ປີ ແລ້ວ?",romaji:"Nong ayu chak pi laew?",japanese:"弟/妹さんは何歳ですか？",label:"ນ້ອງ（弟/妹）"},
+    {lao:"ພໍ່ ອາຍຸ ຈັກ ປີ ແລ້ວ?",romaji:"Pho ayu chak pi laew?",japanese:"お父さんは何歳ですか？",label:"ພໍ່（父）"},
+    {lao:"ແມ່ ອາຍຸ ຈັກ ປີ ແລ້ວ?",romaji:"Mae ayu chak pi laew?",japanese:"お母さんは何歳ですか？",label:"ແມ່（母）"},
+  ]},
+  {id:17,skit:3,lao:"ຂ້ອຍ ອາຍຸ ___ ປີ.",romaji:"Khoy ayu ___ pi.",japanese:"私は___歳です。（年齢の表現）",examples:[
+    {lao:"ຂ້ອຍ ອາຍຸ 18 ປີ.",romaji:"Khoy ayu sip-paet pi.",japanese:"私は18歳です。",label:"18歳"},
+    {lao:"ຂ້ອຍ ອາຍຸ 25 ປີ.",romaji:"Khoy ayu sao-ha pi.",japanese:"私は25歳です。",label:"25歳"},
+    {lao:"ຂ້ອຍ ອາຍຸ 30 ປີ.",romaji:"Khoy ayu sam-sip pi.",japanese:"私は30歳です。",label:"30歳"},
+    {lao:"ຂ້ອຍ ອາຍຸ 40 ປີ.",romaji:"Khoy ayu si-sip pi.",japanese:"私は40歳です。",label:"40歳"},
+  ]},
+  {id:18,skit:3,lao:"ແລ້ວ ເຈົ້າ ລ່ະ?",romaji:"Laew jao la?",japanese:"あなたは？（相手に質問を返す）",examples:[
+    {lao:"ແລ້ວ ທ່ານ ລ່ະ?",romaji:"Laew than la?",japanese:"あなたは？（敬語）",label:"ທ່ານ（敬称）"},
+    {lao:"ແລ້ວ ເຈົ້າ ລ່ະ, ມັກ ບໍ?",romaji:"Laew jao la, mak baw?",japanese:"あなたは？好きですか？",label:"ມັກ ບໍ（好き？）"},
+    {lao:"ແລ້ວ ເຈົ້າ ລ່ະ, ໄປ ບໍ?",romaji:"Laew jao la, pai baw?",japanese:"あなたは？行きますか？",label:"ໄປ ບໍ（行く？）"},
+    {lao:"ແລ້ວ ເຈົ້າ ລ່ະ, ເຮັດ ຫຍັງ?",romaji:"Laew jao la, het nyang?",japanese:"あなたは？何をしますか？",label:"ເຮັດ ຫຍັງ（何をする？）"},
+  ]},
+  {id:19,skit:3,lao:"ເຈົ້າ ມາ ຈາກ ໃສ?",romaji:"Jao ma chak sai?",japanese:"あなたはどこから来ましたか？（出身を尋ねる）",examples:[
+    {lao:"ເຈົ້າ ຢູ່ ໃສ?",romaji:"Jao yu sai?",japanese:"あなたはどこに住んでいますか？",label:"ຢູ່ ໃສ（どこに住む）"},
+    {lao:"ເຈົ້າ ໄປ ໃສ?",romaji:"Jao pai sai?",japanese:"あなたはどこへ行きますか？",label:"ໄປ ໃສ（どこへ行く）"},
+    {lao:"ຫ້ອງນ້ຳ ຢູ່ ໃສ?",romaji:"Hong nam yu sai?",japanese:"トイレはどこですか？",label:"ຫ້ອງນ້ຳ（トイレ）"},
+    {lao:"ຕະຫຼາດ ຢູ່ ໃສ?",romaji:"Talat yu sai?",japanese:"市場はどこですか？",label:"ຕະຫຼາດ（市場）"},
+  ]},
+  {id:20,skit:3,lao:"ຂ້ອຍ ມາ ຈາກ ___.",romaji:"Khoy ma chak ___.",japanese:"私は___から来ました。（出身の表現）",examples:[
+    {lao:"ຂ້ອຍ ມາ ຈາກ ໂຕກຽວ.",romaji:"Khoy ma chak Tokyo.",japanese:"私は東京から来ました。",label:"ໂຕກຽວ（東京）"},
+    {lao:"ຂ້ອຍ ມາ ຈາກ ອາເມລິກາ.",romaji:"Khoy ma chak Amerika.",japanese:"私はアメリカから来ました。",label:"ອາເມລິກາ（アメリカ）"},
+    {lao:"ຂ້ອຍ ມາ ຈາກ ຫວຽດນາມ.",romaji:"Khoy ma chak Viet Nam.",japanese:"私はベトナムから来ました。",label:"ຫວຽດນາມ（ベトナム）"},
+    {lao:"ຂ້ອຍ ມາ ຈາກ ບ້ານນອກ.",romaji:"Khoy ma chak ban nok.",japanese:"私は田舎から来ました。",label:"ບ້ານນອກ（田舎）"},
+  ]},
+  {id:21,skit:3,lao:"ຂ້ອຍ ຢາກ ___.",romaji:"Khoy yak ___.",japanese:"私は___したいです。（願望の表現）",examples:[
+    {lao:"ຂ້ອຍ ຢາກ ກິນ.",romaji:"Khoy yak kin.",japanese:"私は食べたいです。",label:"ກິນ（食べる）"},
+    {lao:"ຂ້ອຍ ຢາກ ຮຽນ ພາສາລາວ.",romaji:"Khoy yak hian phasa Lao.",japanese:"私はラオス語を勉強したいです。",label:"ຮຽນ ພາສາລາວ（ラオス語）"},
+    {lao:"ຂ້ອຍ ຢາກ ພັກຜ່ອນ.",romaji:"Khoy yak phak phon.",japanese:"私は休みたいです。",label:"ພັກຜ່ອນ（休む）"},
+    {lao:"ຂ້ອຍ ຢາກ ເຫັນ.",romaji:"Khoy yak hen.",japanese:"私は見たいです。",label:"ເຫັນ（見る）"},
+  ]},
+  {id:22,skit:3,lao:"ແມ່ນ ແທ້ ບໍ?",romaji:"Maen thae baw?",japanese:"本当ですか？（確認・驚きの相槌）",examples:[
+    {lao:"ແມ່ນ ແທ້ ບໍ? ດີໃຈ!",romaji:"Maen thae baw? Di chai!",japanese:"本当ですか？嬉しい！",label:"ດີໃຈ（嬉しい）"},
+    {lao:"ແມ່ນ ແທ້ ບໍ? ບໍ່ເຊື່ອ!",romaji:"Maen thae baw? Baw seua!",japanese:"本当ですか？信じられない！",label:"ບໍ່ເຊື່ອ（信じられない）"},
+    {lao:"ແມ່ນ ແທ້ ບໍ? ໂອໂຫ!",romaji:"Maen thae baw? Oho!",japanese:"本当ですか？わあ！",label:"ໂອໂຫ（わあ）"},
+    {lao:"ແມ່ນ ແທ້ ບໍ? ແນ່ ບໍ?",romaji:"Maen thae baw? Nae baw?",japanese:"本当ですか？確かですか？",label:"ແນ່ ບໍ（確か？）"},
+  ]},
+  // ════ スキット 4 ════
+  {id:23,skit:4,lao:"ມາ ___ ນຳ ກັນ ເດີ້.",romaji:"Ma ___ nam kan der.",japanese:"一緒に___しようよ。（親しい誘い）",examples:[
+    {lao:"ມາ ຫຼິ້ນ ນຳ ກັນ ເດີ້.",romaji:"Ma lin nam kan der.",japanese:"一緒に遊ぼうよ。",label:"ຫຼິ້ນ（遊ぶ）"},
+    {lao:"ມາ ເບິ່ງ ນຳ ກັນ ເດີ້.",romaji:"Ma boeng nam kan der.",japanese:"一緒に見ようよ。",label:"ເບິ່ງ（見る）"},
+    {lao:"ມາ ເຮັດ ນຳ ກັນ ເດີ້.",romaji:"Ma het nam kan der.",japanese:"一緒にやろうよ。",label:"ເຮັດ（やる）"},
+    {lao:"ມາ ດື່ມ ນຳ ກັນ ເດີ້.",romaji:"Ma duem nam kan der.",japanese:"一緒に飲もうよ。",label:"ດື່ມ（飲む）"},
+  ]},
+  {id:24,skit:4,lao:"___ ຫຍັງ ເດ?",romaji:"___ nyang de?",japanese:"何の___があるの？（種類を尋ねる）",examples:[
+    {lao:"ອາຫານ ຫຍັງ ເດ?",romaji:"Ahan nyang de?",japanese:"何の料理があるの？",label:"ອາຫານ（料理）"},
+    {lao:"ເຄື່ອງດື່ມ ຫຍັງ ເດ?",romaji:"Kheuang duem nyang de?",japanese:"何の飲み物があるの？",label:"ເຄື່ອງດື່ມ（飲み物）"},
+    {lao:"ເຮັດ ຫຍັງ ເດ?",romaji:"Het nyang de?",japanese:"何をしてるの？",label:"ເຮັດ（何をする）"},
+    {lao:"ເບິ່ງ ຫຍັງ ເດ?",romaji:"Boeng nyang de?",japanese:"何を見てるの？",label:"ເບິ່ງ（何を見る）"},
+  ]},
+  {id:25,skit:4,lao:"ເບິ່ງ ___ ດີ.",romaji:"Boeng ___ di.",japanese:"___そうだね。（見た目の印象）",examples:[
+    {lao:"ເບິ່ງ ງາມ ດີ.",romaji:"Boeng ngam di.",japanese:"きれいそうだね。",label:"ງາມ（きれい）"},
+    {lao:"ເບິ່ງ ໃຫຍ່ ດີ.",romaji:"Boeng nyai di.",japanese:"大きそうだね。",label:"ໃຫຍ່（大きい）"},
+    {lao:"ເບິ່ງ ແພງ ດີ.",romaji:"Boeng phaeng di.",japanese:"高そうだね。",label:"ແພງ（高い）"},
+    {lao:"ເບິ່ງ ສະອາດ ດີ.",romaji:"Boeng sa-at di.",japanese:"清潔そうだね。",label:"ສະອາດ（清潔）"},
+  ]},
+  {id:26,skit:4,lao:"ນີ້ ແມ່ນ ___.",romaji:"Ni maen ___.",japanese:"これは___です。（紹介・説明）",examples:[
+    {lao:"ນີ້ ແມ່ນ ປຶ້ມ.",romaji:"Ni maen peum.",japanese:"これは本です。",label:"ປຶ້ມ（本）"},
+    {lao:"ນີ້ ແມ່ນ ໂທລະສັບ.",romaji:"Ni maen tholasap.",japanese:"これは電話です。",label:"ໂທລະສັບ（電話）"},
+    {lao:"ນີ້ ແມ່ນ ຫ້ອງ ຂອງ ເຈົ້າ.",romaji:"Ni maen hong khong jao.",japanese:"これはあなたの部屋です。",label:"ຫ້ອງ（部屋）"},
+    {lao:"ນີ້ ແມ່ນ ອາຫານ ລາວ.",romaji:"Ni maen ahan Lao.",japanese:"これはラオス料理です。",label:"ອາຫານ ລາວ（ラオス料理）"},
+  ]},
+  {id:27,skit:4,lao:"ຂ້ອຍ ມັກ ___.",romaji:"Khoy mak ___.",japanese:"私は___が好きです。（好みの表現）",examples:[
+    {lao:"ຂ້ອຍ ມັກ ກາເຟ.",romaji:"Khoy mak kafe.",japanese:"私はコーヒーが好きです。",label:"ກາເຟ（コーヒー）"},
+    {lao:"ຂ້ອຍ ມັກ ເພງ ລາວ.",romaji:"Khoy mak pheng Lao.",japanese:"私はラオスの歌が好きです。",label:"ເພງ ລາວ（ラオスの歌）"},
+    {lao:"ຂ້ອຍ ມັກ ອາຫານ ລາວ.",romaji:"Khoy mak ahan Lao.",japanese:"私はラオス料理が好きです。",label:"ອາຫານ ລາວ（ラオス料理）"},
+    {lao:"ຂ້ອຍ ມັກ ທ່ຽວ.",romaji:"Khoy mak thiao.",japanese:"私は旅行が好きです。",label:"ທ່ຽວ（旅行）"},
+  ]},
+  {id:28,skit:4,lao:"___ ບໍ?",romaji:"___ baw?",japanese:"___ですか？（Yes/No疑問文）",examples:[
+    {lao:"ຫວານ ບໍ?",romaji:"Wan baw?",japanese:"甘いですか？",label:"ຫວານ（甘い）"},
+    {lao:"ເຜັດ ບໍ?",romaji:"Phet baw?",japanese:"辛いですか？",label:"ເຜັດ（辛い）"},
+    {lao:"ແພງ ບໍ?",romaji:"Phaeng baw?",japanese:"高いですか？",label:"ແພງ（高い）"},
+    {lao:"ໄກ ບໍ?",romaji:"Kai baw?",japanese:"遠いですか？",label:"ໄກ（遠い）"},
+  ]},
+  {id:29,skit:4,lao:"___ ຫຼາຍ.",romaji:"___ lai.",japanese:"とても___です。（程度の強調）",examples:[
+    {lao:"ແຊບ ຫຼາຍ.",romaji:"Saep lai.",japanese:"とても美味しいです。",label:"ແຊບ（美味しい）"},
+    {lao:"ງາມ ຫຼາຍ.",romaji:"Ngam lai.",japanese:"とてもきれいです。",label:"ງາມ（きれい）"},
+    {lao:"ດີ ຫຼາຍ.",romaji:"Di lai.",japanese:"とても良いです。",label:"ດີ（良い）"},
+    {lao:"ຮ້ອນ ຫຼາຍ.",romaji:"Hon lai.",japanese:"とても暑いです。",label:"ຮ້ອນ（暑い）"},
+  ]},
+  {id:30,skit:4,lao:"ລອງ ___ ເບິ່ງ.",romaji:"Long ___ boeng.",japanese:"___してみて。（試すことを勧める）",examples:[
+    {lao:"ລອງ ກິນ ເບິ່ງ.",romaji:"Long kin boeng.",japanese:"食べてみて。",label:"ກິນ（食べる）"},
+    {lao:"ລອງ ເວົ້າ ເບິ່ງ.",romaji:"Long vao boeng.",japanese:"言ってみて。",label:"ເວົ້າ（言う）"},
+    {lao:"ລອງ ເຮັດ ເບິ່ງ.",romaji:"Long het boeng.",japanese:"やってみて。",label:"ເຮັດ（やる）"},
+    {lao:"ລອງ ໃສ່ ເບິ່ງ.",romaji:"Long sai boeng.",japanese:"着てみて。",label:"ໃສ່（着る）"},
+  ]},
+  {id:31,skit:4,lao:"ແຊບ ແທ້!",romaji:"Saep thae!",japanese:"本当に美味しい！（感嘆表現）",examples:[
+    {lao:"ງາມ ແທ້!",romaji:"Ngam thae!",japanese:"本当にきれい！",label:"ງາມ（きれい）"},
+    {lao:"ດີ ແທ້!",romaji:"Di thae!",japanese:"本当に良い！",label:"ດີ（良い）"},
+    {lao:"ມ່ວນ ແທ້!",romaji:"Muan thae!",japanese:"本当に楽しい！",label:"ມ່ວນ（楽しい）"},
+    {lao:"ເກັ່ງ ແທ້!",romaji:"Keng thae!",japanese:"本当にすごい！",label:"ເກັ່ງ（すごい）"},
+  ]},
+  {id:32,skit:4,lao:"ຂ້ອຍ ກໍ ມັກ ຄືກັນ.",romaji:"Khoy ko mak khu kan.",japanese:"私も好きです。（同意の表現）",examples:[
+    {lao:"ຂ້ອຍ ກໍ ຢາກ ຄືກັນ.",romaji:"Khoy ko yak khu kan.",japanese:"私も欲しいです。",label:"ຢາກ（欲しい）"},
+    {lao:"ຂ້ອຍ ກໍ ໄປ ຄືກັນ.",romaji:"Khoy ko pai khu kan.",japanese:"私も行きます。",label:"ໄປ（行く）"},
+    {lao:"ຂ້ອຍ ກໍ ຄິດ ຄືກັນ.",romaji:"Khoy ko khit khu kan.",japanese:"私もそう思います。",label:"ຄິດ（思う）"},
+    {lao:"ຂ້ອຍ ກໍ ເຫັນດີ ຄືກັນ.",romaji:"Khoy ko hen di khu kan.",japanese:"私も賛成です。",label:"ເຫັນດີ（賛成）"},
+  ]},
+  {id:33,skit:4,lao:"___ ອີກ ບໍ?",romaji:"___ ik baw?",japanese:"もっと___しますか？（追加を尋ねる）",examples:[
+    {lao:"ກິນ ອີກ ບໍ?",romaji:"Kin ik baw?",japanese:"もっと食べますか？",label:"ກິນ（食べる）"},
+    {lao:"ດື່ມ ອີກ ບໍ?",romaji:"Duem ik baw?",japanese:"もっと飲みますか？",label:"ດື່ມ（飲む）"},
+    {lao:"ເອົາ ອີກ ບໍ?",romaji:"Ao ik baw?",japanese:"もっと要りますか？",label:"ເອົາ（要る）"},
+    {lao:"ຢາກ ອີກ ບໍ?",romaji:"Yak ik baw?",japanese:"もっと欲しいですか？",label:"ຢາກ（欲しい）"},
+  ]},
+];
+
+let currentId=1,activeExIdx=null,currentAudio=null;
+
+function playAudio(phraseId,exIdx,btnEl){
+  const key='p'+phraseId+'_ex'+exIdx,src=AUDIO_DATA[key];
+  if(currentAudio){currentAudio.pause();currentAudio=null;}
+  document.querySelectorAll('.play-btn').forEach(b=>b.classList.remove('playing'));
+  if(!src){showToast('⚠️ 音声ファイルはまだ登録されていません');return;}
+  const audio=new Audio(src);currentAudio=audio;
+  if(btnEl)btnEl.classList.add('playing');
+  audio.play().catch(()=>showToast('⚠️ 再生に失敗しました'));
+  audio.onended=()=>{if(btnEl)btnEl.classList.remove('playing');currentAudio=null;};
+  showToast('▶ ラオス語を再生中...');
+}
+
+function buildNav(){
+  const nav=document.getElementById('navBar');nav.innerHTML='';let lastSkit=null;
+  PHRASES.forEach(p=>{
+    if(lastSkit&&p.skit!==lastSkit){const s=document.createElement('span');s.className='skit-sep';s.textContent='│';nav.appendChild(s);}
+    const btn=document.createElement('button');
+    btn.className='nav-btn'+(p.id===currentId?' active':'');
+    btn.textContent='構文'+p.id;btn.onclick=()=>switchPhrase(p.id);nav.appendChild(btn);lastSkit=p.skit;
+  });
+}
+
+function switchPhrase(id){
+  currentId=id;activeExIdx=null;
+  if(currentAudio){currentAudio.pause();currentAudio=null;}
+  document.getElementById('currentNum').textContent=id;
+  buildNav();renderPhrase();renderButtons();renderResult();
+  const a=document.querySelector('.nav-btn.active');
+  if(a)a.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+}
+
+function renderPhrase(){
+  const p=PHRASES.find(x=>x.id===currentId);
+  document.getElementById('skitBadge').textContent='スキット '+p.skit;
+  document.getElementById('phraseCard').innerHTML=
+    '<div class="phrase-number"><span class="phrase-number-badge">#'+p.id+'</span>セットフレーズの型</div>'+
+    '<div class="phrase-lao">'+p.lao+'</div>'+
+    '<div class="phrase-romaji">'+p.romaji+'</div>'+
+    '<div class="phrase-japanese">'+p.japanese+'</div>';
+}
+
+function renderButtons(){
+  const p=PHRASES.find(x=>x.id===currentId),L=['A','B','C','D'];
+  document.getElementById('exampleButtons').innerHTML=p.examples.map((ex,i)=>
+    '<button class="ex-btn'+(activeExIdx===i?' active':'')+'" data-idx="'+i+'" onclick="selectExample('+p.id+','+i+')">'+
+    '<span class="label-tag">'+L[i]+'</span>'+ex.label+'</button>').join('');
+}
+
+function renderResult(){
+  const area=document.getElementById('resultArea');
+  if(activeExIdx===null){area.innerHTML='<div class="result-placeholder">← A〜D のボタンを押すと<br>例文とラオス語音声が表示されます</div>';return;}
+  const p=PHRASES.find(x=>x.id===currentId),ex=p.examples[activeExIdx];
+  const key='p'+p.id+'_ex'+activeExIdx,hasAudio=!!AUDIO_DATA[key];
+  const colors=['var(--btn-a)','var(--btn-b)','var(--btn-c)','var(--btn-d)'],L=['A','B','C','D'];
+  area.innerHTML='<div class="result-panel">'+
+    '<div class="result-header"><span class="result-dot" style="background:'+colors[activeExIdx]+'"></span>例文 '+L[activeExIdx]+' — '+ex.label+'</div>'+
+    '<div class="result-body">'+
+    '<div class="result-lao" style="color:'+colors[activeExIdx]+'">'+ex.lao+'</div>'+
+    '<div class="result-romaji">'+ex.romaji+'</div>'+
+    '<div class="result-japanese">'+ex.japanese+'</div>'+
+    '<button class="play-btn" id="playBtnResult" data-idx="'+activeExIdx+'" onclick="playAudio('+p.id+','+activeExIdx+',this)">'+
+    '<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>'+
+    'ラオス語を再生</button>'+
+    '<div class="audio-status '+(hasAudio?'ready':'missing')+'">'+(hasAudio?'● 音声あり':'○ 音声未登録 — mp3ファイルを受け取り次第追加します')+'</div>'+
+    '</div></div>';
+}
+
+function selectExample(phraseId,idx){
+  activeExIdx=idx;renderButtons();renderResult();
+  const key='p'+phraseId+'_ex'+idx;
+  if(AUDIO_DATA[key])setTimeout(()=>playAudio(phraseId,idx,document.getElementById('playBtnResult')),150);
+}
+
+let toastTimer;
+function showToast(msg){
+  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
+  clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2200);
+}
+
+// ══ AUTO-PLAY ══
+let autoPlaying=false,autoTimer=null,autoAudio=null,autoQueue=[],autoQueuePos=0;
+function buildPlayQueue(fromPhraseId,fromExIdx){
+  const queue=[];let started=false;
+  for(const p of PHRASES){for(let i=0;i<p.examples.length;i++){
+    if(!started){if(p.id===fromPhraseId&&i===fromExIdx)started=true;else continue;}
+    const key='p'+p.id+'_ex'+i;if(AUDIO_DATA[key])queue.push({phraseId:p.id,exIdx:i,key});
+  }}return queue;
+}
+function toggleAutoPlay(){if(autoPlaying)stopAutoPlay();else startAutoPlay();}
+function startAutoPlay(){
+  autoPlaying=true;document.getElementById('autoplayBtn').classList.add('playing');
+  document.getElementById('autoplayLabel').textContent='停止';
+  const startEx=activeExIdx!==null?activeExIdx:0;
+  autoQueue=buildPlayQueue(currentId,startEx);autoQueuePos=0;
+  if(autoQueue.length===0){autoQueue=buildPlayQueue(PHRASES[0].id,0);autoQueuePos=0;}
+  if(autoQueue.length===0){showToast('⚠️ 再生できる音声がありません');stopAutoPlay();return;}
+  playNextInQueue();
+}
+function stopAutoPlay(){
+  autoPlaying=false;if(autoAudio){autoAudio.pause();autoAudio=null;}clearTimeout(autoTimer);
+  document.getElementById('autoplayBtn').classList.remove('playing');
+  document.getElementById('autoplayLabel').textContent='自動再生';
+  document.getElementById('autoplayProgress').classList.remove('visible');
+}
+function playNextInQueue(){
+  if(!autoPlaying)return;
+  if(autoQueuePos>=autoQueue.length){
+    // 最後まで再生したら構文1に戻って最初から再開
+    autoQueue=buildPlayQueue(PHRASES[0].id,0);
+    autoQueuePos=0;
+    if(autoQueue.length===0){stopAutoPlay();return;}
+  }
+  const {phraseId,exIdx,key}=autoQueue[autoQueuePos];
+  if(phraseId!==currentId){currentId=phraseId;document.getElementById('currentNum').textContent=phraseId;buildNav();renderPhrase();}
+  activeExIdx=exIdx;renderButtons();renderResult();
+  const a=document.querySelector('.nav-btn.active');if(a)a.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+  const L=['A','B','C','D'];
+  document.getElementById('autoplayProgress').textContent=(autoQueuePos+1)+' / '+autoQueue.length+'\u3000構文'+phraseId+' \u2014 '+L[exIdx];
+  document.getElementById('autoplayProgress').classList.add('visible');
+  if(autoAudio){autoAudio.pause();autoAudio=null;}
+  const audio=new Audio(AUDIO_DATA[key]);autoAudio=audio;
+  document.querySelectorAll('.play-btn').forEach(b=>b.classList.remove('playing'));
+  const playBtn=document.getElementById('playBtnResult');if(playBtn)playBtn.classList.add('playing');
+  audio.play().catch(()=>{});
+  audio.onended=()=>{if(playBtn)playBtn.classList.remove('playing');autoAudio=null;
+    const prevId=phraseId;autoQueuePos++;
+    if(autoPlaying){const next=autoQueue[autoQueuePos];autoTimer=setTimeout(playNextInQueue,(next&&next.phraseId!==prevId)?2000:1200);}
+  };
+}
+
+buildNav();renderPhrase();renderButtons();renderResult();
+</script>
+</body>
+</html>

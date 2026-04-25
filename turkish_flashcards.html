@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇹🇷 トルコ語フラッシュカード</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f4f0; min-height: 100vh; display: flex; align-items: flex-start; justify-content: center; padding: 1rem; }
+  #app { width: 100%; max-width: 600px; padding: 1.5rem 1rem; }
+  .header { text-align: center; margin-bottom: 1.25rem; }
+  .header h1 { font-size: 20px; font-weight: 600; color: #1a1a18; }
+  .header p { font-size: 13px; color: #888780; margin-top: 4px; }
+  .progress-bar { width: 100%; height: 4px; background: #d3d1c7; border-radius: 2px; margin: 0.75rem 0 3px; }
+  .progress-fill { height: 4px; background: #1D9E75; border-radius: 2px; transition: width 0.3s; }
+  .progress-text { font-size: 12px; color: #888780; text-align: right; }
+  .mode-tabs { display: flex; gap: 8px; margin-bottom: 1rem; justify-content: center; flex-wrap: wrap; }
+  .mode-tab { padding: 6px 16px; border: 1px solid #d3d1c7; border-radius: 20px; font-size: 13px; cursor: pointer; background: white; color: #5f5e5a; transition: all 0.15s; }
+  .mode-tab.active { background: #1D9E75; color: white; border-color: #1D9E75; }
+  .card-wrap { perspective: 1000px; height: 290px; margin-bottom: 1rem; cursor: pointer; user-select: none; }
+  .card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.5s; transform-style: preserve-3d; }
+  .card-wrap.flipped .card-inner { transform: rotateY(180deg); }
+  .card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 16px; border: 1px solid #d3d1c7; background: white; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.5rem; }
+  .card-back { transform: rotateY(180deg); background: #f1efe8; }
+  .card-lang { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; color: #b4b2a9; margin-bottom: 0.75rem; text-transform: uppercase; }
+  .card-word { font-size: 32px; font-weight: 500; color: #1a1a18; margin-bottom: 0.5rem; text-align: center; line-height: 1.2; }
+  .card-meaning { font-size: 22px; color: #1a1a18; margin-bottom: 0.5rem; text-align: center; }
+  .card-note { font-size: 13px; color: #5f5e5a; text-align: center; line-height: 1.5; }
+  .card-example { font-size: 13px; color: #5f5e5a; text-align: center; line-height: 1.6; margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid #d3d1c7; }
+  .card-example em { color: #1a1a18; font-style: normal; font-weight: 500; }
+  .card-hint { font-size: 12px; color: #b4b2a9; margin-top: 1rem; }
+  .speak-btn { margin-top: 0.75rem; padding: 6px 14px; border: 1px solid #d3d1c7; border-radius: 20px; background: white; font-size: 12px; color: #5f5e5a; cursor: pointer; display: flex; align-items: center; gap: 5px; }
+  .speak-btn:hover { background: #f1efe8; }
+  .controls { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 1rem; flex-wrap: wrap; }
+  .ctrl-btn { padding: 8px 18px; border: 1px solid #d3d1c7; border-radius: 10px; background: white; color: #1a1a18; font-size: 14px; cursor: pointer; transition: all 0.15s; }
+  .ctrl-btn:hover { background: #f1efe8; }
+  .ctrl-btn.primary { background: #1D9E75; color: white; border-color: #1D9E75; }
+  .ctrl-btn.primary:hover { background: #0F6E56; }
+  .ctrl-btn.auto-on { background: #BA7517; color: white; border-color: #BA7517; }
+  .auto-speed { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #5f5e5a; margin-bottom: 0.75rem; justify-content: center; }
+  .auto-speed input[type=range] { width: 100px; }
+  .result-row { display: flex; gap: 8px; justify-content: center; margin-bottom: 0.75rem; }
+  .result-btn { flex: 1; max-width: 140px; padding: 9px; border: 1px solid #d3d1c7; border-radius: 10px; background: white; font-size: 13px; cursor: pointer; transition: all 0.15s; }
+  .result-btn.good { color: #0F6E56; border-color: #5DCAA5; }
+  .result-btn.good:hover { background: #E1F5EE; }
+  .result-btn.bad { color: #993C1D; border-color: #F0997B; }
+  .result-btn.bad:hover { background: #FAECE7; }
+  .stats-row { display: flex; gap: 8px; justify-content: center; margin-bottom: 1rem; }
+  .stat-card { flex: 1; max-width: 110px; background: white; border: 1px solid #d3d1c7; border-radius: 10px; padding: 8px; text-align: center; }
+  .stat-card .val { font-size: 22px; font-weight: 500; color: #1a1a18; }
+  .stat-card .lbl { font-size: 11px; color: #888780; margin-top: 2px; }
+  .shuffle-row { text-align: center; display: flex; gap: 8px; justify-content: center; }
+  .auto-indicator { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: #BA7517; background: #FAEEDA; padding: 3px 10px; border-radius: 12px; margin-bottom: 8px; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: #BA7517; animation: pulse 1s infinite; }
+  #auto-ind { text-align: center; min-height: 24px; margin-bottom: 4px; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="header">
+    <h1>🇹🇷 トルコ語フラッシュカード</h1>
+    <p>カードをタップして表裏を確認しよう</p>
+  </div>
+
+  <div class="mode-tabs">
+    <button class="mode-tab active" onclick="setMode('ja-tr')">日→トルコ語</button>
+    <button class="mode-tab" onclick="setMode('tr-ja')">トルコ語→日本語</button>
+    <button class="mode-tab" onclick="setMode('random')">ランダム</button>
+  </div>
+
+  <div class="progress-bar"><div class="progress-fill" id="prog"></div></div>
+  <div class="progress-text" id="prog-text">1 / 80</div>
+
+  <div class="stats-row">
+    <div class="stat-card"><div class="val" id="stat-ok">0</div><div class="lbl">覚えた</div></div>
+    <div class="stat-card"><div class="val" id="stat-ng">0</div><div class="lbl">もう一度</div></div>
+    <div class="stat-card"><div class="val" id="stat-left">80</div><div class="lbl">残り</div></div>
+  </div>
+
+  <div id="auto-ind"></div>
+
+  <div class="card-wrap" id="card" onclick="flipCard()">
+    <div class="card-inner" id="card-inner">
+      <div class="card-face" id="card-front">
+        <div class="card-lang" id="front-lang">日本語</div>
+        <div class="card-word" id="front-word">こんにちは</div>
+        <div class="card-hint">タップして答えを見る</div>
+      </div>
+      <div class="card-face card-back" id="card-back">
+        <div class="card-lang" id="back-lang">トルコ語</div>
+        <div class="card-meaning" id="back-word">Merhaba</div>
+        <div class="card-note" id="back-note">最も一般的な挨拶です</div>
+        <div class="card-example" id="back-example"></div>
+        <button class="speak-btn" onclick="speak(event)">🔊 発音を聞く</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="result-row" id="result-row" style="display:none">
+    <button class="result-btn bad" onclick="markCard(false)">😕 もう一度</button>
+    <button class="result-btn good" onclick="markCard(true)">😊 覚えた！</button>
+  </div>
+
+  <div class="controls">
+    <button class="ctrl-btn" onclick="prevCard()">← 前へ</button>
+    <button class="ctrl-btn primary" onclick="nextCard()">次へ →</button>
+    <button class="ctrl-btn" id="auto-btn" onclick="toggleAuto()">▶ 全自動再生</button>
+  </div>
+
+  <div class="auto-speed">
+    <span>速度:</span>
+    <input type="range" min="1" max="5" value="3" id="speed-slider" oninput="updateSpeed(this.value)">
+    <span id="speed-label">普通</span>
+  </div>
+
+  <div class="shuffle-row">
+    <button class="ctrl-btn" onclick="shuffle()" style="font-size:12px">🔀 シャッフル</button>
+    <button class="ctrl-btn" onclick="resetStats()" style="font-size:12px">↺ リセット</button>
+  </div>
+</div>
+
+<script>
+const vocab = [
+  {tr:"Merhaba",ja:"こんにちは",note:"最も一般的な挨拶",ex_tr:"Merhaba, nasılsın?",ex_ja:"こんにちは、元気ですか？"},
+  {tr:"Hoş geldin",ja:"ようこそ",note:"親しい相手への「ようこそ」",ex_tr:"Hoş geldin, bekliyorduk.",ex_ja:"ようこそ、待っていたよ。"},
+  {tr:"Hoş buldum",ja:"ありがとう（歓迎への返答）",note:"Hoş geldinへの決まった返答",ex_tr:"Hoş geldin! — Hoş buldum.",ex_ja:"ようこそ！— ありがとう。"},
+  {tr:"Teşekkür ederim",ja:"ありがとう",note:"丁寧な感謝の言葉",ex_tr:"Yardımın için teşekkür ederim.",ex_ja:"助けてくれてありがとう。"},
+  {tr:"Ben",ja:"私は",note:"1人称単数の主語",ex_tr:"Ben öğrenciyim.",ex_ja:"私は学生です。"},
+  {tr:"Ev",ja:"家",note:"Eveで「家へ」となる",ex_tr:"Eve gidiyorum.",ex_ja:"家に帰ります。"},
+  {tr:"Sahip",ja:"持ち主",note:"Ev sahibiで「家主・ホスト」",ex_tr:"Ev sahibi çok nazik.",ex_ja:"家主はとても親切です。"},
+  {tr:"Baba",ja:"父",note:"Babanımで「君の父です」と変化",ex_tr:"Babam doktor.",ex_ja:"父は医者です。"},
+  {tr:"Memnun oldum",ja:"お会いできて嬉しいです",note:"自己紹介の定番フレーズ",ex_tr:"Memnun oldum, ben Kemal.",ex_ja:"はじめまして、ケマルです。"},
+  {tr:"Bey",ja:"〜さん（男性敬称）",note:"名前の後ろにつける",ex_tr:"Ahmet Bey burada mı?",ex_ja:"アフメットさんはいますか？"},
+  {tr:"De / Da",ja:"〜も",note:"前の言葉と離して書く",ex_tr:"Ben de gidiyorum.",ex_ja:"私も行きます。"},
+  {tr:"Yolculuk",ja:"旅・道中",note:"移動そのものを指す名詞",ex_tr:"Yolculuk nasıldı?",ex_ja:"旅はどうでしたか？"},
+  {tr:"Nasıl",ja:"どのように",note:"Nasıldı?で「どうでしたか？」",ex_tr:"Nasıl yardımcı olabilirim?",ex_ja:"どのようにお役に立てますか？"},
+  {tr:"İyi",ja:"良い",note:"İyiydiで「良かったです」",ex_tr:"Her şey çok iyi.",ex_ja:"全てとても良いです。"},
+  {tr:"Biraz",ja:"少し",note:"量や程度が「ちょっと」",ex_tr:"Biraz su istiyorum.",ex_ja:"少し水が欲しいです。"},
+  {tr:"Yorulmak",ja:"疲れる",note:"Yorldumで「私は疲れました」",ex_tr:"Bugün çok yoruldum.",ex_ja:"今日はとても疲れました。"},
+  {tr:"Ama",ja:"しかし",note:"逆接の接続詞（but）",ex_tr:"Güzel ama pahalı.",ex_ja:"美しいけど高い。"},
+  {tr:"Mutlu",ja:"幸せ・嬉しい",note:"Mutluyumで「私は幸せです」",ex_tr:"Seni görmek beni mutlu etti.",ex_ja:"あなたに会えて嬉しかった。"},
+  {tr:"Hadi",ja:"さあ・早く",note:"相手を促す時のかけ声",ex_tr:"Hadi gidelim!",ex_ja:"さあ行こう！"},
+  {tr:"Gitmek",ja:"行く",note:"Gidelimで「行きましょう」",ex_tr:"Markete gitmek istiyorum.",ex_ja:"スーパーに行きたい。"},
+  {tr:"Tamam",ja:"了解・OK",note:"同意や承諾を表す万能な言葉",ex_tr:"Tamam, yarın görüşürüz.",ex_ja:"わかった、また明日。"},
+  {tr:"Burası",ja:"ここ・この場所",note:"「ここ」を主語にする時に使う",ex_tr:"Burası çok güzel.",ex_ja:"ここはとても美しい。"},
+  {tr:"mı / mi",ja:"〜ですか？",note:"文末に置く疑問の小詞",ex_tr:"Hazır mısın?",ex_ja:"準備はできましたか？"},
+  {tr:"Şimdi",ja:"今",note:"英語のnowに相当",ex_tr:"Şimdi ne yapıyorsun?",ex_ja:"今何をしていますか？"},
+  {tr:"Şehir",ja:"街・都市",note:"Şehreで「街へ」となる",ex_tr:"İstanbul büyük bir şehir.",ex_ja:"イスタンブールは大きな都市です。"},
+  {tr:"Girmek",ja:"入る",note:"Giriyoruzで「入っています」",ex_tr:"Eve girebilir miyim?",ex_ja:"家に入っていいですか？"},
+  {tr:"Ne kadar",ja:"どのくらい",note:"時間や量などを尋ねる疑問フレーズ",ex_tr:"Bu ne kadar?",ex_ja:"これはいくらですか？"},
+  {tr:"Sürmek",ja:"続く・かかる",note:"時間の経過を表す",ex_tr:"Kaç saat sürer?",ex_ja:"何時間かかりますか？"},
+  {tr:"Yaklaşık",ja:"約・およそ",note:"数字の前に置いて概算を示す",ex_tr:"Yaklaşık iki saat sürer.",ex_ja:"約2時間かかります。"},
+  {tr:"Yarım",ja:"半分・30分",note:"Yarım saatで「30分間」",ex_tr:"Yarım saat bekledim.",ex_ja:"30分待ちました。"},
+  {tr:"Saat",ja:"時間・時計",note:"「〜時間」や「〜時」を表す",ex_tr:"Saat kaç?",ex_ja:"今何時ですか？"},
+  {tr:"Anlamak",ja:"理解する",note:"Anlıyorumで「わかります」",ex_tr:"Türkçe anlıyor musun?",ex_ja:"トルコ語わかりますか？"},
+  {tr:"Yol",ja:"道",note:"Yollarは複数形",ex_tr:"Bu yol nereye gider?",ex_ja:"この道はどこに行きますか？"},
+  {tr:"Geniş",ja:"広い",note:"スペースがゆったりしている様子",ex_tr:"Oda çok geniş.",ex_ja:"部屋がとても広い。"},
+  {tr:"Trafik",ja:"交通・渋滞",note:"外来語（traffic）",ex_tr:"Trafik çok yoğun.",ex_ja:"渋滞がひどい。"},
+  {tr:"Bazen",ja:"時々",note:"頻度を表す副詞",ex_tr:"Bazen kahve içerim.",ex_ja:"時々コーヒーを飲みます。"},
+  {tr:"Yoğun",ja:"激しい・混雑した",note:"密度が高いこと",ex_tr:"Bugün çok yoğunum.",ex_ja:"今日はとても忙しい。"},
+  {tr:"Çok",ja:"とても・たくさん",note:"強調を表す言葉",ex_tr:"Çok güzel bir gün.",ex_ja:"とても良い日です。"},
+  {tr:"Güzel",ja:"美しい・素敵な",note:"褒め言葉の代表格",ex_tr:"Bu elbise çok güzel.",ex_ja:"このドレスはとても素敵です。"},
+  {tr:"Görünmek",ja:"見える",note:"Görünüyorで「〜のように見える」",ex_tr:"Mutlu görünüyorsun.",ex_ja:"幸せそうに見えます。"},
+  {tr:"Hoşuna gitmek",ja:"気に入る",note:"「好きになる」という慣用句",ex_tr:"Bu yer hoşuma gitti.",ex_ja:"この場所が気に入りました。"},
+  {tr:"Emin",ja:"確信している",note:"Eminim で「私は確信しています」",ex_tr:"Eminim, doğru yol bu.",ex_ja:"確かに、これが正しい道です。"},
+  {tr:"Hanım",ja:"〜さん（女性敬称）",note:"名前の後ろにつける",ex_tr:"Ayşe Hanım teşekkür etti.",ex_ja:"アイシェさんが感謝しました。"},
+  {tr:"Yorgun",ja:"疲れた",note:"Yorgun musun?で「疲れてる？」",ex_tr:"Çok yorgunum, uyumak istiyorum.",ex_ja:"とても疲れた、寝たい。"},
+  {tr:"Çay",ja:"茶・チャイ",note:"トルコの紅茶のこと",ex_tr:"Bir çay içer misin?",ex_ja:"チャイを一杯いかがですか？"},
+  {tr:"İstemek",ja:"欲しがる・〜したい",note:"İster misin?で「欲しいですか？」",ex_tr:"Su istemiyorum, teşekkürler.",ex_ja:"水はいらないです、ありがとう。"},
+  {tr:"Olmak",ja:"なる・である",note:"İyi olurで「良いですね」",ex_tr:"Öğretmen olmak istiyorum.",ex_ja:"先生になりたいです。"},
+  {tr:"Buyur",ja:"どうぞ",note:"渡す・招く・促す時の言葉",ex_tr:"Buyur, içeri girin.",ex_ja:"どうぞ、中へお入りください。"},
+  {tr:"Şeker",ja:"砂糖",note:"甘いお菓子を指すこともある",ex_tr:"Çayına şeker ister misin?",ex_ja:"チャイに砂糖いりますか？"},
+  {tr:"Az",ja:"少ない",note:"量が少ないこと",ex_tr:"Az şeker lütfen.",ex_ja:"砂糖は少なめでお願いします。"},
+  {tr:"Olsun",ja:"〜にしてください",note:"依頼する時の形",ex_tr:"Az şeker olsun.",ex_ja:"砂糖少なめにしてください。"},
+  {tr:"Lütfen",ja:"お願いします",note:"丁寧にするための言葉（please）",ex_tr:"Kapıyı açar mısın lütfen?",ex_ja:"ドアを開けてくれますか？"},
+  {tr:"Senin",ja:"君の",note:"2人称単数の所有格",ex_tr:"Senin adın ne?",ex_ja:"あなたの名前は何ですか？"},
+  {tr:"Oda",ja:"部屋",note:"Odanで「君の部屋」",ex_tr:"Oda çok temiz.",ex_ja:"部屋がとても綺麗です。"},
+  {tr:"Gerçekten",ja:"本当に",note:"強調や確認（Really?）に使う",ex_tr:"Gerçekten mi? İnanamıyorum!",ex_ja:"本当に？信じられない！"},
+  {tr:"Benim",ja:"私の",note:"1人称単数の所有格",ex_tr:"Bu benim kitabım.",ex_ja:"これは私の本です。"},
+  {tr:"Beğenmek",ja:"気に入る・好む",note:"Beğendin mi?で「気に入った？」",ex_tr:"Bu yemeği beğendin mi?",ex_ja:"この料理気に入った？"},
+  {tr:"Rahat",ja:"快適な・気楽な",note:"リラックスした状態",ex_tr:"Bu koltuk çok rahat.",ex_ja:"このソファはとても快適です。"},
+  {tr:"Şey",ja:"こと・もの",note:"「何か」を指す時に便利",ex_tr:"Bir şey söyleyeyim mi?",ex_ja:"何か言ってもいいですか？"},
+  {tr:"İhtiyaç",ja:"必要・ニーズ",note:"İhtiyacın olursaで「もし必要なら」",ex_tr:"Yardıma ihtiyacın var mı?",ex_ja:"助けが必要ですか？"},
+  {tr:"Söylemek",ja:"言う・話す",note:"Söyleは「言って」という命令形",ex_tr:"Bana söyle, ne oldu?",ex_ja:"私に教えて、何があったの？"},
+  {tr:"Sağ ol",ja:"ありがとう（親しい間柄）",note:"カジュアルな「ありがとう」",ex_tr:"Yardım ettin, sağ ol!",ex_ja:"助けてくれてありがとう！"},
+  {tr:"Dinlenmek",ja:"休む",note:"Dinleneyimで「私が休もう」",ex_tr:"Biraz dinlenmem lazım.",ex_ja:"少し休む必要があります。"},
+  {tr:"Yemek",ja:"食事・料理",note:"動詞では「食べる」",ex_tr:"Yemek hazır mı?",ex_ja:"食事はできましたか？"},
+  {tr:"Hazır",ja:"準備ができた",note:"料理が完成した時などに使う",ex_tr:"Her şey hazır, gidebiliriz.",ex_ja:"全て準備できた、行けますよ。"},
+  {tr:"Abi",ja:"お兄さん",note:"年上の男性への親称",ex_tr:"Abi, yardım eder misin?",ex_ja:"お兄さん、手伝ってくれる？"},
+  {tr:"Kokmak",ja:"匂う",note:"Kokuyorで「匂いがしている」",ex_tr:"Çorba çok güzel kokuyor.",ex_ja:"スープがとても良い匂いがする。"},
+  {tr:"Mercimek",ja:"レンズ豆",note:"トルコの代表的な豆",ex_tr:"Mercimek çorbası çok lezzetli.",ex_ja:"レンズ豆スープはとても美味しい。"},
+  {tr:"Çorba",ja:"スープ",note:"Mercimek çorbası（レンズ豆スープ）",ex_tr:"Soğuk günlerde çorba içerim.",ex_ja:"寒い日にスープを飲みます。"},
+  {tr:"Yapmak",ja:"作る・する",note:"Yaptıで「作った」",ex_tr:"Ne yapmak istiyorsun?",ex_ja:"何をしたいですか？"},
+  {tr:"İlk kez",ja:"初めて",note:"最初の回、という意味",ex_tr:"Türkiye'ye ilk kez gidiyorum.",ex_ja:"トルコに初めて行きます。"},
+  {tr:"Denemek",ja:"試す・食べてみる",note:"新しいものに挑戦する（try）",ex_tr:"Bu yemeği denemek istiyorum.",ex_ja:"この料理を試してみたい。"},
+  {tr:"Afiyet olsun",ja:"召し上がれ",note:"食事の挨拶（直訳：健康であれ）",ex_tr:"Afiyet olsun, yiyin!",ex_ja:"どうぞ召し上がれ！"},
+  {tr:"Lezzetli",ja:"美味しい",note:"味が良いことを表す形容詞",ex_tr:"Bu yemek gerçekten lezzetli.",ex_ja:"この料理は本当に美味しい。"},
+  {tr:"Tam",ja:"ちょうど・完璧に",note:"状態がぴったりなこと",ex_tr:"Tam zamanında geldin.",ex_ja:"ちょうど良い時間に来た。"},
+  {tr:"Kıvam",ja:"加減・とろみ",note:"Kıvamındaで「ちょうどいい加減」",ex_tr:"Çorba tam kıvamında.",ex_ja:"スープがちょうどいい加減です。"},
+  {tr:"Daha",ja:"もっと・さらに",note:"追加を表す",ex_tr:"Daha fazla ister misin?",ex_ja:"もっと欲しいですか？"},
+  {tr:"Yok",ja:"いいえ・無い",note:"Noとしてカジュアルに使われる",ex_tr:"Bugün zaman yok.",ex_ja:"今日は時間がない。"},
+  {tr:"Doymak",ja:"お腹がいっぱいになる",note:"Doydumで「満腹になりました」",ex_tr:"Çok yedim, doydum.",ex_ja:"たくさん食べた、満腹です。"},
+];
+
+let deck = [...vocab.map((_,i)=>i)];
+let current = 0;
+let mode = 'ja-tr';
+let flipped = false;
+let stats = {ok:0, ng:0};
+let autoPlay = false;
+let autoTimer = null;
+let autoPhase = 0;
+let speedMs = 2500;
+const speedLabels = ['とても遅い','遅い','普通','速い','とても速い'];
+const speedValues = [5000, 3500, 2500, 1800, 1200];
+
+function setMode(m) {
+  mode = m;
+  document.querySelectorAll('.mode-tab').forEach((t,i)=>{
+    t.classList.toggle('active', ['ja-tr','tr-ja','random'][i]===m);
+  });
+  showCard();
+}
+
+function getCardMode() {
+  if(mode === 'random') return Math.random() < 0.5 ? 'ja-tr' : 'tr-ja';
+  return mode;
+}
+
+function showCard() {
+  const idx = deck[current];
+  const v = vocab[idx];
+  const m = getCardMode();
+  document.getElementById('card').classList.remove('flipped');
+  flipped = false;
+  document.getElementById('result-row').style.display = 'none';
+  if(m === 'ja-tr') {
+    document.getElementById('front-lang').textContent = '日本語';
+    document.getElementById('front-word').textContent = v.ja;
+    document.getElementById('back-lang').textContent = 'トルコ語';
+    document.getElementById('back-word').textContent = v.tr;
+  } else {
+    document.getElementById('front-lang').textContent = 'トルコ語';
+    document.getElementById('front-word').textContent = v.tr;
+    document.getElementById('back-lang').textContent = '日本語';
+    document.getElementById('back-word').textContent = v.ja;
+  }
+  document.getElementById('back-note').textContent = v.note;
+  document.getElementById('back-example').innerHTML = '<em>' + v.ex_tr + '</em><br>' + v.ex_ja;
+  updateProgress();
+}
+
+function flipCard() {
+  if(flipped) return;
+  document.getElementById('card').classList.add('flipped');
+  flipped = true;
+  document.getElementById('result-row').style.display = 'flex';
+  speakCurrent();
+}
+
+function speakCurrent() {
+  const v = vocab[deck[current]];
+  speakText(v.tr);
+}
+
+function speak(e) {
+  e.stopPropagation();
+  speakCurrent();
+}
+
+function speakText(text) {
+  if(!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'tr-TR';
+  u.rate = 0.85;
+  window.speechSynthesis.speak(u);
+}
+
+function nextCard() {
+  current = (current + 1) % deck.length;
+  showCard();
+}
+
+function prevCard() {
+  current = (current - 1 + deck.length) % deck.length;
+  showCard();
+}
+
+function markCard(ok) {
+  if(ok) stats.ok++; else stats.ng++;
+  document.getElementById('stat-ok').textContent = stats.ok;
+  document.getElementById('stat-ng').textContent = stats.ng;
+  document.getElementById('stat-left').textContent = deck.length - current - 1;
+  nextCard();
+}
+
+function updateProgress() {
+  const pct = ((current+1)/deck.length*100).toFixed(0);
+  document.getElementById('prog').style.width = pct + '%';
+  document.getElementById('prog-text').textContent = (current+1) + ' / ' + deck.length;
+  document.getElementById('stat-left').textContent = deck.length - current - 1;
+}
+
+function shuffle() {
+  for(let i=deck.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [deck[i],deck[j]]=[deck[j],deck[i]];
+  }
+  current=0;
+  showCard();
+}
+
+function resetStats() {
+  stats={ok:0,ng:0};
+  current=0;
+  deck=[...vocab.map((_,i)=>i)];
+  document.getElementById('stat-ok').textContent='0';
+  document.getElementById('stat-ng').textContent='0';
+  showCard();
+}
+
+function updateSpeed(v) {
+  const idx = parseInt(v)-1;
+  speedMs = speedValues[idx];
+  document.getElementById('speed-label').textContent = speedLabels[idx];
+}
+
+function toggleAuto() {
+  autoPlay = !autoPlay;
+  const btn = document.getElementById('auto-btn');
+  const ind = document.getElementById('auto-ind');
+  if(autoPlay) {
+    btn.textContent = '⏹ 停止';
+    btn.classList.add('auto-on');
+    ind.innerHTML = '<span class="auto-indicator"><span class="dot"></span>自動再生中</span>';
+    autoPhase = 0;
+    runAuto();
+  } else {
+    btn.textContent = '▶ 全自動再生';
+    btn.classList.remove('auto-on');
+    ind.innerHTML = '';
+    clearTimeout(autoTimer);
+  }
+}
+
+function runAuto() {
+  if(!autoPlay) return;
+  if(autoPhase === 0) {
+    showCard();
+    autoPhase = 1;
+    autoTimer = setTimeout(runAuto, speedMs);
+  } else {
+    document.getElementById('card').classList.add('flipped');
+    flipped = true;
+    document.getElementById('result-row').style.display = 'flex';
+    speakCurrent();
+    autoPhase = 0;
+    autoTimer = setTimeout(function(){
+      current = (current + 1) % deck.length;
+      runAuto();
+    }, speedMs * 1.5);
+  }
+}
+
+showCard();
+</script>
+</body>
+</html>

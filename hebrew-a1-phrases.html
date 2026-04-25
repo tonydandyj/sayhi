@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ヘブライ語 A1 フレーズ練習</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Hebrew:wght@400;600;700&family=Noto+Sans+Hebrew:wght@400;700&family=Zen+Kaku+Gothic+New:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#08090e;--surface:#0e0f18;--surface2:#141520;
+    --accent:#4a90d9;--accent2:#e8c84b;--accent3:#7ec8a0;
+    --text:#f0eef8;--text-dim:#7a7890;--border:#1c1e30;
+    --btn-a:#4a90d9;--btn-b:#e8c84b;--btn-c:#7ec8a0;--btn-d:#e87060;
+    --success:#56d364;--radius:12px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;}
+  body::before{content:'';position:fixed;inset:0;background:
+    radial-gradient(ellipse 55% 45% at 80% 10%,rgba(74,144,217,.07) 0%,transparent 55%),
+    radial-gradient(ellipse 40% 35% at 15% 85%,rgba(232,200,75,.06) 0%,transparent 55%);
+    pointer-events:none;z-index:0;}
+  body::after{content:'';position:fixed;top:0;left:0;right:0;height:2px;
+    background:linear-gradient(90deg,var(--accent) 0%,var(--accent2) 40%,var(--accent3) 70%,var(--btn-d) 100%);z-index:999;}
+  #app{position:relative;z-index:1;display:flex;flex-direction:column;height:100vh;overflow:hidden;}
+  header{flex-shrink:0;padding:9px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;background:rgba(8,9,14,.95);backdrop-filter:blur(14px);}
+  .flag-badge{font-size:22px;line-height:1;}
+  .header-text h1{font-family:'Zen Kaku Gothic New',sans-serif;font-size:1.05rem;color:var(--accent2);letter-spacing:.04em;font-weight:700;}
+  .header-text p{font-size:.59rem;color:var(--text-dim);letter-spacing:.1em;text-transform:uppercase;margin-top:1px;}
+  .lesson-counter{margin-left:auto;background:var(--surface2);border:1px solid var(--border);border-radius:50px;padding:4px 14px;font-size:.66rem;color:var(--text-dim);white-space:nowrap;}
+  .lesson-counter span{color:var(--accent2);font-weight:700;}
+  .nav-bar{flex-shrink:0;display:flex;gap:5px;padding:7px 16px;overflow-x:auto;scrollbar-width:none;background:var(--bg);border-bottom:1px solid var(--border);align-items:center;}
+  .nav-bar::-webkit-scrollbar{display:none;}
+  .skit-sep{flex-shrink:0;font-size:.55rem;color:rgba(74,144,217,.35);padding:0 3px;user-select:none;}
+  .nav-btn{flex-shrink:0;background:var(--surface);border:1px solid var(--border);color:var(--text-dim);border-radius:50px;padding:4px 11px;font-size:.62rem;font-family:'JetBrains Mono',monospace;cursor:pointer;transition:all .15s;white-space:nowrap;}
+  .nav-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .nav-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:600;}
+  main{flex:1;overflow:hidden;display:flex;align-items:stretch;justify-content:center;padding:10px 16px;gap:12px;}
+  .content-wrap{display:flex;gap:12px;width:100%;max-width:1100px;align-items:stretch;}
+  .col-left,.col-right{flex:1;display:flex;flex-direction:column;gap:8px;}
+  .skit-badge{display:inline-flex;align-items:center;gap:6px;font-size:.6rem;color:var(--accent2);letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(232,200,75,.4);border-radius:4px;padding:3px 12px;background:rgba(232,200,75,.07);align-self:flex-start;font-family:'Zen Kaku Gothic New',sans-serif;}
+  .phrase-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px 14px;position:relative;overflow:hidden;flex:1;display:flex;flex-direction:column;justify-content:center;}
+  .phrase-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3),var(--btn-d));}
+  .phrase-card::after{content:'✡';position:absolute;bottom:8px;right:14px;font-size:1.3rem;color:rgba(74,144,217,.08);pointer-events:none;}
+  .phrase-number{display:inline-flex;align-items:center;gap:6px;font-size:.6rem;color:var(--text-dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;}
+  .phrase-number-badge{background:var(--accent);color:#fff;border-radius:3px;padding:1px 7px;font-weight:700;font-size:.63rem;}
+  /* RTL Hebrew text */
+  .phrase-hebrew{font-family:'Noto Serif Hebrew',serif;font-size:3rem;font-weight:700;line-height:1.6;color:var(--text);margin-bottom:6px;word-break:break-word;direction:rtl;text-align:right;}
+  .phrase-romaji{font-size:1.6rem;color:var(--accent3);margin-bottom:5px;font-style:italic;letter-spacing:.02em;}
+  .phrase-japanese{font-size:1.8rem;color:var(--text-dim);font-family:'Zen Kaku Gothic New',sans-serif;}
+  .buttons-label{font-size:.58rem;color:var(--text-dim);letter-spacing:.1em;text-transform:uppercase;}
+  .example-buttons{display:grid;grid-template-columns:1fr 1fr;gap:7px;flex-shrink:0;}
+  .ex-btn{background:var(--surface2);border:1.5px solid var(--border);color:var(--text);border-radius:9px;padding:9px 12px;font-family:'Zen Kaku Gothic New',sans-serif;font-size:.82rem;cursor:pointer;text-align:left;transition:all .15s;display:flex;align-items:center;gap:8px;}
+  .ex-btn:hover{transform:translateY(-1px);}
+  .ex-btn[data-idx="0"]{border-color:rgba(74,144,217,.45);}
+  .ex-btn[data-idx="1"]{border-color:rgba(232,200,75,.5);}
+  .ex-btn[data-idx="2"]{border-color:rgba(126,200,160,.45);}
+  .ex-btn[data-idx="3"]{border-color:rgba(232,112,96,.45);}
+  .ex-btn[data-idx="0"]:hover,.ex-btn.active[data-idx="0"]{background:rgba(74,144,217,.12);border-color:var(--btn-a);box-shadow:0 0 0 2px rgba(74,144,217,.25);}
+  .ex-btn[data-idx="1"]:hover,.ex-btn.active[data-idx="1"]{background:rgba(232,200,75,.12);border-color:var(--btn-b);box-shadow:0 0 0 2px rgba(232,200,75,.25);}
+  .ex-btn[data-idx="2"]:hover,.ex-btn.active[data-idx="2"]{background:rgba(126,200,160,.12);border-color:var(--btn-c);box-shadow:0 0 0 2px rgba(126,200,160,.25);}
+  .ex-btn[data-idx="3"]:hover,.ex-btn.active[data-idx="3"]{background:rgba(232,112,96,.12);border-color:var(--btn-d);box-shadow:0 0 0 2px rgba(232,112,96,.25);}
+  .label-tag{font-size:.62rem;font-weight:700;font-family:'JetBrains Mono',monospace;padding:2px 6px;border-radius:3px;flex-shrink:0;}
+  .ex-btn[data-idx="0"] .label-tag{background:var(--btn-a);color:#fff;}
+  .ex-btn[data-idx="1"] .label-tag{background:var(--btn-b);color:var(--bg);}
+  .ex-btn[data-idx="2"] .label-tag{background:var(--btn-c);color:var(--bg);}
+  .ex-btn[data-idx="3"] .label-tag{background:var(--btn-d);color:#fff;}
+  .result-panel{background:var(--surface2);border:1px solid var(--border);border-radius:11px;overflow:hidden;animation:slideIn .2s ease;flex:1;display:flex;flex-direction:column;}
+  .result-placeholder{flex:1;display:flex;align-items:center;justify-content:center;border:1px dashed var(--border);border-radius:11px;color:var(--text-dim);font-size:.7rem;letter-spacing:.06em;text-align:center;padding:20px;line-height:2;font-family:'Zen Kaku Gothic New',sans-serif;}
+  @keyframes slideIn{from{opacity:0;transform:translateY(-5px);}to{opacity:1;transform:translateY(0);}}
+  .result-header{flex-shrink:0;padding:8px 16px;display:flex;align-items:center;gap:7px;border-bottom:1px solid var(--border);font-size:.63rem;color:var(--text-dim);letter-spacing:.08em;text-transform:uppercase;}
+  .result-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+  .result-body{padding:14px 16px;flex:1;display:flex;flex-direction:column;justify-content:center;}
+  .result-hebrew{font-family:'Noto Serif Hebrew',serif;font-size:2.5rem;font-weight:600;margin-bottom:5px;line-height:1.6;direction:rtl;text-align:right;}
+  .result-romaji{font-size:1.56rem;font-style:italic;color:var(--accent3);margin-bottom:4px;letter-spacing:.02em;}
+  .result-japanese{font-family:'Zen Kaku Gothic New',sans-serif;font-size:1.76rem;color:var(--text-dim);margin-bottom:12px;}
+  .play-btn{display:inline-flex;align-items:center;gap:7px;padding:7px 16px;border-radius:50px;border:none;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:.66rem;font-weight:600;transition:all .14s;letter-spacing:.05em;align-self:flex-start;}
+  .play-btn svg{transition:transform .12s;}
+  .play-btn:hover svg{transform:scale(1.2);}
+  .play-btn[data-idx="0"]{background:var(--btn-a);color:#fff;}
+  .play-btn[data-idx="1"]{background:var(--btn-b);color:var(--bg);}
+  .play-btn[data-idx="2"]{background:var(--btn-c);color:var(--bg);}
+  .play-btn[data-idx="3"]{background:var(--btn-d);color:#fff;}
+  .play-btn:hover{filter:brightness(1.12);transform:translateY(-1px);}
+  .play-btn:active{transform:translateY(0);}
+  .play-btn.playing{animation:pulse .55s ease infinite alternate;}
+  @keyframes pulse{from{opacity:1;}to{opacity:.6;}}
+  .audio-status{font-size:.58rem;color:var(--text-dim);margin-top:5px;}
+  .audio-status.ready{color:var(--success);}
+  .toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%) translateY(60px);background:var(--surface2);border:1px solid var(--accent2);color:var(--text);font-size:.72rem;padding:7px 18px;border-radius:50px;transition:transform .25s ease;z-index:100;white-space:nowrap;font-family:'Zen Kaku Gothic New',sans-serif;}
+  .toast.show{transform:translateX(-50%) translateY(0);}
+  .autoplay-btn{position:fixed;bottom:16px;right:16px;display:flex;align-items:center;gap:8px;padding:9px 18px;border-radius:50px;border:2px solid var(--accent);background:var(--bg);color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:600;cursor:pointer;z-index:50;transition:all .2s;letter-spacing:.05em;}
+  .autoplay-btn:hover{background:rgba(74,144,217,.1);box-shadow:0 0 16px rgba(74,144,217,.2);}
+  .autoplay-btn.playing{background:var(--accent);color:#fff;box-shadow:0 0 20px rgba(74,144,217,.4);animation:autoPulse 1.8s ease infinite;}
+  @keyframes autoPulse{0%,100%{box-shadow:0 0 20px rgba(74,144,217,.4);}50%{box-shadow:0 0 32px rgba(74,144,217,.65);}}
+  .autoplay-btn .ap-icon{font-size:.9rem;}
+  .autoplay-progress{position:fixed;bottom:58px;right:16px;background:var(--surface2);border:1px solid var(--border);border-radius:50px;padding:4px 14px;font-size:.62rem;color:var(--text-dim);font-family:'JetBrains Mono',monospace;z-index:50;transition:opacity .3s;opacity:0;pointer-events:none;white-space:nowrap;}
+  .autoplay-progress.visible{opacity:1;}
+  ::-webkit-scrollbar{width:5px;height:5px;}
+  ::-webkit-scrollbar-track{background:var(--surface);}
+  ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <div class="flag-badge">🇮🇱</div>
+    <div class="header-text">
+      <h1>ヘブライ語 フレーズ練習帳</h1>
+      <p>A1 Level · Set Phrase Substitution Drills</p>
+    </div>
+    <div class="lesson-counter">構文 <span id="currentNum">1</span> / 28</div>
+  </header>
+  <div class="nav-bar" id="navBar"></div>
+  <main>
+    <div class="content-wrap">
+      <div class="col-left">
+        <div class="skit-badge" id="skitBadge">スキット 1</div>
+        <div class="phrase-card" id="phraseCard"></div>
+      </div>
+      <div class="col-right">
+        <p class="buttons-label">▸ 入れ替え語を選んでください</p>
+        <div class="example-buttons" id="exampleButtons"></div>
+        <div id="resultArea">
+          <div class="result-placeholder">← A〜D のボタンを押すと<br>例文とヘブライ語音声が表示されます</div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<div class="toast" id="toast"></div>
+<button class="autoplay-btn" id="autoplayBtn" onclick="toggleAutoPlay()">
+  <span class="ap-icon">▶</span>
+  <span id="autoplayLabel">自動再生</span>
+</button>
+<div class="autoplay-progress" id="autoplayProgress"></div>
+<script>
+const AUDIO_DATA = {};
+
+const PHRASES = [
+  // ════ スキット 1 ════
+  {id:1,skit:1,hebrew:"שלום, אני ___.",romaji:"Shalom, ani ___.",japanese:"こんにちは、私は___です。（基本の自己紹介）",examples:[
+    {hebrew:"שלום, אני יוּכִי.",romaji:"Shalom, ani Yuki.",japanese:"こんにちは、私はユキです。",label:"ユキ"},
+    {hebrew:"שלום, אני סְטוּדֶנְט.",romaji:"Shalom, ani student.",japanese:"こんにちは、私は学生です。",label:"学生"},
+    {hebrew:"שלום, אני מִיַּפָּן.",romaji:"Shalom, ani mi-Yapan.",japanese:"こんにちは、私は日本から来ました。",label:"日本から"},
+    {hebrew:"שלום, אני הַמּוֹרֶה הַחָדָשׁ.",romaji:"Shalom, ani ha-moreh ha-chadash.",japanese:"こんにちは、私は新しい先生です。",label:"新しい先生"},
+  ]},
+  {id:2,skit:1,hebrew:"ברוך הבא!",romaji:"Baruch haba!",japanese:"ようこそ！（歓迎表現）",examples:[
+    {hebrew:"ברוכה הבאה!",romaji:"Brucha haba'a!",japanese:"ようこそ！（女性へ）",label:"女性へ"},
+    {hebrew:"ברוכים הבאים!",romaji:"Bruchim haba'im!",japanese:"ようこそ！（複数へ）",label:"複数へ"},
+    {hebrew:"ברוך הבא לישראל!",romaji:"Baruch haba le-Yisra'el!",japanese:"イスラエルへようこそ！",label:"イスラエルへ"},
+    {hebrew:"ברוך הבא למשפחה!",romaji:"Baruch haba la-mishpacha!",japanese:"家族へようこそ！",label:"家族へ"},
+  ]},
+  {id:3,skit:1,hebrew:"תודה ש___.",romaji:"Toda she-___.",japanese:"___してくれてありがとう。（理由付きの感謝）",examples:[
+    {hebrew:"תודה שעזרת לי.",romaji:"Toda she-azarta li.",japanese:"助けてくれてありがとう。",label:"助けてくれた"},
+    {hebrew:"תודה שהזמנת אותי.",romaji:"Toda she-hizmanta oti.",japanese:"招待してくれてありがとう。",label:"招待してくれた"},
+    {hebrew:"תודה שחיכית.",romaji:"Toda she-chikit.",japanese:"待ってくれてありがとう。",label:"待ってくれた"},
+    {hebrew:"תודה שהסברת.",romaji:"Toda she-hisbarta.",japanese:"説明してくれてありがとう。",label:"説明してくれた"},
+  ]},
+  {id:4,skit:1,hebrew:"בכיף.",romaji:"Be-kef.",japanese:"喜んで。／どういたしまして。（カジュアルな返答）",examples:[
+    {hebrew:"בכיף, אין בעיה.",romaji:"Be-kef, ein be'aya.",japanese:"喜んで、問題ないよ。",label:"問題ない"},
+    {hebrew:"בכיף גמור.",romaji:"Be-kef gamur.",japanese:"全然喜んで。",label:"全然喜んで"},
+    {hebrew:"בכיף, תמיד.",romaji:"Be-kef, tamid.",japanese:"いつでも喜んで。",label:"いつでも"},
+    {hebrew:"בכיף, זה היה נחמד.",romaji:"Be-kef, ze haya nechmad.",japanese:"喜んで、楽しかったよ。",label:"楽しかった"},
+  ]},
+  {id:5,skit:1,hebrew:"איך הייתה ה___?",romaji:"Eich hayta ha-___?",japanese:"___はどうでしたか？（過去の経験を尋ねる）",examples:[
+    {hebrew:"איך היה היום?",romaji:"Eich haya ha-yom?",japanese:"今日はどうでしたか？",label:"今日"},
+    {hebrew:"איך הייתה החופשה?",romaji:"Eich hayta ha-chufsha?",japanese:"休暇はどうでしたか？",label:"休暇"},
+    {hebrew:"איך היה האוכל?",romaji:"Eich haya ha-ochel?",japanese:"食事はどうでしたか？",label:"食事"},
+    {hebrew:"איך הייתה הפגישה?",romaji:"Eich hayta ha-pgisha?",japanese:"会議はどうでしたか？",label:"会議"},
+  ]},
+  {id:6,skit:1,hebrew:"היה בסדר.",romaji:"Haya beseder.",japanese:"大丈夫でした。／まあまあでした。（状態の返答）",examples:[
+    {hebrew:"היה מעולה.",romaji:"Haya me'ule.",japanese:"素晴らしかったです。",label:"素晴らしい"},
+    {hebrew:"היה נחמד.",romaji:"Haya nechmad.",japanese:"良かったです。",label:"良かった"},
+    {hebrew:"היה קשה.",romaji:"Haya kashe.",japanese:"大変でした。",label:"大変だった"},
+    {hebrew:"היה ארוך.",romaji:"Haya aroch.",japanese:"長かったです。",label:"長かった"},
+  ]},
+  {id:7,skit:1,hebrew:"יאללה, ל___.",romaji:"Yalla, le-___.",japanese:"さあ、___へ行こう。（勧誘・移動の表現）",examples:[
+    {hebrew:"יאללה, לבית.",romaji:"Yalla, la-bayit.",japanese:"さあ、家へ行こう。",label:"家へ"},
+    {hebrew:"יאללה, לאכול.",romaji:"Yalla, le'echol.",japanese:"さあ、食べに行こう。",label:"食べに"},
+    {hebrew:"יאללה, לעבודה.",romaji:"Yalla, la-avoda.",japanese:"さあ、仕事へ行こう。",label:"仕事へ"},
+    {hebrew:"יאללה, להתחיל.",romaji:"Yalla, le-hatchil.",japanese:"さあ、始めよう。",label:"始めよう"},
+  ]},
+  // ════ スキット 2 ════
+  {id:8,skit:2,hebrew:"ברוך הבא ל___.",romaji:"Baruch haba le-___.",japanese:"___へようこそ。（場所への歓迎）",examples:[
+    {hebrew:"ברוך הבא לתל אביב.",romaji:"Baruch haba le-Tel Aviv.",japanese:"テルアビブへようこそ。",label:"テルアビブ"},
+    {hebrew:"ברוך הבא למשרד.",romaji:"Baruch haba la-misrad.",japanese:"オフィスへようこそ。",label:"オフィス"},
+    {hebrew:"ברוך הבא לבית הספר.",romaji:"Baruch haba le-beit ha-sefer.",japanese:"学校へようこそ。",label:"学校"},
+    {hebrew:"ברוך הבא למסעדה.",romaji:"Baruch haba la-mis'ada.",japanese:"レストランへようこそ。",label:"レストラン"},
+  ]},
+  {id:9,skit:2,hebrew:"נעים מאוד להכיר.",romaji:"Na'im me'od le-hakir.",japanese:"はじめまして。／お会いできて嬉しいです。",examples:[
+    {hebrew:"נעים להכיר.",romaji:"Na'im le-hakir.",japanese:"はじめまして。",label:"はじめまして"},
+    {hebrew:"נעים מאוד לראות אותך.",romaji:"Na'im me'od lir'ot otcha.",japanese:"会えてとても嬉しいです。",label:"会えて嬉しい"},
+    {hebrew:"נעים מאוד להכיר אותך סוף סוף.",romaji:"Na'im me'od le-hakir otcha sof sof.",japanese:"やっとお会いできて嬉しいです。",label:"やっと会えた"},
+    {hebrew:"נעים לי מאוד.",romaji:"Na'im li me'od.",japanese:"とても光栄です。",label:"光栄です"},
+  ]},
+  {id:10,skit:2,hebrew:"אתה ___?",romaji:"Ata ___?",japanese:"あなたは___ですか？（状態を尋ねる・男性へ）",examples:[
+    {hebrew:"אתה עייף?",romaji:"Ata ayef?",japanese:"疲れていますか？",label:"עייף（疲れた）"},
+    {hebrew:"אתה צמא?",romaji:"Ata tzame?",japanese:"喉が渇いていますか？",label:"צמא（喉が渇いた）"},
+    {hebrew:"אתה מוכן?",romaji:"Ata muchan?",japanese:"準備できていますか？",label:"מוכן（準備OK）"},
+    {hebrew:"אתה בסדר?",romaji:"Ata beseder?",japanese:"大丈夫ですか？",label:"בסדר（大丈夫）"},
+  ]},
+  {id:11,skit:2,hebrew:"כן, קצת.",romaji:"Ken, ktzat.",japanese:"はい、少し。（程度を表す返答）",examples:[
+    {hebrew:"כן, מאוד.",romaji:"Ken, me'od.",japanese:"はい、とても。",label:"מאוד（とても）"},
+    {hebrew:"כן, ממש.",romaji:"Ken, mamash.",japanese:"はい、本当に。",label:"ממש（本当に）"},
+    {hebrew:"כן, קצת עייף.",romaji:"Ken, ktzat ayef.",japanese:"はい、少し疲れています。",label:"קצת עייף（少し疲れた）"},
+    {hebrew:"כן, קצת קר לי.",romaji:"Ken, ktzat kar li.",japanese:"はい、少し寒いです。",label:"קר לי（寒い）"},
+  ]},
+  {id:12,skit:2,hebrew:"הכנתי ___.",romaji:"Hechanti ___.",japanese:"___を作りました／用意しました。（過去形・準備）",examples:[
+    {hebrew:"הכנתי קפה.",romaji:"Hechanti kafe.",japanese:"コーヒーを淹れました。",label:"קפה（コーヒー）"},
+    {hebrew:"הכנתי ארוחה.",romaji:"Hechanti arucha.",japanese:"食事を用意しました。",label:"ארוחה（食事）"},
+    {hebrew:"הכנתי את החדר.",romaji:"Hechanti et ha-cheder.",japanese:"部屋を準備しました。",label:"חדר（部屋）"},
+    {hebrew:"הכנתי הפתעה.",romaji:"Hechanti hafta'a.",japanese:"サプライズを用意しました。",label:"הפתעה（サプライズ）"},
+  ]},
+  {id:13,skit:2,hebrew:"נראה ממש ___!",romaji:"Nir'e mamash ___!",japanese:"本当に___に見えます！（感嘆表現）",examples:[
+    {hebrew:"נראה ממש יפה!",romaji:"Nir'e mamash yafe!",japanese:"本当にきれいに見えます！",label:"יפה（きれい）"},
+    {hebrew:"נראה ממש מעניין!",romaji:"Nir'e mamash me'anyen!",japanese:"本当に面白そうに見えます！",label:"מעניין（面白い）"},
+    {hebrew:"נראה ממש גדול!",romaji:"Nir'e mamash gadol!",japanese:"本当に大きく見えます！",label:"גדול（大きい）"},
+    {hebrew:"נראה ממש חדש!",romaji:"Nir'e mamash chadash!",japanese:"本当に新しく見えます！",label:"חדש（新しい）"},
+  ]},
+  // ════ スキット 3 ════
+  {id:14,skit:3,hebrew:"היי, אתה ___?",romaji:"Hey, ata ___?",japanese:"ねえ、あなたは___ですか？（カジュアルな確認）",examples:[
+    {hebrew:"היי, אתה דוד?",romaji:"Hey, ata David?",japanese:"ねえ、あなたはダビドですか？",label:"ダビド"},
+    {hebrew:"היי, אתה החבר של יוני?",romaji:"Hey, ata ha-chaver shel Yoni?",japanese:"ねえ、あなたはヨニの友達ですか？",label:"ヨニの友達"},
+    {hebrew:"היי, אתה מחכה למישהו?",romaji:"Hey, ata mechake le-mishehu?",japanese:"ねえ、誰かを待っていますか？",label:"誰かを待つ"},
+    {hebrew:"היי, אתה מדבר אנגלית?",romaji:"Hey, ata medaber Anglit?",japanese:"ねえ、英語を話しますか？",label:"英語を話す"},
+  ]},
+  {id:15,skit:3,hebrew:"כן, זה אני.",romaji:"Ken, ze ani.",japanese:"はい、それは私です。（確認への返答）",examples:[
+    {hebrew:"כן, זה נכון.",romaji:"Ken, ze nachon.",japanese:"はい、その通りです。",label:"その通り"},
+    {hebrew:"כן, זה המקום.",romaji:"Ken, ze ha-makom.",japanese:"はい、ここです。",label:"ここです"},
+    {hebrew:"כן, זה הוא.",romaji:"Ken, ze hu.",japanese:"はい、彼です。",label:"彼です"},
+    {hebrew:"כן, זה בדיוק מה שרציתי.",romaji:"Ken, ze be-diyuk ma she-ratziti.",japanese:"はい、まさに私が欲しかったものです。",label:"まさにそれ"},
+  ]},
+  {id:16,skit:3,hebrew:"נעים להכיר.",romaji:"Na'im le-hakir.",japanese:"はじめまして。（初対面の挨拶・短縮形）",examples:[
+    {hebrew:"נעים להכיר אותך.",romaji:"Na'im le-hakir otcha.",japanese:"あなたに会えて嬉しいです。",label:"あなたに"},
+    {hebrew:"נעים להכיר את כולם.",romaji:"Na'im le-hakir et kulam.",japanese:"皆さんに会えて嬉しいです。",label:"皆さんに"},
+    {hebrew:"נעים להכיר, אני יוכי.",romaji:"Na'im le-hakir, ani Yuki.",japanese:"はじめまして、私はユキです。",label:"ユキです"},
+    {hebrew:"נעים להכיר סוף סוף.",romaji:"Na'im le-hakir sof sof.",japanese:"やっと会えて嬉しいです。",label:"やっと会えた"},
+  ]},
+  {id:17,skit:3,hebrew:"גם לי נעים להכיר.",romaji:"Gam li na'im le-hakir.",japanese:"私もお会いできて嬉しいです。（相互の挨拶）",examples:[
+    {hebrew:"גם לי נעים מאוד.",romaji:"Gam li na'im me'od.",japanese:"私もとても嬉しいです。",label:"とても嬉しい"},
+    {hebrew:"גם אני שמח להכיר.",romaji:"Gam ani same'ach le-hakir.",japanese:"私も会えて嬉しいです。",label:"嬉しい（男性）"},
+    {hebrew:"גם לי, תודה.",romaji:"Gam li, toda.",japanese:"私もです、ありがとう。",label:"ありがとう"},
+    {hebrew:"גם לי, אני מקווה שנהיה חברים.",romaji:"Gam li, ani mekave she-nihye chaverim.",japanese:"私もです、友達になれるといいですね。",label:"友達になろう"},
+  ]},
+  {id:18,skit:3,hebrew:"אתה לומד ___?",romaji:"Ata lomed ___?",japanese:"あなたは___を勉強していますか？（学習内容を尋ねる）",examples:[
+    {hebrew:"אתה לומד עברית?",romaji:"Ata lomed Ivrit?",japanese:"あなたはヘブライ語を勉強していますか？",label:"עברית（ヘブライ語）"},
+    {hebrew:"אתה לומד מתמטיקה?",romaji:"Ata lomed matematika?",japanese:"あなたは数学を勉強していますか？",label:"מתמטיקה（数学）"},
+    {hebrew:"אתה לומד באוניברסיטה?",romaji:"Ata lomed ba-universita?",japanese:"あなたは大学で勉強していますか？",label:"באוניברסיטה（大学で）"},
+    {hebrew:"אתה לומד לבד?",romaji:"Ata lomed levad?",japanese:"あなたは一人で勉強していますか？",label:"לבד（一人で）"},
+  ]},
+  {id:19,skit:3,hebrew:"אני רוצה ל___.",romaji:"Ani rotze le-___.",japanese:"私は___したいです。（願望の表現・男性）",examples:[
+    {hebrew:"אני רוצה לאכול.",romaji:"Ani rotze le'echol.",japanese:"私は食べたいです。",label:"לאכול（食べる）"},
+    {hebrew:"אני רוצה ללמוד עברית.",romaji:"Ani rotze lilmod Ivrit.",japanese:"私はヘブライ語を学びたいです。",label:"ללמוד עברית（ヘブライ語）"},
+    {hebrew:"אני רוצה לנוח.",romaji:"Ani rotze lanu'ach.",japanese:"私は休みたいです。",label:"לנוח（休む）"},
+    {hebrew:"אני רוצה לראות את העיר.",romaji:"Ani rotze lir'ot et ha-ir.",japanese:"私は街を見たいです。",label:"לראות העיר（街を見る）"},
+  ]},
+  {id:20,skit:3,hebrew:"סבבה, אני א___ לך.",romaji:"Sababa, ani a-___ lecha.",japanese:"いいよ、___してあげるよ。（カジュアルな申し出）",examples:[
+    {hebrew:"סבבה, אני אראה לך.",romaji:"Sababa, ani ar'e lecha.",japanese:"いいよ、見せてあげるよ。",label:"אראה（見せる）"},
+    {hebrew:"סבבה, אני אסביר לך.",romaji:"Sababa, ani asbir lecha.",japanese:"いいよ、説明してあげるよ。",label:"אסביר（説明する）"},
+    {hebrew:"סבבה, אני אביא לך.",romaji:"Sababa, ani avi lecha.",japanese:"いいよ、持ってきてあげるよ。",label:"אביא（持ってくる）"},
+    {hebrew:"סבבה, אני אלמד אותך.",romaji:"Sababa, ani alamed otcha.",japanese:"いいよ、教えてあげるよ。",label:"אלמד（教える）"},
+  ]},
+  // ════ スキット 4 ════
+  {id:21,skit:4,hebrew:"רוצה ל___?",romaji:"Rotze le-___?",japanese:"___したい？（提案・勧誘）",examples:[
+    {hebrew:"רוצה לשתות משהו?",romaji:"Rotze lishtot mashehu?",japanese:"何か飲みたい？",label:"לשתות（飲む）"},
+    {hebrew:"רוצה לבוא איתי?",romaji:"Rotze lavo iti?",japanese:"一緒に来たい？",label:"לבוא（来る）"},
+    {hebrew:"רוצה לנסות?",romaji:"Rotze lenasot?",japanese:"試してみたい？",label:"לנסות（試す）"},
+    {hebrew:"רוצה לשחק?",romaji:"Rotze lesachek?",japanese:"遊びたい？",label:"לשחק（遊ぶ）"},
+  ]},
+  {id:22,skit:4,hebrew:"כן, למה לא?",romaji:"Ken, lama lo?",japanese:"うん、いいよ。（気軽な同意）",examples:[
+    {hebrew:"כן, בטח.",romaji:"Ken, betach.",japanese:"うん、もちろん。",label:"בטח（もちろん）"},
+    {hebrew:"כן, בשמחה.",romaji:"Ken, be-simcha.",japanese:"うん、喜んで。",label:"בשמחה（喜んで）"},
+    {hebrew:"כן, למה לא, נשמע כיף.",romaji:"Ken, lama lo, nishma kef.",japanese:"うん、いいよ、楽しそう。",label:"נשמע כיף（楽しそう）"},
+    {hebrew:"כן, למה לא לנסות?",romaji:"Ken, lama lo lenasot?",japanese:"うん、試してみない手はないね。",label:"לנסות（試す）"},
+  ]},
+  {id:23,skit:4,hebrew:"הנה ה___ שלי.",romaji:"Hine ha-___ sheli.",japanese:"ほら、私の___だよ。（所有物の紹介）",examples:[
+    {hebrew:"הנה הספר שלי.",romaji:"Hine ha-sefer sheli.",japanese:"ほら、私の本だよ。",label:"ספר（本）"},
+    {hebrew:"הנה הטלפון שלי.",romaji:"Hine ha-telefon sheli.",japanese:"ほら、私の電話だよ。",label:"טלפון（電話）"},
+    {hebrew:"הנה המכונית שלי.",romaji:"Hine ha-mechonit sheli.",japanese:"ほら、私の車だよ。",label:"מכונית（車）"},
+    {hebrew:"הנה התמונות שלי.",romaji:"Hine ha-tmunot sheli.",japanese:"ほら、私の写真だよ。",label:"תמונות（写真）"},
+  ]},
+  {id:24,skit:4,hebrew:"אתה אוסף ___?",romaji:"Ata osef ___?",japanese:"あなたは___を集めているの？（趣味を尋ねる）",examples:[
+    {hebrew:"אתה אוסף בולים?",romaji:"Ata osef bulim?",japanese:"あなたは切手を集めているの？",label:"בולים（切手）"},
+    {hebrew:"אתה אוסף מטבעות?",romaji:"Ata osef matbe'ot?",japanese:"あなたはコインを集めているの？",label:"מטבעות（コイン）"},
+    {hebrew:"אתה אוסף ספרים?",romaji:"Ata osef sfarim?",japanese:"あなたは本を集めているの？",label:"ספרים（本）"},
+    {hebrew:"אתה אוסף אומנות?",romaji:"Ata osef omanut?",japanese:"あなたは芸術作品を集めているの？",label:"אומנות（芸術）"},
+  ]},
+  {id:25,skit:4,hebrew:"זה התחביב שלי.",romaji:"Ze ha-tachbiv sheli.",japanese:"これは私の趣味です。（趣味の説明）",examples:[
+    {hebrew:"זה העבודה שלי.",romaji:"Ze ha-avoda sheli.",japanese:"これは私の仕事です。",label:"עבודה（仕事）"},
+    {hebrew:"זה הלימודים שלי.",romaji:"Ze ha-limudim sheli.",japanese:"これは私の勉強です。",label:"לימודים（勉強）"},
+    {hebrew:"זה החלום שלי.",romaji:"Ze ha-chalom sheli.",japanese:"これは私の夢です。",label:"חלום（夢）"},
+    {hebrew:"זה הסיפור שלי.",romaji:"Ze ha-sipur sheli.",japanese:"これは私の話です。",label:"סיפור（話）"},
+  ]},
+  {id:26,skit:4,hebrew:"מגניב.",romaji:"Magniv.",japanese:"かっこいい。／すごい。（感嘆・褒め言葉）",examples:[
+    {hebrew:"מגניב מאוד!",romaji:"Magniv me'od!",japanese:"すごくかっこいい！",label:"מאוד（すごく）"},
+    {hebrew:"וואו, מגניב!",romaji:"Wow, magniv!",japanese:"わあ、すごい！",label:"וואו（わあ）"},
+    {hebrew:"זה מגניב שאתה עושה את זה.",romaji:"Ze magniv she-ata ose et ze.",japanese:"それをやってるのはかっこいいね。",label:"עושה את זה（やってる）"},
+    {hebrew:"מגניב, אני גם רוצה לנסות.",romaji:"Magniv, ani gam rotze lenasot.",japanese:"かっこいい、私も試したい。",label:"גם רוצה（私も試したい）"},
+  ]},
+  {id:27,skit:4,hebrew:"איפה אני ___?",romaji:"Eifo ani ___?",japanese:"私はどこで___しますか？（場所を尋ねる）",examples:[
+    {hebrew:"איפה אני אוכל?",romaji:"Eifo ani ochel?",japanese:"私はどこで食べますか？",label:"אוכל（食べる）"},
+    {hebrew:"איפה אני יושב?",romaji:"Eifo ani yoshev?",japanese:"私はどこに座りますか？",label:"יושב（座る）"},
+    {hebrew:"איפה אני שם את התיק?",romaji:"Eifo ani sam et ha-tik?",japanese:"私はどこにカバンを置きますか？",label:"תיק（カバン）"},
+    {hebrew:"איפה אני מתקלח?",romaji:"Eifo ani mitkalech?",japanese:"私はどこでシャワーを浴びますか？",label:"מתקלח（シャワー）"},
+  ]},
+  {id:28,skit:4,hebrew:"אתה ישן ב___.",romaji:"Ata yashen be-___.",japanese:"あなたは___で寝ます。（場所の指示）",examples:[
+    {hebrew:"אתה ישן בסלון.",romaji:"Ata yashen ba-salon.",japanese:"あなたはリビングで寝ます。",label:"סלון（リビング）"},
+    {hebrew:"אתה ישן בחדר האורחים.",romaji:"Ata yashen be-cheder ha-orchim.",japanese:"あなたはゲストルームで寝ます。",label:"חדר האורחים（ゲストルーム）"},
+    {hebrew:"אתה ישן פה.",romaji:"Ata yashen po.",japanese:"あなたはここで寝ます。",label:"פה（ここ）"},
+    {hebrew:"אתה ישן למעלה.",romaji:"Ata yashen le-ma'ala.",japanese:"あなたは上の階で寝ます。",label:"למעלה（上の階）"},
+  ]},
+];
+
+let currentId=1,activeExIdx=null,currentAudio=null;
+
+function playAudio(phraseId,exIdx,btnEl){
+  const key='p'+phraseId+'_ex'+exIdx,src=AUDIO_DATA[key];
+  if(currentAudio){currentAudio.pause();currentAudio=null;}
+  document.querySelectorAll('.play-btn').forEach(b=>b.classList.remove('playing'));
+  if(!src){showToast('⚠️ 音声ファイルはまだ登録されていません');return;}
+  const audio=new Audio(src);currentAudio=audio;
+  if(btnEl)btnEl.classList.add('playing');
+  audio.play().catch(()=>showToast('⚠️ 再生に失敗しました'));
+  audio.onended=()=>{if(btnEl)btnEl.classList.remove('playing');currentAudio=null;};
+  showToast('▶ ヘブライ語を再生中...');
+}
+
+function buildNav(){
+  const nav=document.getElementById('navBar');nav.innerHTML='';let lastSkit=null;
+  PHRASES.forEach(p=>{
+    if(lastSkit&&p.skit!==lastSkit){const s=document.createElement('span');s.className='skit-sep';s.textContent='│';nav.appendChild(s);}
+    const btn=document.createElement('button');
+    btn.className='nav-btn'+(p.id===currentId?' active':'');
+    btn.textContent='構文'+p.id;btn.onclick=()=>switchPhrase(p.id);nav.appendChild(btn);lastSkit=p.skit;
+  });
+}
+
+function switchPhrase(id){
+  currentId=id;activeExIdx=null;
+  if(currentAudio){currentAudio.pause();currentAudio=null;}
+  document.getElementById('currentNum').textContent=id;
+  buildNav();renderPhrase();renderButtons();renderResult();
+  const a=document.querySelector('.nav-btn.active');
+  if(a)a.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+}
+
+function renderPhrase(){
+  const p=PHRASES.find(x=>x.id===currentId);
+  document.getElementById('skitBadge').textContent='スキット '+p.skit;
+  document.getElementById('phraseCard').innerHTML=
+    '<div class="phrase-number"><span class="phrase-number-badge">#'+p.id+'</span>セットフレーズの型</div>'+
+    '<div class="phrase-hebrew">'+p.hebrew+'</div>'+
+    '<div class="phrase-romaji">'+p.romaji+'</div>'+
+    '<div class="phrase-japanese">'+p.japanese+'</div>';
+}
+
+function renderButtons(){
+  const p=PHRASES.find(x=>x.id===currentId),L=['A','B','C','D'];
+  document.getElementById('exampleButtons').innerHTML=p.examples.map((ex,i)=>
+    '<button class="ex-btn'+(activeExIdx===i?' active':'')+'" data-idx="'+i+'" onclick="selectExample('+p.id+','+i+')">'+
+    '<span class="label-tag">'+L[i]+'</span>'+ex.label+'</button>').join('');
+}
+
+function renderResult(){
+  const area=document.getElementById('resultArea');
+  if(activeExIdx===null){area.innerHTML='<div class="result-placeholder">← A〜D のボタンを押すと<br>例文とヘブライ語音声が表示されます</div>';return;}
+  const p=PHRASES.find(x=>x.id===currentId),ex=p.examples[activeExIdx];
+  const key='p'+p.id+'_ex'+activeExIdx,hasAudio=!!AUDIO_DATA[key];
+  const colors=['var(--btn-a)','var(--btn-b)','var(--btn-c)','var(--btn-d)'],L=['A','B','C','D'];
+  area.innerHTML='<div class="result-panel">'+
+    '<div class="result-header"><span class="result-dot" style="background:'+colors[activeExIdx]+'"></span>例文 '+L[activeExIdx]+' — '+ex.label+'</div>'+
+    '<div class="result-body">'+
+    '<div class="result-hebrew" style="color:'+colors[activeExIdx]+'">'+ex.hebrew+'</div>'+
+    '<div class="result-romaji">'+ex.romaji+'</div>'+
+    '<div class="result-japanese">'+ex.japanese+'</div>'+
+    '<button class="play-btn" id="playBtnResult" data-idx="'+activeExIdx+'" onclick="playAudio('+p.id+','+activeExIdx+',this)">'+
+    '<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>'+
+    'ヘブライ語を再生</button>'+
+    '<div class="audio-status '+(hasAudio?'ready':'missing')+'">'+(hasAudio?'● 音声あり':'○ 音声未登録 — mp3ファイルを受け取り次第追加します')+'</div>'+
+    '</div></div>';
+}
+
+function selectExample(phraseId,idx){
+  activeExIdx=idx;renderButtons();renderResult();
+  const key='p'+phraseId+'_ex'+idx;
+  if(AUDIO_DATA[key])setTimeout(()=>playAudio(phraseId,idx,document.getElementById('playBtnResult')),150);
+}
+
+let toastTimer;
+function showToast(msg){
+  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
+  clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2200);
+}
+
+// ══ AUTO-PLAY ══
+let autoPlaying=false,autoTimer=null,autoAudio=null,autoQueue=[],autoQueuePos=0;
+function buildPlayQueue(fromPhraseId,fromExIdx){
+  const queue=[];let started=false;
+  for(const p of PHRASES){for(let i=0;i<p.examples.length;i++){
+    if(!started){if(p.id===fromPhraseId&&i===fromExIdx)started=true;else continue;}
+    const key='p'+p.id+'_ex'+i;if(AUDIO_DATA[key])queue.push({phraseId:p.id,exIdx:i,key});
+  }}return queue;
+}
+function toggleAutoPlay(){if(autoPlaying)stopAutoPlay();else startAutoPlay();}
+function startAutoPlay(){
+  autoPlaying=true;document.getElementById('autoplayBtn').classList.add('playing');
+  document.getElementById('autoplayLabel').textContent='停止';
+  const startEx=activeExIdx!==null?activeExIdx:0;
+  autoQueue=buildPlayQueue(currentId,startEx);autoQueuePos=0;
+  if(autoQueue.length===0){autoQueue=buildPlayQueue(PHRASES[0].id,0);autoQueuePos=0;}
+  if(autoQueue.length===0){showToast('⚠️ 再生できる音声がありません');stopAutoPlay();return;}
+  playNextInQueue();
+}
+function stopAutoPlay(){
+  autoPlaying=false;if(autoAudio){autoAudio.pause();autoAudio=null;}clearTimeout(autoTimer);
+  document.getElementById('autoplayBtn').classList.remove('playing');
+  document.getElementById('autoplayLabel').textContent='自動再生';
+  document.getElementById('autoplayProgress').classList.remove('visible');
+}
+function playNextInQueue(){
+  if(!autoPlaying)return;
+  if(autoQueuePos>=autoQueue.length){
+    // 最後まで再生したら構文1に戻って最初から再開
+    autoQueue=buildPlayQueue(PHRASES[0].id,0);
+    autoQueuePos=0;
+    if(autoQueue.length===0){stopAutoPlay();return;}
+  }
+  const {phraseId,exIdx,key}=autoQueue[autoQueuePos];
+  if(phraseId!==currentId){currentId=phraseId;document.getElementById('currentNum').textContent=phraseId;buildNav();renderPhrase();}
+  activeExIdx=exIdx;renderButtons();renderResult();
+  const a=document.querySelector('.nav-btn.active');if(a)a.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+  const L=['A','B','C','D'];
+  document.getElementById('autoplayProgress').textContent=(autoQueuePos+1)+' / '+autoQueue.length+'\u3000構文'+phraseId+' \u2014 '+L[exIdx];
+  document.getElementById('autoplayProgress').classList.add('visible');
+  if(autoAudio){autoAudio.pause();autoAudio=null;}
+  const audio=new Audio(AUDIO_DATA[key]);autoAudio=audio;
+  document.querySelectorAll('.play-btn').forEach(b=>b.classList.remove('playing'));
+  const playBtn=document.getElementById('playBtnResult');if(playBtn)playBtn.classList.add('playing');
+  audio.play().catch(()=>{});
+  audio.onended=()=>{if(playBtn)playBtn.classList.remove('playing');autoAudio=null;
+    const prevId=phraseId;autoQueuePos++;
+    if(autoPlaying){const next=autoQueue[autoQueuePos];autoTimer=setTimeout(playNextInQueue,(next&&next.phraseId!==prevId)?2000:1200);}
+  };
+}
+
+buildNav();renderPhrase();renderButtons();renderResult();
+</script>
+</body>
+</html>
