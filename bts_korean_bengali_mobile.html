@@ -1,0 +1,701 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;600;700&family=Noto+Sans+KR:wght@400;600;700&family=Nunito:wght@700;800;900&display=swap');
+:root{
+  --p:#6B46C1;--p2:#4C1D95;--p3:#EDE9FE;--p4:#7C3AED;
+  --g:#059669;--r:#DC2626;--gold:#D97706;
+  --fs-xl:26px;--fs-lg:20px;--fs-md:17px;--fs-sm:14px;--fs-xs:12px;
+  --tap:52px;
+  font-family:'Nunito',sans-serif;
+}
+.app{width:100%;max-width:420px;margin:0 auto;padding:0 0 16px;}
+.hdr{background:#4C1D95;padding:14px 16px;border-radius:14px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;}
+.hdr-l{display:flex;align-items:center;gap:10px;}
+.hdr-logo{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,0.15);border:1.5px solid rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff;letter-spacing:0.5px;flex-shrink:0;}
+.hdr-title{font-size:17px;font-weight:900;color:#fff;line-height:1.2;}
+.hdr-sub{font-size:12px;color:rgba(255,255,255,0.7);font-family:'Noto Sans Bengali',sans-serif;margin-top:2px;}
+.score-pill{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:20px;padding:6px 12px;color:#fff;font-size:14px;font-weight:800;display:flex;align-items:center;gap:5px;white-space:nowrap;}
+
+.nav{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin-bottom:14px;}
+.nav-btn{height:56px;border-radius:12px;border:1.5px solid var(--color-border-tertiary);background:var(--color-background-secondary);color:var(--color-text-secondary);font-size:11px;font-weight:800;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:4px 2px;transition:all 0.15s;font-family:'Nunito',sans-serif;-webkit-tap-highlight-color:transparent;}
+.nav-btn .nb-icon{font-size:18px;line-height:1;}
+.nav-btn.active{background:#4C1D95;border-color:#4C1D95;color:#fff;}
+
+.sec{display:none;}
+.sec.on{display:block;}
+
+/* ── FLASHCARD ── */
+.fc-toolbar{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
+.fc-sel{flex:1;min-width:0;height:var(--tap);border-radius:10px;border:1.5px solid var(--color-border-tertiary);background:var(--color-background-secondary);color:var(--color-text-primary);font-size:var(--fs-sm);font-family:'Nunito',sans-serif;padding:0 10px;font-weight:700;}
+.dir-row{display:flex;gap:6px;width:100%;margin-bottom:12px;}
+.dir-btn{flex:1;height:var(--tap);border-radius:10px;border:1.5px solid var(--color-border-tertiary);background:var(--color-background-secondary);color:var(--color-text-secondary);font-size:var(--fs-sm);font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;}
+.dir-btn.on{background:#4C1D95;border-color:#4C1D95;color:#fff;}
+
+.fc-wrap{perspective:900px;height:220px;margin-bottom:12px;cursor:pointer;}
+.fc-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform 0.5s cubic-bezier(0.4,0,0.2,1);}
+.fc-inner.flip{transform:rotateY(180deg);}
+.fc-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 16px;}
+.fc-front{background:#4C1D95;}
+.fc-back{background:var(--color-background-primary);border:1.5px solid var(--color-border-tertiary);transform:rotateY(180deg);}
+.fc-badge{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:10px;}
+.fc-front .fc-badge{background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.85);}
+.fc-back .fc-badge{background:#EDE9FE;color:#4C1D95;}
+.fc-main{font-size:28px;font-weight:700;text-align:center;line-height:1.25;margin-bottom:6px;}
+.fc-front .fc-main{font-family:'Noto Sans KR',sans-serif;color:#fff;}
+.fc-back .fc-main{font-family:'Noto Sans Bengali',sans-serif;color:var(--color-text-primary);}
+.fc-rom{font-size:14px;font-style:italic;text-align:center;}
+.fc-front .fc-rom{color:rgba(255,255,255,0.65);}
+.fc-back .fc-rom{color:var(--color-text-secondary);}
+.fc-hint{font-size:12px;margin-top:8px;opacity:0.55;color:#fff;}
+.fc-spk{position:absolute;bottom:12px;right:12px;width:38px;height:38px;border-radius:50%;border:1.5px solid;cursor:pointer;background:transparent;display:flex;align-items:center;justify-content:center;font-size:16px;}
+.fc-front .fc-spk{border-color:rgba(255,255,255,0.35);color:rgba(255,255,255,0.8);}
+.fc-back .fc-spk{border-color:#6B46C1;color:#6B46C1;}
+
+.fc-prog{height:4px;background:var(--color-border-tertiary);border-radius:2px;margin-bottom:10px;}
+.fc-prog-bar{height:100%;background:#6B46C1;border-radius:2px;transition:width 0.3s;}
+
+.fc-nav-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.arr-btn{width:var(--tap);height:var(--tap);border-radius:50%;border:1.5px solid var(--color-border-tertiary);background:var(--color-background-secondary);color:var(--color-text-primary);font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.fc-ctr{flex:1;text-align:center;font-size:var(--fs-md);font-weight:800;color:var(--color-text-secondary);}
+.fc-acts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.act-btn{height:var(--tap);border-radius:10px;border:1.5px solid;font-size:var(--fs-sm);font-weight:800;cursor:pointer;background:transparent;font-family:'Nunito',sans-serif;}
+.act-no{border-color:#DC2626;color:#DC2626;}
+.act-sh{border-color:#6B46C1;color:#6B46C1;}
+.act-ok{border-color:#059669;color:#059669;}
+
+/* ── QUIZ / LISTEN shared ── */
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:12px;}
+.stat-box{background:var(--color-background-secondary);border-radius:10px;padding:10px 8px;text-align:center;}
+.stat-val{font-size:22px;font-weight:900;line-height:1;}
+.stat-lbl{font-size:11px;font-weight:700;color:var(--color-text-secondary);margin-top:3px;}
+.stat-box.ok .stat-val{color:#059669;}
+.stat-box.ng .stat-val{color:#DC2626;}
+.stat-box.st .stat-val{color:#6B46C1;}
+
+.mode-row{display:flex;gap:6px;margin-bottom:12px;}
+.mode-btn{flex:1;height:44px;border-radius:10px;border:1.5px solid var(--color-border-tertiary);background:var(--color-background-secondary);color:var(--color-text-secondary);font-size:var(--fs-sm);font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;}
+.mode-btn.on{background:#4C1D95;border-color:#4C1D95;color:#fff;}
+
+.q-card{background:#4C1D95;border-radius:16px;padding:20px 16px;margin-bottom:12px;text-align:center;position:relative;}
+.q-lbl{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:8px;}
+.q-text{font-size:30px;font-weight:700;color:#fff;font-family:'Noto Sans KR',sans-serif;line-height:1.25;margin-bottom:6px;}
+.q-text.bn{font-family:'Noto Sans Bengali',sans-serif;font-size:24px;}
+.q-rom{font-size:13px;font-style:italic;color:rgba(255,255,255,0.6);}
+.q-spk-btn{position:absolute;top:12px;right:12px;width:40px;height:40px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.35);background:transparent;color:rgba(255,255,255,0.8);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+
+.opts-col{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;}
+.opt{min-height:56px;border-radius:12px;border:1.5px solid var(--color-border-tertiary);background:var(--color-background-primary);color:var(--color-text-primary);font-size:var(--fs-md);font-weight:700;cursor:pointer;padding:12px 16px;text-align:left;font-family:'Noto Sans Bengali',sans-serif;line-height:1.4;display:flex;align-items:center;gap:10px;}
+.opt.kr-opt{font-family:'Noto Sans KR',sans-serif;}
+.opt-letter{width:30px;height:30px;border-radius:50%;background:var(--color-background-secondary);color:var(--color-text-secondary);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;font-family:'Nunito',sans-serif;}
+.opt.correct{background:#ECFDF5;border-color:#059669;color:#065F46;}
+.opt.correct .opt-letter{background:#A7F3D0;color:#065F46;}
+.opt.wrong{background:#FEF2F2;border-color:#DC2626;color:#991B1B;}
+.opt.wrong .opt-letter{background:#FECACA;color:#991B1B;}
+.opt.disabled{cursor:not-allowed;pointer-events:none;}
+
+.feedback{border-radius:12px;padding:14px 16px;margin-bottom:12px;font-size:var(--fs-sm);font-weight:700;display:none;line-height:1.5;}
+.feedback.on{display:block;}
+.feedback.ok{background:#ECFDF5;color:#065F46;border:1px solid #A7F3D0;}
+.feedback.ng{background:#FEF2F2;color:#991B1B;border:1px solid #FECACA;}
+
+.next-btn{width:100%;height:56px;background:#4C1D95;color:#fff;border:none;border-radius:12px;font-size:var(--fs-md);font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;display:none;}
+.next-btn.on{display:block;}
+
+/* ── LISTEN ── */
+.listen-card{background:#D97706;border-radius:16px;padding:20px 16px;margin-bottom:12px;text-align:center;}
+.listen-lbl{font-size:11px;font-weight:800;letter-spacing:1.5px;color:rgba(255,255,255,0.7);text-transform:uppercase;margin-bottom:12px;}
+.play-big{width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,0.2);border:2px solid rgba(255,255,255,0.5);color:#fff;font-size:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;}
+.listen-hint{font-size:13px;color:rgba(255,255,255,0.8);font-family:'Noto Sans Bengali',sans-serif;}
+
+/* ── MATCH ── */
+.match-cols{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
+.match-col-hdr{text-align:center;font-size:12px;font-weight:800;color:var(--color-text-secondary);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;}
+.match-col{display:flex;flex-direction:column;gap:6px;}
+.m-item{min-height:52px;border-radius:10px;border:1.5px solid var(--color-border-tertiary);background:var(--color-background-primary);color:var(--color-text-primary);font-size:16px;font-weight:700;cursor:pointer;padding:8px 10px;text-align:center;display:flex;align-items:center;justify-content:center;line-height:1.3;}
+.m-item.kr{font-family:'Noto Sans KR',sans-serif;font-size:18px;}
+.m-item.bn{font-family:'Noto Sans Bengali',sans-serif;font-size:14px;}
+.m-item.sel{background:#EDE9FE;border-color:#6B46C1;color:#4C1D95;}
+.m-item.done{background:#ECFDF5;border-color:#059669;color:#065F46;cursor:default;}
+.m-item.err{background:#FEF2F2;border-color:#DC2626;}
+@keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-5px);}75%{transform:translateX(5px);}}
+.m-item.err{animation:shake 0.3s;}
+.congrats{background:#EDE9FE;border-radius:12px;padding:16px;text-align:center;font-size:16px;font-weight:800;color:#4C1D95;margin-top:8px;display:none;}
+.congrats.on{display:block;}
+.round-btn{width:100%;height:56px;background:#4C1D95;color:#fff;border:none;border-radius:12px;font-size:var(--fs-md);font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;margin-top:10px;}
+
+/* ── BROWSE ── */
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.cat-card{border-radius:14px;border:1.5px solid var(--color-border-tertiary);background:var(--color-background-primary);padding:16px 12px;cursor:pointer;}
+.cat-icon{font-size:28px;margin-bottom:6px;display:block;}
+.cat-name{font-size:var(--fs-md);font-weight:800;color:var(--color-text-primary);font-family:'Noto Sans Bengali',sans-serif;}
+.cat-cnt{font-size:12px;color:var(--color-text-secondary);margin-top:3px;}
+.cat-bar{height:3px;border-radius:2px;background:var(--color-border-tertiary);margin-top:8px;}
+.cat-bar-f{height:100%;border-radius:2px;background:#6B46C1;}
+
+.bk-btn{height:var(--tap);padding:0 18px;border-radius:10px;border:1.5px solid var(--color-border-tertiary);background:var(--color-background-secondary);color:var(--color-text-secondary);font-size:var(--fs-sm);font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;margin-bottom:12px;}
+.br-hdr{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.br-title{font-size:var(--fs-md);font-weight:800;color:var(--color-text-primary);}
+.phrase-row{padding:14px 0;border-bottom:0.5px solid var(--color-border-tertiary);display:flex;align-items:flex-start;gap:8px;}
+.phrase-row:last-child{border-bottom:none;}
+.p-kr{font-family:'Noto Sans KR',sans-serif;font-size:18px;font-weight:600;color:var(--color-text-primary);min-width:90px;flex-shrink:0;line-height:1.3;}
+.p-info{flex:1;min-width:0;}
+.p-rom{font-size:12px;color:var(--color-text-secondary);font-style:italic;margin-bottom:3px;}
+.p-bn{font-family:'Noto Sans Bengali',sans-serif;font-size:15px;font-weight:600;color:#4C1D95;}
+.p-spks{display:flex;gap:6px;flex-shrink:0;}
+.p-spk{width:38px;height:38px;border-radius:50%;border:1.5px solid #6B46C1;color:#6B46C1;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;}
+.p-spk.gld{border-color:#D97706;color:#D97706;}
+.phrase-scroll{max-height:420px;overflow-y:auto;}
+.phrase-scroll::-webkit-scrollbar{width:3px;}
+.phrase-scroll::-webkit-scrollbar-thumb{background:#6B46C1;border-radius:2px;}
+
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);}
+</style>
+
+<div class="app">
+<h2 class="sr-only">BTS Korean–Bengali mobile learning app</h2>
+
+<div class="hdr">
+  <div class="hdr-l">
+    <div class="hdr-logo">BTS</div>
+    <div>
+      <div class="hdr-title">💜 BTS Korean</div>
+      <div class="hdr-sub">বিটিএস-এর সাথে শিখুন</div>
+    </div>
+  </div>
+  <div class="score-pill">⭐ <span id="score">0</span></div>
+</div>
+
+<div class="nav">
+  <button class="nav-btn active" onclick="goTab('fc')"><span class="nb-icon">📚</span>কার্ড</button>
+  <button class="nav-btn" onclick="goTab('quiz')"><span class="nb-icon">🎯</span>কুইজ</button>
+  <button class="nav-btn" onclick="goTab('listen')"><span class="nb-icon">🎵</span>শোনো</button>
+  <button class="nav-btn" onclick="goTab('match')"><span class="nb-icon">🔗</span>মিলাও</button>
+  <button class="nav-btn" onclick="goTab('browse')"><span class="nb-icon">📖</span>ভান্ডার</button>
+</div>
+
+<!-- FLASHCARD -->
+<div id="sec-fc" class="sec on">
+  <select class="fc-sel" id="fc-cat" onchange="loadFC()">
+    <option value="all">সব বিষয়</option>
+    <option value="greetings">অভিবাদন</option>
+    <option value="bts">BTS শব্দ</option>
+    <option value="members">মেম্বার</option>
+    <option value="concert">কনসার্ট</option>
+    <option value="social">সোশ্যাল</option>
+    <option value="verbs">ক্রিয়া</option>
+    <option value="intro">পরিচয়</option>
+  </select>
+  <div class="dir-row">
+    <button class="dir-btn on" id="d-kr" onclick="setDir('kr2bn')">🇰🇷 কোরিয়ান → বাংলা</button>
+    <button class="dir-btn" id="d-bn" onclick="setDir('bn2kr')">🇧🇩 বাংলা → কোরিয়ান</button>
+  </div>
+  <div class="fc-prog"><div class="fc-prog-bar" id="fpb" style="width:0%"></div></div>
+  <div class="fc-wrap" onclick="flipFC()">
+    <div class="fc-inner" id="fci">
+      <div class="fc-face fc-front">
+        <div class="fc-badge" id="fb-badge">한국어</div>
+        <div class="fc-main" id="fb-main">안녕하세요</div>
+        <div class="fc-rom" id="fb-rom">an-nyeong-ha-se-yo</div>
+        <div class="fc-hint">탭해서 답 보기</div>
+        <button class="fc-spk" onclick="event.stopPropagation();spkFC('f')">🔊</button>
+      </div>
+      <div class="fc-face fc-back">
+        <div class="fc-badge" id="bb-badge">বাংলা</div>
+        <div class="fc-main" id="bb-main">হ্যালো, ভালো দিন</div>
+        <button class="fc-spk" onclick="event.stopPropagation();spkFC('b')">🔊</button>
+      </div>
+    </div>
+  </div>
+  <div class="fc-nav-row">
+    <button class="arr-btn" onclick="prevFC()">&#8592;</button>
+    <div class="fc-ctr" id="fcc">1 / 20</div>
+    <button class="arr-btn" onclick="nextFC()">&#8594;</button>
+  </div>
+  <div class="fc-acts">
+    <button class="act-btn act-no" onclick="markFC(false)">✗ জানি না</button>
+    <button class="act-btn act-sh" onclick="shuffleFC()">⇄ মিশ্রিত</button>
+    <button class="act-btn act-ok" onclick="markFC(true)">✓ জানি</button>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div id="sec-quiz" class="sec">
+  <div class="stat-row">
+    <div class="stat-box ok"><div class="stat-val" id="qc">0</div><div class="stat-lbl">সঠিক</div></div>
+    <div class="stat-box ng"><div class="stat-val" id="qw">0</div><div class="stat-lbl">ভুল</div></div>
+    <div class="stat-box st"><div class="stat-val" id="qs">0</div><div class="stat-lbl">ধারা</div></div>
+  </div>
+  <div class="mode-row">
+    <button class="mode-btn on" id="qm-kr" onclick="setQM('kr2bn')">KR → বাংলা</button>
+    <button class="mode-btn" id="qm-bn" onclick="setQM('bn2kr')">বাংলা → KR</button>
+  </div>
+  <div class="q-card">
+    <div class="q-lbl" id="ql">কোরিয়ান থেকে বাংলা</div>
+    <div class="q-text" id="qt">안녕하세요</div>
+    <div class="q-rom" id="qr">an-nyeong-ha-se-yo</div>
+    <button class="q-spk-btn" onclick="spkQ()">🔊</button>
+  </div>
+  <div class="opts-col" id="qopts"></div>
+  <div class="feedback" id="qfb"></div>
+  <button class="next-btn" id="qnxt" onclick="nextQ()">পরবর্তী প্রশ্ন →</button>
+</div>
+
+<!-- LISTEN -->
+<div id="sec-listen" class="sec">
+  <div class="stat-row">
+    <div class="stat-box ok"><div class="stat-val" id="lc">0</div><div class="stat-lbl">সঠিক</div></div>
+    <div class="stat-box ng"><div class="stat-val" id="lw">0</div><div class="stat-lbl">ভুল</div></div>
+    <div class="stat-box st"><div class="stat-val" id="ls">0</div><div class="stat-lbl">ধারা</div></div>
+  </div>
+  <div class="listen-card">
+    <div class="listen-lbl">কোরিয়ান শোনো</div>
+    <button class="play-big" id="pbig" onclick="playL()">🔊</button>
+    <div class="listen-hint" id="lhint">বাটন চাপো, শোনো, তারপর সঠিক বাংলা বেছে নাও</div>
+  </div>
+  <div class="opts-col" id="lopts"></div>
+  <div class="feedback" id="lfb"></div>
+  <button class="next-btn" id="lnxt" onclick="nextL()">পরবর্তী →</button>
+</div>
+
+<!-- MATCH -->
+<div id="sec-match" class="sec">
+  <div class="stat-row">
+    <div class="stat-box ok"><div class="stat-val" id="mp">0</div><div class="stat-lbl">জোড়া</div></div>
+    <div class="stat-box ng"><div class="stat-val" id="me">0</div><div class="stat-lbl">ভুল</div></div>
+    <div class="stat-box st"><div class="stat-val" id="mt">5</div><div class="stat-lbl">মোট</div></div>
+  </div>
+  <div class="match-cols">
+    <div>
+      <div class="match-col-hdr">🇰🇷 কোরিয়ান</div>
+      <div class="match-col" id="mcol-kr"></div>
+    </div>
+    <div>
+      <div class="match-col-hdr">🇧🇩 বাংলা</div>
+      <div class="match-col" id="mcol-bn"></div>
+    </div>
+  </div>
+  <div class="congrats" id="congrats">🎉 অসাধারণ! সব মিলে গেছে!<br>방탄 화이팅! 💜</div>
+  <button class="round-btn" onclick="startMatch()">নতুন রাউন্ড ⟳</button>
+</div>
+
+<!-- BROWSE -->
+<div id="sec-browse" class="sec">
+  <div id="bov">
+    <div class="cat-grid">
+      <div class="cat-card" onclick="openCat('greetings')"><span class="cat-icon">👋</span><div class="cat-name">অভিবাদন</div><div class="cat-cnt">২০টি বাক্য</div><div class="cat-bar"><div class="cat-bar-f" style="width:100%"></div></div></div>
+      <div class="cat-card" onclick="openCat('bts')"><span class="cat-icon">💜</span><div class="cat-name">BTS শব্দ</div><div class="cat-cnt">২০টি শব্দ</div><div class="cat-bar"><div class="cat-bar-f" style="width:100%"></div></div></div>
+      <div class="cat-card" onclick="openCat('members')"><span class="cat-icon">⭐</span><div class="cat-name">মেম্বার</div><div class="cat-cnt">২০টি শব্দ</div><div class="cat-bar"><div class="cat-bar-f" style="width:100%"></div></div></div>
+      <div class="cat-card" onclick="openCat('concert')"><span class="cat-icon">🎤</span><div class="cat-name">কনসার্ট</div><div class="cat-cnt">২০টি বাক্য</div><div class="cat-bar"><div class="cat-bar-f" style="width:100%"></div></div></div>
+      <div class="cat-card" onclick="openCat('verbs')"><span class="cat-icon">🏃</span><div class="cat-name">ক্রিয়া</div><div class="cat-cnt">২০টি ক্রিয়া</div><div class="cat-bar"><div class="cat-bar-f" style="width:100%"></div></div></div>
+      <div class="cat-card" onclick="openCat('intro')"><span class="cat-icon">🙋</span><div class="cat-name">পরিচয়</div><div class="cat-cnt">২০টি বাক্য</div><div class="cat-bar"><div class="cat-bar-f" style="width:100%"></div></div></div>
+    </div>
+  </div>
+  <div id="bdet" style="display:none">
+    <div class="br-hdr">
+      <button class="bk-btn" onclick="closeCat()">← ফিরে যাও</button>
+      <div class="br-title" id="bdet-title"></div>
+    </div>
+    <div class="phrase-scroll" id="plist"></div>
+  </div>
+</div>
+
+</div>
+
+<script>
+const D={
+  greetings:[
+    {kr:'안녕하세요',rom:'an-nyeong-ha-se-yo',bn:'হ্যালো, ভালো দিন'},
+    {kr:'감사합니다',rom:'kam-sa-ham-ni-da',bn:'ধন্যবাদ'},
+    {kr:'고마워요',rom:'go-ma-wo-yo',bn:'ধন্যবাদ (আপনি)'},
+    {kr:'사랑해요',rom:'sa-rang-hae-yo',bn:'আমি ভালোবাসি'},
+    {kr:'좋아해요',rom:'jo-a-hae-yo',bn:'আমি পছন্দ করি'},
+    {kr:'진짜요?',rom:'jin-jja-yo',bn:'সত্যি?'},
+    {kr:'대박',rom:'dae-bak',bn:'অসাধারণ! দারুণ!'},
+    {kr:'괜찮아요',rom:'gwaen-chan-a-yo',bn:'ঠিক আছে'},
+    {kr:'미안해요',rom:'mi-an-hae-yo',bn:'দুঃখিত'},
+    {kr:'죄송합니다',rom:'joe-song-ham-ni-da',bn:'খুব দুঃখিত (formal)'},
+    {kr:'정말?',rom:'jeong-mal',bn:'সত্যি? নিশ্চিত?'},
+    {kr:'네',rom:'ne',bn:'হ্যাঁ'},
+    {kr:'아니요',rom:'a-ni-yo',bn:'না'},
+    {kr:'잠시만요',rom:'jam-si-man-yo',bn:'একটু দাঁড়ান'},
+    {kr:'축하해요!',rom:'chuk-ha-hae-yo',bn:'অভিনন্দন!'},
+    {kr:'최고야!',rom:'choe-go-ya',bn:'সেরা!'},
+    {kr:'기대돼요',rom:'gi-dae-dwae-yo',bn:'প্রতীক্ষায় আছি'},
+    {kr:'너무 멋져요',rom:'neo-mu meot-jyeo-yo',bn:'খুবই চমৎকার'},
+    {kr:'정말 예뻐요',rom:'jeong-mal ye-ppeo-yo',bn:'সত্যিই সুন্দর'},
+    {kr:'화이팅!',rom:'hwa-i-ting',bn:'ফাইটিং!'},
+  ],
+  bts:[
+    {kr:'아미',rom:'a-mi',bn:'আর্মি (বিটিএস ফ্যান)'},
+    {kr:'방탄소년단',rom:'bang-tan-so-nyeon-dan',bn:'বাংতান সোনিয়নদান'},
+    {kr:'방탄',rom:'bang-tan',bn:'বিটিএস-এর সংক্ষিপ্ত নাম'},
+    {kr:'아포방포',rom:'a-po-bang-po',bn:'আর্মি ফরএভার, বিটিএস ফরএভার'},
+    {kr:'보라해',rom:'bo-ra-hae',bn:'আই পার্পল ইউ'},
+    {kr:'달려라 방탄',rom:'dal-lyeo-ra bang-tan',bn:'দৌড়াও, বাংতান'},
+    {kr:'화양연화',rom:'hwa-yang-yeon-hwa',bn:'ফুলের মতো সুন্দর যৌবন'},
+    {kr:'막내',rom:'mak-nae',bn:'সবচেয়ে ছোট (জংগুক)'},
+    {kr:'최애',rom:'choe-ae',bn:'সবচেয়ে প্রিয় সদস্য'},
+    {kr:'팬',rom:'paen',bn:'ফ্যান'},
+    {kr:'콘서트',rom:'kon-seo-teu',bn:'কনসার্ট'},
+    {kr:'팬미팅',rom:'paen-mi-ting',bn:'ফ্যান মিটিং'},
+    {kr:'공연',rom:'gong-yeon',bn:'পারফরম্যান্স'},
+    {kr:'멤버',rom:'mem-beo',bn:'মেম্বার'},
+    {kr:'런 BTS',rom:'reon BTS',bn:'রান বিটিএস (শো)'},
+    {kr:'진격의 방탄',rom:'jin-gyeo-gui bang-tan',bn:'অভিযানে বাংতান'},
+    {kr:'군백기',rom:'gun-baek-gi',bn:'কার্যকলাপের শূন্যতা'},
+    {kr:'대박',rom:'dae-bak',bn:'অসাধারণ!'},
+    {kr:'최고다!',rom:'choe-go-da',bn:'সেরা!'},
+    {kr:'그루',rom:'geu-ru',bn:'গ্রুপ'},
+  ],
+  members:[
+    {kr:'RM',rom:'a-reu-em',bn:'আরএম — লিডার'},
+    {kr:'진',rom:'jin',bn:'জিন — ভোকাল'},
+    {kr:'슈가',rom:'syu-ga',bn:'শুগা — র‍্যাপার'},
+    {kr:'제이홉',rom:'je-i-hop',bn:'জে-হোপ — ডান্সার'},
+    {kr:'지민',rom:'ji-min',bn:'জিমিন — ভোকাল'},
+    {kr:'뷔',rom:'bwi',bn:'ভি — ভোকাল'},
+    {kr:'정국',rom:'jeong-guk',bn:'জংগুক — মেইন ভোকাল'},
+    {kr:'막내',rom:'mak-nae',bn:'ছোট ভাই (জংগুক)'},
+    {kr:'맏형',rom:'mat-hyeong',bn:'বড় ভাই (জিন)'},
+    {kr:'리더',rom:'ri-deo',bn:'লিডার (আরএম)'},
+    {kr:'형',rom:'hyeong',bn:'বড় ভাই (ছেলেরা)'},
+    {kr:'오빠',rom:'o-ppa',bn:'বড় ভাই (মেয়েরা ডাকে)'},
+    {kr:'언니',rom:'eon-ni',bn:'বড় বোন (মেয়েরা)'},
+    {kr:'보라해, BTS',rom:'bo-ra-hae BTS',bn:'বোরাহে, বিটিএস'},
+    {kr:'사랑해요, BTS',rom:'sa-rang-hae-yo BTS',bn:'ভালোবাসি, বিটিএস'},
+    {kr:'BTS 최고입니다!',rom:'BTS choe-go-im-ni-da',bn:'বিটিএস সেরা!'},
+    {kr:'BTS와 아미는 하나입니다',rom:'BTS-wa a-mi-neun ha-na-im-ni-da',bn:'বিটিএস আর আর্মি এক'},
+    {kr:'고마워요, BTS',rom:'go-ma-wo-yo BTS',bn:'ধন্যবাদ, বিটিএস'},
+    {kr:'아미',rom:'a-mi',bn:'আর্মি'},
+    {kr:'팬',rom:'paen',bn:'ফ্যান'},
+  ],
+  concert:[
+    {kr:'소리 질러!',rom:'so-ri jil-leo',bn:'চিৎকার করো!'},
+    {kr:'모두 뛰어!',rom:'mo-du ttwi-eo',bn:'সবাই লাফাও!'},
+    {kr:'박수쳐요!',rom:'bak-su-chyeo-yo',bn:'করতালি দাও!'},
+    {kr:'보고 싶었어요!',rom:'bo-go si-peo-sseo-yo',bn:'মিস করেছি!'},
+    {kr:'최고다 방탄!',rom:'choe-go-da bang-tan',bn:'সেরা, বাংতান!'},
+    {kr:'가지 마!',rom:'ga-ji ma',bn:'যেও না!'},
+    {kr:'대단해요!',rom:'dae-dan-hae-yo',bn:'অসাধারণ!'},
+    {kr:'같이 노래할래요?',rom:'ga-chi no-rae-hal-lae-yo',bn:'একসাথে গাইবি?'},
+    {kr:'응원할게요!',rom:'eung-won-hal-ge-yo',bn:'সমর্থন করব!'},
+    {kr:'힘내세요!',rom:'him-nae-se-yo',bn:'শক্তি দাও!'},
+    {kr:'기다렸어요!',rom:'gi-da-ryeo-sseo-yo',bn:'অপেক্ষা করেছিলাম!'},
+    {kr:'끝까지 함께해요!',rom:'kkeut-kka-ji ham-kke-hae-yo',bn:'শেষ পর্যন্ত একসাথে!'},
+    {kr:'당신은 나의 빛이야',rom:'dang-sin-eun na-ui bich-i-ya',bn:'তুমি আমার আলো'},
+    {kr:'미칠 것 같아',rom:'mi-chil geot ga-ta',bn:'পাগল হয়ে যাচ্ছি'},
+    {kr:'너무 예뻐',rom:'neo-mu ye-ppeo',bn:'খুবই সুন্দর'},
+    {kr:'사진 찍어줘!',rom:'sa-jin jjik-eo-jwo',bn:'ছবি তুলে দাও!'},
+    {kr:'또 와줘서 고마워요!',rom:'tto wa-jwo-seo go-ma-wo-yo',bn:'আবার এসো, ধন্যবাদ!'},
+    {kr:'당신 없이는 못 살아',rom:'dang-sin eop-si-neun mot sa-ra',bn:'তুমি ছাড়া বাঁচতে পারি না'},
+    {kr:'강렬하다',rom:'gang-nyeol-ha-da',bn:'শক্তিশালী পারফরম্যান্স'},
+    {kr:'너무 보고 싶었어요!',rom:'neo-mu bo-go si-peo-sseo-yo',bn:'খুব মিস করেছি!'},
+  ],
+  social:[
+    {kr:'좋은 하루 보내세요',rom:'jo-eun ha-ru bo-nae-se-yo',bn:'শুভ দিন কাটুক'},
+    {kr:'건강 조심하세요',rom:'geon-gang jo-si-ma-se-yo',bn:'স্বাস্থ্যের যত্ন নিও'},
+    {kr:'항상 응원합니다',rom:'hang-sang eung-won-ham-ni-da',bn:'সবসময় সমর্থন করি'},
+    {kr:'너무 사랑해요',rom:'neo-mu sa-rang-hae-yo',bn:'খুব ভালোবাসি'},
+    {kr:'행복하세요',rom:'haeng-bo-ka-se-yo',bn:'সুখী হও'},
+    {kr:'걱정 마세요',rom:'geok-jeong ma-se-yo',bn:'চিন্তা কোরো না'},
+    {kr:'보고 싶어요',rom:'bo-go si-peo-yo',bn:'মিস করছি'},
+    {kr:'잘 자요',rom:'jal ja-yo',bn:'শুভরাত্রি'},
+    {kr:'또 봐요',rom:'tto bwa-yo',bn:'আবার দেখা হবে'},
+    {kr:'좋은 꿈 꿔요',rom:'jo-eun kkum kkwo-yo',bn:'ভালো স্বপ্ন দেখো'},
+    {kr:'기뻐요',rom:'gi-ppeo-yo',bn:'খুশি লাগছে'},
+    {kr:'슬퍼요',rom:'seul-peo-yo',bn:'দুঃখ লাগছে'},
+    {kr:'재밌어요',rom:'jae-mi-sseo-yo',bn:'মজার'},
+    {kr:'힘들어요',rom:'him-deu-reo-yo',bn:'কষ্ট হচ্ছে'},
+    {kr:'꼭 성공할 거예요',rom:'kkok seong-gong-hal geo-ye-yo',bn:'অবশ্যই সফল হবে'},
+    {kr:'우리 파이팅',rom:'u-ri pa-i-ting',bn:'আমরা ফাইটিং'},
+    {kr:'이해합니다',rom:'i-hae-ham-ni-da',bn:'বুঝতে পারছি'},
+    {kr:'맞아요',rom:'ma-ja-yo',bn:'ঠিক, তাই'},
+    {kr:'안녕',rom:'an-nyeong',bn:'হ্যালো / বিদায়'},
+    {kr:'사랑해',rom:'sa-rang-hae',bn:'ভালোবাসি'},
+  ],
+  verbs:[
+    {kr:'가다',rom:'ga-da',bn:'যাওয়া'},
+    {kr:'오다',rom:'o-da',bn:'আসা'},
+    {kr:'보다',rom:'bo-da',bn:'দেখা'},
+    {kr:'사다',rom:'sa-da',bn:'কেনা'},
+    {kr:'기다리다',rom:'gi-da-ri-da',bn:'অপেক্ষা করা'},
+    {kr:'웃다',rom:'ut-da',bn:'হাসা'},
+    {kr:'울다',rom:'ul-da',bn:'কাঁদা'},
+    {kr:'먹다',rom:'meok-da',bn:'খাওয়া'},
+    {kr:'마시다',rom:'ma-si-da',bn:'পান করা'},
+    {kr:'자다',rom:'ja-da',bn:'ঘুমানো'},
+    {kr:'쓰다',rom:'sseu-da',bn:'লেখা'},
+    {kr:'듣다',rom:'deut-da',bn:'শোনা'},
+    {kr:'말하다',rom:'mal-ha-da',bn:'কথা বলা'},
+    {kr:'사랑하다',rom:'sa-rang-ha-da',bn:'ভালোবাসা'},
+    {kr:'좋아하다',rom:'jo-a-ha-da',bn:'পছন্দ করা'},
+    {kr:'배우다',rom:'bae-u-da',bn:'শেখা'},
+    {kr:'춤추다',rom:'chum-chu-da',bn:'নাচা'},
+    {kr:'노래하다',rom:'no-rae-ha-da',bn:'গাওয়া'},
+    {kr:'만들다',rom:'man-deul-da',bn:'বানানো'},
+    {kr:'연습하다',rom:'yeon-seu-pa-da',bn:'অনুশীলন করা'},
+  ],
+  intro:[
+    {kr:'제 이름은 ~ 입니다',rom:'je i-reu-meun ~ im-ni-da',bn:'আমার নাম ~'},
+    {kr:'저는 방탄소년단 팬입니다',rom:'jeo-neun bang-tan-so-nyeon-dan paen-im-ni-da',bn:'আমি বিটিএস ফ্যান'},
+    {kr:'저도 아미입니다',rom:'jeo-do a-mi-im-ni-da',bn:'আমিও আর্মি'},
+    {kr:'저는 BTS를 사랑합니다',rom:'jeo-neun BTS-reul sa-rang-ham-ni-da',bn:'আমি বিটিএসকে ভালোবাসি'},
+    {kr:'저는 BTS 덕분에 행복합니다',rom:'jeo-neun BTS deok-bu-ne haeng-bo-kam-ni-da',bn:'বিটিএসের কারণে আমি খুশি'},
+    {kr:'BTS는 제 삶의 이유입니다',rom:'BTS-neun je sa-mu-i i-yu-im-ni-da',bn:'বিটিএস আমার জীবনের কারণ'},
+    {kr:'저는 BTS를 자랑스럽게 생각합니다',rom:'jeo-neun BTS-reul ja-rang-seu-reop-ge saeng-ga-kam-ni-da',bn:'আমি বিটিএস নিয়ে গর্বিত'},
+    {kr:'전 생애 BTS와 함께하겠습니다',rom:'jeon saeng-ae BTS-wa ham-kke-ha-get-seum-ni-da',bn:'সারা জীবন বিটিএসের সাথে থাকব'},
+    {kr:'저의 꿈은 방탄소년단을 만나는 거예요',rom:'jeo-ui kkum-eun bang-tan-so-nyeon-da-neul man-na-neun geo-ye-yo',bn:'আমার স্বপ্ন বিটিএসের সাথে দেখা'},
+    {kr:'제 최애는 ~ 입니다',rom:'je choe-ae-neun ~ im-ni-da',bn:'আমার সবচেয়ে প্রিয় সদস্য ~'},
+    {kr:'저는 한국어를 배우고 있어요',rom:'jeo-neun han-gu-geo-reul bae-u-go i-sseo-yo',bn:'আমি কোরিয়ান শিখছি'},
+    {kr:'여러분, 같이 한국어를 배워요!',rom:'yeo-reo-bun ga-chi han-gu-geo-reul bae-wo-yo',bn:'সবাই কোরিয়ান শিখি!'},
+    {kr:'저는 BTS를 좋아합니다',rom:'jeo-neun BTS-reul jo-a-ham-ni-da',bn:'আমি বিটিএস পছন্দ করি'},
+    {kr:'첫사랑입니다',rom:'cheot-sa-rang-im-ni-da',bn:'এটা আমার প্রথম প্রেম'},
+    {kr:'한국어',rom:'han-gu-geo',bn:'কোরিয়ান ভাষা'},
+    {kr:'보라해, BTS',rom:'bo-ra-hae BTS',bn:'বোরাহে, বিটিএস'},
+    {kr:'BTS와 아미는 하나입니다',rom:'BTS-wa a-mi-neun ha-na-im-ni-da',bn:'বিটিএস আর আর্মি এক'},
+    {kr:'BTS 최고입니다!',rom:'BTS choe-go-im-ni-da',bn:'বিটিএস সেরা!'},
+    {kr:'고마워요, BTS',rom:'go-ma-wo-yo BTS',bn:'ধন্যবাদ, বিটিএস'},
+    {kr:'사랑해요, BTS',rom:'sa-rang-hae-yo BTS',bn:'ভালোবাসি, বিটিএস'},
+  ]
+};
+
+function all(){return Object.values(D).flat();}
+function shuf(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+
+let totalPts=0;
+function addPts(n){totalPts+=n;document.getElementById('score').textContent=totalPts;}
+
+function spk(txt,lang){
+  if(!window.speechSynthesis)return;
+  const u=new SpeechSynthesisUtterance(txt);
+  u.lang=lang==='ko'?'ko-KR':'bn-BD';u.rate=0.85;
+  const vv=speechSynthesis.getVoices();
+  const v=vv.find(x=>x.lang.startsWith(lang==='ko'?'ko':'bn'));
+  if(v)u.voice=v;
+  speechSynthesis.cancel();speechSynthesis.speak(u);
+}
+
+function goTab(t){
+  ['fc','quiz','listen','match','browse'].forEach((id,i)=>{
+    document.getElementById('sec-'+id).classList.toggle('on',id===t);
+    document.querySelectorAll('.nav-btn')[i].classList.toggle('active',id===t);
+  });
+  if(t==='quiz')initQ();
+  if(t==='listen')initL();
+  if(t==='match')startMatch();
+}
+
+// FLASHCARD
+let fcArr=[],fcIdx=0,fcDir='kr2bn',fcFlipped=false;
+function loadFC(){
+  const cat=document.getElementById('fc-cat').value;
+  fcArr=shuf(cat==='all'?all():[...D[cat]]);
+  fcIdx=0;renderFC();
+}
+function renderFC(){
+  const c=fcArr[fcIdx];
+  document.getElementById('fci').classList.remove('flip');
+  fcFlipped=false;
+  setTimeout(()=>{
+    if(fcDir==='kr2bn'){
+      document.getElementById('fb-badge').textContent='한국어';
+      document.getElementById('fb-main').style.fontFamily="'Noto Sans KR',sans-serif";
+      document.getElementById('fb-main').textContent=c.kr;
+      document.getElementById('fb-rom').textContent=c.rom;
+      document.getElementById('bb-badge').textContent='বাংলা';
+      document.getElementById('bb-main').style.fontFamily="'Noto Sans Bengali',sans-serif";
+      document.getElementById('bb-main').textContent=c.bn;
+    } else {
+      document.getElementById('fb-badge').textContent='বাংলা';
+      document.getElementById('fb-main').style.fontFamily="'Noto Sans Bengali',sans-serif";
+      document.getElementById('fb-main').textContent=c.bn;
+      document.getElementById('fb-rom').textContent='';
+      document.getElementById('bb-badge').textContent='한국어';
+      document.getElementById('bb-main').style.fontFamily="'Noto Sans KR',sans-serif";
+      document.getElementById('bb-main').textContent=c.kr;
+    }
+    document.getElementById('fcc').textContent=(fcIdx+1)+' / '+fcArr.length;
+    document.getElementById('fpb').style.width=Math.round((fcIdx+1)/fcArr.length*100)+'%';
+  },30);
+}
+function flipFC(){document.getElementById('fci').classList.toggle('flip');fcFlipped=!fcFlipped;}
+function nextFC(){if(fcIdx<fcArr.length-1){fcIdx++;renderFC();}}
+function prevFC(){if(fcIdx>0){fcIdx--;renderFC();}}
+function markFC(ok){if(ok)addPts(3);nextFC();}
+function shuffleFC(){fcArr=shuf(fcArr);fcIdx=0;renderFC();}
+function setDir(d){
+  fcDir=d;
+  document.getElementById('d-kr').classList.toggle('on',d==='kr2bn');
+  document.getElementById('d-bn').classList.toggle('on',d==='bn2kr');
+  renderFC();
+}
+function spkFC(side){
+  const c=fcArr[fcIdx];
+  const playKr=(side==='f'&&fcDir==='kr2bn')||(side==='b'&&fcDir==='bn2kr');
+  spk(playKr?c.kr:c.bn,playKr?'ko':'bn');
+}
+
+// QUIZ
+let qMode='kr2bn',qC=0,qW=0,qS=0,qCur=null;
+function initQ(){qCur=null;loadQ();}
+function setQM(m){
+  qMode=m;
+  document.getElementById('qm-kr').classList.toggle('on',m==='kr2bn');
+  document.getElementById('qm-bn').classList.toggle('on',m==='bn2kr');
+  loadQ();
+}
+function loadQ(){
+  const pool=all();
+  const cor=pool[Math.floor(Math.random()*pool.length)];
+  qCur=cor;
+  document.getElementById('ql').textContent=qMode==='kr2bn'?'কোরিয়ান থেকে বাংলা':'বাংলা থেকে কোরিয়ান';
+  const qt=document.getElementById('qt');
+  if(qMode==='kr2bn'){qt.textContent=cor.kr;qt.className='q-text';document.getElementById('qr').textContent=cor.rom;}
+  else{qt.textContent=cor.bn;qt.className='q-text bn';document.getElementById('qr').textContent='';}
+  const wrongs=shuf(pool.filter(x=>x.kr!==cor.kr)).slice(0,3);
+  const opts=shuf([cor,...wrongs]);
+  const co=document.getElementById('qopts');co.innerHTML='';
+  const ltrs=['ক','খ','গ','ঘ'];
+  opts.forEach((o,i)=>{
+    const b=document.createElement('button');
+    b.className='opt '+(qMode==='kr2bn'?'':'kr-opt');
+    b.innerHTML='<div class="opt-letter">'+ltrs[i]+'</div><span style="font-family:'+(qMode==='kr2bn'?"'Noto Sans Bengali'":"'Noto Sans KR'")+',sans-serif">'+(qMode==='kr2bn'?o.bn:o.kr)+'</span>';
+    b.onclick=()=>ansQ(b,o.kr===cor.kr,cor);
+    co.appendChild(b);
+  });
+  document.getElementById('qfb').className='feedback';
+  document.getElementById('qnxt').className='next-btn';
+}
+function ansQ(btn,ok,cor){
+  document.querySelectorAll('.opt').forEach(b=>{b.classList.add('disabled');b.onclick=null;});
+  const fb=document.getElementById('qfb');
+  if(ok){
+    btn.classList.add('correct');qC++;qS++;addPts(5+Math.min(qS,5));
+    fb.textContent='✓ সঠিক!  '+cor.kr+' = '+cor.bn;fb.className='feedback on ok';
+  } else {
+    btn.classList.add('wrong');qW++;qS=0;
+    const corTxt=qMode==='kr2bn'?cor.bn:cor.kr;
+    document.querySelectorAll('.opt span').forEach(s=>{if(s.textContent===corTxt)s.parentElement.classList.add('correct');});
+    fb.textContent='✗ ভুল! সঠিক: '+(qMode==='kr2bn'?cor.bn:cor.kr);fb.className='feedback on ng';
+  }
+  document.getElementById('qc').textContent=qC;
+  document.getElementById('qw').textContent=qW;
+  document.getElementById('qs').textContent=qS;
+  document.getElementById('qnxt').className='next-btn on';
+}
+function nextQ(){loadQ();}
+function spkQ(){if(qCur)spk(qCur.kr,'ko');}
+
+// LISTEN
+let lC=0,lW=0,lS=0,lCur=null;
+function initL(){lCur=null;loadL();}
+function loadL(){
+  const pool=all();
+  const cor=pool[Math.floor(Math.random()*pool.length)];
+  lCur=cor;
+  document.getElementById('lhint').textContent='▼ বাটন চাপো, শোনো, তারপর বাংলা বেছে নাও';
+  const wrongs=shuf(pool.filter(x=>x.kr!==cor.kr)).slice(0,3);
+  const opts=shuf([cor,...wrongs]);
+  const co=document.getElementById('lopts');co.innerHTML='';
+  const ltrs=['ক','খ','গ','ঘ'];
+  opts.forEach((o,i)=>{
+    const b=document.createElement('button');
+    b.className='opt';
+    b.innerHTML='<div class="opt-letter">'+ltrs[i]+'</div><span style="font-family:\'Noto Sans Bengali\',sans-serif">'+o.bn+'</span>';
+    b.onclick=()=>ansL(b,o.kr===cor.kr,cor);
+    co.appendChild(b);
+  });
+  document.getElementById('lfb').className='feedback';
+  document.getElementById('lnxt').className='next-btn';
+}
+function playL(){if(lCur)spk(lCur.kr,'ko');}
+function ansL(btn,ok,cor){
+  document.querySelectorAll('#lopts .opt').forEach(b=>{b.classList.add('disabled');b.onclick=null;});
+  const fb=document.getElementById('lfb');
+  if(ok){
+    btn.classList.add('correct');lC++;lS++;addPts(5);
+    fb.textContent='✓ সঠিক! '+cor.kr+' ('+cor.rom+') = '+cor.bn;fb.className='feedback on ok';
+  } else {
+    btn.classList.add('wrong');lW++;lS=0;
+    document.querySelectorAll('#lopts .opt span').forEach(s=>{if(s.textContent===cor.bn)s.parentElement.classList.add('correct');});
+    fb.textContent='✗ ভুল! সঠিক: '+cor.kr+' = '+cor.bn;fb.className='feedback on ng';
+  }
+  document.getElementById('lc').textContent=lC;
+  document.getElementById('lw').textContent=lW;
+  document.getElementById('ls').textContent=lS;
+  document.getElementById('lnxt').className='next-btn on';
+}
+function nextL(){loadL();}
+
+// MATCH
+let mSel=null,mPairs=[],mScore=0,mErr=0;
+function startMatch(){
+  mSel=null;mScore=0;mErr=0;
+  document.getElementById('congrats').className='congrats';
+  document.getElementById('mp').textContent=0;
+  document.getElementById('me').textContent=0;
+  document.getElementById('mt').textContent=5;
+  mPairs=shuf(all()).slice(0,5);
+  const krC=document.getElementById('mcol-kr');
+  const bnC=document.getElementById('mcol-bn');
+  krC.innerHTML='';bnC.innerHTML='';
+  const krItems=shuf(mPairs.map((p,i)=>({...p,idx:i})));
+  const bnItems=shuf(mPairs.map((p,i)=>({...p,idx:i})));
+  krItems.forEach(it=>{
+    const b=document.createElement('button');
+    b.className='m-item kr';b.textContent=it.kr;
+    b.dataset.idx=it.idx;b.dataset.type='kr';
+    b.onclick=()=>selM(b,it);
+    krC.appendChild(b);
+  });
+  bnItems.forEach(it=>{
+    const b=document.createElement('button');
+    b.className='m-item bn';b.textContent=it.bn;
+    b.dataset.idx=it.idx;b.dataset.type='bn';
+    b.onclick=()=>selM(b,it);
+    bnC.appendChild(b);
+  });
+}
+function selM(btn,item){
+  if(btn.classList.contains('done'))return;
+  if(!mSel){btn.classList.add('sel');mSel={btn,item};}
+  else {
+    const prev=mSel;
+    if(prev.item.type===item.type){prev.btn.classList.remove('sel');btn.classList.add('sel');mSel={btn,item};return;}
+    if(prev.item.idx===item.idx){
+      prev.btn.classList.remove('sel');prev.btn.classList.add('done');prev.btn.onclick=null;
+      btn.classList.add('done');btn.onclick=null;
+      mScore++;mSel=null;document.getElementById('mp').textContent=mScore;addPts(10);
+      if(mScore===5){setTimeout(()=>document.getElementById('congrats').className='congrats on',200);addPts(20);}
+    } else {
+      prev.btn.classList.remove('sel');
+      prev.btn.classList.add('err');btn.classList.add('err');
+      mErr++;document.getElementById('me').textContent=mErr;
+      setTimeout(()=>{prev.btn.classList.remove('err');btn.classList.remove('err');},500);
+      mSel=null;
+    }
+  }
+}
+
+// BROWSE
+const catTitles={greetings:'👋 অভিবাদন',bts:'💜 BTS শব্দ',members:'⭐ মেম্বার',concert:'🎤 কনসার্ট',social:'💬 সোশ্যাল',verbs:'🏃 ক্রিয়া',intro:'🙋 পরিচয়'};
+function openCat(cat){
+  document.getElementById('bov').style.display='none';
+  document.getElementById('bdet').style.display='block';
+  document.getElementById('bdet-title').textContent=catTitles[cat]||cat;
+  const pl=document.getElementById('plist');pl.innerHTML='';
+  D[cat].forEach(p=>{
+    const r=document.createElement('div');r.className='phrase-row';
+    r.innerHTML=`<div class="p-kr">${p.kr}</div><div class="p-info"><div class="p-rom">${p.rom}</div><div class="p-bn">${p.bn}</div></div><div class="p-spks"><button class="p-spk" onclick="spk('${p.kr.replace(/'/g,"\\'")}','ko')">🔊</button><button class="p-spk gld" onclick="spk('${p.bn.replace(/'/g,"\\'")}','bn')">🔊</button></div>`;
+    pl.appendChild(r);
+  });
+}
+function closeCat(){
+  document.getElementById('bov').style.display='';
+  document.getElementById('bdet').style.display='none';
+}
+
+loadFC();
+speechSynthesis.onvoiceschanged=()=>{};
+</script>
