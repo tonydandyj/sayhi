@@ -1,0 +1,1110 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;700&family=Noto+Sans+KR:wght@400;500;700&family=Bebas+Neue&family=Nunito:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bts-purple: #7B5EA7;
+    --bts-purple-light: #EDE8F5;
+    --bts-purple-dark: #4A3470;
+    --bts-gold: #C9A84C;
+    --bts-gold-light: #FDF6E3;
+    --bts-pink: #E8A0BF;
+    --bts-dark: #1A1128;
+    --bts-card-bg: var(--color-background-primary);
+    --bts-surface: var(--color-background-secondary);
+    --text-primary: var(--color-text-primary);
+    --text-secondary: var(--color-text-secondary);
+    --border: var(--color-border-tertiary);
+    font-family: 'Nunito', sans-serif;
+  }
+
+  .app-wrap { min-height: 600px; padding: 0 0 2rem; }
+
+  .header {
+    background: linear-gradient(135deg, #4A3470 0%, #7B5EA7 50%, #9B7EC8 100%);
+    padding: 1.25rem 1.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    border-radius: var(--border-radius-lg);
+    margin-bottom: 1.25rem;
+  }
+  .header-left { display: flex; align-items: center; gap: 12px; }
+  .bts-logo {
+    width: 44px; height: 44px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px; color: #fff; letter-spacing: 1px;
+    border: 1.5px solid rgba(255,255,255,0.3);
+    flex-shrink: 0;
+  }
+  .header-title { color: #fff; font-size: 16px; font-weight: 800; line-height: 1.2; }
+  .header-sub { color: rgba(255,255,255,0.75); font-size: 11px; font-family: 'Noto Sans Bengali', sans-serif; }
+  .score-badge {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    padding: 6px 14px;
+    color: #fff; font-size: 13px; font-weight: 700;
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  .nav-tabs {
+    display: flex; gap: 6px;
+    margin-bottom: 1.25rem;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    scrollbar-width: none;
+  }
+  .nav-tabs::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    flex-shrink: 0;
+    padding: 8px 14px;
+    border-radius: 20px;
+    border: 1.5px solid var(--border);
+    background: var(--bts-surface);
+    color: var(--text-secondary);
+    font-size: 12px; font-weight: 700; cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Nunito', sans-serif;
+    white-space: nowrap;
+  }
+  .tab-btn.active {
+    background: #7B5EA7;
+    border-color: #7B5EA7;
+    color: #fff;
+  }
+  .tab-btn:hover:not(.active) { border-color: #7B5EA7; color: #7B5EA7; }
+
+  .section { display: none; }
+  .section.visible { display: block; }
+
+  /* ── FLASHCARD ── */
+  .card-controls {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+  .ctrl-label { font-size: 12px; color: var(--text-secondary); font-weight: 600; }
+  select.ctrl-sel {
+    padding: 6px 10px; border-radius: 8px;
+    border: 1.5px solid var(--border);
+    background: var(--bts-surface);
+    color: var(--text-primary);
+    font-size: 12px; font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+  }
+  .dir-toggle {
+    display: flex; gap: 4px;
+    background: var(--bts-surface);
+    border-radius: 10px; padding: 3px;
+    border: 1.5px solid var(--border);
+  }
+  .dir-btn {
+    padding: 4px 10px; border-radius: 7px;
+    border: none; background: transparent;
+    color: var(--text-secondary); font-size: 11px;
+    cursor: pointer; font-weight: 700;
+    transition: all 0.2s;
+    font-family: 'Nunito', sans-serif;
+  }
+  .dir-btn.active { background: #7B5EA7; color: #fff; }
+
+  .flashcard-container {
+    perspective: 1000px;
+    height: 240px; margin-bottom: 1rem;
+    cursor: pointer;
+  }
+  .flashcard {
+    width: 100%; height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.55s cubic-bezier(0.4,0,0.2,1);
+  }
+  .flashcard.flipped { transform: rotateY(180deg); }
+  .card-face {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    backface-visibility: hidden;
+    border-radius: var(--border-radius-lg);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 1.5rem;
+    border: 0.5px solid var(--border);
+  }
+  .card-front {
+    background: linear-gradient(145deg, #4A3470 0%, #7B5EA7 100%);
+    color: #fff;
+  }
+  .card-back {
+    background: var(--bts-card-bg);
+    transform: rotateY(180deg);
+    color: var(--text-primary);
+  }
+  .card-lang-badge {
+    font-size: 10px; font-weight: 800; letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 3px 10px; border-radius: 20px;
+    margin-bottom: 12px;
+  }
+  .card-front .card-lang-badge { background: rgba(255,255,255,0.2); color: rgba(255,255,255,0.9); }
+  .card-back .card-lang-badge { background: var(--bts-purple-light); color: var(--bts-purple-dark); }
+  .card-main-text {
+    font-size: 28px; font-weight: 700; text-align: center;
+    line-height: 1.3; margin-bottom: 8px;
+  }
+  .card-front .card-main-text { font-family: 'Noto Sans KR', sans-serif; color: #fff; }
+  .card-back .card-main-text { font-family: 'Noto Sans Bengali', sans-serif; }
+  .card-romaji { font-size: 14px; opacity: 0.8; text-align: center; margin-bottom: 6px; font-style: italic; }
+  .card-hint { font-size: 11px; opacity: 0.6; }
+  .card-cat-badge {
+    position: absolute; top: 12px; right: 14px;
+    font-size: 10px; font-weight: 700;
+    padding: 2px 8px; border-radius: 10px;
+  }
+  .card-front .card-cat-badge { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.8); }
+  .card-back .card-cat-badge { background: #EDE8F5; color: #4A3470; }
+
+  .speak-btn {
+    width: 32px; height: 32px; border-radius: 50%;
+    border: 1.5px solid; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; transition: all 0.2s;
+    background: transparent;
+    position: absolute; bottom: 14px; right: 14px;
+  }
+  .card-front .speak-btn { border-color: rgba(255,255,255,0.4); color: rgba(255,255,255,0.8); }
+  .card-front .speak-btn:hover { background: rgba(255,255,255,0.2); }
+  .card-back .speak-btn { border-color: var(--bts-purple); color: var(--bts-purple); }
+  .card-back .speak-btn:hover { background: var(--bts-purple-light); }
+
+  .fc-nav {
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    margin-bottom: 1rem;
+  }
+  .nav-arrow {
+    width: 40px; height: 40px; border-radius: 50%;
+    border: 1.5px solid var(--border);
+    background: var(--bts-surface);
+    color: var(--text-primary); font-size: 18px;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .nav-arrow:hover { border-color: #7B5EA7; color: #7B5EA7; background: var(--bts-purple-light); }
+  .fc-counter { font-size: 14px; font-weight: 700; color: var(--text-secondary); min-width: 80px; text-align: center; }
+  .fc-progress {
+    height: 4px; background: var(--border);
+    border-radius: 2px; margin-bottom: 1rem;
+  }
+  .fc-progress-bar {
+    height: 100%; background: #7B5EA7;
+    border-radius: 2px; transition: width 0.3s;
+  }
+  .fc-actions { display: flex; gap: 8px; justify-content: center; }
+  .fc-action-btn {
+    padding: 8px 18px; border-radius: 20px;
+    border: 1.5px solid; font-size: 12px; font-weight: 700;
+    cursor: pointer; transition: all 0.2s; font-family: 'Nunito', sans-serif;
+  }
+  .btn-known { border-color: #639922; color: #639922; background: transparent; }
+  .btn-known:hover { background: #EAF3DE; }
+  .btn-unknown { border-color: #E24B4A; color: #E24B4A; background: transparent; }
+  .btn-unknown:hover { background: #FCEBEB; }
+  .btn-shuffle { border-color: var(--bts-purple); color: var(--bts-purple); background: transparent; }
+  .btn-shuffle:hover { background: var(--bts-purple-light); }
+
+  /* ── QUIZ ── */
+  .quiz-header-row {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 1rem;
+  }
+  .quiz-mode-badges { display: flex; gap: 6px; }
+  .quiz-mode-btn {
+    padding: 5px 12px; border-radius: 20px;
+    border: 1.5px solid var(--border);
+    background: var(--bts-surface);
+    color: var(--text-secondary); font-size: 11px; font-weight: 700;
+    cursor: pointer; transition: all 0.2s; font-family: 'Nunito', sans-serif;
+  }
+  .quiz-mode-btn.active { background: #7B5EA7; border-color: #7B5EA7; color: #fff; }
+
+  .quiz-question-card {
+    background: linear-gradient(135deg, #4A3470, #7B5EA7);
+    border-radius: var(--border-radius-lg);
+    padding: 1.5rem; margin-bottom: 1rem;
+    text-align: center; position: relative;
+  }
+  .quiz-q-label { font-size: 10px; font-weight: 800; letter-spacing: 1.5px; color: rgba(255,255,255,0.6); text-transform: uppercase; margin-bottom: 8px; }
+  .quiz-q-text {
+    font-size: 26px; font-weight: 700; color: #fff;
+    font-family: 'Noto Sans KR', sans-serif; line-height: 1.3;
+    margin-bottom: 6px;
+  }
+  .quiz-q-text.bengali { font-family: 'Noto Sans Bengali', sans-serif; }
+  .quiz-q-romaji { font-size: 13px; color: rgba(255,255,255,0.65); font-style: italic; }
+  .quiz-speak-btn {
+    position: absolute; top: 12px; right: 12px;
+    width: 30px; height: 30px; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.4);
+    background: transparent; color: rgba(255,255,255,0.8);
+    font-size: 13px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .quiz-speak-btn:hover { background: rgba(255,255,255,0.15); }
+
+  .quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 1rem; }
+  .quiz-option {
+    padding: 12px 14px;
+    border-radius: var(--border-radius-md);
+    border: 1.5px solid var(--border);
+    background: var(--bts-card-bg);
+    color: var(--text-primary); font-size: 14px; font-weight: 600;
+    cursor: pointer; transition: all 0.2s; text-align: center;
+    font-family: 'Noto Sans Bengali', sans-serif;
+    line-height: 1.4;
+  }
+  .quiz-option:hover:not(.disabled) { border-color: #7B5EA7; color: #7B5EA7; background: var(--bts-purple-light); }
+  .quiz-option.correct { background: #EAF3DE; border-color: #639922; color: #3B6D11; }
+  .quiz-option.wrong { background: #FCEBEB; border-color: #E24B4A; color: #A32D2D; }
+  .quiz-option.disabled { cursor: not-allowed; }
+  .quiz-option.bengali-opt { font-family: 'Noto Sans Bengali', sans-serif; }
+  .quiz-option.korean-opt { font-family: 'Noto Sans KR', sans-serif; }
+
+  .quiz-feedback {
+    padding: 12px 16px;
+    border-radius: var(--border-radius-md);
+    margin-bottom: 1rem; font-size: 13px; font-weight: 700;
+    display: none;
+  }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.correct { background: #EAF3DE; color: #3B6D11; border: 1px solid #C0DD97; }
+  .quiz-feedback.wrong { background: #FCEBEB; color: #A32D2D; border: 1px solid #F7C1C1; }
+
+  .quiz-stats { display: flex; gap: 8px; margin-bottom: 1rem; }
+  .stat-pill {
+    flex: 1; padding: 8px;
+    background: var(--bts-surface);
+    border-radius: var(--border-radius-md);
+    text-align: center;
+    border: 0.5px solid var(--border);
+  }
+  .stat-pill .sp-val { font-size: 18px; font-weight: 800; }
+  .stat-pill .sp-lbl { font-size: 10px; color: var(--text-secondary); font-weight: 600; }
+  .stat-pill.correct-stat .sp-val { color: #639922; }
+  .stat-pill.wrong-stat .sp-val { color: #E24B4A; }
+  .stat-pill.streak-stat .sp-val { color: #7B5EA7; }
+
+  .btn-next-quiz {
+    width: 100%; padding: 11px;
+    background: #7B5EA7; color: #fff;
+    border: none; border-radius: var(--border-radius-md);
+    font-size: 14px; font-weight: 700; cursor: pointer;
+    font-family: 'Nunito', sans-serif; transition: all 0.2s;
+    display: none;
+  }
+  .btn-next-quiz.show { display: block; }
+  .btn-next-quiz:hover { background: #4A3470; }
+
+  /* ── LISTENING ── */
+  .listening-card {
+    background: linear-gradient(135deg, #C9A84C, #E8C87A);
+    border-radius: var(--border-radius-lg);
+    padding: 1.5rem; margin-bottom: 1rem; text-align: center;
+  }
+  .listen-label { font-size: 10px; font-weight: 800; letter-spacing: 1.5px; color: rgba(255,255,255,0.7); text-transform: uppercase; margin-bottom: 10px; }
+  .big-play-btn {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+    border: 2px solid rgba(255,255,255,0.5);
+    color: #fff; font-size: 24px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 12px;
+    transition: all 0.2s;
+  }
+  .big-play-btn:hover { background: rgba(255,255,255,0.4); transform: scale(1.05); }
+  .listen-hint { font-size: 12px; color: rgba(255,255,255,0.75); margin-top: 6px; }
+
+  .listen-options { display: grid; grid-template-columns: 1fr; gap: 8px; margin-bottom: 1rem; }
+  .listen-option {
+    padding: 12px 16px;
+    border-radius: var(--border-radius-md);
+    border: 1.5px solid var(--border);
+    background: var(--bts-card-bg);
+    color: var(--text-primary); font-size: 15px; font-weight: 600;
+    cursor: pointer; transition: all 0.2s;
+    font-family: 'Noto Sans Bengali', sans-serif;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .listen-option:hover:not(.disabled) { border-color: #C9A84C; color: #85500B; background: #FDF6E3; }
+  .listen-option.correct { background: #EAF3DE; border-color: #639922; color: #3B6D11; }
+  .listen-option.wrong { background: #FCEBEB; border-color: #E24B4A; color: #A32D2D; }
+  .listen-option.disabled { cursor: not-allowed; }
+  .option-letter {
+    width: 24px; height: 24px; border-radius: 50%;
+    background: var(--bts-surface); color: var(--text-secondary);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 800; flex-shrink: 0;
+  }
+  .listen-option.correct .option-letter { background: #C0DD97; color: #3B6D11; }
+  .listen-option.wrong .option-letter { background: #F7C1C1; color: #A32D2D; }
+
+  /* ── MATCHING ── */
+  .matching-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 1rem; }
+  .match-item {
+    padding: 11px 12px;
+    border-radius: var(--border-radius-md);
+    border: 1.5px solid var(--border);
+    background: var(--bts-card-bg);
+    color: var(--text-primary); font-size: 13px; font-weight: 600;
+    cursor: pointer; transition: all 0.2s; text-align: center;
+    line-height: 1.4;
+  }
+  .match-item.kr { font-family: 'Noto Sans KR', sans-serif; font-size: 15px; }
+  .match-item.bn { font-family: 'Noto Sans Bengali', sans-serif; }
+  .match-item.selected { background: var(--bts-purple-light); border-color: #7B5EA7; color: #4A3470; }
+  .match-item.matched { background: #EAF3DE; border-color: #639922; color: #3B6D11; cursor: default; }
+  .match-item.wrong-match { background: #FCEBEB; border-color: #E24B4A; animation: shake 0.3s; }
+  .match-item:hover:not(.matched):not(.selected) { border-color: #7B5EA7; }
+
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+  }
+
+  .match-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .match-col-label { font-size: 11px; font-weight: 800; color: var(--text-secondary); letter-spacing: 1px; text-transform: uppercase; flex: 1; text-align: center; }
+
+  .btn-new-round {
+    width: 100%; padding: 11px;
+    background: #7B5EA7; color: #fff;
+    border: none; border-radius: var(--border-radius-md);
+    font-size: 14px; font-weight: 700; cursor: pointer;
+    font-family: 'Nunito', sans-serif; transition: all 0.2s;
+    margin-top: 8px;
+  }
+  .btn-new-round:hover { background: #4A3470; }
+
+  .confetti-bar {
+    padding: 12px; text-align: center;
+    background: linear-gradient(90deg, #4A3470, #7B5EA7);
+    border-radius: var(--border-radius-md);
+    color: #fff; font-weight: 800; font-size: 15px;
+    margin-top: 8px; display: none;
+  }
+  .confetti-bar.show { display: block; }
+
+  /* ── CATEGORY BROWSER ── */
+  .cat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .cat-card {
+    padding: 14px; border-radius: var(--border-radius-lg);
+    border: 0.5px solid var(--border);
+    background: var(--bts-card-bg);
+    cursor: pointer; transition: all 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .cat-card:hover { border-color: #7B5EA7; }
+  .cat-card .cat-emoji { font-size: 24px; margin-bottom: 6px; display: block; }
+  .cat-card .cat-title { font-size: 13px; font-weight: 800; color: var(--text-primary); }
+  .cat-card .cat-count { font-size: 11px; color: var(--text-secondary); margin-top: 3px; }
+  .cat-card .cat-bar {
+    height: 3px; border-radius: 2px;
+    margin-top: 8px; background: var(--border);
+  }
+  .cat-card .cat-bar-fill { height: 100%; border-radius: 2px; background: #7B5EA7; }
+
+  .cat-detail { display: none; }
+  .cat-detail.show { display: block; }
+  .cat-list-header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 1rem;
+  }
+  .back-btn {
+    padding: 6px 12px; border-radius: 20px;
+    border: 1.5px solid var(--border);
+    background: var(--bts-surface); color: var(--text-secondary);
+    font-size: 12px; font-weight: 700; cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+  }
+  .back-btn:hover { border-color: #7B5EA7; color: #7B5EA7; }
+
+  .phrase-row {
+    padding: 10px 12px;
+    border-bottom: 0.5px solid var(--border);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .phrase-row:last-child { border-bottom: none; }
+  .phrase-kr { font-family: 'Noto Sans KR', sans-serif; font-size: 16px; font-weight: 500; color: var(--text-primary); min-width: 100px; }
+  .phrase-info { flex: 1; }
+  .phrase-romaji { font-size: 11px; color: var(--text-secondary); font-style: italic; }
+  .phrase-bn { font-family: 'Noto Sans Bengali', sans-serif; font-size: 13px; font-weight: 600; color: #4A3470; margin-top: 2px; }
+  .phrase-speak {
+    width: 28px; height: 28px; border-radius: 50%;
+    border: 1px solid var(--bts-purple);
+    background: transparent; color: var(--bts-purple);
+    font-size: 12px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: all 0.2s;
+  }
+  .phrase-speak:hover { background: var(--bts-purple-light); }
+  .phrase-speak.bn-speak { border-color: #C9A84C; color: #C9A84C; }
+  .phrase-speak.bn-speak:hover { background: #FDF6E3; }
+
+  /* Scrollable phrase list */
+  .phrase-list-scroll { max-height: 380px; overflow-y: auto; border-radius: var(--border-radius-md); border: 0.5px solid var(--border); }
+  .phrase-list-scroll::-webkit-scrollbar { width: 4px; }
+  .phrase-list-scroll::-webkit-scrollbar-thumb { background: var(--bts-purple); border-radius: 2px; }
+
+  /* General */
+  .purple-text { color: #7B5EA7; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+</style>
+
+<div class="app-wrap">
+  <h2 class="sr-only">BTS Korean–Bengali Learning App with flashcards, quiz, listening, and matching games</h2>
+
+  <div class="header">
+    <div class="header-left">
+      <div class="bts-logo">BTS</div>
+      <div>
+        <div class="header-title">💜 BTS Korean Learn</div>
+        <div class="header-sub">বিটিএস-এর সাথে কোরিয়ান শিখুন</div>
+      </div>
+    </div>
+    <div class="score-badge">
+      <span>⭐</span>
+      <span id="total-score">0</span>
+    </div>
+  </div>
+
+  <div class="nav-tabs">
+    <button class="tab-btn active" onclick="switchTab('flashcard')">📚 ফ্ল্যাশকার্ড</button>
+    <button class="tab-btn" onclick="switchTab('quiz')">🎯 কুইজ</button>
+    <button class="tab-btn" onclick="switchTab('listening')">🎵 শোনো</button>
+    <button class="tab-btn" onclick="switchTab('matching')">🔗 মিলাও</button>
+    <button class="tab-btn" onclick="switchTab('browse')">📖 শব্দ ভান্ডার</button>
+  </div>
+
+  <!-- FLASHCARD SECTION -->
+  <div id="sec-flashcard" class="section visible">
+    <div class="card-controls">
+      <span class="ctrl-label">বিষয়:</span>
+      <select class="ctrl-sel" id="fc-category" onchange="loadFlashcards()">
+        <option value="all">সব বিষয়</option>
+        <option value="greetings">অভিবাদন</option>
+        <option value="bts-terms">BTS শব্দ</option>
+        <option value="members">মেম্বার</option>
+        <option value="concert">কনসার্ট</option>
+        <option value="social">সোশ্যাল মিডিয়া</option>
+        <option value="verbs">ক্রিয়া</option>
+        <option value="intro">পরিচয়</option>
+      </select>
+      <div class="dir-toggle">
+        <button class="dir-btn active" id="dir-kr2bn" onclick="setDir('kr2bn')">KR→BN</button>
+        <button class="dir-btn" id="dir-bn2kr" onclick="setDir('bn2kr')">BN→KR</button>
+      </div>
+    </div>
+    <div class="fc-progress"><div class="fc-progress-bar" id="fc-prog" style="width:0%"></div></div>
+    <div class="flashcard-container" onclick="flipCard()">
+      <div class="flashcard" id="flashcard">
+        <div class="card-face card-front">
+          <div class="card-lang-badge" id="fc-front-badge">한국어</div>
+          <div class="card-main-text" id="fc-front-text">안녕하세요</div>
+          <div class="card-romaji" id="fc-front-romaji">an-nyeong-ha-se-yo</div>
+          <div class="card-hint" id="fc-front-hint">ক্লিক করো উত্তর দেখতে</div>
+          <span class="card-cat-badge" id="fc-front-cat">অভিবাদন</span>
+          <button class="speak-btn" onclick="event.stopPropagation(); speakCard('front')">🔊</button>
+        </div>
+        <div class="card-face card-back">
+          <div class="card-lang-badge" id="fc-back-badge">বাংলা</div>
+          <div class="card-main-text" id="fc-back-text">হ্যালো, ভালো দিন</div>
+          <span class="card-cat-badge" id="fc-back-cat">অভিবাদন</span>
+          <button class="speak-btn" onclick="event.stopPropagation(); speakCard('back')">🔊</button>
+        </div>
+      </div>
+    </div>
+    <div class="fc-nav">
+      <button class="nav-arrow" onclick="prevCard()">&#8592;</button>
+      <span class="fc-counter" id="fc-counter">1 / 20</span>
+      <button class="nav-arrow" onclick="nextCard()">&#8594;</button>
+    </div>
+    <div class="fc-actions">
+      <button class="fc-action-btn btn-unknown" onclick="markCard(false)">✗ জানি না</button>
+      <button class="fc-action-btn btn-shuffle" onclick="shuffleCards()">⇄ মিশ্রিত</button>
+      <button class="fc-action-btn btn-known" onclick="markCard(true)">✓ জানি</button>
+    </div>
+  </div>
+
+  <!-- QUIZ SECTION -->
+  <div id="sec-quiz" class="section">
+    <div class="quiz-stats">
+      <div class="stat-pill correct-stat"><div class="sp-val" id="q-correct">0</div><div class="sp-lbl">সঠিক</div></div>
+      <div class="stat-pill wrong-stat"><div class="sp-val" id="q-wrong">0</div><div class="sp-lbl">ভুল</div></div>
+      <div class="stat-pill streak-stat"><div class="sp-val" id="q-streak">0</div><div class="sp-lbl">ধারা</div></div>
+    </div>
+    <div class="quiz-header-row">
+      <div class="quiz-mode-badges">
+        <button class="quiz-mode-btn active" id="qm-kr2bn" onclick="setQuizMode('kr2bn')">KR→BN</button>
+        <button class="quiz-mode-btn" id="qm-bn2kr" onclick="setQuizMode('bn2kr')">BN→KR</button>
+      </div>
+    </div>
+    <div class="quiz-question-card">
+      <div class="quiz-q-label" id="q-label">কোরিয়ান থেকে বাংলা</div>
+      <div class="quiz-q-text" id="q-text">안녕하세요</div>
+      <div class="quiz-q-romaji" id="q-romaji">an-nyeong-ha-se-yo</div>
+      <button class="quiz-speak-btn" onclick="speakQuiz()">🔊</button>
+    </div>
+    <div class="quiz-options" id="quiz-options"></div>
+    <div class="quiz-feedback" id="quiz-feedback"></div>
+    <button class="btn-next-quiz" id="btn-next-quiz" onclick="nextQuiz()">পরবর্তী প্রশ্ন →</button>
+  </div>
+
+  <!-- LISTENING SECTION -->
+  <div id="sec-listening" class="section">
+    <div class="quiz-stats">
+      <div class="stat-pill correct-stat"><div class="sp-val" id="l-correct">0</div><div class="sp-lbl">সঠিক</div></div>
+      <div class="stat-pill wrong-stat"><div class="sp-val" id="l-wrong">0</div><div class="sp-lbl">ভুল</div></div>
+      <div class="stat-pill streak-stat"><div class="sp-val" id="l-streak">0</div><div class="sp-lbl">ধারা</div></div>
+    </div>
+    <div class="listening-card">
+      <div class="listen-label">কোরিয়ান শোনো</div>
+      <button class="big-play-btn" id="big-play-btn" onclick="playListenAudio()">🔊</button>
+      <div class="listen-hint" id="listen-hint">এই বাটন চাপো এবং শোনো, তারপর সঠিক বাংলা বেছে নাও</div>
+    </div>
+    <div class="listen-options" id="listen-options"></div>
+    <div class="quiz-feedback" id="listen-feedback"></div>
+    <button class="btn-next-quiz" id="btn-next-listen" onclick="nextListen()">পরবর্তী →</button>
+  </div>
+
+  <!-- MATCHING SECTION -->
+  <div id="sec-matching" class="section">
+    <div class="quiz-stats">
+      <div class="stat-pill correct-stat"><div class="sp-val" id="m-score">0</div><div class="sp-lbl">জোড়া</div></div>
+      <div class="stat-pill wrong-stat"><div class="sp-val" id="m-errors">0</div><div class="sp-lbl">ভুল</div></div>
+      <div class="stat-pill streak-stat"><div class="sp-val" id="m-total">6</div><div class="sp-lbl">মোট</div></div>
+    </div>
+    <div class="match-header">
+      <div class="match-col-label">🇰🇷 কোরিয়ান</div>
+      <div style="width:8px"></div>
+      <div class="match-col-label">🇧🇩 বাংলা</div>
+    </div>
+    <div class="matching-grid" id="matching-grid"></div>
+    <div class="confetti-bar" id="confetti-bar">🎉 অসাধারণ! সব জোড়া মিলে গেছে! 방탄 화이팅! 💜</div>
+    <button class="btn-new-round" onclick="startMatching()">নতুন রাউন্ড ⟳</button>
+  </div>
+
+  <!-- BROWSE SECTION -->
+  <div id="sec-browse" class="section">
+    <div id="cat-overview">
+      <div class="cat-grid">
+        <div class="cat-card" onclick="showCatDetail('greetings')">
+          <span class="cat-emoji">👋</span>
+          <div class="cat-title">অভিবাদন</div>
+          <div class="cat-count">২০টি বাক্য</div>
+          <div class="cat-bar"><div class="cat-bar-fill" style="width:100%"></div></div>
+        </div>
+        <div class="cat-card" onclick="showCatDetail('bts-terms')">
+          <span class="cat-emoji">💜</span>
+          <div class="cat-title">BTS শব্দ</div>
+          <div class="cat-count">২০টি শব্দ</div>
+          <div class="cat-bar"><div class="cat-bar-fill" style="width:100%"></div></div>
+        </div>
+        <div class="cat-card" onclick="showCatDetail('members')">
+          <span class="cat-emoji">⭐</span>
+          <div class="cat-title">মেম্বার</div>
+          <div class="cat-count">২০টি শব্দ</div>
+          <div class="cat-bar"><div class="cat-bar-fill" style="width:100%"></div></div>
+        </div>
+        <div class="cat-card" onclick="showCatDetail('concert')">
+          <span class="cat-emoji">🎤</span>
+          <div class="cat-title">কনসার্ট</div>
+          <div class="cat-count">৩০টি বাক্য</div>
+          <div class="cat-bar"><div class="cat-bar-fill" style="width:100%"></div></div>
+        </div>
+        <div class="cat-card" onclick="showCatDetail('verbs')">
+          <span class="cat-emoji">🏃</span>
+          <div class="cat-title">ক্রিয়া</div>
+          <div class="cat-count">৩০টি ক্রিয়া</div>
+          <div class="cat-bar"><div class="cat-bar-fill" style="width:100%"></div></div>
+        </div>
+        <div class="cat-card" onclick="showCatDetail('intro')">
+          <span class="cat-emoji">🙋</span>
+          <div class="cat-title">পরিচয়</div>
+          <div class="cat-count">২০টি বাক্য</div>
+          <div class="cat-bar"><div class="cat-bar-fill" style="width:100%"></div></div>
+        </div>
+      </div>
+    </div>
+    <div id="cat-detail" class="cat-detail">
+      <div class="cat-list-header">
+        <button class="back-btn" onclick="hideCatDetail()">← ফিরে যাও</button>
+        <strong id="cat-detail-title" style="font-size:14px"></strong>
+      </div>
+      <div class="phrase-list-scroll" id="phrase-list"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const DATA = {
+  greetings: [
+    {kr:'안녕하세요', rom:'an-nyeong-ha-se-yo', bn:'হ্যালো, ভালো দিন'},
+    {kr:'감사합니다', rom:'kam-sa-ham-ni-da', bn:'ধন্যবাদ'},
+    {kr:'고마워요', rom:'go-ma-wo-yo', bn:'ধন্যবাদ (আপনি)'},
+    {kr:'사랑해요', rom:'sa-rang-hae-yo', bn:'আমি ভালোবাসি'},
+    {kr:'좋아해요', rom:'jo-a-hae-yo', bn:'আমি পছন্দ করি'},
+    {kr:'진짜요?', rom:'jin-jja-yo', bn:'সত্যি?'},
+    {kr:'대박', rom:'dae-bak', bn:'অসাধারণ! দারুণ!'},
+    {kr:'괜찮아요', rom:'gwaen-chan-a-yo', bn:'ঠিক আছে, সমস্যা নেই'},
+    {kr:'미안해요', rom:'mi-an-hae-yo', bn:'দুঃখিত'},
+    {kr:'죄송합니다', rom:'joe-song-ham-ni-da', bn:'খুব দুঃখিত (formal)'},
+    {kr:'정말?', rom:'jeong-mal', bn:'সত্যি? নিশ্চিত?'},
+    {kr:'네', rom:'ne', bn:'হ্যাঁ'},
+    {kr:'아니요', rom:'a-ni-yo', bn:'না'},
+    {kr:'잠시만요', rom:'jam-si-man-yo', bn:'একটু দাঁড়ান'},
+    {kr:'축하해요!', rom:'chuk-ha-hae-yo', bn:'অভিনন্দন!'},
+    {kr:'최고야!', rom:'choe-go-ya', bn:'সেরা!'},
+    {kr:'기대돼요', rom:'gi-dae-dwae-yo', bn:'প্রতীক্ষায় আছি'},
+    {kr:'너무 멋져요', rom:'neo-mu meot-jyeo-yo', bn:'খুবই চমৎকার'},
+    {kr:'정말 예뻐요', rom:'jeong-mal ye-ppeo-yo', bn:'সত্যিই সুন্দর'},
+    {kr:'네, 좋아요!', rom:'ne jo-a-yo', bn:'হ্যাঁ, ভালো!'},
+  ],
+  'bts-terms': [
+    {kr:'아미', rom:'a-mi', bn:'আর্মি (বিটিএস ফ্যান)'},
+    {kr:'방탄소년단', rom:'bang-tan-so-nyeon-dan', bn:'বাংতান সোনিয়নদান'},
+    {kr:'방탄', rom:'bang-tan', bn:'বিটিএস-এর সংক্ষিপ্ত নাম'},
+    {kr:'아포방포', rom:'a-po-bang-po', bn:'আর্মি ফরএভার, বিটিএস ফরএভার'},
+    {kr:'보라해', rom:'bo-ra-hae', bn:'আই পার্পল ইউ'},
+    {kr:'달려라 방탄', rom:'dal-lyeo-ra bang-tan', bn:'দৌড়াও, বাংতান'},
+    {kr:'화양연화', rom:'hwa-yang-yeon-hwa', bn:'ফুলের মতো সুন্দর যৌবন'},
+    {kr:'막내', rom:'mak-nae', bn:'সবচেয়ে ছোট (জংগুক)'},
+    {kr:'최애', rom:'choe-ae', bn:'সবচেয়ে প্রিয় সদস্য'},
+    {kr:'팬', rom:'paen', bn:'ফ্যান (ভক্ত)'},
+    {kr:'화이팅!', rom:'hwa-i-ting', bn:'ফাইটিং!'},
+    {kr:'대박', rom:'dae-bak', bn:'অসাধারণ!'},
+    {kr:'진격의 방탄', rom:'jin-gyeo-gui bang-tan', bn:'অভিযানে বাংতান'},
+    {kr:'군백기', rom:'gun-baek-gi', bn:'সেনাবাহিনীর কারণে শূন্যতা'},
+    {kr:'콘서트', rom:'kon-seo-teu', bn:'কনসার্ট'},
+    {kr:'팬미팅', rom:'paen-mi-ting', bn:'ফ্যান মিটিং'},
+    {kr:'공연', rom:'gong-yeon', bn:'পারফরম্যান্স'},
+    {kr:'멤버', rom:'mem-beo', bn:'মেম্বার'},
+    {kr:'그루', rom:'geu-ru', bn:'গ্রুপ'},
+    {kr:'런 BTS', rom:'reon BTS', bn:'রান বিটিএস (শো)'},
+  ],
+  members: [
+    {kr:'RM', rom:'a-reu-em', bn:'আরএম — লিডার, র‍্যাপার'},
+    {kr:'진', rom:'jin', bn:'জিন — ভোকাল, মজাদার'},
+    {kr:'슈가', rom:'syu-ga', bn:'শুগা — র‍্যাপার, প্রযোজক'},
+    {kr:'제이홉', rom:'je-i-hop', bn:'জে-হোপ — র‍্যাপার, ডান্সার'},
+    {kr:'지민', rom:'ji-min', bn:'জিমিন — ভোকাল, ডান্সার'},
+    {kr:'뷔', rom:'bwi', bn:'ভি — ভোকাল, বহুমুখী শিল্পী'},
+    {kr:'정국', rom:'jeong-guk', bn:'জংগুক — মেইন ভোকাল'},
+    {kr:'막내', rom:'mak-nae', bn:'ছোট ভাই (জংগুক)'},
+    {kr:'맏형', rom:'mat-hyeong', bn:'বড় ভাই (জিন)'},
+    {kr:'리더', rom:'ri-deo', bn:'লিডার (আরএম)'},
+    {kr:'형', rom:'hyeong', bn:'বড় ভাই (ছেলেরা ডাকে)'},
+    {kr:'오빠', rom:'o-ppa', bn:'বড় ভাই (মেয়েরা ডাকে)'},
+    {kr:'언니', rom:'eon-ni', bn:'বড় বোন (মেয়েরা ডাকে)'},
+    {kr:'아미', rom:'a-mi', bn:'আর্মি'},
+    {kr:'팬', rom:'paen', bn:'ফ্যান'},
+    {kr:'BTS와 아미는 하나입니다', rom:'BTS-wa a-mi-neun ha-na-im-ni-da', bn:'বিটিএস আর আর্মি এক'},
+    {kr:'보라해, BTS', rom:'bo-ra-hae BTS', bn:'বোরাহে, বিটিএস'},
+    {kr:'사랑해요, BTS', rom:'sa-rang-hae-yo BTS', bn:'ভালোবাসি, বিটিএস'},
+    {kr:'고마워요, BTS', rom:'go-ma-wo-yo BTS', bn:'ধন্যবাদ, বিটিএস'},
+    {kr:'BTS 최고입니다!', rom:'BTS choe-go-im-ni-da', bn:'বিটিএস সেরা!'},
+  ],
+  concert: [
+    {kr:'소리 질러!', rom:'so-ri jil-leo', bn:'চিৎকার করো!'},
+    {kr:'모두 뛰어!', rom:'mo-du ttwi-eo', bn:'সবাই লাফাও!'},
+    {kr:'박수쳐요!', rom:'bak-su-chyeo-yo', bn:'করতালি দাও!'},
+    {kr:'보고 싶었어요!', rom:'bo-go si-peo-sseo-yo', bn:'মিস করেছি!'},
+    {kr:'최고다 방탄!', rom:'choe-go-da bang-tan', bn:'সেরা, বাংতান!'},
+    {kr:'가지 마!', rom:'ga-ji ma', bn:'যেও না!'},
+    {kr:'사진 찍어줘!', rom:'sa-jin jjik-eo-jwo', bn:'ছবি তুলে দাও!'},
+    {kr:'또 와줘서 고마워요!', rom:'tto wa-jwo-seo go-ma-wo-yo', bn:'আবার এসো, ধন্যবাদ!'},
+    {kr:'같이 노래할래요?', rom:'ga-chi no-rae-hal-lae-yo', bn:'একসাথে গাইবি?'},
+    {kr:'응원할게요!', rom:'eung-won-hal-ge-yo', bn:'সমর্থন করব!'},
+    {kr:'힘내세요!', rom:'him-nae-se-yo', bn:'শক্তি দাও!'},
+    {kr:'너무 보고 싶었어요!', rom:'neo-mu bo-go si-peo-sseo-yo', bn:'খুব মিস করেছি!'},
+    {kr:'기다렸어요!', rom:'gi-da-ryeo-sseo-yo', bn:'অপেক্ষা করেছিলাম!'},
+    {kr:'대단해요!', rom:'dae-dan-hae-yo', bn:'অসাধারণ!'},
+    {kr:'끝까지 함께해요!', rom:'kkeut-kka-ji ham-kke-hae-yo', bn:'শেষ পর্যন্ত একসাথে!'},
+    {kr:'당신은 나의 빛이야', rom:'dang-sin-eun na-ui bich-i-ya', bn:'তুমি আমার আলো'},
+    {kr:'미칠 것 같아', rom:'mi-chil geot ga-ta', bn:'পাগল হয়ে যাচ্ছি'},
+    {kr:'너무 예뻐', rom:'neo-mu ye-ppeo', bn:'খুবই সুন্দর'},
+    {kr:'당신 없이는 못 살아', rom:'dang-sin eop-si-neun mot sa-ra', bn:'তুমি ছাড়া বাঁচতে পারি না'},
+    {kr:'강렬하다', rom:'gang-nyeol-ha-da', bn:'শক্তিশালী পারফরম্যান্স'},
+  ],
+  social: [
+    {kr:'좋은 하루 보내세요', rom:'jo-eun ha-ru bo-nae-se-yo', bn:'শুভ দিন কাটুক'},
+    {kr:'건강 조심하세요', rom:'geon-gang jo-si-ma-se-yo', bn:'স্বাস্থ্যের যত্ন নিও'},
+    {kr:'항상 응원합니다', rom:'hang-sang eung-won-ham-ni-da', bn:'সবসময় সমর্থন করি'},
+    {kr:'너무 사랑해요', rom:'neo-mu sa-rang-hae-yo', bn:'খুব ভালোবাসি'},
+    {kr:'행복하세요', rom:'haeng-bo-ka-se-yo', bn:'সুখী হও'},
+    {kr:'걱정 마세요', rom:'geok-jeong ma-se-yo', bn:'চিন্তা কোরো না'},
+    {kr:'보고 싶어요', rom:'bo-go si-peo-yo', bn:'মিস করছি'},
+    {kr:'잘 자요', rom:'jal ja-yo', bn:'শুভরাত্রি'},
+    {kr:'또 봐요', rom:'tto bwa-yo', bn:'আবার দেখা হবে'},
+    {kr:'좋은 꿈 꿔요', rom:'jo-eun kkum kkwo-yo', bn:'ভালো স্বপ্ন দেখো'},
+    {kr:'기뻐요', rom:'gi-ppeo-yo', bn:'খুশি লাগছে'},
+    {kr:'슬퍼요', rom:'seul-peo-yo', bn:'দুঃখ লাগছে'},
+    {kr:'재밌어요', rom:'jae-mi-sseo-yo', bn:'মজার'},
+    {kr:'힘들어요', rom:'him-deu-reo-yo', bn:'কষ্ট হচ্ছে'},
+    {kr:'꼭 성공할 거예요', rom:'kkok seong-gong-hal geo-ye-yo', bn:'অবশ্যই সফল হবে'},
+    {kr:'우리 파이팅', rom:'u-ri pa-i-ting', bn:'আমরা ফাইটিং'},
+    {kr:'이해합니다', rom:'i-hae-ham-ni-da', bn:'বুঝতে পারছি'},
+    {kr:'맞아요', rom:'ma-ja-yo', bn:'ঠিক, তাই'},
+    {kr:'안녕', rom:'an-nyeong', bn:'হ্যালো / বিদায়'},
+    {kr:'사랑해', rom:'sa-rang-hae', bn:'ভালোবাসি'},
+  ],
+  verbs: [
+    {kr:'가다', rom:'ga-da', bn:'যাওয়া'},
+    {kr:'오다', rom:'o-da', bn:'আসা'},
+    {kr:'보다', rom:'bo-da', bn:'দেখা'},
+    {kr:'사다', rom:'sa-da', bn:'কেনা'},
+    {kr:'기다리다', rom:'gi-da-ri-da', bn:'অপেক্ষা করা'},
+    {kr:'웃다', rom:'ut-da', bn:'হাসা'},
+    {kr:'울다', rom:'ul-da', bn:'কাঁদা'},
+    {kr:'먹다', rom:'meok-da', bn:'খাওয়া'},
+    {kr:'마시다', rom:'ma-si-da', bn:'পান করা'},
+    {kr:'자다', rom:'ja-da', bn:'ঘুমানো'},
+    {kr:'쓰다', rom:'sseu-da', bn:'লেখা / ব্যবহার করা'},
+    {kr:'듣다', rom:'deut-da', bn:'শোনা'},
+    {kr:'말하다', rom:'mal-ha-da', bn:'কথা বলা'},
+    {kr:'사랑하다', rom:'sa-rang-ha-da', bn:'ভালোবাসা'},
+    {kr:'좋아하다', rom:'jo-a-ha-da', bn:'পছন্দ করা'},
+    {kr:'배우다', rom:'bae-u-da', bn:'শেখা'},
+    {kr:'춤추다', rom:'chum-chu-da', bn:'নাচা'},
+    {kr:'노래하다', rom:'no-rae-ha-da', bn:'গাওয়া'},
+    {kr:'만들다', rom:'man-deul-da', bn:'বানানো'},
+    {kr:'연습하다', rom:'yeon-seu-pa-da', bn:'অনুশীলন করা'},
+  ],
+  intro: [
+    {kr:'제 이름은 ~ 입니다', rom:'je i-reu-meun ~ im-ni-da', bn:'আমার নাম ~'},
+    {kr:'저는 방탄소년단 팬입니다', rom:'jeo-neun bang-tan-so-nyeon-dan paen-im-ni-da', bn:'আমি বিটিএস ফ্যান'},
+    {kr:'저도 아미입니다', rom:'jeo-do a-mi-im-ni-da', bn:'আমিও আর্মি'},
+    {kr:'저는 BTS를 사랑합니다', rom:'jeo-neun BTS-reul sa-rang-ham-ni-da', bn:'আমি বিটিএসকে ভালোবাসি'},
+    {kr:'저는 BTS 덕분에 행복합니다', rom:'jeo-neun BTS deok-bu-ne haeng-bo-kam-ni-da', bn:'বিটিএসের কারণে আমি খুশি'},
+    {kr:'BTS는 제 삶의 이유입니다', rom:'BTS-neun je sa-mu-i i-yu-im-ni-da', bn:'বিটিএস আমার জীবনের কারণ'},
+    {kr:'저는 BTS를 자랑스럽게 생각합니다', rom:'jeo-neun BTS-reul ja-rang-seu-reop-ge saeng-ga-kam-ni-da', bn:'আমি বিটিএস নিয়ে গর্বিত'},
+    {kr:'전 생애 BTS와 함께하겠습니다', rom:'jeon saeng-ae BTS-wa ham-kke-ha-get-seum-ni-da', bn:'সারা জীবন বিটিএসের সাথে থাকব'},
+    {kr:'저의 꿈은 방탄소년단을 만나는 거예요', rom:'jeo-ui kkum-eun bang-tan-so-nyeon-da-neul man-na-neun geo-ye-yo', bn:'আমার স্বপ্ন বিটিএসের সাথে দেখা করা'},
+    {kr:'제 최애는 ~ 입니다', rom:'je choe-ae-neun ~ im-ni-da', bn:'আমার সবচেয়ে প্রিয় সদস্য ~'},
+    {kr:'저는 한국어를 배우고 있어요', rom:'jeo-neun han-gu-geo-reul bae-u-go i-sseo-yo', bn:'আমি কোরিয়ান শিখছি'},
+    {kr:'여러분, 같이 한국어를 배워요!', rom:'yeo-reo-bun ga-chi han-gu-geo-reul bae-wo-yo', bn:'সবাই, একসাথে কোরিয়ান শিখি!'},
+    {kr:'저는 BTS를 좋아합니다', rom:'jeo-neun BTS-reul jo-a-ham-ni-da', bn:'আমি বিটিএস পছন্দ করি'},
+    {kr:'보라해, BTS', rom:'bo-ra-hae BTS', bn:'বোরাহে, বিটিএস'},
+    {kr:'BTS와 아미는 하나입니다', rom:'BTS-wa a-mi-neun ha-na-im-ni-da', bn:'বিটিএস আর আর্মি এক'},
+    {kr:'BTS 최고입니다!', rom:'BTS choe-go-im-ni-da', bn:'বিটিএস সেরা!'},
+    {kr:'고마워요, BTS', rom:'go-ma-wo-yo BTS', bn:'ধন্যবাদ, বিটিএস'},
+    {kr:'사랑해요, BTS', rom:'sa-rang-hae-yo BTS', bn:'ভালোবাসি, বিটিএস'},
+    {kr:'첫사랑입니다', rom:'cheot-sa-rang-im-ni-da', bn:'এটা আমার প্রথম প্রেম'},
+    {kr:'한국어', rom:'han-gu-geo', bn:'কোরিয়ান ভাষা'},
+  ]
+};
+
+function getAllData() {
+  return Object.values(DATA).flat();
+}
+
+// GLOBALS
+let fcCards = [], fcIndex = 0, fcKnown = new Set(), fcIsFlipped = false, fcDir = 'kr2bn';
+let quizMode = 'kr2bn', qCorrect = 0, qWrong = 0, qStreak = 0, qCurrent = null;
+let lCorrect = 0, lWrong = 0, lStreak = 0, lCurrent = null;
+let matchSelected = null, matchPairs = [], matchScore = 0, matchErrors = 0;
+let totalScore = 0;
+
+function addScore(n) { totalScore += n; document.getElementById('total-score').textContent = totalScore; }
+
+// ── SPEECH ──
+function speak(text, lang) {
+  if (!window.speechSynthesis) return;
+  const voices = speechSynthesis.getVoices();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = lang === 'ko' ? 'ko-KR' : 'bn-BD';
+  u.rate = 0.85;
+  const match = voices.find(v => v.lang.startsWith(lang === 'ko' ? 'ko' : 'bn'));
+  if (match) u.voice = match;
+  speechSynthesis.cancel();
+  speechSynthesis.speak(u);
+}
+
+// ── TABS ──
+function switchTab(tab) {
+  ['flashcard','quiz','listening','matching','browse'].forEach(t => {
+    document.getElementById('sec-'+t).classList.toggle('visible', t === tab);
+  });
+  document.querySelectorAll('.tab-btn').forEach((b,i) => {
+    b.classList.toggle('active', ['flashcard','quiz','listening','matching','browse'][i] === tab);
+  });
+  if (tab === 'quiz') initQuiz();
+  if (tab === 'listening') initListen();
+  if (tab === 'matching') startMatching();
+}
+
+// ── FLASHCARD ──
+function loadFlashcards() {
+  const cat = document.getElementById('fc-category').value;
+  fcCards = cat === 'all' ? shuffle([...getAllData()]) : shuffle([...DATA[cat]]);
+  fcIndex = 0; fcKnown.clear();
+  updateFC();
+}
+function shuffle(arr) { for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];} return arr; }
+function updateFC() {
+  const card = fcCards[fcIndex];
+  const el = document.getElementById('flashcard');
+  el.classList.remove('flipped'); fcIsFlipped = false;
+  setTimeout(() => {
+    if (fcDir === 'kr2bn') {
+      document.getElementById('fc-front-badge').textContent = '한국어';
+      document.getElementById('fc-front-text').textContent = card.kr;
+      document.getElementById('fc-front-text').style.fontFamily = "'Noto Sans KR', sans-serif";
+      document.getElementById('fc-front-romaji').textContent = card.rom;
+      document.getElementById('fc-front-hint').textContent = 'ক্লিক করো উত্তর দেখতে';
+      document.getElementById('fc-back-badge').textContent = 'বাংলা';
+      document.getElementById('fc-back-text').textContent = card.bn;
+      document.getElementById('fc-back-text').style.fontFamily = "'Noto Sans Bengali', sans-serif";
+    } else {
+      document.getElementById('fc-front-badge').textContent = 'বাংলা';
+      document.getElementById('fc-front-text').textContent = card.bn;
+      document.getElementById('fc-front-text').style.fontFamily = "'Noto Sans Bengali', sans-serif";
+      document.getElementById('fc-front-romaji').textContent = '';
+      document.getElementById('fc-front-hint').textContent = 'ক্লিক করো কোরিয়ান দেখতে';
+      document.getElementById('fc-back-badge').textContent = '한국어';
+      document.getElementById('fc-back-text').textContent = card.kr;
+      document.getElementById('fc-back-text').style.fontFamily = "'Noto Sans KR', sans-serif";
+    }
+    document.getElementById('fc-front-cat').textContent = getCatLabel(fcIndex);
+    document.getElementById('fc-back-cat').textContent = getCatLabel(fcIndex);
+    document.getElementById('fc-counter').textContent = (fcIndex+1) + ' / ' + fcCards.length;
+    document.getElementById('fc-prog').style.width = Math.round((fcIndex+1)/fcCards.length*100)+'%';
+  }, 50);
+}
+function getCatLabel(i) {
+  const card = fcCards[i];
+  for (const [cat, arr] of Object.entries(DATA)) {
+    if (arr.some(c => c.kr === card.kr)) return {greetings:'অভিবাদন','bts-terms':'BTS শব্দ',members:'মেম্বার',concert:'কনসার্ট',social:'সোশ্যাল',verbs:'ক্রিয়া',intro:'পরিচয়'}[cat] || cat;
+  }
+  return '';
+}
+function flipCard() {
+  document.getElementById('flashcard').classList.toggle('flipped');
+  fcIsFlipped = !fcIsFlipped;
+}
+function nextCard() { if (fcIndex < fcCards.length-1) { fcIndex++; updateFC(); } }
+function prevCard() { if (fcIndex > 0) { fcIndex--; updateFC(); } }
+function markCard(known) { if (known) { fcKnown.add(fcIndex); addScore(2); } nextCard(); }
+function shuffleCards() { fcCards = shuffle([...fcCards]); fcIndex = 0; updateFC(); }
+function setDir(d) {
+  fcDir = d;
+  document.getElementById('dir-kr2bn').classList.toggle('active', d==='kr2bn');
+  document.getElementById('dir-bn2kr').classList.toggle('active', d==='bn2kr');
+  updateFC();
+}
+function speakCard(side) {
+  const card = fcCards[fcIndex];
+  if ((side==='front' && fcDir==='kr2bn') || (side==='back' && fcDir==='bn2kr')) speak(card.kr, 'ko');
+  else speak(card.bn, 'bn');
+}
+
+// ── QUIZ ──
+function initQuiz() { qCurrent = null; loadQuizQuestion(); }
+function setQuizMode(m) {
+  quizMode = m;
+  document.getElementById('qm-kr2bn').classList.toggle('active', m==='kr2bn');
+  document.getElementById('qm-bn2kr').classList.toggle('active', m==='bn2kr');
+  loadQuizQuestion();
+}
+function loadQuizQuestion() {
+  const all = getAllData();
+  const correct = all[Math.floor(Math.random()*all.length)];
+  qCurrent = correct;
+  document.getElementById('q-label').textContent = quizMode==='kr2bn' ? 'কোরিয়ান থেকে বাংলা' : 'বাংলা থেকে কোরিয়ান';
+  if (quizMode === 'kr2bn') {
+    document.getElementById('q-text').textContent = correct.kr;
+    document.getElementById('q-text').className = 'quiz-q-text';
+    document.getElementById('q-romaji').textContent = correct.rom;
+  } else {
+    document.getElementById('q-text').textContent = correct.bn;
+    document.getElementById('q-text').className = 'quiz-q-text bengali';
+    document.getElementById('q-romaji').textContent = '';
+  }
+  const wrongPool = all.filter(c => c.kr !== correct.kr);
+  const wrongs = shuffle(wrongPool).slice(0,3);
+  const options = shuffle([correct, ...wrongs]);
+  const container = document.getElementById('quiz-options');
+  container.innerHTML = '';
+  options.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-option ' + (quizMode==='kr2bn' ? 'bengali-opt' : 'korean-opt');
+    btn.textContent = quizMode==='kr2bn' ? opt.bn : opt.kr;
+    btn.onclick = () => answerQuiz(btn, opt.kr === correct.kr, correct);
+    container.appendChild(btn);
+  });
+  document.getElementById('quiz-feedback').className = 'quiz-feedback';
+  document.getElementById('btn-next-quiz').className = 'btn-next-quiz';
+}
+function answerQuiz(btn, isCorrect, correct) {
+  document.querySelectorAll('.quiz-option').forEach(b => { b.classList.add('disabled'); b.onclick = null; });
+  const fb = document.getElementById('quiz-feedback');
+  if (isCorrect) {
+    btn.classList.add('correct');
+    qCorrect++; qStreak++; addScore(5 + Math.min(qStreak,5));
+    fb.textContent = '✓ সঠিক! ' + correct.kr + ' = ' + correct.bn;
+    fb.className = 'quiz-feedback correct show';
+  } else {
+    btn.classList.add('wrong');
+    qWrong++; qStreak = 0;
+    document.querySelectorAll('.quiz-option').forEach(b => { if (b.textContent === (quizMode==='kr2bn' ? correct.bn : correct.kr)) b.classList.add('correct'); });
+    fb.textContent = '✗ ভুল! সঠিক উত্তর: ' + (quizMode==='kr2bn' ? correct.bn : correct.kr);
+    fb.className = 'quiz-feedback wrong show';
+  }
+  document.getElementById('q-correct').textContent = qCorrect;
+  document.getElementById('q-wrong').textContent = qWrong;
+  document.getElementById('q-streak').textContent = qStreak;
+  document.getElementById('btn-next-quiz').className = 'btn-next-quiz show';
+}
+function nextQuiz() { loadQuizQuestion(); }
+function speakQuiz() { if (qCurrent) speak(qCurrent.kr, 'ko'); }
+
+// ── LISTENING ──
+function initListen() { lCurrent = null; loadListenQuestion(); }
+function loadListenQuestion() {
+  const all = getAllData();
+  const correct = all[Math.floor(Math.random()*all.length)];
+  lCurrent = correct;
+  document.getElementById('listen-hint').textContent = 'বাটন চাপো এবং শোনো, তারপর সঠিক বাংলা বেছে নাও';
+  const wrongPool = all.filter(c => c.kr !== correct.kr);
+  const wrongs = shuffle(wrongPool).slice(0,3);
+  const options = shuffle([correct, ...wrongs]);
+  const container = document.getElementById('listen-options');
+  container.innerHTML = '';
+  const letters = ['ক','খ','গ','ঘ'];
+  options.forEach((opt,i) => {
+    const btn = document.createElement('button');
+    btn.className = 'listen-option';
+    btn.innerHTML = '<div class="option-letter">'+letters[i]+'</div><span style="font-family:\'Noto Sans Bengali\',sans-serif">'+opt.bn+'</span>';
+    btn.onclick = () => answerListen(btn, opt.kr === correct.kr, correct);
+    container.appendChild(btn);
+  });
+  document.getElementById('listen-feedback').className = 'quiz-feedback';
+  document.getElementById('btn-next-listen').className = 'btn-next-quiz';
+}
+function playListenAudio() {
+  if (lCurrent) {
+    speak(lCurrent.kr, 'ko');
+    document.getElementById('big-play-btn').style.transform = 'scale(0.95)';
+    setTimeout(() => document.getElementById('big-play-btn').style.transform = '', 200);
+  }
+}
+function answerListen(btn, isCorrect, correct) {
+  document.querySelectorAll('.listen-option').forEach(b => { b.classList.add('disabled'); b.onclick = null; });
+  const fb = document.getElementById('listen-feedback');
+  if (isCorrect) {
+    btn.classList.add('correct');
+    lCorrect++; lStreak++; addScore(5);
+    fb.textContent = '✓ সঠিক! ' + correct.kr + ' (' + correct.rom + ') = ' + correct.bn;
+    fb.className = 'quiz-feedback correct show';
+  } else {
+    btn.classList.add('wrong');
+    lWrong++; lStreak = 0;
+    const correctText = correct.bn;
+    document.querySelectorAll('.listen-option').forEach(b => { if (b.textContent.includes(correctText)) b.classList.add('correct'); });
+    fb.textContent = '✗ ভুল! সঠিক উত্তর: ' + correct.kr + ' = ' + correct.bn;
+    fb.className = 'quiz-feedback wrong show';
+  }
+  document.getElementById('l-correct').textContent = lCorrect;
+  document.getElementById('l-wrong').textContent = lWrong;
+  document.getElementById('l-streak').textContent = lStreak;
+  document.getElementById('btn-next-listen').className = 'btn-next-quiz show';
+}
+function nextListen() { loadListenQuestion(); }
+
+// ── MATCHING ──
+function startMatching() {
+  matchSelected = null; matchScore = 0; matchErrors = 0;
+  document.getElementById('confetti-bar').className = 'confetti-bar';
+  document.getElementById('m-score').textContent = 0;
+  document.getElementById('m-errors').textContent = 0;
+  const all = getAllData();
+  matchPairs = shuffle(all).slice(0,6);
+  renderMatching();
+}
+function renderMatching() {
+  const grid = document.getElementById('matching-grid');
+  grid.innerHTML = '';
+  const krItems = shuffle([...matchPairs.map((p,i) => ({...p, idx:i, type:'kr'}))]);
+  const bnItems = shuffle([...matchPairs.map((p,i) => ({...p, idx:i, type:'bn'}))]);
+  const paired = [];
+  for (let r=0;r<6;r++) paired.push(krItems[r], bnItems[r]);
+  paired.forEach(item => {
+    const btn = document.createElement('button');
+    btn.className = 'match-item ' + item.type;
+    btn.textContent = item.type==='kr' ? item.kr : item.bn;
+    btn.dataset.idx = item.idx;
+    btn.dataset.type = item.type;
+    btn.onclick = () => selectMatch(btn, item);
+    grid.appendChild(btn);
+  });
+  document.getElementById('m-total').textContent = 6;
+}
+function selectMatch(btn, item) {
+  if (btn.classList.contains('matched') || btn.classList.contains('disabled')) return;
+  if (!matchSelected) {
+    btn.classList.add('selected');
+    matchSelected = {btn, item};
+  } else {
+    const prev = matchSelected;
+    if (prev.item.type === item.type) {
+      prev.btn.classList.remove('selected');
+      btn.classList.add('selected');
+      matchSelected = {btn, item};
+      return;
+    }
+    if (prev.item.idx === item.idx) {
+      prev.btn.classList.remove('selected');
+      prev.btn.classList.add('matched'); prev.btn.onclick = null;
+      btn.classList.add('matched'); btn.onclick = null;
+      matchScore++; matchSelected = null;
+      document.getElementById('m-score').textContent = matchScore;
+      addScore(8);
+      if (matchScore === 6) {
+        setTimeout(() => document.getElementById('confetti-bar').className = 'confetti-bar show', 200);
+        addScore(20);
+      }
+    } else {
+      prev.btn.classList.remove('selected');
+      prev.btn.classList.add('wrong-match'); btn.classList.add('wrong-match');
+      matchErrors++;
+      document.getElementById('m-errors').textContent = matchErrors;
+      setTimeout(() => { prev.btn.classList.remove('wrong-match'); btn.classList.remove('wrong-match'); }, 600);
+      matchSelected = null;
+    }
+  }
+}
+
+// ── BROWSE ──
+const catNames = { greetings:'👋 অভিবাদন', 'bts-terms':'💜 BTS শব্দ', members:'⭐ মেম্বার', concert:'🎤 কনসার্ট', social:'💬 সোশ্যাল', verbs:'🏃 ক্রিয়া', intro:'🙋 পরিচয়' };
+function showCatDetail(cat) {
+  document.getElementById('cat-overview').style.display = 'none';
+  document.getElementById('cat-detail').classList.add('show');
+  document.getElementById('cat-detail-title').textContent = catNames[cat] || cat;
+  const list = document.getElementById('phrase-list');
+  list.innerHTML = '';
+  DATA[cat].forEach(p => {
+    const row = document.createElement('div');
+    row.className = 'phrase-row';
+    row.innerHTML = `<div class="phrase-kr">${p.kr}</div><div class="phrase-info"><div class="phrase-romaji">${p.rom}</div><div class="phrase-bn">${p.bn}</div></div><button class="phrase-speak" onclick="speak('${p.kr.replace(/'/g,"\\'")}','ko')" title="কোরিয়ান শোনো">🔊</button><button class="phrase-speak bn-speak" onclick="speak('${p.bn.replace(/'/g,"\\'")}','bn')" title="বাংলা শোনো">🔊</button>`;
+    list.appendChild(row);
+  });
+}
+function hideCatDetail() {
+  document.getElementById('cat-overview').style.display = '';
+  document.getElementById('cat-detail').classList.remove('show');
+}
+
+// INIT
+loadFlashcards();
+speechSynthesis.onvoiceschanged = () => {};
+</script>
