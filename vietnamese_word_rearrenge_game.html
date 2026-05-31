@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ベトナム語 単語並び替えゲーム</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600&family=Noto+Serif+JP:wght@600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --green:#1D9E75;--green-dark:#085041;--green-light:#E1F5EE;
+  --amber:#BA7517;--amber-light:#FAEEDA;
+  --red:#A32D2D;--red-light:#FCEBEB;
+  --blue:#185FA5;--blue-light:#E6F1FB;
+  --bg:#F9F8F5;--card:#fff;--border:#E2E0D8;
+  --text:#1a1a18;--muted:#6b6b67;--hint:#9f9f9a;
+}
+body{
+  font-family:'Noto Sans JP',sans-serif;
+  background:var(--bg);
+  min-height:100vh;
+  display:flex;align-items:flex-start;justify-content:center;
+  padding:2rem 1rem;
+}
+#app{width:100%;max-width:640px}
+
+.screen{display:none}
+.screen.active{display:block}
+
+/* ===== START ===== */
+#startScreen{text-align:center;padding:3rem 1rem 2rem}
+.flag{font-size:3rem;margin-bottom:.75rem;display:block}
+.game-title{font-family:'Noto Serif JP',serif;font-size:1.75rem;font-weight:600;color:var(--text);margin-bottom:.25rem}
+.game-sub{font-size:.875rem;color:var(--muted);margin-bottom:2.5rem;letter-spacing:.05em}
+.stat-row{display:flex;gap:12px;justify-content:center;margin-bottom:2.5rem;flex-wrap:wrap}
+.stat-card{
+  background:var(--card);border:1px solid var(--border);border-radius:12px;
+  padding:.875rem 1.25rem;text-align:center;min-width:110px;
+  box-shadow:0 1px 3px rgba(0,0,0,.06)
+}
+.stat-num{font-size:1.5rem;font-weight:600;color:var(--green)}
+.stat-lbl{font-size:11px;color:var(--muted);margin-top:3px;letter-spacing:.05em}
+.start-hint{font-size:.8125rem;color:var(--muted);line-height:1.8;margin-bottom:2rem}
+.btn-primary{
+  background:var(--green);color:#fff;border:none;border-radius:50px;
+  padding:.875rem 2.5rem;font-size:1rem;font-weight:500;font-family:'Noto Sans JP',sans-serif;
+  cursor:pointer;transition:all .2s;letter-spacing:.05em;
+  box-shadow:0 2px 12px rgba(29,158,117,.35)
+}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 18px rgba(29,158,117,.4)}
+.btn-primary:active{transform:scale(.98)}
+
+/* ===== GAME ===== */
+.progress-wrap{background:var(--border);border-radius:99px;height:5px;margin-bottom:1.5rem;overflow:hidden}
+.progress-bar{height:100%;background:var(--green);border-radius:99px;transition:width .5s cubic-bezier(.4,0,.2,1)}
+.q-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem}
+.q-label{font-size:13px;color:var(--muted);font-weight:500}
+.score-badge{
+  background:var(--green-light);color:var(--green-dark);
+  border-radius:50px;padding:4px 14px;font-size:13px;font-weight:600
+}
+.jp-card{
+  background:linear-gradient(135deg,#f0fdf8 0%,#e8f9f3 100%);
+  border:1px solid #b2dfd0;border-radius:16px;
+  padding:1.5rem;margin-bottom:1.25rem;text-align:center;
+  position:relative;overflow:hidden
+}
+.jp-card::before{
+  content:'';position:absolute;top:-20px;right:-20px;
+  width:80px;height:80px;background:rgba(29,158,117,.08);border-radius:50%
+}
+.jp-lbl{font-size:10px;color:var(--green-dark);text-transform:uppercase;letter-spacing:.15em;margin-bottom:.5rem;font-weight:600}
+.jp-text{font-size:1.25rem;font-weight:500;color:var(--text);line-height:1.6}
+
+.timer-row{display:flex;align-items:center;gap:10px;margin-bottom:1.25rem}
+.timer-icon{font-size:18px;color:var(--muted)}
+.timer-wrap{flex:1;background:var(--border);border-radius:99px;height:8px;overflow:hidden}
+.timer-bar{height:100%;border-radius:99px;transition:width .15s linear,background .5s}
+.timer-num{font-size:13px;font-weight:600;min-width:32px;text-align:right;color:var(--muted)}
+
+.section-label{font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem}
+
+.answer-area{
+  min-height:68px;background:var(--card);
+  border:2px dashed var(--border);border-radius:14px;
+  padding:.75rem;margin-bottom:1rem;
+  display:flex;flex-wrap:wrap;gap:6px;align-items:flex-start;
+  transition:border-color .2s
+}
+.answer-area.has-chips{border-color:#b2dfd0;border-style:solid}
+
+.chips-area{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1.25rem}
+
+.chip{
+  display:inline-flex;align-items:center;gap:5px;
+  background:var(--card);border:1.5px solid var(--border);border-radius:8px;
+  padding:6px 10px;font-size:.8125rem;font-family:'Noto Sans JP',sans-serif;
+  cursor:pointer;transition:all .15s;user-select:none;
+  box-shadow:0 1px 3px rgba(0,0,0,.06)
+}
+.chip:hover{border-color:var(--green);transform:translateY(-1px);box-shadow:0 3px 8px rgba(0,0,0,.1)}
+.chip:active{transform:scale(.96)}
+.chip.in-answer{
+  background:var(--green-light);border-color:var(--green);color:var(--green-dark);
+  box-shadow:none
+}
+.chip.in-answer:hover{opacity:.85;transform:none}
+.chip-num{font-size:10px;color:var(--hint);font-weight:600}
+.chip-x{font-size:10px;color:var(--green-dark);opacity:.6}
+
+.btn-row{display:flex;gap:8px;justify-content:flex-end}
+.btn-ghost{
+  background:transparent;border:1.5px solid var(--border);border-radius:8px;
+  padding:.5rem 1rem;font-size:.8125rem;font-family:'Noto Sans JP',sans-serif;
+  cursor:pointer;color:var(--muted);transition:all .15s
+}
+.btn-ghost:hover{background:var(--bg);border-color:var(--muted)}
+.btn-submit{
+  background:var(--green);color:#fff;border:none;border-radius:8px;
+  padding:.5rem 1.25rem;font-size:.8125rem;font-family:'Noto Sans JP',sans-serif;
+  font-weight:500;cursor:pointer;transition:all .15s;
+  box-shadow:0 2px 8px rgba(29,158,117,.3)
+}
+.btn-submit:hover{opacity:.9;box-shadow:0 3px 12px rgba(29,158,117,.4)}
+
+/* ===== RESULT MODAL ===== */
+.modal-bg{
+  position:fixed;inset:0;background:rgba(0,0,0,.4);
+  display:flex;align-items:center;justify-content:center;
+  z-index:100;padding:1rem;
+  animation:fadeIn .2s ease
+}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal{
+  background:var(--card);border-radius:20px;padding:2rem 1.5rem;
+  max-width:420px;width:100%;text-align:center;
+  animation:slideUp .25s cubic-bezier(.34,1.56,.64,1)
+}
+@keyframes slideUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-icon{font-size:2.5rem;margin-bottom:.5rem}
+.modal-verdict{font-size:1.2rem;font-weight:600;margin-bottom:.25rem}
+.modal-verdict.correct{color:var(--green-dark)}
+.modal-verdict.wrong{color:var(--red)}
+.modal-verdict.timeout{color:var(--amber)}
+.answer-box{
+  background:var(--bg);border-radius:10px;padding:.875rem 1rem;
+  margin:.875rem 0;text-align:left;font-size:.8125rem;line-height:1.8
+}
+.answer-box .label{color:var(--muted);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px}
+.answer-box .vn{font-weight:500;color:var(--text)}
+.answer-box .given{color:var(--red);font-weight:500}
+.btn-next{
+  background:var(--green);color:#fff;border:none;border-radius:50px;
+  padding:.75rem 2rem;font-size:.9375rem;font-family:'Noto Sans JP',sans-serif;
+  font-weight:500;cursor:pointer;width:100%;transition:all .2s;
+  box-shadow:0 2px 10px rgba(29,158,117,.3)
+}
+.btn-next:hover{opacity:.9}
+
+/* ===== FINAL ===== */
+#finalScreen{padding:2rem 0}
+.final-card{
+  background:var(--card);border-radius:20px;padding:2rem;
+  border:1px solid var(--border);margin-bottom:1.5rem;text-align:center;
+  box-shadow:0 2px 16px rgba(0,0,0,.07)
+}
+.final-grade{
+  font-family:'Noto Serif JP',serif;
+  font-size:5rem;font-weight:600;line-height:1;margin-bottom:.25rem
+}
+.final-pts{font-size:1.25rem;color:var(--muted);margin-bottom.5rem}
+.final-msg{font-size:.875rem;color:var(--muted);margin-top:.5rem}
+.grade-bar{
+  display:flex;gap:4px;justify-content:center;margin:1.25rem 0;
+  background:var(--bg);border-radius:10px;padding:.75rem
+}
+.grade-seg{flex:1;height:6px;border-radius:99px;background:var(--border)}
+.grade-seg.filled{background:var(--green)}
+
+.review-section{margin-bottom:1.5rem}
+.review-title{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.75rem}
+.review-item{
+  background:var(--card);border:1px solid var(--border);border-radius:10px;
+  padding:.75rem 1rem;margin-bottom:6px;display:flex;gap:10px;align-items:flex-start
+}
+.review-mark{font-size:14px;flex-shrink:0;margin-top:1px}
+.review-content{flex:1}
+.review-jp{font-size:.75rem;color:var(--muted);margin-bottom:2px}
+.review-vn{font-size:.8125rem;font-weight:500;color:var(--text)}
+
+.btn-restart{
+  background:var(--green);color:#fff;border:none;border-radius:50px;
+  padding:.875rem;font-size:1rem;font-family:'Noto Sans JP',sans-serif;
+  font-weight:500;cursor:pointer;width:100%;transition:all .2s;
+  box-shadow:0 2px 12px rgba(29,158,117,.35)
+}
+.btn-restart:hover{transform:translateY(-1px);box-shadow:0 4px 18px rgba(29,158,117,.4)}
+</style>
+</head>
+<body>
+<div id="app">
+
+<!-- START -->
+<div id="startScreen" class="screen active">
+  <span class="flag">🇻🇳</span>
+  <div class="game-title">ベトナム語</div>
+  <div class="game-sub">単語並び替えゲーム</div>
+  <div class="stat-row">
+    <div class="stat-card"><div class="stat-num">100</div><div class="stat-lbl">総問題数</div></div>
+    <div class="stat-card"><div class="stat-num">10</div><div class="stat-lbl">1セット</div></div>
+    <div class="stat-card"><div class="stat-num">30秒</div><div class="stat-lbl">制限時間</div></div>
+    <div class="stat-card"><div class="stat-num">10点</div><div class="stat-lbl">1問配点</div></div>
+  </div>
+  <p class="start-hint">
+    日本語訳が表示されます。<br>
+    単語をタップして正しい順番に並べましょう。<br>
+    不要な単語（ダミー）を選ばないことも正解の条件です。
+  </p>
+  <button class="btn-primary" onclick="startGame()">▶ ゲーム開始</button>
+</div>
+
+<!-- GAME -->
+<div id="gameScreen" class="screen">
+  <div class="progress-wrap"><div class="progress-bar" id="progressBar" style="width:0%"></div></div>
+  <div class="q-header">
+    <span class="q-label" id="qLabel">問題 1 / 10</span>
+    <span class="score-badge" id="scoreBadge">0 点</span>
+  </div>
+  <div class="jp-card">
+    <div class="jp-lbl">日本語</div>
+    <div class="jp-text" id="jpText"></div>
+  </div>
+  <div class="timer-row">
+    <span class="timer-icon">⏱</span>
+    <div class="timer-wrap"><div class="timer-bar" id="timerBar" style="width:100%;background:var(--green)"></div></div>
+    <span class="timer-num" id="timerNum">30</span>
+  </div>
+
+  <div class="section-label">回答欄（タップして削除）</div>
+  <div class="answer-area" id="answerArea"></div>
+
+  <div class="section-label">選択肢（タップして追加）</div>
+  <div class="chips-area" id="chipsArea"></div>
+
+  <div class="btn-row">
+    <button class="btn-ghost" onclick="clearAnswer()">↺ クリア</button>
+    <button class="btn-submit" onclick="submitAnswer()">✓ 完成</button>
+  </div>
+</div>
+
+<!-- FINAL -->
+<div id="finalScreen" class="screen">
+  <div class="final-card">
+    <div class="final-grade" id="finalGrade"></div>
+    <div class="final-pts" id="finalPts"></div>
+    <div class="final-msg" id="finalMsg"></div>
+    <div class="grade-bar" id="gradeBar"></div>
+  </div>
+  <div class="review-section">
+    <div class="review-title">問題の振り返り</div>
+    <div id="reviewList"></div>
+  </div>
+  <button class="btn-restart" onclick="startGame()">↺ もう一度プレイ</button>
+</div>
+
+</div>
+
+<script>
+const ALL_QUESTIONS = [
+  {jp:"私は6時に起きます。",vn:"Tôi thức dậy lúc sáu giờ"},
+  {jp:"私は窓を開けて風を入れます。",vn:"Tôi mở cửa sổ đón gió"},
+  {jp:"私は寝た後に毛布をたたみます。",vn:"Tôi gấp chăn sau khi ngủ"},
+  {jp:"あなたは今日とても早く起きます。",vn:"Bạn thức dậy rất sớm hôm nay"},
+  {jp:"彼はすぐに目覚ましを止めます。",vn:"Anh ấy tắt báo thức nhanh chóng"},
+  {jp:"彼女はベッドから起き上がります。",vn:"Cô ấy ngồi dậy khỏi giường"},
+  {jp:"私たちは朝にあいさつします。",vn:"Chúng tôi chào nhau buổi sáng"},
+  {jp:"私の父は起床後に水を飲みます。",vn:"Bố tôi uống nước sau ngủ"},
+  {jp:"私の母はカーテンを開けます。",vn:"Mẹ tôi mở rèm cửa"},
+  {jp:"彼らは新しい一日の準備をします。",vn:"Họ chuẩn bị cho ngày mới"},
+  {jp:"私は浴室へ行きます。",vn:"Tôi đi vào phòng tắm"},
+  {jp:"あなたは冷たい水で顔を洗います。",vn:"Bạn rửa mặt bằng nước lạnh"},
+  {jp:"彼は毎朝歯を磨きます。",vn:"Anh ấy đánh răng mỗi sáng"},
+  {jp:"彼女は鏡の前で髪をとかします。",vn:"Cô ấy chải tóc trước gương"},
+  {jp:"私たちは丁寧に身支度をします。",vn:"Chúng tôi vệ sinh cá nhân cẩn thận"},
+  {jp:"私の父は毎日ひげを剃ります。",vn:"Bố tôi cạo râu mỗi ngày"},
+  {jp:"私の母はとても丁寧に顔を洗います。",vn:"Mẹ tôi rửa mặt rất kỹ"},
+  {jp:"彼らはきれいな服を準備します。",vn:"Họ chuẩn bị quần áo sạch"},
+  {jp:"私は青いシャツを着ます。",vn:"Tôi mặc áo sơ mi xanh"},
+  {jp:"あなたは素早く着替えます。",vn:"Bạn thay quần áo nhanh chóng"},
+  {jp:"彼は簡単な朝食を準備します。",vn:"Anh ấy chuẩn bị bữa sáng đơn giản"},
+  {jp:"彼女は家族のために卵を料理します。",vn:"Cô ấy nấu trứng cho gia đình"},
+  {jp:"私たちは一緒に朝食を食べます。",vn:"Chúng tôi ăn sáng cùng nhau"},
+  {jp:"私の父は温かいコーヒーを飲みます。",vn:"Bố tôi uống cà phê nóng"},
+  {jp:"私の母はパンを食べます。",vn:"Mẹ tôi ăn bánh mì"},
+  {jp:"彼らは出かける前に牛乳を飲みます。",vn:"Họ uống sữa trước khi đi"},
+  {jp:"私は卵とご飯を食べます。",vn:"Tôi ăn cơm với trứng"},
+  {jp:"あなたはしっかり朝食を食べます。",vn:"Bạn ăn sáng rất đầy đủ"},
+  {jp:"彼は朝のニュースを読みます。",vn:"Anh ấy đọc tin tức buổi sáng"},
+  {jp:"彼女は穏やかな音楽を聴きます。",vn:"Cô ấy nghe nhạc nhẹ nhàng"},
+  {jp:"私は7時に家を出ます。",vn:"Tôi rời nhà lúc bảy giờ"},
+  {jp:"あなたはバスで学校へ行きます。",vn:"Bạn đi học bằng xe buýt"},
+  {jp:"彼は電車で会社へ行きます。",vn:"Anh ấy đi làm bằng tàu"},
+  {jp:"彼女は時間通りに会社へ着きます。",vn:"Cô ấy đến văn phòng đúng giờ"},
+  {jp:"私たちは新しい仕事を始めます。",vn:"Chúng tôi bắt đầu công việc mới"},
+  {jp:"私の父は車で会社へ行きます。",vn:"Bố tôi lái xe đến công ty"},
+  {jp:"私の母は朝に市場へ行きます。",vn:"Mẹ tôi đi chợ buổi sáng"},
+  {jp:"彼らは途中で友達に会います。",vn:"Họ gặp bạn bè trên đường"},
+  {jp:"私はとても早く学校に着きます。",vn:"Tôi đến trường rất sớm"},
+  {jp:"あなたは先生より先に教室へ入ります。",vn:"Bạn vào lớp trước giáo viên"},
+  {jp:"彼は毎日ベトナム語を勉強します。",vn:"Anh ấy học tiếng Việt mỗi ngày"},
+  {jp:"彼女は教室で宿題を書きます。",vn:"Cô ấy viết bài tập ở lớp"},
+  {jp:"私たちは先生の説明を聞きます。",vn:"Chúng tôi nghe giáo viên giảng bài"},
+  {jp:"私の父は一生懸命働きます。",vn:"Bố tôi làm việc chăm chỉ"},
+  {jp:"私の母は市場で商売をします。",vn:"Mẹ tôi bán hàng ở chợ"},
+  {jp:"彼らは午前の会議に参加します。",vn:"Họ tham gia cuộc họp sáng"},
+  {jp:"私は簡単な質問に答えます。",vn:"Tôi trả lời câu hỏi dễ"},
+  {jp:"あなたは素早く宿題を終えます。",vn:"Bạn hoàn thành bài tập nhanh"},
+  {jp:"彼は顧客にメールを送ります。",vn:"Anh ấy gửi email cho khách"},
+  {jp:"彼女は友達に電話します。",vn:"Cô ấy gọi điện cho bạn"},
+  {jp:"私たちは短い休憩を取ります。",vn:"Chúng tôi nghỉ giải lao ngắn"},
+  {jp:"私の父は休憩時間にお茶を飲みます。",vn:"Bố tôi uống trà giữa giờ"},
+  {jp:"私の母はお客さんと話します。",vn:"Mẹ tôi trò chuyện với khách"},
+  {jp:"彼らは仕事を再確認します。",vn:"Họ kiểm tra công việc lại"},
+  {jp:"私は新しい単語を学びます。",vn:"Tôi học từ vựng mới"},
+  {jp:"あなたは図書館で本を読みます。",vn:"Bạn đọc sách trong thư viện"},
+  {jp:"彼はテストを受けます。",vn:"Anh ấy làm bài kiểm tra"},
+  {jp:"彼女は新しい資料を準備します。",vn:"Cô ấy chuẩn bị tài liệu mới"},
+  {jp:"私たちは仕事を続けます。",vn:"Chúng tôi tiếp tục làm việc"},
+  {jp:"彼らは午前の仕事を終えます。",vn:"Họ hoàn thành nhiệm vụ sáng"},
+  {jp:"私は同僚と昼食を食べます。",vn:"Tôi ăn trưa cùng đồng nghiệp"},
+  {jp:"あなたは魚とご飯を食べます。",vn:"Bạn ăn cơm với cá"},
+  {jp:"彼は牛肉フォーを注文します。",vn:"Anh ấy gọi món phở bò"},
+  {jp:"彼女は新鮮なオレンジジュースを飲みます。",vn:"Cô ấy uống nước cam tươi"},
+  {jp:"私たちは1時間昼休みを取ります。",vn:"Chúng tôi nghỉ trưa một giờ"},
+  {jp:"私の父は家で昼食を食べます。",vn:"Bố tôi ăn trưa ở nhà"},
+  {jp:"私の母はおいしい昼食を作ります。",vn:"Mẹ tôi nấu cơm trưa ngon"},
+  {jp:"彼らは食事中に会話します。",vn:"Họ trò chuyện trong bữa ăn"},
+  {jp:"私は昼食後に散歩します。",vn:"Tôi đi dạo sau bữa trưa"},
+  {jp:"あなたは教室へ戻ります。",vn:"Bạn trở lại lớp học"},
+  {jp:"彼は午後の仕事を続けます。",vn:"Anh ấy tiếp tục công việc chiều"},
+  {jp:"彼女は会議に出席します。",vn:"Cô ấy tham dự cuộc họp"},
+  {jp:"私たちは夕方遅くまで勉強します。",vn:"Chúng tôi học đến chiều muộn"},
+  {jp:"私の父は古いパソコンを修理します。",vn:"Bố tôi sửa máy tính cũ"},
+  {jp:"私の母は店を掃除します。",vn:"Mẹ tôi dọn dẹp cửa hàng"},
+  {jp:"彼らはとても熱心に働きます。",vn:"Họ làm việc rất chăm chỉ"},
+  {jp:"私は今日の仕事を終えます。",vn:"Tôi hoàn thành công việc hôm nay"},
+  {jp:"あなたは上司に報告書を送ります。",vn:"Bạn gửi báo cáo cho sếp"},
+  {jp:"彼は新しい計画を確認します。",vn:"Anh ấy kiểm tra kế hoạch mới"},
+  {jp:"彼女は多くのメールに返信します。",vn:"Cô ấy trả lời nhiều email"},
+  {jp:"私は6時に帰宅します。",vn:"Tôi về nhà lúc sáu giờ"},
+  {jp:"あなたはスーパーに立ち寄って買い物をします。",vn:"Bạn ghé siêu thị mua đồ"},
+  {jp:"彼は夜に運動します。",vn:"Anh ấy tập thể dục buổi tối"},
+  {jp:"彼女は公園を散歩します。",vn:"Cô ấy đi bộ trong công viên"},
+  {jp:"私たちは仕事の後に会います。",vn:"Chúng tôi gặp nhau sau giờ làm"},
+  {jp:"私の父は家の前の植物に水をやります。",vn:"Bố tôi tưới cây trước nhà"},
+  {jp:"私の母は夕食を準備します。",vn:"Mẹ tôi chuẩn bị bữa tối"},
+  {jp:"彼らは一緒にテレビを見ます。",vn:"Họ xem tivi cùng nhau"},
+  {jp:"私は母の料理を手伝います。",vn:"Tôi giúp mẹ nấu ăn"},
+  {jp:"あなたは夕食前にテーブルを片付けます。",vn:"Bạn dọn bàn trước bữa tối"},
+  {jp:"彼は家族と夕食を食べます。",vn:"Anh ấy ăn tối với gia đình"},
+  {jp:"彼女は食後に皿を洗います。",vn:"Cô ấy rửa bát sau ăn"},
+  {jp:"私たちは夜におしゃべりします。",vn:"Chúng tôi trò chuyện buổi tối"},
+  {jp:"私の父は椅子に座って新聞を読みます。",vn:"Bố tôi đọc báo trên ghế"},
+  {jp:"私の母はお気に入りの映画を見ます。",vn:"Mẹ tôi xem phim yêu thích"},
+  {jp:"彼らは寝る前に音楽を聴きます。",vn:"Họ nghe nhạc trước khi ngủ"},
+  {jp:"私は夜に温かいお風呂に入ります。",vn:"Tôi tắm nước ấm buổi tối"},
+  {jp:"あなたは明日の準備をします。",vn:"Bạn chuẩn bị đồ cho ngày mai"},
+  {jp:"彼は10時に寝ます。",vn:"Anh ấy đi ngủ lúc mười giờ"},
+  {jp:"彼女は今夜ぐっすり眠ります。",vn:"Cô ấy ngủ rất ngon đêm nay"}
+];
+
+const DUMMIES = ["học","làm","ăn","đi","về","mua","bán","xem","ngủ","chạy","nói","viết","đọc","uống","nấu","chơi","hát","mở","đóng","gặp","thấy","biết","cần","muốn","có","không","rất","và","với","của","để","trong","ngoài","trên","dưới","sau","trước","lớn","nhỏ","mới","cũ","đẹp","tốt","xấu","nhanh","chậm","nhiều","ít"];
+
+let gameQuestions=[], currentQ=0, score=0, timerInterval=null, timeLeft=30, answerChips=[], allChips=[], resultLog=[];
+
+function shuffle(arr){return [...arr].sort(()=>Math.random()-.5)}
+
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function startGame(){
+  gameQuestions=shuffle(ALL_QUESTIONS).slice(0,10);
+  currentQ=0; score=0; resultLog=[];
+  showScreen('gameScreen');
+  loadQuestion();
+}
+
+function loadQuestion(){
+  clearTimer();
+  const q=gameQuestions[currentQ];
+  const words=q.vn.split(' ');
+  document.getElementById('qLabel').textContent=`問題 ${currentQ+1} / 10`;
+  document.getElementById('scoreBadge').textContent=`${score} 点`;
+  document.getElementById('jpText').textContent=q.jp;
+  document.getElementById('progressBar').style.width=`${(currentQ/10)*100}%`;
+  answerChips=[];
+  let dummies=[];
+  if(words.length<10){
+    const pool=shuffle(DUMMIES.filter(d=>!words.includes(d)));
+    dummies=pool.slice(0,10-words.length);
+  }
+  allChips=shuffle([...words.map(w=>({word:w,isDummy:false})),...dummies.map(w=>({word:w,isDummy:true}))]);
+  renderAll();
+  startTimer();
+}
+
+function renderAll(){
+  renderAnswer();
+  renderChips();
+}
+
+function renderChips(){
+  const area=document.getElementById('chipsArea');
+  area.innerHTML='';
+  allChips.forEach((c,i)=>{
+    if(answerChips.some(a=>a.idx===i))return;
+    const el=document.createElement('div');
+    el.className='chip';
+    el.innerHTML=`<span class="chip-num">${i+1}</span>${c.word}`;
+    el.onclick=()=>addChip(i);
+    area.appendChild(el);
+  });
+}
+
+function renderAnswer(){
+  const area=document.getElementById('answerArea');
+  area.innerHTML='';
+  area.classList.toggle('has-chips',answerChips.length>0);
+  if(answerChips.length===0){
+    area.innerHTML='<span style="font-size:.8125rem;color:var(--hint);align-self:center">選択肢をタップして並べてください</span>';
+    return;
+  }
+  answerChips.forEach((a,i)=>{
+    const el=document.createElement('div');
+    el.className='chip in-answer';
+    el.innerHTML=`<span class="chip-num">${i+1}</span>${allChips[a.idx].word}<span class="chip-x">✕</span>`;
+    el.onclick=()=>removeChip(i);
+    area.appendChild(el);
+  });
+}
+
+function addChip(idx){answerChips.push({idx});renderAll();}
+function removeChip(pos){answerChips.splice(pos,1);renderAll();}
+function clearAnswer(){answerChips=[];renderAll();}
+
+function startTimer(){
+  timeLeft=30;
+  updateTimer();
+  timerInterval=setInterval(()=>{
+    timeLeft--;
+    updateTimer();
+    if(timeLeft<=0){clearTimer();submitAnswer(true);}
+  },1000);
+}
+
+function updateTimer(){
+  const pct=(timeLeft/30)*100;
+  const bar=document.getElementById('timerBar');
+  bar.style.width=pct+'%';
+  bar.style.background=timeLeft>15?'var(--green)':timeLeft>7?'var(--amber)':'var(--red)';
+  document.getElementById('timerNum').textContent=timeLeft;
+  document.getElementById('timerNum').style.color=timeLeft>15?'var(--muted)':timeLeft>7?'var(--amber)':'var(--red)';
+}
+
+function clearTimer(){if(timerInterval){clearInterval(timerInterval);timerInterval=null;}}
+
+function submitAnswer(timedOut=false){
+  clearTimer();
+  const q=gameQuestions[currentQ];
+  const correct=q.vn.split(' ');
+  const given=answerChips.map(a=>allChips[a.idx].word);
+  const isCorrect=JSON.stringify(given)===JSON.stringify(correct);
+  if(isCorrect)score+=10;
+  resultLog.push({q,given,isCorrect});
+  showResultModal(isCorrect,correct,given,timedOut);
+}
+
+function showResultModal(isCorrect,correct,given,timedOut){
+  const bg=document.createElement('div');
+  bg.className='modal-bg';
+  const icon=isCorrect?'✅':timedOut?'⏰':'❌';
+  const verdictText=isCorrect?'正解！ +10点':timedOut?'時間切れ！':'不正解';
+  const verdictClass=isCorrect?'correct':timedOut?'timeout':'wrong';
+  const isLast=currentQ>=9;
+  bg.innerHTML=`<div class="modal">
+    <div class="modal-icon">${icon}</div>
+    <div class="modal-verdict ${verdictClass}">${verdictText}</div>
+    <div class="answer-box">
+      <div class="label">正解</div>
+      <div class="vn">${correct.join(' ')}</div>
+      ${!isCorrect&&given.length?`<div class="label" style="margin-top:.5rem">あなたの回答</div><div class="given">${given.join(' ')}</div>`:''}
+    </div>
+    <button class="btn-next" onclick="nextQuestion(this)">${isLast?'結果を見る →':'次の問題 →'}</button>
+  </div>`;
+  document.body.appendChild(bg);
+}
+
+function nextQuestion(btn){
+  btn.closest('.modal-bg').remove();
+  currentQ++;
+  if(currentQ>=10){showFinal();}else{loadQuestion();}
+}
+
+function showFinal(){
+  showScreen('finalScreen');
+  document.getElementById('progressBar').style.width='100%';
+  const gradeEl=document.getElementById('finalGrade');
+  const ptsEl=document.getElementById('finalPts');
+  const msgEl=document.getElementById('finalMsg');
+  let grade,color,msg;
+  if(score===100){grade='秀';color='#085041';msg='完璧です！素晴らしい！'}
+  else if(score>=80){grade='優';color='#3C3489';msg='とても良い成績です！'}
+  else if(score>=60){grade='良';color='#185FA5';msg='よくできました！'}
+  else if(score===50){grade='可';color='#BA7517';msg='もう少し頑張りましょう！'}
+  else{grade='不可';color='#A32D2D';msg='練習を続けましょう！'}
+  gradeEl.textContent=grade;
+  gradeEl.style.color=color;
+  ptsEl.textContent=`${score} 点 / 100点`;
+  msgEl.textContent=msg;
+
+  const bar=document.getElementById('gradeBar');
+  bar.innerHTML='';
+  for(let i=0;i<10;i++){
+    const seg=document.createElement('div');
+    seg.className='grade-seg'+(i<score/10?' filled':'');
+    bar.appendChild(seg);
+  }
+
+  const list=document.getElementById('reviewList');
+  list.innerHTML='';
+  resultLog.forEach(r=>{
+    const el=document.createElement('div');
+    el.className='review-item';
+    el.innerHTML=`<div class="review-mark">${r.isCorrect?'✅':'❌'}</div>
+    <div class="review-content">
+      <div class="review-jp">${r.q.jp}</div>
+      <div class="review-vn">${r.q.vn}</div>
+    </div>`;
+    list.appendChild(el);
+  });
+}
+</script>
+</body>
+</html>
