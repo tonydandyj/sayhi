@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
@@ -47,7 +47,7 @@
     background: #1a1a2e;
     border-bottom: 2px solid var(--np-gold);
     position: sticky; top: 66px; z-index: 200;
-    overflow: hidden;
+    overflow: visible;
   }
   #skit-nav {
     display: flex;
@@ -83,9 +83,46 @@
     padding: 4px 11px; border-radius: 20px; border: none;
     cursor: pointer; transition: background .18s;
     white-space: nowrap;
+    position: relative;
+  }
+  .ap-btn[data-tip]::after {
+    content: attr(data-tip);
+    position: absolute;
+    left: 50%; bottom: calc(100% + 8px);
+    transform: translateX(-50%) translateY(4px);
+    background: #fff; color: var(--np-dark);
+    border: 1px solid var(--np-gold);
+    border-radius: 6px;
+    padding: 4px 9px;
+    font-size: .68rem; font-weight: 700;
+    box-shadow: 0 3px 10px rgba(0,0,0,.24);
+    opacity: 0; pointer-events: none;
+    transition: opacity .15s, transform .15s;
+    white-space: nowrap;
+    z-index: 500;
+  }
+  .ap-btn[data-tip]::before {
+    content: '';
+    position: absolute;
+    left: 50%; bottom: calc(100% + 3px);
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: var(--np-gold);
+    opacity: 0; pointer-events: none;
+    transition: opacity .15s;
+    z-index: 501;
+  }
+  .ap-btn[data-tip]:hover::after,
+  .ap-btn[data-tip]:hover::before {
+    opacity: 1;
+  }
+  .ap-btn[data-tip]:hover::after {
+    transform: translateX(-50%) translateY(0);
   }
   #btn-ap-start  { background: var(--np-green); color: #fff; }
   #btn-ap-start:hover  { background: #1e8449; }
+  #btn-ap-all { background: var(--np-blue); color: #fff; }
+  #btn-ap-all:hover { background: #002b70; }
   #btn-ap-pause  { background: #e67e22; color: #fff; }
   #btn-ap-pause:hover  { background: #ca6f1e; }
   #btn-ap-resume { background: var(--np-green); color: #fff; }
@@ -94,6 +131,28 @@
   #btn-ap-stop:hover   { background: #546e7a; }
   #btn-ap-clear  { background: var(--np-red); color: #fff; }
   #btn-ap-clear:hover  { background: #8b0f1e; }
+  .ap-btn[data-tip]::after,
+  .ap-btn[data-tip]::before { display: none; }
+  #ap-hover-tip {
+    position: fixed;
+    left: 0; top: 0;
+    transform: translate(-50%, -100%);
+    background: #fff; color: var(--np-dark);
+    border: 1px solid var(--np-gold);
+    border-radius: 6px;
+    padding: 5px 10px;
+    font-size: .72rem; font-weight: 700;
+    box-shadow: 0 4px 14px rgba(0,0,0,.28);
+    opacity: 0;
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 2000;
+    transition: opacity .12s, transform .12s;
+  }
+  #ap-hover-tip.show {
+    opacity: 1;
+    transform: translate(-50%, calc(-100% - 8px));
+  }
   #ap-status { font-size: .68rem; color: #a8e6b8; font-style: italic; white-space: nowrap; }
 
   /* ── Content area ── */
@@ -405,10 +464,11 @@
   <button class="skit-nav-btn" data-skit="7">スキット 7</button>
   <button class="skit-nav-btn" data-skit="8">スキット 8</button>
   <div id="ap-controls">
-    <button class="ap-btn" id="btn-ap-start">▶ 全順番再生</button>
+    <button class="ap-btn" id="btn-ap-start" data-tip="シャドーイングに最適" title="シャドーイングに最適">▶ スキット再生</button>
+    <button class="ap-btn" id="btn-ap-all" data-tip="聞き流しに最適" title="聞き流しに最適">▶ 全順番再生</button>
     <button class="ap-btn" id="btn-ap-pause"  style="display:none">⏸ 一時停止</button>
     <button class="ap-btn" id="btn-ap-resume" style="display:none">▶ 再開</button>
-    <button class="ap-btn" id="btn-ap-stop"   style="display:none">⏹ 停止</button>
+    <button class="ap-btn" id="btn-ap-stop"   style="display:none">↺ リセット</button>
     <button class="ap-btn" id="btn-ap-clear"  style="display:none">✕ クリア</button>
     <span id="ap-status"></span>
   </div>
@@ -2828,172 +2888,255 @@ document.querySelectorAll('.skit-nav-btn').forEach(btn => {
 
 // ══ AUTOPLAY ═════════════════════════════════════════════
 // Build ordered queue: all skits > phrase-tabs > 4 examples
-const AP_QUEUE = [];
-document.querySelectorAll('.skit-panel').forEach(panel => {
-  const skitId = panel.id;
-  panel.querySelectorAll('.phrase-tab').forEach(tab => {
-    const phraseId = tab.dataset.phrase;
-    const contentDiv = document.getElementById('phrase-content-' + phraseId);
-    if (!contentDiv) return;
-    contentDiv.querySelectorAll('.example-row .spk-btn').forEach(btn => {
-      AP_QUEUE.push({ skitId, phraseId, key: btn.dataset.audio, btn });
-    });
-  });
-});
-
-// State: 'idle' | 'playing' | 'paused' | 'stopped'
 let apState  = 'idle';
+let apMode   = 'skit-loop';
 let apIdx    = 0;
 let apAudio  = null;
 let apTimer  = null;
+let apQueue  = [];
+let apIntervalStartedAt = 0;
+let apRemainingDelay = 0;
+const AP_INTERVAL_MS = 2000;
 
 const btnApStart  = document.getElementById('btn-ap-start');
+const btnApAll    = document.getElementById('btn-ap-all');
 const btnApPause  = document.getElementById('btn-ap-pause');
 const btnApResume = document.getElementById('btn-ap-resume');
 const btnApStop   = document.getElementById('btn-ap-stop');
 const btnApClear  = document.getElementById('btn-ap-clear');
 const apStatus    = document.getElementById('ap-status');
+const apHoverTip = document.createElement('div');
+apHoverTip.id = 'ap-hover-tip';
+document.body.appendChild(apHoverTip);
 
-// Show/hide buttons based on state
+function showApTip(btn) {
+  apHoverTip.textContent = btn.dataset.tip || '';
+  const rect = btn.getBoundingClientRect();
+  apHoverTip.style.left = `${rect.left + rect.width / 2}px`;
+  apHoverTip.style.top = `${rect.top}px`;
+  apHoverTip.classList.add('show');
+}
+
+function hideApTip() {
+  apHoverTip.classList.remove('show');
+}
+
+document.querySelectorAll('.ap-btn[data-tip]').forEach(btn => {
+  btn.addEventListener('mouseenter', () => showApTip(btn));
+  btn.addEventListener('focus', () => showApTip(btn));
+  btn.addEventListener('mouseleave', hideApTip);
+  btn.addEventListener('blur', hideApTip);
+});
+
+function getActiveSkitNum() {
+  const active = document.querySelector('.skit-panel.active');
+  return active ? active.id.replace('skit-panel-', '') : '1';
+}
+
+function buildPanelQueue(panel) {
+  const queue = [];
+  if (!panel) return queue;
+
+  panel.querySelectorAll('.phrase-tab').forEach(tab => {
+    const phraseId = tab.dataset.phrase;
+    const contentDiv = document.getElementById('phrase-content-' + phraseId);
+    if (!contentDiv) return;
+
+    contentDiv.querySelectorAll('.example-row .spk-btn').forEach(btn => {
+      const key = btn.dataset.audio;
+      if (key && AUDIO_DATA[key]) queue.push({ skitId: panel.id, phraseId, key, btn });
+    });
+  });
+  return queue;
+}
+
+function buildSkitQueue(skitNum) {
+  return buildPanelQueue(document.getElementById('skit-panel-' + skitNum));
+}
+
+function buildAllQueue() {
+  return Array.from(document.querySelectorAll('.skit-panel')).flatMap(panel => buildPanelQueue(panel));
+}
+
 function apSetState(state) {
   apState = state;
-  btnApStart.style.display  = state === 'idle'    ? '' : 'none';
+  btnApStart.style.display  = state === 'idle' ? '' : 'none';
+  btnApAll.style.display    = state === 'idle' ? '' : 'none';
   btnApPause.style.display  = state === 'playing' ? '' : 'none';
-  btnApResume.style.display = state === 'paused'  ? '' : 'none';
-  btnApStop.style.display   = (state === 'playing' || state === 'paused') ? '' : 'none';
-  btnApClear.style.display  = state === 'stopped' ? '' : 'none';
+  btnApResume.style.display = state === 'paused' ? '' : 'none';
+  btnApStop.style.display   = (state === 'playing' || state === 'paused' || state === 'stopped') ? '' : 'none';
+  btnApClear.style.display  = 'none';
 }
 
 function apClearPlayingUI() {
   document.querySelectorAll('.spk-btn.playing').forEach(b => b.classList.remove('playing'));
 }
 
-// Navigate UI to current queue item
+function stopManualAudio() {
+  if (currentAudio) {
+    currentAudio.pause();
+    currentAudio = null;
+  }
+}
+
+function apReset() {
+  clearTimeout(apTimer);
+  apTimer = null;
+  if (apAudio) {
+    apAudio.pause();
+    apAudio = null;
+  }
+  apClearPlayingUI();
+  apIdx = 0;
+  apQueue = [];
+  apRemainingDelay = 0;
+  apSetState('idle');
+  apStatus.textContent = '';
+}
+
 function apShowItem(item) {
   const skitNum = item.skitId.replace('skit-panel-', '');
 
-  // Activate skit panel
   if (!document.getElementById(item.skitId).classList.contains('active')) {
     document.querySelectorAll('.skit-panel').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.skit-nav-btn').forEach(b => b.classList.remove('active'));
     document.getElementById(item.skitId).classList.add('active');
     const nb = document.querySelector(`.skit-nav-btn[data-skit="${skitNum}"]`);
-    if (nb) { nb.classList.add('active'); nb.scrollIntoView({ behavior:'smooth', block:'nearest', inline:'center' }); }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (nb) {
+      nb.classList.add('active');
+      nb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
   }
 
-  // Activate phrase tab
-  const phraseId = item.phraseId;
   document.querySelectorAll(`.phrase-tab[data-skit="${skitNum}"]`).forEach(t => {
-    t.classList.toggle('active', t.dataset.phrase === phraseId);
+    t.classList.toggle('active', t.dataset.phrase === item.phraseId);
   });
+
   const wrap = document.getElementById(item.skitId).querySelector('.phrase-content-wrap');
   wrap.querySelectorAll('.phrase-content').forEach(c => c.classList.remove('active'));
-  const pc = document.getElementById('phrase-content-' + phraseId);
-  if (pc) { pc.classList.add('active'); pc.scrollIntoView({ behavior:'smooth', block:'nearest' }); }
+  const pc = document.getElementById('phrase-content-' + item.phraseId);
+  if (pc) {
+    pc.classList.add('active');
+    pc.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
 
-  // Update progress counter
   const tabs = document.querySelectorAll(`.phrase-tab[data-skit="${skitNum}"]`);
-  const activeIdx = Array.from(tabs).findIndex(t => t.dataset.phrase === phraseId);
+  const activeIdx = Array.from(tabs).findIndex(t => t.dataset.phrase === item.phraseId);
   const prog = document.getElementById(`progress-skit-${skitNum}`);
   if (prog) prog.textContent = `${activeIdx + 1} / ${tabs.length}`;
 
-  // Status text
   const exNum = (item.key || '').split('ex')[1];
-  apStatus.textContent = `▶ P${phraseId} — 例文 ${exNum !== undefined ? parseInt(exNum)+1 : '?'}/4`;
+  const label = apMode === 'all-once' ? '全順番再生' : `スキット ${skitNum}`;
+  apStatus.textContent = `▶ ${label} / P${item.phraseId} 例文 ${exNum !== undefined ? parseInt(exNum, 10) + 1 : '?'}/4`;
+}
+
+function scheduleApNext(delay = AP_INTERVAL_MS) {
+  apRemainingDelay = delay;
+  apIntervalStartedAt = Date.now();
+  apTimer = setTimeout(() => {
+    apTimer = null;
+    apRemainingDelay = 0;
+    playApNext();
+  }, delay);
 }
 
 function playApNext() {
   if (apState !== 'playing') return;
-  if (apIdx >= AP_QUEUE.length) {
-    apClearPlayingUI();
+  if (!apQueue.length) {
+    apStatus.textContent = '再生できる音声がありません';
     apSetState('stopped');
-    apStatus.textContent = '✅ 全フレーズ再生完了！';
     return;
   }
-  const item = AP_QUEUE[apIdx];
+  if (apIdx >= apQueue.length) {
+    if (apMode === 'skit-loop') {
+      apIdx = 0;
+    } else {
+      apClearPlayingUI();
+      apSetState('stopped');
+      apStatus.textContent = '全順番再生が完了しました';
+      return;
+    }
+  }
+
+  const item = apQueue[apIdx];
   apShowItem(item);
   apClearPlayingUI();
   item.btn.closest('.example-row').classList.add('revealed');
 
-  if (!item.key || !AUDIO_DATA[item.key]) {
-    apIdx++;
-    apTimer = setTimeout(playApNext, 350);
-    return;
-  }
-
   const audio = new Audio(AUDIO_DATA[item.key]);
   apAudio = audio;
   item.btn.classList.add('playing');
-  audio.play();
+
   audio.addEventListener('ended', () => {
     item.btn.classList.remove('playing');
+    if (apAudio === audio) apAudio = null;
     if (apState === 'playing') {
       apIdx++;
-      apTimer = setTimeout(playApNext, 650);
+      apStatus.textContent = '2秒インターバル中...';
+      scheduleApNext(AP_INTERVAL_MS);
     }
   });
-  audio.addEventListener('error', () => { apIdx++; playApNext(); });
+  audio.addEventListener('error', () => {
+    item.btn.classList.remove('playing');
+    if (apAudio === audio) apAudio = null;
+    if (apState === 'playing') {
+      apIdx++;
+      scheduleApNext(250);
+    }
+  });
+
+  audio.play().catch(() => {
+    item.btn.classList.remove('playing');
+    if (apAudio === audio) apAudio = null;
+    apStatus.textContent = '音声の再生を開始できませんでした';
+    apSetState('stopped');
+  });
 }
 
-// ── Button handlers ──────────────────────────────────────
-btnApStart.addEventListener('click', () => {
+function startAutoplay(mode) {
+  stopManualAudio();
+  apClearPlayingUI();
+  apMode = mode;
+  apQueue = mode === 'all-once' ? buildAllQueue() : buildSkitQueue(getActiveSkitNum());
   apIdx = 0;
   apSetState('playing');
-  apStatus.textContent = '準備中…';
+  apStatus.textContent = '準備中...';
   playApNext();
-});
+}
+
+btnApStart.addEventListener('click', () => startAutoplay('skit-loop'));
+btnApAll.addEventListener('click', () => startAutoplay('all-once'));
 
 btnApPause.addEventListener('click', () => {
   if (apState !== 'playing') return;
-  clearTimeout(apTimer);
-  if (apAudio) { apAudio.pause(); }
+  if (apTimer) {
+    clearTimeout(apTimer);
+    apTimer = null;
+    apRemainingDelay = Math.max(0, apRemainingDelay - (Date.now() - apIntervalStartedAt));
+  }
+  if (apAudio) apAudio.pause();
   apClearPlayingUI();
   apSetState('paused');
-  apStatus.textContent = `⏸ P${AP_QUEUE[apIdx]?.phraseId || '?'} で一時停止中`;
+  apStatus.textContent = '一時停止中';
 });
 
 btnApResume.addEventListener('click', () => {
   if (apState !== 'paused') return;
   apSetState('playing');
-  // Resume from current audio position if possible, else replay item
   if (apAudio && apAudio.paused && !apAudio.ended) {
-    const resumeAudio = apAudio;
-    const item = AP_QUEUE[apIdx];
+    const item = apQueue[apIdx];
     if (item) item.btn.classList.add('playing');
-    resumeAudio.play();
-    resumeAudio.addEventListener('ended', () => {
-      if (item) item.btn.classList.remove('playing');
-      if (apState === 'playing') {
-        apIdx++;
-        apTimer = setTimeout(playApNext, 650);
-      }
-    }, { once: true });
-    const exNum = (AP_QUEUE[apIdx]?.key || '').split('ex')[1];
-    apStatus.textContent = `▶ P${AP_QUEUE[apIdx]?.phraseId || '?'} — 例文 ${exNum !== undefined ? parseInt(exNum)+1 : '?'}/4`;
+    apAudio.play();
+  } else if (apRemainingDelay > 0) {
+    apStatus.textContent = '2秒インターバル中...';
+    scheduleApNext(apRemainingDelay);
   } else {
     playApNext();
   }
 });
 
-btnApStop.addEventListener('click', () => {
-  clearTimeout(apTimer);
-  if (apAudio) { apAudio.pause(); apAudio = null; }
-  apClearPlayingUI();
-  apSetState('stopped');
-  apStatus.textContent = `⏹ P${AP_QUEUE[apIdx]?.phraseId || '?'} で停止`;
-});
-
-btnApClear.addEventListener('click', () => {
-  clearTimeout(apTimer);
-  if (apAudio) { apAudio.pause(); apAudio = null; }
-  apClearPlayingUI();
-  apIdx = 0;
-  apSetState('idle');
-  apStatus.textContent = '';
-});
-
-// ══ SCROLL TOP ═══════════════════════════════════════════
+btnApStop.addEventListener('click', apReset);
+btnApClear.addEventListener('click', apReset);
 const scrollTopBtn = document.getElementById('scroll-top');
 window.addEventListener('scroll', () => {
   scrollTopBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
