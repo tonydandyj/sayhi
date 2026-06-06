@@ -46,9 +46,27 @@
 
   /* Autoplay controls */
   #ap-controls { margin-left: auto; display: flex; align-items: center; gap: 5px; flex-shrink: 0; padding-left: 10px; border-left: 1px solid #2a2a5a; }
-  .ap-btn { font-size: .7rem; font-weight: 700; padding: 4px 10px; border-radius: 20px; border: none; cursor: pointer; transition: background .18s; white-space: nowrap; }
+  .ap-btn { font-size: .7rem; font-weight: 700; padding: 4px 10px; border-radius: 20px; border: none; cursor: pointer; transition: background .18s; white-space: nowrap; position: relative; }
+  #ap-hover-tip {
+    position: fixed; left: 0; top: 0;
+    transform: translate(-50%, -100%);
+    background: #fff; color: var(--ph-dark);
+    border: 1px solid var(--ph-gold);
+    border-radius: 6px; padding: 5px 10px;
+    font-size: .72rem; font-weight: 700;
+    box-shadow: 0 4px 14px rgba(0,0,0,.28);
+    opacity: 0; pointer-events: none;
+    white-space: nowrap; z-index: 2000;
+    transition: opacity .12s, transform .12s;
+  }
+  #ap-hover-tip.show {
+    opacity: 1;
+    transform: translate(-50%, calc(-100% - 8px));
+  }
   #btn-ap-start  { background: var(--ph-green); color: #fff; }
   #btn-ap-start:hover  { background: #145e38; }
+  #btn-ap-all    { background: var(--ph-blue); color: #fff; }
+  #btn-ap-all:hover    { background: #001a8a; }
   #btn-ap-pause  { background: #e67e22; color: #fff; }
   #btn-ap-pause:hover  { background: #ca6f1e; }
   #btn-ap-resume { background: var(--ph-green); color: #fff; }
@@ -163,10 +181,11 @@
   <button class="skit-nav-btn" data-skit="9">スキット 9</button>
   <button class="skit-nav-btn" data-skit="10">スキット 10</button>
   <div id="ap-controls">
-    <button class="ap-btn" id="btn-ap-start">▶ 全順番再生</button>
+    <button class="ap-btn" id="btn-ap-start" data-tip="シャドーイングに最適">▶ スキット再生</button>
+    <button class="ap-btn" id="btn-ap-all"   data-tip="聞き流しに最適">▶ 全順番再生</button>
     <button class="ap-btn" id="btn-ap-pause"  style="display:none">⏸ 一時停止</button>
     <button class="ap-btn" id="btn-ap-resume" style="display:none">▶ 再開</button>
-    <button class="ap-btn" id="btn-ap-stop"   style="display:none">⏹ 停止</button>
+    <button class="ap-btn" id="btn-ap-stop"   style="display:none">↺ リセット</button>
     <button class="ap-btn" id="btn-ap-clear"  style="display:none">✕ クリア</button>
     <span id="ap-status"></span>
   </div>
@@ -2376,91 +2395,161 @@ document.querySelectorAll('.skit-nav-btn').forEach(btn => {
 });
 
 // Autoplay
-const AP_QUEUE = [];
-document.querySelectorAll('.skit-panel').forEach(panel => {
-  panel.querySelectorAll('.phrase-tab').forEach(tab => {
-    const phraseId = tab.dataset.phrase;
-    const cd = document.getElementById('phrase-content-' + phraseId);
-    if (!cd) return;
-    cd.querySelectorAll('.example-row .spk-btn').forEach(btn =>
-      AP_QUEUE.push({ skitId: panel.id, phraseId, key: btn.dataset.audio, btn }));
-  });
-});
-
-let apState='idle', apIdx=0, apAudio=null, apTimer=null;
+let apState='idle', apMode='skit-loop', apIdx=0, apAudio=null, apTimer=null, apQueue=[];
+let apIntervalStartedAt=0, apRemainingDelay=0;
+const AP_INTERVAL_MS=2000;
 const btnApStart=document.getElementById('btn-ap-start');
+const btnApAll=document.getElementById('btn-ap-all');
 const btnApPause=document.getElementById('btn-ap-pause');
 const btnApResume=document.getElementById('btn-ap-resume');
 const btnApStop=document.getElementById('btn-ap-stop');
 const btnApClear=document.getElementById('btn-ap-clear');
 const apStatus=document.getElementById('ap-status');
 
+const apHoverTip=document.createElement('div');
+apHoverTip.id='ap-hover-tip';
+document.body.appendChild(apHoverTip);
+function showApTip(btn) {
+  apHoverTip.textContent=btn.dataset.tip||'';
+  const rect=btn.getBoundingClientRect();
+  apHoverTip.style.left=`${rect.left+rect.width/2}px`;
+  apHoverTip.style.top=`${rect.top}px`;
+  apHoverTip.classList.add('show');
+}
+function hideApTip() { apHoverTip.classList.remove('show'); }
+document.querySelectorAll('.ap-btn[data-tip]').forEach(btn => {
+  btn.addEventListener('mouseenter', () => showApTip(btn));
+  btn.addEventListener('focus',      () => showApTip(btn));
+  btn.addEventListener('mouseleave', hideApTip);
+  btn.addEventListener('blur',       hideApTip);
+});
+
+function getActiveSkitNum() {
+  const active=document.querySelector('.skit-panel.active');
+  return active ? active.id.replace('skit-panel-','') : '1';
+}
+function buildPanelQueue(panel) {
+  const queue=[];
+  if (!panel) return queue;
+  panel.querySelectorAll('.phrase-tab').forEach(tab => {
+    const phraseId=tab.dataset.phrase;
+    const contentDiv=document.getElementById('phrase-content-'+phraseId);
+    if (!contentDiv) return;
+    contentDiv.querySelectorAll('.example-row .spk-btn').forEach(btn => {
+      const key=btn.dataset.audio;
+      if (key && AUDIO_DATA[key]) queue.push({skitId:panel.id, phraseId, key, btn});
+    });
+  });
+  return queue;
+}
+function buildSkitQueue(skitNum) {
+  return buildPanelQueue(document.getElementById('skit-panel-'+skitNum));
+}
+function buildAllQueue() {
+  return Array.from(document.querySelectorAll('.skit-panel')).flatMap(p => buildPanelQueue(p));
+}
+
 function apSetState(state) {
   apState=state;
-  btnApStart.style.display  = state==='idle'    ? '' : 'none';
+  btnApStart.style.display  = state==='idle' ? '' : 'none';
+  btnApAll.style.display    = state==='idle' ? '' : 'none';
   btnApPause.style.display  = state==='playing' ? '' : 'none';
   btnApResume.style.display = state==='paused'  ? '' : 'none';
-  btnApStop.style.display   = (state==='playing'||state==='paused') ? '' : 'none';
-  btnApClear.style.display  = state==='stopped' ? '' : 'none';
+  btnApStop.style.display   = (state==='playing'||state==='paused'||state==='stopped') ? '' : 'none';
+  btnApClear.style.display  = 'none';
 }
 function apClearUI() { document.querySelectorAll('.spk-btn.playing').forEach(b => b.classList.remove('playing')); }
+function stopManualAudio() { if (currentAudio) { currentAudio.pause(); currentAudio=null; } }
+
+function apReset() {
+  clearTimeout(apTimer); apTimer=null;
+  if (apAudio) { apAudio.pause(); apAudio=null; }
+  apClearUI(); apIdx=0; apQueue=[]; apRemainingDelay=0;
+  apSetState('idle'); apStatus.textContent='';
+}
+
 function apShowItem(item) {
-  const skitNum = item.skitId.replace('skit-panel-','');
+  const skitNum=item.skitId.replace('skit-panel-','');
   if (!document.getElementById(item.skitId).classList.contains('active')) {
     document.querySelectorAll('.skit-panel').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.skit-nav-btn').forEach(b => b.classList.remove('active'));
     document.getElementById(item.skitId).classList.add('active');
-    const nb = document.querySelector(`.skit-nav-btn[data-skit="${skitNum}"]`);
+    const nb=document.querySelector(`.skit-nav-btn[data-skit="${skitNum}"]`);
     if (nb) { nb.classList.add('active'); nb.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'}); }
-    window.scrollTo({top:0,behavior:'smooth'});
   }
-  const phraseId = item.phraseId;
   document.querySelectorAll(`.phrase-tab[data-skit="${skitNum}"]`).forEach(t =>
-    t.classList.toggle('active', t.dataset.phrase === phraseId));
-  const wrap = document.getElementById(item.skitId).querySelector('.phrase-content-wrap');
+    t.classList.toggle('active', t.dataset.phrase===item.phraseId));
+  const wrap=document.getElementById(item.skitId).querySelector('.phrase-content-wrap');
   wrap.querySelectorAll('.phrase-content').forEach(c => c.classList.remove('active'));
-  const pc = document.getElementById('phrase-content-' + phraseId);
+  const pc=document.getElementById('phrase-content-'+item.phraseId);
   if (pc) { pc.classList.add('active'); pc.scrollIntoView({behavior:'smooth',block:'nearest'}); }
-  const tabs = document.querySelectorAll(`.phrase-tab[data-skit="${skitNum}"]`);
-  const ai = Array.from(tabs).findIndex(t => t.dataset.phrase === phraseId);
-  const prog = document.getElementById(`progress-skit-${skitNum}`);
-  if (prog) prog.textContent = `${ai+1} / ${tabs.length}`;
-  const exNum = (item.key||'').split('ex')[1];
-  apStatus.textContent = `▶ P${phraseId}—例文${exNum!==undefined?parseInt(exNum)+1:'?'}/4`;
+  const tabs=document.querySelectorAll(`.phrase-tab[data-skit="${skitNum}"]`);
+  const ai=Array.from(tabs).findIndex(t => t.dataset.phrase===item.phraseId);
+  const prog=document.getElementById(`progress-skit-${skitNum}`);
+  if (prog) prog.textContent=`${ai+1} / ${tabs.length}`;
+  const exNum=(item.key||'').split('ex')[1];
+  const label=apMode==='all-once' ? '全順番再生' : `スキット ${skitNum}`;
+  apStatus.textContent=`▶ ${label} / P${item.phraseId} 例文 ${exNum!==undefined?parseInt(exNum,10)+1:'?'}/4`;
 }
+
+function scheduleApNext(delay=AP_INTERVAL_MS) {
+  apRemainingDelay=delay; apIntervalStartedAt=Date.now();
+  apTimer=setTimeout(() => { apTimer=null; apRemainingDelay=0; playApNext(); }, delay);
+}
+
 function playApNext() {
-  if (apState !== 'playing') return;
-  if (apIdx >= AP_QUEUE.length) { apClearUI(); apSetState('stopped'); apStatus.textContent='✅ 全フレーズ再生完了！'; return; }
-  const item = AP_QUEUE[apIdx];
+  if (apState!=='playing') return;
+  if (!apQueue.length) { apStatus.textContent='再生できる音声がありません'; apSetState('stopped'); return; }
+  if (apIdx>=apQueue.length) {
+    if (apMode==='skit-loop') { apIdx=0; }
+    else { apClearUI(); apSetState('stopped'); apStatus.textContent='全順番再生が完了しました'; return; }
+  }
+  const item=apQueue[apIdx];
   apShowItem(item); apClearUI();
   item.btn.closest('.example-row').classList.add('revealed');
-  if (!item.key || !AUDIO_DATA[item.key]) { apIdx++; apTimer=setTimeout(playApNext,350); return; }
-  const audio = new Audio(AUDIO_DATA[item.key]);
-  apAudio=audio; item.btn.classList.add('playing'); audio.play();
-  audio.addEventListener('ended', () => { item.btn.classList.remove('playing'); if (apState==='playing') { apIdx++; apTimer=setTimeout(playApNext,650); } });
-  audio.addEventListener('error', () => { apIdx++; playApNext(); });
+  const audio=new Audio(AUDIO_DATA[item.key]);
+  apAudio=audio; item.btn.classList.add('playing');
+  audio.addEventListener('ended', () => {
+    item.btn.classList.remove('playing');
+    if (apAudio===audio) apAudio=null;
+    if (apState==='playing') { apIdx++; apStatus.textContent='2秒インターバル中...'; scheduleApNext(AP_INTERVAL_MS); }
+  });
+  audio.addEventListener('error', () => {
+    item.btn.classList.remove('playing');
+    if (apAudio===audio) apAudio=null;
+    if (apState==='playing') { apIdx++; scheduleApNext(250); }
+  });
+  audio.play().catch(() => { item.btn.classList.remove('playing'); if (apAudio===audio) apAudio=null; apStatus.textContent='音声の再生を開始できませんでした'; apSetState('stopped'); });
 }
-btnApStart.addEventListener('click', () => { apIdx=0; apSetState('playing'); apStatus.textContent='準備中…'; playApNext(); });
+
+function startAutoplay(mode) {
+  stopManualAudio(); apClearUI();
+  apMode=mode;
+  apQueue=mode==='all-once' ? buildAllQueue() : buildSkitQueue(getActiveSkitNum());
+  apIdx=0; apSetState('playing'); apStatus.textContent='準備中...'; playApNext();
+}
+
+btnApStart.addEventListener('click', () => startAutoplay('skit-loop'));
+btnApAll.addEventListener('click',   () => startAutoplay('all-once'));
+
 btnApPause.addEventListener('click', () => {
   if (apState!=='playing') return;
-  clearTimeout(apTimer); if (apAudio) apAudio.pause();
-  apClearUI(); apSetState('paused');
-  apStatus.textContent=`⏸ P${AP_QUEUE[apIdx]?.phraseId||'?'} で一時停止中`;
+  if (apTimer) { clearTimeout(apTimer); apTimer=null; apRemainingDelay=Math.max(0,apRemainingDelay-(Date.now()-apIntervalStartedAt)); }
+  if (apAudio) apAudio.pause();
+  apClearUI(); apSetState('paused'); apStatus.textContent='一時停止中';
 });
 btnApResume.addEventListener('click', () => {
   if (apState!=='paused') return;
   apSetState('playing');
   if (apAudio && apAudio.paused && !apAudio.ended) {
-    const a=apAudio; const item=AP_QUEUE[apIdx];
-    if (item) item.btn.classList.add('playing');
-    a.play();
-    a.addEventListener('ended', () => { if (item) item.btn.classList.remove('playing'); if (apState==='playing') { apIdx++; apTimer=setTimeout(playApNext,650); } }, {once:true});
-    const ex=(AP_QUEUE[apIdx]?.key||'').split('ex')[1];
-    apStatus.textContent=`▶ P${AP_QUEUE[apIdx]?.phraseId||'?'}—例文${ex!==undefined?parseInt(ex)+1:'?'}/4`;
+    const item=apQueue[apIdx]; if (item) item.btn.classList.add('playing');
+    apAudio.play();
+  } else if (apRemainingDelay>0) {
+    apStatus.textContent='2秒インターバル中...'; scheduleApNext(apRemainingDelay);
   } else { playApNext(); }
 });
-btnApStop.addEventListener('click', () => { clearTimeout(apTimer); if (apAudio) { apAudio.pause(); apAudio=null; } apClearUI(); apSetState('stopped'); apStatus.textContent=`⏹ P${AP_QUEUE[apIdx]?.phraseId||'?'} で停止`; });
-btnApClear.addEventListener('click', () => { clearTimeout(apTimer); if (apAudio) { apAudio.pause(); apAudio=null; } apClearUI(); apIdx=0; apSetState('idle'); apStatus.textContent=''; });
+btnApStop.addEventListener('click',  apReset);
+btnApClear.addEventListener('click', apReset);
 
 const scrollTopBtn = document.getElementById('scroll-top');
 window.addEventListener('scroll', () => { scrollTopBtn.style.display = window.scrollY>300 ? 'block' : 'none'; });
