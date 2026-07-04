@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f4f0e8" />
+  <title>中国語入門 — 起きてから寝るまで</title>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+SC:wght@400;500;600&family=Playfair+Display:ital,wght@1,600&display=swap');
+:root{--ink:#18332e;--muted:#68756f;--paper:#f4f0e8;--card:#fffdf8;--accent:#e9613a;--mint:#cdded3;--line:#d9d7ce;--shadow:0 18px 60px rgba(34,45,40,.10)}
+*{box-sizing:border-box} body{margin:0;background:var(--paper);color:var(--ink);font-family:'DM Sans','Noto Sans JP',sans-serif;min-height:100vh}.grain{position:fixed;inset:0;pointer-events:none;opacity:.22;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.08'/%3E%3C/svg%3E")}.topbar{height:76px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(24,51,46,.12);padding:0 max(28px,calc((100vw - 1220px)/2));position:relative;z-index:1}.brand{color:var(--ink);text-decoration:none;font-weight:600;font-size:18px;display:flex;align-items:center;gap:10px}.brand-mark{display:grid;place-items:center;width:34px;height:34px;border:1px solid var(--ink);border-radius:50%;font-family:'Playfair Display';font-style:italic}.header-actions{display:flex;gap:12px}.quiet-btn,.icon-btn{border:1px solid rgba(24,51,46,.18);background:transparent;color:var(--ink);border-radius:99px;padding:9px 16px;cursor:pointer}.icon-btn{width:38px;height:38px;padding:0;font-size:24px}.hero{max-width:1220px;margin:0 auto;padding:58px 24px 42px;display:flex;justify-content:space-between;align-items:end}.eyebrow,.mode-label,.select-label{font-size:11px;letter-spacing:.18em;font-weight:600;color:#708078}.hero h1{font-family:'Noto Sans JP';font-size:clamp(38px,5vw,67px);line-height:1.2;letter-spacing:-.06em;margin:13px 0 14px;font-weight:500}.hero h1 em{font-family:'Playfair Display','Noto Sans JP';color:var(--accent);font-weight:600}.lead{color:var(--muted);margin:0}.progress-orbit{width:120px;height:120px;position:relative}.progress-orbit svg{transform:rotate(-90deg)}.progress-orbit circle{fill:none;stroke-width:5}.orbit-bg{stroke:#ddd9cf}.orbit-fg{stroke:var(--accent);stroke-linecap:round;stroke-dasharray:327;stroke-dashoffset:327;transition:.5s}.progress-orbit>div{position:absolute;inset:0;display:grid;place-content:center;text-align:center}.progress-orbit strong{font-size:29px}.progress-orbit span{font-size:10px;color:var(--muted)}.workspace{max-width:1220px;margin:0 auto;padding:0 24px 72px;display:grid;grid-template-columns:220px 1fr;gap:54px}.sidepanel{padding-top:8px}.mode-label{margin-bottom:12px}.set-option{width:100%;border:0;background:transparent;padding:12px 14px;display:flex;justify-content:space-between;border-radius:9px;color:var(--muted);cursor:pointer;font:inherit}.set-option.active{background:var(--ink);color:white}.set-option b{font-size:12px;background:rgba(255,255,255,.13);border-radius:20px;padding:3px 8px}.side-rule{border-top:1px solid var(--line);margin:23px 0}.select-label{display:block;margin-bottom:9px}select{width:100%;padding:12px;border:1px solid var(--line);border-radius:8px;background:#faf8f2;color:var(--ink);font:inherit}.toggle-row{display:flex;justify-content:space-between;align-items:center;margin-top:17px;font-size:13px}.toggle-row input{display:none}.toggle-row i{width:38px;height:21px;border-radius:20px;background:#c6c9c4;position:relative;transition:.2s}.toggle-row i:after{content:'';position:absolute;width:15px;height:15px;border-radius:50%;background:white;top:3px;left:3px;transition:.2s}.toggle-row input:checked+i{background:var(--accent)}.toggle-row input:checked+i:after{transform:translateX(17px)}.shortcuts{font-size:11px;color:#89918c;line-height:2.3;margin-top:38px}.shortcuts span{border:1px solid #c9cbc5;border-radius:4px;padding:2px 5px;margin-right:5px}.study-area{max-width:780px}.study-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px}.study-head p{margin:0;font-size:14px;font-weight:600}.study-head small{color:#9a9f9b;margin:0 3px}.streak{font-size:12px;color:var(--muted)}.streak b{color:var(--accent);margin-left:4px}.card{min-height:390px;background:var(--card);border:1px solid rgba(24,51,46,.12);border-radius:20px;box-shadow:var(--shadow);padding:32px 38px 28px;display:flex;flex-direction:column;outline:none;position:relative;overflow:hidden}.card:before{content:'';position:absolute;width:190px;height:190px;border:1px solid rgba(24,51,46,.06);border-radius:50%;right:-92px;top:-92px}.card-top{display:flex;justify-content:space-between;color:#87908b;font-size:11px;text-transform:uppercase;letter-spacing:.16em}.speak{border:0;background:#eef1eb;color:var(--ink);width:34px;height:34px;border-radius:50%;cursor:pointer}.prompt-wrap{flex:1;display:grid;place-content:center;text-align:center;padding:26px 20px}.prompt{font-family:'Noto Sans JP';font-size:clamp(22px,3vw,32px);line-height:1.65;margin:0;white-space:pre-line}.hint{font-size:12px;color:#9a9f9b;margin:15px 0 0}.answer-area{display:none}.card.revealed .prompt-wrap{flex:0;padding:18px 18px 22px}.card.revealed .prompt{font-size:20px;color:#6a756f}.card.revealed .hint{display:none}.card.revealed .answer-area{display:block;flex:1;animation:rise .3s ease}.answer-rule{display:flex;align-items:center;gap:10px;color:#9a9f9b;font-size:10px;letter-spacing:.14em;text-transform:uppercase}.answer-rule:after{content:'';height:1px;background:#e1dfd7;flex:1}.answer{font-size:clamp(20px,2.7vw,28px);line-height:1.6;margin:25px 8px;text-align:center;font-weight:500}.reveal{border:0;border-radius:10px;background:var(--ink);color:white;padding:15px 20px;font:inherit;font-weight:500;display:flex;justify-content:center;gap:18px;cursor:pointer}.reveal kbd{font:inherit;font-size:10px;border:1px solid rgba(255,255,255,.35);padding:2px 7px;border-radius:4px}.card.revealed .reveal{display:none}.ratings{margin-top:18px}.ratings>p{text-align:center;font-size:12px;color:var(--muted)}.ratings>div{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.ratings button{border:1px solid var(--line);background:#faf8f2;border-radius:10px;padding:11px 8px;display:flex;gap:10px;align-items:center;text-align:left;color:var(--ink);cursor:pointer}.ratings button:hover{border-color:var(--accent);transform:translateY(-2px)}.ratings kbd{background:#e9e7df;border-radius:5px;padding:4px 7px}.ratings span{font-size:12px}.ratings small{display:block;color:#9a9f9b;margin-top:2px}.nav-row{display:flex;justify-content:space-between;margin-top:16px}.nav-row button{border:0;background:transparent;color:var(--muted);cursor:pointer;padding:8px}.toast{position:fixed;bottom:25px;left:50%;transform:translate(-50%,20px);opacity:0;background:var(--ink);color:white;padding:10px 18px;border-radius:99px;font-size:13px;transition:.25s;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}dialog{width:min(720px,calc(100% - 32px));border:0;border-radius:18px;background:var(--card);box-shadow:0 30px 100px rgba(0,0,0,.25);padding:25px}dialog::backdrop{background:rgba(20,35,31,.45);backdrop-filter:blur(4px)}.dialog-head{display:flex;justify-content:space-between;align-items:center}.dialog-head h2{margin:0}.dialog-head button{border:0;background:none;font-size:25px;cursor:pointer}#searchInput{width:100%;padding:15px;margin:20px 0;border:1px solid var(--line);border-radius:10px;font:inherit}.results{max-height:55vh;overflow:auto}.result{padding:14px;border-bottom:1px solid #e6e3dc;cursor:pointer}.result:hover{background:#f4f0e8}.result b,.result span{display:block}.result span{color:var(--muted);font-size:13px;margin-top:5px}@keyframes rise{from{opacity:0;transform:translateY(7px)}}
+.audio-actions{display:flex;align-items:center;gap:8px}.vi-speak{height:34px;border:1px solid #d6dfd8;background:#eef1eb;color:var(--ink);border-radius:99px;padding:0 13px;display:flex;align-items:center;gap:7px;font:600 11px 'DM Sans','Noto Sans JP',sans-serif;letter-spacing:0;cursor:pointer;text-transform:none}.vi-speak:hover{background:var(--ink);color:white}.play-icon{font-size:9px;color:var(--accent)}.vi-speak:hover .play-icon{color:#ff8a68}
+.ratings .next-card-btn{position:fixed;right:28px;bottom:24px;z-index:30;width:auto;min-width:190px;margin:0;padding:14px 22px;background:var(--accent);color:#fff;border:0;box-shadow:0 10px 30px rgba(24,51,46,.28);justify-content:center;text-align:center;font-weight:700}
+.hero-heading-row{display:flex;align-items:flex-end;gap:30px}.hero-heading-row h1{flex:none}.episode-title{margin:0 0 14px;color:var(--ink);font-size:clamp(38px,5vw,67px);line-height:1.2;font-weight:600;letter-spacing:-.04em;white-space:normal}
+@media(max-width:760px){.topbar{height:64px;padding:0 18px}.quiet-btn{display:none}.hero{padding:38px 20px 28px;align-items:center}.hero h1{font-size:40px}.hero-heading-row{display:block}.episode-title{margin:-2px 0 10px;font-size:40px;white-space:normal}.lead{font-size:13px}.progress-orbit{width:90px;height:90px}.workspace{display:block;padding:0 14px 55px}.sidepanel{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:18px}.mode-label,.side-rule,.select-label,.sidepanel select,.toggle-row,.shortcuts{display:none}.set-option{padding:10px 7px;font-size:11px;align-items:center}.study-area{max-width:none}.card{min-height:410px;padding:24px 20px 22px}.vi-speak span:last-child{display:none}.vi-speak{width:34px;padding:0;justify-content:center}.ratings>div{grid-template-columns:repeat(2,1fr)}.progress-orbit span{font-size:8px}}
+
+.loop-start{border:0;background:var(--accent);color:white;border-radius:99px;padding:9px 15px;font:600 12px 'DM Sans','Noto Sans JP',sans-serif;cursor:pointer}
+.loop-range{background:var(--ink)}
+.loop-id{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:11px;font-weight:600}.loop-id input{width:58px;height:34px;border:1px solid rgba(24,51,46,.18);border-radius:9px;background:var(--card);color:var(--ink);padding:0 7px;font:600 13px 'DM Sans',sans-serif;text-align:center}
+.loop-start span{font-size:16px;margin-right:4px}
+.loop-controls{display:flex;gap:7px;padding:3px;background:#e7e3da;border-radius:99px}
+.loop-controls button{border:0;background:transparent;color:var(--ink);border-radius:99px;padding:7px 11px;font:600 11px 'DM Sans','Noto Sans JP',sans-serif;cursor:pointer}
+.loop-controls button:first-child{background:var(--card)}
+.loop-controls[hidden],.loop-start[hidden]{display:none}
+@media(max-width:760px){
+  .loop-start{font-size:0;padding:0;width:38px;height:38px}
+  .loop-id{font-size:0;gap:0}.loop-id input{width:48px;height:34px}
+  .loop-start span{font-size:20px;margin:0}
+  .loop-controls button{font-size:0;width:36px;height:32px;padding:0}
+  .loop-controls button:first-child:before{content:'Ⅱ';font-size:13px}
+  .loop-controls button:first-child.paused:before{content:'▶'}
+  .loop-controls button:last-child:before{content:'■';font-size:11px}
+}
+
+@media (min-width:761px){
+  body{height:100vh;overflow:hidden}
+  .topbar{height:60px}
+  .hero{padding:18px 24px 14px;align-items:center}
+  .hero h1{font-size:38px;line-height:1.15;margin:7px 0 8px;letter-spacing:-.05em}
+  .hero h1 br{display:none}
+  .hero h1 em{margin-left:.18em}
+  .hero-heading-row{gap:24px}
+  .episode-title{margin:0 0 8px;font-size:38px}
+  .lead{font-size:13px}
+  .progress-orbit{width:82px;height:82px;margin-right:12px}
+  .progress-orbit strong{font-size:23px}
+  .progress-orbit span{font-size:8px}
+  .workspace{padding:0 24px 14px;gap:34px;grid-template-columns:190px 1fr}
+  .sidepanel{padding-top:2px}
+  .set-option{padding:9px 12px}
+  .side-rule{margin:14px 0}
+  .toggle-row{margin-top:11px}
+  .shortcuts{display:none}
+  .study-area{max-width:900px}
+  .study-head{margin-bottom:8px}
+  .card{height:330px;min-height:0;padding:22px 30px 20px;border-radius:16px}
+  .prompt-wrap{padding:14px 18px;overflow:auto;min-width:0}
+  .prompt{font-size:clamp(20px,2.2vw,28px);line-height:1.5}
+  .hint{margin-top:9px}
+  .card.revealed .prompt-wrap{padding:8px 18px 12px;min-height:72px;flex-shrink:0;overflow:hidden}
+  .card.revealed .prompt{font-size:17px}
+  .prompt.japanese,.answer.japanese{width:100%;white-space:normal;overflow-wrap:anywhere;word-break:normal}
+  .card.revealed .prompt.japanese{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;line-height:1.5;overflow:hidden}
+  .answer-area{overflow:auto}
+  .answer{font-size:clamp(18px,2vw,24px);line-height:1.45;margin:14px 8px}
+  .reveal{padding:12px 18px}
+  .ratings{margin-top:10px}
+  .ratings>p{margin:0 0 6px}
+  .ratings button{padding:8px}
+  .ratings .next-card-btn{position:fixed;right:24px;bottom:20px;z-index:30;width:auto;min-width:180px;margin:0;padding:12px 18px;background:var(--accent);color:#fff;border:0;box-shadow:0 10px 30px rgba(24,51,46,.28);justify-content:center;text-align:center;font-weight:700}
+  .nav-row{margin-top:6px}
+}
+
+    /* Chinese answer text: 200% of the original size */
+  .answer:not(.japanese){font-size:clamp(30px,4.05vw,42px);line-height:1.4}
+  @media(max-width:760px){.answer:not(.japanese){font-size:clamp(27px,6vw,36px);line-height:1.4}}
+  
+  .prompt:not(.japanese),.answer:not(.japanese),.result span,.brand{font-family:'Noto Serif SC','Songti SC','STSong','SimSun',serif}
+  .prompt:not(.japanese),.answer:not(.japanese){font-weight:500;letter-spacing:.035em}
+  .pinyin{margin:-14px 8px 22px;text-align:center;color:var(--accent);font-family:'DM Sans',sans-serif;font-size:clamp(18px,2.4vw,26px);line-height:1.45;font-weight:500;letter-spacing:.01em}
+  </style>
+</head>
+<body>
+  <div class="grain"></div>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="ホーム"><span class="brand-mark">L</span><span>从起床到睡觉</span></a>
+    <div class="header-actions">
+      <label class="loop-id">開始ID <input id="loopStartId" type="number" min="1" value="1" inputmode="numeric" aria-label="ループ開始ID"></label>
+      <label class="loop-id">終了ID <input id="loopEndId" type="number" min="1" value="130" inputmode="numeric" aria-label="ループ終了ID"></label>
+      <button id="loopRangeBtn" class="loop-start loop-range"><span>↔</span> 区間ループ再生</button>
+      <button id="loopAllBtn" class="loop-start"><span>↻</span> 全件ループ再生</button>
+      <div id="loopControls" class="loop-controls" hidden>
+        <button id="loopPauseBtn">Ⅱ 一時停止</button>
+        <button id="loopStopBtn">■ 終了</button>
+      </div>
+      <button id="searchBtn" class="icon-btn" aria-label="検索"><span>⌕</span></button>
+      <button id="resetBtn" class="quiet-btn">進捗をリセット</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">CHINESE DAILY ROUTINE</p>
+        <div class="hero-heading-row">
+          <h1><em>中国語入門：</em><br>起きてから寝るまで</h1>
+          
+        </div>
+        <p class="lead">台詞を声に出して、思い出して、少しずつ定着させる。</p>
+      </div>
+      <div class="progress-orbit" aria-label="学習進捗">
+        <svg viewBox="0 0 120 120"><circle class="orbit-bg" cx="60" cy="60" r="52"/><circle id="orbit" class="orbit-fg" cx="60" cy="60" r="52"/></svg>
+        <div><strong id="masteredCount">0</strong><span>/ <i id="totalCount">0</i> 習得</span></div>
+      </div>
+    </section>
+
+    <section class="workspace">
+      <aside class="sidepanel">
+        <div class="mode-label">学習セット</div>
+        <button class="set-option active" data-filter="all"><span>すべて</span><b id="allCount">0</b></button>
+        <button class="set-option" data-filter="due"><span>今日の復習</span><b id="dueCount">0</b></button>
+        <button class="set-option" data-filter="hard"><span>苦手</span><b id="hardCount">0</b></button>
+        <div class="side-rule"></div>
+        <label class="select-label" for="direction">カードの向き</label>
+        <select id="direction">
+          <option value="ja-zh">日本語 → 中国語</option>
+          <option value="zh-ja">中国語 → 日本語</option>
+          <option value="random">ランダム</option>
+        </select>
+        <label class="toggle-row"><span>シャッフル</span><input id="shuffle" type="checkbox" checked><i></i></label>
+        <label class="toggle-row"><span>苦手を優先</span><input id="priority" type="checkbox"><i></i></label>
+        <div class="shortcuts"><span>SPACE</span> 答えを見る<br><span>1–4</span> 自己採点</div>
+      </aside>
+
+      <section class="study-area">
+        <div class="study-head">
+          <p><span id="currentIndex">1</span> <small>/</small> <span id="deckTotal">0</span></p>
+          <div class="streak">連続学習 <b id="streak">0</b></div>
+        </div>
+
+        <article id="card" class="card" tabindex="0" aria-live="polite">
+          <div class="card-top">
+            <span id="promptLang">日本語</span>
+            <div class="audio-actions">
+              <button id="zhSpeakBtn" class="vi-speak" aria-label="中国語を再生"><span class="play-icon">▶</span><span>中国語を再生</span></button>
+              <button id="speakBtn" class="speak" aria-label="表示文を読み上げ">♪</button>
+            </div>
+          </div>
+          <div class="prompt-wrap"><p id="prompt" class="prompt"></p><p id="hint" class="hint">頭の中で中国語にしてみましょう</p></div>
+          <div id="answerArea" class="answer-area">
+            <div class="answer-rule"><span>答え</span></div>
+            <p id="answer" class="answer"></p><p id="pinyin" class="pinyin" hidden></p>
+          </div>
+          <button id="revealBtn" class="reveal"><span>答えを見る</span><kbd>Space</kbd></button>
+        </article>
+
+        <div id="ratings" class="ratings" hidden>
+          <p>思い出せましたか？</p>
+          <div>
+            <button data-score="1"><kbd>1</kbd><span>もう一度<small>すぐ復習</small></span></button>
+            <button data-score="2"><kbd>2</kbd><span>難しい<small>1日後</small></span></button>
+            <button data-score="3"><kbd>3</kbd><span>できた<small>3日後</small></span></button>
+            <button data-score="4"><kbd>4</kbd><span>余裕<small>7日後</small></span></button>
+          </div>
+          <button id="nextBtn" class="next-card-btn">次のカードへ →</button>
+        </div>
+        <div class="nav-row"><button id="prevBtn">← 前へ</button><button id="skipBtn">スキップ →</button></div>
+      </section>
+    </section>
+  </main>
+
+  <dialog id="searchDialog">
+    <form method="dialog" class="dialog-head"><h2>台詞を探す</h2><button aria-label="閉じる">×</button></form>
+    <input id="searchInput" type="search" placeholder="中国語・ピンイン・日本語で検索…" autocomplete="off" />
+    <div id="searchResults" class="results"></div>
+  </dialog>
+  <div id="toast" class="toast"></div>
+  <script>
+window.CHINESE_FLASHCARD_TSV="1\t我六点醒来。\tWǒ liù diǎn xǐnglái.\t私は6時に目を覚まします。\n2\t你慢慢睁开眼睛。\tNǐ mànmàn zhēngkāi yǎnjīng.\tあなたはゆっくり目を開けます。\n3\t他马上关掉闹钟。\tTā mǎshàng guāndiào nàozhōng.\t彼はすぐに目覚ましを止めます。\n4\t她还躺在床上。\tTā hái tǎng zài chuáng shàng.\t彼女はまだベッドにいます。\n5\t我们今天早起。\tWǒmen jīntiān zǎoqǐ.\t私たちは今日早く起きます。\n6\t他们马上打开窗户。\tTāmen mǎshàng dǎkāi chuānghu.\t彼らはすぐ窓を開けます。\n7\t我爸爸整理床铺。\tWǒ bàba zhěnglǐ chuángpù.\t私の父はベッドを整えます。\n8\t我妈妈准备早饭。\tWǒ māma zhǔnbèi zǎofàn.\t私の母は朝食を準備します。\n9\t我喝一杯水。\tWǒ hē yì bēi shuǐ.\t私はコップ一杯の水を飲みます。\n10\t你去洗手间。\tNǐ qù xǐshǒujiān.\tあなたは洗面所へ行きます。\n11\t他洗脸。\tTā xǐ liǎn.\t彼は顔を洗います。\n12\t她刷牙。\tTā shuā yá.\t彼女は歯を磨きます。\n13\t我们快速洗澡。\tWǒmen kuàisù xǐzǎo.\t私たちはさっとシャワーを浴びます。\n14\t他们在镜子前梳头。\tTāmen zài jìngzi qián shūtóu.\t彼らは鏡の前で髪を整えます。\n15\t我今天早上慢慢穿衣服。\tWǒ jīntiān zǎoshang mànmàn chuān yīfu.\t私は今朝ゆっくり着替えます。\n16\t你选一件白衬衫。\tNǐ xuǎn yí jiàn bái chènshān.\tあなたは白いシャツを選びます。\n17\t他穿黑色的鞋。\tTā chuān hēisè de xié.\t彼は黒い靴を履きます。\n18\t她准备她的包。\tTā zhǔnbèi tā de bāo.\t彼女はかばんを準備します。\n19\t我们一起吃早饭。\tWǒmen yìqǐ chī zǎofàn.\t私たちは一緒に朝食を食べます。\n20\t他们喝热咖啡。\tTāmen hē rè kāfēi.\t彼らは温かいコーヒーを飲みます。\n21\t我爸爸看报纸。\tWǒ bàba kàn bàozhǐ.\t私の父は新聞を読みます。\n22\t我妈妈喝茶。\tWǒ māma hē chá.\t私の母はお茶を飲みます。\n23\t我离开家。\tWǒ líkāi jiā.\t私は家を出ます。\n24\t你轻轻关门。\tNǐ qīngqīng guān mén.\tあなたは静かにドアを閉めます。\n25\t他等公共汽车。\tTā děng gōnggòng qìchē.\t彼はバスを待ちます。\n26\t她坐火车。\tTā zuò huǒchē.\t彼女は電車に乗ります。\n27\t我们走到车站。\tWǒmen zǒu dào chēzhàn.\t私たちは駅まで歩きます。\n28\t他们到学校了。\tTāmen dào xuéxiào le.\t彼らは学校に到着します。\n29\t我开始工作。\tWǒ kāishǐ gōngzuò.\t私は仕事を始めます。\n30\t你来得有点早。\tNǐ lái de yǒudiǎn zǎo.\tあなたは少し早く着きます。\n31\t他和同事说话。\tTā hé tóngshì shuōhuà.\t彼は同僚と話します。\n32\t她向老师问好。\tTā xiàng lǎoshī wènhǎo.\t彼女は先生にあいさつします。\n33\t我们学习中文。\tWǒmen xuéxí Zhōngwén.\t私たちは中国語を勉強します。\n34\t他们在本子上写字。\tTāmen zài běnzi shàng xiězì.\t彼らはノートに書きます。\n35\t我看一份文件。\tWǒ kàn yí fèn wénjiàn.\t私は書類を読みます。\n36\t你做笔记。\tNǐ zuò bǐjì.\tあなたはメモを取ります。\n37\t他问一个问题。\tTā wèn yí ge wèntí.\t彼は質問をします。\n38\t她很有信心地回答。\tTā hěn yǒu xìnxīn de huídá.\t彼女は自信を持って答えます。\n39\t我们一起工作。\tWǒmen yìqǐ gōngzuò.\t私たちはチームで働きます。\n40\t他们用电脑。\tTāmen yòng diànnǎo.\t彼らはパソコンを使います。\n41\t我给客户打电话。\tWǒ gěi kèhù dǎ diànhuà.\t私は顧客に電話します。\n42\t你发一封电子邮件。\tNǐ fā yì fēng diànzǐ yóujiàn.\tあなたはメールを送ります。\n43\t他打印一份文件。\tTā dǎyìn yí fèn wénjiàn.\t彼は書類を印刷します。\n44\t她参加一个会议。\tTā cānjiā yí ge huìyì.\t彼女は会議に参加します。\n45\t我们休息一下。\tWǒmen xiūxi yíxià.\t私たちは休憩します。\n46\t他们喝凉水。\tTāmen hē liángshuǐ.\t彼らは冷たい水を飲みます。\n47\t我和同事一起吃午饭。\tWǒ hé tóngshì yìqǐ chī wǔfàn.\t私は同僚と昼食を食べます。\n48\t你点一个三明治。\tNǐ diǎn yí ge sānmíngzhì.\tあなたはサンドイッチを注文します。\n49\t他选一份沙拉。\tTā xuǎn yí fèn shālā.\t彼はサラダを選びます。\n50\t她喝一碗热汤。\tTā hē yì wǎn rè tāng.\t彼女は温かいスープを食べます。\n51\t我们午饭时聊天。\tWǒmen wǔfàn shí liáotiān.\t私たちは昼食中に話します。\n52\t他们回办公室。\tTāmen huí bàngōngshì.\t彼らは職場へ戻ります。\n53\t我继续工作。\tWǒ jìxù gōngzuò.\t私は仕事を続けます。\n54\t你完成你的练习。\tNǐ wánchéng nǐ de liànxí.\tあなたは課題を終えます。\n55\t他帮助一位同事。\tTā bāngzhù yí wèi tóngshì.\t彼は同僚を手伝います。\n56\t她解释答案。\tTā jiěshì dá'àn.\t彼女は答えを説明します。\n57\t我们今天学到新东西。\tWǒmen jīntiān xuédào xīn dōngxi.\t私たちは今日新しいことを学びます。\n58\t他们完成作业。\tTāmen wánchéng zuòyè.\t彼らは宿題を終えます。\n59\t我看一下手机。\tWǒ kàn yíxià shǒujī.\t私はスマホを確認します。\n60\t你看一下时间。\tNǐ kàn yíxià shíjiān.\tあなたは時間を確認します。\n61\t他回家。\tTā huí jiā.\t彼は家に帰ります。\n62\t她又坐地铁。\tTā yòu zuò dìtiě.\t彼女はまた地下鉄に乗ります。\n63\t我们买一点东西。\tWǒmen mǎi yìdiǎn dōngxi.\t私たちは少し買い物をします。\n64\t他们买蔬菜。\tTāmen mǎi shūcài.\t彼らは野菜を買います。\n65\t我准备晚饭。\tWǒ zhǔnbèi wǎnfàn.\t私は夕食を作ります。\n66\t你帮你妈妈。\tNǐ bāng nǐ māma.\tあなたは母を手伝います。\n67\t他摆桌子。\tTā bǎi zhuōzi.\t彼は食卓を整えます。\n68\t她做鱼。\tTā zuò yú.\t彼女は魚料理を作ります。\n69\t我们大家一起吃饭。\tWǒmen dàjiā yìqǐ chīfàn.\t私たちは皆で食事します。\n70\t他们吃饭时聊天。\tTāmen chīfàn shí liáotiān.\t彼らは食事中に話します。\n71\t我爸爸讲一个故事。\tWǒ bàba jiǎng yí ge gùshi.\t私の父は話をします。\n72\t我妈妈常常笑。\tWǒ māma chángcháng xiào.\t私の母はよく笑います。\n73\t我洗碗。\tWǒ xǐ wǎn.\t私は皿洗いをします。\n74\t你收拾厨房。\tNǐ shōushi chúfáng.\tあなたは台所を片付けます。\n75\t他看电视。\tTā kàn diànshì.\t彼はテレビを見ます。\n76\t她听音乐。\tTā tīng yīnyuè.\t彼女は音楽を聴きます。\n77\t我们去散步。\tWǒmen qù sànbù.\t私たちは散歩をします。\n78\t他们和狗玩。\tTāmen hé gǒu wán.\t彼らは犬と遊びます。\n79\t我看一本小说。\tWǒ kàn yì běn xiǎoshuō.\t私は小説を読みます。\n80\t你做你的作业。\tNǐ zuò nǐ de zuòyè.\tあなたは宿題をします。\n81\t他练习中文。\tTā liànxí Zhōngwén.\t彼は中国語を練習します。\n82\t她写日记。\tTā xiě rìjì.\t彼女は日記を書きます。\n83\t我们谈明天的事。\tWǒmen tán míngtiān de shì.\t私たちは明日のことを話します。\n84\t他们准备明天的衣服。\tTāmen zhǔnbèi míngtiān de yīfu.\t彼らは翌日の服を準備します。\n85\t我洗热水澡。\tWǒ xǐ rèshuǐzǎo.\t私は温かいシャワーを浴びます。\n86\t你再刷一次牙。\tNǐ zài shuā yí cì yá.\tあなたはもう一度歯を磨きます。\n87\t他关窗户。\tTā guān chuānghu.\t彼は窓を閉めます。\n88\t她检查门。\tTā jiǎnchá mén.\t彼女はドアを確認します。\n89\t我们关灯。\tWǒmen guān dēng.\t私たちは電気を消します。\n90\t他们说晚安。\tTāmen shuō wǎn'ān.\t彼らは「おやすみ」と言います。\n91\t我看几页书。\tWǒ kàn jǐ yè shū.\t私は数ページ読みます。\n92\t你把手机放在一边。\tNǐ bǎ shǒujī fàng zài yìbiān.\tあなたはスマホを脇に置きます。\n93\t他想明天的事。\tTā xiǎng míngtiān de shì.\t彼は明日のことを考えます。\n94\t她设好闹钟。\tTā shèhǎo nàozhōng.\t彼女は目覚ましをセットします。\n95\t我们上床睡觉。\tWǒmen shàngchuáng shuìjiào.\t私たちは寝ます。\n96\t他们很快睡着。\tTāmen hěn kuài shuìzháo.\t彼らはすぐ眠ります。\n97\t我爸爸睡得很沉。\tWǒ bàba shuì de hěn chén.\t私の父はぐっすり眠ります。\n98\t我妈妈闭上眼睛。\tWǒ māma bìshàng yǎnjīng.\t私の母は目を閉じます。\n99\t我带着微笑睡着。\tWǒ dàizhe wēixiào shuìzháo.\t私は笑顔で眠りにつきます。\n100\t晚安，明天见。\tWǎn'ān, míngtiān jiàn.\tおやすみ、また明日。\n101\t你好，你叫什么名字？　—　我叫保罗。\tNǐ hǎo, nǐ jiào shénme míngzi?　—　Wǒ jiào Bǎoluó.\tこんにちは、お名前は何ですか？／ポールです。\n102\t你好吗？　—　我很好，谢谢。\tNǐ hǎo ma?　—　Wǒ hěn hǎo, xièxie.\tお元気ですか？／元気です、ありがとう。\n103\t最近怎么样？　—　我很好。\tZuìjìn zěnmeyàng?　—　Wǒ hěn hǎo.\t最近どうですか？／元気です。\n104\t你是谁？　—　我是日本留学生。\tNǐ shì shéi?　—　Wǒ shì Rìběn liúxuéshēng.\tあなたは誰ですか？／私は日本人留学生です。\n105\t您是杜邦女士吗？　—　是的，我是。\tNín shì Dùbāng nǚshì ma?　—　Shì de, wǒ shì.\tあなたはデュポンさんですか？／はい、そうです。\n106\t这是谁？　—　这是我的朋友皮埃尔。\tZhè shì shéi?　—　Zhè shì wǒ de péngyou Pí'āi'ěr.\tこれは誰ですか？／私の友達ピエールです。\n107\t你认识玛丽吗？　—　认识，她是我的同事。\tNǐ rènshi Mǎlì ma?　—　Rènshi, tā shì wǒ de tóngshì.\tマリーを知っていますか？／はい、私の同僚です。\n108\t他叫什么名字？　—　他叫朱利安。\tTā jiào shénme míngzi?　—　Tā jiào Zhūlì'ān.\t彼の名前は何ですか？／ジュリアンです。\n109\t她叫什么名字？　—　她叫索菲。\tTā jiào shénme míngzi?　—　Tā jiào Suǒfēi.\t彼女の名前は何ですか？／ソフィーです。\n110\t很高兴认识你。　—　我也很高兴认识你。\tHěn gāoxìng rènshi nǐ.　—　Wǒ yě hěn gāoxìng rènshi nǐ.\tお会いできて嬉しいです。／私もです。\n111\t你的名字是什么？　—　我叫健。\tNǐ de míngzi shì shénme?　—　Wǒ jiào Jiàn.\tあなたの名前は何ですか？／ケンです。\n112\t您贵姓？　—　我姓田中。\tNín guìxìng?　—　Wǒ xìng Tiánzhōng.\tお名前（名字）は？／田中です。\n113\t你有外号吗？　—　有，大家都叫我阿健。\tNǐ yǒu wàihào ma?　—　Yǒu, dàjiā dōu jiào wǒ Ājiàn.\tあだ名はありますか？／はい、「アケン」と呼ばれています。\n114\t你的名字怎么写？　—　这样写：健。\tNǐ de míngzi zěnme xiě?　—　Zhèyàng xiě: Jiàn.\t名前はどう書きますか？／こう書きます。\n115\t请再说一遍你的名字。　—　我叫田中。\tQǐng zài shuō yí biàn nǐ de míngzi.　—　Wǒ jiào Tiánzhōng.\tもう一度お名前をお願いします。／田中です。\n116\t你是哪国人？　—　我是日本人。\tNǐ shì nǎ guó rén?　—　Wǒ shì Rìběn rén.\tどこの国の人ですか？／日本人です。\n117\t你来自哪里？　—　我来自东京。\tNǐ láizì nǎlǐ?　—　Wǒ láizì Dōngjīng.\tどこの出身ですか？／東京です。\n118\t他来自哪里？　—　他来自法国。\tTā láizì nǎlǐ?　—　Tā láizì Fǎguó.\t彼はどこの出身ですか？／フランスです。\n119\t她是哪国人？　—　她是加拿大人。\tTā shì nǎ guó rén?　—　Tā shì Jiānádà rén.\t彼女はどこの国の人ですか？／カナダ人です。\n120\t你是日本人吗？　—　是的，我是。\tNǐ shì Rìběn rén ma?　—　Shì de, wǒ shì.\t日本人ですか？／はい、日本人です。\n121\t您是法国人吗？　—　是的，我是法国人。\tNín shì Fǎguó rén ma?　—　Shì de, wǒ shì Fǎguó rén.\tフランス人ですか？／はい、フランス人です。\n122\t他是中国人吗？　—　不是，他是韩国人。\tTā shì Zhōngguó rén ma?　—　Bú shì, tā shì Hánguó rén.\t彼は中国人ですか？／いいえ、韓国人です。\n123\t她是越南人吗？　—　是的，她是越南人。\tTā shì Yuènán rén ma?　—　Shì de, tā shì Yuènán rén.\t彼女はベトナム人ですか？／はい、ベトナム人です。\n124\t你住在哪里？　—　我住在大阪。\tNǐ zhù zài nǎlǐ?　—　Wǒ zhù zài Dàbǎn.\tどこに住んでいますか？／大阪に住んでいます。\n125\t你住在法国吗？　—　不，我住在日本。\tNǐ zhù zài Fǎguó ma?　—　Bù, wǒ zhù zài Rìběn.\tフランスに住んでいますか？／いいえ、日本に住んでいます。\n126\t你一个人住吗？　—　是的，我一个人住。\tNǐ yí ge rén zhù ma?　—　Shì de, wǒ yí ge rén zhù.\t一人暮らしですか？／はい、一人暮らしです。\n127\t你和家人一起住吗？　—　是的，我和家人一起住。\tNǐ hé jiārén yìqǐ zhù ma?　—　Shì de, wǒ hé jiārén yìqǐ zhù.\t家族と一緒に住んでいますか？／はい、一緒に住んでいます。\n128\t你今年几岁？　—　我二十岁。\tNǐ jīnnián jǐ suì?　—　Wǒ èrshí suì.\t何歳ですか？／20歳です。\n129\t您今年多大？　—　我三十五岁。\tNín jīnnián duō dà?　—　Wǒ sānshíwǔ suì.\tおいくつですか？／35歳です。\n130\t他今年几岁？　—　他二十二岁。\tTā jīnnián jǐ suì?　—　Tā èrshí'èr suì.\t彼は何歳ですか？／22歳です。\n131\t她今年几岁？　—　她十九岁。\tTā jīnnián jǐ suì?　—　Tā shíjiǔ suì.\t彼女は何歳ですか？／19歳です。\n132\t你还年轻吗？　—　是的，我还年轻。\tNǐ hái niánqīng ma?　—　Shì de, wǒ hái niánqīng.\tまだ若いですか？／はい、まだ若いです。\n133\t今天是你的生日吗？　—　是的，今天是我的生日。\tJīntiān shì nǐ de shēngrì ma?　—　Shì de, jīntiān shì wǒ de shēngrì.\t今日は誕生日ですか？／はい、今日が誕生日です。\n134\t你的生日是什么时候？　—　我的生日是五月十号。\tNǐ de shēngrì shì shénme shíhou?　—　Wǒ de shēngrì shì Wǔyuè shí hào.\t誕生日はいつですか？／5月10日です。\n135\t你是哪一年出生的？　—　我是一九九八年出生的。\tNǐ shì nǎ yì nián chūshēng de?　—　Wǒ shì yījiǔjiǔbā nián chūshēng de.\t何年生まれですか？／1998年生まれです。\n136\t你家有几口人？　—　我家有四口人。\tNǐ jiā yǒu jǐ kǒu rén?　—　Wǒ jiā yǒu sì kǒu rén.\t家族は何人ですか？／4人です。\n137\t你家人多吗？　—　不多，只有四个人。\tNǐ jiārén duō ma?　—　Bù duō, zhǐ yǒu sì ge rén.\t家族は多いですか？／いいえ、4人だけです。\n138\t你有兄弟吗？　—　有，我有一个哥哥。\tNǐ yǒu xiōngdì ma?　—　Yǒu, wǒ yǒu yí ge gēge.\t兄弟はいますか？／はい、兄が一人います。\n139\t你有姐妹吗？　—　有，我有两个姐姐。\tNǐ yǒu jiěmèi ma?　—　Yǒu, wǒ yǒu liǎng ge jiějie.\t姉妹はいますか？／はい、姉が二人います。\n140\t你是独生子女吗？　—　不是，我有一个妹妹。\tNǐ shì dúshēng zǐnǚ ma?　—　Bú shì, wǒ yǒu yí ge mèimei.\t一人っ子ですか？／いいえ、妹が一人います。\n141\t你爸爸工作吗？　—　是的，他还在工作。\tNǐ bàba gōngzuò ma?　—　Shì de, tā hái zài gōngzuò.\tお父さんは働いていますか？／はい、働いています。\n142\t你爸爸做什么工作？　—　他是医生。\tNǐ bàba zuò shénme gōngzuò?　—　Tā shì yīshēng.\tお父さんの仕事は何ですか？／医者です。\n143\t你妈妈做什么工作？　—　她是老师。\tNǐ māma zuò shénme gōngzuò?　—　Tā shì lǎoshī.\tお母さんの仕事は何ですか？／先生です。\n144\t你妈妈也上班吗？　—　是的，她也上班。\tNǐ māma yě shàngbān ma?　—　Shì de, tā yě shàngbān.\tお母さんも働いていますか？／はい、働いています。\n145\t你和父母一起住吗？　—　是的，我们住在一起。\tNǐ hé fùmǔ yìqǐ zhù ma?　—　Shì de, wǒmen zhù zài yìqǐ.\t両親と一緒に住んでいますか？／はい、一緒に住んでいます。\n146\t你结婚了吗？　—　没有，我还是单身。\tNǐ jiéhūn le ma?　—　Méiyǒu, wǒ háishì dānshēn.\t結婚していますか？／いいえ、まだ独身です。\n147\t您结婚了吗？　—　是的，我已经结婚了。\tNín jiéhūn le ma?　—　Shì de, wǒ yǐjīng jiéhūn le.\tご結婚されていますか？／はい、結婚しています。\n148\t他有孩子吗？　—　有，他有两个孩子。\tTā yǒu háizi ma?　—　Yǒu, tā yǒu liǎng ge háizi.\t彼には子どもがいますか？／はい、二人います。\n149\t她有宝宝吗？　—　有，她有一个宝宝。\tTā yǒu bǎobao ma?　—　Yǒu, tā yǒu yí ge bǎobao.\t彼女には赤ちゃんがいますか？／はい、一人います。\n150\t你养宠物吗？　—　是的，我养了一只猫。\tNǐ yǎng chǒngwù ma?　—　Shì de, wǒ yǎng le yì zhī māo.\tペットを飼っていますか？／はい、猫を一匹飼っています。\n151\t你养狗吗？　—　是的，我养了一只狗。\tNǐ yǎng gǒu ma?　—　Shì de, wǒ yǎng le yì zhī gǒu.\t犬を飼っていますか？／はい、一匹飼っています。\n152\t你的猫叫什么名字？　—　它叫咪咪。\tNǐ de māo jiào shénme míngzi?　—　Tā jiào Mīmī.\t猫の名前は何ですか？／ミミです。\n153\t你工作吗？　—　是的，我在一家公司工作。\tNǐ gōngzuò ma?　—　Shì de, wǒ zài yì jiā gōngsī gōngzuò.\t働いていますか？／はい、会社で働いています。\n154\t你在哪里工作？　—　我在巴黎工作。\tNǐ zài nǎlǐ gōngzuò?　—　Wǒ zài Bālí gōngzuò.\tどこで働いていますか？／パリで働いています。\n155\t你的职业是什么？　—　我是工程师。\tNǐ de zhíyè shì shénme?　—　Wǒ shì gōngchéngshī.\t職業は何ですか？／エンジニアです。\n156\t你是学生吗？　—　是的，我是大学生。\tNǐ shì xuéshēng ma?　—　Shì de, wǒ shì dàxuéshēng.\t学生ですか？／はい、大学生です。\n157\t你在哪所大学学习？　—　我在里昂大学学习。\tNǐ zài nǎ suǒ dàxué xuéxí?　—　Wǒ zài Lǐ'áng Dàxué xuéxí.\tどこの大学ですか？／リヨン大学です。\n158\t你学什么专业？　—　我学经济学。\tNǐ xué shénme zhuānyè?　—　Wǒ xué jīngjìxué.\t専攻は何ですか？／経済学です。\n159\t你喜欢你的专业吗？　—　喜欢，很有意思。\tNǐ xǐhuan nǐ de zhuānyè ma?　—　Xǐhuan, hěn yǒu yìsi.\t専攻は好きですか？／はい、とても面白いです。\n160\t你会说法语吗？　—　会一点儿。\tNǐ huì shuō Fǎyǔ ma?　—　Huì yìdiǎnr.\tフランス語を話せますか？／少し話せます。\n161\t你会说几种语言？　—　我会说日语和英语。\tNǐ huì shuō jǐ zhǒng yǔyán?　—　Wǒ huì shuō Rìyǔ hé Yīngyǔ.\t何か国語話せますか？／日本語と英語です。\n162\t你学法语多久了？　—　学了两年了。\tNǐ xué Fǎyǔ duōjiǔ le?　—　Xué le liǎng nián le.\tフランス語はどのくらい勉強していますか？／2年です。\n163\t你为什么学法语？　—　因为我喜欢法国。\tNǐ wèishénme xué Fǎyǔ?　—　Yīnwèi wǒ xǐhuan Fǎguó.\tなぜフランス語を勉強していますか？／フランスが好きだからです。\n164\t你看法国电影吗？　—　看，我经常看。\tNǐ kàn Fǎguó diànyǐng ma?　—　Kàn, wǒ jīngcháng kàn.\tフランス映画を見ますか？／はい、よく見ます。\n165\t你看法语书吗？　—　看，有时候看。\tNǐ kàn Fǎyǔ shū ma?　—　Kàn, yǒushíhou kàn.\tフランス語の本を読みますか？／はい、ときどき読みます。\n166\t你的爱好是什么？　—　我喜欢听音乐。\tNǐ de àihào shì shénme?　—　Wǒ xǐhuan tīng yīnyuè.\t趣味は何ですか？／音楽を聴くことです。\n167\t你喜欢运动吗？　—　非常喜欢。\tNǐ xǐhuan yùndòng ma?　—　Fēicháng xǐhuan.\tスポーツは好きですか？／とても好きです。\n168\t你做什么运动？　—　我打网球。\tNǐ zuò shénme yùndòng?　—　Wǒ dǎ wǎngqiú.\t何のスポーツをしますか？／テニスをします。\n169\t你跑步吗？　—　每天早上都跑。\tNǐ pǎobù ma?　—　Měitiān zǎoshang dōu pǎo.\tジョギングをしますか？／毎朝走ります。\n170\t你经常去健身房吗？　—　我一周去两次。\tNǐ jīngcháng qù jiànshēnfáng ma?　—　Wǒ yì zhōu qù liǎng cì.\tジムにはよく行きますか？／週2回行きます。\n171\t你会弹乐器吗？　—　会，我会弹钢琴。\tNǐ huì tán yuèqì ma?　—　Huì, wǒ huì tán gāngqín.\t楽器は弾けますか？／はい、ピアノを弾きます。\n172\t你唱歌唱得好吗？　—　不太好。\tNǐ chànggē chàng de hǎo ma?　—　Bú tài hǎo.\t歌は上手ですか？／あまり上手ではありません。\n173\t你经常做饭吗？　—　是的，我几乎每天做饭。\tNǐ jīngcháng zuòfàn ma?　—　Shì de, wǒ jīhū měitiān zuòfàn.\tよく料理しますか？／はい、ほぼ毎日します。\n174\t你最会做什么菜？　—　我最会做意大利面。\tNǐ zuì huì zuò shénme cài?　—　Wǒ zuì huì zuò Yìdàlì miàn.\t何を作るのが得意ですか？／パスタです。\n175\t你喜欢旅行吗？　—　非常喜欢。\tNǐ xǐhuan lǚxíng ma?　—　Fēicháng xǐhuan.\t旅行は好きですか？／とても好きです。\n176\t你想去哪个国家旅行？　—　我想去法国。\tNǐ xiǎng qù nǎ ge guójiā lǚxíng?　—　Wǒ xiǎng qù Fǎguó.\tどの国へ旅行したいですか？／フランスへ行きたいです。\n177\t你去过法国吗？　—　还没有。\tNǐ qùguo Fǎguó ma?　—　Hái méiyǒu.\tフランスへ行ったことがありますか？／まだありません。\n178\t你最喜欢吃什么？　—　我最喜欢吃寿司。\tNǐ zuì xǐhuan chī shénme?　—　Wǒ zuì xǐhuan chī shòusī.\t好きな食べ物は何ですか？／寿司です。\n179\t你每天喝咖啡吗？　—　是的，每天早上都喝。\tNǐ měitiān hē kāfēi ma?　—　Shì de, měitiān zǎoshang dōu hē.\t毎日コーヒーを飲みますか？／はい、毎朝飲みます。\n180\t你喜欢喝茶吗？　—　喜欢，尤其喜欢绿茶。\tNǐ xǐhuan hē chá ma?　—　Xǐhuan, yóuqí xǐhuan lǜchá.\tお茶は好きですか？／はい、特に緑茶が好きです。\n181\t你喜欢什么音乐？　—　我喜欢爵士乐。\tNǐ xǐhuan shénme yīnyuè?　—　Wǒ xǐhuan juéshìyuè.\tどんな音楽が好きですか？／ジャズです。\n182\t你最喜欢的歌手是谁？　—　我最喜欢周杰伦。\tNǐ zuì xǐhuan de gēshǒu shì shéi?　—　Wǒ zuì xǐhuan Zhōu Jiélún.\t好きな歌手は誰ですか？／周杰倫です。\n183\t你经常看电视吗？　—　不太常看。\tNǐ jīngcháng kàn diànshì ma?　—　Bú tài cháng kàn.\tテレビはよく見ますか？／あまり見ません。\n184\t你每天上网吗？　—　是的，每天都会。\tNǐ měitiān shàngwǎng ma?　—　Shì de, měitiān dōu huì.\t毎日インターネットを使いますか？／はい、毎日使います。\n185\t你玩电子游戏吗？　—　玩，周末的时候玩。\tNǐ wán diànzǐ yóuxì ma?　—　Wán, zhōumò de shíhou wán.\tゲームをしますか？／はい、週末にします。\n186\t你喜欢看漫画吗？　—　喜欢，我很喜欢。\tNǐ xǐhuan kàn mànhuà ma?　—　Xǐhuan, wǒ hěn xǐhuan.\t漫画は好きですか？／はい、とても好きです。\n187\t你最喜欢的电影是什么？　—　我最喜欢《触不可及》。\tNǐ zuì xǐhuan de diànyǐng shì shénme?　—　Wǒ zuì xǐhuan Chù Bù Kě Jí.\t好きな映画は何ですか？／『最強のふたり』です。\n188\t你最喜欢的书是什么？　—　我最喜欢《小王子》。\tNǐ zuì xǐhuan de shū shì shénme?　—　Wǒ zuì xǐhuan Xiǎo Wángzǐ.\t好きな本は何ですか？／『星の王子さま』です。\n189\t你经常和朋友出去吗？　—　是的，几乎每个周末。\tNǐ jīngcháng hé péngyou chūqù ma?　—　Shì de, jīhū měi ge zhōumò.\t友達とよく出かけますか？／はい、ほぼ毎週末です。\n190\t你朋友多吗？　—　很多。\tNǐ péngyou duō ma?　—　Hěn duō.\t友達は多いですか？／たくさんいます。\n191\t你最好的朋友是什么样的人？　—　他很亲切。\tNǐ zuì hǎo de péngyou shì shénme yàng de rén?　—　Tā hěn qīnqiè.\t親友はどんな人ですか？／とても親切な人です。\n192\t你害羞吗？　—　有一点儿。\tNǐ hàixiū ma?　—　Yǒu yìdiǎnr.\t恥ずかしがり屋ですか？／少しそうです。\n193\t你是乐观的人吗？　—　是的，我很乐观。\tNǐ shì lèguān de rén ma?　—　Shì de, wǒ hěn lèguān.\t前向きな性格ですか？／はい、とても前向きです。\n194\t你的梦想是什么？　—　我想环游世界。\tNǐ de mèngxiǎng shì shénme?　—　Wǒ xiǎng huányóu shìjiè.\t夢は何ですか？／世界一周旅行です。\n195\t你的目标是什么？　—　我想流利地说法语。\tNǐ de mùbiāo shì shénme?　—　Wǒ xiǎng liúlì de shuō Fǎyǔ.\t目標は何ですか？／フランス語を流暢に話すことです。\n196\t你为什么学习外语？　—　因为我喜欢了解不同的文化。\tNǐ wèishénme xuéxí wàiyǔ?　—　Yīnwèi wǒ xǐhuan liǎojiě bùtóng de wénhuà.\tなぜ外国語を勉強していますか？／異文化を知るのが好きだからです。\n197\t你想住在国外吗？　—　想，将来有机会的话。\tNǐ xiǎng zhù zài guówài ma?　—　Xiǎng, jiānglái yǒu jīhuì de huà.\t海外に住みたいですか？／はい、機会があれば住みたいです。\n198\t你喜欢认识新朋友吗？　—　喜欢，我喜欢和不同的人交流。\tNǐ xǐhuan rènshi xīn péngyou ma?　—　Xǐhuan, wǒ xǐhuan hé bùtóng de rén jiāoliú.\t新しい友達を作るのは好きですか？／はい、いろいろな人と交流するのが好きです。\n199\t你可以用中文做自我介绍吗？　—　当然可以。\tNǐ kěyǐ yòng Zhōngwén zuò zìwǒ jièshào ma?　—　Dāngrán kěyǐ.\t中国語で自己紹介できますか？／もちろんできます。\n200\t谢谢你的介绍。　—　不客气，很高兴认识你。\tXièxie nǐ de jièshào.　—　Bú kèqi, hěn gāoxìng rènshi nǐ.\t紹介してくれてありがとう。／どういたしまして。お会いできてうれしいです。\n201\t你每天几点起床？　—　我每天七点起床。\tNǐ měitiān jǐ diǎn qǐchuáng?　—　Wǒ měitiān qī diǎn qǐchuáng.\t毎日何時に起きますか？／毎日7時に起きます。\n202\t你早上一般做什么？　—　我先吃早饭。\tNǐ zǎoshang yìbān zuò shénme?　—　Wǒ xiān chī zǎofàn.\t朝は何をしますか？／まず朝食を食べます。\n203\t你坐公交车上班吗？　—　是的，我每天坐公交车。\tNǐ zuò gōngjiāochē shàngbān ma?　—　Shì de, wǒ měitiān zuò gōngjiāochē.\t仕事へはバスで行きますか？／はい、毎日バスです。\n204\t你坐火车上班吗？　—　不，我开车去。\tNǐ zuò huǒchē shàngbān ma?　—　Bù, wǒ kāichē qù.\t電車で通勤しますか？／いいえ、車です。\n205\t你上班要多长时间？　—　大约三十分钟。\tNǐ shàngbān yào duō cháng shíjiān?　—　Dàyuē sānshí fēnzhōng.\t通勤時間はどれくらいですか？／約30分です。\n206\t你星期六上班吗？　—　不上班，我休息。\tNǐ Xīngqīliù shàngbān ma?　—　Bù shàngbān, wǒ xiūxi.\t土曜日は働きますか？／いいえ、休みです。\n207\t你星期天做什么？　—　我和家人一起过。\tNǐ Xīngqītiān zuò shénme?　—　Wǒ hé jiārén yìqǐ guò.\t日曜日は何をしますか？／家族と過ごします。\n208\t你周末做饭吗？　—　做，我喜欢学新菜。\tNǐ zhōumò zuòfàn ma?　—　Zuò, wǒ xǐhuan xué xīn cài.\t週末は料理しますか？／はい、新しい料理を作ります。\n209\t你平常在哪里购物？　—　我去家附近的超市。\tNǐ píngcháng zài nǎlǐ gòuwù?　—　Wǒ qù jiā fùjìn de chāoshì.\t普段どこで買い物をしますか？／家の近くのスーパーです。\n210\t你喜欢买东西吗？　—　喜欢，特别喜欢买书。\tNǐ xǐhuan mǎi dōngxi ma?　—　Xǐhuan, tèbié xǐhuan mǎi shū.\t買い物は好きですか？／はい、特に本を買うのが好きです。\n211\t你最喜欢哪个季节？　—　我最喜欢春天。\tNǐ zuì xǐhuan nǎ ge jìjié?　—　Wǒ zuì xǐhuan Chūntiān.\t好きな季節は？／春です。\n212\t你喜欢夏天吗？　—　喜欢，因为天气很好。\tNǐ xǐhuan Xiàtiān ma?　—　Xǐhuan, yīnwèi tiānqì hěn hǎo.\t夏は好きですか？／はい、天気がいいからです。\n213\t你喜欢山还是海？　—　我更喜欢海。\tNǐ xǐhuan shān háishì hǎi?　—　Wǒ gèng xǐhuan hǎi.\t山と海ならどちらが好きですか？／海の方が好きです。\n214\t你经常旅行吗？　—　一年两三次。\tNǐ jīngcháng lǚxíng ma?　—　Yì nián liǎng sān cì.\tよく旅行しますか？／年に2〜3回です。\n215\t你通常和谁一起旅行？　—　我和朋友一起去。\tNǐ tōngcháng hé shéi yìqǐ lǚxíng?　—　Wǒ hé péngyou yìqǐ qù.\t誰と旅行しますか？／友達とです。\n216\t你喜欢住酒店吗？　—　喜欢，我觉得很舒服。\tNǐ xǐhuan zhù jiǔdiàn ma?　—　Xǐhuan, wǒ juéde hěn shūfu.\tホテルは好きですか？／はい、快適だからです。\n217\t旅行的时候你拍很多照片吗？　—　是的，我喜欢拍照。\tLǚxíng de shíhou nǐ pāi hěn duō zhàopiàn ma?　—　Shì de, wǒ xǐhuan pāizhào.\t旅行中はたくさん写真を撮りますか？／はい、写真を撮るのが好きです。\n218\t你最喜欢去过哪个国家？　—　我最喜欢日本。\tNǐ zuì xǐhuan qùguo nǎ ge guójiā?　—　Wǒ zuì xǐhuan Rìběn.\t今までで一番好きな国は？／日本です。\n219\t你喜欢学习新东西吗？　—　喜欢，每天都想学习。\tNǐ xǐhuan xuéxí xīn dōngxi ma?　—　Xǐhuan, měitiān dōu xiǎng xuéxí.\t新しいことを学ぶのは好きですか？／はい、毎日学びたいです。\n220\t你最喜欢哪门课？　—　我最喜欢法语课。\tNǐ zuì xǐhuan nǎ mén kè?　—　Wǒ zuì xǐhuan Fǎyǔ kè.\t好きな授業は？／フランス語です。\n221\t你晚上做作业吗？　—　做，我吃完晚饭以后做。\tNǐ wǎnshang zuò zuòyè ma?　—　Zuò, wǒ chī wán wǎnfàn yǐhòu zuò.\t夜に宿題をしますか？／はい、夕食後にします。\n222\t你看学习视频吗？　—　看，很有帮助。\tNǐ kàn xuéxí shìpín ma?　—　Kàn, hěn yǒu bāngzhù.\t勉強動画を見ますか？／はい、とても役立ちます。\n223\t你想说一口流利的法语吗？　—　想，这是我的目标。\tNǐ xiǎng shuō yì kǒu liúlì de Fǎyǔ ma?　—　Xiǎng, zhè shì wǒ de mùbiāo.\t流暢なフランス語を話したいですか？／はい、それが目標です。\n224\t你想去法国工作吗？　—　想，我觉得那会是很好的经验。\tNǐ xiǎng qù Fǎguó gōngzuò ma?　—　Xiǎng, wǒ juéde nà huì shì hěn hǎo de jīngyàn.\tフランスで働きたいですか？／はい、とても良い経験になると思います。\n225\t你最大的梦想是什么？　—　我想环游世界。\tNǐ zuì dà de mèngxiǎng shì shénme?　—　Wǒ xiǎng huányóu shìjiè.\t一番大きな夢は何ですか？／世界一周旅行です。\n226\t你在学校有很多朋友吗？　—　有，我有很多朋友。\tNǐ zài xuéxiào yǒu hěn duō péngyou ma?　—　Yǒu, wǒ yǒu hěn duō péngyou.\t学校に友達はたくさんいますか？／はい、たくさんいます。\n227\t你最好的朋友是谁？　—　我最好的朋友叫卢卡斯。\tNǐ zuì hǎo de péngyou shì shéi?　—　Wǒ zuì hǎo de péngyou jiào Lúkǎsī.\t親友は誰ですか？／ルーカスです。\n228\t你们认识多久了？　—　我们认识五年了。\tNǐmen rènshi duōjiǔ le?　—　Wǒmen rènshi wǔ nián le.\tいつから友達ですか？／5年前からです。\n229\t你经常见朋友吗？　—　几乎每个周末都会见。\tNǐ jīngcháng jiàn péngyou ma?　—　Jīhū měi ge zhōumò dōu huì jiàn.\t友達とはよく会いますか？／ほぼ毎週末会います。\n230\t你们一起做什么？　—　我们经常去咖啡店聊天。\tNǐmen yìqǐ zuò shénme?　—　Wǒmen jīngcháng qù kāfēidiàn liáotiān.\t一緒に何をしますか？／よくカフェで話します。\n231\t你喜欢出去还是待在家里？　—　我更喜欢待在家里。\tNǐ xǐhuan chūqù háishì dāi zài jiālǐ?　—　Wǒ gèng xǐhuan dāi zài jiālǐ.\t外出と家、どちらが好きですか？／家にいる方が好きです。\n232\t你的性格安静吗？　—　是的，我比较安静。\tNǐ de xìnggé ānjìng ma?　—　Shì de, wǒ bǐjiào ānjìng.\t落ち着いた性格ですか？／はい、比較的落ち着いています。\n233\t你喜欢和别人聊天吗？　—　喜欢，我喜欢交朋友。\tNǐ xǐhuan hé biérén liáotiān ma?　—　Xǐhuan, wǒ xǐhuan jiāo péngyou.\t人と話すのは好きですか？／はい、友達を作るのが好きです。\n234\t你有耐心吗？　—　我觉得我很有耐心。\tNǐ yǒu nàixīn ma?　—　Wǒ juéde wǒ hěn yǒu nàixīn.\t我慢強いですか？／はい、そう思います。\n235\t你的优点是什么？　—　我做事很认真。\tNǐ de yōudiǎn shì shénme?　—　Wǒ zuòshì hěn rènzhēn.\t長所は何ですか？／何事にも真面目です。\n236\t你的缺点是什么？　—　我有时候有点害羞。\tNǐ de quēdiǎn shì shénme?　—　Wǒ yǒushíhou yǒudiǎn hàixiū.\t短所は何ですか？／少し恥ずかしがり屋なところです。\n237\t你喜欢团队合作吗？　—　喜欢，我觉得效率更高。\tNǐ xǐhuan tuánduì hézuò ma?　—　Xǐhuan, wǒ juéde xiàolǜ gèng gāo.\tチームで働くのは好きですか？／はい、その方が効率が良いです。\n238\t你喜欢一个人工作吗？　—　有时候喜欢，因为可以专心。\tNǐ xǐhuan yí ge rén gōngzuò ma?　—　Yǒushíhou xǐhuan, yīnwèi kěyǐ zhuānxīn.\t一人で働くのは好きですか？／集中できるので時々好きです。\n239\t你总是准时吗？　—　是的，我很守时。\tNǐ zǒngshì zhǔnshí ma?　—　Shì de, wǒ hěn shǒushí.\tいつも時間を守りますか？／はい、とても時間に正確です。\n240\t你今天忙吗？　—　很忙，我有很多工作。\tNǐ jīntiān máng ma?　—　Hěn máng, wǒ yǒu hěn duō gōngzuò.\t今日は忙しいですか？／はい、とても忙しいです。\n241\t下班以后你做什么？　—　我直接回家。\tXiàbān yǐhòu nǐ zuò shénme?　—　Wǒ zhíjiē huí jiā.\t仕事の後は何をしますか？／まっすぐ家へ帰ります。\n242\t你经常看新闻吗？　—　是的，我每天晚上都看。\tNǐ jīngcháng kàn xīnwén ma?　—　Shì de, wǒ měitiān wǎnshang dōu kàn.\tニュースはよく見ますか？／はい、毎晩見ます。\n243\t你看报纸吗？　—　看，不过我大多在网上看。\tNǐ kàn bàozhǐ ma?　—　Kàn, búguò wǒ dàduō zài wǎngshàng kàn.\t新聞は読みますか？／はい、でも主にネットで読みます。\n244\t你经常用手机吗？　—　经常，不过工作的时候不用。\tNǐ jīngcháng yòng shǒujī ma?　—　Jīngcháng, búguò gōngzuò de shíhou bú yòng.\tスマホはよく使いますか？／はい、でも仕事中は使いません。\n245\t你喜欢用社交媒体吗？　—　喜欢，不过不会用太久。\tNǐ xǐhuan yòng shèjiāo méitǐ ma?　—　Xǐhuan, búguò bú huì yòng tài jiǔ.\tSNSは好きですか？／はい、でも使いすぎません。\n246\t你经常发消息吗？　—　是的，我经常给家人和朋友发消息。\tNǐ jīngcháng fā xiāoxi ma?　—　Shì de, wǒ jīngcháng gěi jiārén hé péngyou fā xiāoxi.\tメッセージはよく送りますか？／はい、家族や友達によく送ります。\n247\t你今天晚上有什么计划？　—　我要看一部电影。\tNǐ jīntiān wǎnshang yǒu shénme jìhuà?　—　Wǒ yào kàn yí bù diànyǐng.\t今夜は何をしますか？／映画を一本見ます。\n248\t你睡得早吗？　—　是的，我一般十点睡觉。\tNǐ shuì de zǎo ma?　—　Shì de, wǒ yìbān shí diǎn shuìjiào.\t早寝ですか？／はい、普段は10時に寝ます。\n249\t你睡得好吗？　—　很好，我每天都睡得很香。\tNǐ shuì de hǎo ma?　—　Hěn hǎo, wǒ měitiān dōu shuì de hěn xiāng.\tよく眠れますか？／はい、毎日ぐっすり眠れます。\n250\t明天的准备做好了吗？　—　做好了，都准备好了。\tMíngtiān de zhǔnbèi zuò hǎo le ma?　—　Zuò hǎo le, dōu zhǔnbèi hǎo le.\t明日の準備はできていますか？／はい、全部準備できています。\n251\t你的电话号码是多少？　—　我的电话号码是 06 12 34 56 78。\tNǐ de diànhuà hàomǎ shì duōshao?　—　Wǒ de diànhuà hàomǎ shì líng liù, yī èr, sān sì, wǔ liù, qī bā.\t電話番号は何ですか？／06 12 34 56 78です。\n252\t可以告诉我你的电子邮箱吗？　—　当然可以。\tKěyǐ gàosu wǒ nǐ de diànzǐ yóuxiāng ma?　—　Dāngrán kěyǐ.\tメールアドレスを教えてもらえますか？／もちろんです。\n253\t你回消息快吗？　—　一般都很快。\tNǐ huí xiāoxi kuài ma?　—　Yìbān dōu hěn kuài.\tメッセージの返信は早いですか？／たいてい早いです。\n254\t你喜欢打电话还是发消息？　—　我更喜欢发消息。\tNǐ xǐhuan dǎ diànhuà háishì fā xiāoxi?　—　Wǒ gèng xǐhuan fā xiāoxi.\t電話とメッセージならどちらが好きですか？／メッセージの方が好きです。\n255\t你每天用电脑吗？　—　是的，每天都用。\tNǐ měitiān yòng diànnǎo ma?　—　Shì de, měitiān dōu yòng.\t毎日パソコンを使いますか？／はい、毎日使います。\n256\t你有时候在家工作吗？　—　有，一周一次。\tNǐ yǒushíhou zài jiā gōngzuò ma?　—　Yǒu, yì zhōu yí cì.\t時々在宅勤務しますか？／はい、週に1回です。\n257\t你最喜欢哪座城市？　—　我最喜欢京都。\tNǐ zuì xǐhuan nǎ zuò chéngshì?　—　Wǒ zuì xǐhuan Jīngdū.\t一番好きな街はどこですか？／京都です。\n258\t你为什么喜欢那座城市？　—　因为那儿很漂亮。\tNǐ wèishénme xǐhuan nà zuò chéngshì?　—　Yīnwèi nàr hěn piàoliang.\tなぜその街が好きですか？／とてもきれいだからです。\n259\t你想去巴黎吗？　—　想，那是我的梦想。\tNǐ xiǎng qù Bālí ma?　—　Xiǎng, nà shì wǒ de mèngxiǎng.\tパリへ行きたいですか？／はい、夢です。\n260\t你去过几个国家？　—　我去过五个国家。\tNǐ qùguo jǐ ge guójiā?　—　Wǒ qùguo wǔ ge guójiā.\t何か国行ったことがありますか？／5か国です。\n261\t下次你想去哪个国家？　—　我想去意大利。\tXià cì nǐ xiǎng qù nǎ ge guójiā?　—　Wǒ xiǎng qù Yìdàlì.\t次はどの国へ行きたいですか？／イタリアです。\n262\t你坐飞机旅行吗？　—　是的，大多数时候坐飞机。\tNǐ zuò fēijī lǚxíng ma?　—　Shì de, dàduōshù shíhou zuò fēijī.\t飛行機で旅行しますか？／はい、たいてい飛行機です。\n263\t你喜欢了解新的文化吗？　—　非常喜欢。\tNǐ xǐhuan liǎojiě xīn de wénhuà ma?　—　Fēicháng xǐhuan.\t新しい文化を知るのは好きですか？／はい、とても好きです。\n264\t你最喜欢哪道法国菜？　—　我最喜欢法式焗土豆。\tNǐ zuì xǐhuan nǎ dào Fǎguó cài?　—　Wǒ zuì xǐhuan Fǎshì jútǔdòu.\t好きなフランス料理は？／グラタン・ドフィノワです。\n265\t你会做外国菜吗？　—　会，周末偶尔做。\tNǐ huì zuò wàiguó cài ma?　—　Huì, zhōumò ǒu'ěr zuò.\t外国料理を作りますか？／はい、週末に時々作ります。\n266\t旅行的时候你常拍照吗？　—　常拍，我喜欢留下回忆。\tLǚxíng de shíhou nǐ cháng pāizhào ma?　—　Cháng pāi, wǒ xǐhuan liúxià huíyì.\t旅行中はよく写真を撮りますか？／はい、思い出を残したいので撮ります。\n267\t你最喜欢什么颜色？　—　我最喜欢蓝色。\tNǐ zuì xǐhuan shénme yánsè?　—　Wǒ zuì xǐhuan lánsè.\t好きな色は何ですか？／青です。\n268\t你最喜欢什么动物？　—　我最喜欢猫。\tNǐ zuì xǐhuan shénme dòngwù?　—　Wǒ zuì xǐhuan māo.\t好きな動物は何ですか？／猫です。\n269\t你每天喝很多水吗？　—　是的，大约两升。\tNǐ měitiān hē hěn duō shuǐ ma?　—　Shì de, dàyuē liǎng shēng.\t毎日たくさん水を飲みますか？／はい、約2リットル飲みます。\n270\t你注意身体健康吗？　—　注意，我经常运动。\tNǐ zhùyì shēntǐ jiànkāng ma?　—　Zhùyì, wǒ jīngcháng yùndòng.\t健康に気を付けていますか？／はい、よく運動しています。\n271\t你每天吃早饭吗？　—　是的，每天都吃。\tNǐ měitiān chī zǎofàn ma?　—　Shì de, měitiān dōu chī.\t毎日朝食を食べますか？／はい、毎日食べます。\n272\t你最喜欢什么水果？　—　我最喜欢草莓。\tNǐ zuì xǐhuan shénme shuǐguǒ?　—　Wǒ zuì xǐhuan cǎoméi.\t好きな果物は何ですか？／いちごです。\n273\t你常喝果汁吗？　—　常喝，最喜欢橙汁。\tNǐ cháng hē guǒzhī ma?　—　Cháng hē, zuì xǐhuan chéngzhī.\tジュースはよく飲みますか？／はい、オレンジジュースが好きです。\n274\t你更喜欢咖啡还是茶？　—　我更喜欢咖啡。\tNǐ gèng xǐhuan kāfēi háishì chá?　—　Wǒ gèng xǐhuan kāfēi.\tコーヒーとお茶ならどちらが好きですか？／コーヒーです。\n275\t这个周末你有什么安排？　—　我要去见朋友。\tZhège zhōumò nǐ yǒu shénme ānpái?　—　Wǒ yào qù jiàn péngyou.\t今週末は何をしますか？／友達に会います。\n276\t你放假的时候做什么？　—　我和家人一起旅行。\tNǐ fàngjià de shíhou zuò shénme?　—　Wǒ hé jiārén yìqǐ lǚxíng.\t休暇は何をしますか？／家族と旅行します。\n277\t你喜欢待在家里吗？　—　喜欢，尤其是下雨天。\tNǐ xǐhuan dāi zài jiālǐ ma?　—　Xǐhuan, yóuqí shì xiàyǔtiān.\t家で過ごすのは好きですか？／はい、特に雨の日が好きです。\n278\t你经常看法语视频吗？　—　是的，为了提高法语。\tNǐ jīngcháng kàn Fǎyǔ shìpín ma?　—　Shì de, wèile tígāo Fǎyǔ.\tフランス語の動画を見ますか？／はい、上達するためです。\n279\t你听播客吗？　—　听，几乎每天都听。\tNǐ tīng bōkè ma?　—　Tīng, jīhū měitiān dōu tīng.\tポッドキャストを聴きますか？／はい、ほぼ毎日です。\n280\t学习的时候你做笔记吗？　—　做，这样更容易记住。\tXuéxí de shíhou nǐ zuò bǐjì ma?　—　Zuò, zhèyàng gèng róngyì jìzhù.\t勉強中にメモを取りますか？／はい、その方が覚えやすいです。\n281\t你怎么学习法语？　—　我每天练习。\tNǐ zěnme xuéxí Fǎyǔ?　—　Wǒ měitiān liànxí.\tどのようにフランス語を勉強していますか？／毎日練習しています。\n282\t你一个人学习还是和朋友一起学习？　—　大部分时间一个人学习。\tNǐ yí ge rén xuéxí háishì hé péngyou yìqǐ xuéxí?　—　Dà bùfen shíjiān yí ge rén xuéxí.\t一人で勉強しますか、それとも友達とですか？／ほとんど一人で勉強します。\n283\t你想参加法语考试吗？　—　想，明年参加。\tNǐ xiǎng cānjiā Fǎyǔ kǎoshì ma?　—　Xiǎng, míngnián cānjiā.\tフランス語の試験を受けたいですか？／はい、来年受けたいです。\n284\t你想达到什么水平？　—　我想达到B1水平。\tNǐ xiǎng dádào shénme shuǐpíng?　—　Wǒ xiǎng dádào B yī shuǐpíng.\tどのレベルを目指していますか？／B1レベルです。\n285\t你会和外国人说法语吗？　—　有机会的话，我会。\tNǐ huì hé wàiguórén shuō Fǎyǔ ma?　—　Yǒu jīhuì de huà, wǒ huì.\t外国人とフランス語で話しますか？／機会があれば話します。\n286\t你想将来住在法国吗？　—　想，住几年也不错。\tNǐ xiǎng jiānglái zhù zài Fǎguó ma?　—　Xiǎng, zhù jǐ nián yě búcuò.\tいつかフランスに住みたいですか？／はい、数年住んでみたいです。\n287\t你最大的目标是什么？　—　幸福地生活，也帮助别人。\tNǐ zuì dà de mùbiāo shì shénme?　—　Xìngfú de shēnghuó, yě bāngzhù biérén.\t一番大きな目標は何ですか？／幸せに暮らし、人の役に立つことです。\n288\t对你来说什么最重要？　—　家人最重要。\tDuì nǐ láishuō shénme zuì zhòngyào?　—　Jiārén zuì zhòngyào.\tあなたにとって一番大切なものは？／家族です。\n289\t你喜欢认识外国朋友吗？　—　喜欢，我喜欢了解不同的文化。\tNǐ xǐhuan rènshi wàiguó péngyou ma?　—　Xǐhuan, wǒ xǐhuan liǎojiě bùtóng de wénhuà.\t外国の友達を作るのは好きですか？／はい、異文化を知るのが好きです。\n290\t你去过很多国家吗？　—　还没有，不过我想去更多国家。\tNǐ qùguo hěn duō guójiā ma?　—　Hái méiyǒu, búguò wǒ xiǎng qù gèng duō guójiā.\tたくさんの国へ行ったことがありますか？／まだですが、もっと行きたいです。\n291\t你将来的梦想是什么？　—　我想开一家自己的公司。\tNǐ jiānglái de mèngxiǎng shì shénme?　—　Wǒ xiǎng kāi yì jiā zìjǐ de gōngsī.\t将来の夢は何ですか？／自分の会社を作ることです。\n292\t你还想学别的语言吗？　—　想，我对西班牙语很感兴趣。\tNǐ hái xiǎng xué bié de yǔyán ma?　—　Xiǎng, wǒ duì Xībānyáyǔ hěn gǎn xìngqù.\tほかの外国語も学びたいですか？／はい、スペイン語に興味があります。\n293\t你会怎么介绍自己的性格？　—　我很安静，也很乐观。\tNǐ huì zěnme jièshào zìjǐ de xìnggé?　—　Wǒ hěn ānjìng, yě hěn lèguān.\t自分の性格をどう説明しますか？／穏やかで前向きです。\n294\t你有压力的时候会做什么？　—　我会听音乐放松。\tNǐ yǒu yālì de shíhou huì zuò shénme?　—　Wǒ huì tīng yīnyuè fàngsōng.\tストレスがあるときは何をしますか？／音楽を聴いてリラックスします。\n295\t你会给初学者什么建议？　—　每天坚持练习一点儿。\tNǐ huì gěi chūxuézhě shénme jiànyì?　—　Měitiān jiānchí liànxí yìdiǎnr.\t初心者にどんなアドバイスをしますか？／毎日少しずつ練習してください。\n296\t你今天开心吗？　—　很开心。\tNǐ jīntiān kāixīn ma?　—　Hěn kāixīn.\t今日は楽しいですか？／はい、とても楽しいです。\n297\t谢谢你陪我聊天。　—　不客气，我也很开心。\tXièxie nǐ péi wǒ liáotiān.　—　Bú kèqi, wǒ yě hěn kāixīn.\tお話ありがとうございました。／どういたしまして。私も楽しかったです。\n298\t希望以后还能见到你。　—　我也是，再见！\tXīwàng yǐhòu hái néng jiàndào nǐ.　—　Wǒ yě shì, zàijiàn!\tまたお会いできるといいですね。／私もです。また会いましょう！\n299\t以后我可以联系你吗？　—　当然可以。\tYǐhòu wǒ kěyǐ liánxì nǐ ma?　—　Dāngrán kěyǐ.\tまた連絡してもいいですか？／もちろんです。\n300\t再见，祝你今天愉快！　—　谢谢，也祝你愉快！\tZàijiàn, zhù nǐ jīntiān yúkuài!　—　Xièxie, yě zhù nǐ yúkuài!\tさようなら、よい一日を！／ありがとう、あなたもよい一日を！";
+window.CHINESE_AUDIO={};
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+let cards=[], deck=[], pos=0, revealed=false, filter='all';
+let activeAudio=null, activeUtterance=null;
+let loopState={running:false,paused:false,token:0,index:0}, loopResolve=null;
+
+const progressKey='chinese-daily-routine-progress-v1';
+const state=JSON.parse(localStorage.getItem(progressKey)||'{}');
+const today=()=>new Date().toISOString().slice(0,10);
+const save=()=>localStorage.setItem(progressKey,JSON.stringify(state));
+const shuffle=a=>{for(let i=a.length-1;i;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+
+async function init(){
+  const text=window.CHINESE_FLASHCARD_TSV;
+  cards=text.trim().split(/\r?\n/).map(line=>{const [id,zh,py,ja]=line.split('\t');return {id:+id,zh,py,ja}}).filter(x=>x.ja&&x.zh&&x.py);
+  $('#allCount').textContent=cards.length;
+  $('#totalCount').textContent=cards.length;
+  $('#loopStartId').max=cards.length;
+  $('#loopEndId').max=cards.length;
+  $('#loopEndId').value=cards.length;
+  buildDeck(); updateStats(); bind();
+}
+function meta(id){return state[id]||{score:0,due:'0000-00-00',seen:0}}
+function buildDeck(startId){
+  let list=cards.filter(c=>filter==='all'||(filter==='due'&&meta(c.id).due<=today())||(filter==='hard'&&meta(c.id).score>0&&meta(c.id).score<3));
+  if($('#priority').checked) list.sort((a,b)=>meta(a.id).score-meta(b.id).score);
+  else if($('#shuffle').checked) shuffle(list);
+  deck=list; pos=Math.max(0,startId?deck.findIndex(c=>c.id===startId):0); render();
+}
+function sides(c){let d=$('#direction').value;if(d==='random')d=Math.random()>.5?'ja-zh':'zh-ja';return d==='ja-zh'?{prompt:c.ja,answer:c.zh,pinyin:c.py,lang:'日本語',voice:'ja-JP',hint:'頭の中で中国語にしてみましょう'}:{prompt:c.zh,answer:c.ja,pinyin:'',lang:'中文',voice:'zh-CN',hint:'日本語の意味を思い出しましょう'}}
+function render(){
+  stopAudio();
+  revealed=false; $('#card').classList.remove('revealed'); $('#ratings').hidden=true; $('#revealBtn').style.display='flex';
+  $('#deckTotal').textContent=deck.length; $('#currentIndex').textContent=deck.length?pos+1:0;
+  if(!deck.length){$('#promptLang').textContent='完了';$('#prompt').textContent='このセットのカードはありません';$('#hint').textContent='別の学習セットを選んでください';$('#revealBtn').style.display='none';return}
+  const s=sides(deck[pos]); Object.assign(deck[pos],{_s:s}); $('#promptLang').textContent=s.lang; $('#prompt').textContent=s.prompt; $('#answer').textContent=s.answer; $('#pinyin').textContent=s.pinyin||''; $('#pinyin').hidden=!s.pinyin; $('#hint').textContent=s.hint;
+  $('#prompt').classList.toggle('japanese',s.voice==='ja-JP'); $('#answer').classList.toggle('japanese',s.voice!=='ja-JP');
+  loadAudio(deck[pos].id); if(s.lang==='中文') playChinese(deck[pos], true);
+}
+function reveal(){if(!deck.length||revealed)return;revealed=true;$('#card').classList.add('revealed');$('#ratings').hidden=false;$('#revealBtn').style.display='none';if(deck[pos]._s.lang==='日本語')playChinese(deck[pos],true)}
+function rate(score){
+  if(!revealed)return; const c=deck[pos], days=[0,0,1,3,7][score], due=new Date();due.setDate(due.getDate()+days);
+  state[c.id]={score,seen:(meta(c.id).seen||0)+1,due:due.toISOString().slice(0,10)};save();updateStats();toast(['','もう一度、すぐ会いましょう','苦手カードに追加しました','いい調子です','しっかり定着しています'][score]);next();
+}
+function next(delta=1){if(!deck.length)return;pos=(pos+delta+deck.length)%deck.length;render()}
+function updateStats(){
+  const mastered=cards.filter(c=>meta(c.id).score>=3).length, due=cards.filter(c=>meta(c.id).due<=today()).length, hard=cards.filter(c=>meta(c.id).score>0&&meta(c.id).score<3).length, seen=cards.reduce((n,c)=>n+(meta(c.id).seen||0),0);
+  $('#masteredCount').textContent=mastered;$('#dueCount').textContent=due;$('#hardCount').textContent=hard;$('#streak').textContent=seen;$('#orbit').style.strokeDashoffset=327-(327*mastered/cards.length||0)
+}
+function stopAudio(){if(activeAudio){activeAudio.pause();activeAudio.currentTime=0;activeAudio=null}speechSynthesis.cancel();activeUtterance=null}
+// Warm up the speech engine with an inaudible utterance, then speak the
+// original Chinese unchanged. This protects the first syllable without an
+// audible dummy sound.
+function speakChineseProtected(text,onend,onerror){
+  const lead=new SpeechSynthesisUtterance('嗯');
+  lead.lang='zh-CN';lead.rate=2;lead.volume=0;
+  const utterance=new SpeechSynthesisUtterance(text);
+  utterance.lang='zh-CN';utterance.rate=.88;
+  utterance.onend=onend||null;utterance.onerror=onerror||null;
+  activeUtterance=utterance;
+  speechSynthesis.speak(lead);
+  speechSynthesis.speak(utterance);
+  return utterance;
+}
+function loadAudio(id){
+  if(window.CHINESE_AUDIO?.[id])return Promise.resolve(true);
+  const url=window.CHINESE_AUDIO_URLS?.[id];if(!url)return Promise.resolve(false);
+  if(!loadAudio.pending)loadAudio.pending={};
+  if(!loadAudio.pending[id])loadAudio.pending[id]=new Promise(resolve=>{const s=document.createElement('script');s.src=url;s.onload=()=>resolve(true);s.onerror=()=>resolve(false);document.head.appendChild(s)});
+  return loadAudio.pending[id];
+}
+async function playChinese(card, fallback=false){
+  stopAudio(); await loadAudio(card.id); const src=window.CHINESE_AUDIO?.[card.id];
+  if(src){activeAudio=new Audio(src);activeAudio.play().catch(()=>{})}
+  else if(fallback){let u;u=speakChineseProtected(card.zh,()=>{if(activeUtterance===u)activeUtterance=null})}
+}
+function speak(){if(!deck.length)return;if(deck[pos]._s.voice==='zh-CN')return playChinese(deck[pos],true);stopAudio();const u=new SpeechSynthesisUtterance(deck[pos]._s.prompt);u.lang=deck[pos]._s.voice;u.rate=.88;activeUtterance=u;u.onend=()=>{if(activeUtterance===u)activeUtterance=null};speechSynthesis.speak(u)}
+function playChineseOnce(card,token){
+  return new Promise(async resolve=>{
+    stopAudio();await loadAudio(card.id);
+    if(token!==loopState.token)return resolve();
+    let settled=false;
+    const finish=()=>{if(settled)return;settled=true;if(loopResolve===finish)loopResolve=null;activeAudio=null;activeUtterance=null;resolve()};
+    loopResolve=finish;
+    const src=window.CHINESE_AUDIO?.[card.id];
+    if(src){activeAudio=new Audio(src);activeAudio.onended=finish;activeAudio.onerror=finish;activeAudio.play().catch(finish)}
+    else{speakChineseProtected(card.zh,finish,finish)}
+  });
+}
+const loopGap=(token,ms=450)=>new Promise(resolve=>setTimeout(()=>resolve(token===loopState.token),ms));
+function showLoopCard(){
+  $('#card').classList.add('revealed');
+  $('#answerArea').style.display='block';
+  $('#revealBtn').style.display='none';
+  $('#ratings').hidden=true;
+}
+async function startLoop(mode='range'){
+  if(loopState.running||!cards.length)return;
+  if(mode==='all'){$('#loopStartId').value=1;$('#loopEndId').value=cards.length}
+  let requestedStart=Math.trunc(Number($('#loopStartId').value))||1;
+  let requestedEnd=Math.trunc(Number($('#loopEndId').value))||cards.length;
+  requestedStart=Math.min(cards.length,Math.max(1,requestedStart));
+  requestedEnd=Math.min(cards.length,Math.max(1,requestedEnd));
+  if(requestedStart>requestedEnd)[requestedStart,requestedEnd]=[requestedEnd,requestedStart];
+  const startIndex=requestedStart-1,endIndex=requestedEnd-1;
+  $('#loopStartId').value=startIndex+1;
+  $('#loopEndId').value=endIndex+1;
+  $('#loopStartId').disabled=true;$('#loopEndId').disabled=true;
+  loopState={running:true,paused:false,token:loopState.token+1,index:startIndex,startIndex,endIndex,mode};
+  filter='all';$$('.set-option').forEach(x=>x.classList.toggle('active',x.dataset.filter==='all'));
+  $('#direction').value='ja-zh';deck=[...cards];pos=startIndex;
+  $('#loopAllBtn').hidden=true;$('#loopRangeBtn').hidden=true;$('#loopControls').hidden=false;render();showLoopCard();
+  const token=loopState.token;
+  while(loopState.running&&token===loopState.token){
+    const card=cards[loopState.index];pos=loopState.index;render();showLoopCard();
+    await playChineseOnce(card,token);
+    if(loopState.running&&token===loopState.token)await loopGap(token);
+    if(loopState.running&&token===loopState.token)await playChineseOnce(card,token);
+    if(!loopState.running||token!==loopState.token)break;
+    loopState.index=loopState.index===loopState.endIndex?loopState.startIndex:loopState.index+1;
+  }
+}
+function toggleLoopPause(){
+  if(!loopState.running)return;loopState.paused=!loopState.paused;
+  $('#loopPauseBtn').classList.toggle('paused',loopState.paused);
+  if(loopState.paused){activeAudio?.pause();speechSynthesis.pause();$('#loopPauseBtn').textContent='▶ 再開'}
+  else{if(activeAudio)activeAudio.play().catch(()=>{});speechSynthesis.resume();$('#loopPauseBtn').textContent='Ⅱ 一時停止'}
+}
+function stopLoop(){
+  if(!loopState.running)return;loopState.running=false;loopState.paused=false;loopState.token++;
+  stopAudio();if(loopResolve){loopResolve();loopResolve=null}
+  $('#answerArea').style.display='';$('#loopStartId').disabled=false;$('#loopEndId').disabled=false;$('#loopPauseBtn').classList.remove('paused');$('#loopPauseBtn').textContent='Ⅱ 一時停止';$('#loopControls').hidden=true;$('#loopAllBtn').hidden=false;$('#loopRangeBtn').hidden=false;render();toast('ループ再生を終了しました');
+}
+function toast(t){const el=$('#toast');el.textContent=t;el.classList.add('show');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),1600)}
+function results(q=''){const x=q.toLowerCase().trim(), matches=cards.filter(c=>!x||c.ja.toLowerCase().includes(x)||c.zh.toLowerCase().includes(x)||c.py.toLowerCase().includes(x));$('#searchResults').innerHTML=matches.map(c=>`<div class="result" data-id="${c.id}"><b>${c.ja}</b><span>${c.zh}<br><small>${c.py}</small></span></div>`).join('')||'<p>見つかりませんでした。</p>';$$('.result').forEach(el=>el.onclick=()=>{filter='all';$$('.set-option').forEach(x=>x.classList.toggle('active',x.dataset.filter==='all'));buildDeck(+el.dataset.id);$('#searchDialog').close()})}
+function bind(){
+  $('#revealBtn').onclick=reveal;$('#card').ondblclick=reveal;$('#nextBtn').onclick=()=>next();$('#skipBtn').onclick=()=>next();$('#prevBtn').onclick=()=>next(-1);$('#speakBtn').onclick=e=>{e.stopPropagation();speak()};
+  $('#zhSpeakBtn').onclick=e=>{e.stopPropagation();if(deck.length&&!loopState.running)playChinese(deck[pos],true)};
+  $('#loopAllBtn').onclick=()=>startLoop('all');$('#loopRangeBtn').onclick=()=>startLoop('range');$('#loopPauseBtn').onclick=toggleLoopPause;$('#loopStopBtn').onclick=stopLoop;
+  $$('.ratings button[data-score]').forEach(b=>b.onclick=()=>rate(+b.dataset.score));$$('.set-option').forEach(b=>b.onclick=()=>{filter=b.dataset.filter;$$('.set-option').forEach(x=>x.classList.toggle('active',x===b));buildDeck()});
+  ['direction','shuffle','priority'].forEach(id=>$('#'+id).onchange=()=>buildDeck());
+  $('#searchBtn').onclick=()=>{results();$('#searchDialog').showModal();setTimeout(()=>$('#searchInput').focus(),50)};$('#searchInput').oninput=e=>results(e.target.value);
+  $('#resetBtn').onclick=()=>{if(confirm('学習進捗をすべてリセットしますか？')){Object.keys(state).forEach(k=>delete state[k]);save();updateStats();buildDeck();toast('進捗をリセットしました')}};
+  document.onkeydown=e=>{if($('#searchDialog').open)return;if(e.code==='Space'||e.key==='ArrowDown'){e.preventDefault();reveal()}if(['1','2','3','4'].includes(e.key))rate(+e.key);if(e.key==='ArrowRight')next();if(e.key==='ArrowLeft')next(-1)};
+}
+init().catch(()=>{$('#prompt').textContent='データを読み込めませんでした';$('#hint').textContent='ローカルサーバーから開いてください'});
+
+  </script>
+</body>
+</html>
