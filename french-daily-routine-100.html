@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f4f0e8" />
+  <title>基礎フランス語 — 起きてから寝るまで</title>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700&family=Playfair+Display:ital,wght@1,600&display=swap');
+:root{--ink:#18332e;--muted:#68756f;--paper:#f4f0e8;--card:#fffdf8;--accent:#e9613a;--mint:#cdded3;--line:#d9d7ce;--shadow:0 18px 60px rgba(34,45,40,.10)}
+*{box-sizing:border-box} body{margin:0;background:var(--paper);color:var(--ink);font-family:'DM Sans','Noto Sans JP',sans-serif;min-height:100vh}.grain{position:fixed;inset:0;pointer-events:none;opacity:.22;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.08'/%3E%3C/svg%3E")}.topbar{height:76px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(24,51,46,.12);padding:0 max(28px,calc((100vw - 1220px)/2));position:relative;z-index:1}.brand{color:var(--ink);text-decoration:none;font-weight:600;font-size:18px;display:flex;align-items:center;gap:10px}.brand-mark{display:grid;place-items:center;width:34px;height:34px;border:1px solid var(--ink);border-radius:50%;font-family:'Playfair Display';font-style:italic}.header-actions{display:flex;gap:12px}.quiet-btn,.icon-btn{border:1px solid rgba(24,51,46,.18);background:transparent;color:var(--ink);border-radius:99px;padding:9px 16px;cursor:pointer}.icon-btn{width:38px;height:38px;padding:0;font-size:24px}.hero{max-width:1220px;margin:0 auto;padding:58px 24px 42px;display:flex;justify-content:space-between;align-items:end}.eyebrow,.mode-label,.select-label{font-size:11px;letter-spacing:.18em;font-weight:600;color:#708078}.hero h1{font-family:'Noto Sans JP';font-size:clamp(38px,5vw,67px);line-height:1.2;letter-spacing:-.06em;margin:13px 0 14px;font-weight:500}.hero h1 em{font-family:'Playfair Display','Noto Sans JP';color:var(--accent);font-weight:600}.lead{color:var(--muted);margin:0}.progress-orbit{width:120px;height:120px;position:relative}.progress-orbit svg{transform:rotate(-90deg)}.progress-orbit circle{fill:none;stroke-width:5}.orbit-bg{stroke:#ddd9cf}.orbit-fg{stroke:var(--accent);stroke-linecap:round;stroke-dasharray:327;stroke-dashoffset:327;transition:.5s}.progress-orbit>div{position:absolute;inset:0;display:grid;place-content:center;text-align:center}.progress-orbit strong{font-size:29px}.progress-orbit span{font-size:10px;color:var(--muted)}.workspace{max-width:1220px;margin:0 auto;padding:0 24px 72px;display:grid;grid-template-columns:220px 1fr;gap:54px}.sidepanel{padding-top:8px}.mode-label{margin-bottom:12px}.set-option{width:100%;border:0;background:transparent;padding:12px 14px;display:flex;justify-content:space-between;border-radius:9px;color:var(--muted);cursor:pointer;font:inherit}.set-option.active{background:var(--ink);color:white}.set-option b{font-size:12px;background:rgba(255,255,255,.13);border-radius:20px;padding:3px 8px}.side-rule{border-top:1px solid var(--line);margin:23px 0}.select-label{display:block;margin-bottom:9px}select{width:100%;padding:12px;border:1px solid var(--line);border-radius:8px;background:#faf8f2;color:var(--ink);font:inherit}.toggle-row{display:flex;justify-content:space-between;align-items:center;margin-top:17px;font-size:13px}.toggle-row input{display:none}.toggle-row i{width:38px;height:21px;border-radius:20px;background:#c6c9c4;position:relative;transition:.2s}.toggle-row i:after{content:'';position:absolute;width:15px;height:15px;border-radius:50%;background:white;top:3px;left:3px;transition:.2s}.toggle-row input:checked+i{background:var(--accent)}.toggle-row input:checked+i:after{transform:translateX(17px)}.shortcuts{font-size:11px;color:#89918c;line-height:2.3;margin-top:38px}.shortcuts span{border:1px solid #c9cbc5;border-radius:4px;padding:2px 5px;margin-right:5px}.study-area{max-width:780px}.study-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px}.study-head p{margin:0;font-size:14px;font-weight:600}.study-head small{color:#9a9f9b;margin:0 3px}.streak{font-size:12px;color:var(--muted)}.streak b{color:var(--accent);margin-left:4px}.card{min-height:390px;background:var(--card);border:1px solid rgba(24,51,46,.12);border-radius:20px;box-shadow:var(--shadow);padding:32px 38px 28px;display:flex;flex-direction:column;outline:none;position:relative;overflow:hidden}.card:before{content:'';position:absolute;width:190px;height:190px;border:1px solid rgba(24,51,46,.06);border-radius:50%;right:-92px;top:-92px}.card-top{display:flex;justify-content:space-between;color:#87908b;font-size:11px;text-transform:uppercase;letter-spacing:.16em}.speak{border:0;background:#eef1eb;color:var(--ink);width:34px;height:34px;border-radius:50%;cursor:pointer}.prompt-wrap{flex:1;display:grid;place-content:center;text-align:center;padding:26px 20px}.prompt{font-family:'Noto Sans JP';font-size:clamp(22px,3vw,32px);line-height:1.65;margin:0;white-space:pre-line}.hint{font-size:12px;color:#9a9f9b;margin:15px 0 0}.answer-area{display:none}.card.revealed .prompt-wrap{flex:0;padding:18px 18px 22px}.card.revealed .prompt{font-size:20px;color:#6a756f}.card.revealed .hint{display:none}.card.revealed .answer-area{display:block;flex:1;animation:rise .3s ease}.answer-rule{display:flex;align-items:center;gap:10px;color:#9a9f9b;font-size:10px;letter-spacing:.14em;text-transform:uppercase}.answer-rule:after{content:'';height:1px;background:#e1dfd7;flex:1}.answer{font-size:clamp(20px,2.7vw,28px);line-height:1.6;margin:25px 8px;text-align:center;font-weight:500}.reveal{border:0;border-radius:10px;background:var(--ink);color:white;padding:15px 20px;font:inherit;font-weight:500;display:flex;justify-content:center;gap:18px;cursor:pointer}.reveal kbd{font:inherit;font-size:10px;border:1px solid rgba(255,255,255,.35);padding:2px 7px;border-radius:4px}.card.revealed .reveal{display:none}.ratings{margin-top:18px}.ratings>p{text-align:center;font-size:12px;color:var(--muted)}.ratings>div{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.ratings button{border:1px solid var(--line);background:#faf8f2;border-radius:10px;padding:11px 8px;display:flex;gap:10px;align-items:center;text-align:left;color:var(--ink);cursor:pointer}.ratings button:hover{border-color:var(--accent);transform:translateY(-2px)}.ratings kbd{background:#e9e7df;border-radius:5px;padding:4px 7px}.ratings span{font-size:12px}.ratings small{display:block;color:#9a9f9b;margin-top:2px}.nav-row{display:flex;justify-content:space-between;margin-top:16px}.nav-row button{border:0;background:transparent;color:var(--muted);cursor:pointer;padding:8px}.toast{position:fixed;bottom:25px;left:50%;transform:translate(-50%,20px);opacity:0;background:var(--ink);color:white;padding:10px 18px;border-radius:99px;font-size:13px;transition:.25s;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}dialog{width:min(720px,calc(100% - 32px));border:0;border-radius:18px;background:var(--card);box-shadow:0 30px 100px rgba(0,0,0,.25);padding:25px}dialog::backdrop{background:rgba(20,35,31,.45);backdrop-filter:blur(4px)}.dialog-head{display:flex;justify-content:space-between;align-items:center}.dialog-head h2{margin:0}.dialog-head button{border:0;background:none;font-size:25px;cursor:pointer}#searchInput{width:100%;padding:15px;margin:20px 0;border:1px solid var(--line);border-radius:10px;font:inherit}.results{max-height:55vh;overflow:auto}.result{padding:14px;border-bottom:1px solid #e6e3dc;cursor:pointer}.result:hover{background:#f4f0e8}.result b,.result span{display:block}.result span{color:var(--muted);font-size:13px;margin-top:5px}@keyframes rise{from{opacity:0;transform:translateY(7px)}}
+.audio-actions{display:flex;align-items:center;gap:8px}.vi-speak{height:34px;border:1px solid #d6dfd8;background:#eef1eb;color:var(--ink);border-radius:99px;padding:0 13px;display:flex;align-items:center;gap:7px;font:600 11px 'DM Sans','Noto Sans JP',sans-serif;letter-spacing:0;cursor:pointer;text-transform:none}.vi-speak:hover{background:var(--ink);color:white}.play-icon{font-size:9px;color:var(--accent)}.vi-speak:hover .play-icon{color:#ff8a68}
+.ratings .next-card-btn{position:fixed;right:28px;bottom:24px;z-index:30;width:auto;min-width:190px;margin:0;padding:14px 22px;background:var(--accent);color:#fff;border:0;box-shadow:0 10px 30px rgba(24,51,46,.28);justify-content:center;text-align:center;font-weight:700}
+.hero-heading-row{display:flex;align-items:flex-end;gap:30px}.hero-heading-row h1{flex:none}.episode-title{margin:0 0 14px;color:var(--ink);font-size:clamp(38px,5vw,67px);line-height:1.2;font-weight:600;letter-spacing:-.04em;white-space:normal}
+@media(max-width:760px){.topbar{height:64px;padding:0 18px}.quiet-btn{display:none}.hero{padding:38px 20px 28px;align-items:center}.hero h1{font-size:40px}.hero-heading-row{display:block}.episode-title{margin:-2px 0 10px;font-size:40px;white-space:normal}.lead{font-size:13px}.progress-orbit{width:90px;height:90px}.workspace{display:block;padding:0 14px 55px}.sidepanel{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:18px}.mode-label,.side-rule,.select-label,.sidepanel select,.toggle-row,.shortcuts{display:none}.set-option{padding:10px 7px;font-size:11px;align-items:center}.study-area{max-width:none}.card{min-height:410px;padding:24px 20px 22px}.vi-speak span:last-child{display:none}.vi-speak{width:34px;padding:0;justify-content:center}.ratings>div{grid-template-columns:repeat(2,1fr)}.progress-orbit span{font-size:8px}}
+
+.loop-start{border:0;background:var(--accent);color:white;border-radius:99px;padding:9px 15px;font:600 12px 'DM Sans','Noto Sans JP',sans-serif;cursor:pointer}
+.loop-range{background:var(--ink)}
+.loop-id{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:11px;font-weight:600}.loop-id input{width:58px;height:34px;border:1px solid rgba(24,51,46,.18);border-radius:9px;background:var(--card);color:var(--ink);padding:0 7px;font:600 13px 'DM Sans',sans-serif;text-align:center}
+.loop-start span{font-size:16px;margin-right:4px}
+.loop-controls{display:flex;gap:7px;padding:3px;background:#e7e3da;border-radius:99px}
+.loop-controls button{border:0;background:transparent;color:var(--ink);border-radius:99px;padding:7px 11px;font:600 11px 'DM Sans','Noto Sans JP',sans-serif;cursor:pointer}
+.loop-controls button:first-child{background:var(--card)}
+.loop-controls[hidden],.loop-start[hidden]{display:none}
+@media(max-width:760px){
+  .loop-start{font-size:0;padding:0;width:38px;height:38px}
+  .loop-id{font-size:0;gap:0}.loop-id input{width:48px;height:34px}
+  .loop-start span{font-size:20px;margin:0}
+  .loop-controls button{font-size:0;width:36px;height:32px;padding:0}
+  .loop-controls button:first-child:before{content:'Ⅱ';font-size:13px}
+  .loop-controls button:first-child.paused:before{content:'▶'}
+  .loop-controls button:last-child:before{content:'■';font-size:11px}
+}
+
+@media (min-width:761px){
+  body{height:100vh;overflow:hidden}
+  .topbar{height:60px}
+  .hero{padding:18px 24px 14px;align-items:center}
+  .hero h1{font-size:38px;line-height:1.15;margin:7px 0 8px;letter-spacing:-.05em}
+  .hero h1 br{display:none}
+  .hero h1 em{margin-left:.18em}
+  .hero-heading-row{gap:24px}
+  .episode-title{margin:0 0 8px;font-size:38px}
+  .lead{font-size:13px}
+  .progress-orbit{width:82px;height:82px;margin-right:12px}
+  .progress-orbit strong{font-size:23px}
+  .progress-orbit span{font-size:8px}
+  .workspace{padding:0 24px 14px;gap:34px;grid-template-columns:190px 1fr}
+  .sidepanel{padding-top:2px}
+  .set-option{padding:9px 12px}
+  .side-rule{margin:14px 0}
+  .toggle-row{margin-top:11px}
+  .shortcuts{display:none}
+  .study-area{max-width:900px}
+  .study-head{margin-bottom:8px}
+  .card{height:330px;min-height:0;padding:22px 30px 20px;border-radius:16px}
+  .prompt-wrap{padding:14px 18px;overflow:auto;min-width:0}
+  .prompt{font-size:clamp(20px,2.2vw,28px);line-height:1.5}
+  .hint{margin-top:9px}
+  .card.revealed .prompt-wrap{padding:8px 18px 12px;min-height:72px;flex-shrink:0;overflow:hidden}
+  .card.revealed .prompt{font-size:17px}
+  .prompt.japanese,.answer.japanese{width:100%;white-space:normal;overflow-wrap:anywhere;word-break:normal}
+  .card.revealed .prompt.japanese{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;line-height:1.5;overflow:hidden}
+  .answer-area{overflow:auto}
+  .answer{font-size:clamp(18px,2vw,24px);line-height:1.45;margin:14px 8px}
+  .reveal{padding:12px 18px}
+  .ratings{margin-top:10px}
+  .ratings>p{margin:0 0 6px}
+  .ratings button{padding:8px}
+  .ratings .next-card-btn{position:fixed;right:24px;bottom:20px;z-index:30;width:auto;min-width:180px;margin:0;padding:12px 18px;background:var(--accent);color:#fff;border:0;box-shadow:0 10px 30px rgba(24,51,46,.28);justify-content:center;text-align:center;font-weight:700}
+  .nav-row{margin-top:6px}
+}
+
+    /* French answer text: 200% of the original size */
+  .answer:not(.japanese){font-size:clamp(30px,4.05vw,42px);line-height:1.4}
+  @media(max-width:760px){.answer:not(.japanese){font-size:clamp(27px,6vw,36px);line-height:1.4}}
+  </style>
+</head>
+<body>
+  <div class="grain"></div>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="ホーム"><span class="brand-mark">L</span><span>Du réveil au coucher</span></a>
+    <div class="header-actions">
+      <label class="loop-id">開始ID <input id="loopStartId" type="number" min="1" value="1" inputmode="numeric" aria-label="ループ開始ID"></label>
+      <label class="loop-id">終了ID <input id="loopEndId" type="number" min="1" value="130" inputmode="numeric" aria-label="ループ終了ID"></label>
+      <button id="loopRangeBtn" class="loop-start loop-range"><span>↔</span> 区間ループ再生</button>
+      <button id="loopAllBtn" class="loop-start"><span>↻</span> 全件ループ再生</button>
+      <div id="loopControls" class="loop-controls" hidden>
+        <button id="loopPauseBtn">Ⅱ 一時停止</button>
+        <button id="loopStopBtn">■ 終了</button>
+      </div>
+      <button id="searchBtn" class="icon-btn" aria-label="検索"><span>⌕</span></button>
+      <button id="resetBtn" class="quiet-btn">進捗をリセット</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">FRENCH DAILY ROUTINE</p>
+        <div class="hero-heading-row">
+          <h1><em>フランス語入門：</em><br>起きてから寝るまで</h1>
+          
+        </div>
+        <p class="lead">台詞を声に出して、思い出して、少しずつ定着させる。</p>
+      </div>
+      <div class="progress-orbit" aria-label="学習進捗">
+        <svg viewBox="0 0 120 120"><circle class="orbit-bg" cx="60" cy="60" r="52"/><circle id="orbit" class="orbit-fg" cx="60" cy="60" r="52"/></svg>
+        <div><strong id="masteredCount">0</strong><span>/ <i id="totalCount">0</i> 習得</span></div>
+      </div>
+    </section>
+
+    <section class="workspace">
+      <aside class="sidepanel">
+        <div class="mode-label">学習セット</div>
+        <button class="set-option active" data-filter="all"><span>すべて</span><b id="allCount">0</b></button>
+        <button class="set-option" data-filter="due"><span>今日の復習</span><b id="dueCount">0</b></button>
+        <button class="set-option" data-filter="hard"><span>苦手</span><b id="hardCount">0</b></button>
+        <div class="side-rule"></div>
+        <label class="select-label" for="direction">カードの向き</label>
+        <select id="direction">
+          <option value="ja-fr">日本語 → フランス語</option>
+          <option value="fr-ja">フランス語 → 日本語</option>
+          <option value="random">ランダム</option>
+        </select>
+        <label class="toggle-row"><span>シャッフル</span><input id="shuffle" type="checkbox" checked><i></i></label>
+        <label class="toggle-row"><span>苦手を優先</span><input id="priority" type="checkbox"><i></i></label>
+        <div class="shortcuts"><span>SPACE</span> 答えを見る<br><span>1–4</span> 自己採点</div>
+      </aside>
+
+      <section class="study-area">
+        <div class="study-head">
+          <p><span id="currentIndex">1</span> <small>/</small> <span id="deckTotal">0</span></p>
+          <div class="streak">連続学習 <b id="streak">0</b></div>
+        </div>
+
+        <article id="card" class="card" tabindex="0" aria-live="polite">
+          <div class="card-top">
+            <span id="promptLang">日本語</span>
+            <div class="audio-actions">
+              <button id="frSpeakBtn" class="vi-speak" aria-label="フランス語を再生"><span class="play-icon">▶</span><span>フランス語を再生</span></button>
+              <button id="speakBtn" class="speak" aria-label="表示文を読み上げ">♪</button>
+            </div>
+          </div>
+          <div class="prompt-wrap"><p id="prompt" class="prompt"></p><p id="hint" class="hint">頭の中でフランス語にしてみましょう</p></div>
+          <div id="answerArea" class="answer-area">
+            <div class="answer-rule"><span>答え</span></div>
+            <p id="answer" class="answer"></p>
+          </div>
+          <button id="revealBtn" class="reveal"><span>答えを見る</span><kbd>Space</kbd></button>
+        </article>
+
+        <div id="ratings" class="ratings" hidden>
+          <p>思い出せましたか？</p>
+          <div>
+            <button data-score="1"><kbd>1</kbd><span>もう一度<small>すぐ復習</small></span></button>
+            <button data-score="2"><kbd>2</kbd><span>難しい<small>1日後</small></span></button>
+            <button data-score="3"><kbd>3</kbd><span>できた<small>3日後</small></span></button>
+            <button data-score="4"><kbd>4</kbd><span>余裕<small>7日後</small></span></button>
+          </div>
+          <button id="nextBtn" class="next-card-btn">次のカードへ →</button>
+        </div>
+        <div class="nav-row"><button id="prevBtn">← 前へ</button><button id="skipBtn">スキップ →</button></div>
+      </section>
+    </section>
+  </main>
+
+  <dialog id="searchDialog">
+    <form method="dialog" class="dialog-head"><h2>台詞を探す</h2><button aria-label="閉じる">×</button></form>
+    <input id="searchInput" type="search" placeholder="日本語・フランス語で検索…" autocomplete="off" />
+    <div id="searchResults" class="results"></div>
+  </dialog>
+  <div id="toast" class="toast"></div>
+  <script>
+window.FRENCH_FLASHCARD_TSV="1\tJe me réveille à six heures.\t私は6時に目を覚まします。\n2\tTu ouvres les yeux doucement.\tあなたはゆっくり目を開けます。\n3\tIl éteint son réveil rapidement.\t彼はすぐに目覚ましを止めます。\n4\tElle reste encore au lit.\t彼女はまだベッドにいます。\n5\tNous nous levons tôt aujourd’hui.\t私たちは今日早く起きます。\n6\tIls ouvrent la fenêtre immédiatement.\t彼らはすぐ窓を開けます。\n7\tMon père fait son lit.\t私の父はベッドを整えます。\n8\tMa mère prépare le petit-déjeuner.\t私の母は朝食を準備します。\n9\tJe bois un verre d’eau.\t私はコップ一杯の水を飲みます。\n10\tTu vas dans la salle de bains.\tあなたは洗面所へ行きます。\n11\tIl se lave le visage.\t彼は顔を洗います。\n12\tElle se brosse les dents.\t彼女は歯を磨きます。\n13\tNous prenons une douche rapide.\t私たちはさっとシャワーを浴びます。\n14\tIls se coiffent devant le miroir.\t彼らは鏡の前で髪を整えます。\n15\tJe m’habille tranquillement ce matin.\t私は今朝ゆっくり着替えます。\n16\tTu choisis une chemise blanche.\tあなたは白いシャツを選びます。\n17\tIl met des chaussures noires.\t彼は黒い靴を履きます。\n18\tElle prépare son sac.\t彼女はかばんを準備します。\n19\tNous prenons le petit-déjeuner ensemble.\t私たちは一緒に朝食を食べます。\n20\tIls boivent du café chaud.\t彼らは温かいコーヒーを飲みます。\n21\tMon père lit le journal.\t私の父は新聞を読みます。\n22\tMa mère boit du thé.\t私の母はお茶を飲みます。\n23\tJe quitte la maison.\t私は家を出ます。\n24\tTu fermes la porte doucement.\tあなたは静かにドアを閉めます。\n25\tIl attend le bus.\t彼はバスを待ちます。\n26\tElle prend le train.\t彼女は電車に乗ります。\n27\tNous marchons jusqu’à la gare.\t私たちは駅まで歩きます。\n28\tIls arrivent à l’école.\t彼らは学校に到着します。\n29\tJe commence le travail.\t私は仕事を始めます。\n30\tTu arrives un peu tôt.\tあなたは少し早く着きます。\n31\tIl parle avec son collègue.\t彼は同僚と話します。\n32\tElle salue son professeur.\t彼女は先生にあいさつします。\n33\tNous étudions le français.\t私たちはフランス語を勉強します。\n34\tIls écrivent dans leurs cahiers.\t彼らはノートに書きます。\n35\tJe lis un document.\t私は書類を読みます。\n36\tTu prends des notes.\tあなたはメモを取ります。\n37\tIl pose une question.\t彼は質問をします。\n38\tElle répond avec confiance.\t彼女は自信を持って答えます。\n39\tNous travaillons en équipe.\t私たちはチームで働きます。\n40\tIls utilisent un ordinateur.\t彼らはパソコンを使います。\n41\tJe téléphone à un client.\t私は顧客に電話します。\n42\tTu envoies un e-mail.\tあなたはメールを送ります。\n43\tIl imprime un document.\t彼は書類を印刷します。\n44\tElle participe à une réunion.\t彼女は会議に参加します。\n45\tNous faisons une pause.\t私たちは休憩します。\n46\tIls boivent de l’eau fraîche.\t彼らは冷たい水を飲みます。\n47\tJe mange avec mes collègues.\t私は同僚と昼食を食べます。\n48\tTu commandes un sandwich.\tあなたはサンドイッチを注文します。\n49\tIl choisit une salade.\t彼はサラダを選びます。\n50\tElle mange une soupe chaude.\t彼女は温かいスープを食べます。\n51\tNous parlons pendant le déjeuner.\t私たちは昼食中に話します。\n52\tIls retournent au bureau.\t彼らは職場へ戻ります。\n53\tJe continue mon travail.\t私は仕事を続けます。\n54\tTu termines ton exercice.\tあなたは課題を終えます。\n55\tIl aide un collègue.\t彼は同僚を手伝います。\n56\tElle explique la réponse.\t彼女は答えを説明します。\n57\tNous apprenons quelque chose aujourd’hui.\t私たちは今日何かを学びます。\n58\tIls finissent leurs devoirs.\t彼らは宿題を終えます。\n59\tJe consulte mon téléphone.\t私はスマホを確認します。\n60\tTu regardes l’heure.\tあなたは時間を確認します。\n61\tIl rentre chez lui.\t彼は家に帰ります。\n62\tElle prend encore le métro.\t彼女はまた地下鉄に乗ります。\n63\tNous faisons quelques courses.\t私たちは少し買い物をします。\n64\tIls achètent des légumes.\t彼らは野菜を買います。\n65\tJe prépare le dîner.\t私は夕食を作ります。\n66\tTu aides ta mère.\tあなたは母を手伝います。\n67\tIl met la table.\t彼は食卓を整えます。\n68\tElle cuisine du poisson.\t彼女は魚料理を作ります。\n69\tNous mangeons tous ensemble.\t私たちは皆で食事します。\n70\tIls discutent pendant le repas.\t彼らは食事中に話します。\n71\tMon père raconte une histoire.\t私の父は話をします。\n72\tMa mère rit souvent.\t私の母はよく笑います。\n73\tJe fais la vaisselle.\t私は皿洗いをします。\n74\tTu ranges la cuisine.\tあなたは台所を片付けます。\n75\tIl regarde la télévision.\t彼はテレビを見ます。\n76\tElle écoute de la musique.\t彼女は音楽を聴きます。\n77\tNous faisons une promenade.\t私たちは散歩をします。\n78\tIls jouent avec le chien.\t彼らは犬と遊びます。\n79\tJe lis un roman.\t私は小説を読みます。\n80\tTu fais tes devoirs.\tあなたは宿題をします。\n81\tIl pratique le français.\t彼はフランス語を練習します。\n82\tElle écrit dans son journal.\t彼女は日記を書きます。\n83\tNous parlons de demain.\t私たちは明日のことを話します。\n84\tIls préparent leurs vêtements.\t彼らは翌日の服を準備します。\n85\tJe prends une douche chaude.\t私は温かいシャワーを浴びます。\n86\tTu te brosses encore les dents.\tあなたはもう一度歯を磨きます。\n87\tIl ferme les fenêtres.\t彼は窓を閉めます。\n88\tElle vérifie les portes.\t彼女はドアを確認します。\n89\tNous éteignons les lumières.\t私たちは電気を消します。\n90\tIls disent bonne nuit.\t彼らは「おやすみ」と言います。\n91\tJe lis quelques pages.\t私は数ページ読みます。\n92\tTu mets ton téléphone de côté.\tあなたはスマホを脇に置きます。\n93\tIl pense à demain.\t彼は明日のことを考えます。\n94\tElle règle son réveil.\t彼女は目覚ましをセットします。\n95\tNous allons nous coucher.\t私たちは寝ます。\n96\tIls dorment très vite.\t彼らはすぐ眠ります。\n97\tMon père dort profondément.\t私の父はぐっすり眠ります。\n98\tMa mère ferme les yeux.\t私の母は目を閉じます。\n99\tJe m’endors avec un sourire.\t私は笑顔で眠りにつきます。\n100\tBonne nuit et à demain.\tおやすみ、また明日。\n101\tBonjour, comment tu t’appelles ?　—　Je m’appelle Paul.\tこんにちは、名前は何ですか？／ポールです。\n102\tComment allez-vous ?　—　Je vais bien, merci.\tお元気ですか？／元気です、ありがとう。\n103\tTu vas bien ?　—　Oui, je vais très bien.\t元気ですか？／はい、とても元気です。\n104\tQui es-tu ?　—　Je suis un étudiant japonais.\tあなたは誰ですか？／私は日本人学生です。\n105\tVous êtes Madame Dupont ?　—　Oui, je suis Madame Dupont.\tデュポンさんですか？／はい、デュポンです。\n106\tC’est qui ?　—　C’est mon ami Pierre.\tこれは誰ですか？／私の友達ピエールです。\n107\tTu connais Marie ?　—　Oui, c’est ma collègue.\tマリーを知っていますか？／はい、私の同僚です。\n108\tIl s’appelle comment ?　—　Il s’appelle Julien.\t彼の名前は何ですか？／ジュリアンです。\n109\tElle s’appelle comment ?　—　Elle s’appelle Sophie.\t彼女の名前は何ですか？／ソフィーです。\n110\tEnchanté de vous rencontrer.　—　Enchanté, moi aussi.\tお会いできて嬉しいです。／私もです。\n111\tQuel est ton prénom ?　—　Mon prénom est Ken.\tあなたの下の名前は？／ケンです。\n112\tQuel est votre nom ?　—　Mon nom est Martin.\tあなたの名字は？／マルタンです。\n113\tTu as un surnom ?　—　Oui, on m’appelle Toto.\tあだ名はありますか？／はい、トトと呼ばれます。\n114\tComment s’écrit ton nom ?　—　Ça s’écrit K-E-N.\t名前はどう書きますか？／K-E-Nです。\n115\tVous pouvez répéter votre nom ?　—　Oui, je m’appelle Tanaka.\tお名前をもう一度言えますか？／はい、田中です。\n116\tTu viens d’où ?　—　Je viens du Japon.\tどこの出身ですか？／日本出身です。\n117\tVous êtes d’où ?　—　Je suis de Tokyo.\tご出身はどちらですか？／東京です。\n118\tIl vient d’où ?　—　Il vient de France.\t彼はどこの出身ですか？／フランス出身です。\n119\tElle est de quel pays ?　—　Elle est du Canada.\t彼女はどこの国の人ですか？／カナダです。\n120\tTu es japonais ?　—　Oui, je suis japonais.\t日本人ですか？／はい、日本人です。\n121\tVous êtes française ?　—　Oui, je suis française.\tフランス人女性ですか？／はい、フランス人です。\n122\tIl est chinois ?　—　Non, il est coréen.\t彼は中国人ですか？／いいえ、韓国人です。\n123\tElle est vietnamienne ?　—　Oui, elle est vietnamienne.\t彼女はベトナム人ですか？／はい、ベトナム人です。\n124\tTu habites où ?　—　J’habite à Osaka.\tどこに住んでいますか？／大阪に住んでいます。\n125\tVous habitez en France ?　—　Non, j’habite au Japon.\tフランスに住んでいますか？／いいえ、日本に住んでいます。\n126\tIl habite seul ?　—　Oui, il habite seul.\t彼は一人暮らしですか？／はい、一人暮らしです。\n127\tElle habite avec sa famille ?　—　Oui, elle habite avec sa famille.\t彼女は家族と住んでいますか？／はい、家族と住んでいます。\n128\tTu as quel âge ?　—　J’ai vingt ans.\t何歳ですか？／20歳です。\n129\tVous avez quel âge ?　—　J’ai trente-cinq ans.\tおいくつですか？／35歳です。\n130\tIl a quel âge ?　—　Il a vingt-deux ans.\t彼は何歳ですか？／22歳です。\n131\tElle a quel âge ?　—　Elle a dix-neuf ans.\t彼女は何歳ですか？／19歳です。\n132\tTu es jeune ?　—　Oui, je suis encore jeune.\t若いですか？／はい、まだ若いです。\n133\tC’est ton anniversaire aujourd’hui ?　—　Oui, c’est mon anniversaire.\t今日は誕生日ですか？／はい、私の誕生日です。\n134\tTon anniversaire est quand ?　—　C’est le dix mai.\t誕生日はいつですか？／5月10日です。\n135\tVous êtes né quand ?　—　Je suis né en avril.\tいつ生まれましたか？／4月に生まれました。\n136\tTu as une famille nombreuse ?　—　Non, j’ai une petite famille.\t大家族ですか？／いいえ、小さい家族です。\n137\tCombien de personnes dans ta famille ?　—　Nous sommes quatre personnes.\t家族は何人ですか？／4人です。\n138\tTu as des frères ?　—　Oui, j’ai un frère.\t兄弟はいますか？／はい、兄弟が一人います。\n139\tTu as des sœurs ?　—　Oui, j’ai deux sœurs.\t姉妹はいますか？／はい、姉妹が二人います。\n140\tTu es fils unique ?　—　Non, j’ai une sœur.\t一人っ子ですか？／いいえ、姉妹がいます。\n141\tTon père travaille ?　—　Oui, mon père travaille.\tお父さんは働いていますか？／はい、働いています。\n142\tQue fait ton père ?　—　Mon père est médecin.\tお父さんの職業は？／医者です。\n143\tQue fait ta mère ?　—　Ma mère est professeur.\tお母さんの職業は？／先生です。\n144\tTa mère travaille aussi ?　—　Oui, elle travaille aussi.\tお母さんも働いていますか？／はい、働いています。\n145\tTu vis avec tes parents ?　—　Oui, je vis avec eux.\t両親と住んでいますか？／はい、一緒に住んでいます。\n146\tTu es marié ?　—　Non, je suis célibataire.\t結婚していますか？／いいえ、独身です。\n147\tVous êtes mariée ?　—　Oui, je suis mariée.\t結婚されていますか？／はい、結婚しています。\n148\tIl a des enfants ?　—　Oui, il a deux enfants.\t彼には子どもがいますか？／はい、二人います。\n149\tElle a un bébé ?　—　Oui, elle a un bébé.\t彼女には赤ちゃんがいますか？／はい、赤ちゃんがいます。\n150\tTu as un animal ?　—　Oui, j’ai un chat.\tペットはいますか？／はい、猫がいます。\n151\tTu as un chien ?　—　Oui, j’ai un chien.\t犬を飼っていますか？／はい、犬を飼っています。\n152\tComment s’appelle ton chat ?　—　Mon chat s’appelle Momo.\t猫の名前は何ですか？／モモです。\n153\tTu travailles ?　—　Oui, je travaille dans une entreprise.\t働いていますか？／はい、会社で働いています。\n154\tOù travailles-tu ?　—　Je travaille à Paris.\tどこで働いていますか？／パリで働いています。\n155\tQuel est ton métier ?　—　Je suis ingénieur.\t職業は何ですか？／エンジニアです。\n156\tTu es étudiant ?　—　Oui, je suis étudiant.\t学生ですか？／はい、学生です。\n157\tDans quelle université étudies-tu ?　—　J’étudie à l’université de Lyon.\tどこの大学ですか？／リヨン大学です。\n158\tQuelle est ta spécialité ?　—　J’étudie l’économie.\t専攻は何ですか？／経済学です。\n159\tTu aimes tes études ?　—　Oui, elles sont intéressantes.\t勉強は好きですか？／はい、おもしろいです。\n160\tTu parles français ?　—　Oui, un peu.\tフランス語を話せますか？／はい、少し話せます。\n161\tQuelles langues parles-tu ?　—　Je parle japonais et anglais.\t何語を話しますか？／日本語と英語です。\n162\tTu apprends le français depuis longtemps ?　—　Depuis deux ans.\tフランス語は長く勉強していますか？／2年間です。\n163\tPourquoi apprends-tu le français ?　—　Parce que j’aime la France.\tなぜフランス語を勉強していますか？／フランスが好きだからです。\n164\tTu regardes des films français ?　—　Oui, souvent.\tフランス映画を見ますか？／はい、よく見ます。\n165\tTu lis des livres français ?　—　Oui, de temps en temps.\tフランス語の本を読みますか？／はい、ときどき読みます。\n166\tQuel est ton passe-temps ?　—　J’aime écouter de la musique.\t趣味は何ですか？／音楽を聴くことです。\n167\tTu aimes le sport ?　—　Oui, beaucoup.\tスポーツは好きですか？／はい、大好きです。\n168\tQuel sport pratiques-tu ?　—　Je joue au tennis.\t何のスポーツをしますか？／テニスです。\n169\tTu fais du jogging ?　—　Oui, chaque matin.\tジョギングをしますか？／はい、毎朝します。\n170\tTu vas souvent à la salle de sport ?　—　Deux fois par semaine.\tジムによく行きますか？／週2回行きます。\n171\tTu joues d’un instrument ?　—　Oui, je joue du piano.\t楽器を演奏しますか？／はい、ピアノです。\n172\tTu chantes bien ?　—　Pas vraiment.\t歌は上手ですか？／あまり上手ではありません。\n173\tTu cuisines souvent ?　—　Oui, presque tous les jours.\tよく料理しますか？／はい、ほぼ毎日です。\n174\tQuel plat cuisines-tu ?　—　Je cuisine souvent des pâtes.\t何を作りますか？／よくパスタを作ります。\n175\tTu aimes voyager ?　—　Oui, énormément.\t旅行は好きですか？／はい、とても好きです。\n176\tQuel pays veux-tu visiter ?　—　Je veux visiter la France.\tどの国へ行きたいですか？／フランスです。\n177\tTu es déjà allé en France ?　—　Non, pas encore.\tフランスへ行ったことがありますか？／まだありません。\n178\tQuel est ton plat préféré ?　—　J’adore les sushis.\t好きな食べ物は？／寿司です。\n179\tTu bois du café ?　—　Oui, tous les matins.\tコーヒーを飲みますか？／はい、毎朝飲みます。\n180\tTu préfères le thé ?　—　Oui, surtout le thé vert.\tお茶の方が好きですか？／はい、特に緑茶です。\n181\tQuelle musique aimes-tu ?　—　J’aime le jazz.\tどんな音楽が好きですか？／ジャズです。\n182\tQuel est ton chanteur préféré ?　—　J’aime Stromae.\t好きな歌手は？／ストロマエです。\n183\tTu regardes souvent la télévision ?　—　Non, rarement.\tテレビはよく見ますか？／いいえ、あまり見ません。\n184\tTu utilises souvent Internet ?　—　Oui, tous les jours.\tインターネットを毎日使いますか？／はい、毎日使います。\n185\tTu joues aux jeux vidéo ?　—　Oui, le week-end.\tゲームをしますか？／はい、週末にします。\n186\tTu lis des mangas ?　—　Oui, j’adore ça.\t漫画を読みますか？／はい、大好きです。\n187\tQuel est ton film préféré ?　—　Mon film préféré est Intouchables.\t好きな映画は？／『最強のふたり』です。\n188\tQuel est ton livre préféré ?　—　J’aime Le Petit Prince.\t好きな本は？／『星の王子さま』です。\n189\tTu sors souvent avec tes amis ?　—　Oui, presque chaque semaine.\t友達とよく遊びますか？／はい、ほぼ毎週です。\n190\tTu as beaucoup d’amis ?　—　Oui, heureusement.\t友達は多いですか？／はい、たくさんいます。\n191\tComment est ton meilleur ami ?　—　Il est très gentil.\t親友はどんな人ですか？／とても親切です。\n192\tTu es timide ?　—　Oui, un peu.\tあなたは恥ずかしがり屋ですか？／はい、少しです。\n193\tTu es optimiste ?　—　Oui, toujours.\t前向きな性格ですか？／はい、いつもです。\n194\tQuel est ton rêve ?　—　Je veux voyager dans le monde.\t夢は何ですか？／世界旅行です。\n195\tQuel est ton objectif ?　—　Je veux parler français couramment.\t目標は何ですか？／フランス語を流暢に話すことです。\n196\tPourquoi apprends-tu les langues ?　—　Parce que j’aime découvrir d’autres cultures.\tなぜ外国語を学ぶのですか？／異文化を知るのが好きだからです。\n197\tTu veux vivre à l’étranger ?　—　Oui, un jour.\t海外に住みたいですか？／はい、いつか住みたいです。\n198\tTu aimes rencontrer de nouvelles personnes ?　—　Oui, beaucoup.\t新しい人と知り合うのは好きですか？／はい、とても好きです。\n199\tTu peux te présenter en français ?　—　Oui, avec plaisir.\tフランス語で自己紹介できますか？／はい、喜んで。\n200\tMerci pour cette conversation.　—　Avec plaisir, à bientôt !\t会話ありがとうございました。／どういたしまして、また会いましょう！\n201\tÀ quelle heure te lèves-tu ?　—　Je me lève à sept heures.\t何時に起きますか？／7時に起きます。\n202\tQue fais-tu le matin ?　—　Je prends mon petit-déjeuner.\t朝は何をしますか？／朝食を食べます。\n203\tTu prends le bus pour aller au travail ?　—　Oui, tous les jours.\t仕事へはバスで行きますか？／はい、毎日です。\n204\tTu prends le train ?　—　Non, je vais en voiture.\t電車に乗りますか？／いいえ、車で行きます。\n205\tCombien de temps dure ton trajet ?　—　Environ trente minutes.\t通勤・通学時間はどのくらいですか？／約30分です。\n206\tTu travailles le samedi ?　—　Non, je me repose.\t土曜日は働きますか？／いいえ、休みます。\n207\tQue fais-tu le dimanche ?　—　Je passe du temps avec ma famille.\t日曜日は何をしますか？／家族と過ごします。\n208\tTu cuisines le week-end ?　—　Oui, j'aime essayer de nouvelles recettes.\t週末は料理しますか？／はい、新しいレシピを試します。\n209\tTu fais les courses où ?　—　Au supermarché près de chez moi.\tどこで買い物をしますか？／家の近くのスーパーです。\n210\tTu aimes faire du shopping ?　—　Oui, surtout pour les livres.\t買い物は好きですか？／はい、特に本を買うのが好きです。\n211\tQuel temps préfères-tu ?　—　J'aime le printemps.\tどんな季節が好きですか？／春が好きです。\n212\tTu aimes l'été ?　—　Oui, parce qu'il fait beau.\t夏は好きですか？／はい、天気がいいからです。\n213\tTu préfères la montagne ou la mer ?　—　Je préfère la mer.\t山と海ならどちらが好きですか？／海です。\n214\tTu voyages souvent ?　—　Deux ou trois fois par an.\tよく旅行しますか？／年に2〜3回です。\n215\tAvec qui voyages-tu ?　—　Je voyage avec mes amis.\t誰と旅行しますか？／友達とです。\n216\tTu préfères l'hôtel ou l'auberge ?　—　Je préfère l'hôtel.\tホテルとホステルならどちらですか？／ホテルです。\n217\tTu prends beaucoup de photos ?　—　Oui, j'adore ça.\t写真をたくさん撮りますか？／はい、大好きです。\n218\tQuel pays as-tu préféré ?　—　Le Japon m'a beaucoup plu.\t一番好きだった国は？／日本がとても良かったです。\n219\tTu aimes apprendre de nouvelles choses ?　—　Oui, chaque jour.\t新しいことを学ぶのは好きですか？／はい、毎日学びたいです。\n220\tQuel est ton cours préféré ?　—　Le français est mon préféré.\t好きな授業は何ですか？／フランス語です。\n221\tTu fais tes devoirs le soir ?　—　Oui, après le dîner.\t宿題は夜しますか？／はい、夕食後です。\n222\tTu regardes des vidéos pour apprendre ?　—　Oui, c'est très utile.\t勉強のために動画を見ますか？／はい、とても役立ちます。\n223\tTu veux parler français couramment ?　—　Oui, c'est mon objectif.\tフランス語を流暢に話したいですか？／はい、それが目標です。\n224\tTu aimerais travailler en France ?　—　Oui, ce serait une bonne expérience.\tフランスで働きたいですか？／はい、良い経験になると思います。\n225\tQuel est ton plus grand rêve ?　—　Voyager autour du monde.\t一番大きな夢は何ですか？／世界一周旅行です。\n226\tTu as beaucoup d'amis à l'école ?　—　Oui, j'ai beaucoup d'amis.\t学校に友達はたくさんいますか？／はい、たくさんいます。\n227\tQui est ton meilleur ami ?　—　Mon meilleur ami s'appelle Lucas.\t親友は誰ですか？／ルカです。\n228\tDepuis quand êtes-vous amis ?　—　Depuis cinq ans.\tいつから友達ですか？／5年前からです。\n229\tTu vois souvent tes amis ?　—　Oui, presque tous les week-ends.\t友達とはよく会いますか？／はい、ほぼ毎週末会います。\n230\tQue faites-vous ensemble ?　—　Nous allons souvent au café.\t一緒に何をしますか？／よくカフェへ行きます。\n231\tTu préfères sortir ou rester chez toi ?　—　Je préfère rester chez moi.\t外出と家、どちらが好きですか？／家にいる方が好きです。\n232\tTu es plutôt calme ?　—　Oui, je suis assez calme.\t落ち着いた性格ですか？／はい、比較的落ち着いています。\n233\tTu es sociable ?　—　Oui, j'aime parler avec tout le monde.\t社交的ですか？／はい、誰とでも話すのが好きです。\n234\tTu es patient ?　—　Oui, je pense que oui.\t我慢強いですか？／はい、そう思います。\n235\tQuel est ton point fort ?　—　Je suis très organisé.\tあなたの長所は何ですか？／整理整頓が得意です。\n236\tQuel est ton défaut ?　—　Je suis parfois un peu timide.\t短所は何ですか？／少し恥ずかしがり屋なところです。\n237\tTu aimes travailler en équipe ?　—　Oui, c'est plus agréable.\tチームで働くのは好きですか？／はい、その方が楽しいです。\n238\tTu préfères travailler seul ?　—　Parfois, pour mieux me concentrer.\t一人で働く方が好きですか？／集中したい時はそうです。\n239\tTu arrives toujours à l'heure ?　—　Oui, je suis ponctuel.\tいつも時間を守りますか？／はい、時間には正確です。\n240\tTu es occupé aujourd'hui ?　—　Oui, j'ai beaucoup de travail.\t今日は忙しいですか？／はい、とても忙しいです。\n241\tQu'est-ce que tu fais après le travail ?　—　Je rentre directement chez moi.\t仕事の後は何をしますか？／まっすぐ家に帰ります。\n242\tTu regardes souvent les informations ?　—　Oui, tous les soirs.\tニュースはよく見ますか？／はい、毎晩見ます。\n243\tTu lis le journal ?　—　Oui, surtout sur Internet.\t新聞は読みますか？／はい、主にインターネットで読みます。\n244\tTu utilises souvent ton téléphone ?　—　Oui, mais pas pendant le travail.\tスマホはよく使いますか？／はい、でも仕事中は使いません。\n245\tTu aimes les réseaux sociaux ?　—　Oui, mais avec modération.\tSNSは好きですか？／はい、ほどほどに使っています。\n246\tTu envoies beaucoup de messages ?　—　Oui, à ma famille et à mes amis.\tメッセージはよく送りますか？／はい、家族や友達に送ります。\n247\tQue fais-tu ce soir ?　—　Je vais regarder un film.\t今夜は何をしますか？／映画を見ます。\n248\tTu te couches tôt ?　—　Oui, vers dix heures.\t早寝ですか？／はい、10時ごろ寝ます。\n249\tTu dors bien ?　—　Oui, je dors très bien.\tよく眠れますか？／はい、よく眠れます。\n250\tTu es prêt pour demain ?　—　Oui, tout est déjà préparé.\t明日の準備はできていますか？／はい、もう全部準備できています。\n251\tQuel est ton numéro de téléphone ?　—　Mon numéro est le 06 12 34 56 78.\t電話番号は何ですか？／06 12 34 56 78です。\n252\tPuis-je avoir ton adresse e-mail ?　—　Bien sûr, la voici.\tメールアドレスを教えてもらえますか？／もちろんです。こちらです。\n253\tTu réponds vite à tes messages ?　—　Oui, en général.\tメッセージの返信は早いですか？／はい、たいていは早いです。\n254\tTu préfères appeler ou écrire ?　—　Je préfère écrire des messages.\t電話とメッセージ、どちらが好きですか？／メッセージの方が好きです。\n255\tTu utilises souvent ton ordinateur ?　—　Oui, tous les jours.\tパソコンはよく使いますか？／はい、毎日使います。\n256\tTu travailles à la maison parfois ?　—　Oui, une fois par semaine.\t時々在宅勤務しますか？／はい、週に1回します。\n257\tQuelle ville aimes-tu le plus ?　—　J'aime beaucoup Kyoto.\t一番好きな街はどこですか？／京都がとても好きです。\n258\tPourquoi aimes-tu cette ville ?　—　Parce qu'elle est très belle.\tなぜその街が好きですか？／とても美しいからです。\n259\tTu veux visiter Paris ?　—　Oui, c'est mon rêve.\tパリへ行きたいですか？／はい、夢です。\n260\tCombien de pays as-tu visités ?　—　J'en ai visité cinq.\t何か国行ったことがありますか？／5か国です。\n261\tQuel pays veux-tu visiter ensuite ?　—　Je voudrais visiter l'Italie.\t次はどの国へ行きたいですか？／イタリアへ行きたいです。\n262\tTu voyages en avion ?　—　Oui, la plupart du temps.\t飛行機で旅行しますか？／はい、たいてい飛行機です。\n263\tTu aimes découvrir de nouvelles cultures ?　—　Oui, énormément.\t新しい文化を知るのは好きですか？／はい、とても好きです。\n264\tQuel plat français préfères-tu ?　—　J'aime le gratin dauphinois.\t好きなフランス料理は何ですか？／グラタン・ドフィノワです。\n265\tTu cuisines des plats étrangers ?　—　Oui, parfois le week-end.\t外国料理を作りますか？／はい、ときどき週末に作ります。\n266\tTu fais souvent des photos en voyage ?　—　Oui, j'aime garder des souvenirs.\t旅行中はよく写真を撮りますか？／はい、思い出を残したいので撮ります。\n267\tQuelle est ta couleur préférée ?　—　Ma couleur préférée est le bleu.\t好きな色は何ですか？／青です。\n268\tQuel est ton animal préféré ?　—　J'adore les chats.\t好きな動物は何ですか？／猫が大好きです。\n269\tTu bois beaucoup d'eau ?　—　Oui, environ deux litres par jour.\t水はたくさん飲みますか？／はい、1日に約2リットル飲みます。\n270\tTu fais attention à ta santé ?　—　Oui, je fais du sport régulièrement.\t健康に気を付けていますか？／はい、定期的に運動しています。\n271\tTu prends souvent le petit-déjeuner ?　—　Oui, tous les matins.\t朝食は毎日食べますか？／はい、毎朝食べます。\n272\tQuel est ton fruit préféré ?　—　J'aime les fraises.\t好きな果物は何ですか？／いちごです。\n273\tTu bois du jus de fruits ?　—　Oui, surtout du jus d'orange.\tジュースは飲みますか？／はい、特にオレンジジュースです。\n274\tTu préfères le café ou le thé ?　—　Je préfère le café.\tコーヒーとお茶ならどちらが好きですか？／コーヒーです。\n275\tTu fais quelque chose ce week-end ?　—　Oui, je vais voir mes amis.\t今週末は何か予定がありますか？／はい、友達に会います。\n276\tQue fais-tu pendant les vacances ?　—　Je voyage avec ma famille.\t休暇は何をしますか？／家族と旅行します。\n277\tTu aimes rester à la maison ?　—　Oui, surtout quand il pleut.\t家で過ごすのは好きですか？／はい、特に雨の日は好きです。\n278\tTu regardes souvent des vidéos en français ?　—　Oui, pour améliorer mon français.\tフランス語の動画を見ますか？／はい、上達するためです。\n279\tTu écoutes des podcasts ?　—　Oui, presque tous les jours.\tポッドキャストを聴きますか？／はい、ほぼ毎日聴きます。\n280\tTu prends des notes quand tu étudies ?　—　Oui, cela m'aide beaucoup.\t勉強中にメモを取りますか？／はい、とても役立ちます。\n281\tComment apprends-tu le français ?　—　Je pratique tous les jours.\tどのようにフランス語を勉強していますか？／毎日練習しています。\n282\tTu étudies seul ou avec des amis ?　—　La plupart du temps, seul.\t一人で勉強しますか、それとも友達とですか？／たいてい一人です。\n283\tTu veux passer un examen de français ?　—　Oui, l'année prochaine.\tフランス語の試験を受けたいですか？／はい、来年受けたいです。\n284\tQuel niveau veux-tu atteindre ?　—　Je veux atteindre le niveau B1.\tどのレベルを目指していますか？／B1レベルを目指しています。\n285\tTu parles français avec des étrangers ?　—　Oui, quand j'en ai l'occasion.\t外国人とフランス語で話しますか？／はい、機会があれば話します。\n286\tTu aimerais vivre en France un jour ?　—　Oui, pendant quelques années.\tいつかフランスに住みたいですか？／はい、数年間住んでみたいです。\n287\tQuel est ton plus grand objectif ?　—　Être heureux et utile aux autres.\t一番大きな目標は何ですか？／幸せになり、人の役に立つことです。\n288\tQu'est-ce qui est important pour toi ?　—　Ma famille est la plus importante.\tあなたにとって大切なものは何ですか？／家族が一番大切です。\n289\tTu aimes rencontrer des personnes étrangères ?　—　Oui, j'aime découvrir différentes cultures.\t外国の人と知り合うのは好きですか？／はい、さまざまな文化を知るのが好きです。\n290\tTu as beaucoup voyagé ?　—　Pas encore, mais je voudrais voyager davantage.\tたくさん旅行しましたか？／まだですが、もっと旅行したいです。\n291\tQuel est ton rêve pour l'avenir ?　—　Créer ma propre entreprise.\t将来の夢は何ですか？／自分の会社を作ることです。\n292\tTu aimerais apprendre une autre langue ?　—　Oui, l'espagnol m'intéresse.\tほかの外国語も学びたいですか？／はい、スペイン語に興味があります。\n293\tComment décrirais-tu ta personnalité ?　—　Je suis calme et optimiste.\t自分の性格をどう表しますか？／穏やかで前向きです。\n294\tQue fais-tu quand tu es stressé ?　—　J'écoute de la musique.\tストレスがあるときは何をしますか？／音楽を聴きます。\n295\tQuel conseil donnerais-tu à un débutant ?　—　Pratique un peu chaque jour.\t初心者にどんなアドバイスをしますか？／毎日少しずつ練習してください。\n296\tTu es heureux aujourd'hui ?　—　Oui, je suis très heureux.\t今日は幸せですか？／はい、とても幸せです。\n297\tMerci pour cette discussion.　—　Merci à toi aussi.\tお話ありがとうございました。／こちらこそありがとうございました。\n298\tJ'espère te revoir bientôt.　—　Moi aussi, à bientôt !\tまたお会いできることを願っています。／私もです。また会いましょう！\n299\tPuis-je te contacter plus tard ?　—　Bien sûr, avec plaisir.\tあとで連絡してもいいですか？／もちろんです。\n300\tAu revoir et bonne journée !　—　Merci, bonne journée à toi aussi !\tさようなら、よい一日を！／ありがとう、あなたもよい一日を！";
+window.FRENCH_AUDIO={};
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+let cards=[], deck=[], pos=0, revealed=false, filter='all';
+let activeAudio=null, activeUtterance=null;
+let loopState={running:false,paused:false,token:0,index:0}, loopResolve=null;
+
+const progressKey='french-daily-routine-progress-v1';
+const state=JSON.parse(localStorage.getItem(progressKey)||'{}');
+const today=()=>new Date().toISOString().slice(0,10);
+const save=()=>localStorage.setItem(progressKey,JSON.stringify(state));
+const shuffle=a=>{for(let i=a.length-1;i;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+
+async function init(){
+  const text=window.FRENCH_FLASHCARD_TSV;
+  cards=text.trim().split(/\r?\n/).map(line=>{const [id,fr,ja]=line.split('\t');return {id:+id,fr,ja}}).filter(x=>x.ja&&x.fr);
+  $('#allCount').textContent=cards.length;
+  $('#totalCount').textContent=cards.length;
+  $('#loopStartId').max=cards.length;
+  $('#loopEndId').max=cards.length;
+  $('#loopEndId').value=cards.length;
+  buildDeck(); updateStats(); bind();
+}
+function meta(id){return state[id]||{score:0,due:'0000-00-00',seen:0}}
+function buildDeck(startId){
+  let list=cards.filter(c=>filter==='all'||(filter==='due'&&meta(c.id).due<=today())||(filter==='hard'&&meta(c.id).score>0&&meta(c.id).score<3));
+  if($('#priority').checked) list.sort((a,b)=>meta(a.id).score-meta(b.id).score);
+  else if($('#shuffle').checked) shuffle(list);
+  deck=list; pos=Math.max(0,startId?deck.findIndex(c=>c.id===startId):0); render();
+}
+function sides(c){let d=$('#direction').value;if(d==='random')d=Math.random()>.5?'ja-fr':'fr-ja';return d==='ja-fr'?{prompt:c.ja,answer:c.fr,lang:'日本語',voice:'ja-JP',hint:'頭の中でフランス語にしてみましょう'}:{prompt:c.fr,answer:c.ja,lang:'FRANÇAIS',voice:'fr-FR',hint:'日本語の意味を思い出しましょう'}}
+function render(){
+  stopAudio();
+  revealed=false; $('#card').classList.remove('revealed'); $('#ratings').hidden=true; $('#revealBtn').style.display='flex';
+  $('#deckTotal').textContent=deck.length; $('#currentIndex').textContent=deck.length?pos+1:0;
+  if(!deck.length){$('#promptLang').textContent='完了';$('#prompt').textContent='このセットのカードはありません';$('#hint').textContent='別の学習セットを選んでください';$('#revealBtn').style.display='none';return}
+  const s=sides(deck[pos]); Object.assign(deck[pos],{_s:s}); $('#promptLang').textContent=s.lang; $('#prompt').textContent=s.prompt; $('#answer').textContent=s.answer; $('#hint').textContent=s.hint;
+  $('#prompt').classList.toggle('japanese',s.voice==='ja-JP'); $('#answer').classList.toggle('japanese',s.voice!=='ja-JP');
+  loadAudio(deck[pos].id); if(s.lang==='FRANÇAIS') playFrench(deck[pos], true);
+}
+function reveal(){if(!deck.length||revealed)return;revealed=true;$('#card').classList.add('revealed');$('#ratings').hidden=false;$('#revealBtn').style.display='none';if(deck[pos]._s.lang==='日本語')playFrench(deck[pos],true)}
+function rate(score){
+  if(!revealed)return; const c=deck[pos], days=[0,0,1,3,7][score], due=new Date();due.setDate(due.getDate()+days);
+  state[c.id]={score,seen:(meta(c.id).seen||0)+1,due:due.toISOString().slice(0,10)};save();updateStats();toast(['','もう一度、すぐ会いましょう','苦手カードに追加しました','いい調子です','しっかり定着しています'][score]);next();
+}
+function next(delta=1){if(!deck.length)return;pos=(pos+delta+deck.length)%deck.length;render()}
+function updateStats(){
+  const mastered=cards.filter(c=>meta(c.id).score>=3).length, due=cards.filter(c=>meta(c.id).due<=today()).length, hard=cards.filter(c=>meta(c.id).score>0&&meta(c.id).score<3).length, seen=cards.reduce((n,c)=>n+(meta(c.id).seen||0),0);
+  $('#masteredCount').textContent=mastered;$('#dueCount').textContent=due;$('#hardCount').textContent=hard;$('#streak').textContent=seen;$('#orbit').style.strokeDashoffset=327-(327*mastered/cards.length||0)
+}
+function stopAudio(){if(activeAudio){activeAudio.pause();activeAudio.currentTime=0;activeAudio=null}speechSynthesis.cancel();activeUtterance=null}
+function loadAudio(id){
+  if(window.FRENCH_AUDIO?.[id])return Promise.resolve(true);
+  const url=window.FRENCH_AUDIO_URLS?.[id];if(!url)return Promise.resolve(false);
+  if(!loadAudio.pending)loadAudio.pending={};
+  if(!loadAudio.pending[id])loadAudio.pending[id]=new Promise(resolve=>{const s=document.createElement('script');s.src=url;s.onload=()=>resolve(true);s.onerror=()=>resolve(false);document.head.appendChild(s)});
+  return loadAudio.pending[id];
+}
+async function playFrench(card, fallback=false){
+  stopAudio(); await loadAudio(card.id); const src=window.FRENCH_AUDIO?.[card.id];
+  if(src){activeAudio=new Audio(src);activeAudio.play().catch(()=>{})}
+  else if(fallback){const u=new SpeechSynthesisUtterance(card.fr);u.lang='fr-FR';u.rate=.88;activeUtterance=u;u.onend=()=>{if(activeUtterance===u)activeUtterance=null};speechSynthesis.speak(u)}
+}
+function speak(){if(!deck.length)return;if(deck[pos]._s.voice==='fr-FR')return playFrench(deck[pos],true);stopAudio();const u=new SpeechSynthesisUtterance(deck[pos]._s.prompt);u.lang=deck[pos]._s.voice;u.rate=.88;activeUtterance=u;u.onend=()=>{if(activeUtterance===u)activeUtterance=null};speechSynthesis.speak(u)}
+function playFrenchOnce(card,token){
+  return new Promise(async resolve=>{
+    stopAudio();await loadAudio(card.id);
+    if(token!==loopState.token)return resolve();
+    let settled=false;
+    const finish=()=>{if(settled)return;settled=true;if(loopResolve===finish)loopResolve=null;activeAudio=null;activeUtterance=null;resolve()};
+    loopResolve=finish;
+    const src=window.FRENCH_AUDIO?.[card.id];
+    if(src){activeAudio=new Audio(src);activeAudio.onended=finish;activeAudio.onerror=finish;activeAudio.play().catch(finish)}
+    else{const u=new SpeechSynthesisUtterance(card.fr);u.lang='fr-FR';u.rate=.88;activeUtterance=u;u.onend=finish;u.onerror=finish;speechSynthesis.speak(u)}
+  });
+}
+const loopGap=(token,ms=450)=>new Promise(resolve=>setTimeout(()=>resolve(token===loopState.token),ms));
+function showLoopCard(){
+  $('#card').classList.add('revealed');
+  $('#answerArea').style.display='block';
+  $('#revealBtn').style.display='none';
+  $('#ratings').hidden=true;
+}
+async function startLoop(mode='range'){
+  if(loopState.running||!cards.length)return;
+  if(mode==='all'){$('#loopStartId').value=1;$('#loopEndId').value=cards.length}
+  let requestedStart=Math.trunc(Number($('#loopStartId').value))||1;
+  let requestedEnd=Math.trunc(Number($('#loopEndId').value))||cards.length;
+  requestedStart=Math.min(cards.length,Math.max(1,requestedStart));
+  requestedEnd=Math.min(cards.length,Math.max(1,requestedEnd));
+  if(requestedStart>requestedEnd)[requestedStart,requestedEnd]=[requestedEnd,requestedStart];
+  const startIndex=requestedStart-1,endIndex=requestedEnd-1;
+  $('#loopStartId').value=startIndex+1;
+  $('#loopEndId').value=endIndex+1;
+  $('#loopStartId').disabled=true;$('#loopEndId').disabled=true;
+  loopState={running:true,paused:false,token:loopState.token+1,index:startIndex,startIndex,endIndex,mode};
+  filter='all';$$('.set-option').forEach(x=>x.classList.toggle('active',x.dataset.filter==='all'));
+  $('#direction').value='ja-fr';deck=[...cards];pos=startIndex;
+  $('#loopAllBtn').hidden=true;$('#loopRangeBtn').hidden=true;$('#loopControls').hidden=false;render();showLoopCard();
+  const token=loopState.token;
+  while(loopState.running&&token===loopState.token){
+    const card=cards[loopState.index];pos=loopState.index;render();showLoopCard();
+    await playFrenchOnce(card,token);
+    if(loopState.running&&token===loopState.token)await loopGap(token);
+    if(loopState.running&&token===loopState.token)await playFrenchOnce(card,token);
+    if(!loopState.running||token!==loopState.token)break;
+    loopState.index=loopState.index===loopState.endIndex?loopState.startIndex:loopState.index+1;
+  }
+}
+function toggleLoopPause(){
+  if(!loopState.running)return;loopState.paused=!loopState.paused;
+  $('#loopPauseBtn').classList.toggle('paused',loopState.paused);
+  if(loopState.paused){activeAudio?.pause();speechSynthesis.pause();$('#loopPauseBtn').textContent='▶ 再開'}
+  else{if(activeAudio)activeAudio.play().catch(()=>{});speechSynthesis.resume();$('#loopPauseBtn').textContent='Ⅱ 一時停止'}
+}
+function stopLoop(){
+  if(!loopState.running)return;loopState.running=false;loopState.paused=false;loopState.token++;
+  stopAudio();if(loopResolve){loopResolve();loopResolve=null}
+  $('#answerArea').style.display='';$('#loopStartId').disabled=false;$('#loopEndId').disabled=false;$('#loopPauseBtn').classList.remove('paused');$('#loopPauseBtn').textContent='Ⅱ 一時停止';$('#loopControls').hidden=true;$('#loopAllBtn').hidden=false;$('#loopRangeBtn').hidden=false;render();toast('ループ再生を終了しました');
+}
+function toast(t){const el=$('#toast');el.textContent=t;el.classList.add('show');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),1600)}
+function results(q=''){const x=q.toLowerCase().trim(), matches=cards.filter(c=>!x||c.ja.toLowerCase().includes(x)||c.fr.toLowerCase().includes(x));$('#searchResults').innerHTML=matches.map(c=>`<div class="result" data-id="${c.id}"><b>${c.ja}</b><span>${c.fr}</span></div>`).join('')||'<p>見つかりませんでした。</p>';$$('.result').forEach(el=>el.onclick=()=>{filter='all';$$('.set-option').forEach(x=>x.classList.toggle('active',x.dataset.filter==='all'));buildDeck(+el.dataset.id);$('#searchDialog').close()})}
+function bind(){
+  $('#revealBtn').onclick=reveal;$('#card').ondblclick=reveal;$('#nextBtn').onclick=()=>next();$('#skipBtn').onclick=()=>next();$('#prevBtn').onclick=()=>next(-1);$('#speakBtn').onclick=e=>{e.stopPropagation();speak()};
+  $('#frSpeakBtn').onclick=e=>{e.stopPropagation();if(deck.length&&!loopState.running)playFrench(deck[pos],true)};
+  $('#loopAllBtn').onclick=()=>startLoop('all');$('#loopRangeBtn').onclick=()=>startLoop('range');$('#loopPauseBtn').onclick=toggleLoopPause;$('#loopStopBtn').onclick=stopLoop;
+  $$('.ratings button[data-score]').forEach(b=>b.onclick=()=>rate(+b.dataset.score));$$('.set-option').forEach(b=>b.onclick=()=>{filter=b.dataset.filter;$$('.set-option').forEach(x=>x.classList.toggle('active',x===b));buildDeck()});
+  ['direction','shuffle','priority'].forEach(id=>$('#'+id).onchange=()=>buildDeck());
+  $('#searchBtn').onclick=()=>{results();$('#searchDialog').showModal();setTimeout(()=>$('#searchInput').focus(),50)};$('#searchInput').oninput=e=>results(e.target.value);
+  $('#resetBtn').onclick=()=>{if(confirm('学習進捗をすべてリセットしますか？')){Object.keys(state).forEach(k=>delete state[k]);save();updateStats();buildDeck();toast('進捗をリセットしました')}};
+  document.onkeydown=e=>{if($('#searchDialog').open)return;if(e.code==='Space'||e.key==='ArrowDown'){e.preventDefault();reveal()}if(['1','2','3','4'].includes(e.key))rate(+e.key);if(e.key==='ArrowRight')next();if(e.key==='ArrowLeft')next(-1)};
+}
+init().catch(()=>{$('#prompt').textContent='データを読み込めませんでした';$('#hint').textContent='ローカルサーバーから開いてください'});
+
+  </script>
+</body>
+</html>
